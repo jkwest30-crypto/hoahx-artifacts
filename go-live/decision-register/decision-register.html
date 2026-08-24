@@ -1,0 +1,376 @@
+<title>HOAhx Decision Register</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#F4F6F8; --surface:#FFFFFF; --surface-2:#EAEEF3;
+  --ink:#141821; --ink-2:#3B4453; --muted:#69727F;
+  --rule:#D8DDE5; --rule-strong:#BEC6D2;
+  --accent:#2F4B7C; --accent-2:#4C74B8; --accent-wash:#E7EEF8; --on-accent:#FFFFFF;
+  --keep:#2C7A4B; --keep-wash:#E3F1E9;
+  --change:#9C6A12; --change-wash:#F7EEDB;
+  --discuss:#7A4396; --discuss-wash:#F1E8F7;
+  --flag:#AE3A30; --flag-wash:#F8E7E4;
+  --shadow:0 1px 2px rgba(20,24,33,.05),0 3px 12px rgba(20,24,33,.05);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#0D1015; --surface:#151A22; --surface-2:#1C222C;
+  --ink:#E7EAF0; --ink-2:#B4BDCB; --muted:#8D98A8;
+  --rule:#252C38; --rule-strong:#39424F;
+  --accent:#8AACE0; --accent-2:#A8C4EC; --accent-wash:#1A2433; --on-accent:#0D1015;
+  --keep:#5FBA85; --keep-wash:#16281E;
+  --change:#D5A354; --change-wash:#2A2115;
+  --discuss:#BB93D8; --discuss-wash:#241A2C;
+  --flag:#E38175; --flag-wash:#2E1A18;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 3px 12px rgba(0,0,0,.25);
+}}
+:root[data-theme="dark"]{
+  --ground:#0D1015; --surface:#151A22; --surface-2:#1C222C;
+  --ink:#E7EAF0; --ink-2:#B4BDCB; --muted:#8D98A8;
+  --rule:#252C38; --rule-strong:#39424F;
+  --accent:#8AACE0; --accent-2:#A8C4EC; --accent-wash:#1A2433; --on-accent:#0D1015;
+  --keep:#5FBA85; --keep-wash:#16281E;
+  --change:#D5A354; --change-wash:#2A2115;
+  --discuss:#BB93D8; --discuss-wash:#241A2C;
+  --flag:#E38175; --flag-wash:#2E1A18;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 3px 12px rgba(0,0,0,.25);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1020px;margin:0 auto;padding:0 24px}
+
+/* masthead */
+.mast{background:var(--surface);border-bottom:1px solid var(--rule)}
+.mast-in{padding:44px 0 32px}
+.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);margin:0 0 12px}
+h1{font-family:Newsreader,Georgia,serif;font-weight:500;font-size:clamp(32px,4.2vw,48px);
+  line-height:1.06;letter-spacing:-.015em;margin:0;text-wrap:balance}
+.lede{margin:16px 0 0;max-width:66ch;color:var(--ink-2);font-size:16px}
+.lede+.lede{margin-top:10px}
+
+/* progress */
+.band{background:var(--surface-2);border-bottom:1px solid var(--rule)}
+.band-in{padding:22px 0}
+.bar{height:8px;border-radius:99px;background:var(--rule);overflow:hidden;display:flex}
+.bar i{display:block;height:100%}
+.bar .k{background:var(--keep)} .bar .c{background:var(--change)} .bar .s{background:var(--discuss)}
+.legend{display:flex;flex-wrap:wrap;gap:18px;margin-top:14px;align-items:baseline}
+.lg{display:flex;align-items:baseline;gap:7px;font-size:13px;color:var(--muted)}
+.lg b{font-family:"IBM Plex Mono",monospace;font-size:17px;font-weight:500;color:var(--ink);
+  font-variant-numeric:tabular-nums}
+.dot{width:9px;height:9px;border-radius:2px;flex:none;transform:translateY(-1px)}
+.dot.k{background:var(--keep)} .dot.c{background:var(--change)}
+.dot.s{background:var(--discuss)} .dot.u{background:var(--rule-strong)}
+
+/* controls */
+.controls{position:sticky;top:0;z-index:20;background:var(--surface);
+  border-bottom:1px solid var(--rule);box-shadow:var(--shadow)}
+.controls-in{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:13px 0}
+.search{flex:1 1 220px;min-width:190px;position:relative}
+.search input{width:100%;font-family:inherit;font-size:14px;color:var(--ink);
+  background:var(--surface-2);border:1px solid var(--rule-strong);border-radius:2px;
+  padding:8px 12px 8px 32px}
+.search svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);
+  width:14px;height:14px;stroke:var(--muted);fill:none;stroke-width:2}
+select{font-family:inherit;font-size:13px;color:var(--ink);background:var(--surface-2);
+  border:1px solid var(--rule-strong);border-radius:2px;padding:8px 10px;max-width:250px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{appearance:none;cursor:pointer;font-family:"IBM Plex Mono",monospace;font-size:11px;
+  letter-spacing:.05em;text-transform:uppercase;padding:6px 11px;border-radius:2px;
+  border:1px solid var(--rule-strong);background:var(--surface);color:var(--muted)}
+.chip[aria-pressed="true"]{border-color:currentColor}
+.chip.u[aria-pressed="true"]{background:var(--accent-wash);color:var(--accent)}
+.chip.k[aria-pressed="true"]{background:var(--keep-wash);color:var(--keep)}
+.chip.c[aria-pressed="true"]{background:var(--change-wash);color:var(--change)}
+.chip.s[aria-pressed="true"]{background:var(--discuss-wash);color:var(--discuss)}
+.chip.f[aria-pressed="true"]{background:var(--flag-wash);color:var(--flag)}
+.count{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--muted);
+  white-space:nowrap;font-variant-numeric:tabular-nums;margin-left:auto}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{
+  outline:2px solid var(--accent-2);outline-offset:2px}
+
+/* domain + cards */
+main{padding:28px 0 80px}
+.dom-h{display:flex;align-items:baseline;gap:14px;margin:34px 0 14px;
+  padding-bottom:9px;border-bottom:1px solid var(--rule-strong)}
+.dom-h:first-child{margin-top:0}
+.dom-n{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--muted);
+  font-variant-numeric:tabular-nums}
+.dom-t{font-family:Newsreader,Georgia,serif;font-size:22px;font-weight:500;
+  letter-spacing:-.01em;flex:1}
+.dom-c{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--muted);
+  font-variant-numeric:tabular-nums}
+
+.d{background:var(--surface);border:1px solid var(--rule);border-radius:2px;
+  margin-bottom:12px;box-shadow:var(--shadow);border-left:3px solid var(--rule-strong)}
+.d.is-keep{border-left-color:var(--keep)}
+.d.is-change{border-left-color:var(--change)}
+.d.is-discuss{border-left-color:var(--discuss)}
+.d-in{padding:18px 22px}
+.d-h{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;margin-bottom:9px}
+.d-id{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--accent);
+  font-weight:500;letter-spacing:.04em}
+.d-flag{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--flag);background:var(--flag-wash);
+  padding:2px 7px;border-radius:2px}
+.d-q{font-family:Newsreader,Georgia,serif;font-size:19px;font-weight:500;line-height:1.32;
+  margin:0;flex-basis:100%;text-wrap:balance}
+.d-body{display:grid;grid-template-columns:74px 1fr;gap:9px 14px;margin:14px 0 0;align-items:baseline}
+.d-k{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--muted);padding-top:3px}
+.d-v{color:var(--ink-2);font-size:14px;max-width:74ch}
+.d-v.now{color:var(--ink)}
+
+/* decision controls */
+.d-act{display:flex;flex-wrap:wrap;gap:8px;align-items:center;
+  margin-top:16px;padding-top:14px;border-top:1px solid var(--rule)}
+.opt{appearance:none;cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:500;
+  padding:7px 14px;border-radius:2px;border:1px solid var(--rule-strong);
+  background:var(--surface);color:var(--ink-2)}
+.opt:hover{border-color:var(--muted)}
+.opt[aria-pressed="true"].keep{background:var(--keep);border-color:var(--keep);color:var(--on-accent)}
+.opt[aria-pressed="true"].change{background:var(--change);border-color:var(--change);color:var(--on-accent)}
+.opt[aria-pressed="true"].discuss{background:var(--discuss);border-color:var(--discuss);color:var(--on-accent)}
+.note-t{appearance:none;cursor:pointer;background:none;border:0;font-family:inherit;
+  font-size:12.5px;color:var(--accent);padding:7px 4px;margin-left:auto}
+textarea{width:100%;margin-top:11px;font-family:inherit;font-size:13.5px;color:var(--ink);
+  background:var(--surface-2);border:1px solid var(--rule-strong);border-radius:2px;
+  padding:9px 11px;resize:vertical;min-height:66px;line-height:1.5}
+.has-note{color:var(--ink)}
+
+.empty{text-align:center;padding:70px 20px;color:var(--muted)}
+.empty b{display:block;font-family:Newsreader,Georgia,serif;font-size:22px;
+  color:var(--ink-2);font-weight:500;margin-bottom:6px}
+footer{border-top:1px solid var(--rule);background:var(--surface);padding:26px 0;
+  color:var(--muted);font-size:13px}
+footer p{margin:0 0 7px;max-width:80ch}
+.hide{display:none !important}
+@media (max-width:640px){
+  .d-body{grid-template-columns:1fr;gap:2px 0}
+  .d-k{padding-top:9px}
+  .note-t{margin-left:0}
+}
+@media print{
+  .controls,.d-act,textarea,footer .no-print{display:none !important}
+  body{background:#fff;color:#000;font-size:11pt}
+  .d{break-inside:avoid;page-break-inside:avoid;box-shadow:none;border:1px solid #999}
+  .mast,.band,.d{background:#fff}
+  .dom-h{break-after:avoid}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+<header class="mast">
+  <div class="wrap mast-in">
+    <p class="eyebrow">HOAhx · For business decision</p>
+    <h1>Decision Register</h1>
+    <p class="lede">109 decisions the software has already made on the business's behalf. Each one was found by reading the code that runs today — not the specification, and not what anyone intended. Some will be exactly right. Some will be wrong. Until each is confirmed, nobody can say which.</p>
+    <p class="lede">For every item: what the platform does <em>right now</em>, and why it matters. Mark each one <strong>Keep as-is</strong>, <strong>Change</strong>, or <strong>Discuss</strong>, and add a note where the reasoning should be recorded.</p>
+  </div>
+</header>
+
+<section class="band">
+  <div class="wrap band-in">
+    <div class="bar" role="img" aria-label="Decision progress">
+      <i class="k" id="bar-k" style="width:0%"></i><i class="c" id="bar-c" style="width:0%"></i><i class="s" id="bar-s" style="width:0%"></i>
+    </div>
+    <div class="legend">
+      <span class="lg"><b id="n-done">0</b> of 109 decided</span>
+      <span class="lg"><span class="dot k"></span><b id="n-k">0</b> keep as-is</span>
+      <span class="lg"><span class="dot c"></span><b id="n-c">0</b> change</span>
+      <span class="lg"><span class="dot s"></span><b id="n-s">0</b> discuss</span>
+      <span class="lg"><span class="dot u"></span><b id="n-u">109</b> not yet reviewed</span>
+    </div>
+  </div>
+</section>
+
+<div class="controls">
+  <div class="wrap controls-in">
+    <label class="search">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input type="search" id="q" placeholder="Search decisions…" aria-label="Search decisions">
+    </label>
+    <select id="dom" aria-label="Filter by area"><option value="">All areas</option></select>
+    <div class="chips" id="chips">
+      <button class="chip f" data-f="priority" aria-pressed="false">Start here</button>
+      <button class="chip u" data-f="undecided" aria-pressed="false">Undecided</button>
+      <button class="chip k" data-f="keep" aria-pressed="false">Keep</button>
+      <button class="chip c" data-f="change" aria-pressed="false">Change</button>
+      <button class="chip s" data-f="discuss" aria-pressed="false">Discuss</button>
+    </div>
+    <span class="count" id="count"></span>
+  </div>
+</div>
+
+<main class="wrap"><div id="list"></div></main>
+
+<footer>
+  <div class="wrap">
+    <p><strong>How these were found.</strong> Each decision was derived from the code that enforces it — Cloud Functions, security rules, and the role model — as part of a review that produced 897 requirements across 18 domains. These 109 are the subset where the code chose something nobody explicitly signed off on.</p>
+    <p><strong>"Start here"</strong> marks the 27 decisions in dues and payments, the ledger and budget, platform billing, and violations and enforcement — money and enforcement, where a wrong default costs the most.</p>
+    <p class="no-print"><strong>Your marks are saved in this browser only.</strong> They are private to you and are not shared with anyone else viewing this page. Use your browser's print command to produce a clean copy of the register with every decision and note included.</p>
+  </div>
+</footer>
+
+<script id="data" type="application/json">{"domains": [{"num": "01", "name": "Identity & Access"}, {"num": "02", "name": "Roles & Permissions"}, {"num": "03", "name": "Invitations & Onboarding"}, {"num": "04", "name": "Platform Administration"}, {"num": "05", "name": "Management Company Portfolio"}, {"num": "06", "name": "Community Configuration & Feature Modules"}, {"num": "07", "name": "Properties, Households & Residents"}, {"num": "08", "name": "Dues & Payments"}, {"num": "09", "name": "Ledger, Budget & Financial Reporting"}, {"num": "10", "name": "Platform Billing (What HOAs Pay HOAhx)"}, {"num": "11", "name": "Violations & Enforcement"}, {"num": "12", "name": "Maintenance & Vendors"}, {"num": "13", "name": "Parking & Guest Access"}, {"num": "14", "name": "Documents & Signatures"}, {"num": "15", "name": "Communications & Notifications"}, {"num": "16", "name": "Governance, Voting & Surveys"}, {"num": "17", "name": "Community Life"}, {"num": "18", "name": "Security, Isolation & Audit"}], "questions": [{"id": "Q-AUTH-1", "q": "Should multi-factor authentication be required for Platform Owner, Platform Support, and Treasurer?", "why": "These roles can move money, impersonate residents, and read every community. MFA is the single largest security gap in the identity model today.", "now": "No MFA is enforced anywhere. A recommendation exists at docs/AUTHENTICATION_MFA_RECOMMENDATION.md but is not implemented.", "d": "01", "dn": "Identity & Access", "p": 0}, {"id": "Q-AUTH-2", "q": "Should sessions expire after a fixed period of inactivity?", "why": "A board member on a shared or public machine currently stays signed in indefinitely.", "now": "No inactivity timeout. Sessions persist until the Firebase token chain is broken.", "d": "01", "dn": "Identity & Access", "p": 0}, {"id": "Q-AUTH-3", "q": "Is \"retire\" versus \"delete\" the right distinction, and who may do each?", "why": "Retiring preserves history and satisfies audit needs; deleting destroys it. Today a resident can self-delete, which may orphan payment and violation history.", "now": "A user may delete their own account (REQ-AUTH-012). Platform staff may retire others (REQ-AUTH-013). No role can delete another identity.", "d": "01", "dn": "Identity & Access", "p": 0}, {"id": "Q-AUTH-4", "q": "Should password rules be stronger than 8 characters?", "why": "8 characters with no complexity or breach check is below current baseline guidance for accounts holding financial data.", "now": "Minimum 8 characters, no complexity requirement, no breach checking.", "d": "01", "dn": "Identity & Access", "p": 0}, {"id": "Q-CTX-1", "q": "When a person's only role is removed while they are signed in, what should they see?", "why": "Determines whether it reads as a bug or as an intended state change.", "now": "The next scoped action fails authorization. There is no dedicated \"your access was removed\" screen.", "d": "01", "dn": "Identity & Access", "p": 0}, {"id": "Q-CTX-2", "q": "Should the last-used context be restored on return, or should the selector always be shown to multi-context users?", "why": "Auto-restoring is convenient but can cause someone to act in the wrong community without noticing \u2014 a real risk for a property manager across many HOAs.", "now": "The last context is restored automatically (REQ-CTX-007).", "d": "01", "dn": "Identity & Access", "p": 0}, {"id": "Q-RBAC-1", "q": "Should Board Member be able to issue violations without President or Property Manager review?", "why": "Board Member holds hoa:issue_violations and hoa:create_violations. In a self-managed HOA this means any board member can start enforcement against a neighbor unilaterally.", "now": "Board Member may issue and manage violations, but may not assess fees or approve escalation.", "d": "02", "dn": "Roles & Permissions", "p": 0}, {"id": "Q-RBAC-2", "q": "Should Secretary be able to manage HOA settings?", "why": "Secretary holds hoa:manage_settings, the same as President. This is broader than the traditional secretary role.", "now": "Secretary can change community settings.", "d": "02", "dn": "Roles & Permissions", "p": 0}, {"id": "Q-RBAC-3", "q": "Should Treasurer be able to issue refunds alone?", "why": "Treasurer holds hoa:refund_payment with no second-approver requirement \u2014 a single-person money-out path.", "now": "Treasurer may refund any refundable payment without co-approval.", "d": "02", "dn": "Roles & Permissions", "p": 0}, {"id": "Q-RBAC-4", "q": "Should Management Company Admin hold community-level board powers directly?", "why": "mgmt_company_admin carries a very wide grant, including dues, voting, and member role changes across every managed community.", "now": "Yes \u2014 it is the widest non-platform grant in the system.", "d": "02", "dn": "Roles & Permissions", "p": 0}, {"id": "Q-RBAC-5", "q": "Is \"one effective role per community\" the right model?", "why": "A person who is both Treasurer and a Resident in the same HOA acts only as Treasurer. Their resident-only surfaces resolve through the higher role rather than as a separate context.", "now": "One highest-priority role wins (REQ-RBAC-004).", "d": "02", "dn": "Roles & Permissions", "p": 0}, {"id": "Q-RBAC-6", "q": "Who should be allowed to create custom roles?", "why": "Custom roles are powerful and their blast radius is a whole community.", "now": "Anyone holding hoa:manage_permissions \u2014 today that is President only.", "d": "02", "dn": "Roles & Permissions", "p": 0}, {"id": "Q-RBAC-7", "q": "Should Tenant be able to vote?", "why": "hoa_tenant holds hoa:participate_voting. In most governing documents voting rights attach to ownership, not occupancy.", "now": "Tenants are in the default eligible-voter set.", "d": "02", "dn": "Roles & Permissions", "p": 0}, {"id": "Q-INV-1", "q": "How long should an invitation stay valid?", "why": "Too short creates support load; too long leaves a live credential path open for a former neighbor or contractor.", "now": "An expiry exists and is enforced (REQ-INV-011), but the duration is not stated as a business rule anywhere.", "d": "03", "dn": "Invitations & Onboarding", "p": 0}, {"id": "Q-INV-2", "q": "Should Secretary be able to invite board members?", "why": "Secretary can invite Residents only, while President and Property Manager can invite the full board. That may be too narrow, or exactly right.", "now": "Secretary \u2192 Resident only.", "d": "03", "dn": "Invitations & Onboarding", "p": 0}, {"id": "Q-INV-3", "q": "When a board member who issued invitations leaves, what happens to their pending invitations?", "why": "Those invitations are refused at acceptance (REQ-INV-012), which is safe but silent \u2014 the invitee sees a failure with no explanation.", "now": "Acceptance fails. No notification to invitee or community.", "d": "03", "dn": "Invitations & Onboarding", "p": 0}, {"id": "Q-INV-4", "q": "Should access requests be open by default for every community?", "why": "Determines whether a stranger can request access to any community they can name.", "now": "Requests target communities returned by listJoinableHoas; the joinability criteria are not exposed as a business setting.", "d": "03", "dn": "Invitations & Onboarding", "p": 0}, {"id": "Q-ONB-1", "q": "Should a community be blocked from going live until required onboarding steps are done?", "why": "Today a partly configured community is fully usable, which can mean residents paying dues before a dues schedule is published.", "now": "Readiness is reported (REQ-ONB-014) but never enforced as a gate.", "d": "03", "dn": "Invitations & Onboarding", "p": 0}, {"id": "Q-ONB-2", "q": "Should re-engagement be repeatable on a schedule (e.g. annual records confirmation)?", "why": "Annual confirmation is a common HOA governance need.", "now": "Campaigns are manual and one-off; there is no recurrence.", "d": "03", "dn": "Invitations & Onboarding", "p": 0}, {"id": "Q-PLAT-1", "q": "Should a resident be told when their account was impersonated?", "why": "Many privacy regimes and most residents' expectations favor disclosure. Today impersonation is invisible to the person impersonated.", "now": "Fully audited, never disclosed to the target.", "d": "04", "dn": "Platform Administration", "p": 0}, {"id": "Q-PLAT-2", "q": "Is 15 minutes the right impersonation session length?", "why": "Long enough for real troubleshooting, short enough to limit exposure \u2014 but it has never been validated against actual support workflows.", "now": "Fixed at 15 minutes, not configurable.", "d": "04", "dn": "Platform Administration", "p": 0}, {"id": "Q-PLAT-3", "q": "Should Platform Owner be able to impersonate a President or Treasurer?", "why": "Owner can impersonate any non-platform role, including board roles with financial authority, acting fully as them.", "now": "Permitted.", "d": "04", "dn": "Platform Administration", "p": 0}, {"id": "Q-PLAT-4", "q": "Should archiving a community be reversible, and for how long is archived data retained?", "why": "Archive is terminal in the UI, but the retention and un-archive policy is undefined.", "now": "Archive is the terminal action; no stated retention or restore path.", "d": "04", "dn": "Platform Administration", "p": 0}, {"id": "Q-PLAT-5", "q": "Who belongs on the break-glass recovery allowlist, and who reviews it?", "why": "It is the single most powerful list in the platform, and nothing forces periodic review.", "now": "An allowlist collection exists; no review or expiry process.", "d": "04", "dn": "Platform Administration", "p": 0}, {"id": "Q-PLAT-6", "q": "Should Platform Support be able to see resident names and addresses at all?", "why": "Support projections strip private *global* fields, but community-scoped personal data remains visible.", "now": "Support sees sanitized directories that still include community-scoped personal data.", "d": "04", "dn": "Platform Administration", "p": 0}, {"id": "Q-MGMT-1", "q": "When a management company's contract with an HOA ends, what happens to their access and to the data they created?", "why": "There is no offboarding flow. Access persists until manually revoked community by community.", "now": "No contract-end or bulk-offboarding path exists.", "d": "05", "dn": "Management Company Portfolio", "p": 0}, {"id": "Q-MGMT-2", "q": "Should a Management Company Admin see resident-level personal data across every managed community?", "why": "The portfolio grant is very wide; a single compromised admin account exposes every managed community at once.", "now": "Yes \u2014 the role carries near-complete community authority everywhere it operates.", "d": "05", "dn": "Management Company Portfolio", "p": 0}, {"id": "Q-MGMT-3", "q": "Should a community's board be able to see, and approve, which management-company staff hold access to their community?", "why": "Boards are accountable to residents for who can see their data but currently have no visibility into that list.", "now": "Boards have no view of management-company assignments.", "d": "05", "dn": "Management Company Portfolio", "p": 0}, {"id": "Q-MGMT-4", "q": "Can one community be operated by two management companies (during a transition)?", "why": "Transitions are common in this industry and usually overlap by weeks.", "now": "Not modeled. The data shape assumes one management company per community.", "d": "05", "dn": "Management Company Portfolio", "p": 0}, {"id": "Q-CFG-1", "q": "Should a community's board be able to switch modules off for themselves?", "why": "Today a board cannot disable a module they do not want \u2014 for example a community with no dog park still gets the dog park surfaces unless HOAhx staff intervene. This generates avoidable support requests.", "now": "Platform-only (REQ-CFG-020). Boards have no control.", "d": "06", "dn": "Community Configuration & Feature Modules", "p": 0}, {"id": "Q-CFG-2", "q": "Should feature modules map to pricing tiers?", "why": "The registry was explicitly built as the foundation for tiers, but no tier mapping exists. Deciding this shapes both packaging and the billing model in domain 10.", "now": "No mapping. Every module defaults on for every community.", "d": "06", "dn": "Community Configuration & Feature Modules", "p": 0}, {"id": "Q-CFG-3", "q": "What happens to existing data when a module is switched off?", "why": "Switching off voting mid-ballot, or parking with active guest passes, has undefined behavior for the data already in flight.", "now": "Access is denied going forward. In-flight records are neither closed nor migrated.", "d": "06", "dn": "Community Configuration & Feature Modules", "p": 0}, {"id": "Q-CFG-4", "q": "Is analytics-as-navigation-gate-only acceptable?", "why": "A determined user could reach analytics data through other surfaces because there is no server-side enforcement (REQ-CFG-024).", "now": "Documented gap; navigation gate only.", "d": "06", "dn": "Community Configuration & Feature Modules", "p": 0}, {"id": "Q-CFG-5", "q": "Should there be a per-community notice when a module is switched on or off?", "why": "Boards and residents currently see surfaces appear or vanish without explanation.", "now": "Audited internally; never communicated to the community.", "d": "06", "dn": "Community Configuration & Feature Modules", "p": 0}, {"id": "Q-PROP-1", "q": "Should the directory default to opted out?", "why": "Opt-out by default produces an empty, unhelpful directory \u2014 one of the platform's community-building features. Opt-in by default is friendlier but is a privacy decision the business must own explicitly.", "now": "Defaults to opted out (REQ-PROP-036).", "d": "07", "dn": "Properties, Households & Residents", "p": 0}, {"id": "Q-PROP-2", "q": "Should a tenant be able to see the property owner's details?", "why": "Occupant projections deliberately strip owner personal information, which may frustrate legitimate tenant\u2013owner contact.", "now": "Owner personal information is removed (REQ-PROP-015).", "d": "07", "dn": "Properties, Households & Residents", "p": 0}, {"id": "Q-PROP-3", "q": "When a resident moves out, what happens to their pets, vehicles, and payment history?", "why": "There is no move-out flow. Records persist against the property with no archival step.", "now": "Undefined. Assignment is deactivated; asset records remain.", "d": "07", "dn": "Properties, Households & Residents", "p": 0}, {"id": "Q-PROP-4", "q": "Should there be a limit on pets or vehicles per household?", "why": "Many governing documents cap both, and the platform cannot currently enforce that.", "now": "No limit is enforced.", "d": "07", "dn": "Properties, Households & Residents", "p": 0}, {"id": "Q-PROP-5", "q": "Who is authoritative when a property has two people claiming ownership?", "why": "The system assumes a single canonical owner (REQ-PROP-004), which does not match co-ownership, trusts, or LLC-held properties.", "now": "One canonical owner. Co-ownership is not modeled.", "d": "07", "dn": "Properties, Households & Residents", "p": 0}, {"id": "Q-PROP-6", "q": "Should a board member be able to see every household's private contact details regardless of opt-in?", "why": "Boards often need to reach residents for genuine governance reasons, and the sanitized roster may be too restrictive in an emergency.", "now": "Board roles see the sanitized roster; opt-out households remain private to them.", "d": "07", "dn": "Properties, Households & Residents", "p": 0}, {"id": "Q-FIN-1", "q": "Should a refund require a second approver above a threshold?", "why": "A single Treasurer can refund any refundable payment with no co-approval or ceiling. This is the largest single-actor financial exposure in the platform.", "now": "No threshold, no second approver (REQ-FIN-052).", "d": "08", "dn": "Dues & Payments", "p": 1}, {"id": "Q-FIN-2", "q": "Are late fees ever calculated and applied automatically?", "why": "The schedule captures late fee type, amount, and grace period \u2014 but nothing applies them. Boards may assume the platform is charging late fees when it is not.", "now": "Late fee configuration is stored; no automatic assessment exists.", "d": "08", "dn": "Dues & Payments", "p": 1}, {"id": "Q-FIN-3", "q": "Should tenants be able to pay dues by default?", "why": "Absence of an explicit permission is treated as permission granted (REQ-FIN-022). A tenant could pay dues the owner intended to pay themselves.", "now": "Absent = allowed. Only an explicit false blocks it.", "d": "08", "dn": "Dues & Payments", "p": 1}, {"id": "Q-FIN-4", "q": "What should happen when AutoPay fails \u2014 retries, notice, escalation?", "why": "Invoice payment failure is received as an event, but the recovery policy is not defined as a business rule.", "now": "The failure event is handled; there is no defined retry or dunning policy.", "d": "08", "dn": "Dues & Payments", "p": 1}, {"id": "Q-FIN-5", "q": "Should partial payments be accepted against a dues balance?", "why": "The ledger supports arbitrary signed amounts, so partial payment is possible \u2014 but whether it is *policy* is undecided.", "now": "Any positive amount is accepted. No minimum, no allocation rule.", "d": "08", "dn": "Dues & Payments", "p": 1}, {"id": "Q-FIN-6", "q": "Who is notified when a payment is disputed?", "why": "Disputes withdraw money and have deadlines. Today the ledger moves silently.", "now": "The ledger is adjusted; no notification is sent to anyone.", "d": "08", "dn": "Dues & Payments", "p": 1}, {"id": "Q-FIN-7", "q": "Should residents be able to see their full payment history including refunds and disputes?", "why": "Transparency is a stated product value, but dispute records are internally sensitive.", "now": "Residents see their finance projection with processor and internal fields removed.", "d": "08", "dn": "Dues & Payments", "p": 1}, {"id": "Q-LDG-1", "q": "Should residents see the community's full ledger, or only their own?", "why": "\"Financial transparency\" is a headline product value, but the ledger is per-property and residents see only their own entries plus the published budget. Boards may expect more, residents may expect more, and neither is currently delivered.", "now": "Residents see their own property ledger and the published budget only.", "d": "09", "dn": "Ledger, Budget & Financial Reporting", "p": 1}, {"id": "Q-LDG-2", "q": "Should the budget require board-vote approval rather than one President click?", "why": "Most governing documents require a recorded board vote to adopt a budget. The platform models approval as a single-person action.", "now": "President approves alone (REQ-LDG-028). No vote linkage.", "d": "09", "dn": "Ledger, Budget & Financial Reporting", "p": 1}, {"id": "Q-LDG-3", "q": "Should a published budget be amendable mid-year?", "why": "Real budgets get amended. There is no amendment path \u2014 only a new budget in a new cycle.", "now": "Not modeled. Published is terminal.", "d": "09", "dn": "Ledger, Budget & Financial Reporting", "p": 1}, {"id": "Q-LDG-4", "q": "Is one Auditor per month the right scoping model?", "why": "Auditor access is bound to an assigned month (REQ-LDG-048), which suits a monthly review but not an annual audit.", "now": "Month-scoped only.", "d": "09", "dn": "Ledger, Budget & Financial Reporting", "p": 1}, {"id": "Q-LDG-5", "q": "Should reconciliation be required before a period can close?", "why": "Nothing prevents closing a period with unreconciled entries.", "now": "Reconciliation is available but never required.", "d": "09", "dn": "Ledger, Budget & Financial Reporting", "p": 1}, {"id": "Q-LDG-6", "q": "Should the platform produce the reserve-study and delinquency reports boards are typically required to file?", "why": "These are common statutory or lender requirements for HOAs and are absent today.", "now": "Not modeled.", "d": "09", "dn": "Ledger, Budget & Financial Reporting", "p": 1}, {"id": "Q-BILL-1", "q": "What are the actual plans and prices?", "why": "Plan configuration is fully built and audited, but the commercial catalogue itself \u2014 tiers, prices, what each includes \u2014 is not defined anywhere in the code or docs. This is the single biggest open commercial decision in the platform.", "now": "The mechanism exists; plan definitions are configured at runtime and no catalogue is fixed.", "d": "10", "dn": "Platform Billing (What HOAs Pay HOAhx)", "p": 1}, {"id": "Q-BILL-2", "q": "What happens to a community when its subscription lapses?", "why": "Nothing in the code degrades or restricts a community whose subscription is canceled or expired. Residents keep full access indefinitely.", "now": "No enforcement. Subscription state is recorded but never gates access.", "d": "10", "dn": "Platform Billing (What HOAs Pay HOAhx)", "p": 1}, {"id": "Q-BILL-3", "q": "Should feature modules map to plan tiers?", "why": "This is the natural link between domain 06 and this domain, and it is the mechanism a tiered offering would need.", "now": "No link exists. See Q-CFG-2.", "d": "10", "dn": "Platform Billing (What HOAs Pay HOAhx)", "p": 1}, {"id": "Q-BILL-4", "q": "Is there a trial period, and what happens at its end?", "why": "trialing is an accepted state throughout the lifecycle, but no trial is ever started and no expiry behavior is defined.", "now": "The state is handled; nothing creates or ends a trial.", "d": "10", "dn": "Platform Billing (What HOAs Pay HOAhx)", "p": 1}, {"id": "Q-BILL-5", "q": "Who at the community may buy, change, or cancel the subscription?", "why": "Today President and Management Company Admin both can. For a managed community, that means the management company can change what the HOA pays.", "now": "Anyone holding hoa:manage_hoa_subscription (REQ-BILL-001).", "d": "10", "dn": "Platform Billing (What HOAs Pay HOAhx)", "p": 1}, {"id": "Q-BILL-6", "q": "Should past-due communities be chased automatically?", "why": "past_due is recognized but triggers no dunning, notice, or escalation.", "now": "Recognized as a state; no action taken.", "d": "10", "dn": "Platform Billing (What HOAs Pay HOAhx)", "p": 1}, {"id": "Q-VIOL-1", "q": "Should there be a mandatory waiting period between a notice and a fee?", "why": "Most governing documents and several state statutes require a cure period before a fine. The platform allows a fee immediately after a failed re-inspection or an escalation, with no enforced delay.", "now": "No waiting period is enforced anywhere in the workflow.", "d": "11", "dn": "Violations & Enforcement", "p": 1}, {"id": "Q-VIOL-2", "q": "Should the resident be guaranteed a hearing before a lien?", "why": "An appeal exists, but only from notice_sent or escalated (REQ-VIOL-019). Once a fee is assessed, the resident has no formal appeal path to the lien decision.", "now": "No appeal is available in the delinquency-to-lien path.", "d": "11", "dn": "Violations & Enforcement", "p": 1}, {"id": "Q-VIOL-3", "q": "Should fee amounts be constrained by a published schedule?", "why": "Any authorized role can currently set any amount up to $999,999 on any violation, with no reference to a fine schedule.", "now": "Free-form amount within the range (REQ-VIOL-040).", "d": "11", "dn": "Violations & Enforcement", "p": 1}, {"id": "Q-VIOL-4", "q": "Is President-only lien approval the right control, and what happens when the President is the subject?", "why": "There is no recusal mechanism. A President could approve escalation on a violation against their own property.", "now": "President-only approval, no conflict-of-interest check.", "d": "11", "dn": "Violations & Enforcement", "p": 1}, {"id": "Q-VIOL-5", "q": "Should escalation to a lien require a recorded board vote?", "why": "Liens are among the most serious actions an HOA takes, and most governing documents require a board vote.", "now": "One President action (REQ-VIOL-052). No vote linkage.", "d": "11", "dn": "Violations & Enforcement", "p": 1}, {"id": "Q-VIOL-6", "q": "Should violations be visible to other residents?", "why": "Transparency is a product value, but violation records are personal and potentially defamatory.", "now": "Only the subject and authorized staff can see a violation.", "d": "11", "dn": "Violations & Enforcement", "p": 1}, {"id": "Q-VIOL-7", "q": "How long are violation records retained, and are they ever expunged after cure?", "why": "A cured violation stays on the record permanently, which can affect a future property sale.", "now": "Retained indefinitely. No expungement path.", "d": "11", "dn": "Violations & Enforcement", "p": 1}, {"id": "Q-VIOL-8", "q": "Should tenants be able to appeal violations, given the owner is ultimately liable?", "why": "Tenants can be the named subject and can appeal, but the fee lands on the property ledger the owner is responsible for. The owner may never see the appeal.", "now": "Tenants may be the subject and may appeal; owners are not automatically notified.", "d": "11", "dn": "Violations & Enforcement", "p": 1}, {"id": "Q-MNT-1", "q": "Are there response-time commitments per priority?", "why": "\"Urgent\" is a selectable priority with no attached commitment, escalation, or alert. Residents may reasonably expect one.", "now": "Priority is recorded and displayed only.", "d": "12", "dn": "Maintenance & Vendors", "p": 0}, {"id": "Q-MNT-2", "q": "Should residents be able to close their own tickets when satisfied?", "why": "Only staff can close (REQ-MNT-012), so resolved tickets can sit indefinitely waiting on staff.", "now": "Staff only.", "d": "12", "dn": "Maintenance & Vendors", "p": 0}, {"id": "Q-MNT-3", "q": "Should vendors see the resident's name, unit, and contact details?", "why": "Vendors need to reach the resident to do the work, but the vendor projection's exact personal-data boundary has never been agreed as policy.", "now": "Vendors see the ticket minus private and vendor-hidden fields.", "d": "12", "dn": "Maintenance & Vendors", "p": 0}, {"id": "Q-MNT-4", "q": "Is 90 days the right maximum vendor assignment window?", "why": "Long jobs will exceed it and silently lose access mid-project.", "now": "Fixed 90-day cap (REQ-MNT-034).", "d": "12", "dn": "Maintenance & Vendors", "p": 0}, {"id": "Q-MNT-5", "q": "Should there be an approval threshold before work is assigned to a vendor?", "why": "Assigning a vendor commits the community to a cost with no spending control in the platform.", "now": "No cost, quote, or approval step exists in the ticket workflow.", "d": "12", "dn": "Maintenance & Vendors", "p": 0}, {"id": "Q-MNT-6", "q": "Should a resident be notified when their ticket is assigned, and to whom?", "why": "Recipients are derived and notified (REQ-MNT-048), but whether the vendor's identity is disclosed to the resident is not specified.", "now": "Owner is among the derived recipients; disclosure content is not specified.", "d": "12", "dn": "Maintenance & Vendors", "p": 0}, {"id": "Q-PARK-1", "q": "Should two spots per property be a community setting rather than a platform constant?", "why": "Communities vary widely; two is hardcoded and cannot be changed per community without a code change.", "now": "Fixed at 2 (REQ-PARK-005).", "d": "13", "dn": "Parking & Guest Access", "p": 0}, {"id": "Q-PARK-2", "q": "Should there be a limit on guest passes per household per month?", "why": "Nothing prevents a resident issuing unlimited consecutive 72-hour passes, effectively creating a permanent second space.", "now": "No rate or quantity limit.", "d": "13", "dn": "Parking & Guest Access", "p": 0}, {"id": "Q-PARK-3", "q": "Who validates a pass in practice, and how?", "why": "The validation surface exists, but the operational model \u2014 security guard, towing company, board member with a phone \u2014 is undefined, and it shapes what the projection should contain.", "now": "A validation route and a minimal projection exist.", "d": "13", "dn": "Parking & Guest Access", "p": 0}, {"id": "Q-PARK-4", "q": "Should parking violations link automatically to the violations workflow?", "why": "Parking is a violation type (domain 11) but there is no link from a failed pass validation to raising a violation.", "now": "No linkage. The two modules are independent.", "d": "13", "dn": "Parking & Guest Access", "p": 0}, {"id": "Q-DOC-1", "q": "Is the native acknowledgement workflow legally sufficient for the documents being signed?", "why": "The registry is provider-neutral and ready for an external provider, but nothing external is live. If any signed document needs to hold up legally, this is a decision to make before launch, not after.", "now": "Native acknowledgement only. No third-party e-signature provider is integrated.", "d": "14", "dn": "Documents & Signatures", "p": 0}, {"id": "Q-DOC-2", "q": "Which documents must every resident sign, and what happens if they refuse?", "why": "Signature requests are ad hoc. There is no concept of a mandatory document set or a consequence for declining.", "now": "Ad hoc requests. Decline is recorded and stops progress (REQ-DOC-047).", "d": "14", "dn": "Documents & Signatures", "p": 0}, {"id": "Q-DOC-3", "q": "Who may see the community's governing documents \u2014 residents only, or prospective buyers too?", "why": "Disclosure to buyers is a legal requirement in many jurisdictions and there is no non-member access path.", "now": "Members only, scoped by role.", "d": "14", "dn": "Documents & Signatures", "p": 0}, {"id": "Q-DOC-4", "q": "How long do Auditor and Attorney scopes last, and who sets them?", "why": "Windows are enforced strictly (REQ-DOC-017) but their duration is operational, not policy, and nobody reviews them.", "now": "Per-assignment windows with no default or review process.", "d": "14", "dn": "Documents & Signatures", "p": 0}, {"id": "Q-DOC-5", "q": "Should document versions ever be deletable, for example on legal advice?", "why": "Immutability is absolute today, which is excellent for audit and a problem for a takedown obligation.", "now": "No deletion path exists.", "d": "14", "dn": "Documents & Signatures", "p": 0}, {"id": "Q-MSG-1", "q": "Are there communications a resident may not opt out of \u2014 emergency notices, legal notices, dues reminders?", "why": "Every channel and topic is currently suppressible. A resident could silence a lien notice.", "now": "No mandatory category exists. All suppression is honored.", "d": "15", "dn": "Communications & Notifications", "p": 0}, {"id": "Q-MSG-2", "q": "Should SMS be available, given many urgent HOA notices are time-critical?", "why": "Twilio is listed as a future integration but nothing is built. Boards may assume texting is available.", "now": "Email only. SMS is not implemented.", "d": "15", "dn": "Communications & Notifications", "p": 0}, {"id": "Q-MSG-3", "q": "Can residents message each other directly, or only the board?", "why": "Direct messaging exists with a broad hoa:send_messages grant, which makes resident-to-resident contact possible and raises a harassment-policy question.", "now": "Nearly every role holds hoa:send_messages.", "d": "15", "dn": "Communications & Notifications", "p": 0}, {"id": "Q-MSG-4", "q": "Should the board be able to see resident-to-resident messages?", "why": "Relevant to dispute handling and to privacy expectations; currently unaddressed either way.", "now": "Not modeled. Access follows conversation participation.", "d": "15", "dn": "Communications & Notifications", "p": 0}, {"id": "Q-MSG-5", "q": "Is a 10,000-character announcement limit right?", "why": "Long enough for most notices, too short for a full policy document pasted in.", "now": "Fixed limit (REQ-MSG-003).", "d": "15", "dn": "Communications & Notifications", "p": 0}, {"id": "Q-MSG-6", "q": "What is the retention period for messages and announcements?", "why": "Undefined retention is a discovery liability in any dispute.", "now": "Retained indefinitely.", "d": "15", "dn": "Communications & Notifications", "p": 0}, {"id": "Q-GOV-1", "q": "Should voting be weighted by ownership interest rather than one-vote-per-person?", "why": "Weights are persisted on the vote (REQ-GOV-004) but nothing derives them from ownership share, which many governing documents require.", "now": "Weights are settable per vote; no automatic derivation exists.", "d": "16", "dn": "Governance, Voting & Surveys", "p": 0}, {"id": "Q-GOV-2", "q": "Should tenants vote?", "why": "hoa_tenant is in the default eligible set (REQ-GOV-005). Most governing documents attach voting rights to ownership.", "now": "Tenants are eligible by default.", "d": "16", "dn": "Governance, Voting & Surveys", "p": 0}, {"id": "Q-GOV-3", "q": "Should proxy voting be supported?", "why": "Proxies are standard practice in HOA elections and are entirely absent.", "now": "Not modeled.", "d": "16", "dn": "Governance, Voting & Surveys", "p": 0}, {"id": "Q-GOV-4", "q": "Is President-only certification correct, and what happens if the President is a candidate?", "why": "There is no recusal path, so a President could certify an election they stood in.", "now": "President-only, no recusal (REQ-GOV-027).", "d": "16", "dn": "Governance, Voting & Surveys", "p": 0}, {"id": "Q-GOV-5", "q": "What is the quorum default, and who sets it?", "why": "Quorum is enforced strictly (REQ-GOV-024) but its value is per-vote and has no community default.", "now": "Set per vote; no default.", "d": "16", "dn": "Governance, Voting & Surveys", "p": 0}, {"id": "Q-GOV-6", "q": "Should ballots be verifiable after the fact by an independent party?", "why": "Ballots are private and deterministic, but there is no independent audit path for a disputed election.", "now": "No verification path beyond the stored tally.", "d": "16", "dn": "Governance, Voting & Surveys", "p": 0}, {"id": "Q-GOV-7", "q": "Are meetings a real feature or a placeholder?", "why": "A meetings collection exists with rules, but there is little functionality above it. Boards may expect agendas, minutes, and attendance.", "now": "Storage and isolation only (REQ-GOV-052).", "d": "16", "dn": "Governance, Voting & Surveys", "p": 0}, {"id": "Q-LIFE-1", "q": "Should amenity reservations carry rules \u2014 deposits, maximum duration, blackout dates, cancellation windows?", "why": "Only overlap and capacity are enforced. A resident could book the clubhouse every weekend for a year.", "now": "Overlap prevention only (REQ-LIFE-003).", "d": "17", "dn": "Community Life", "p": 0}, {"id": "Q-LIFE-2", "q": "Should the community feed be moderated before or after posting?", "why": "Moderation is reactive (REQ-LIFE-031). A defamatory or abusive post is visible until someone acts.", "now": "Post-hoc moderation only.", "d": "17", "dn": "Community Life", "p": 0}, {"id": "Q-LIFE-3", "q": "Who can post to the community feed, and can posting rights be withdrawn from an individual?", "why": "There is no per-member posting restriction, so the only remedy for a persistent problem is removing them from the community.", "now": "No per-member restriction exists.", "d": "17", "dn": "Community Life", "p": 0}, {"id": "Q-LIFE-4", "q": "How long is visitor access history retained, and who may see it?", "why": "The log is immutable (REQ-LIFE-047) with no retention limit \u2014 an indefinite record of everyone's visitors.", "now": "Retained indefinitely; readable by community managers.", "d": "17", "dn": "Community Life", "p": 0}, {"id": "Q-LIFE-5", "q": "Should architectural decisions have a required response time?", "why": "Improvement requests can block a homeowner's contractor. No deadline or escalation exists.", "now": "No time limit on a decision.", "d": "17", "dn": "Community Life", "p": 0}, {"id": "Q-LIFE-6", "q": "Is President-only architectural decision correct?", "why": "Board Members may review but not decide (REQ-LIFE-056). Many communities use an architectural committee with its own authority.", "now": "President decides alone.", "d": "17", "dn": "Community Life", "p": 0}, {"id": "Q-LIFE-7", "q": "Should dog park incidents link to the violations workflow?", "why": "An incident is recorded but never becomes enforcement, so a repeat problem has no path.", "now": "No linkage between the modules.", "d": "17", "dn": "Community Life", "p": 0}, {"id": "Q-LIFE-8", "q": "Should event RSVPs support guests, or only members?", "why": "Capacity counts one per member (REQ-LIFE-020), so a member bringing three guests is invisible to capacity planning.", "now": "One RSVP per member; no guest count.", "d": "17", "dn": "Community Life", "p": 0}, {"id": "Q-SEC-1", "q": "What is the data retention policy, per record type?", "why": "Almost nothing expires. Violations, visitor logs, messages, and audit records are all indefinite, which is a growing liability and a discovery burden.", "now": "No retention policy is implemented anywhere.", "d": "18", "dn": "Security, Isolation & Audit", "p": 0}, {"id": "Q-SEC-2", "q": "Is there a data export or deletion path for a resident who requests one?", "why": "Account deletion exists (REQ-AUTH-012), but there is no export, and deletion's effect on community records is undefined.", "now": "Self-delete only; no export; unclear record disposition.", "d": "18", "dn": "Security, Isolation & Audit", "p": 0}, {"id": "Q-SEC-3", "q": "Who is notified when a security rule denies an unexpected access, and is anyone watching?", "why": "Denials are the earliest signal of both a bug and an attack, and nothing surfaces them.", "now": "Denials are silent to operators.", "d": "18", "dn": "Security, Isolation & Audit", "p": 0}, {"id": "Q-SEC-4", "q": "Should audit records be exportable for a legal or regulatory request?", "why": "Audit trails are thorough but only viewable in-app.", "now": "No export path.", "d": "18", "dn": "Security, Isolation & Audit", "p": 0}, {"id": "Q-SEC-5", "q": "Should tests cite requirement identifiers so traceability runs in both directions?", "why": "Requirement \u2192 test is documented in this catalog. Test \u2192 requirement is not, so a deleted test does not visibly orphan its requirement.", "now": "Not implemented. Recommended for all new tests.", "d": "18", "dn": "Security, Isolation & Audit", "p": 0}, {"id": "Q-SEC-6", "q": "Is the missing property-scoped and dog-park index set a launch blocker?", "why": "Those indexes are noted as pending capture on staging. A missing composite index fails the query at runtime, in production, under load.", "now": "Main sorted queries are indexed; property-scoped and dog-park ones remain to be captured (REQ-SEC-047).", "d": "18", "dn": "Security, Isolation & Audit", "p": 0}]}</script>
+<script>
+(function(){
+  var D = JSON.parse(document.getElementById('data').textContent);
+  var QS = D.questions, DOMS = D.domains;
+  var KEY = 'hoahx-decisions-v1';
+  var store = {};
+  try { store = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch(e) { store = {}; }
+  function persist(){ try { localStorage.setItem(KEY, JSON.stringify(store)); } catch(e){} }
+  function rec(id){ return store[id] || (store[id] = {}); }
+
+  var sel = document.getElementById('dom');
+  DOMS.forEach(function(d){
+    var o = document.createElement('option');
+    o.value = d.num; o.textContent = d.num + ' · ' + d.name; sel.appendChild(o);
+  });
+
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+  var state = { q:'', dom:'', f:{} };
+
+  function on(k){ return !!state.f[k]; }
+  function anyStatusFilter(){ return on('undecided')||on('keep')||on('change')||on('discuss'); }
+
+  function match(x){
+    if (state.dom && x.d !== state.dom) return false;
+    if (on('priority') && !x.p) return false;
+    if (anyStatusFilter()){
+      var v = (store[x.id]||{}).v || 'undecided';
+      if (!on(v)) return false;
+    }
+    if (state.q){
+      var hay = (x.id+' '+x.q+' '+x.why+' '+x.now+' '+x.dn).toLowerCase();
+      var terms = state.q.toLowerCase().split(/\s+/).filter(Boolean);
+      for (var i=0;i<terms.length;i++) if (hay.indexOf(terms[i]) === -1) return false;
+    }
+    return true;
+  }
+
+  function stats(){
+    var c = {keep:0,change:0,discuss:0};
+    QS.forEach(function(x){ var v=(store[x.id]||{}).v; if (v && c[v]!==undefined) c[v]++; });
+    var done = c.keep+c.change+c.discuss, T = QS.length;
+    document.getElementById('n-done').textContent = done;
+    document.getElementById('n-k').textContent = c.keep;
+    document.getElementById('n-c').textContent = c.change;
+    document.getElementById('n-s').textContent = c.discuss;
+    document.getElementById('n-u').textContent = T - done;
+    document.getElementById('bar-k').style.width = (c.keep/T*100)+'%';
+    document.getElementById('bar-c').style.width = (c.change/T*100)+'%';
+    document.getElementById('bar-s').style.width = (c.discuss/T*100)+'%';
+  }
+
+  function card(x){
+    var r = store[x.id] || {}, v = r.v || '';
+    var hasNote = !!(r.n && r.n.trim());
+    return '<article class="d'+(v?' is-'+v:'')+'" data-id="'+x.id+'"><div class="d-in">'
+      + '<div class="d-h"><span class="d-id">'+esc(x.id)+'</span>'
+      + (x.p ? '<span class="d-flag">Start here</span>' : '')
+      + '<h3 class="d-q">'+esc(x.q)+'</h3></div>'
+      + '<div class="d-body">'
+      +   '<span class="d-k">Why</span><span class="d-v">'+esc(x.why)+'</span>'
+      +   '<span class="d-k">Today</span><span class="d-v now">'+esc(x.now)+'</span>'
+      + '</div>'
+      + '<div class="d-act">'
+      +   '<button class="opt keep" data-v="keep" aria-pressed="'+(v==='keep')+'">Keep as-is</button>'
+      +   '<button class="opt change" data-v="change" aria-pressed="'+(v==='change')+'">Change</button>'
+      +   '<button class="opt discuss" data-v="discuss" aria-pressed="'+(v==='discuss')+'">Discuss</button>'
+      +   '<button class="note-t'+(hasNote?' has-note':'')+'" data-note>'+(hasNote?'Note ✓':'Add note')+'</button>'
+      + '</div>'
+      + '<textarea class="'+(hasNote?'':'hide')+'" placeholder="Record the reasoning, the owner, or what needs to change…" aria-label="Note for '+esc(x.id)+'">'+esc(r.n||'')+'</textarea>'
+      + '</div></article>';
+  }
+
+  function render(){
+    var shown = QS.filter(match);
+    document.getElementById('count').textContent = shown.length + ' of ' + QS.length + ' shown';
+    var host = document.getElementById('list');
+    if (!shown.length){
+      host.innerHTML = '<div class="empty"><b>Nothing matches</b>Try a different search, or clear the filters.</div>';
+      return;
+    }
+    var byDom = {};
+    shown.forEach(function(x){ (byDom[x.d] = byDom[x.d] || []).push(x); });
+    var html = '';
+    DOMS.forEach(function(d){
+      var list = byDom[d.num]; if (!list) return;
+      var done = list.filter(function(x){ return (store[x.id]||{}).v; }).length;
+      html += '<div class="dom-h"><span class="dom-n">'+esc(d.num)+'</span>'
+           +  '<span class="dom-t">'+esc(d.name)+'</span>'
+           +  '<span class="dom-c">'+done+' / '+list.length+' decided</span></div>'
+           +  list.map(card).join('');
+    });
+    host.innerHTML = html;
+    stats();
+  }
+
+  document.getElementById('list').addEventListener('click', function(e){
+    var art = e.target.closest('.d'); if (!art) return;
+    var id = art.dataset.id;
+    var opt = e.target.closest('.opt');
+    if (opt){
+      var r = rec(id);
+      r.v = (r.v === opt.dataset.v) ? '' : opt.dataset.v;   // click again to clear
+      persist();
+      if (anyStatusFilter() || state.f.priority) { render(); }
+      else {
+        art.className = 'd' + (r.v ? ' is-'+r.v : '');
+        art.querySelectorAll('.opt').forEach(function(b){
+          b.setAttribute('aria-pressed', String(b.dataset.v === r.v));
+        });
+        var dh = art.previousElementSibling;
+        while (dh && !dh.classList.contains('dom-h')) dh = dh.previousElementSibling;
+        if (dh){
+          var sib = dh.nextElementSibling, tot = 0, dn = 0;
+          while (sib && sib.classList.contains('d')){
+            tot++; if ((store[sib.dataset.id]||{}).v) dn++;
+            sib = sib.nextElementSibling;
+          }
+          dh.querySelector('.dom-c').textContent = dn + ' / ' + tot + ' decided';
+        }
+        stats();
+      }
+      return;
+    }
+    if (e.target.closest('[data-note]')){
+      var ta = art.querySelector('textarea');
+      ta.classList.toggle('hide');
+      if (!ta.classList.contains('hide')) ta.focus();
+    }
+  });
+
+  document.getElementById('list').addEventListener('input', function(e){
+    if (e.target.tagName !== 'TEXTAREA') return;
+    var art = e.target.closest('.d');
+    rec(art.dataset.id).n = e.target.value;
+    persist();
+    var btn = art.querySelector('[data-note]');
+    var has = !!e.target.value.trim();
+    btn.textContent = has ? 'Note ✓' : 'Add note';
+    btn.classList.toggle('has-note', has);
+  });
+
+  document.getElementById('q').addEventListener('input', function(e){
+    state.q = e.target.value.trim(); render();
+  });
+  sel.addEventListener('change', function(e){ state.dom = e.target.value; render(); });
+  document.getElementById('chips').addEventListener('click', function(e){
+    var b = e.target.closest('.chip'); if (!b) return;
+    var k = b.dataset.f;
+    state.f[k] = !state.f[k];
+    b.setAttribute('aria-pressed', state.f[k] ? 'true' : 'false');
+    render();
+  });
+
+  render();
+})();
+</script>
