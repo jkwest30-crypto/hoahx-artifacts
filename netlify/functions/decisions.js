@@ -32,47 +32,68 @@ function json(body, status, extraHeaders) {
   };
 }
 
+function openStore() {
+  // Zero-config auto-injection (siteID/token from the Netlify runtime) is
+  // supposed to work automatically inside a function handler, but is known
+  // to fail on some sites/deploys. Fall back to explicit config using the
+  // auto-provided SITE_ID plus a manually-created personal access token
+  // (set as the NETLIFY_BLOBS_TOKEN environment variable) when that happens.
+  if (process.env.SITE_ID && process.env.NETLIFY_BLOBS_TOKEN) {
+    return getStore({
+      name: STORE_NAME,
+      siteID: process.env.SITE_ID,
+      token: process.env.NETLIFY_BLOBS_TOKEN,
+    });
+  }
+  return getStore(STORE_NAME);
+}
+
 exports.handler = async (event) => {
   if (event.httpMethod === 'OPTIONS') return json({}, 200);
 
-  const store = getStore(STORE_NAME);
+  try {
+    const store = openStore();
 
-  if (event.httpMethod === 'GET') {
-    const data = (await store.get(BLOB_KEY, { type: 'json' })) || {};
-    return json(data, 200);
+    if (event.httpMethod === 'GET') {
+      const data = (await store.get(BLOB_KEY, { type: 'json' })) || {};
+      return json(data, 200);
+    }
+
+    if (event.httpMethod === 'POST') {
+      if (EDIT_KEY) {
+        const key = event.headers['x-edit-key'] || event.headers['X-Edit-Key'];
+        if (key !== EDIT_KEY) return json({ error: 'unauthorized' }, 401);
+      }
+
+      let payload;
+      try {
+        payload = JSON.parse(event.body || '{}');
+      } catch (e) {
+        return json({ error: 'invalid json body' }, 400);
+      }
+
+      const { id, v, n } = payload;
+      if (!id || typeof id !== 'string') return json({ error: 'missing id' }, 400);
+
+      const data = (await store.get(BLOB_KEY, { type: 'json' })) || {};
+      const rec = {};
+      if (v) rec.v = String(v);
+      if (n && String(n).trim()) rec.n = String(n);
+
+      if (!rec.v && !rec.n) {
+        delete data[id];
+      } else {
+        rec.updatedAt = new Date().toISOString();
+        data[id] = rec;
+      }
+
+      await store.setJSON(BLOB_KEY, data);
+      return json({ ok: true, id, record: data[id] || null }, 200);
+    }
+
+    return json({ error: 'method not allowed' }, 405);
+  } catch (e) {
+    console.error('decisions function error', e);
+    return json({ error: 'internal error', message: e && e.message }, 500);
   }
-
-  if (event.httpMethod === 'POST') {
-    if (EDIT_KEY) {
-      const key = event.headers['x-edit-key'] || event.headers['X-Edit-Key'];
-      if (key !== EDIT_KEY) return json({ error: 'unauthorized' }, 401);
-    }
-
-    let payload;
-    try {
-      payload = JSON.parse(event.body || '{}');
-    } catch (e) {
-      return json({ error: 'invalid json body' }, 400);
-    }
-
-    const { id, v, n } = payload;
-    if (!id || typeof id !== 'string') return json({ error: 'missing id' }, 400);
-
-    const data = (await store.get(BLOB_KEY, { type: 'json' })) || {};
-    const rec = {};
-    if (v) rec.v = String(v);
-    if (n && String(n).trim()) rec.n = String(n);
-
-    if (!rec.v && !rec.n) {
-      delete data[id];
-    } else {
-      rec.updatedAt = new Date().toISOString();
-      data[id] = rec;
-    }
-
-    await store.setJSON(BLOB_KEY, data);
-    return json({ ok: true, id, record: data[id] || null }, 200);
-  }
-
-  return json({ error: 'method not allowed' }, 405);
 };
