@@ -7,3 +7,10 @@
   to = "/.netlify/functions/decisions"
   status = 200
   force = true
+
+# Serve the decision register at the site's root URL, without changing
+# what appears in the browser's address bar.
+[[redirects]]
+  from = "/"
+  to = "/decision-register/decision-register.html"
+  status = 200
