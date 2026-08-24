@@ -1,0 +1,9 @@
+[build]
+  publish = "go-live"
+  functions = "netlify/functions"
+
+[[redirects]]
+  from = "/api/decisions"
+  to = "/.netlify/functions/decisions"
+  status = 200
+  force = true

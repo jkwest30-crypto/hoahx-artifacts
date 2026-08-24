@@ -211,7 +211,7 @@ footer p{margin:0 0 7px;max-width:80ch}
   <div class="wrap">
     <p><strong>How these were found.</strong> Each decision was derived from the code that enforces it — Cloud Functions, security rules, and the role model — as part of a review that produced 897 requirements across 18 domains. These 109 are the subset where the code chose something nobody explicitly signed off on.</p>
     <p><strong>"Start here"</strong> marks the 27 decisions in dues and payments, the ledger and budget, platform billing, and violations and enforcement — money and enforcement, where a wrong default costs the most.</p>
-    <p class="no-print"><strong>Your marks are saved in this browser only.</strong> They are private to you and are not shared with anyone else viewing this page. Use your browser's print command to produce a clean copy of the register with every decision and note included.</p>
+    <p class="no-print"><strong>Marks and notes save to a shared register</strong> that everyone reviewing this page can see and add to. <span id="sync-note"></span> Use your browser's print command to produce a clean copy of the register with every decision and note included.</p>
   </div>
 </footer>
 
@@ -221,10 +221,64 @@ footer p{margin:0 0 7px;max-width:80ch}
   var D = JSON.parse(document.getElementById('data').textContent);
   var QS = D.questions, DOMS = D.domains;
   var KEY = 'hoahx-decisions-v1';
+  var EDIT_KEY_STORAGE = 'hoahx-edit-key';
+  var API = '/api/decisions';
   var store = {};
   try { store = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch(e) { store = {}; }
   function persist(){ try { localStorage.setItem(KEY, JSON.stringify(store)); } catch(e){} }
   function rec(id){ return store[id] || (store[id] = {}); }
+
+  function getEditKey(){ try { return localStorage.getItem(EDIT_KEY_STORAGE) || ''; } catch(e){ return ''; } }
+  function setEditKey(k){ try { localStorage.setItem(EDIT_KEY_STORAGE, k); } catch(e){} }
+
+  function setSyncNote(text, isError){
+    var el = document.getElementById('sync-note');
+    if (!el) return;
+    el.textContent = text || '';
+    el.style.color = isError ? 'var(--flag)' : '';
+  }
+
+  function loadRemote(){
+    return fetch(API, { cache: 'no-store' }).then(function(res){
+      if (!res.ok) throw new Error('load failed: ' + res.status);
+      return res.json();
+    }).then(function(data){
+      store = data || {};
+      persist();
+      render();
+    }).catch(function(e){
+      console.warn('Could not load the shared register, showing this browser\'s last known copy.', e);
+      setSyncNote('Showing your last synced copy — could not reach the shared register.', true);
+    });
+  }
+
+  function apiSave(id, r){
+    return fetch(API, {
+      method: 'POST',
+      headers: Object.assign({ 'Content-Type': 'application/json' }, getEditKey() ? { 'x-edit-key': getEditKey() } : {}),
+      body: JSON.stringify({ id: id, v: r.v || '', n: r.n || '' })
+    }).then(function(res){
+      if (res.status === 401){
+        var k = window.prompt('Saving to the shared register requires a passphrase. Enter it:');
+        if (k){ setEditKey(k); return apiSave(id, r); }
+        setSyncNote('Not saved — a passphrase is required.', true);
+        throw new Error('unauthorized');
+      }
+      if (!res.ok) throw new Error('save failed: ' + res.status);
+      setSyncNote('');
+      return res.json();
+    }).catch(function(e){
+      console.error('Save to shared register failed', e);
+      if (!/unauthorized/.test(e.message||'')) setSyncNote('Could not save — check your connection and try again.', true);
+      throw e;
+    });
+  }
+
+  var noteTimers = {};
+  function scheduleNoteSave(id, r){
+    clearTimeout(noteTimers[id]);
+    noteTimers[id] = setTimeout(function(){ apiSave(id, r); }, 700);
+  }
 
   var sel = document.getElementById('dom');
   DOMS.forEach(function(d){
@@ -321,6 +375,7 @@ footer p{margin:0 0 7px;max-width:80ch}
       var r = rec(id);
       r.v = (r.v === opt.dataset.v) ? '' : opt.dataset.v;   // click again to clear
       persist();
+      apiSave(id, r);
       if (anyStatusFilter() || state.f.priority) { render(); }
       else {
         art.className = 'd' + (r.v ? ' is-'+r.v : '');
@@ -351,8 +406,11 @@ footer p{margin:0 0 7px;max-width:80ch}
   document.getElementById('list').addEventListener('input', function(e){
     if (e.target.tagName !== 'TEXTAREA') return;
     var art = e.target.closest('.d');
-    rec(art.dataset.id).n = e.target.value;
+    var id = art.dataset.id;
+    var r = rec(id);
+    r.n = e.target.value;
     persist();
+    scheduleNoteSave(id, r);
     var btn = art.querySelector('[data-note]');
     var has = !!e.target.value.trim();
     btn.textContent = has ? 'Note ✓' : 'Add note';
@@ -371,6 +429,7 @@ footer p{margin:0 0 7px;max-width:80ch}
     render();
   });
 
-  render();
+  render();       // instant paint from this browser's last-known cache
+  loadRemote();   // then sync with the shared register
 })();
 </script>
