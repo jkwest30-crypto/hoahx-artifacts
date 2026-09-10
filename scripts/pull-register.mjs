@@ -14,7 +14,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { parseArgs, parseDecisions, fetchStore, snapshotStore, latestSnapshot, isLive, DEFAULT_SITE } from './register-lib.mjs';
+import { parseArgs, parseDecisions, fetchStore, snapshotStore, latestSnapshot, isLive, isReopen, dayOf, DEFAULT_SITE } from './register-lib.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, '..');
@@ -61,7 +61,7 @@ const lines = [
   '# HOAhx Decision Register — shared marks and notes',
   '',
   `Pulled ${new Date().toISOString()} from ${SITE} · ${live.length} of ${byId.size || '?'} marked or noted · ${changedLive.length} changed since the previous pull${prev ? ` (${path.basename(prev.file)})` : ''}.`,
-  'Apply with /decide. "Discuss" is not an answer; "Change" without a note needs a conversation.',
+  'Apply with /decide. "Discuss" is not an answer; "Change" without a note needs a conversation; a mark that REOPENS a planned item is compared with the recorded answer first.',
   '',
 ];
 const selected = args.all ? live : (prev ? changedLive : live);
@@ -72,7 +72,9 @@ for (const x of selected) {
   lines.push(`Mark: ${x.r.v ? MARK[x.r.v] || x.r.v : '(no mark — see note)'}`);
   if (x.r.n && String(x.r.n).trim()) lines.push(`Note: ${String(x.r.n).trim().replace(/\s*\n+\s*/g, ' ')}`);
   if (x.r.updatedAt) lines.push(`Updated: ${x.r.updatedAt}`);
-  if (q && q.ans) lines.push(`Already on the record: answered ${q.ans}; compare before changing.`);
+  if (q && q.pd) lines.push(isReopen(x.r, q)
+    ? `Planned since ${q.pd}; this mark was saved after that date, so it REOPENS the item: compare with the recorded answer and ask before changing.`
+    : `Planned since ${q.pd}; this mark is on or before that date and is the input already recorded.`);
   lines.push('');
 }
 if (cleared.length) {
@@ -86,10 +88,11 @@ if (cleared.length) {
 fs.writeFileSync(out, lines.join('\n'));
 
 const pad = (s, n) => String(s).padEnd(n);
-console.log(`\n${pad('ID', 7)}${pad('Code', 11)}${pad('Mark', 11)}${pad('Changed', 9)}Note`);
+console.log(`\n${pad('ID', 7)}${pad('Code', 11)}${pad('Mark', 11)}${pad('Saved', 12)}${pad('Status', 21)}${pad('Changed', 9)}Note`);
 for (const x of live) {
   const q = byId.get(x.id);
-  console.log(`${pad(x.id, 7)}${pad(q ? q.code : '?', 11)}${pad(x.r.v ? MARK[x.r.v] || x.r.v : '—', 11)}${pad(x.changed ? 'yes' : '', 9)}${x.r.n ? String(x.r.n).trim().replace(/\s+/g, ' ').slice(0, 70) : ''}`);
+  const status = q && q.pd ? (isReopen(x.r, q) ? `REOPENS ${q.pd}` : `planned ${q.pd}`) : '';
+  console.log(`${pad(x.id, 7)}${pad(q ? q.code : '?', 11)}${pad(x.r.v ? MARK[x.r.v] || x.r.v : '—', 11)}${pad(x.r.updatedAt ? dayOf(x.r.updatedAt) : '', 12)}${pad(status, 21)}${pad(x.changed ? 'yes' : '', 9)}${x.r.n ? String(x.r.n).trim().replace(/\s+/g, ' ').slice(0, 60) : ''}`);
 }
 if (!live.length) console.log('(nothing marked or noted yet)');
 if (cleared.length) console.log(`\n${cleared.length} record(s) cleared since the previous pull; listed at the end of the export.`);

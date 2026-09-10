@@ -7,10 +7,19 @@ owners' checklist of the rules the platform applies by default.
 ## How the register is kept current
 
 The page is **generated**; it is never edited by hand. The text of every decision (question, why,
-today, planned, options, which are money-and-enforcement, which are already answered) comes from
-the launch program's `docs/launch/decisions.md` in the HOAhx repo, which is the source of truth.
-The owners' **marks and notes** live in a shared store on the Netlify site (Netlify Blobs) and are
+today, planned, options, which are money-and-enforcement, which are **Planned**) comes from the
+launch program's `docs/launch/decisions.md` in the HOAhx repo, which is the source of truth. The
+owners' **marks and notes** live in a shared store on the Netlify site (Netlify Blobs) and are
 never part of this repo.
+
+**Planned** is the state that means a decision is made and in the build. It is set only by the
+build, from an entry's recorded Answer and Answered date in `decisions.md`; nobody can click it.
+The owners' Keep as-is / Change / Discuss marks and their notes are the input: they are pulled,
+recorded with `/decide` (which rewrites the entry's Planned line to say what was decided), and the
+next build marks the item Planned. The headline count on the page counts Planned items only. On a
+Planned item the Keep button is hidden; a Change or Discuss saved after the planned date reopens it
+(shown as "Reopened", counted under that mark until it is re-recorded), while a mark saved on or
+before that date is shown as the input that led to the record.
 
 ```
 decisions.md  ──build──▶  go-live/decision-register/decision-register.html  ──push main──▶  Netlify

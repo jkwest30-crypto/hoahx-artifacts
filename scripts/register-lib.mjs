@@ -101,7 +101,7 @@ export function parseDecisions(md, sourceName = 'decisions.md') {
     };
     if (f['Planned']) x.plan = f['Planned'];
     if (f['Options']) x.opts = f['Options'].split('|').map((s) => s.trim()).filter(Boolean);
-    if (answered) x.ans = shortDate(f['Answered']);
+    if (answered) { x.planned = shortDate(f['Answered']); x.pd = f['Answered'].slice(0, 10); }
     else if (neededBy.has(e.id)) x.need = neededBy.get(e.id);
     if (e.id === 'D-001') x.b = 1;
     x._answer = answer; x._area = area; x._line = e.line;
@@ -111,9 +111,19 @@ export function parseDecisions(md, sourceName = 'decisions.md') {
   const header = /Answers: \*\*(\d+) of (\d+)\*\*/.exec(md);
   return {
     domains, questions, problems,
-    answeredCount: questions.filter((x) => x.ans).length,
+    answeredCount: questions.filter((x) => x.pd).length,
     headerCount: header ? { answered: +header[1], total: +header[2] } : null,
   };
+}
+
+// Denver calendar day of an ISO timestamp, the day the owners and the page reason in.
+export function dayOf(iso) {
+  try { return new Date(iso).toLocaleDateString('en-CA', { timeZone: 'America/Denver' }); } catch { return String(iso || '').slice(0, 10); }
+}
+
+// A Change or Discuss saved after an item's planned date reopens it.
+export function isReopen(rec, q) {
+  return !!(q && q.pd && rec && (rec.v === 'change' || rec.v === 'discuss') && rec.updatedAt && dayOf(rec.updatedAt) > q.pd);
 }
 
 export function isLive(rec) {
