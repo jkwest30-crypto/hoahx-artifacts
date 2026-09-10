@@ -71,14 +71,15 @@ h1{font-family:Newsreader,Georgia,serif;font-weight:500;font-size:clamp(32px,4.2
 .band-in{padding:22px 0}
 .bar{height:8px;border-radius:99px;background:var(--rule);overflow:hidden;display:flex}
 .bar i{display:block;height:100%}
-.bar .k{background:var(--keep)} .bar .c{background:var(--change)} .bar .s{background:var(--discuss)}
+.bar .p{background:var(--accent)} .bar .k{background:var(--keep)} .bar .c{background:var(--change)} .bar .s{background:var(--discuss)}
 .legend{display:flex;flex-wrap:wrap;gap:18px;margin-top:14px;align-items:baseline}
 .lg{display:flex;align-items:baseline;gap:7px;font-size:13px;color:var(--muted)}
 .lg b{font-family:"IBM Plex Mono",monospace;font-size:17px;font-weight:500;color:var(--ink);
   font-variant-numeric:tabular-nums}
 .dot{width:9px;height:9px;border-radius:2px;flex:none;transform:translateY(-1px)}
 .dot.k{background:var(--keep)} .dot.c{background:var(--change)}
-.dot.s{background:var(--discuss)} .dot.u{background:var(--rule-strong)} .dot.r{background:var(--accent-2)}
+.dot.s{background:var(--discuss)} .dot.u{background:var(--rule-strong)} .dot.p{background:var(--accent)}
+.lg-label{font-size:12px;color:var(--muted);margin-left:6px}
 
 /* controls */
 .controls{position:sticky;top:0;z-index:20;background:var(--surface);
@@ -102,7 +103,7 @@ select{font-family:inherit;font-size:13px;color:var(--ink);background:var(--surf
 .chip.c[aria-pressed="true"]{background:var(--change-wash);color:var(--change)}
 .chip.s[aria-pressed="true"]{background:var(--discuss-wash);color:var(--discuss)}
 .chip.f[aria-pressed="true"]{background:var(--flag-wash);color:var(--flag)}
-.chip.r[aria-pressed="true"]{background:var(--accent-wash);color:var(--accent)}
+.chip.p[aria-pressed="true"]{background:var(--accent-wash);color:var(--accent)}
 .count{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--muted);
   white-space:nowrap;font-variant-numeric:tabular-nums;margin-left:auto}
 .sync{flex-basis:100%;font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--muted);
@@ -130,6 +131,7 @@ main{padding:28px 0 80px}
 .d.is-keep{border-left-color:var(--keep)}
 .d.is-change{border-left-color:var(--change)}
 .d.is-discuss{border-left-color:var(--discuss)}
+.d.is-planned{border-left-color:var(--accent)}
 .d-in{padding:18px 22px}
 .d-h{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;margin-bottom:9px}
 .d-id{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--accent);
@@ -139,7 +141,6 @@ main{padding:28px 0 80px}
   text-transform:uppercase;color:var(--flag);background:var(--flag-wash);
   padding:2px 7px;border-radius:2px}
 .d-flag.due{color:var(--on-accent);background:var(--flag)}
-.d-flag.ans{color:var(--accent);background:var(--accent-wash)}
 .d-q{font-family:Newsreader,Georgia,serif;font-size:19px;font-weight:500;line-height:1.32;
   margin:0;flex-basis:100%;text-wrap:balance}
 .d-body{display:grid;grid-template-columns:74px 1fr;gap:9px 14px;margin:14px 0 0;align-items:baseline}
@@ -167,6 +168,11 @@ textarea{width:100%;margin-top:11px;font-family:inherit;font-size:13.5px;color:v
   background:var(--surface-2);border:1px solid var(--rule-strong);border-radius:2px;
   padding:9px 11px;resize:vertical;min-height:66px;line-height:1.5}
 .has-note{color:var(--ink)}
+.st{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+  padding:7px 12px;border-radius:2px;line-height:1.2}
+.st.planned{background:var(--accent);color:var(--on-accent)}
+.st.reopened{background:var(--flag-wash);color:var(--flag)}
+.d-mark{margin:10px 0 0;font-size:12.5px;color:var(--muted)}
 
 .empty{text-align:center;padding:70px 20px;color:var(--muted)}
 .empty b{display:block;font-family:Newsreader,Georgia,serif;font-size:22px;
@@ -197,11 +203,11 @@ footer p{margin:0 0 7px;max-width:80ch}
     <p class="eyebrow">HOAhx · For business decision</p>
     <h1>Decision Register</h1>
     <p class="lede">{{LEDE_ONE}}</p>
-    <p class="lede">For every item: what the platform does <em>right now</em>, why it matters, and, where the launch build already changes it, what is <em>planned</em>. Mark each one <strong>Keep as-is</strong>, <strong>Change</strong>, or <strong>Discuss</strong>, and add a note where the reasoning should be recorded. On an item with a Planned line, Keep as-is means proceed as planned.</p>
+    <p class="lede">For every item: what the platform does <em>right now</em>, why it matters, and, where the launch build already changes it, what is <em>proposed</em>. Mark each one <strong>Keep as-is</strong>, <strong>Change</strong>, or <strong>Discuss</strong>, and add a note where the reasoning should be recorded. On an item with a Proposed line, Keep as-is means proceed as proposed. Once your answer is recorded, the item is marked <strong>Planned</strong>: decided, and in the build.</p>
     <dl class="meta">
       <div><dt>Updated</dt><dd>{{UPDATED}}</dd></div>
       <div><dt>Day one</dt><dd>Friday, September 4</dd></div>
-      <div><dt>On the record</dt><dd>{{ANSWERED}} of {{TOTAL}} answered and recorded</dd></div>
+      <div><dt>Decided</dt><dd>{{PLANNED}} of {{TOTAL}} planned from your answers so far</dd></div>
       <div><dt>Next</dt><dd>The {{PRIORITY_OPEN}} open money and enforcement items by Friday, September 18; they block the payment build and the live test</dd></div>
       <div><dt>Everything else</dt><dd>By Friday, October 9</dd></div>
       <div><dt>Your time</dt><dd>Three to four days across the five weeks</dd></div>
@@ -212,15 +218,16 @@ footer p{margin:0 0 7px;max-width:80ch}
 <section class="band">
   <div class="wrap band-in">
     <div class="bar" role="img" aria-label="Decision progress">
-      <i class="k" id="bar-k" style="width:0%"></i><i class="c" id="bar-c" style="width:0%"></i><i class="s" id="bar-s" style="width:0%"></i>
+      <i class="p" id="bar-p" style="width:0%"></i><i class="k" id="bar-k" style="width:0%"></i><i class="c" id="bar-c" style="width:0%"></i><i class="s" id="bar-s" style="width:0%"></i>
     </div>
     <div class="legend">
-      <span class="lg"><b id="n-done">0</b> of <span id="n-total">{{TOTAL}}</span> marked</span>
+      <span class="lg"><b id="n-done">{{PLANNED}}</b> of <span id="n-total">{{TOTAL}}</span> decided</span>
+      <span class="lg"><span class="dot p"></span><b id="n-p">{{PLANNED}}</b> planned</span>
+      <span class="lg"><span class="lg-label">Marked, awaiting the record:</span></span>
       <span class="lg"><span class="dot k"></span><b id="n-k">0</b> keep as-is</span>
       <span class="lg"><span class="dot c"></span><b id="n-c">0</b> change</span>
       <span class="lg"><span class="dot s"></span><b id="n-s">0</b> discuss</span>
       <span class="lg"><span class="dot u"></span><b id="n-u">{{TOTAL}}</b> not yet reviewed</span>
-      <span class="lg"><span class="dot r"></span><b id="n-r">{{ANSWERED}}</b> on the record</span>
     </div>
   </div>
 </section>
@@ -238,9 +245,9 @@ footer p{margin:0 0 7px;max-width:80ch}
       <button class="chip k" data-f="keep" aria-pressed="false">Keep</button>
       <button class="chip c" data-f="change" aria-pressed="false">Change</button>
       <button class="chip s" data-f="discuss" aria-pressed="false">Discuss</button>
-      <button class="chip r" data-f="recorded" aria-pressed="false">On the record</button>
+      <button class="chip p" data-f="planned" aria-pressed="false">Planned</button>
     </div>
-    <button class="chip" id="export-btn" type="button" title="Save a copy of every mark and note on this shared register">Export a copy</button>
+    <button class="chip" id="export-btn" type="button" title="Save a copy of every planned decision, mark, and note on this shared register">Export a copy</button>
     <span class="count" id="count"></span>
     <span class="sync" id="sync-note" aria-live="polite"></span>
   </div>
@@ -251,7 +258,7 @@ footer p{margin:0 0 7px;max-width:80ch}
 <footer>
   <div class="wrap">
     <p><strong>How these were found.</strong> {{FOUND_SENTENCE}} Each decision was derived from the code that enforces it — Cloud Functions, security rules, and the role model — as part of a review that produced 897 requirements across 18 domains. On September 4, 2026 they were brought into line with the launch proposal, the launch plan, and the NMI Integration Plan: payments are being built on NMI, so the payment items describe what that build will do unless told otherwise, and items the proposal already settles are not listed.</p>
-    <p><strong>"Start here"</strong> marks the {{PRIORITY_COUNT}} decisions in dues and payments, the ledger and budget, platform billing, and violations and enforcement — money and enforcement, where a wrong default costs the most, and the ones that block taking a real payment. <strong>"Answered"</strong> on an item means your answer has already been recorded from a meeting, an email, or a message; mark it again only if it should change. The D-numbers are the ones used in our own tracking, so either number works in a conversation.</p>
+    <p><strong>"Start here"</strong> marks the {{PRIORITY_COUNT}} decisions in dues and payments, the ledger and budget, platform billing, and violations and enforcement — money and enforcement, where a wrong default costs the most, and the ones that block taking a real payment. <strong>Proposed</strong> on an item is what the launch build will do unless you say otherwise; Keep as-is means proceed with it. <strong>Planned</strong> means the decision is made and is in the build, and the item's Proposed line has been rewritten to say what was decided. Planned is set from the record when the register is updated, never by a click; your Keep, Change, and Discuss marks and your notes are what get it there. Change or Discuss on a Planned item reopens it. The D-numbers are the ones used in our own tracking, so either number works in a conversation.</p>
     <p class="no-print"><strong>Marks and notes save to a shared register</strong> that everyone reviewing this page sees, so nothing needs to be sent back: what you mark here is read straight off the register and recorded. Every earlier version of a mark or note is kept, so clearing one by mistake loses nothing. Use <strong>Export a copy</strong> above to keep your own file, or your browser's print command for a clean copy of the whole register.</p>
     <p class="built">Register built {{BUILT}}</p>
   </div>
@@ -268,6 +275,8 @@ footer p{margin:0 0 7px;max-width:80ch}
   var LS = 'hoahx-register-v3';          // this browser's last synced copy of the shared register
   var LS_PENDING = 'hoahx-register-pending'; // saves that have not been confirmed by the server yet
   var LS_KEY = 'hoahx-edit-key';          // the passphrase, if the site requires one
+  var TZ = 'America/Denver';
+  var MARK_LABEL = { keep: 'Keep as-is', change: 'Change', discuss: 'Discuss' };
 
   function lsGet(k){ try { return JSON.parse(localStorage.getItem(k) || '{}') || {}; } catch(e){ return {}; } }
   function lsSet(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} }
@@ -288,6 +297,21 @@ footer p{margin:0 0 7px;max-width:80ch}
   function timeNow(){
     var d = new Date(), h = d.getHours(), m = d.getMinutes();
     return (h % 12 || 12) + ':' + (m < 10 ? '0' : '') + m + (h < 12 ? ' am' : ' pm');
+  }
+  function dayOf(iso){ try { return new Date(iso).toLocaleDateString('en-CA', { timeZone: TZ }); } catch(e){ return String(iso).slice(0, 10); } }
+  function shortDay(iso){ try { return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: TZ }); } catch(e){ return ''; } }
+
+  // The state of one decision. Planned comes only from the record (x.planned, x.pd), never from a
+  // click. A Change or Discuss saved after the planned date reopens the item and counts under that
+  // mark; a mark saved on or before it is the input that led to the record and stays informational.
+  function stateOf(x){
+    var r = store[x.id] || {}, v = r.v || '';
+    if (x.pd){
+      var after = !!(v && r.updatedAt && dayOf(r.updatedAt) > x.pd);
+      if ((v === 'change' || v === 'discuss') && after) return { s: v, planned: true, reopened: true, v: v };
+      return { s: 'planned', planned: true, reopened: false, v: v };
+    }
+    return { s: v || 'undecided', planned: false, reopened: false, v: v };
   }
 
   // One request helper for reads and writes. A 401 means the site requires a
@@ -323,8 +347,9 @@ footer p{margin:0 0 7px;max-width:80ch}
     var body = bodyFor(id);
     pending[id] = body; persistPending();
     inFlight++; setSync('Saving…');
-    return request('POST', body).then(function(){
-      // Only clear the pending copy if nothing newer was typed meanwhile.
+    return request('POST', body).then(function(out){
+      // Keep the server's timestamp so the reopen rule sees the same date the pull will.
+      if (out && out.record && out.record.updatedAt && store[id]) { store[id].updatedAt = out.record.updatedAt; persist(); }
       var cur = bodyFor(id);
       if (cur.v === body.v && cur.n === body.n){ delete pending[id]; persistPending(); }
       inFlight--; if (inFlight <= 0){ inFlight = 0; setSync('Saved ' + timeNow() + '.'); }
@@ -397,13 +422,11 @@ footer p{margin:0 0 7px;max-width:80ch}
   function match(x){
     if (state.dom && x.d !== state.dom) return false;
     if (on('priority') && !(x.p || x.b)) return false;
-    if (on('recorded') && !x.ans) return false;
-    if (anyStatusFilter()){
-      var v = (store[x.id]||{}).v || 'undecided';
-      if (!on(v)) return false;
-    }
+    var st = stateOf(x);
+    if (on('planned') && !st.planned) return false;
+    if (anyStatusFilter() && !on(st.s)) return false;
     if (state.q){
-      var hay = (x.id+' '+x.code+' '+x.q+' '+x.why+' '+x.now+' '+(x.plan||'')+' '+(x.opts||[]).join(' ')+' '+x.dn).toLowerCase();
+      var hay = (x.id+' '+x.code+' '+x.q+' '+x.why+' '+x.now+' '+(x.plan||'')+' '+(x.opts||[]).join(' ')+' '+x.dn+(st.planned?' planned':'')).toLowerCase();
       var terms = state.q.toLowerCase().split(/\s+/).filter(Boolean);
       for (var i=0;i<terms.length;i++) if (hay.indexOf(terms[i]) === -1) return false;
     }
@@ -411,42 +434,59 @@ footer p{margin:0 0 7px;max-width:80ch}
   }
 
   function stats(){
-    var c = {keep:0,change:0,discuss:0};
-    QS.forEach(function(x){ var v=(store[x.id]||{}).v; if (v && c[v]!==undefined) c[v]++; });
-    var done = c.keep+c.change+c.discuss, T = QS.length;
-    document.getElementById('n-done').textContent = done;
+    var c = {planned:0,keep:0,change:0,discuss:0,undecided:0};
+    QS.forEach(function(x){ c[stateOf(x).s]++; });
+    var T = QS.length;
+    document.getElementById('n-done').textContent = c.planned;
     document.getElementById('n-total').textContent = T;
+    document.getElementById('n-p').textContent = c.planned;
     document.getElementById('n-k').textContent = c.keep;
     document.getElementById('n-c').textContent = c.change;
     document.getElementById('n-s').textContent = c.discuss;
-    document.getElementById('n-u').textContent = T - done;
+    document.getElementById('n-u').textContent = c.undecided;
+    document.getElementById('bar-p').style.width = (c.planned/T*100)+'%';
     document.getElementById('bar-k').style.width = (c.keep/T*100)+'%';
     document.getElementById('bar-c').style.width = (c.change/T*100)+'%';
     document.getElementById('bar-s').style.width = (c.discuss/T*100)+'%';
   }
 
+  function domCount(list){
+    var decided = 0, marked = 0;
+    list.forEach(function(x){ var st = stateOf(x); if (st.s === 'planned') decided++; else if (st.s !== 'undecided') marked++; });
+    return decided + ' / ' + list.length + ' decided' + (marked ? ' · ' + marked + ' marked' : '');
+  }
+
   function card(x){
-    var r = store[x.id] || {}, v = r.v || '';
+    var st = stateOf(x), r = store[x.id] || {}, v = r.v || '';
     var hasNote = !!(r.n && r.n.trim());
-    return '<article class="d'+(v?' is-'+v:'')+'" data-id="'+x.id+'"><div class="d-in">'
+    var cls = 'd' + (st.reopened ? ' is-'+v : st.planned ? ' is-planned' : (v ? ' is-'+v : ''));
+    var markLine = '';
+    if (st.planned && v){
+      markLine = '<p class="d-mark">' + (st.reopened ? 'Reopened: you marked ' : 'You marked ') + MARK_LABEL[v]
+               + (r.updatedAt ? ' on ' + esc(shortDay(r.updatedAt)) : '')
+               + (st.reopened ? '. It will be re-recorded from your note.' : '; it is on the record.') + '</p>';
+    }
+    return '<article class="'+cls+'" data-id="'+x.id+'"><div class="d-in">'
       + '<div class="d-h"><span class="d-id">'+esc(x.code)+'</span>'
       + '<span class="d-ref">'+esc(x.id)+'</span>'
-      + (x.ans ? '<span class="d-flag ans">Answered '+esc(x.ans)+'</span>'
-               : (x.need ? '<span class="d-flag due">Answer by '+esc(x.need)+'</span>' : ''))
+      + (!st.planned && x.need ? '<span class="d-flag due">Answer by '+esc(x.need)+'</span>' : '')
       + (x.p ? '<span class="d-flag">Start here</span>' : '')
       + '<h3 class="d-q">'+esc(x.q)+'</h3></div>'
       + '<div class="d-body">'
       +   '<span class="d-k">Why</span><span class="d-v">'+esc(x.why)+'</span>'
       +   '<span class="d-k">Today</span><span class="d-v now">'+esc(x.now)+'</span>'
-      +   (x.plan ? '<span class="d-k plan">Planned</span><span class="d-v plan">'+esc(x.plan)+'</span>' : '')
+      +   (x.plan ? '<span class="d-k plan">Proposed</span><span class="d-v plan">'+esc(x.plan)+'</span>' : '')
       +   (x.opts && x.opts.length ? '<span class="d-k">Options</span><span class="d-v opts">'+esc(x.opts.join('  ·  '))+'</span>' : '')
       + '</div>'
       + '<div class="d-act">'
-      +   '<button class="opt keep" data-v="keep" aria-pressed="'+(v==='keep')+'">Keep as-is</button>'
+      +   (st.planned ? '<span class="st planned" title="Set from the record when the register is updated">Planned · '+esc(x.planned)+'</span>' : '')
+      +   (st.reopened ? '<span class="st reopened">Reopened</span>' : '')
+      +   (st.planned ? '' : '<button class="opt keep" data-v="keep" aria-pressed="'+(v==='keep')+'">Keep as-is</button>')
       +   '<button class="opt change" data-v="change" aria-pressed="'+(v==='change')+'">Change</button>'
       +   '<button class="opt discuss" data-v="discuss" aria-pressed="'+(v==='discuss')+'">Discuss</button>'
       +   '<button class="note-t'+(hasNote?' has-note':'')+'" data-note>'+(hasNote?'Note ✓':'Add note')+'</button>'
       + '</div>'
+      + markLine
       + '<textarea class="'+(hasNote?'':'hide')+'" placeholder="Record the reasoning, the owner, or what needs to change…" aria-label="Note for '+esc(x.code)+'">'+esc(r.n||'')+'</textarea>'
       + '</div></article>';
   }
@@ -465,15 +505,26 @@ footer p{margin:0 0 7px;max-width:80ch}
     var html = '';
     DOMS.forEach(function(d){
       var list = byDom[d.num]; if (!list) return;
-      var done = list.filter(function(x){ return (store[x.id]||{}).v; }).length;
-      html += '<div class="dom-h"><span class="dom-n">'+esc(d.num)+'</span>'
+      html += '<div class="dom-h" data-dom="'+esc(d.num)+'"><span class="dom-n">'+esc(d.num)+'</span>'
            +  '<span class="dom-t">'+esc(d.name)+'</span>'
-           +  '<span class="dom-c">'+done+' / '+list.length+' marked</span></div>'
+           +  '<span class="dom-c">'+domCount(list)+'</span></div>'
            +  (d.note ? '<p class="dom-note">'+esc(d.note)+'</p>' : '')
            +  list.map(card).join('');
     });
     host.innerHTML = html;
     stats();
+  }
+
+  function refreshDomCount(art){
+    var dh = art.previousElementSibling;
+    while (dh && !dh.classList.contains('dom-h')) dh = dh.previousElementSibling;
+    if (!dh) return;
+    var list = [], sib = dh.nextElementSibling;
+    while (sib && !sib.classList.contains('dom-h')){
+      if (sib.classList.contains('d') && byId[sib.dataset.id]) list.push(byId[sib.dataset.id]);
+      sib = sib.nextElementSibling;
+    }
+    dh.querySelector('.dom-c').textContent = domCount(list);
   }
 
   document.getElementById('list').addEventListener('click', function(e){
@@ -483,24 +534,14 @@ footer p{margin:0 0 7px;max-width:80ch}
     if (opt){
       var r = rec(id);
       r.v = (r.v === opt.dataset.v) ? '' : opt.dataset.v;   // click again to clear
+      r.updatedAt = new Date().toISOString();               // provisional; the server's stamp replaces it on save
       persist();
       apiSave(id);
-      if (anyStatusFilter()) { render(); }
+      if (anyStatusFilter() || on('planned')) { render(); }
       else {
-        art.className = 'd' + (r.v ? ' is-'+r.v : '');
-        art.querySelectorAll('.opt').forEach(function(b){
-          b.setAttribute('aria-pressed', String(b.dataset.v === r.v));
-        });
-        var dh = art.previousElementSibling;
-        while (dh && !dh.classList.contains('dom-h')) dh = dh.previousElementSibling;
-        if (dh){
-          var sib = dh.nextElementSibling, tot = 0, dn = 0;
-          while (sib && !sib.classList.contains('dom-h')){
-            if (sib.classList.contains('d')){ tot++; if ((store[sib.dataset.id]||{}).v) dn++; }
-            sib = sib.nextElementSibling;
-          }
-          dh.querySelector('.dom-c').textContent = dn + ' / ' + tot + ' marked';
-        }
+        var wrap = document.createElement('div'); wrap.innerHTML = card(byId[id]);
+        var fresh = wrap.firstChild; art.replaceWith(fresh);
+        refreshDomCount(fresh);
         stats();
       }
       return;
@@ -538,20 +579,20 @@ footer p{margin:0 0 7px;max-width:80ch}
     render();
   });
 
-  // Export a copy: every live mark and note on the shared register, as a plain
-  // text file the owners can keep. The register itself is the record; this is a copy.
-  var MARK_LABEL = { keep: 'Keep as-is', change: 'Change', discuss: 'Discuss' };
+  // Export a copy: every live mark and note on the shared register plus every Planned item,
+  // as a plain text file the owners can keep. The register itself is the record; this is a copy.
   function exportText(){
-    var marked = QS.filter(function(x){ var r = store[x.id]; return r && (r.v || (r.n && r.n.trim())); });
-    if (!marked.length) return '';
-    var today = localDate();
-    var lines = ['# HOAhx Decision Register — marks and notes', '',
-                 'Exported ' + today + ' · ' + marked.length + ' of ' + QS.length + ' marked or noted.', ''];
-    marked.forEach(function(x){
-      var r = store[x.id];
+    var items = QS.filter(function(x){ var r = store[x.id]; return x.pd || (r && (r.v || (r.n && r.n.trim()))); });
+    if (!items.length) return '';
+    var lines = ['# HOAhx Decision Register — marks, notes, and planned decisions', '',
+                 'Exported ' + localDate() + ' · ' + items.length + ' of ' + QS.length + ' planned, marked, or noted.', ''];
+    items.forEach(function(x){
+      var r = store[x.id] || {}, st = stateOf(x);
       lines.push('### ' + x.id + ' · ' + x.code);
       lines.push('Question: ' + x.q);
-      lines.push('Mark: ' + (r.v ? MARK_LABEL[r.v] : '(no mark — see note)'));
+      if (st.planned) lines.push('Status: Planned since ' + x.pd + (st.reopened ? ' · reopened' : ''));
+      if (x.plan) lines.push((st.planned ? 'Decided: ' : 'Proposed: ') + x.plan);
+      if (r.v) lines.push('Mark: ' + MARK_LABEL[r.v] + (r.updatedAt ? ' (' + dayOf(r.updatedAt) + ')' : ''));
       if (r.n && r.n.trim()) lines.push('Note: ' + r.n.trim().replace(/\s*\n+\s*/g, ' '));
       lines.push('');
     });
@@ -559,7 +600,7 @@ footer p{margin:0 0 7px;max-width:80ch}
   }
   document.getElementById('export-btn').addEventListener('click', function(){
     var text = exportText();
-    if (!text){ alert('Nothing marked or noted yet on the shared register.'); return; }
+    if (!text){ alert('Nothing planned, marked, or noted yet on the shared register.'); return; }
     var a = document.createElement('a');
     var url = URL.createObjectURL(new Blob([text], { type: 'text/markdown' }));
     a.href = url; a.download = 'hoahx-decisions-' + localDate() + '.md';

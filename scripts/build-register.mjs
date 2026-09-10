@@ -46,8 +46,8 @@ const { domains, questions } = parsed;
 const ids = new Set(questions.map((x) => x.id));
 const total = questions.length;
 const priority = questions.filter((x) => x.p);
-const priorityOpen = priority.filter((x) => !x.ans).length;
-console.log(`✓ ${path.basename(SOURCE)}: ${total} decisions in ${domains.length} areas, ${parsed.answeredCount} answered, ${priority.length} money-and-enforcement (${priorityOpen} open), ${questions.filter((x) => x.plan).length} with a Planned line`);
+const priorityOpen = priority.filter((x) => !x.pd).length;
+console.log(`✓ ${path.basename(SOURCE)}: ${total} decisions in ${domains.length} areas, ${parsed.answeredCount} planned (answered on the record), ${priority.length} money-and-enforcement (${priorityOpen} open), ${questions.filter((x) => x.plan).length} with a Planned line`);
 if (parsed.headerCount && (parsed.headerCount.answered !== parsed.answeredCount || parsed.headerCount.total !== total)) {
   console.warn(`  ! header says "Answers: ${parsed.headerCount.answered} of ${parsed.headerCount.total}" but the entries say ${parsed.answeredCount} of ${total}; fix the header`);
 }
@@ -87,7 +87,7 @@ const updated = args.date || longDate();
 const built = new Date().toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: TZ }) + ' MT';
 
 const fill = {
-  TOTAL: String(total), ANSWERED: String(parsed.answeredCount), PRIORITY_COUNT: String(priority.length),
+  TOTAL: String(total), PLANNED: String(parsed.answeredCount), PRIORITY_COUNT: String(priority.length),
   PRIORITY_OPEN: String(priorityOpen), UPDATED: updated, LEDE_ONE: ledeOne, FOUND_SENTENCE: found, BUILT: built, DATA_JSON: dataJson,
 };
 const html = template.replace(/\{\{([A-Z_]+)\}\}/g, (m, k) => {
