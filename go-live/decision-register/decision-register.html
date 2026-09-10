@@ -203,7 +203,7 @@ footer p{margin:0 0 7px;max-width:80ch}
     <p class="eyebrow">HOAhx · For business decision</p>
     <h1>Decision Register</h1>
     <p class="lede">111 decisions the software has already made on the business's behalf: 109 found by reading the code that runs today — not the specification, and not what anyone intended — plus two follow-up questions added since, all brought into line with the launch proposal, the launch plan, and the NMI Integration Plan of September 3, 2026. Some will be exactly right. Some will be wrong. Until each is confirmed, nobody can say which.</p>
-    <p class="lede">For every item: what the platform does <em>right now</em>, why it matters, and, where the launch build already changes it, what is <em>planned</em>. Mark each one <strong>Keep as-is</strong>, <strong>Change</strong>, or <strong>Discuss</strong>, and add a note where the reasoning should be recorded. On an item with a Planned line, Keep as-is means proceed as planned.</p>
+    <p class="lede">For every item: what the platform does <em>right now</em>, why it matters, and, where the launch build already changes it, what is <em>proposed</em>. Mark each one <strong>Keep as-is</strong>, <strong>Change</strong>, or <strong>Discuss</strong>, and add a note where the reasoning should be recorded. On an item with a Proposed line, Keep as-is means proceed as proposed. Once your answer is recorded, the item is marked <strong>Planned</strong>: decided, and in the build.</p>
     <dl class="meta">
       <div><dt>Updated</dt><dd>September 9, 2026</dd></div>
       <div><dt>Day one</dt><dd>Friday, September 4</dd></div>
@@ -258,9 +258,9 @@ footer p{margin:0 0 7px;max-width:80ch}
 <footer>
   <div class="wrap">
     <p><strong>How these were found.</strong> 111 decisions: 109 found on September 4, 2026, and two follow-up questions added as your answers raised them. Each decision was derived from the code that enforces it — Cloud Functions, security rules, and the role model — as part of a review that produced 897 requirements across 18 domains. On September 4, 2026 they were brought into line with the launch proposal, the launch plan, and the NMI Integration Plan: payments are being built on NMI, so the payment items describe what that build will do unless told otherwise, and items the proposal already settles are not listed.</p>
-    <p><strong>"Start here"</strong> marks the 29 decisions in dues and payments, the ledger and budget, platform billing, and violations and enforcement — money and enforcement, where a wrong default costs the most, and the ones that block taking a real payment. <strong>Planned</strong> on an item means the decision is made and is in the build: the Planned line states what was decided. It is set from the record when the register is updated, never by a click; your Keep, Change, and Discuss marks and your notes are what get it there. Change or Discuss on a Planned item reopens it. The D-numbers are the ones used in our own tracking, so either number works in a conversation.</p>
+    <p><strong>"Start here"</strong> marks the 29 decisions in dues and payments, the ledger and budget, platform billing, and violations and enforcement — money and enforcement, where a wrong default costs the most, and the ones that block taking a real payment. <strong>Proposed</strong> on an item is what the launch build will do unless you say otherwise; Keep as-is means proceed with it. <strong>Planned</strong> means the decision is made and is in the build, and the item's Proposed line has been rewritten to say what was decided. Planned is set from the record when the register is updated, never by a click; your Keep, Change, and Discuss marks and your notes are what get it there. Change or Discuss on a Planned item reopens it. The D-numbers are the ones used in our own tracking, so either number works in a conversation.</p>
     <p class="no-print"><strong>Marks and notes save to a shared register</strong> that everyone reviewing this page sees, so nothing needs to be sent back: what you mark here is read straight off the register and recorded. Every earlier version of a mark or note is kept, so clearing one by mistake loses nothing. Use <strong>Export a copy</strong> above to keep your own file, or your browser's print command for a clean copy of the whole register.</p>
-    <p class="built">Register built Sep 9, 2026, 10:21 PM MT</p>
+    <p class="built">Register built Sep 9, 2026, 10:41 PM MT</p>
   </div>
 </footer>
 
@@ -475,7 +475,7 @@ footer p{margin:0 0 7px;max-width:80ch}
       + '<div class="d-body">'
       +   '<span class="d-k">Why</span><span class="d-v">'+esc(x.why)+'</span>'
       +   '<span class="d-k">Today</span><span class="d-v now">'+esc(x.now)+'</span>'
-      +   (x.plan ? '<span class="d-k plan">Planned</span><span class="d-v plan">'+esc(x.plan)+'</span>' : '')
+      +   (x.plan ? '<span class="d-k plan">Proposed</span><span class="d-v plan">'+esc(x.plan)+'</span>' : '')
       +   (x.opts && x.opts.length ? '<span class="d-k">Options</span><span class="d-v opts">'+esc(x.opts.join('  ·  '))+'</span>' : '')
       + '</div>'
       + '<div class="d-act">'
@@ -591,7 +591,7 @@ footer p{margin:0 0 7px;max-width:80ch}
       lines.push('### ' + x.id + ' · ' + x.code);
       lines.push('Question: ' + x.q);
       if (st.planned) lines.push('Status: Planned since ' + x.pd + (st.reopened ? ' · reopened' : ''));
-      if (st.planned && x.plan) lines.push('Planned: ' + x.plan);
+      if (x.plan) lines.push((st.planned ? 'Decided: ' : 'Proposed: ') + x.plan);
       if (r.v) lines.push('Mark: ' + MARK_LABEL[r.v] + (r.updatedAt ? ' (' + dayOf(r.updatedAt) + ')' : ''));
       if (r.n && r.n.trim()) lines.push('Note: ' + r.n.trim().replace(/\s*\n+\s*/g, ' '));
       lines.push('');

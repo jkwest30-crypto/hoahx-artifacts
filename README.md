@@ -12,7 +12,7 @@ launch program's `docs/launch/decisions.md` in the HOAhx repo, which is the sour
 owners' **marks and notes** live in a shared store on the Netlify site (Netlify Blobs) and are
 never part of this repo.
 
-**Planned** is the state that means a decision is made and in the build. It is set only by the
+On the page the `Planned:` field of an entry is labeled **Proposed**: what the launch build will do unless the owners say otherwise (Keep as-is means proceed with it). **Planned** is the state that means a decision is made and in the build. It is set only by the
 build, from an entry's recorded Answer and Answered date in `decisions.md`; nobody can click it.
 The owners' Keep as-is / Change / Discuss marks and their notes are the input: they are pulled,
 recorded with `/decide` (which rewrites the entry's Planned line to say what was decided), and the
