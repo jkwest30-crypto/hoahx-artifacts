@@ -1,0 +1,575 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HOAhx Decision Register</title>
+<meta name="description" content="The rules HOAhx applies by default, each with what the platform does today and what the launch build changes, for the owners to confirm or change.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#F4F6F8; --surface:#FFFFFF; --surface-2:#EAEEF3;
+  --ink:#141821; --ink-2:#3B4453; --muted:#69727F;
+  --rule:#D8DDE5; --rule-strong:#BEC6D2;
+  --accent:#2F4B7C; --accent-2:#4C74B8; --accent-wash:#E7EEF8; --on-accent:#FFFFFF;
+  --keep:#2C7A4B; --keep-wash:#E3F1E9;
+  --change:#9C6A12; --change-wash:#F7EEDB;
+  --discuss:#7A4396; --discuss-wash:#F1E8F7;
+  --flag:#AE3A30; --flag-wash:#F8E7E4;
+  --shadow:0 1px 2px rgba(20,24,33,.05),0 3px 12px rgba(20,24,33,.05);
+  color-scheme:light dark;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#0D1015; --surface:#151A22; --surface-2:#1C222C;
+  --ink:#E7EAF0; --ink-2:#B4BDCB; --muted:#8D98A8;
+  --rule:#252C38; --rule-strong:#39424F;
+  --accent:#8AACE0; --accent-2:#A8C4EC; --accent-wash:#1A2433; --on-accent:#0D1015;
+  --keep:#5FBA85; --keep-wash:#16281E;
+  --change:#D5A354; --change-wash:#2A2115;
+  --discuss:#BB93D8; --discuss-wash:#241A2C;
+  --flag:#E38175; --flag-wash:#2E1A18;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 3px 12px rgba(0,0,0,.25);
+}}
+:root[data-theme="dark"]{
+  --ground:#0D1015; --surface:#151A22; --surface-2:#1C222C;
+  --ink:#E7EAF0; --ink-2:#B4BDCB; --muted:#8D98A8;
+  --rule:#252C38; --rule-strong:#39424F;
+  --accent:#8AACE0; --accent-2:#A8C4EC; --accent-wash:#1A2433; --on-accent:#0D1015;
+  --keep:#5FBA85; --keep-wash:#16281E;
+  --change:#D5A354; --change-wash:#2A2115;
+  --discuss:#BB93D8; --discuss-wash:#241A2C;
+  --flag:#E38175; --flag-wash:#2E1A18;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 3px 12px rgba(0,0,0,.25);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1020px;margin:0 auto;padding:0 24px}
+
+/* masthead */
+.mast{background:var(--surface);border-bottom:1px solid var(--rule)}
+.mast-in{padding:44px 0 32px}
+.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);margin:0 0 12px}
+h1{font-family:Newsreader,Georgia,serif;font-weight:500;font-size:clamp(32px,4.2vw,48px);
+  line-height:1.06;letter-spacing:-.015em;margin:0;text-wrap:balance}
+.lede{margin:16px 0 0;max-width:66ch;color:var(--ink-2);font-size:16px}
+.lede+.lede{margin-top:10px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:14px 26px;
+  margin:26px 0 0;padding:18px 0 0;border-top:1px solid var(--rule)}
+.meta div{display:flex;flex-direction:column;gap:3px}
+.meta dt{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted)}
+.meta dd{margin:0;font-size:14px;font-weight:500;color:var(--ink);line-height:1.4}
+
+/* progress */
+.band{background:var(--surface-2);border-bottom:1px solid var(--rule)}
+.band-in{padding:22px 0}
+.bar{height:8px;border-radius:99px;background:var(--rule);overflow:hidden;display:flex}
+.bar i{display:block;height:100%}
+.bar .k{background:var(--keep)} .bar .c{background:var(--change)} .bar .s{background:var(--discuss)}
+.legend{display:flex;flex-wrap:wrap;gap:18px;margin-top:14px;align-items:baseline}
+.lg{display:flex;align-items:baseline;gap:7px;font-size:13px;color:var(--muted)}
+.lg b{font-family:"IBM Plex Mono",monospace;font-size:17px;font-weight:500;color:var(--ink);
+  font-variant-numeric:tabular-nums}
+.dot{width:9px;height:9px;border-radius:2px;flex:none;transform:translateY(-1px)}
+.dot.k{background:var(--keep)} .dot.c{background:var(--change)}
+.dot.s{background:var(--discuss)} .dot.u{background:var(--rule-strong)} .dot.r{background:var(--accent-2)}
+
+/* controls */
+.controls{position:sticky;top:0;z-index:20;background:var(--surface);
+  border-bottom:1px solid var(--rule);box-shadow:var(--shadow)}
+.controls-in{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:13px 0}
+.search{flex:1 1 220px;min-width:190px;position:relative}
+.search input{width:100%;font-family:inherit;font-size:14px;color:var(--ink);
+  background:var(--surface-2);border:1px solid var(--rule-strong);border-radius:2px;
+  padding:8px 12px 8px 32px}
+.search svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);
+  width:14px;height:14px;stroke:var(--muted);fill:none;stroke-width:2}
+select{font-family:inherit;font-size:13px;color:var(--ink);background:var(--surface-2);
+  border:1px solid var(--rule-strong);border-radius:2px;padding:8px 10px;max-width:250px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{appearance:none;cursor:pointer;font-family:"IBM Plex Mono",monospace;font-size:11px;
+  letter-spacing:.05em;text-transform:uppercase;padding:6px 11px;border-radius:2px;
+  border:1px solid var(--rule-strong);background:var(--surface);color:var(--muted)}
+.chip[aria-pressed="true"]{border-color:currentColor}
+.chip.u[aria-pressed="true"]{background:var(--accent-wash);color:var(--accent)}
+.chip.k[aria-pressed="true"]{background:var(--keep-wash);color:var(--keep)}
+.chip.c[aria-pressed="true"]{background:var(--change-wash);color:var(--change)}
+.chip.s[aria-pressed="true"]{background:var(--discuss-wash);color:var(--discuss)}
+.chip.f[aria-pressed="true"]{background:var(--flag-wash);color:var(--flag)}
+.chip.r[aria-pressed="true"]{background:var(--accent-wash);color:var(--accent)}
+.count{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--muted);
+  white-space:nowrap;font-variant-numeric:tabular-nums;margin-left:auto}
+.sync{flex-basis:100%;font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--muted);
+  letter-spacing:.02em;min-height:1em}
+.sync:empty{display:none}
+.sync.err{color:var(--flag)}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{
+  outline:2px solid var(--accent-2);outline-offset:2px}
+
+/* domain + cards */
+main{padding:28px 0 80px}
+.dom-h{display:flex;align-items:baseline;gap:14px;margin:34px 0 14px;
+  padding-bottom:9px;border-bottom:1px solid var(--rule-strong)}
+.dom-h:first-child{margin-top:0}
+.dom-n{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--muted);
+  font-variant-numeric:tabular-nums}
+.dom-t{font-family:Newsreader,Georgia,serif;font-size:22px;font-weight:500;
+  letter-spacing:-.01em;flex:1}
+.dom-c{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--muted);
+  font-variant-numeric:tabular-nums}
+.dom-note{margin:-4px 0 16px;max-width:78ch;font-size:13.5px;color:var(--muted);line-height:1.5}
+
+.d{background:var(--surface);border:1px solid var(--rule);border-radius:2px;
+  margin-bottom:12px;box-shadow:var(--shadow);border-left:3px solid var(--rule-strong)}
+.d.is-keep{border-left-color:var(--keep)}
+.d.is-change{border-left-color:var(--change)}
+.d.is-discuss{border-left-color:var(--discuss)}
+.d-in{padding:18px 22px}
+.d-h{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;margin-bottom:9px}
+.d-id{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--accent);
+  font-weight:500;letter-spacing:.04em}
+.d-ref{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--muted);letter-spacing:.04em}
+.d-flag{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--flag);background:var(--flag-wash);
+  padding:2px 7px;border-radius:2px}
+.d-flag.due{color:var(--on-accent);background:var(--flag)}
+.d-flag.ans{color:var(--accent);background:var(--accent-wash)}
+.d-q{font-family:Newsreader,Georgia,serif;font-size:19px;font-weight:500;line-height:1.32;
+  margin:0;flex-basis:100%;text-wrap:balance}
+.d-body{display:grid;grid-template-columns:74px 1fr;gap:9px 14px;margin:14px 0 0;align-items:baseline}
+.d-k{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--muted);padding-top:3px}
+.d-v{color:var(--ink-2);font-size:14px;max-width:74ch}
+.d-v.now{color:var(--ink)}
+.d-k.plan{color:var(--accent)}
+.d-v.plan{color:var(--ink);padding-left:10px;border-left:2px solid var(--accent-2)}
+.d-v.opts{color:var(--muted)}
+
+/* decision controls */
+.d-act{display:flex;flex-wrap:wrap;gap:8px;align-items:center;
+  margin-top:16px;padding-top:14px;border-top:1px solid var(--rule)}
+.opt{appearance:none;cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:500;
+  padding:7px 14px;border-radius:2px;border:1px solid var(--rule-strong);
+  background:var(--surface);color:var(--ink-2)}
+.opt:hover{border-color:var(--muted)}
+.opt[aria-pressed="true"].keep{background:var(--keep);border-color:var(--keep);color:var(--on-accent)}
+.opt[aria-pressed="true"].change{background:var(--change);border-color:var(--change);color:var(--on-accent)}
+.opt[aria-pressed="true"].discuss{background:var(--discuss);border-color:var(--discuss);color:var(--on-accent)}
+.note-t{appearance:none;cursor:pointer;background:none;border:0;font-family:inherit;
+  font-size:12.5px;color:var(--accent);padding:7px 4px;margin-left:auto}
+textarea{width:100%;margin-top:11px;font-family:inherit;font-size:13.5px;color:var(--ink);
+  background:var(--surface-2);border:1px solid var(--rule-strong);border-radius:2px;
+  padding:9px 11px;resize:vertical;min-height:66px;line-height:1.5}
+.has-note{color:var(--ink)}
+
+.empty{text-align:center;padding:70px 20px;color:var(--muted)}
+.empty b{display:block;font-family:Newsreader,Georgia,serif;font-size:22px;
+  color:var(--ink-2);font-weight:500;margin-bottom:6px}
+footer{border-top:1px solid var(--rule);background:var(--surface);padding:26px 0;
+  color:var(--muted);font-size:13px}
+footer p{margin:0 0 7px;max-width:80ch}
+.built{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;margin-top:14px}
+.hide{display:none !important}
+@media (max-width:640px){
+  .d-body{grid-template-columns:1fr;gap:2px 0}
+  .d-k{padding-top:9px}
+  .note-t{margin-left:0}
+}
+@media print{
+  .controls,.d-act,textarea,footer .no-print{display:none !important}
+  body{background:#fff;color:#000;font-size:11pt}
+  .d{break-inside:avoid;page-break-inside:avoid;box-shadow:none;border:1px solid #999}
+  .mast,.band,.d{background:#fff}
+  .dom-h{break-after:avoid}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="mast">
+  <div class="wrap mast-in">
+    <p class="eyebrow">HOAhx · For business decision</p>
+    <h1>Decision Register</h1>
+    <p class="lede">{{LEDE_ONE}}</p>
+    <p class="lede">For every item: what the platform does <em>right now</em>, why it matters, and, where the launch build already changes it, what is <em>planned</em>. Mark each one <strong>Keep as-is</strong>, <strong>Change</strong>, or <strong>Discuss</strong>, and add a note where the reasoning should be recorded. On an item with a Planned line, Keep as-is means proceed as planned.</p>
+    <dl class="meta">
+      <div><dt>Updated</dt><dd>{{UPDATED}}</dd></div>
+      <div><dt>Day one</dt><dd>Friday, September 4</dd></div>
+      <div><dt>On the record</dt><dd>{{ANSWERED}} of {{TOTAL}} answered and recorded</dd></div>
+      <div><dt>Next</dt><dd>The {{PRIORITY_OPEN}} open money and enforcement items by Friday, September 18; they block the payment build and the live test</dd></div>
+      <div><dt>Everything else</dt><dd>By Friday, October 9</dd></div>
+      <div><dt>Your time</dt><dd>Three to four days across the five weeks</dd></div>
+    </dl>
+  </div>
+</header>
+
+<section class="band">
+  <div class="wrap band-in">
+    <div class="bar" role="img" aria-label="Decision progress">
+      <i class="k" id="bar-k" style="width:0%"></i><i class="c" id="bar-c" style="width:0%"></i><i class="s" id="bar-s" style="width:0%"></i>
+    </div>
+    <div class="legend">
+      <span class="lg"><b id="n-done">0</b> of <span id="n-total">{{TOTAL}}</span> marked</span>
+      <span class="lg"><span class="dot k"></span><b id="n-k">0</b> keep as-is</span>
+      <span class="lg"><span class="dot c"></span><b id="n-c">0</b> change</span>
+      <span class="lg"><span class="dot s"></span><b id="n-s">0</b> discuss</span>
+      <span class="lg"><span class="dot u"></span><b id="n-u">{{TOTAL}}</b> not yet reviewed</span>
+      <span class="lg"><span class="dot r"></span><b id="n-r">{{ANSWERED}}</b> on the record</span>
+    </div>
+  </div>
+</section>
+
+<div class="controls">
+  <div class="wrap controls-in">
+    <label class="search">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input type="search" id="q" placeholder="Search decisions…" aria-label="Search decisions">
+    </label>
+    <select id="dom" aria-label="Filter by area"><option value="">All areas</option></select>
+    <div class="chips" id="chips">
+      <button class="chip f" data-f="priority" aria-pressed="false">Start here</button>
+      <button class="chip u" data-f="undecided" aria-pressed="false">Undecided</button>
+      <button class="chip k" data-f="keep" aria-pressed="false">Keep</button>
+      <button class="chip c" data-f="change" aria-pressed="false">Change</button>
+      <button class="chip s" data-f="discuss" aria-pressed="false">Discuss</button>
+      <button class="chip r" data-f="recorded" aria-pressed="false">On the record</button>
+    </div>
+    <button class="chip" id="export-btn" type="button" title="Save a copy of every mark and note on this shared register">Export a copy</button>
+    <span class="count" id="count"></span>
+    <span class="sync" id="sync-note" aria-live="polite"></span>
+  </div>
+</div>
+
+<main class="wrap"><div id="list"></div></main>
+
+<footer>
+  <div class="wrap">
+    <p><strong>How these were found.</strong> {{FOUND_SENTENCE}} Each decision was derived from the code that enforces it — Cloud Functions, security rules, and the role model — as part of a review that produced 897 requirements across 18 domains. On September 4, 2026 they were brought into line with the launch proposal, the launch plan, and the NMI Integration Plan: payments are being built on NMI, so the payment items describe what that build will do unless told otherwise, and items the proposal already settles are not listed.</p>
+    <p><strong>"Start here"</strong> marks the {{PRIORITY_COUNT}} decisions in dues and payments, the ledger and budget, platform billing, and violations and enforcement — money and enforcement, where a wrong default costs the most, and the ones that block taking a real payment. <strong>"Answered"</strong> on an item means your answer has already been recorded from a meeting, an email, or a message; mark it again only if it should change. The D-numbers are the ones used in our own tracking, so either number works in a conversation.</p>
+    <p class="no-print"><strong>Marks and notes save to a shared register</strong> that everyone reviewing this page sees, so nothing needs to be sent back: what you mark here is read straight off the register and recorded. Every earlier version of a mark or note is kept, so clearing one by mistake loses nothing. Use <strong>Export a copy</strong> above to keep your own file, or your browser's print command for a clean copy of the whole register.</p>
+    <p class="built">Register built {{BUILT}}</p>
+  </div>
+</footer>
+
+<script id="data" type="application/json">{{DATA_JSON}}</script>
+<script>
+(function(){
+  var D = JSON.parse(document.getElementById('data').textContent);
+  var QS = D.questions, DOMS = D.domains;
+  var byId = {}; QS.forEach(function(x){ byId[x.id] = x; });
+
+  var API = '/api/decisions';
+  var LS = 'hoahx-register-v3';          // this browser's last synced copy of the shared register
+  var LS_PENDING = 'hoahx-register-pending'; // saves that have not been confirmed by the server yet
+  var LS_KEY = 'hoahx-edit-key';          // the passphrase, if the site requires one
+
+  function lsGet(k){ try { return JSON.parse(localStorage.getItem(k) || '{}') || {}; } catch(e){ return {}; } }
+  function lsSet(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} }
+  var store = lsGet(LS);
+  var pending = lsGet(LS_PENDING);
+  function persist(){ lsSet(LS, store); }
+  function persistPending(){ lsSet(LS_PENDING, pending); }
+  function rec(id){ return store[id] || (store[id] = {}); }
+  function getKey(){ try { return localStorage.getItem(LS_KEY) || ''; } catch(e){ return ''; } }
+  function setKey(k){ try { if (k) localStorage.setItem(LS_KEY, k); else localStorage.removeItem(LS_KEY); } catch(e){} }
+
+  var syncEl = document.getElementById('sync-note');
+  function setSync(text, isError){ syncEl.textContent = text || ''; syncEl.classList.toggle('err', !!isError); }
+  function localDate(){
+    var d = new Date(), p = function(n){ return (n < 10 ? '0' : '') + n; };
+    return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate());
+  }
+  function timeNow(){
+    var d = new Date(), h = d.getHours(), m = d.getMinutes();
+    return (h % 12 || 12) + ':' + (m < 10 ? '0' : '') + m + (h < 12 ? ' am' : ' pm');
+  }
+
+  // One request helper for reads and writes. A 401 means the site requires a
+  // passphrase: ask once, remember it, and retry; a second 401 clears the bad one.
+  function request(method, body, prompts){
+    prompts = prompts == null ? 2 : prompts;
+    var headers = { 'Content-Type': 'application/json' };
+    if (getKey()) headers['x-edit-key'] = getKey();
+    return fetch(API, { method: method, headers: headers, cache: 'no-store',
+                        body: body ? JSON.stringify(body) : undefined })
+      .then(function(res){
+        if (res.status === 401){
+          setKey('');
+          if (prompts > 0){
+            var k = '';
+            try { k = window.prompt('This register is shared among the owners. Enter the passphrase to open it:') || ''; } catch(e){ k = ''; }
+            if (k.trim()){ setKey(k.trim()); return request(method, body, prompts - 1); }
+          }
+          throw new Error('unauthorized');
+        }
+        if (!res.ok) throw new Error(method + ' failed: ' + res.status);
+        return res.json();
+      });
+  }
+
+  function bodyFor(id){
+    var r = store[id] || {}, x = byId[id];
+    return { id: id, v: r.v || '', n: r.n || '', code: x ? x.code : '' };
+  }
+
+  var inFlight = 0;
+  function apiSave(id){
+    var body = bodyFor(id);
+    pending[id] = body; persistPending();
+    inFlight++; setSync('Saving…');
+    return request('POST', body).then(function(){
+      // Only clear the pending copy if nothing newer was typed meanwhile.
+      var cur = bodyFor(id);
+      if (cur.v === body.v && cur.n === body.n){ delete pending[id]; persistPending(); }
+      inFlight--; if (inFlight <= 0){ inFlight = 0; setSync('Saved ' + timeNow() + '.'); }
+    }).catch(function(e){
+      inFlight--; if (inFlight < 0) inFlight = 0;
+      if (e.message === 'unauthorized') setSync('Not saved: the passphrase is required. Reload the page to enter it.', true);
+      else setSync('Not saved yet. Your mark is kept in this browser and will be sent when the register is reachable again.', true);
+    });
+  }
+
+  function replayPending(){
+    var ids = Object.keys(pending);
+    if (!ids.length) return;
+    ids.forEach(function(id){
+      var p = pending[id];
+      if (!byId[id]) { delete pending[id]; return; }
+      var r = rec(id); r.v = p.v || ''; r.n = p.n || '';
+    });
+    persistPending(); persist(); render();
+    ids.forEach(function(id){ if (pending[id]) apiSave(id); });
+  }
+
+  function loadRemote(){
+    setSync('Loading the shared register…');
+    return request('GET').then(function(data){
+      store = data || {}; persist(); render();
+      setSync('Shared register loaded ' + timeNow() + '.');
+    }).catch(function(e){
+      if (e.message === 'unauthorized') setSync('Not opened: the passphrase is required to see and save marks. Reload the page to enter it.', true);
+      else setSync('Showing this browser’s last synced copy; the shared register could not be reached.', true);
+    }).then(replayPending);
+  }
+
+  // Notes save 700 ms after typing stops; if the page is closed or hidden before
+  // that, the pending note goes out as a keep-alive request instead.
+  var noteTimers = {};
+  function scheduleNoteSave(id){
+    clearTimeout(noteTimers[id]);
+    noteTimers[id] = setTimeout(function(){ delete noteTimers[id]; apiSave(id); }, 700);
+  }
+  function flushOnLeave(){
+    Object.keys(noteTimers).forEach(function(id){
+      clearTimeout(noteTimers[id]); delete noteTimers[id];
+      var body = bodyFor(id);
+      pending[id] = body; persistPending();
+      var sent = { id: body.id, v: body.v, n: body.n, code: body.code };
+      if (getKey()) sent.key = getKey();
+      if (navigator.sendBeacon){
+        navigator.sendBeacon(API, new Blob([JSON.stringify(sent)], { type: 'application/json' }));
+      }
+    });
+  }
+  window.addEventListener('pagehide', flushOnLeave);
+  document.addEventListener('visibilitychange', function(){ if (document.visibilityState === 'hidden') flushOnLeave(); });
+  window.addEventListener('online', replayPending);
+
+  var sel = document.getElementById('dom');
+  DOMS.forEach(function(d){
+    var o = document.createElement('option');
+    o.value = d.num; o.textContent = d.num + ' · ' + d.name; sel.appendChild(o);
+  });
+
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+  var state = { q:'', dom:'', f:{} };
+  function on(k){ return !!state.f[k]; }
+  function anyStatusFilter(){ return on('undecided')||on('keep')||on('change')||on('discuss'); }
+
+  function match(x){
+    if (state.dom && x.d !== state.dom) return false;
+    if (on('priority') && !(x.p || x.b)) return false;
+    if (on('recorded') && !x.ans) return false;
+    if (anyStatusFilter()){
+      var v = (store[x.id]||{}).v || 'undecided';
+      if (!on(v)) return false;
+    }
+    if (state.q){
+      var hay = (x.id+' '+x.code+' '+x.q+' '+x.why+' '+x.now+' '+(x.plan||'')+' '+(x.opts||[]).join(' ')+' '+x.dn).toLowerCase();
+      var terms = state.q.toLowerCase().split(/\s+/).filter(Boolean);
+      for (var i=0;i<terms.length;i++) if (hay.indexOf(terms[i]) === -1) return false;
+    }
+    return true;
+  }
+
+  function stats(){
+    var c = {keep:0,change:0,discuss:0};
+    QS.forEach(function(x){ var v=(store[x.id]||{}).v; if (v && c[v]!==undefined) c[v]++; });
+    var done = c.keep+c.change+c.discuss, T = QS.length;
+    document.getElementById('n-done').textContent = done;
+    document.getElementById('n-total').textContent = T;
+    document.getElementById('n-k').textContent = c.keep;
+    document.getElementById('n-c').textContent = c.change;
+    document.getElementById('n-s').textContent = c.discuss;
+    document.getElementById('n-u').textContent = T - done;
+    document.getElementById('bar-k').style.width = (c.keep/T*100)+'%';
+    document.getElementById('bar-c').style.width = (c.change/T*100)+'%';
+    document.getElementById('bar-s').style.width = (c.discuss/T*100)+'%';
+  }
+
+  function card(x){
+    var r = store[x.id] || {}, v = r.v || '';
+    var hasNote = !!(r.n && r.n.trim());
+    return '<article class="d'+(v?' is-'+v:'')+'" data-id="'+x.id+'"><div class="d-in">'
+      + '<div class="d-h"><span class="d-id">'+esc(x.code)+'</span>'
+      + '<span class="d-ref">'+esc(x.id)+'</span>'
+      + (x.ans ? '<span class="d-flag ans">Answered '+esc(x.ans)+'</span>'
+               : (x.need ? '<span class="d-flag due">Answer by '+esc(x.need)+'</span>' : ''))
+      + (x.p ? '<span class="d-flag">Start here</span>' : '')
+      + '<h3 class="d-q">'+esc(x.q)+'</h3></div>'
+      + '<div class="d-body">'
+      +   '<span class="d-k">Why</span><span class="d-v">'+esc(x.why)+'</span>'
+      +   '<span class="d-k">Today</span><span class="d-v now">'+esc(x.now)+'</span>'
+      +   (x.plan ? '<span class="d-k plan">Planned</span><span class="d-v plan">'+esc(x.plan)+'</span>' : '')
+      +   (x.opts && x.opts.length ? '<span class="d-k">Options</span><span class="d-v opts">'+esc(x.opts.join('  ·  '))+'</span>' : '')
+      + '</div>'
+      + '<div class="d-act">'
+      +   '<button class="opt keep" data-v="keep" aria-pressed="'+(v==='keep')+'">Keep as-is</button>'
+      +   '<button class="opt change" data-v="change" aria-pressed="'+(v==='change')+'">Change</button>'
+      +   '<button class="opt discuss" data-v="discuss" aria-pressed="'+(v==='discuss')+'">Discuss</button>'
+      +   '<button class="note-t'+(hasNote?' has-note':'')+'" data-note>'+(hasNote?'Note ✓':'Add note')+'</button>'
+      + '</div>'
+      + '<textarea class="'+(hasNote?'':'hide')+'" placeholder="Record the reasoning, the owner, or what needs to change…" aria-label="Note for '+esc(x.code)+'">'+esc(r.n||'')+'</textarea>'
+      + '</div></article>';
+  }
+
+  function render(){
+    var shown = QS.filter(match);
+    document.getElementById('count').textContent = shown.length + ' of ' + QS.length + ' shown';
+    var host = document.getElementById('list');
+    if (!shown.length){
+      host.innerHTML = '<div class="empty"><b>Nothing matches</b>Try a different search, or clear the filters.</div>';
+      stats();
+      return;
+    }
+    var byDom = {};
+    shown.forEach(function(x){ (byDom[x.d] = byDom[x.d] || []).push(x); });
+    var html = '';
+    DOMS.forEach(function(d){
+      var list = byDom[d.num]; if (!list) return;
+      var done = list.filter(function(x){ return (store[x.id]||{}).v; }).length;
+      html += '<div class="dom-h"><span class="dom-n">'+esc(d.num)+'</span>'
+           +  '<span class="dom-t">'+esc(d.name)+'</span>'
+           +  '<span class="dom-c">'+done+' / '+list.length+' marked</span></div>'
+           +  (d.note ? '<p class="dom-note">'+esc(d.note)+'</p>' : '')
+           +  list.map(card).join('');
+    });
+    host.innerHTML = html;
+    stats();
+  }
+
+  document.getElementById('list').addEventListener('click', function(e){
+    var art = e.target.closest('.d'); if (!art) return;
+    var id = art.dataset.id;
+    var opt = e.target.closest('.opt');
+    if (opt){
+      var r = rec(id);
+      r.v = (r.v === opt.dataset.v) ? '' : opt.dataset.v;   // click again to clear
+      persist();
+      apiSave(id);
+      if (anyStatusFilter()) { render(); }
+      else {
+        art.className = 'd' + (r.v ? ' is-'+r.v : '');
+        art.querySelectorAll('.opt').forEach(function(b){
+          b.setAttribute('aria-pressed', String(b.dataset.v === r.v));
+        });
+        var dh = art.previousElementSibling;
+        while (dh && !dh.classList.contains('dom-h')) dh = dh.previousElementSibling;
+        if (dh){
+          var sib = dh.nextElementSibling, tot = 0, dn = 0;
+          while (sib && !sib.classList.contains('dom-h')){
+            if (sib.classList.contains('d')){ tot++; if ((store[sib.dataset.id]||{}).v) dn++; }
+            sib = sib.nextElementSibling;
+          }
+          dh.querySelector('.dom-c').textContent = dn + ' / ' + tot + ' marked';
+        }
+        stats();
+      }
+      return;
+    }
+    if (e.target.closest('[data-note]')){
+      var ta = art.querySelector('textarea');
+      ta.classList.toggle('hide');
+      if (!ta.classList.contains('hide')) ta.focus();
+    }
+  });
+
+  document.getElementById('list').addEventListener('input', function(e){
+    if (e.target.tagName !== 'TEXTAREA') return;
+    var art = e.target.closest('.d');
+    var id = art.dataset.id;
+    var r = rec(id);
+    r.n = e.target.value;
+    persist();
+    scheduleNoteSave(id);
+    var btn = art.querySelector('[data-note]');
+    var has = !!e.target.value.trim();
+    btn.textContent = has ? 'Note ✓' : 'Add note';
+    btn.classList.toggle('has-note', has);
+  });
+
+  document.getElementById('q').addEventListener('input', function(e){
+    state.q = e.target.value.trim(); render();
+  });
+  sel.addEventListener('change', function(e){ state.dom = e.target.value; render(); });
+  document.getElementById('chips').addEventListener('click', function(e){
+    var b = e.target.closest('.chip'); if (!b) return;
+    var k = b.dataset.f;
+    state.f[k] = !state.f[k];
+    b.setAttribute('aria-pressed', state.f[k] ? 'true' : 'false');
+    render();
+  });
+
+  // Export a copy: every live mark and note on the shared register, as a plain
+  // text file the owners can keep. The register itself is the record; this is a copy.
+  var MARK_LABEL = { keep: 'Keep as-is', change: 'Change', discuss: 'Discuss' };
+  function exportText(){
+    var marked = QS.filter(function(x){ var r = store[x.id]; return r && (r.v || (r.n && r.n.trim())); });
+    if (!marked.length) return '';
+    var today = localDate();
+    var lines = ['# HOAhx Decision Register — marks and notes', '',
+                 'Exported ' + today + ' · ' + marked.length + ' of ' + QS.length + ' marked or noted.', ''];
+    marked.forEach(function(x){
+      var r = store[x.id];
+      lines.push('### ' + x.id + ' · ' + x.code);
+      lines.push('Question: ' + x.q);
+      lines.push('Mark: ' + (r.v ? MARK_LABEL[r.v] : '(no mark — see note)'));
+      if (r.n && r.n.trim()) lines.push('Note: ' + r.n.trim().replace(/\s*\n+\s*/g, ' '));
+      lines.push('');
+    });
+    return lines.join('\n');
+  }
+  document.getElementById('export-btn').addEventListener('click', function(){
+    var text = exportText();
+    if (!text){ alert('Nothing marked or noted yet on the shared register.'); return; }
+    var a = document.createElement('a');
+    var url = URL.createObjectURL(new Blob([text], { type: 'text/markdown' }));
+    a.href = url; a.download = 'hoahx-decisions-' + localDate() + '.md';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 2000);
+  });
+
+  render();       // instant paint from this browser's last synced copy
+  loadRemote();   // then the shared register, and any saves that never got through
+})();
+</script>
+</body>
+</html>
