@@ -4,7 +4,10 @@ Published HOAhx go-live artifacts, deployed by Netlify from this repository's `m
 https://hoahx-requirements.netlify.app/. The site's root is the **HOAhx Decision Register**, the
 owners' checklist of the rules the platform applies by default.
 `/workflow-map` is the **HOAhx Workflow Map**: every workflow by the person who uses it, with the
-exact steps and the handoffs between roles.
+exact steps and the handoffs between roles. `/design/` is the **HOAhx Design Reference** for the
+design work: the fixed stack, the tokens, the components as they ship, the layout system, and the
+screens in build order, with `tokens.json`, `DESIGN_BRIEF.md`, and `prompt-preamble.md` downloadable
+beside it.
 
 ## How the register is kept current
 
@@ -102,6 +105,23 @@ site, or contains a word the owner-facing documents exclude. Then commit and pus
 PR and merge it); Netlify deploys on push. The page is static: no shared store, no passphrase.
 `npm run check:workflow-map` runs the same checks and writes nothing.
 
+## The design reference
+
+`go-live/design/` is a copy of the HOAhx repo's `docs/design/`: `index.html` (built there by
+`docs/design/build-reference.py` from `tokens.json`, `prompt-preamble.md`, and the route registry),
+`tokens.json`, `DESIGN_BRIEF.md`, and `prompt-preamble.md`. It is served at
+https://hoahx-requirements.netlify.app/design/ and the three files download from the page. To
+publish a new version after anything in `docs/design/` changes (rebuild the page there first):
+
+```bash
+npm run publish:design -- --source ../hoahx/docs/design
+```
+
+The script refuses to write if a file is missing, the page links to a file that is not published
+beside it, or a page contains a word the owner-facing documents exclude. Then commit and push `main`
+(or open a PR and merge it); Netlify deploys on push. The folder is static: no shared store, no
+passphrase. `npm run check:design` runs the same checks and writes nothing.
+
 ## Layout
 
 | Path | What |
@@ -109,10 +129,12 @@ PR and merge it); Netlify deploys on push. The page is static: no shared store, 
 | `go-live/decision-register/decision-register.html` | The published page (generated; do not edit) |
 | `go-live/HOAhx Go Live Brief.pdf` | The go-live brief |
 | `go-live/workflow-map/workflow-map.html` | The published workflow map (copied from the HOAhx repo by `publish:workflow-map`; do not edit) |
+| `go-live/design/` | The published design reference and its three downloadable files (copied from the HOAhx repo's `docs/design/` by `publish:design`; do not edit) |
 | `scripts/register-template.html` | Page template: design, markup, and the sync script |
 | `scripts/build-register.mjs`, `scripts/register-lib.mjs` | Generator and shared helpers (parser, store client, snapshots) |
 | `scripts/pull-register.mjs` | Pulls marks and notes into the launch program's `register-store/` |
 | `scripts/publish-workflow-map.mjs` | Copies and checks the workflow map from the HOAhx repo |
+| `scripts/publish-design-reference.mjs` | Copies and checks the design reference and its files from the HOAhx repo |
 | `scripts/dev-register.mjs`, `scripts/dev-stubs/` | Local server with an in-memory store |
 | `netlify/functions/decisions.js` | The shared store API |
 | `netlify.toml` | Publish dir, the `/api/decisions` rewrite, the root redirect, the `/workflow-map` redirect |

@@ -1,0 +1,879 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HOAhx Design Reference</title>
+<meta name="description" content="Design reference for HOAhx: the fixed stack, exact tokens, components as they ship, layout system, screens in build order, and a prompt block, with the tokens and brief to download.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230074AD'/%3E%3Ctext x='16' y='23' font-family='Inter%2C system-ui%2C sans-serif' font-size='16' font-weight='900' text-anchor='middle' fill='white'%3EHX%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,900&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --ground:#F8FAFC; --surface:#FFFFFF; --surface-2:#EDF0F3; --ink:#0F1729; --ink-2:#31425E; --muted:#65758B; --rule:#DAE0E7; --rule-strong:#C3CCD8;
+    --accent:#0074AD; --accent-wash:#E3F1F9; --on-accent:#FFFFFF;
+    --ok:#15803D; --ok-wash:#E7F5EC; --warn:#A16207; --warn-wash:#FBF1DC; --risk:#B42318; --risk-wash:#FBE9E7;
+    --shadow:0 1px 3px rgba(15,23,42,.07),0 2px 6px -1px rgba(15,23,42,.05);
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+    --ground:#121417; --surface:#181A21; --surface-2:#21252B; --ink:#F1F4F8; --ink-2:#C3CBD6; --muted:#8B95A5; --rule:#282C34; --rule-strong:#3A414E;
+    --accent:#5DB6E8; --accent-wash:#12283A; --on-accent:#121417;
+    --ok:#5FCB86; --ok-wash:#15291C; --warn:#E0B35A; --warn-wash:#2B2314; --risk:#F08A7E; --risk-wash:#331A17;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 2px 8px -1px rgba(0,0,0,.25); color-scheme: dark; } }
+  :root[data-theme="dark"] {
+    --ground:#121417; --surface:#181A21; --surface-2:#21252B; --ink:#F1F4F8; --ink-2:#C3CBD6; --muted:#8B95A5; --rule:#282C34; --rule-strong:#3A414E;
+    --accent:#5DB6E8; --accent-wash:#12283A; --on-accent:#121417;
+    --ok:#5FCB86; --ok-wash:#15291C; --warn:#E0B35A; --warn-wash:#2B2314; --risk:#F08A7E; --risk-wash:#331A17;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 2px 8px -1px rgba(0,0,0,.25); color-scheme: dark; }
+
+  .t-light { --c-bg:#F8FAFC; --c-fg:#0F1729; --c-card:#FFFFFF; --c-primary:#0074AD; --c-secondary:#EDF0F3; --c-secondary-fg:#31425E; --c-muted:#EDF0F3; --c-muted-fg:#65758B; --c-accent:#3C83F6; --c-destructive:#ED2C2C; --c-border:#DAE0E7; --c-shadow:0 1px 3px rgba(0,0,0,.07),0 2px 6px -1px rgba(0,0,0,.05); color-scheme: light; }
+  .t-dark  { --c-bg:#121417; --c-fg:#FFFFFF; --c-card:#181A21; --c-primary:#0074AD; --c-secondary:#21252B; --c-secondary-fg:#9CA3B0; --c-muted:#1D2025; --c-muted-fg:#646A78; --c-accent:#3C83F6; --c-destructive:#EF4343; --c-border:#282C34; --c-shadow:0 1px 2px rgba(0,0,0,.3),0 2px 8px -1px rgba(0,0,0,.25); color-scheme: dark; }
+  .t-light, .t-dark { background: var(--c-bg); color: var(--c-fg); border: 1px solid var(--c-border); border-radius: 12px; padding: 18px; font-family: Inter, system-ui, sans-serif; font-size: 14px; line-height: 22px; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 10px 0 18px; }
+  .pair .cap { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--c-muted-fg); margin: 0 0 12px; }
+  @media (max-width: 760px) { .pair { grid-template-columns: 1fr; } }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 15px; line-height: 1.55; -webkit-font-smoothing: antialiased; font-feature-settings: "cv02","cv03","cv04","cv11"; }
+  code, .mono, .tok { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace; font-variant-numeric: tabular-nums; }
+  code { font-size: .86em; background: var(--surface-2); border: 1px solid var(--rule); border-radius: 4px; padding: 0 .35em; white-space: nowrap; }
+  a { color: var(--accent); text-decoration: none; } a:hover, a:focus-visible { text-decoration: underline; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px 80px; }
+
+  .mast { padding: 44px 0 26px; border-bottom: 1px solid var(--rule); }
+  .eyebrow { font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 14px; display: flex; gap: 12px; flex-wrap: wrap; }
+  h1 { font-size: clamp(30px, 4.4vw, 40px); font-weight: 600; letter-spacing: -.02em; line-height: 1.12; margin: 0 0 14px; text-wrap: balance; }
+  .lede { font-size: 17px; color: var(--ink-2); max-width: 68ch; margin: 0 0 22px; }
+  dl.meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px 20px; margin: 0; padding-top: 18px; border-top: 1px solid var(--rule); }
+  dl.meta dt { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 3px; }
+  dl.meta dd { margin: 0; font-size: 14px; }
+  .files { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+  .files a { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border: 1px solid var(--rule); border-radius: 8px; background: var(--surface); font-size: 13.5px; font-weight: 500; color: var(--ink); }
+  .files a:hover { border-color: var(--rule-strong); text-decoration: none; }
+  .ext { font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); background: var(--accent-wash); padding: 2px 6px; border-radius: 4px; }
+  .dl-ic { width: 14px; height: 14px; display: inline-block; vertical-align: -2px; }
+
+  .toc { position: sticky; top: 0; z-index: 5; background: color-mix(in srgb, var(--ground) 92%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--rule); margin: 0 -24px; padding: 8px 24px; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
+  .toc::-webkit-scrollbar { display: none; }
+  .toc a { flex: 0 0 auto; font-size: 12.5px; font-weight: 500; color: var(--ink-2); padding: 5px 10px; border-radius: 6px; white-space: nowrap; }
+  .toc a:hover { background: var(--surface-2); text-decoration: none; }
+
+  section { padding: 44px 0 10px; scroll-margin-top: 54px; }
+  section + section { border-top: 1px solid var(--rule); }
+  .sec-h { display: flex; align-items: baseline; gap: 14px; margin: 0 0 8px; flex-wrap: wrap; }
+  .sec-h .k { font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+  h2 { font-size: 24px; font-weight: 600; letter-spacing: -.015em; margin: 0; text-wrap: balance; }
+  h3 { font-size: 16.5px; font-weight: 600; margin: 28px 0 8px; letter-spacing: -.01em; }
+  .intro { color: var(--ink-2); max-width: 72ch; margin: 0 0 18px; }
+  p { margin: 0 0 12px; } ul, ol { margin: 0 0 14px; padding-left: 22px; } li { margin: 0 0 7px; } li::marker { color: var(--muted); }
+  .note { color: var(--muted); font-size: 13.5px; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 32px; } @media (max-width: 720px) { .cols { grid-template-columns: 1fr; } .wrap { padding: 0 18px 60px; } .toc { margin: 0 -18px; padding: 8px 18px; } }
+
+  ol.steps { list-style: none; padding: 0; margin: 8px 0 0; counter-reset: s; display: grid; gap: 10px; }
+  ol.steps li { counter-increment: s; display: grid; grid-template-columns: 34px minmax(0,1fr); gap: 12px; align-items: start; padding: 14px 16px; background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; }
+  ol.steps li::before { content: counter(s); font-family: "IBM Plex Mono", monospace; font-size: 13px; font-weight: 500; color: var(--accent); background: var(--accent-wash); border-radius: 6px; width: 30px; height: 30px; display: grid; place-items: center; }
+  ol.steps li > div { min-width: 0; } ol.steps b { display: block; font-weight: 600; margin-bottom: 3px; } ol.steps span { color: var(--ink-2); font-size: 14.5px; }
+
+  .tbl { overflow-x: auto; margin: 10px 0 18px; border: 1px solid var(--rule); border-radius: 8px; background: var(--surface); }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-top: 1px solid var(--rule); }
+  thead th { border-top: 0; background: var(--surface-2); color: var(--muted); font-family: "IBM Plex Mono", monospace; font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; font-weight: 500; position: sticky; top: 0; }
+  td.use, .use { color: var(--ink-2); font-size: 13.5px; }
+  .sw { display: inline-block; width: 22px; height: 22px; border-radius: 6px; border: 1px solid rgba(127,127,127,.35); vertical-align: middle; margin-right: 8px; }
+  .ground { display: inline-block; padding: 8px 10px; border-radius: 8px; } .ground.light { background: #FFFFFF; border: 1px solid #DAE0E7; } .ground.dark { background: #181A21; border: 1px solid #282C34; }
+  .chip { display: inline-block; border: 1px solid; border-radius: 9999px; padding: 3px 10px; font-size: 11px; font-weight: 600; letter-spacing: .02em; line-height: 1; white-space: nowrap; font-family: Inter, sans-serif; }
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0 18px; }
+  .callout { border-left: 3px solid var(--accent); background: var(--surface); padding: 12px 16px; margin: 16px 0; border-radius: 0 8px 8px 0; color: var(--ink-2); }
+  .callout.warn { border-left-color: var(--warn); } .callout b { color: var(--ink); }
+
+  .spec { display: grid; grid-template-columns: 200px 1fr; gap: 8px 20px; align-items: baseline; padding: 12px 0; border-top: 1px solid var(--rule); }
+  .spec:last-child { border-bottom: 1px solid var(--rule); }
+  .spec .m { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; color: var(--muted); line-height: 1.5; }
+  @media (max-width: 640px) { .spec { grid-template-columns: 1fr; } }
+
+  .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .stack { display: grid; gap: 14px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 36px; padding: 0 16px; border-radius: 10px; font-size: 14px; font-weight: 600; border: 1px solid transparent; font-family: Inter, sans-serif; white-space: nowrap; cursor: default; }
+  .btn.default { background: var(--c-primary); color: #fff; box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+  .btn.destructive { background: color-mix(in srgb, var(--c-destructive) 10%, transparent); color: var(--c-destructive); border-color: color-mix(in srgb, var(--c-destructive) 20%, transparent); }
+  .btn.outline, .btn.secondary { background: var(--c-secondary); color: var(--c-secondary-fg); border-color: var(--c-border); }
+  .btn.ghost { color: var(--c-muted-fg); background: transparent; }
+  .btn.link { color: var(--c-primary); background: transparent; padding: 0; height: auto; text-decoration: underline; text-underline-offset: 4px; }
+  .btn.sm { height: 28px; padding: 0 12px; border-radius: 8px; font-size: 12px; } .btn.lg { height: 40px; padding: 0 20px; font-size: 15px; } .btn.icon { width: 36px; padding: 0; }
+  .btn.disabled { opacity: .35; } .btn.focus { outline: 2px solid var(--c-primary); outline-offset: 1px; }
+  .bdg { display: inline-flex; align-items: center; border-radius: 9999px; padding: 3px 10px; font-size: 11px; font-weight: 600; letter-spacing: .02em; line-height: 1; border: 1px solid; white-space: nowrap; }
+  .bdg.default { background: color-mix(in srgb, var(--c-primary) 10%, transparent); color: var(--c-primary); border-color: color-mix(in srgb, var(--c-primary) 20%, transparent); }
+  .t-dark .bdg.default { color: #fff; }
+  .bdg.outline { background: transparent; color: var(--c-fg); border-color: var(--c-border); }
+  .inp { height: 36px; border-radius: 10px; border: 1px solid var(--c-border); background: var(--c-bg); padding: 0 12px; font-size: 14px; color: var(--c-fg); display: flex; align-items: center; min-width: 220px; font-family: Inter, sans-serif; }
+  .inp .ph { color: color-mix(in srgb, var(--c-muted-fg) 60%, transparent); }
+  .inp.focus { box-shadow: 0 0 0 3px color-mix(in srgb, var(--c-primary) 20%, transparent); border-color: color-mix(in srgb, var(--c-primary) 60%, transparent); }
+  .inp.disabled { opacity: .4; }
+  .tabs { display: inline-flex; height: 36px; padding: 4px; border-radius: 10px; background: var(--c-muted); color: var(--c-muted-fg); gap: 2px; }
+  .tabs span { display: inline-flex; align-items: center; padding: 0 12px; border-radius: 8px; font-size: 14px; font-weight: 500; }
+  .tabs span.on { background: var(--c-card); color: var(--c-fg); box-shadow: 0 1px 3px rgba(0,0,0,.1); }
+  .sw-t { display: inline-block; width: 36px; height: 20px; border-radius: 9999px; background: var(--c-primary); position: relative; vertical-align: middle; }
+  .sw-t::after { content: ""; position: absolute; top: 2px; left: 18px; width: 16px; height: 16px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.3); }
+  .sw-t.off { background: var(--c-border); } .sw-t.off::after { left: 2px; background: var(--c-card); }
+  .cb { display: inline-block; width: 16px; height: 16px; border-radius: 6px; border: 1px solid var(--c-primary); background: var(--c-primary); vertical-align: middle; position: relative; }
+  .cb::after { content: ""; position: absolute; left: 5px; top: 1.5px; width: 4px; height: 8px; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+  .cb.off { background: transparent; } .cb.off::after { display: none; }
+  .card { background: var(--c-card); border: 1px solid color-mix(in srgb, var(--c-border) 50%, transparent); border-radius: 14px; box-shadow: var(--c-shadow); }
+  .card .hd { padding: 20px 20px 4px; } .card .ttl { font-size: 15px; font-weight: 600; line-height: 1; letter-spacing: -.01em; } .card .dsc { font-size: 13px; color: var(--c-muted-fg); margin-top: 6px; line-height: 1.6; }
+  .card .bd { padding: 0 20px 20px; }
+  .abn { display: flex; gap: 12px; align-items: flex-start; border-radius: 14px; border: 1px solid; padding: 14px; font-size: 14px; }
+  .abn .i { width: 16px; height: 16px; border-radius: 50%; border: 2px solid currentColor; flex: none; margin-top: 3px; } .abn b { display: block; font-weight: 600; line-height: 1.2; } .abn .msg { opacity: .8; margin-top: 2px; line-height: 1.35; }
+  .empty { text-align: center; padding: 28px 16px; } .empty .tile { width: 56px; height: 56px; border-radius: 22px; background: var(--c-muted); margin: 0 auto 16px; display: grid; place-items: center; }
+  .empty .tile i { width: 22px; height: 18px; border: 2px solid color-mix(in srgb, var(--c-muted-fg) 50%, transparent); border-radius: 4px; display: block; }
+  .empty .t { font-size: 14px; font-weight: 600; } .empty .d { font-size: 14px; color: var(--c-muted-fg); margin: 4px auto 0; max-width: 320px; }
+  .th-row { display: grid; grid-template-columns: 1.4fr 1fr 1fr .8fr; height: 48px; align-items: center; padding: 0 20px; background: color-mix(in srgb, var(--c-muted) 30%, transparent); color: var(--c-muted-fg); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; border-bottom: 1px solid color-mix(in srgb, var(--c-border) 40%, transparent); }
+  .td-row { display: grid; grid-template-columns: 1.4fr 1fr 1fr .8fr; align-items: center; padding: 16px 20px; border-bottom: 1px solid color-mix(in srgb, var(--c-border) 40%, transparent); font-size: 14px; }
+  .skel { height: 14px; border-radius: 8px; background: var(--c-muted); }
+  .radii { display: flex; gap: 14px; flex-wrap: wrap; align-items: flex-end; }
+  .radii div { width: 72px; height: 56px; background: var(--c-card); border: 1px solid var(--c-border); box-shadow: var(--c-shadow); display: grid; place-items: end center; padding-bottom: 6px; font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--c-muted-fg); }
+  .shadows { display: flex; gap: 18px; flex-wrap: wrap; }
+  .shadows div { width: 120px; height: 64px; border-radius: 14px; background: var(--c-card); display: grid; place-items: center; font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--c-muted-fg); }
+
+  .diag { border: 1px solid var(--rule); border-radius: 12px; background: var(--surface); padding: 16px; overflow-x: auto; }
+  .diag .lbl { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; }
+  .desk { display: grid; grid-template-columns: 96px 1fr; grid-template-rows: 28px 1fr; height: 240px; border: 1px solid var(--rule-strong); border-radius: 8px; overflow: hidden; min-width: 520px; }
+  .desk .sb { grid-row: 1 / span 2; background: var(--surface-2); border-right: 1px solid var(--rule); padding: 8px; display: flex; flex-direction: column; gap: 6px; }
+  .desk .sb i { display: block; height: 10px; border-radius: 4px; background: var(--rule-strong); } .desk .sb i.on { background: var(--accent); }
+  .desk .hd { border-bottom: 1px solid var(--rule); display: flex; align-items: center; justify-content: space-between; padding: 0 10px; }
+  .desk .hd i { display: inline-block; width: 12px; height: 12px; border-radius: 50%; background: var(--accent-wash); border: 1px solid var(--accent); }
+  .desk .ct { position: relative; padding: 10px; }
+  .desk .frame { position: absolute; left: 50%; transform: translateX(-50%); top: 14px; bottom: 14px; border: 1px dashed var(--accent); border-radius: 6px; }
+  .phone { width: 190px; height: 300px; border: 1px solid var(--rule-strong); border-radius: 22px; overflow: hidden; display: grid; grid-template-rows: 30px 1fr 40px; background: var(--surface); flex: none; }
+  .phone .hd { border-bottom: 1px solid var(--rule); display: flex; align-items: center; justify-content: space-between; padding: 0 12px; }
+  .phone .hd i { width: 10px; height: 10px; border-radius: 50%; background: var(--accent-wash); border: 1px solid var(--accent); display: inline-block; }
+  .phone .ct { padding: 10px; display: grid; gap: 8px; align-content: start; }
+  .phone .ct i { display: block; height: 34px; border-radius: 8px; background: var(--surface-2); border: 1px solid var(--rule); }
+  .phone .nav { border-top: 1px solid var(--rule); display: grid; grid-template-columns: repeat(5, 1fr); align-items: center; justify-items: center; }
+  .phone .nav i { width: 14px; height: 14px; border-radius: 4px; background: var(--rule-strong); display: block; position: relative; } .phone .nav i.on { background: var(--accent); }
+  .phone .nav i.on::before { content: ""; position: absolute; top: -13px; left: -5px; width: 24px; height: 2px; background: var(--accent); border-radius: 2px; }
+  .phones { display: flex; gap: 24px; flex-wrap: wrap; align-items: flex-start; }
+  .legend { font-size: 13.5px; color: var(--ink-2); display: grid; gap: 6px; }
+
+  .tl { display: grid; border-top: 1px solid var(--rule); margin-top: 10px; }
+  .tl > div { display: grid; grid-template-columns: 150px 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--rule); }
+  .tl .d { font-family: "IBM Plex Mono", monospace; font-size: 12.5px; color: var(--ink-2); line-height: 1.5; } .tl .d b { display: block; color: var(--ink); font-weight: 500; }
+  .tl .what b { font-weight: 600; } .tl .what { color: var(--ink-2); } .tl .what .fx { color: var(--muted); font-size: 13.5px; display: block; margin-top: 3px; }
+  @media (max-width: 640px) { .tl > div { grid-template-columns: 1fr; gap: 6px; } }
+  .flow { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px; counter-reset: f; margin: 10px 0 16px; }
+  .flow div { counter-increment: f; background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 12px 14px; font-size: 14px; color: var(--ink-2); }
+  .flow div::before { content: counter(f); display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 6px; background: var(--accent-wash); color: var(--accent); font-family: "IBM Plex Mono", monospace; font-size: 12px; margin-bottom: 8px; }
+  .flow div b { display: block; color: var(--ink); font-weight: 600; margin-bottom: 2px; }
+
+  .pd { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; border-radius: 14px; border: 1px solid #FDE68A; background: #FFFBEB; color: #92400E; padding: 14px 16px; font-size: 14px; }
+  .pd .amt { font-weight: 600; } .pd .grow { flex: 1; min-width: 200px; } .pd .a { display: inline-flex; gap: 8px; }
+  .pd .a span { border-radius: 10px; padding: 0 14px; height: 32px; display: inline-flex; align-items: center; font-weight: 600; font-size: 13px; }
+  .pd .a .p { background: #0074AD; color: #fff; } .pd .a .s { border: 1px solid #FDE68A; color: #92400E; }
+  .states { display: flex; gap: 6px; flex-wrap: wrap; margin: 10px 0; } .states span { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; padding: 4px 9px; border-radius: 6px; background: var(--surface-2); border: 1px solid var(--rule); color: var(--ink-2); }
+  .states span + span::before { content: "→ "; color: var(--muted); }
+
+  .pre-wrap { position: relative; border: 1px solid var(--rule); border-radius: 10px; background: var(--surface); }
+  .pre-wrap .bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; padding: 10px 14px; border-bottom: 1px solid var(--rule); font-size: 13px; color: var(--ink-2); }
+  .bar-r { display: inline-flex; gap: 10px; align-items: center; }
+  .btn-a, .pre-wrap button { font: inherit; font-size: 13px; font-weight: 600; border: 0; border-radius: 8px; padding: 7px 12px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+  .pre-wrap button { color: var(--on-accent); background: var(--accent); } .pre-wrap button.done { background: var(--ok); }
+  .btn-a { color: var(--ink); background: var(--surface-2); border: 1px solid var(--rule); } .btn-a:hover { text-decoration: none; border-color: var(--rule-strong); }
+  .btn-a.primary { color: var(--on-accent); background: var(--accent); border-color: transparent; }
+  pre.preamble { margin: 0; padding: 16px 18px; white-space: pre-wrap; overflow-wrap: anywhere; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12.5px; line-height: 1.6; color: var(--ink); max-height: 520px; overflow: auto; }
+
+  .dl { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin: 10px 0 6px; }
+  .dlc { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 16px; display: grid; gap: 10px; align-content: start; }
+  .dlc .dlh { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; } .dlc .dlh b { font-weight: 600; font-family: "IBM Plex Mono", monospace; font-size: 13.5px; } .dlc .sz { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; color: var(--muted); margin-left: auto; }
+  .dlc p { margin: 0; color: var(--ink-2); font-size: 14px; } .dlc .dla { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+
+  .filter { display: flex; gap: 10px; align-items: center; margin: 10px 0 6px; flex-wrap: wrap; }
+  .filter input { font: inherit; font-size: 14px; padding: 8px 12px; border: 1px solid var(--rule); border-radius: 8px; background: var(--surface); color: var(--ink); min-width: 260px; }
+  .filter .cnt { font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--muted); }
+  #reg .tbl { max-height: 560px; overflow: auto; }
+
+  footer { margin-top: 44px; padding-top: 16px; border-top: 1px solid var(--rule); color: var(--muted); font-size: 12.5px; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+  @media print { .toc, .pre-wrap button, .filter, .files, .dla { display: none; } body { background: #fff; color: #000; } .tbl, .card, ol.steps li, .diag, .dlc { break-inside: avoid; } #reg .tbl { max-height: none; } pre.preamble { max-height: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="mast">
+    <p class="eyebrow"><span>HOAhx · design reference</span><span>For Tenyson Patridge</span><span>From <span class="mono">dev 5e44adb</span>, Sep 11, 2026</span></p>
+    <h1>HOAhx Design Reference</h1>
+    <p class="lede">Everything the Figma work needs to land in this codebase without translation: the fixed stack, the exact tokens, the components as they ship, the layout system, the screens in build order, and a one-page block to paste into any design or code-generation prompt.</p>
+    <dl class="meta">
+      <div><dt>Stack</dt><dd>React 18 · Tailwind 3.4 · shadcn new-york · Radix · lucide · Inter</dd></div>
+      <div><dt>Frames</dt><dd>Phone 390×844 · Desktop 1440×900 · both themes</dd></div>
+      <div><dt>Components</dt><dd>59 in <span class="mono">src/components/ui</span>, used by 277 of 476 files</dd></div>
+      <div><dt>First hand-off</dt><dd>Homeowner phone screens before Mon Sep 14</dd></div>
+    </dl>
+    <div class="files">
+      <a href="tokens.json" download><span class="ext">json</span> tokens.json · 35 KB <svg class="dl-ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v8m0 0 3-3M8 10 5 7M3 12.5h10"/></svg></a>
+      <a href="DESIGN_BRIEF.md" download><span class="ext">md</span> DESIGN_BRIEF.md · 50 KB <svg class="dl-ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v8m0 0 3-3M8 10 5 7M3 12.5h10"/></svg></a>
+      <a href="prompt-preamble.md" download><span class="ext">md</span> prompt-preamble.md · 6 KB <svg class="dl-ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v8m0 0 3-3M8 10 5 7M3 12.5h10"/></svg></a>
+    </div>
+  </header>
+
+  <nav class="toc" aria-label="Sections">
+    <a href="#start">Start here</a><a href="#rules">Rules</a><a href="#color">Color</a><a href="#type">Type</a><a href="#shape">Shape</a><a href="#components">Components</a><a href="#layout">Layout</a><a href="#screens">Screens</a><a href="#payments">Payments</a><a href="#security">Security</a><a href="#banner">Past-due</a><a href="#assets">Assets</a><a href="#copy">Copy</a><a href="#handoff">Hand-off</a><a href="#code">Code</a><a href="#prompt">Prompt block</a><a href="#files">Files</a><a href="#reg">Routes</a>
+  </nav>
+
+  <section id="start">
+    <div class="sec-h"><span class="k">Start here</span><h2>Six steps, in this order</h2></div>
+    <ol class="steps">
+      <li><div><b>Read the rules.</b><span>The next section is the set that does not move without a conversation. Everything after it is detail.</span></div></li>
+      <li><div><b>Import the tokens before drawing anything.</b><span><a href="tokens.json" download>tokens.json</a> has three sets: global, light, dark. Tokens Studio imports it directly; Figma Variables can be mapped from it. Build styles from it, not from screenshots.</span></div></li>
+      <li><div><b>Name components the way the code does.</b><span><code>Button / variant=destructive / size=sm</code>, <code>Badge / variant=warning</code>, <code>StatusBadge / status=overdue</code>. The developer maps your file to <code>src/components/ui</code> by name.</span></div></li>
+      <li><div><b>Design both themes at the test sizes.</b><span>390×844 for phones, 1440×900 for desktop. Those are the viewports the automated tests use, so what you draw is what gets checked.</span></div></li>
+      <li><div><b>If a design or code-generation tool helps, give it the block near the bottom.</b><span>Paste the <a href="#prompt">prompt block</a> first and attach tokens.json. Ask for Tailwind 3.4 classes and existing <code>@/components/ui</code> imports, never raw hex or new packages.</span></div></li>
+      <li><div><b>Deliver in the screen order and by its dates.</b><span>A design that arrives before its build days goes straight in. One that arrives after them is a change to built work and is scheduled separately.</span></div></li>
+    </ol>
+  </section>
+
+  <section id="rules">
+    <div class="sec-h"><span class="k">Rules that don't move</span><h2>The fixed stack, what's out of scope, and words that stay stable</h2></div>
+    <div class="tbl"><table>
+      <thead><tr><th>Layer</th><th>What it is</th><th>What that means for design</th></tr></thead>
+      <tbody>
+        <tr><td><b>Framework</b></td><td>React 18 with Vite, TypeScript (476 <code>.tsx</code> files)</td><td class="use">Specs can be written as Tailwind classes; they map one to one.</td></tr>
+        <tr><td><b>Styling</b></td><td>Tailwind CSS <b>3.4</b>, class-based dark mode</td><td class="use">Not Tailwind 4. No <code>@theme</code>, no OKLCH. Tailwind 4 output from a tool has to be translated.</td></tr>
+        <tr><td><b>Components</b></td><td>shadcn/ui <b>new-york</b> style, base color neutral, CSS variables, Radix primitives, class-variance-authority</td><td class="use">Set the shadcn Figma kit to new-york. The default style's larger sizes and shadows do not match.</td></tr>
+        <tr><td><b>Icons</b></td><td>lucide-react</td><td class="use">Only lucide. 16px in buttons and sidebar, 20px in bottom tabs, 24px in empty-state tiles.</td></tr>
+        <tr><td><b>Type</b></td><td>Inter, variable 300–800, optical sizing</td><td class="use">One family. No display face.</td></tr>
+        <tr><td><b>Tokens</b></td><td>CSS variables holding HSL triplets in <code>src/index.css</code>, exposed as Tailwind colors</td><td class="use">Every color in a design maps to a token name or a status tint family below. No hard-coded hex.</td></tr>
+        <tr><td><b>Motion</b></td><td>framer-motion for sheets and page transitions; Tailwind transitions elsewhere</td><td class="use">Springs and 120–200ms transitions. Nothing decorative.</td></tr>
+        <tr><td><b>Toasts</b></td><td>Sonner</td><td class="use">One toast system. The two others still in the code are being removed.</td></tr>
+      </tbody>
+    </table></div>
+    <div class="cols">
+      <div>
+        <h3>Out of scope for the launch</h3>
+        <ul>
+          <li>Migrating to Tailwind 4 or the current shadcn defaults.</li>
+          <li>Any new UI library, icon set, or typeface.</li>
+          <li>Redesigning the internals of the payment fields (NMI's embedded component, see <a href="#payments">Payments</a>).</li>
+          <li>Passkeys as a sign-in method (after launch).</li>
+          <li>Phone layouts for management-company and platform-staff screens. They stay desktop.</li>
+          <li>A Storybook or component catalog site.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Words that stay stable</h3>
+        <p class="use">1,230 automated browser tests find elements by <b>role and visible text</b>. Colors, spacing, radius, icons, and layout can change freely. Renaming a button, heading, tab, or navigation item breaks tests until they are updated.</p>
+        <ul>
+          <li>Navigation labels and sections come from the <a href="#reg">route registry</a>. Reuse them.</li>
+          <li>Primary actions keep their verbs: Pay Now, Submit Request, Save, Cancel, Confirm, Delete, Approve, Deny, Invite.</li>
+          <li>Proposing a rename is fine: deliver old → new with the screen, and it is applied together with the test change.</li>
+        </ul>
+      </div>
+    </div>
+    <h3>Already decided</h3>
+    <div class="cols">
+      <ul>
+        <li><b>Both themes are live.</b> Light / Dark / System toggle in the header and My Account. The default is being settled by the owners; design both.</li>
+        <li><b>Phones are a shell around the web app.</b> The iOS and Android apps are this React app inside a native shell. Phone designs are the app designs.</li>
+        <li><b>Who gets phone designs:</b> homeowners, tenants, and board members. Management companies and HOAhx staff use desktop.</li>
+      </ul>
+      <ul>
+        <li><b>Homeowners never pay HOAhx.</b> They pay their community. The community's own subscription purchase lives on the web and is hidden inside the native apps.</li>
+        <li><b>Brand spelling is pending.</b> The code says "HOA HX"; the owners' documents say "HOAhx". Use HOAhx and do not draw a new logo until they confirm.</li>
+        <li><b>Modules can be off per community</b> (parking, amenities, dog park, voting, surveys, signatures, architectural review, visitor access, community feed, mass communications, analytics). Every module screen has an off state: it is simply absent.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="color">
+    <div class="sec-h"><span class="k">Color</span><h2>Tokens, resolved to the exact hex the app ships</h2></div>
+    <p class="intro">Values below are what the HSL triplets in the CSS resolve to. Use the token name in specs; the hex is for Figma. This page's own chrome is set in the same tokens, so what you are looking at is the palette.</p>
+    <div class="tbl"><table>
+      <thead><tr><th>Token</th><th>Light</th><th>Dark</th><th>Used for</th></tr></thead>
+      <tbody><tr><td><code class="tok">background</code></td><td><span class="sw" style="background:#F8FAFC"></span><code>#F8FAFC</code></td><td><span class="sw" style="background:#121417"></span><code>#121417</code></td><td class="use">page ground</td></tr>
+<tr><td><code class="tok">foreground</code></td><td><span class="sw" style="background:#0F1729"></span><code>#0F1729</code></td><td><span class="sw" style="background:#FFFFFF"></span><code>#FFFFFF</code></td><td class="use">body text</td></tr>
+<tr><td><code class="tok">card</code></td><td><span class="sw" style="background:#FFFFFF"></span><code>#FFFFFF</code></td><td><span class="sw" style="background:#181A21"></span><code>#181A21</code></td><td class="use">surfaces, menus</td></tr>
+<tr><td><code class="tok">card-foreground</code></td><td><span class="sw" style="background:#0F1729"></span><code>#0F1729</code></td><td><span class="sw" style="background:#FFFFFF"></span><code>#FFFFFF</code></td><td class="use">text on surfaces</td></tr>
+<tr><td><code class="tok">popover</code></td><td><span class="sw" style="background:#FFFFFF"></span><code>#FFFFFF</code></td><td><span class="sw" style="background:#181A21"></span><code>#181A21</code></td><td class="use">menus, popovers</td></tr>
+<tr><td><code class="tok">popover-foreground</code></td><td><span class="sw" style="background:#0F1729"></span><code>#0F1729</code></td><td><span class="sw" style="background:#FFFFFF"></span><code>#FFFFFF</code></td><td class="use">text in menus</td></tr>
+<tr><td><code class="tok">primary</code></td><td><span class="sw" style="background:#0074AD"></span><code>#0074AD</code></td><td><span class="sw" style="background:#0074AD"></span><code>#0074AD</code></td><td class="use">buttons, links, active states, focus ring</td></tr>
+<tr><td><code class="tok">primary-foreground</code></td><td><span class="sw" style="background:#FFFFFF"></span><code>#FFFFFF</code></td><td><span class="sw" style="background:#FFFFFF"></span><code>#FFFFFF</code></td><td class="use">text on primary</td></tr>
+<tr><td><code class="tok">secondary</code></td><td><span class="sw" style="background:#EDF0F3"></span><code>#EDF0F3</code></td><td><span class="sw" style="background:#21252B"></span><code>#21252B</code></td><td class="use">secondary buttons, quiet fills</td></tr>
+<tr><td><code class="tok">secondary-foreground</code></td><td><span class="sw" style="background:#31425E"></span><code>#31425E</code></td><td><span class="sw" style="background:#9CA3B0"></span><code>#9CA3B0</code></td><td class="use">text on secondary</td></tr>
+<tr><td><code class="tok">muted</code></td><td><span class="sw" style="background:#EDF0F3"></span><code>#EDF0F3</code></td><td><span class="sw" style="background:#1D2025"></span><code>#1D2025</code></td><td class="use">tab track, skeletons, table header fill</td></tr>
+<tr><td><code class="tok">muted-foreground</code></td><td><span class="sw" style="background:#65758B"></span><code>#65758B</code></td><td><span class="sw" style="background:#646A78"></span><code>#646A78</code></td><td class="use">captions, placeholders, inactive icons</td></tr>
+<tr><td><code class="tok">accent</code></td><td><span class="sw" style="background:#3C83F6"></span><code>#3C83F6</code></td><td><span class="sw" style="background:#3C83F6"></span><code>#3C83F6</code></td><td class="use">hover fills, secondary emphasis</td></tr>
+<tr><td><code class="tok">accent-foreground</code></td><td><span class="sw" style="background:#FFFFFF"></span><code>#FFFFFF</code></td><td><span class="sw" style="background:#FFFFFF"></span><code>#FFFFFF</code></td><td class="use">text on accent</td></tr>
+<tr><td><code class="tok">destructive</code></td><td><span class="sw" style="background:#ED2C2C"></span><code>#ED2C2C</code></td><td><span class="sw" style="background:#EF4343"></span><code>#EF4343</code></td><td class="use">danger buttons (10% tint), errors</td></tr>
+<tr><td><code class="tok">destructive-foreground</code></td><td><span class="sw" style="background:#FFFFFF"></span><code>#FFFFFF</code></td><td><span class="sw" style="background:#FFFFFF"></span><code>#FFFFFF</code></td><td class="use">text on destructive</td></tr>
+<tr><td><code class="tok">border</code></td><td><span class="sw" style="background:#DAE0E7"></span><code>#DAE0E7</code></td><td><span class="sw" style="background:#282C34"></span><code>#282C34</code></td><td class="use">rules and field borders</td></tr>
+<tr><td><code class="tok">input</code></td><td><span class="sw" style="background:#DAE0E7"></span><code>#DAE0E7</code></td><td><span class="sw" style="background:#282C34"></span><code>#282C34</code></td><td class="use">field borders</td></tr>
+<tr><td><code class="tok">ring</code></td><td><span class="sw" style="background:#0074AD"></span><code>#0074AD</code></td><td><span class="sw" style="background:#0074AD"></span><code>#0074AD</code></td><td class="use">focus ring</td></tr>
+<tr><td><code class="tok">success</code></td><td><span class="sw" style="background:#29A847"></span><code>#29A847</code></td><td><span class="sw" style="background:#29A847"></span><code>#29A847</code></td><td class="use">positive semantic</td></tr>
+<tr><td><code class="tok">warning</code></td><td><span class="sw" style="background:#F59F0A"></span><code>#F59F0A</code></td><td><span class="sw" style="background:#F59F0A"></span><code>#F59F0A</code></td><td class="use">caution semantic</td></tr>
+<tr><td><code class="tok">danger</code></td><td><span class="sw" style="background:#ED2C2C"></span><code>#ED2C2C</code></td><td><span class="sw" style="background:#ED2C2C"></span><code>#ED2C2C</code></td><td class="use">negative semantic</td></tr>
+<tr><td><code class="tok">info</code></td><td><span class="sw" style="background:#3C83F6"></span><code>#3C83F6</code></td><td><span class="sw" style="background:#3C83F6"></span><code>#3C83F6</code></td><td class="use">informational semantic</td></tr>
+<tr><td><code class="tok">demo</code></td><td><span class="sw" style="background:#9932CD"></span><code>#9932CD</code></td><td><span class="sw" style="background:#9932CD"></span><code>#9932CD</code></td><td class="use">demo-community banner</td></tr>
+<tr><td><code class="tok">impersonation</code></td><td><span class="sw" style="background:#F97415"></span><code>#F97415</code></td><td><span class="sw" style="background:#F97415"></span><code>#F97415</code></td><td class="use">support-impersonation banner</td></tr>
+<tr><td><code class="tok">chart-1 … chart-5</code></td><td colspan="2"><span class="sw" style="background:#3C83F6"></span><code>#3C83F6</code> <span class="sw" style="background:#29A847"></span><code>#29A847</code> <span class="sw" style="background:#F59F0A"></span><code>#F59F0A</code> <span class="sw" style="background:#9932CD"></span><code>#9932CD</code> <span class="sw" style="background:#ED2C2C"></span><code>#ED2C2C</code></td><td class="use">recharts series</td></tr>
+<tr><td><code class="tok">sidebar-background</code></td><td><span class="sw" style="background:#FFFFFF"></span><code>#FFFFFF</code></td><td><span class="sw" style="background:#101114"></span><code>#101114</code></td><td class="use">desktop sidebar</td></tr>
+<tr><td><code class="tok">sidebar-foreground</code></td><td><span class="sw" style="background:#344365"></span><code>#344365</code></td><td><span class="sw" style="background:#9CA3B0"></span><code>#9CA3B0</code></td><td class="use">desktop sidebar</td></tr>
+<tr><td><code class="tok">sidebar-primary</code></td><td><span class="sw" style="background:#2474F5"></span><code>#2474F5</code></td><td><span class="sw" style="background:#3C83F6"></span><code>#3C83F6</code></td><td class="use">desktop sidebar</td></tr>
+<tr><td><code class="tok">sidebar-accent</code></td><td><span class="sw" style="background:#EDF0F3"></span><code>#EDF0F3</code></td><td><span class="sw" style="background:#1D2025"></span><code>#1D2025</code></td><td class="use">desktop sidebar</td></tr>
+<tr><td><code class="tok">sidebar-accent-foreground</code></td><td><span class="sw" style="background:#0F1729"></span><code>#0F1729</code></td><td><span class="sw" style="background:#FFFFFF"></span><code>#FFFFFF</code></td><td class="use">desktop sidebar</td></tr>
+<tr><td><code class="tok">sidebar-border</code></td><td><span class="sw" style="background:#DAE0E7"></span><code>#DAE0E7</code></td><td><span class="sw" style="background:#1B1D23"></span><code>#1B1D23</code></td><td class="use">desktop sidebar</td></tr></tbody>
+    </table></div>
+    <div class="callout warn"><b>Two teals exist today.</b> The primary token resolves to <code>#0074AD</code>. The favicon, code comments, and older docs say <code>#0891B2</code>. The owners are choosing one. Until they do, use #0074AD (every button ships with it) and flag any place you need the brand mark.</div>
+    <div class="callout"><b>Primary in dark mode.</b> The value does not change, which is fine on buttons (white on #0074AD) but low-contrast for small text on #121417. Use <code>accent</code> or <code>foreground</code> for small dark-mode text.</div>
+    <h3>Status tints</h3>
+    <p class="intro">Badges, banners, and chips use Tailwind palette families with one recipe. Light: family-50 background, family-800 text, family-200 border. Dark: family-500 at 15% background, family-300 text, family-500 at 25% border.</p>
+    <div class="tbl"><table>
+      <thead><tr><th>Meaning</th><th>Light</th><th>Dark</th><th>Statuses that use it</th></tr></thead>
+      <tbody><tr><td><b>Positive</b><div class="use">emerald-50 / emerald-800 / emerald-200</div></td>
+<td><div class="ground light"><span class="chip" style="background:#ECFDF5;color:#065F46;border-color:#A7F3D0">Paid</span></div></td>
+<td><div class="ground dark"><span class="chip" style="background:#10B98126;color:#6EE7B7;border-color:#10B98140">Paid</span></div></td>
+<td class="use">active, paid, approved, resolved, success</td></tr>
+<tr><td><b>Caution</b><div class="use">amber-50 / amber-800 / amber-200</div></td>
+<td><div class="ground light"><span class="chip" style="background:#FFFBEB;color:#92400E;border-color:#FDE68A">Pending</span></div></td>
+<td><div class="ground dark"><span class="chip" style="background:#F59E0B26;color:#FCD34D;border-color:#F59E0B40">Pending</span></div></td>
+<td class="use">pending, in progress, medium</td></tr>
+<tr><td><b>Negative</b><div class="use">red-50 / red-800 / red-200</div></td>
+<td><div class="ground light"><span class="chip" style="background:#FEF2F2;color:#991B1B;border-color:#FECACA">Overdue</span></div></td>
+<td><div class="ground dark"><span class="chip" style="background:#EF444426;color:#FCA5A5;border-color:#EF444440">Overdue</span></div></td>
+<td class="use">overdue, failed, denied, suspended, urgent</td></tr>
+<tr><td><b>Informational</b><div class="use">blue-50 / blue-800 / blue-200</div></td>
+<td><div class="ground light"><span class="chip" style="background:#EFF6FF;color:#1E40AF;border-color:#BFDBFE">Open</span></div></td>
+<td><div class="ground dark"><span class="chip" style="background:#3B82F626;color:#93C5FD;border-color:#3B82F640">Open</span></div></td>
+<td class="use">open, informational</td></tr>
+<tr><td><b>Neutral</b><div class="use">slate-100 / slate-600 / slate-200</div></td>
+<td><div class="ground light"><span class="chip" style="background:#F1F5F9;color:#475569;border-color:#E2E8F0">Closed</span></div></td>
+<td><div class="ground dark"><span class="chip" style="background:#64748B26;color:#94A3B8;border-color:#64748B40">Closed</span></div></td>
+<td class="use">inactive, closed, cancelled, refunded</td></tr>
+<tr><td><b>On hold</b><div class="use">orange-50 / orange-800 / orange-200</div></td>
+<td><div class="ground light"><span class="chip" style="background:#FFF7ED;color:#9A3412;border-color:#FED7AA">On hold</span></div></td>
+<td><div class="ground dark"><span class="chip" style="background:#F9731626;color:#FDBA74;border-color:#F9731640">On hold</span></div></td>
+<td class="use">on hold</td></tr>
+<tr><td><b>System</b><div class="use">violet-50 / violet-800 / violet-200</div></td>
+<td><div class="ground light"><span class="chip" style="background:#F5F3FF;color:#5B21B6;border-color:#DDD6FE">Under review</span></div></td>
+<td><div class="ground dark"><span class="chip" style="background:#8B5CF626;color:#C4B5FD;border-color:#8B5CF640">Under review</span></div></td>
+<td class="use">admin / system, under review, demo</td></tr></tbody>
+    </table></div>
+    <h3>Role families</h3>
+    <p class="intro">RoleBadge uses one family per role, same recipe.</p>
+    <div class="chips"><span class="chip" style="background:#F5F3FF;color:#5B21B6;border-color:#DDD6FE">Platform Owner</span> <span class="chip" style="background:#EEF2FF;color:#3730A3;border-color:#C7D2FE">Platform Support</span> <span class="chip" style="background:#F1F5F9;color:#1E293B;border-color:#E2E8F0">Platform Viewer</span> <span class="chip" style="background:#FDF4FF;color:#86198F;border-color:#F5D0FE">Management Company Admin</span> <span class="chip" style="background:#FFFBEB;color:#92400E;border-color:#FDE68A">Property Manager</span> <span class="chip" style="background:#EFF6FF;color:#1E40AF;border-color:#BFDBFE">President</span> <span class="chip" style="background:#EFF6FF;color:#1E40AF;border-color:#BFDBFE">Secretary</span> <span class="chip" style="background:#ECFDF5;color:#065F46;border-color:#A7F3D0">Treasurer</span> <span class="chip" style="background:#ECFEFF;color:#155E75;border-color:#A5F3FC">Board Member</span> <span class="chip" style="background:#F0FDF4;color:#166534;border-color:#BBF7D0">Resident</span> <span class="chip" style="background:#F7FEE7;color:#3F6212;border-color:#D9F99D">Tenant</span> <span class="chip" style="background:#FFF7ED;color:#9A3412;border-color:#FED7AA">Vendor</span> <span class="chip" style="background:#FEFCE8;color:#854D0E;border-color:#FEF08A">Auditor</span> <span class="chip" style="background:#FFF1F2;color:#9F1239;border-color:#FECDD3">Attorney</span></div>
+  </section>
+
+  <section id="type">
+    <div class="sec-h"><span class="k">Type</span><h2>Inter, one family, set at the sizes the code uses</h2></div>
+    <p class="intro">Specimens below are live text in Inter at the real size and weight. Body is 14px on 22px. Editable fields switch to 16px on touch devices to stop iOS from zooming.</p>
+    <div class="spec"><div class="m">h1 · 28px / 600 · tight tracking</div><div style="font-size:28px;font-weight:600;letter-spacing:-.02em;line-height:1.2">Pay your assessment</div></div>
+    <div class="spec"><div class="m">h2 · 20px / 600</div><div style="font-size:20px;font-weight:600;letter-spacing:-.015em;line-height:1.3">Upcoming meetings</div></div>
+    <div class="spec"><div class="m">h3 · 17px / 600</div><div style="font-size:17px;font-weight:600;letter-spacing:-.01em;line-height:1.3">Payment method</div></div>
+    <div class="spec"><div class="m">dialog / sheet title · 18px / 600</div><div style="font-size:18px;font-weight:600;line-height:1.2">Submit a request</div></div>
+    <div class="spec"><div class="m">card title · 15px / 600</div><div style="font-size:15px;font-weight:600;line-height:1.2">Balance due</div></div>
+    <div class="spec"><div class="m">body, buttons, inputs · 14px / 22px</div><div style="font-size:14px;line-height:22px">Your payment of $250.00 was received on Oct 1, 2026. Confirmation 12541529660.</div></div>
+    <div class="spec"><div class="m">card description · 13px · muted</div><div style="font-size:13px;line-height:1.6;color:var(--muted)">Pending until your bank settles the payment, usually 3 to 5 business days.</div></div>
+    <div class="spec"><div class="m">sidebar item · 13px / 500</div><div style="font-size:13px;font-weight:500">Member Management</div></div>
+    <div class="spec"><div class="m">table header · 12px / 600 · uppercase · wide</div><div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)">Due date</div></div>
+    <div class="spec"><div class="m">caption · 12px / 18px</div><div style="font-size:12px;line-height:18px;color:var(--ink-2)">Last updated 2 minutes ago</div></div>
+    <div class="spec"><div class="m">badge · 11px / 600</div><div style="font-size:11px;font-weight:600;letter-spacing:.02em">OVERDUE</div></div>
+    <div class="spec"><div class="m">bottom-tab label · 10px / 600 · section label uppercase 8% at 35%</div><div style="font-size:10px;font-weight:600">Requests &nbsp; <span style="text-transform:uppercase;letter-spacing:.08em;opacity:.5">Financial</span></div></div>
+  </section>
+
+  <section id="shape">
+    <div class="sec-h"><span class="k">Shape and depth</span><h2>Radius, elevation, focus, states</h2></div>
+    <div class="pair">
+      <div class="t-light"><p class="cap">Light</p>
+        <div class="radii"><div style="border-radius:10px">10 btn</div><div style="border-radius:8px">8 sm</div><div style="border-radius:14px">14 card</div><div style="border-radius:18px">18 menu</div><div style="border-radius:22px">22 tile</div><div style="border-radius:9999px;width:72px">pill</div></div>
+        <div class="shadows" style="margin-top:18px"><div style="box-shadow:0 1px 3px rgba(0,0,0,.07),0 2px 6px -1px rgba(0,0,0,.05)">card-shadow</div><div style="box-shadow:0 2px 4px -1px rgba(0,0,0,.06),0 8px 20px -4px rgba(0,0,0,.08)">card-shadow-lg</div></div>
+      </div>
+      <div class="t-dark"><p class="cap">Dark</p>
+        <div class="radii"><div style="border-radius:10px">10 btn</div><div style="border-radius:8px">8 sm</div><div style="border-radius:14px">14 card</div><div style="border-radius:18px">18 menu</div><div style="border-radius:22px">22 tile</div><div style="border-radius:9999px;width:72px">pill</div></div>
+        <div class="shadows" style="margin-top:18px"><div style="box-shadow:0 1px 2px rgba(0,0,0,.3),0 2px 8px -1px rgba(0,0,0,.25)">card-shadow</div><div style="box-shadow:0 2px 4px -1px rgba(0,0,0,.3),0 8px 24px -4px rgba(0,0,0,.35)">card-shadow-lg</div></div>
+      </div>
+    </div>
+    <div class="cols">
+      <ul>
+        <li><b>Radius:</b> <code>--radius</code> 10px on buttons, inputs, tab lists; 8px on small buttons and tab triggers; 14px on cards and alert banners; 18px on header menus and skeleton cards; 22px on the empty-state tile; pills on badges, switches, avatars, progress.</li>
+        <li><b>Spacing:</b> the 4px scale. Card padding 20. Page frame padding 16 / 24 / 32 by breakpoint. Sections stack with 16px gaps.</li>
+        <li><b>Elevation:</b> two soft shadows plus a 1px border at 50% on cards. Dark shadows are stronger. No colored shadows, no gradients.</li>
+      </ul>
+      <ul>
+        <li><b>Focus:</b> buttons and tabs show a 2px ring in <code>ring</code> with a 1px offset; inputs a 3px halo of primary at 20% and a primary border at 60%. Always visible on keyboard focus.</li>
+        <li><b>Press:</b> buttons scale to 0.97; tappable rows and cards scale to 0.97 at 88% opacity for 120ms.</li>
+        <li><b>Disabled:</b> buttons 35% opacity, inputs 40%, other controls 50%.</li>
+        <li><b>Motion:</b> 150ms button transitions, 200ms accordion, MobileSheet spring (damping 32, stiffness 380). Respect reduced motion.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="components">
+    <div class="sec-h"><span class="k">Components</span><h2>As they ship, in both themes</h2></div>
+    <p class="intro">Samples are rendered with the real measurements and colors. The full list of 59 names with variant strings follows.</p>
+    <h3>Button · variant default / destructive / outline / secondary / ghost / link · size default 36 / sm 28 / lg 40 / icon 36</h3>
+    <div class="pair">
+      <div class="t-light"><p class="cap">Light</p><div class="stack">
+        <div class="row"><span class="btn default">Pay Now</span><span class="btn destructive">Delete</span><span class="btn outline">Cancel</span><span class="btn secondary">Secondary</span><span class="btn ghost">Ghost</span><span class="btn link">Link</span></div>
+        <div class="row"><span class="btn default sm">Small 28</span><span class="btn default">Default 36</span><span class="btn default lg">Large 40</span><span class="btn outline icon">+</span><span class="btn default focus">Focused</span><span class="btn default disabled">Disabled</span></div>
+      </div></div>
+      <div class="t-dark"><p class="cap">Dark</p><div class="stack">
+        <div class="row"><span class="btn default">Pay Now</span><span class="btn destructive">Delete</span><span class="btn outline">Cancel</span><span class="btn secondary">Secondary</span><span class="btn ghost">Ghost</span><span class="btn link">Link</span></div>
+        <div class="row"><span class="btn default sm">Small 28</span><span class="btn default">Default 36</span><span class="btn default lg">Large 40</span><span class="btn outline icon">+</span><span class="btn default focus">Focused</span><span class="btn default disabled">Disabled</span></div>
+      </div></div>
+    </div>
+    <p class="note">Destructive is a 10% tint with a 20% border and destructive text, not a solid red. Outline sits on the secondary fill. Below 1024px every button gets a 44px minimum hit area.</p>
+
+    <h3>Badge · StatusBadge · RoleBadge</h3>
+    <div class="pair">
+      <div class="t-light"><p class="cap">Light</p><div class="row">
+        <span class="bdg default">Default</span><span class="bdg" style="background:#F1F5F9;color:#334155;border-color:#E2E8F0">Secondary</span><span class="bdg" style="background:#FEF2F2;color:#991B1B;border-color:#FECACA">Destructive</span><span class="bdg" style="background:#ECFDF5;color:#065F46;border-color:#A7F3D0">Success</span><span class="bdg" style="background:#FFFBEB;color:#92400E;border-color:#FDE68A">Warning</span><span class="bdg outline">Outline</span>
+        <span class="bdg" style="background:#ECFDF5;color:#065F46;border-color:#A7F3D0">Paid</span><span class="bdg" style="background:#FFFBEB;color:#92400E;border-color:#FDE68A">Pending</span><span class="bdg" style="background:#FEF2F2;color:#991B1B;border-color:#FECACA">Overdue</span><span class="bdg" style="background:#EFF6FF;color:#1E40AF;border-color:#BFDBFE">Open</span><span class="bdg" style="background:#F1F5F9;color:#475569;border-color:#E2E8F0">Closed</span><span class="bdg" style="background:#EFF6FF;color:#1E40AF;border-color:#BFDBFE">President</span>
+      </div></div>
+      <div class="t-dark"><p class="cap">Dark</p><div class="row">
+        <span class="bdg default">Default</span><span class="bdg" style="background:#64748B26;color:#CBD5E1;border-color:#64748B40">Secondary</span><span class="bdg" style="background:#EF444426;color:#FCA5A5;border-color:#EF444440">Destructive</span><span class="bdg" style="background:#10B98126;color:#6EE7B7;border-color:#10B98140">Success</span><span class="bdg" style="background:#F59E0B26;color:#FCD34D;border-color:#F59E0B40">Warning</span><span class="bdg outline">Outline</span>
+        <span class="bdg" style="background:#10B98126;color:#6EE7B7;border-color:#10B98140">Paid</span><span class="bdg" style="background:#F59E0B26;color:#FCD34D;border-color:#F59E0B40">Pending</span><span class="bdg" style="background:#EF444426;color:#FCA5A5;border-color:#EF444440">Overdue</span><span class="bdg" style="background:#3B82F626;color:#93C5FD;border-color:#3B82F640">Open</span><span class="bdg" style="background:#64748B26;color:#94A3B8;border-color:#64748B40">Closed</span><span class="bdg" style="background:#3B82F633;color:#93C5FD;border-color:#3B82F64D">President</span>
+      </div></div>
+    </div>
+
+    <h3>Input · Tabs · Switch · Checkbox</h3>
+    <div class="pair">
+      <div class="t-light"><p class="cap">Light</p><div class="stack">
+        <div class="row"><span class="inp"><span class="ph">Email address</span></span><span class="inp focus">jordan@example.com</span><span class="inp disabled"><span class="ph">Disabled</span></span></div>
+        <div class="row"><span class="tabs"><span class="on">Upcoming</span><span>Past</span><span>All</span></span><span class="sw-t"></span><span class="sw-t off"></span><span class="cb"></span><span class="cb off"></span></div>
+      </div></div>
+      <div class="t-dark"><p class="cap">Dark</p><div class="stack">
+        <div class="row"><span class="inp"><span class="ph">Email address</span></span><span class="inp focus">jordan@example.com</span><span class="inp disabled"><span class="ph">Disabled</span></span></div>
+        <div class="row"><span class="tabs"><span class="on">Upcoming</span><span>Past</span><span>All</span></span><span class="sw-t"></span><span class="sw-t off"></span><span class="cb"></span><span class="cb off"></span></div>
+      </div></div>
+    </div>
+    <p class="note">Input 36px high, radius 10, 12px side padding, placeholder at 60% muted. Tabs list 36px on the muted track with 4px inner padding; the active trigger has the card fill and a shadow. Switch 36×20 with a 16px thumb. Checkbox 16px with 6px radius.</p>
+
+    <h3>Card · AlertBanner · EmptyState · Table · Skeleton</h3>
+    <div class="pair">
+      <div class="t-light"><p class="cap">Light</p><div class="stack">
+        <div class="card"><div class="hd"><div class="ttl">Balance due</div><div class="dsc">Monthly assessment · due Oct 1, 2026 · 10-day grace period</div></div><div class="bd"><div style="font-size:28px;font-weight:600;letter-spacing:-.02em;margin:10px 0 12px">$250.00</div><span class="btn default">Pay Now</span></div></div>
+        <div class="abn" style="background:#FFFBEB;border-color:#FDE68A;color:#92400E"><span class="i"></span><div><b>Payment past due</b><div class="msg">Your balance of $525.00 includes a $25.00 late fee.</div></div></div>
+        <div class="abn" style="background:#ECFDF5;border-color:#A7F3D0;color:#065F46"><span class="i"></span><div><b>Payment received</b><div class="msg">Confirmation 12541529660.</div></div></div>
+        <div class="card"><div class="th-row"><span>Resident</span><span>Amount</span><span>Due</span><span>Status</span></div><div class="td-row"><span>Jordan Lee</span><span>$250.00</span><span>Oct 1</span><span class="bdg" style="background:#ECFDF5;color:#065F46;border-color:#A7F3D0;justify-self:start">Paid</span></div><div class="td-row"><span class="skel" style="width:60%"></span><span class="skel" style="width:50%"></span><span class="skel" style="width:40%"></span><span class="skel" style="width:60%"></span></div></div>
+        <div class="card"><div class="empty"><div class="tile"><i></i></div><div class="t">No requests yet</div><div class="d">Submit a maintenance request and it will appear here.</div></div></div>
+      </div></div>
+      <div class="t-dark"><p class="cap">Dark</p><div class="stack">
+        <div class="card"><div class="hd"><div class="ttl">Balance due</div><div class="dsc">Monthly assessment · due Oct 1, 2026 · 10-day grace period</div></div><div class="bd"><div style="font-size:28px;font-weight:600;letter-spacing:-.02em;margin:10px 0 12px">$250.00</div><span class="btn default">Pay Now</span></div></div>
+        <div class="abn" style="background:#F59E0B26;border-color:#F59E0B40;color:#FCD34D"><span class="i"></span><div><b>Payment past due</b><div class="msg">Your balance of $525.00 includes a $25.00 late fee.</div></div></div>
+        <div class="abn" style="background:#10B98126;border-color:#10B98140;color:#6EE7B7"><span class="i"></span><div><b>Payment received</b><div class="msg">Confirmation 12541529660.</div></div></div>
+        <div class="card"><div class="th-row"><span>Resident</span><span>Amount</span><span>Due</span><span>Status</span></div><div class="td-row"><span>Jordan Lee</span><span>$250.00</span><span>Oct 1</span><span class="bdg" style="background:#10B98126;color:#6EE7B7;border-color:#10B98140;justify-self:start">Paid</span></div><div class="td-row"><span class="skel" style="width:60%"></span><span class="skel" style="width:50%"></span><span class="skel" style="width:40%"></span><span class="skel" style="width:60%"></span></div></div>
+        <div class="card"><div class="empty"><div class="tile"><i></i></div><div class="t">No requests yet</div><div class="d">Submit a maintenance request and it will appear here.</div></div></div>
+      </div></div>
+    </div>
+    <p class="note">AlertBanner ships light tints only today; the dark samples show the same recipe as StatusBadge, which is what the consolidation should adopt. Table header cells are 48px high, 12px uppercase on a 30% muted fill; body cells 16px vertical padding; rows separated by a 40% border.</p>
+
+    <h3>The full list</h3>
+    <div class="tbl"><table>
+      <thead><tr><th>Code name</th><th>Variants / sizes</th><th>Key measurements</th></tr></thead>
+      <tbody>
+        <tr><td><b>Button</b></td><td>variant: default, destructive, outline, secondary, ghost, link · size: default, sm, lg, icon</td><td class="use">36 / 28 / 40 high; 16 / 12 / 20 side padding; 14 / 12 / 15px text; radius 10 (sm 8); icon 36×36</td></tr>
+        <tr><td><b>Badge</b></td><td>variant: default, secondary, destructive, success, warning, outline</td><td class="use">11px / 600, 10px side padding, pill</td></tr>
+        <tr><td><b>Card</b> + Header, Title, Description, Content, Footer</td><td>—</td><td class="use">radius 14, border 50%, card-shadow, padding 20, title 15 / 600, description 13 muted</td></tr>
+        <tr><td><b>Input</b> · <b>Textarea</b></td><td>—</td><td class="use">36 high radius 10 · min 60 high radius 8; 16px text on touch</td></tr>
+        <tr><td><b>Select</b> + Trigger, Content, Item · <b>Checkbox</b> · <b>RadioGroup</b> · <b>Switch</b> · <b>Slider</b> · <b>Label</b></td><td>—</td><td class="use">trigger matches Input; checkbox 16 radius 6; radio 16; switch 36×20; label 14 / 500</td></tr>
+        <tr><td><b>Form</b> + Field, Item, Label, Control, Description, Message</td><td>—</td><td class="use">description 13 muted; message 13 destructive; the anatomy every form uses</td></tr>
+        <tr><td><b>Tabs</b> + List, Trigger, Content</td><td>—</td><td class="use">list 36 high, muted track, radius 10, 4px inner padding; trigger radius 8; active = card fill + shadow</td></tr>
+        <tr><td><b>Dialog</b> · <b>AlertDialog</b> · <b>Sheet</b> (top / right / bottom / left) · <b>Drawer</b></td><td>—</td><td class="use">title 18 / 600; footer right-aligned on desktop, stacked on phone; phone dialogs inset 16px with safe areas; sheets full-size on phones</td></tr>
+        <tr><td><b>Popover</b> · <b>HoverCard</b> · <b>Tooltip</b> · <b>DropdownMenu</b> · <b>ContextMenu</b> · <b>Menubar</b> · <b>NavigationMenu</b> · <b>Command</b></td><td>—</td><td class="use">card surface, 1px border; header account menu 224 wide, radius 18</td></tr>
+        <tr><td><b>Table</b> + Header, Body, Row, Head, Cell, Caption</td><td>—</td><td class="use">head 48 high, 12px uppercase muted on 30% fill, 20 side padding; cell 16 vertical; hover 40% muted; selected 5% primary</td></tr>
+        <tr><td><b>Accordion</b> · <b>Collapsible</b> · <b>Calendar</b> · <b>InputOTP</b> · <b>Pagination</b> · <b>Breadcrumb</b> · <b>ScrollArea</b> · <b>AspectRatio</b> · <b>Resizable</b> · <b>Carousel</b> · <b>Toggle</b> · <b>ToggleGroup</b> · <b>Progress</b> · <b>Skeleton</b> · <b>Separator</b> · <b>Avatar</b> · <b>Chart</b></td><td>—</td><td class="use">shadcn defaults; InputOTP is the six-cell code entry for two-factor; progress 8px pill; avatar 40 (28 in the header); chart uses chart-1…5</td></tr>
+        <tr><td><b>Sonner</b> (Toaster)</td><td>—</td><td class="use">surface background, border, shadow; action button primary. The one toast system.</td></tr>
+        <tr><td><b>StatusBadge</b></td><td>status preset: active, inactive, suspended, enabled, disabled, archived, open, in_progress, on_hold, resolved, closed, paid, pending, overdue, failed, refunded, approved, denied, rejected…</td><td class="use">pill 11 / 600 with the status tint recipe</td></tr>
+        <tr><td><b>RoleBadge</b></td><td>role</td><td class="use">pill 11 / 600, one family per role</td></tr>
+        <tr><td><b>EmptyState</b> · <b>MobileEmptyState</b></td><td>icon, title, description, action</td><td class="use">56px tile (radius 22 / 18), 14–15px / 600 title, 13–14px muted description max 320 / 260</td></tr>
+        <tr><td><b>AlertBanner</b></td><td>variant: info, success, warning, error · title, message, onDismiss</td><td class="use">radius 14, 14 padding, 16px icon, 14 / 600 title, 14 message at 80%</td></tr>
+        <tr><td><b>ConfirmModal</b></td><td>variant: destructive, default · title, description, confirmLabel, cancelLabel, loading</td><td class="use">Dialog at 384 wide, icon tile, two buttons</td></tr>
+        <tr><td><b>LoadingSkeleton</b>: SkeletonBar, SkeletonTableRows, SkeletonCards, PageLoader · <b>MobileSkeleton</b></td><td>rows, cols, count, label</td><td class="use">bars radius 8; skeleton cards radius 18; PageLoader 40px tile + spinner + 14px label</td></tr>
+        <tr><td><b>MobileSheet</b></td><td>open, onClose, title, subtitle, maxHeight (92vh)</td><td class="use">bottom sheet, drag handle, spring, backdrop blur, keyboard-aware, safe-area padding: use instead of Dialog on phones</td></tr>
+        <tr><td><b>ErrorBoundary</b> · DataUnavailable (in <code>common/</code>) · ThemeToggle (in <code>theme/</code>)</td><td>—</td><td class="use">render-error fallback · error state with retry · Light / Dark / System</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout warn"><b>Do not build on</b> <code>src/components/design-system/</code> or the <code>.btn-*</code> / <code>.badge-*</code> CSS classes. They are a July experiment used by three files and are being retired. Compose KPI tiles and data tables from Card and Table instead.</div>
+  </section>
+
+  <section id="layout">
+    <div class="sec-h"><span class="k">Layout</span><h2>One shell, two modes, and the homeowner phone family</h2></div>
+    <h3>Desktop, 1024px and up</h3>
+    <div class="diag">
+      <div class="desk">
+        <div class="sb"><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="hd"><span class="lbl">56px header</span><i></i></div>
+        <div class="ct"><span class="lbl">page frame · 672 / 960 / 1200 / full</span><div class="frame" style="width:70%"></div></div>
+      </div>
+      <div class="legend" style="margin-top:12px">
+        <div><b>Sidebar 240px</b> (60px collapsed): sections in 10px uppercase at 35%; items 36px, 13px / 500, 16px icon, radius 10; active = sidebar-accent fill, sidebar-primary icon. Bottom: role label and 32px initials avatar.</div>
+        <div><b>Header 56px:</b> card at 95% with blur; community context with a primary dot; right side: context switcher, theme toggle, notifications, 28px avatar opening a 224px menu.</div>
+        <div><b>Page frame:</b> 16 / 24 / 32px padding by breakpoint, max width from the route registry (narrow 672, standard 960, wide 1200, full).</div>
+      </div>
+    </div>
+    <h3>Phone, below 1024px (also tablets)</h3>
+    <div class="diag">
+      <div class="phones">
+        <div>
+          <div class="phone"><div class="hd"><span class="lbl">page header</span><i></i></div><div class="ct"><i></i><i></i><i></i><i></i></div><div class="nav"><i class="on"></i><i></i><i></i><i></i><i></i></div></div>
+          <p class="lbl" style="margin:10px 0 0">application shell · board members</p>
+        </div>
+        <div>
+          <div class="phone"><div class="hd"><span class="lbl">56 · title · bell · avatar</span><i></i></div><div class="ct"><i></i><i></i><i></i><i></i></div><div class="nav"><i class="on"></i><i></i><i></i><i></i><i></i></div></div>
+          <p class="lbl" style="margin:10px 0 0">homeowner family · residents</p>
+        </div>
+        <div class="legend">
+          <div><b>Application shell:</b> no sidebar; bottom tab bar 64px + safe area, card at 98% with blur; up to four tabs by registry priority (resident: Dashboard, My Requests, Messages, My Account) plus <b>More</b>, a drawer grouped by section with sign-out. Tabs: 20px icon, 10px / 600 label, 56px minimum width, active in primary with a 2×24px bar on top.</div>
+          <div><b>Homeowner family</b> (rolling across every homeowner screen Sep 14–15): fixed 56px header (community name on the dashboard; title, Back, bell, avatar on sub-pages); fixed 60px bottom nav + safe area with five tabs (Home, Requests, Messages, Parking when on, Account) plus <b>More</b>; the More drawer has a 3×3 Quick Actions grid, an All Services list, and a user card. Content: 16px side padding, max 672 centered, pull-to-refresh, per-tab scroll memory.</div>
+          <div><b>Everywhere on phones:</b> 44px targets, bottom sheets instead of centered dialogs, 16px editable text, no hover-only interactions, safe-area padding top and bottom.</div>
+        </div>
+      </div>
+    </div>
+    <p class="note">Platform staff have a separate desktop layout family with violet accents; management-company screens use the application shell on desktop. Neither is in scope for phone redesign. Sign-in pages use a centered card with 40px inputs and social sign-in buttons.</p>
+  </section>
+
+  <section id="screens">
+    <div class="sec-h"><span class="k">Screens in order</span><h2>What to design, by when, and what is fixed about each</h2></div>
+    <p class="intro">Dates are the build days from the launch plan. A design in hand before its build days goes straight in. After that it is a change to built work and is scheduled separately.</p>
+    <div class="tl">
+      <div><div class="d"><b>Mon–Tue Sep 14–15</b>build days 6–7</div><div class="what"><b>1 · Homeowner phone screens</b> on the homeowner family: Home, Payments, Payment History, Assessments, My Requests, Violations, My Household (with the new gate and guest codes), My Account and Profile (with two-factor status and an account-deletion request), Messages, Documents, HOA Directory, Events, and the module screens (parking, amenities, dog park, visitors, architectural, voting, surveys, signatures, feed, neighbors).<span class="fx">Fixed: nav labels and tabs as in Layout; module-off states; MobileSheet for forms; StatusBadge on every stateful row; empty and loading states.</span></div></div>
+      <div><div class="d"><b>Tue Sep 15</b>build day 7 · owners see it the same day</div><div class="what"><b>2 · The payment flow</b> on <code>/my-payments</code>, phone and desktop.<span class="fx">Fixed: the fields are NMI's embedded component (see Payments). The current payment modal is being replaced; do not reference it.</span></div></div>
+      <div><div class="d"><b>Wed–Thu Sep 16–17</b>build days 8–9</div><div class="what"><b>3 · Board day-to-day screens on a phone:</b> Announcements (compose, send), Requests (queue, assign, update), Violations (issue, review, fees), Financials (who has paid, what is overdue), Member Management (roster, invite).<span class="fx">Fixed: existing admin labels; tables become stacked rows with the key figure first and a StatusBadge; filters in a Sheet; primary actions in a sticky bar above the tab bar. Refunds become a two-person action: request, then a second financial approver, each after a fresh sign-in.</span></div></div>
+      <div><div class="d"><b>Wed–Thu Sep 16–17</b>lock screen Wed Sep 23</div><div class="what"><b>4 · Sign-in security:</b> two-factor setup and challenge, backup codes, recovery, method change, the 15-character password rule, and the native app-lock screen.<span class="fx">Fixed: your September 8 requirements are the spec (see Security).</span></div></div>
+      <div><div class="d"><b>Mon Sep 21</b>build day 11</div><div class="what"><b>5 · App icon, splash, manifest icons.</b><span class="fx">Needs the brand spelling and teal decided. The web manifest ships a placeholder icon this week if none arrives.</span></div></div>
+      <div><div class="d"><b>by Wed Sep 30</b>store submission</div><div class="what"><b>6 · Store screenshots and listing.</b><span class="fx">The owners choose the theme shown. App name, privacy page, and support email are theirs to provide by Sep 18.</span></div></div>
+      <div><div class="d"><b>Oct 5–8</b>build days 21–24</div><div class="what"><b>7 · Community past-due banner and read-only states</b> for administrators.<span class="fx">Your September 8 recommendation, adopted by the owners (see Past-due).</span></div></div>
+    </div>
+    <p class="note">Homeowner phone rules: one primary action per screen, visible without scrolling; lists as rows or cards, never tables; money with cents; dates absolute ("Oct 1, 2026") with relative time only as a secondary line.</p>
+  </section>
+
+  <section id="payments">
+    <div class="sec-h"><span class="k">Payments</span><h2>The flow around NMI's embedded fields</h2></div>
+    <p class="intro">Card, bank account, Apple Pay, and Google Pay fields are rendered inline by NMI's Payment Component: no redirect, no popup. It accepts a theme (Inter, primary, radius 10, light and dark) and nothing else about its internals can change. HOAhx draws everything around it. Seven states, phone and desktop, both themes:</p>
+    <div class="flow">
+      <div><b>Balance and schedule</b>Amount due, due date, grace period and late fee from the published dues schedule, <b>Pay Now</b>. Not yet set up: "Online payments are not yet available for this community. Contact your community administrator for payment instructions."</div>
+      <div><b>Amount</b>Full balance or another amount, with a summary line.</div>
+      <div><b>Method</b>Saved methods (card brand and last four with expiry; "Bank •••3815") or new card / bank. Apple Pay and Google Pay buttons appear only where the device supports them.</div>
+      <div><b>Fields</b>The embedded component. HOAhx shows the Pay button, the amount, and errors beneath it.</div>
+      <div><b>Result</b><i>Payment received</i> with a confirmation number and an updated balance; or a decline with a plain message and a retry path; or <i>Bank payment submitted</i>, pending until the bank settles, then Paid. Returned bank payments reverse with a notice and a return-fee line.</div>
+      <div><b>AutoPay</b>Save this method; AutoPay on or off; schedule on the community's due date including special assessments and late fees; next charge date; pause and resume; failed-charge alert; card-expiry notice three months ahead.</div>
+      <div><b>Receipts and history</b>Each payment with status, method, and a receipt.</div>
+    </div>
+  </section>
+
+  <section id="security">
+    <div class="sec-h"><span class="k">Security</span><h2>Sign-in flows, from your September 8 requirements</h2></div>
+    <div class="cols">
+      <ul>
+        <li><b>Setup, one step at a time:</b> choose a method → verify it → save backup codes. Methods: authenticator app; text-message codes for residents who opt in. Roles that move money and HOAhx staff must enroll; residents are optional. Whether required roles may also use text codes is being discussed on Sep 14.</li>
+        <li><b>Code entry:</b> InputOTP, accepts autofill and paste. "Can't access your device?" clearly visible on the challenge screen.</li>
+        <li><b>Recovery:</b> backup codes, and a staff-assisted process that verifies identity.</li>
+        <li><b>Changing methods:</b> requires verification; the new method is confirmed before the old one is removed.</li>
+      </ul>
+      <ul>
+        <li><b>Password:</b> 15-character minimum everywhere, no composition rules, spaces allowed; stated plainly on register, invite, and reset.</li>
+        <li><b>App lock (native, Sep 23):</b> after 15 minutes inactive or in the background the app locks and reopens with Face ID, fingerprint, or the device PIN. The biometric unlocks a session signed in with the code; it is not itself the second factor.</li>
+        <li><b>Account deletion:</b> a resident can request deletion of their account; the request and its outcome are shown plainly.</li>
+        <li><b>Refunds:</b> two people, each after a fresh sign-in prompt, original payment method only.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="banner">
+    <div class="sec-h"><span class="k">Past-due</span><h2>The community subscription banner, administrators only</h2></div>
+    <p class="intro">Your recommendation, adopted by the owners on September 8, builds October 5–8. Residents are never affected.</p>
+    <div class="states"><span>active</span><span>past due · grace (days 1–15)</span><span>past due · fees (day 16)</span><span>read-only (day 30)</span><span>suspended (day 60)</span><span>collections (day 90)</span></div>
+    <div class="pd"><div class="grow"><span class="amt">$229.00 owed</span> for your community's HOAhx subscription. Pay by <b>Oct 16, 2026</b> to keep full access. After that, administrative screens become read-only; records stay available.</div><div class="a"><span class="p">Pay balance</span><span class="s">Update payment method</span></div></div>
+    <ul style="margin-top:14px">
+      <li>Persistent for the responsible administrators: <b>amount owed, exact deadline, what happens next</b>, with <b>Pay balance</b> and an update-payment-method option. Advance notice before each access change.</li>
+      <li>The <b>read-only</b> state explains that records remain available but changes are restricted; billing and support stay reachable during suspension.</li>
+      <li>Notices are labeled as the community's HOAhx subscription, separate from homeowner dues. Access is restored automatically once payment is confirmed.</li>
+      <li>Also: an "update payment information" alert and a card-expiry notice three months out.</li>
+    </ul>
+  </section>
+
+  <section id="assets">
+    <div class="sec-h"><span class="k">Assets</span><h2>Native app and store deliverables</h2></div>
+    <p class="intro">Confirm sizes against the current Apple and Google guidelines at export; this is the standard set.</p>
+    <div class="tbl"><table>
+      <thead><tr><th>Asset</th><th>Size</th><th>For</th><th>By</th></tr></thead>
+      <tbody>
+        <tr><td>Web manifest icons</td><td>192×192 and 512×512 PNG, plus a maskable 512</td><td class="use">installable web app</td><td>this week (placeholder ships otherwise)</td></tr>
+        <tr><td>iOS app icon</td><td>1024×1024 PNG, no transparency, square</td><td class="use">App Store and device</td><td>Mon Sep 21</td></tr>
+        <tr><td>Android adaptive icon</td><td>foreground 432×432 px on a 108dp canvas (66dp safe zone) + background layer</td><td class="use">Play and device</td><td>Mon Sep 21</td></tr>
+        <tr><td>Splash</td><td>2732×2732 PNG, mark centered, solid background per theme</td><td class="use">native launch</td><td>Mon Sep 21</td></tr>
+        <tr><td>App Store screenshots</td><td>6.9" 1320×2868 and 6.5" 1284×2778 (or 1242×2688), portrait</td><td class="use">store listing</td><td>Wed Sep 30</td></tr>
+        <tr><td>Google Play screenshots</td><td>portrait PNG or JPEG, 320–3840px per side; feature graphic 1024×500</td><td class="use">store listing</td><td>Wed Sep 30</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section id="copy">
+    <div class="sec-h"><span class="k">Copy</span><h2>Words on the screen</h2></div>
+    <div class="cols">
+      <ul>
+        <li>Plain, resident-first, transparent. Every state says what happened and what happens next.</li>
+        <li>Money with cents ($250.00). Dates absolute (Oct 1, 2026); relative time only as a secondary line.</li>
+        <li>Status words match the StatusBadge presets: paid, pending, overdue, open, in progress, resolved…</li>
+      </ul>
+      <ul>
+        <li>Vocabulary already in the app: Requests (not tickets), Violations, Payments and Payment History for residents, Financials and Ledger for the board, Assessments, Dues Schedule, HOA Directory (community contacts) versus Neighbors (residents), Amenities, My Household, Member Management. Prefer "community" over "HOA" in new copy.</li>
+        <li>Subscription notices say "your community's HOAhx subscription"; homeowner dues never name HOAhx as the payee.</li>
+        <li>No exclamation marks, no "Oops", no jargon (tokenization, webhook, gateway). Errors say what to do. No lorem ipsum.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="handoff">
+    <div class="sec-h"><span class="k">Hand-off</span><h2>Figma structure, naming, cadence</h2></div>
+    <div class="cols">
+      <div>
+        <h3>File structure</h3>
+        <ol>
+          <li><b>Foundations:</b> variables and styles from tokens.json (light and dark modes), type styles, effect styles.</li>
+          <li><b>Components:</b> one component per code name, variants named as the code names them, both modes.</li>
+          <li><b>Patterns:</b> page frame, sidebar, header, bottom tab bar, More drawer, homeowner header and nav, MobileSheet form, desktop table and its phone row, the empty / loading / error trio.</li>
+          <li><b>Screens:</b> one page per group in Screens, phone at 390×844 and desktop at 1440×900 where the screen exists on desktop, light and dark.</li>
+          <li><b>Assets:</b> icon, splash, manifest icons, screenshots.</li>
+        </ol>
+      </div>
+      <div>
+        <h3>Per screen, annotate</h3>
+        <ul>
+          <li>The route and the layout family.</li>
+          <li>Module flags that hide parts of it.</li>
+          <li>Every StatusBadge preset used.</li>
+          <li>Any label that differs from the registry, as old → new.</li>
+          <li>Tailwind classes where the intent is not obvious; spacing and color as token names, not hex.</li>
+        </ul>
+        <h3>Cadence</h3>
+        <p class="use">Homeowner screens before Sep 14 · payment flow before Sep 15 · board and security screens before Sep 16 · icon and splash before Sep 21 · screenshots before Sep 30 · banner before Oct 5. You are welcome to review the built payment screens (Sep 15) and security screens (Sep 16–17) before they merge, and to be on the Sep 25 test-build list.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="code">
+    <div class="sec-h"><span class="k">If you commit code</span><h2>How work gets into the repository</h2></div>
+    <div class="cols">
+      <ul>
+        <li>Node 22. <code>npm install</code>, then <code>npm run dev</code>. Real data needs the Firebase environment values from Jacob; the alternative is the emulator with a seeded demo community, which needs no credentials.</li>
+        <li>Branch from <code>dev</code>, pull request to <code>dev</code>. <code>main</code> requires a pull request and a green <b>Build &amp; test</b> check. Every pull request runs the build, unit and rules tests, lint (an unused import is an error), a strict typecheck, and the 1,230 browser tests in five parallel shards: about 40 minutes. Keep pull requests to one screen or one primitive.</li>
+        <li>Tokens change only in <code>src/index.css</code> and <code>tailwind.config.js</code>. Components change only in <code>src/components/ui</code>. Nothing hard-coded in pages.</li>
+      </ul>
+      <ul>
+        <li>Do not run the shadcn CLI until Jacob has set <code>"tsx": true</code> in <code>components.json</code>; today it would write JavaScript files into a TypeScript repo. Then diff Button and Badge before accepting regenerated versions; both are customized.</li>
+        <li>Toasts: import from <code>sonner</code> only.</li>
+        <li>Tell Jacob before the first commit from a new GitHub account; the hosting account adds a paid seat for new committers and the owners decide that.</li>
+        <li>No branch previews are published automatically. Ask for one when you need it.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="prompt">
+    <div class="sec-h"><span class="k">Prompt block</span><h2>Paste this at the top of any design or code-generation prompt</h2></div>
+    <p class="intro">The same constraints as this page, compressed to one page of imperative text. Attach <a href="tokens.json" download>tokens.json</a> alongside it.</p>
+    <div class="pre-wrap">
+      <div class="bar"><span>prompt-preamble.md · Markdown, ready to paste</span><span class="bar-r"><a class="btn-a" href="prompt-preamble.md" download><svg class="dl-ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v8m0 0 3-3M8 10 5 7M3 12.5h10"/></svg> Download</a><button type="button" class="copy" data-for="preamble">Copy to clipboard</button></span></div>
+      <pre class="preamble" id="preamble"># HOAhx design constraints — paste this at the top of any design or code-generation prompt
+
+You are helping design screens and components for HOAhx, a community-management web app for homeowners, HOA boards, and property managers, wrapped as iOS and Android apps. Design for THIS codebase, not for a generic product. When a rule below conflicts with your default, the rule wins. The full reference is `docs/design/DESIGN_BRIEF.md`; exact token values are in `docs/design/tokens.json`.
+
+**Stack (fixed).** React 18, Tailwind CSS 3.4 (not v4), shadcn/ui &quot;new-york&quot; style on Radix primitives with class-variance-authority, lucide-react icons, the Inter typeface. Dark mode is class-based and every screen must exist in light and dark. Tokens are CSS variables holding HSL triplets (for example `--primary: 200 100% 34%`) used through Tailwind classes such as `bg-primary`, `text-muted-foreground`, `border-border`, `bg-card`. No new UI libraries, no new fonts, no Tailwind v4 syntax, no OKLCH.
+
+**Color.** Use only these tokens: background, foreground, card, popover, primary (#0074AD in both themes), secondary, muted, accent (#3C83F6), destructive, border, input, ring, success (#29A847), warning (#F59F0A), danger (#ED2C2C), info (#3C83F6), demo (#9932CD), impersonation (#F97415), chart-1 to chart-5, sidebar-*. Light: ground #F8FAFC, card #FFFFFF, text #0F1729, border #DAE0E7, muted text #65758B. Dark: ground #121417, card #181A21, text #FFFFFF, border #282C34, muted text #646A78. Status tints for badges and banners come from the emerald / amber / red / blue / slate / orange / violet families (light: -50 background, -800 text, -200 border; dark: -500 at 15% background, -300 text, -500 at 25% border). Never introduce a new hue or a hard-coded hex.
+
+**Type.** Inter only. Body 14px / 22px line height. h1 28px / 600 / tight tracking, h2 20px / 600, h3 17px / 600, card title 15px / 600, card description 13px muted, table header 12px uppercase with wide tracking, badge 11px / 600, bottom-tab label 10px / 600. Editable fields are 16px on touch devices.
+
+**Shape and depth.** Radius 10px on buttons, inputs, and tab lists; 14px on cards and banners; 18px on menus; full pills on badges, switches, and avatars. Shadows are soft and low (the `card-shadow` pair). No gradients, no heavy drop shadows, no glass effects beyond the existing translucent headers.
+
+**Components.** Use only the existing primitives in `src/components/ui`: Button (variants default / destructive / outline / secondary / ghost / link; sizes 36px default, 28px sm, 40px lg, 36px icon), Badge (default / secondary / destructive / success / warning / outline), Card, Dialog, AlertDialog, Sheet, Drawer, Tabs, Table, Select, Input, Textarea, Checkbox, Switch, RadioGroup, Popover, DropdownMenu, ContextMenu, Tooltip, HoverCard, Avatar, Progress, Skeleton, Separator, Accordion, Collapsible, Command, Calendar, InputOTP, Pagination, Breadcrumb, ScrollArea, Slider, Toggle, ToggleGroup, Carousel, Chart, and Sonner toasts; plus the in-house StatusBadge, RoleBadge, EmptyState, MobileEmptyState, MobileSheet, MobileSkeleton, AlertBanner (info / success / warning / error), ConfirmModal, and LoadingSkeleton. Name Figma components and variant properties exactly as the code does (`Button / variant=destructive / size=sm`). Toasts are Sonner, one system only.
+
+**Layout.** Below 1024px: full-width content, a 56px top header, a bottom tab bar (four tabs plus &quot;More&quot;) with safe-area padding, 44px minimum touch targets, bottom sheets instead of centered dialogs for forms and pickers, no hover-only interactions. At 1024px and up: a 240px sidebar (60px collapsed), a 56px header, and content in a page frame of 672 / 960 / 1200px or full width, with 16 to 32px padding. Design phones at 390×844 and desktop at 1440×900.
+
+**Navigation and labels.** Navigation items, sections, and page titles come from a route registry and are asserted by automated tests. Reuse the existing labels (Dashboard, My Requests, Messages, Payments, Payment History, Assessments, Violations, Documents, Events, HOA Directory, Neighbors, My Household, My Account, and the admin equivalents: Member Management, Properties, Requests, Violations, Financials, Budget, Dues Schedule, Announcements, HOA Settings). If you propose a rename, list old → new explicitly and keep the old name in the design until it is agreed.
+
+**Behaviour to design for.** Modules can be switched off per community (parking, clubhouse, dog park, voting, surveys, signatures, architectural review, visitor access, community feed, mass communications, analytics), so every module screen has an &quot;off&quot; state. A person can hold several roles in several communities and switches context from the header without signing out. System banners stack above the header: email verification, demo mode (violet), support impersonation (orange), and a community past-due banner for administrators. Every list has empty, loading (skeleton), and error states.
+
+**Payments.** Card, bank account, Apple Pay, and Google Pay fields are rendered by NMI&#x27;s embedded Payment Component. They can be themed (font, colors, radius, light and dark) but not redesigned. Design everything around them: amount, summary, Pay button, errors, pending &quot;Bank payment submitted&quot; state, confirmation with a confirmation number, receipts and history, saved methods shown as masked numbers, autopay status and next charge date.
+
+**Accessibility.** WCAG AA contrast in both themes, a visible 2px focus ring, a real label on every control, roles and names that read correctly to a screen reader, and layouts that hold with reduced motion.
+
+**Voice.** Plain, resident-first, transparent. Every state says what happened and what happens next. No jargon, no exclamation marks, no placeholder text such as lorem ipsum.
+</pre>
+    </div>
+  </section>
+
+  <section id="files">
+    <div class="sec-h"><span class="k">Files</span><h2>Download the tokens, the brief, and the prompt block</h2></div>
+    <p class="intro">Three files, kept in the HOAhx repository under <code>docs/design/</code> and published here whenever they change. The page you are reading is a condensed view of the brief.</p>
+    <div class="dl">
+      <div class="dlc"><div class="dlh"><span class="ext">json</span><b>tokens.json</b><span class="sz">35 KB</span></div><p>217 tokens in the W3C design-tokens format, in three sets: global, light, dark. Colors are the resolved hex of the HSL triplets the app ships. Import into Tokens Studio or map to Figma Variables.</p><div class="dla"><a class="btn-a primary" href="tokens.json" download><svg class="dl-ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v8m0 0 3-3M8 10 5 7M3 12.5h10"/></svg> Download</a><a class="btn-a" href="tokens.json" target="_blank" rel="noopener">View</a></div></div>
+      <div class="dlc"><div class="dlh"><span class="ext">md</span><b>DESIGN_BRIEF.md</b><span class="sz">50 KB</span></div><p>The full brief this page condenses: constraints, product context, foundations, the component and layout inventory with measurements, screens in build order, copy rules, hand-off format, and the route table.</p><div class="dla"><a class="btn-a primary" href="DESIGN_BRIEF.md" download><svg class="dl-ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v8m0 0 3-3M8 10 5 7M3 12.5h10"/></svg> Download</a><a class="btn-a" href="DESIGN_BRIEF.md" target="_blank" rel="noopener">View</a></div></div>
+      <div class="dlc"><div class="dlh"><span class="ext">md</span><b>prompt-preamble.md</b><span class="sz">6 KB</span></div><p>The one-page constraints block above, as a file. Paste it at the top of any prompt, with tokens.json attached.</p><div class="dla"><a class="btn-a primary" href="prompt-preamble.md" download><svg class="dl-ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v8m0 0 3-3M8 10 5 7M3 12.5h10"/></svg> Download</a><a class="btn-a" href="#prompt">Read it above</a></div></div>
+    </div>
+  </section>
+
+  <section id="reg">
+    <div class="sec-h"><span class="k">Routes</span><h2>Navigation labels, sections, and page widths</h2></div>
+    <p class="intro">Generated from the route registry. "Phone tab" is the bottom-tab priority (lowest four shown for the person's role). "Module" is the community feature flag that hides the route when off. Routes not in nav are detail pages reached from a parent. Access is enforced in code and on the server; "Who" is the intended audience.</p>
+    <div class="filter"><input type="search" id="reg-filter" placeholder="Filter routes, labels, sections, audiences…" aria-label="Filter routes"><span class="cnt" id="reg-count">110 routes</span></div>
+    <div class="tbl"><table id="reg-table">
+      <thead><tr><th>Route</th><th>Label</th><th>Section</th><th>Who</th><th>Module</th><th>Width</th><th>Phone tab</th><th>In nav</th></tr></thead>
+      <tbody><tr><td><code>/</code></td><td>Dashboard</td><td>Overview</td><td>Every role with a dashboard</td><td>—</td><td>wide</td><td>1</td><td>yes</td></tr>
+<tr><td><code>/select-context</code></td><td>Select Context</td><td>Account</td><td>Everyone signed in</td><td>—</td><td>narrow</td><td>—</td><td>no</td></tr>
+<tr><td><code>/account-suspended</code></td><td>Account Suspended</td><td>Account</td><td>Everyone signed in</td><td>—</td><td>narrow</td><td>—</td><td>no</td></tr>
+<tr><td><code>/session-expired</code></td><td>Session Expired</td><td>Account</td><td>Everyone signed in</td><td>—</td><td>narrow</td><td>—</td><td>no</td></tr>
+<tr><td><code>/tenant-error</code></td><td>Tenant Context Error</td><td>Account</td><td>Everyone signed in</td><td>—</td><td>narrow</td><td>—</td><td>no</td></tr>
+<tr><td><code>/platform/dashboard</code></td><td>Dashboard</td><td>Platform</td><td>HOAhx staff</td><td>—</td><td>full</td><td>1</td><td>yes</td></tr>
+<tr><td><code>/platform/hoas</code></td><td>HOA Clients</td><td>Platform</td><td>HOAhx staff</td><td>—</td><td>full</td><td>2</td><td>yes</td></tr>
+<tr><td><code>/platform/users</code></td><td>Platform Users</td><td>Platform</td><td>HOAhx staff</td><td>—</td><td>full</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/platform/analytics</code></td><td>Analytics</td><td>Platform</td><td>HOAhx staff</td><td>—</td><td>full</td><td>3</td><td>yes</td></tr>
+<tr><td><code>/platform/activity-log</code></td><td>Activity Log</td><td>Oversight</td><td>HOAhx staff</td><td>—</td><td>full</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/platform/feedback</code></td><td>Feedback</td><td>Oversight</td><td>HOAhx staff</td><td>—</td><td>full</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/platform/impersonation-log</code></td><td>Impersonation Log</td><td>Oversight</td><td>HOAhx staff</td><td>—</td><td>full</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/platform/access-requests</code></td><td>Access Requests</td><td>Access</td><td>HOAhx staff</td><td>—</td><td>full</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/platform/manage-access</code></td><td>Manage Access</td><td>Access</td><td>HOAhx staff</td><td>—</td><td>full</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/platform/billing</code></td><td>Billing</td><td>Business</td><td>HOAhx staff</td><td>—</td><td>full</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/platform/notifications</code></td><td>Notifications</td><td>Account</td><td>HOAhx staff</td><td>—</td><td>standard</td><td>—</td><td>no</td></tr>
+<tr><td><code>/platform/notification-settings</code></td><td>Notification Settings</td><td>Account</td><td>HOAhx staff</td><td>—</td><td>narrow</td><td>—</td><td>no</td></tr>
+<tr><td><code>/platform/recovery</code></td><td>Recovery</td><td>Access</td><td>HOAhx staff</td><td>—</td><td>narrow</td><td>—</td><td>no</td></tr>
+<tr><td><code>/demo</code></td><td>Demo Communities</td><td>Platform</td><td>HOAhx staff</td><td>—</td><td>wide</td><td>—</td><td>no</td></tr>
+<tr><td><code>/my-household</code></td><td>My Household</td><td>My Community</td><td>Residents</td><td>—</td><td>standard</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/residents</code></td><td>Member Management</td><td>Administration</td><td>Board / management</td><td>—</td><td>full</td><td>2</td><td>yes</td></tr>
+<tr><td><code>/properties</code></td><td>Properties</td><td>Administration</td><td>Board / management</td><td>—</td><td>full</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/maintenance</code></td><td>Requests</td><td>Operations</td><td>Board / management</td><td>—</td><td>full</td><td>3</td><td>yes</td></tr>
+<tr><td><code>/my-maintenance</code></td><td>My Requests</td><td>My Community</td><td>Residents</td><td>—</td><td>narrow</td><td>2</td><td>yes</td></tr>
+<tr><td><code>/assigned-work</code></td><td>Assigned Maintenance</td><td>Assigned Work</td><td>Vendor / auditor / attorney</td><td>—</td><td>standard</td><td>1</td><td>yes</td></tr>
+<tr><td><code>/vendors</code></td><td>Vendor Directory</td><td>Operations</td><td>Board / management</td><td>—</td><td>wide</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/violations</code></td><td>Violations</td><td>Operations</td><td>Board / management</td><td>—</td><td>full</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/violations/issue</code></td><td>Issue Violation</td><td>Operations</td><td>Board / management</td><td>—</td><td>full</td><td>—</td><td>no</td></tr>
+<tr><td><code>/violations/review</code></td><td>Review Violation</td><td>Operations</td><td>Board / management</td><td>—</td><td>full</td><td>—</td><td>no</td></tr>
+<tr><td><code>/violations/fees</code></td><td>Violation Fees</td><td>Operations</td><td>Board / management</td><td>—</td><td>full</td><td>—</td><td>no</td></tr>
+<tr><td><code>/violations/delinquency</code></td><td>Delinquency</td><td>Operations</td><td>Board / management</td><td>—</td><td>full</td><td>—</td><td>no</td></tr>
+<tr><td><code>/violations/escalation</code></td><td>Escalation Queue</td><td>Operations</td><td>Board / management</td><td>—</td><td>full</td><td>—</td><td>no</td></tr>
+<tr><td><code>/my-violations</code></td><td>My Violations</td><td>My Community</td><td>Residents</td><td>—</td><td>narrow</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/documents/admin</code></td><td>Documents</td><td>Community</td><td>Board / management</td><td>—</td><td>full</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/documents</code></td><td>Documents</td><td>My Community</td><td>Everyone signed in</td><td>—</td><td>standard</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/messages</code></td><td>Messages</td><td>Community</td><td>Everyone signed in</td><td>—</td><td>full</td><td>3</td><td>yes</td></tr>
+<tr><td><code>/community-feed</code></td><td>Community Feed</td><td>Community</td><td>Everyone in the community</td><td>community_feed</td><td>standard</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/events</code></td><td>Events</td><td>Community</td><td>Everyone in the community</td><td>—</td><td>wide</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/community-calendar</code></td><td>Legacy Calendar Redirect</td><td>Community</td><td>Everyone in the community</td><td>—</td><td>wide</td><td>—</td><td>no</td></tr>
+<tr><td><code>/voting</code></td><td>Voting &amp; Meetings</td><td>Governance</td><td>Vote managers</td><td>voting</td><td>standard</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/my-voting</code></td><td>My Voting</td><td>Governance</td><td>Residents</td><td>voting</td><td>standard</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/governance</code></td><td>Governance</td><td>Governance</td><td>Board and management</td><td>voting</td><td>wide</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/surveys</code></td><td>Surveys</td><td>Community</td><td>Board / management</td><td>surveys</td><td>standard</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/my-surveys</code></td><td>Surveys</td><td>My Community</td><td>Residents</td><td>surveys</td><td>standard</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/my-signatures</code></td><td>Signatures</td><td>My Community</td><td>Residents</td><td>signatures</td><td>narrow</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/announcements</code></td><td>Announcements</td><td>Communications</td><td>Board / management</td><td>—</td><td>full</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/mass-communications</code></td><td>Mass Communications</td><td>Communications</td><td>Board / management</td><td>mass_communications</td><td>wide</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/my-communications</code></td><td>HOA Directory</td><td>My Community</td><td>Residents</td><td>—</td><td>full</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/ai-assistant</code></td><td>AI Assistant</td><td>My Community</td><td>Residents</td><td>ai_assistant</td><td>standard</td><td>—</td><td>no</td></tr>
+<tr><td><code>/parking</code></td><td>Parking</td><td>Property</td><td>Board / management</td><td>parking</td><td>full</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/my-parking</code></td><td>My Parking</td><td>Property</td><td>Residents</td><td>parking</td><td>standard</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/clubhouse</code></td><td>Clubhouse Reservations</td><td>Property</td><td>Everyone in the community</td><td>clubhouse</td><td>wide</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/my-clubhouse</code></td><td>My Amenities</td><td>Property</td><td>Residents</td><td>clubhouse</td><td>standard</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/dog-park</code></td><td>Dog Park</td><td>Property</td><td>Directory managers</td><td>dog_park</td><td>wide</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/my-dog-park</code></td><td>Dog Park</td><td>Property</td><td>Residents</td><td>dog_park</td><td>standard</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/visitor-access</code></td><td>Visitor Access</td><td>Property</td><td>Directory managers</td><td>visitor_access</td><td>standard</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/my-visitors</code></td><td>Visitor Access</td><td>Property</td><td>Residents</td><td>visitor_access</td><td>standard</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/architectural-review</code></td><td>Architectural Review</td><td>Property</td><td>Architectural reviewers</td><td>architectural_review</td><td>standard</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/my-architectural</code></td><td>Architectural Requests</td><td>Property</td><td>Residents</td><td>architectural_review</td><td>standard</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/directory</code></td><td>HOA Directory</td><td>Directory</td><td>Board and management</td><td>—</td><td>wide</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/resident-directory</code></td><td>Neighbors</td><td>Directory</td><td>Everyone signed in</td><td>—</td><td>wide</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/directory/residents</code></td><td>Neighbor Directory</td><td>Directory</td><td>Everyone signed in</td><td>—</td><td>wide</td><td>—</td><td>no</td></tr>
+<tr><td><code>/my-directory</code></td><td>Resident Directory</td><td>Directory</td><td>Residents</td><td>—</td><td>wide</td><td>—</td><td>no</td></tr>
+<tr><td><code>/ledger</code></td><td>Financials</td><td>Financial</td><td>Board / management</td><td>—</td><td>full</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/financial-reports</code></td><td>Financial Reports</td><td>Financial</td><td>Financial report readers</td><td>—</td><td>full</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/budget-transparency</code></td><td>Budget</td><td>Financial</td><td>Board / management</td><td>—</td><td>full</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/my-payments</code></td><td>Payments</td><td>Financial</td><td>Residents</td><td>—</td><td>standard</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/my-ledger</code></td><td>Payment History</td><td>Financial</td><td>Residents</td><td>—</td><td>standard</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/my-assessments</code></td><td>Assessments</td><td>Financial</td><td>Residents</td><td>—</td><td>standard</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/hoa-subscription</code></td><td>HOA Subscription</td><td>Financial</td><td>Board / management</td><td>—</td><td>standard</td><td>—</td><td>no</td></tr>
+<tr><td><code>/dues-schedule</code></td><td>Dues Schedule</td><td>Financial</td><td>Board / management</td><td>—</td><td>standard</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/payments/manual</code></td><td>Record Manual Payment</td><td>Financial</td><td>Board / management</td><td>—</td><td>standard</td><td>—</td><td>no</td></tr>
+<tr><td><code>/payments/reconciliation</code></td><td>Payment Reconciliation</td><td>Financial</td><td>Board / management</td><td>—</td><td>full</td><td>—</td><td>no</td></tr>
+<tr><td><code>/financial-reports/audit</code></td><td>Audit Reports</td><td>Financial</td><td>Vendor / auditor / attorney</td><td>—</td><td>full</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/payments</code></td><td>Payments</td><td>Financial</td><td>Community admins</td><td>—</td><td>full</td><td>—</td><td>no</td></tr>
+<tr><td><code>/subscriptions</code></td><td>Subscriptions</td><td>Financial</td><td>Community admins</td><td>—</td><td>full</td><td>—</td><td>no</td></tr>
+<tr><td><code>/my-subscription</code></td><td>My Subscription</td><td>Account</td><td>Residents</td><td>—</td><td>standard</td><td>—</td><td>no</td></tr>
+<tr><td><code>/analytics</code></td><td>Analytics</td><td>Administration</td><td>Board / management</td><td>analytics</td><td>full</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/hoa-settings</code></td><td>HOA Settings</td><td>Administration</td><td>Settings viewers</td><td>—</td><td>standard</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/re-engagement</code></td><td>Resident Re-engagement</td><td>Administration</td><td>Board / management</td><td>—</td><td>standard</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/hoa-settings/permissions</code></td><td>Permissions</td><td>Administration</td><td>Board / management</td><td>—</td><td>wide</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/activity-log</code></td><td>Audit Log</td><td>Administration</td><td>Board / management</td><td>—</td><td>full</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/ai-insights</code></td><td>AI Insights</td><td>Administration</td><td>Community admins</td><td>analytics</td><td>full</td><td>—</td><td>no</td></tr>
+<tr><td><code>/notifications</code></td><td>Notifications</td><td>Administration</td><td>Board / management</td><td>—</td><td>standard</td><td>—</td><td>no</td></tr>
+<tr><td><code>/notification-settings</code></td><td>Notification Templates</td><td>Administration</td><td>Board / management</td><td>—</td><td>narrow</td><td>—</td><td>no</td></tr>
+<tr><td><code>/amenities</code></td><td>Amenities</td><td>Administration</td><td>Community admins</td><td>clubhouse</td><td>full</td><td>—</td><td>no</td></tr>
+<tr><td><code>/communications</code></td><td>Communications</td><td>Administration</td><td>Board / management</td><td>—</td><td>full</td><td>—</td><td>no</td></tr>
+<tr><td><code>/my-profile</code></td><td>My Profile</td><td>Account</td><td>Residents</td><td>—</td><td>narrow</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/my-notifications</code></td><td>Notifications</td><td>Account</td><td>Residents</td><td>—</td><td>standard</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/my-notification-settings</code></td><td>Notification Settings</td><td>Account</td><td>Residents</td><td>—</td><td>narrow</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/my-account</code></td><td>My Account</td><td>Account</td><td>Residents</td><td>—</td><td>narrow</td><td>4</td><td>yes</td></tr>
+<tr><td><code>/privacy-security</code></td><td>Privacy &amp; Security</td><td>Account</td><td>Everyone signed in</td><td>—</td><td>narrow</td><td>—</td><td>no</td></tr>
+<tr><td><code>/platform/hoas/:id</code></td><td>HOA Client</td><td>Platform</td><td>HOAhx staff</td><td>—</td><td>full</td><td>—</td><td>no</td></tr>
+<tr><td><code>/platform/hoas/onboard</code></td><td>Create HOA</td><td>Platform</td><td>HOAhx staff</td><td>—</td><td>standard</td><td>—</td><td>no</td></tr>
+<tr><td><code>/platform/billing/accounts</code></td><td>Billing Accounts</td><td>Business</td><td>HOAhx staff</td><td>—</td><td>full</td><td>—</td><td>no</td></tr>
+<tr><td><code>/platform/billing/profile/:id</code></td><td>Billing Profile</td><td>Business</td><td>HOAhx staff</td><td>—</td><td>wide</td><td>—</td><td>no</td></tr>
+<tr><td><code>/platform/billing/renewals</code></td><td>Renewals</td><td>Business</td><td>HOAhx staff</td><td>—</td><td>full</td><td>—</td><td>no</td></tr>
+<tr><td><code>/platform/billing/invoices</code></td><td>Invoices</td><td>Business</td><td>HOAhx staff</td><td>—</td><td>full</td><td>—</td><td>no</td></tr>
+<tr><td><code>/platform/billing/audit</code></td><td>Billing Audit</td><td>Business</td><td>HOAhx staff</td><td>—</td><td>full</td><td>—</td><td>no</td></tr>
+<tr><td><code>/platform/billing/plans</code></td><td>Billing Plans</td><td>Business</td><td>HOAhx staff</td><td>—</td><td>wide</td><td>—</td><td>no</td></tr>
+<tr><td><code>/management/portfolio</code></td><td>Portfolio</td><td>Management Company</td><td>Management company</td><td>—</td><td>full</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/management/portfolio/financials</code></td><td>Portfolio Financials</td><td>Management Company</td><td>Management company</td><td>—</td><td>full</td><td>—</td><td>no</td></tr>
+<tr><td><code>/management/portfolio/audit</code></td><td>Portfolio Audit</td><td>Management Company</td><td>Management company</td><td>—</td><td>full</td><td>—</td><td>no</td></tr>
+<tr><td><code>/management/portfolio/:hoaId</code></td><td>Portfolio HOA</td><td>Management Company</td><td>Management company</td><td>—</td><td>full</td><td>—</td><td>no</td></tr>
+<tr><td><code>/management/hoas/onboard</code></td><td>Add Managed HOA</td><td>Management Company</td><td>Management company</td><td>—</td><td>standard</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/onboarding/hoa</code></td><td>HOA Setup</td><td>Onboarding</td><td>Onboarding</td><td>—</td><td>standard</td><td>—</td><td>no</td></tr>
+<tr><td><code>/onboarding/resident</code></td><td>Resident Setup</td><td>Onboarding</td><td>Onboarding</td><td>—</td><td>standard</td><td>—</td><td>no</td></tr>
+<tr><td><code>/onboarding/re-engage</code></td><td>Re-engagement</td><td>Onboarding</td><td>Onboarding</td><td>—</td><td>standard</td><td>—</td><td>no</td></tr>
+<tr><td><code>/parking/resident/:residentId</code></td><td>Resident Parking</td><td>Property</td><td>Board / management</td><td>parking</td><td>wide</td><td>—</td><td>no</td></tr>
+<tr><td><code>/parking/analytics</code></td><td>Parking Analytics</td><td>Property</td><td>Board / management</td><td>parking</td><td>full</td><td>—</td><td>no</td></tr></tbody>
+    </table></div>
+  </section>
+
+  <footer>Read from <span class="mono">origin/dev 5e44adb</span> on September 11, 2026. Set in HOAhx's own tokens: Inter, the resolved primary, the light and dark grounds. Files: <a href="tokens.json" download>tokens.json</a> · <a href="DESIGN_BRIEF.md" download>DESIGN_BRIEF.md</a> · <a href="prompt-preamble.md" download>prompt-preamble.md</a>.</footer>
+</div>
+
+<script>
+(function () {
+  Array.prototype.forEach.call(document.querySelectorAll('button.copy[data-for]'), function (btn) {
+    btn.addEventListener('click', function () {
+      var pre = document.getElementById(btn.getAttribute('data-for'));
+      if (!pre) return;
+      var text = pre.textContent, label = btn.textContent;
+      function done(ok) {
+        btn.textContent = ok ? 'Copied' : 'Select the text and copy manually';
+        btn.classList.toggle('done', ok);
+        setTimeout(function () { btn.textContent = label; btn.classList.remove('done'); }, 2200);
+      }
+      function fallback() {
+        try {
+          var range = document.createRange(); range.selectNodeContents(pre);
+          var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
+          done(!!(document.execCommand && document.execCommand('copy')));
+        } catch (e) { done(false); }
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () { done(true); }, fallback);
+      } else { fallback(); }
+    });
+  });
+  var input = document.getElementById('reg-filter');
+  var rows = Array.prototype.slice.call(document.querySelectorAll('#reg-table tbody tr'));
+  var count = document.getElementById('reg-count');
+  if (input) {
+    input.addEventListener('input', function () {
+      var q = input.value.trim().toLowerCase(), n = 0;
+      rows.forEach(function (tr) {
+        var show = !q || tr.textContent.toLowerCase().indexOf(q) !== -1;
+        tr.hidden = !show; if (show) n++;
+      });
+      count.textContent = n + (n === 1 ? ' route' : ' routes');
+    });
+  }
+})();
+</script>
+</body>
+</html>
