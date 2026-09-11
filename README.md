@@ -3,6 +3,8 @@
 Published HOAhx go-live artifacts, deployed by Netlify from this repository's `main` branch to
 https://hoahx-requirements.netlify.app/. The site's root is the **HOAhx Decision Register**, the
 owners' checklist of the rules the platform applies by default.
+`/workflow-map` is the **HOAhx Workflow Map**: every workflow by the person who uses it, with the
+exact steps and the handoffs between roles.
 
 ## How the register is kept current
 
@@ -84,15 +86,33 @@ The page itself keeps a copy of the last synced store and of any save the server
 (`localStorage`), replays unconfirmed saves on the next load or when the browser comes back online,
 and sends a keep-alive request for a note still being typed when the tab is closed.
 
+## The workflow map
+
+`go-live/workflow-map/workflow-map.html` is a copy of the HOAhx repo's `workflow-map.html`, whose
+data (`workflow-map.json`) is embedded there by that repo's `scripts/build-workflow-map.cjs`. It is
+served at https://hoahx-requirements.netlify.app/workflow-map. To publish a new version after the
+map changes in the HOAhx repo:
+
+```bash
+npm run publish:workflow-map -- --source ../hoahx/workflow-map.html
+```
+
+The script refuses to write if the page has no embedded data, links to a file that is not on this
+site, or contains a word the owner-facing documents exclude. Then commit and push `main` (or open a
+PR and merge it); Netlify deploys on push. The page is static: no shared store, no passphrase.
+`npm run check:workflow-map` runs the same checks and writes nothing.
+
 ## Layout
 
 | Path | What |
 |---|---|
 | `go-live/decision-register/decision-register.html` | The published page (generated; do not edit) |
 | `go-live/HOAhx Go Live Brief.pdf` | The go-live brief |
+| `go-live/workflow-map/workflow-map.html` | The published workflow map (copied from the HOAhx repo by `publish:workflow-map`; do not edit) |
 | `scripts/register-template.html` | Page template: design, markup, and the sync script |
 | `scripts/build-register.mjs`, `scripts/register-lib.mjs` | Generator and shared helpers (parser, store client, snapshots) |
 | `scripts/pull-register.mjs` | Pulls marks and notes into the launch program's `register-store/` |
+| `scripts/publish-workflow-map.mjs` | Copies and checks the workflow map from the HOAhx repo |
 | `scripts/dev-register.mjs`, `scripts/dev-stubs/` | Local server with an in-memory store |
 | `netlify/functions/decisions.js` | The shared store API |
-| `netlify.toml` | Publish dir, the `/api/decisions` rewrite, the root redirect |
+| `netlify.toml` | Publish dir, the `/api/decisions` rewrite, the root redirect, the `/workflow-map` redirect |
