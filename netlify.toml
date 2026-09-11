@@ -14,3 +14,15 @@
   from = "/"
   to = "/decision-register/decision-register.html"
   status = 200
+
+# Serve the workflow map at /workflow-map, without changing what appears in
+# the browser's address bar. The page is static; it has no shared store.
+[[redirects]]
+  from = "/workflow-map"
+  to = "/workflow-map/workflow-map.html"
+  status = 200
+
+[[redirects]]
+  from = "/workflow-map/"
+  to = "/workflow-map/workflow-map.html"
+  status = 200
