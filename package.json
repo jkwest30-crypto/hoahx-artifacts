@@ -1,8 +1,8 @@
 {
   "name": "hoahx-artifacts",
   "private": true,
-  "version": "1.3.0",
-  "description": "Published HOAhx go-live artifacts (the owners\u2019 Decision Register, the workflow map, and the design reference), deployed via Netlify.",
+  "version": "1.4.0",
+  "description": "Published HOAhx go-live artifacts (the owners’ Decision Register, the workflow map, the design reference, and the demo comparison), deployed via Netlify.",
   "engines": {
     "node": ">=18"
   },
@@ -13,7 +13,9 @@
     "publish:workflow-map": "node scripts/publish-workflow-map.mjs",
     "check:workflow-map": "node scripts/publish-workflow-map.mjs --check",
     "publish:design": "node scripts/publish-design-reference.mjs",
-    "check:design": "node scripts/publish-design-reference.mjs --check"
+    "check:design": "node scripts/publish-design-reference.mjs --check",
+    "publish:prototype": "node scripts/publish-prototype.mjs",
+    "check:prototype": "node scripts/publish-prototype.mjs --check"
   },
   "dependencies": {
     "@netlify/blobs": "^8.1.0"
