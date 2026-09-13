@@ -9,7 +9,9 @@ design work: the fixed stack, the tokens, the components as they ship, the layou
 screens in build order, with `tokens.json`, `DESIGN_BRIEF.md`, and `prompt-preamble.md` downloadable
 beside it. `/demo/` is **Demo Compared with the App**: every feature the owners' ChatGPT-built demo
 shows, against what the app has today or is building for launch, with the two plain-text files the
-owners' ChatGPT project uses beside it.
+owners' ChatGPT project uses beside it. `/launch-plan/` is the **HOAhx Launch Plan**: what is
+being built for launch, when each piece lands, what is needed from the owners, the invoice
+stages, the risks, and a weekly record of where things stand.
 
 ## How the register is kept current
 
@@ -145,6 +147,27 @@ own label "HOAhx AI" is allowed). Then commit and push `main` (or open a PR and 
 deploys on push. The folder is static: no shared store, no passphrase. `npm run check:prototype` runs
 the same checks and writes nothing.
 
+## The launch plan
+
+`go-live/launch-plan/index.html` is the owners' **HOAhx Launch Plan**: the scope of the launch
+engagement, the five-week timeline, what "done" means for each milestone, the invoice stages, the
+risks, and a weekly update log with the newest entry at the top. It is served at
+https://hoahx-requirements.netlify.app/launch-plan/. The page is static: no shared store, no
+passphrase. Like every other published page here it carries `<meta name="robots" content="noindex">`,
+so it is reachable by anyone with the link but is not offered to search engines.
+
+Unlike the register, the workflow map, the design reference and the demo comparison, this page has
+**no publish script yet**. It is a standalone copy placed here by hand. The launch program's Friday
+weekly update is what changes it, so a new version is placed the same way and pushed to `main`. A
+`publish:launch-plan` script that copies and checks it out of the HOAhx repo, the way
+`publish:workflow-map` does, is the next step if the page is to be updated every week.
+
+One thing to preserve if the page is ever regenerated: the "Today" marker on the timeline is an SVG
+group that the page's own script reveals with `removeAttribute('hidden')`. SVG elements have no
+`hidden` IDL property, so setting `.hidden = false` silently does nothing; the
+`[hidden]{display:none!important}` rule at the top of the stylesheet is what holds the marker until
+the script positions it.
+
 ## Layout
 
 | Path | What |
@@ -160,6 +183,7 @@ the same checks and writes nothing.
 | `scripts/publish-design-reference.mjs` | Copies and checks the design reference and its files from the HOAhx repo |
 | `go-live/demo/` | The published demo comparison and its two text files (copied from the HOAhx repo's `docs/prototype/` by `publish:prototype`; do not edit) |
 | `scripts/publish-prototype.mjs` | Copies and checks the demo comparison and its two files from the HOAhx repo |
+| `go-live/launch-plan/index.html` | The published launch plan (standalone copy, updated by hand; no publish script yet) |
 | `scripts/dev-register.mjs`, `scripts/dev-stubs/` | Local server with an in-memory store |
 | `netlify/functions/decisions.js` | The shared store API |
 | `netlify.toml` | Publish dir, the `/api/decisions` rewrite, the root redirect, the `/workflow-map` redirect |
