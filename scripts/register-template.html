@@ -19,6 +19,8 @@
   --change:#9C6A12; --change-wash:#F7EEDB;
   --discuss:#7A4396; --discuss-wash:#F1E8F7;
   --flag:#AE3A30; --flag-wash:#F8E7E4;
+  --rel:#1F5F52; --rel-wash:#E2EFEC;
+  --cand:#5B5F6B; --cand-wash:#E9EBEF;
   --shadow:0 1px 2px rgba(20,24,33,.05),0 3px 12px rgba(20,24,33,.05);
   color-scheme:light dark;
 }
@@ -31,6 +33,8 @@
   --change:#D5A354; --change-wash:#2A2115;
   --discuss:#BB93D8; --discuss-wash:#241A2C;
   --flag:#E38175; --flag-wash:#2E1A18;
+  --rel:#6FBFAC; --rel-wash:#15251F;
+  --cand:#9AA3B2; --cand-wash:#1E222A;
   --shadow:0 1px 2px rgba(0,0,0,.3),0 3px 12px rgba(0,0,0,.25);
 }}
 :root[data-theme="dark"]{
@@ -42,6 +46,8 @@
   --change:#D5A354; --change-wash:#2A2115;
   --discuss:#BB93D8; --discuss-wash:#241A2C;
   --flag:#E38175; --flag-wash:#2E1A18;
+  --rel:#6FBFAC; --rel-wash:#15251F;
+  --cand:#9AA3B2; --cand-wash:#1E222A;
   --shadow:0 1px 2px rgba(0,0,0,.3),0 3px 12px rgba(0,0,0,.25);
 }
 *{box-sizing:border-box}
@@ -151,6 +157,33 @@ main{padding:28px 0 80px}
 .d-k.plan{color:var(--accent)}
 .d-v.plan{color:var(--ink);padding-left:10px;border-left:2px solid var(--accent-2)}
 .d-v.opts{color:var(--muted)}
+.d-v.val{color:var(--ink-2)}
+.d-v.val b{color:var(--ink);font-weight:500}
+.d-v.proof{color:var(--ink-2)}
+.d-v.proof.soon{color:var(--muted);font-style:italic}
+
+/* release state, sources, and the links between a split pair */
+.pill{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.08em;
+  text-transform:uppercase;padding:2px 8px;border-radius:2px;white-space:nowrap}
+.pill.l{color:var(--rel);background:var(--rel-wash);box-shadow:inset 0 0 0 1px var(--rel)}
+.pill.c{color:var(--cand);background:var(--cand-wash);box-shadow:inset 0 0 0 1px var(--cand)}
+.pill.n{color:var(--muted);background:var(--surface-2);box-shadow:inset 0 0 0 1px var(--rule-strong)}
+.src{display:flex;flex-wrap:wrap;gap:5px}
+.src a,.src span{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.04em;
+  padding:2px 7px;border-radius:2px;background:var(--surface-2);color:var(--muted);
+  border:1px solid var(--rule);text-decoration:none;white-space:nowrap}
+.src a{color:var(--accent);border-color:var(--accent-wash)}
+.src a:hover{background:var(--accent-wash)}
+.fl{margin:0}
+.fl + .fl{margin-top:5px}
+.fl b{font-weight:500;color:var(--ink-2)}
+.fl .go{color:var(--accent);cursor:pointer;background:none;border:0;padding:0;
+  font-family:"IBM Plex Mono",monospace;font-size:12px}
+.fl .go:hover{text-decoration:underline}
+.chip-sep{width:1px;align-self:stretch;background:var(--rule);margin:0 2px}
+.chip.l[aria-pressed="true"]{background:var(--rel-wash);color:var(--rel)}
+.chip.c2[aria-pressed="true"]{background:var(--cand-wash);color:var(--cand)}
+.chip.n[aria-pressed="true"]{background:var(--surface-2);color:var(--ink-2)}
 
 /* decision controls */
 .d-act{display:flex;flex-wrap:wrap;gap:8px;align-items:center;
@@ -186,9 +219,12 @@ footer p{margin:0 0 7px;max-width:80ch}
   .d-body{grid-template-columns:1fr;gap:2px 0}
   .d-k{padding-top:9px}
   .note-t{margin-left:0}
+  /* the group separators only read as separators on one line; wrapped, they are stray marks */
+  .chip-sep{display:none}
 }
 @media print{
   .controls,.d-act,textarea,footer .no-print{display:none !important}
+  .pill,.src a,.src span{box-shadow:none;border:1px solid #999;background:#fff;color:#000}
   body{background:#fff;color:#000;font-size:11pt}
   .d{break-inside:avoid;page-break-inside:avoid;box-shadow:none;border:1px solid #999}
   .mast,.band,.d{background:#fff}
@@ -203,14 +239,15 @@ footer p{margin:0 0 7px;max-width:80ch}
     <p class="eyebrow">HOAhx · For business decision</p>
     <h1>Decision Register</h1>
     <p class="lede">{{LEDE_ONE}}</p>
-    <p class="lede">For every item: what the platform does <em>right now</em>, why it matters, and, where the launch build already changes it, what is <em>proposed</em>. Mark each one <strong>Keep as-is</strong>, <strong>Change</strong>, or <strong>Discuss</strong>, and add a note where the reasoning should be recorded. On an item with a Proposed line, Keep as-is means proceed as proposed. Once your answer is recorded, the item is marked <strong>Planned</strong>: decided, and in the build.</p>
+    <p class="lede">For every item: what the platform does <em>right now</em>, why it matters, what is <em>proposed</em>, whether it is <strong>in the release</strong>, and how it will be <em>proven</em>. Most items need nothing from you — the proposed line is what gets built unless you say otherwise. The short list marked <strong>Waiting on you</strong> is the one that does.</p>
+    <p class="lede">Mark any item <strong>Keep as-is</strong>, <strong>Change</strong>, or <strong>Discuss</strong>, and add a note where the reasoning should be recorded. Once an answer is recorded the item is marked <strong>Planned</strong>. A mark on a <strong>Candidate</strong> is your ranking: it says what to build first when there is room, never that it enters the release.</p>
     <dl class="meta">
       <div><dt>Updated</dt><dd>{{UPDATED}}</dd></div>
       <div><dt>Day one</dt><dd>Friday, September 4</dd></div>
+      <div><dt>In the release</dt><dd>{{RELEASE_COUNT}} of {{TOTAL}}; {{CANDIDATE_COUNT}} ranked candidates and {{NOTPLANNED_COUNT}} not planned</dd></div>
       <div><dt>Decided</dt><dd>{{PLANNED}} of {{TOTAL}} planned from your answers so far</dd></div>
-      <div><dt>Next</dt><dd>The {{PRIORITY_OPEN}} open money and enforcement items by Friday, September 18; they block the payment build and the live test</dd></div>
+      <div><dt>Waiting on you</dt><dd>{{PRIORITY_OPEN}} items, by Friday, September 18; they block the payment build and the live test</dd></div>
       <div><dt>Everything else</dt><dd>By Friday, October 9</dd></div>
-      <div><dt>Your time</dt><dd>Three to four days across the five weeks</dd></div>
     </dl>
   </div>
 </header>
@@ -240,7 +277,12 @@ footer p{margin:0 0 7px;max-width:80ch}
     </label>
     <select id="dom" aria-label="Filter by area"><option value="">All areas</option></select>
     <div class="chips" id="chips">
-      <button class="chip f" data-f="priority" aria-pressed="false">Start here</button>
+      <button class="chip l" data-f="rel" aria-pressed="false">In the release</button>
+      <button class="chip c2" data-f="cand" aria-pressed="false">Candidate</button>
+      <button class="chip n" data-f="notplanned" aria-pressed="false">Not planned</button>
+      <span class="chip-sep" aria-hidden="true"></span>
+      <button class="chip f" data-f="priority" aria-pressed="false">Waiting on you</button>
+      <span class="chip-sep" aria-hidden="true"></span>
       <button class="chip u" data-f="undecided" aria-pressed="false">Undecided</button>
       <button class="chip k" data-f="keep" aria-pressed="false">Keep</button>
       <button class="chip c" data-f="change" aria-pressed="false">Change</button>
@@ -258,7 +300,8 @@ footer p{margin:0 0 7px;max-width:80ch}
 <footer>
   <div class="wrap">
     <p><strong>How these were found.</strong> {{FOUND_SENTENCE}} Each decision was derived from the code that enforces it — Cloud Functions, security rules, and the role model — as part of a review that produced 897 requirements across 18 domains. On September 4, 2026 they were brought into line with the launch proposal, the launch plan, and the NMI Integration Plan: payments are being built on NMI, so the payment items describe what that build will do unless told otherwise, and items the proposal already settles are not listed.</p>
-    <p><strong>"Start here"</strong> marks the {{PRIORITY_COUNT}} decisions in dues and payments, the ledger and budget, platform billing, and violations and enforcement — money and enforcement, where a wrong default costs the most, and the ones that block taking a real payment. <strong>Proposed</strong> on an item is what the launch build will do unless you say otherwise; Keep as-is means proceed with it. <strong>Planned</strong> means the decision is made and is in the build, and the item's Proposed line has been rewritten to say what was decided. Planned is set from the record when the register is updated, never by a click; your Keep, Change, and Discuss marks and your notes are what get it there. Change or Discuss on a Planned item reopens it. The D-numbers are the ones used in our own tracking, so either number works in a conversation.</p>
+    <p><strong>The three groups.</strong> <strong>In the release</strong> is what the launch delivers: your Core list, anything that closes a security or store requirement, and defects against a Core feature. <strong>Candidate</strong> is worth keeping and is ranked, not scheduled: one comes into the release only when the build is running far enough ahead to carry it. <strong>Not planned</strong> is declined, with the reason on the item; nothing is ever deleted, so it can come back. <strong>Proven by</strong> names the test that will show the item works.</p>
+    <p><strong>What your marks do.</strong> <strong>Proposed</strong> is what the build will do unless you say otherwise; Keep as-is means proceed with it. <strong>Planned</strong> means the decision is made and is in the build; it is set from the record when the register is updated, never by a click. On an item already Planned, a Change does not undo it — the work in flight carries on and your change becomes its own item, linked to this one, which you then rank. On a Candidate every mark is ranking: Change means sooner, Keep as-is means fine where it sits, Discuss means talk. <strong>Waiting on you</strong> marks the {{PRIORITY_COUNT}} items that block the payment build and the live payment test; everything else can be left alone. The D-numbers are the ones used in our own tracking, so either number works in a conversation.</p>
     <p class="no-print"><strong>Marks and notes save to a shared register</strong> that everyone reviewing this page sees, so nothing needs to be sent back: what you mark here is read straight off the register and recorded. Every earlier version of a mark or note is kept, so clearing one by mistake loses nothing. Use <strong>Export a copy</strong> above to keep your own file, or your browser's print command for a clean copy of the whole register.</p>
     <p class="built">Register built {{BUILT}}</p>
   </div>
@@ -277,6 +320,7 @@ footer p{margin:0 0 7px;max-width:80ch}
   var LS_KEY = 'hoahx-edit-key';          // the passphrase, if the site requires one
   var TZ = 'America/Denver';
   var MARK_LABEL = { keep: 'Keep as-is', change: 'Change', discuss: 'Discuss' };
+  var LAUNCH_LABEL = { l: 'In the release', c: 'Candidate', n: 'Not planned' };
 
   function lsGet(k){ try { return JSON.parse(localStorage.getItem(k) || '{}') || {}; } catch(e){ return {}; } }
   function lsSet(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} }
@@ -302,17 +346,27 @@ footer p{margin:0 0 7px;max-width:80ch}
   function shortDay(iso){ try { return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: TZ }); } catch(e){ return ''; } }
 
   // The state of one decision. Planned comes only from the record (x.planned, x.pd), never from a
-  // click. A Change or Discuss saved after the planned date reopens the item and counts under that
-  // mark; a mark saved on or before it is the input that led to the record and stays informational.
+  // click.
+  //
+  // A mark saved after the record never reopens the item. On an item in the release a Change or
+  // Discuss is a change *requested*: the recorded answer stands, the work in flight carries on,
+  // and the request becomes its own item linked to this one. On a Candidate or a Not-planned item
+  // every mark is ranking, whatever its date — it orders the list and never creates launch work.
+  // A mark on or before the recorded date is the input that led to the record.
   function stateOf(x){
     var r = store[x.id] || {}, v = r.v || '';
+    var ranks = (x.lx === 'c' || x.lx === 'n');
+    if (ranks) return { s: x.pd ? 'planned' : (v || 'undecided'), planned: !!x.pd, rank: !!v, req: false, v: v };
     if (x.pd){
       var after = !!(v && r.updatedAt && dayOf(r.updatedAt) > x.pd);
-      if ((v === 'change' || v === 'discuss') && after) return { s: v, planned: true, reopened: true, v: v };
-      return { s: 'planned', planned: true, reopened: false, v: v };
+      var req = (v === 'change' || v === 'discuss') && after;
+      return { s: req ? v : 'planned', planned: true, rank: false, req: req, v: v };
     }
-    return { s: v || 'undecided', planned: false, reopened: false, v: v };
+    return { s: v || 'undecided', planned: false, rank: false, req: false, v: v };
   }
+
+  // An item is waiting on the owners when it gates a launch task and has no recorded answer.
+  function waiting(x){ return !!(x.gate && !x.pd); }
 
   // One request helper for reads and writes. A 401 means the site requires a
   // passphrase: ask once, remember it, and retry; a second 401 clears the bad one.
@@ -418,15 +472,20 @@ footer p{margin:0 0 7px;max-width:80ch}
   var state = { q:'', dom:'', f:{} };
   function on(k){ return !!state.f[k]; }
   function anyStatusFilter(){ return on('undecided')||on('keep')||on('change')||on('discuss'); }
+  function anyLaunchFilter(){ return on('rel')||on('cand')||on('notplanned'); }
+  var LAUNCH_FILTER = { l: 'rel', c: 'cand', n: 'notplanned' };
 
   function match(x){
     if (state.dom && x.d !== state.dom) return false;
-    if (on('priority') && !(x.p || x.b)) return false;
+    if (on('priority') && !waiting(x)) return false;
+    if (anyLaunchFilter() && !(x.lx && on(LAUNCH_FILTER[x.lx]))) return false;
     var st = stateOf(x);
     if (on('planned') && !st.planned) return false;
     if (anyStatusFilter() && !on(st.s)) return false;
     if (state.q){
-      var hay = (x.id+' '+x.code+' '+x.q+' '+x.why+' '+x.now+' '+(x.plan||'')+' '+(x.opts||[]).join(' ')+' '+x.dn+(st.planned?' planned':'')).toLowerCase();
+      var hay = (x.id+' '+x.code+' '+x.q+' '+x.why+' '+x.now+' '+(x.plan||'')+' '+(x.opts||[]).join(' ')+' '+x.dn
+                 +' '+(x.sf||[]).join(' ')+' '+(x.sr||[]).join(' ')+' '+(x.vw||'')+' '+(x.vs||'')+' '+(x.tp||'')
+                 +' '+(x.lx ? LAUNCH_LABEL[x.lx] : '')+(st.planned?' planned':'')+(waiting(x)?' waiting on you':'')).toLowerCase();
       var terms = state.q.toLowerCase().split(/\s+/).filter(Boolean);
       for (var i=0;i<terms.length;i++) if (hay.indexOf(terms[i]) === -1) return false;
     }
@@ -456,32 +515,69 @@ footer p{margin:0 0 7px;max-width:80ch}
     return decided + ' / ' + list.length + ' decided' + (marked ? ' · ' + marked + ' marked' : '');
   }
 
+  // Sources: the owners' own two lists. An F-id is a screen in the demo and links straight to it;
+  // an R-line is a bullet of the Core list, by area and position.
+  function sources(x){
+    var out = [];
+    (x.sf || []).forEach(function(f){
+      out.push('<a href="/demo/#'+esc(f)+'" target="_blank" rel="noopener" title="The matching screen in your demo">Demo '+esc(f.replace('F-',''))+'</a>');
+    });
+    (x.sr || []).forEach(function(r){
+      var m = /^R-(\d+)\.(\d+)$/.exec(r);
+      out.push('<span title="Your Core list, area '+esc(m?m[1]:'')+', item '+esc(m?m[2]:'')+'">Core '+esc(m ? m[1]+'.'+m[2] : r)+'</span>');
+    });
+    return out.length ? '<span class="d-k">Sources</span><span class="d-v"><span class="src">'+out.join('')+'</span></span>' : '';
+  }
+
+  // One directional field in the record draws both halves of a split here.
+  function links(x){
+    var rows = [];
+    if (x.fl && byId[x.fl.id]) rows.push('<p class="fl"><b>Builds on</b> <button class="go" data-go="'+esc(x.fl.id)+'">'+esc(byId[x.fl.id].code)+'</button> — '+esc(x.fl.t)+'</p>');
+    (x.fb || []).forEach(function(f){
+      if (byId[f.id]) rows.push('<p class="fl"><b>Continues in</b> <button class="go" data-go="'+esc(f.id)+'">'+esc(byId[f.id].code)+'</button> — '+esc(f.t)+'</p>');
+    });
+    return rows.length ? '<span class="d-k">Related</span><span class="d-v">'+rows.join('')+'</span>' : '';
+  }
+
   function card(x){
     var st = stateOf(x), r = store[x.id] || {}, v = r.v || '';
     var hasNote = !!(r.n && r.n.trim());
-    var cls = 'd' + (st.reopened ? ' is-'+v : st.planned ? ' is-planned' : (v ? ' is-'+v : ''));
+    // A ranked candidate shows its ranking mark, not the planned accent: the recorded default is
+    // not a decision the owners made, and the mark is the only thing on it that is theirs.
+    var cls = 'd' + ((st.req || st.rank) ? ' is-'+v : st.planned ? ' is-planned' : (v ? ' is-'+v : ''));
     var markLine = '';
-    if (st.planned && v){
-      markLine = '<p class="d-mark">' + (st.reopened ? 'Reopened: you marked ' : 'You marked ') + MARK_LABEL[v]
+    if (st.rank && v){
+      markLine = '<p class="d-mark">Your ranking: ' + MARK_LABEL[v]
+               + (r.updatedAt ? ', ' + esc(shortDay(r.updatedAt)) : '')
+               + (v === 'change' ? ' — build this sooner when there is room.' : v === 'keep' ? ' — fine where it sits.' : ' — worth a conversation.')
+               + '</p>';
+    } else if (st.planned && v){
+      markLine = '<p class="d-mark">' + (st.req ? 'Change requested: you marked ' : 'You marked ') + MARK_LABEL[v]
                + (r.updatedAt ? ' on ' + esc(shortDay(r.updatedAt)) : '')
-               + (st.reopened ? '. It will be re-recorded from your note.' : '; it is on the record.') + '</p>';
+               + (st.req ? '. The decision on the record stands and the work carries on; this becomes its own item, linked here, for you to rank.'
+                         : '; it is on the record.') + '</p>';
     }
     return '<article class="'+cls+'" data-id="'+x.id+'"><div class="d-in">'
       + '<div class="d-h"><span class="d-id">'+esc(x.code)+'</span>'
       + '<span class="d-ref">'+esc(x.id)+'</span>'
-      + (!st.planned && x.need ? '<span class="d-flag due">Answer by '+esc(x.need)+'</span>' : '')
-      + (x.p ? '<span class="d-flag">Start here</span>' : '')
+      + (x.lx ? '<span class="pill '+x.lx+'">'+esc(LAUNCH_LABEL[x.lx])+'</span>' : '')
+      + (waiting(x) ? '<span class="d-flag due">Waiting on you'+(x.need ? ' · by '+esc(x.need) : '')+'</span>' : '')
       + '<h3 class="d-q">'+esc(x.q)+'</h3></div>'
       + '<div class="d-body">'
       +   '<span class="d-k">Why</span><span class="d-v">'+esc(x.why)+'</span>'
       +   '<span class="d-k">Today</span><span class="d-v now">'+esc(x.now)+'</span>'
       +   (x.plan ? '<span class="d-k plan">Proposed</span><span class="d-v plan">'+esc(x.plan)+'</span>' : '')
       +   (x.opts && x.opts.length ? '<span class="d-k">Options</span><span class="d-v opts">'+esc(x.opts.join('  ·  '))+'</span>' : '')
+      +   (x.vw ? '<span class="d-k">Value</span><span class="d-v val"><b>'+esc(x.vw)+'</b>'+(x.vs ? ' — '+esc(x.vs) : '')+'</span>' : '')
+      +   (x.tk ? '<span class="d-k">Proven by</span><span class="d-v proof'+(x.tp?'':' soon')+'">'
+      +           (x.tp ? esc(x.tp) : 'A test written as this is built') + '</span>' : '')
+      +   sources(x)
+      +   links(x)
       + '</div>'
       + '<div class="d-act">'
       +   (st.planned ? '<span class="st planned" title="Set from the record when the register is updated">Planned · '+esc(x.planned)+'</span>' : '')
-      +   (st.reopened ? '<span class="st reopened">Reopened</span>' : '')
-      +   (st.planned ? '' : '<button class="opt keep" data-v="keep" aria-pressed="'+(v==='keep')+'">Keep as-is</button>')
+      +   (st.req ? '<span class="st reopened">Change requested</span>' : '')
+      +   (st.planned && !st.rank ? '' : '<button class="opt keep" data-v="keep" aria-pressed="'+(v==='keep')+'">Keep as-is</button>')
       +   '<button class="opt change" data-v="change" aria-pressed="'+(v==='change')+'">Change</button>'
       +   '<button class="opt discuss" data-v="discuss" aria-pressed="'+(v==='discuss')+'">Discuss</button>'
       +   '<button class="note-t'+(hasNote?' has-note':'')+'" data-note>'+(hasNote?'Note ✓':'Add note')+'</button>'
@@ -527,7 +623,29 @@ footer p{margin:0 0 7px;max-width:80ch}
     dh.querySelector('.dom-c').textContent = domCount(list);
   }
 
+  // Jump to the other half of a split. The target may sit outside the current filters (a
+  // candidate while "In the release" is on), so clear them rather than scroll to nothing.
+  function goTo(id){
+    if (!byId[id]) return;
+    var find = function(){ return document.querySelector('.d[data-id="'+id+'"]'); };
+    if (!find()){
+      state.f = {}; state.q = ''; state.dom = '';
+      document.getElementById('q').value = '';
+      sel.value = '';
+      Array.prototype.forEach.call(document.querySelectorAll('#chips .chip'), function(b){ b.setAttribute('aria-pressed', 'false'); });
+      render();
+    }
+    var el = find(); if (!el) return;
+    el.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    el.animate ? el.animate([{ outlineColor: 'var(--accent)' }, { outlineColor: 'transparent' }],
+                            { duration: 1400 }) : null;
+    el.style.outline = '2px solid var(--accent)';
+    setTimeout(function(){ el.style.outline = ''; }, 1400);
+  }
+
   document.getElementById('list').addEventListener('click', function(e){
+    var go = e.target.closest('[data-go]');
+    if (go){ goTo(go.dataset.go); return; }
     var art = e.target.closest('.d'); if (!art) return;
     var id = art.dataset.id;
     var opt = e.target.closest('.opt');
@@ -537,7 +655,7 @@ footer p{margin:0 0 7px;max-width:80ch}
       r.updatedAt = new Date().toISOString();               // provisional; the server's stamp replaces it on save
       persist();
       apiSave(id);
-      if (anyStatusFilter() || on('planned')) { render(); }
+      if (anyStatusFilter() || on('planned') || anyLaunchFilter()) { render(); }
       else {
         var wrap = document.createElement('div'); wrap.innerHTML = card(byId[id]);
         var fresh = wrap.firstChild; art.replaceWith(fresh);
@@ -585,14 +703,18 @@ footer p{margin:0 0 7px;max-width:80ch}
     var items = QS.filter(function(x){ var r = store[x.id]; return x.pd || (r && (r.v || (r.n && r.n.trim()))); });
     if (!items.length) return '';
     var lines = ['# HOAhx Decision Register — marks, notes, and planned decisions', '',
-                 'Exported ' + localDate() + ' · ' + items.length + ' of ' + QS.length + ' planned, marked, or noted.', ''];
+                 'Exported ' + localDate() + ' · ' + items.length + ' of ' + QS.length + ' planned, marked, or noted.',
+                 'A mark on a Candidate is a ranking, not an answer. A Change on an item already Planned is a change requested: '
+                 + 'the recorded decision stands and the request becomes its own item.', ''];
     items.forEach(function(x){
       var r = store[x.id] || {}, st = stateOf(x);
       lines.push('### ' + x.id + ' · ' + x.code);
       lines.push('Question: ' + x.q);
-      if (st.planned) lines.push('Status: Planned since ' + x.pd + (st.reopened ? ' · reopened' : ''));
+      if (x.lx) lines.push('Release: ' + LAUNCH_LABEL[x.lx] + (waiting(x) ? ' · waiting on you' + (x.need ? ' by ' + x.need : '') : ''));
+      if (st.planned) lines.push('Status: Planned since ' + x.pd + (st.req ? ' · change requested' : ''));
       if (x.plan) lines.push((st.planned ? 'Decided: ' : 'Proposed: ') + x.plan);
-      if (r.v) lines.push('Mark: ' + MARK_LABEL[r.v] + (r.updatedAt ? ' (' + dayOf(r.updatedAt) + ')' : ''));
+      if (x.tk) lines.push('Proven by: ' + (x.tp || 'a test written as this is built'));
+      if (r.v) lines.push((st.rank ? 'Ranking: ' : 'Mark: ') + MARK_LABEL[r.v] + (r.updatedAt ? ' (' + dayOf(r.updatedAt) + ')' : ''));
       if (r.n && r.n.trim()) lines.push('Note: ' + r.n.trim().replace(/\s*\n+\s*/g, ' '));
       lines.push('');
     });

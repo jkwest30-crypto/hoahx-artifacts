@@ -11,10 +11,16 @@
 //                                               Mark: / Note:" shape /decide reads; items that
 //                                               changed since the previous snapshot are flagged
 // Prints a table of what changed. Never writes to the store.
+//
+// A later mark never reopens an item (Jacob, 2026-09-14). On an item in the release a Change or
+// Discuss saved after the answer was recorded is CHANGE REQUESTED: /decide keeps the recorded
+// answer, leaves the work in flight alone, and splits the request out as a new entry with a
+// `Follows:` line and `Launch: candidate`. On a candidate or a not-planned item every mark is
+// RANK: the owners' ordering, never an answer that creates launch work.
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { parseArgs, parseDecisions, fetchStore, snapshotStore, latestSnapshot, isLive, isReopen, dayOf, DEFAULT_SITE } from './register-lib.mjs';
+import { parseArgs, parseDecisions, loadWorkflowNames, fetchStore, snapshotStore, latestSnapshot, isLive, laterMark, LAUNCH_LABEL, dayOf, DEFAULT_SITE } from './register-lib.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, '..');
@@ -29,7 +35,8 @@ function fail(msg) { console.error('\n✗ ' + msg); process.exit(1); }
 
 const byId = new Map();
 if (fs.existsSync(SOURCE)) {
-  const parsed = parseDecisions(fs.readFileSync(SOURCE, 'utf8'), path.basename(SOURCE));
+  const parsed = parseDecisions(fs.readFileSync(SOURCE, 'utf8'), path.basename(SOURCE),
+    loadWorkflowNames(path.join(path.dirname(SOURCE), '..', '..', 'workflow-map.json')));
   for (const q of parsed.questions) byId.set(q.id, q);
 } else console.warn(`  ! ${SOURCE} not found; the export will carry ids only`);
 
@@ -61,7 +68,9 @@ const lines = [
   '# HOAhx Decision Register — shared marks and notes',
   '',
   `Pulled ${new Date().toISOString()} from ${SITE} · ${live.length} of ${byId.size || '?'} marked or noted · ${changedLive.length} changed since the previous pull${prev ? ` (${path.basename(prev.file)})` : ''}.`,
-  'Apply with /decide. "Discuss" is not an answer; "Change" without a note needs a conversation; a mark that REOPENS a planned item is compared with the recorded answer first.',
+  'Apply with /decide. "Discuss" is not an answer; "Change" without a note needs a conversation.',
+  'A mark marked CHANGE REQUESTED does not reopen the item: the recorded answer stands and the work carries on, and the request becomes a new entry with a Follows line and Launch: candidate.',
+  'A mark marked RANK is the owners ordering a candidate — Change means sooner, Keep as-is means fine where it sits, Discuss means talk. It is never an answer and never creates launch work.',
   '',
 ];
 const selected = args.all ? live : (prev ? changedLive : live);
@@ -72,9 +81,15 @@ for (const x of selected) {
   lines.push(`Mark: ${x.r.v ? MARK[x.r.v] || x.r.v : '(no mark — see note)'}`);
   if (x.r.n && String(x.r.n).trim()) lines.push(`Note: ${String(x.r.n).trim().replace(/\s*\n+\s*/g, ' ')}`);
   if (x.r.updatedAt) lines.push(`Updated: ${x.r.updatedAt}`);
-  if (q && q.pd) lines.push(isReopen(x.r, q)
-    ? `Planned since ${q.pd}; this mark was saved after that date, so it REOPENS the item: compare with the recorded answer and ask before changing.`
-    : `Planned since ${q.pd}; this mark is on or before that date and is the input already recorded.`);
+  if (q && q.lx) lines.push(`Release: ${LAUNCH_LABEL[q.lx]}`);
+  const later = q ? laterMark(x.r, q) : '';
+  if (later === 'rank') {
+    lines.push(`RANK: this is a ${LAUNCH_LABEL[q.lx].toLowerCase()}, so the mark orders it and is not an answer. Record it as ranking; do not create launch work from it.`);
+  } else if (later === 'change-requested') {
+    lines.push(`CHANGE REQUESTED: answered ${q.pd} and this mark is later. Keep the recorded answer and the work in flight; split the request into a new entry with "Follows: ${x.id}" and "Launch: candidate", then rank it.`);
+  } else if (q && q.pd) {
+    lines.push(`Planned since ${q.pd}; this mark is on or before that date and is the input already recorded.`);
+  }
   lines.push('');
 }
 if (cleared.length) {
@@ -88,12 +103,20 @@ if (cleared.length) {
 fs.writeFileSync(out, lines.join('\n'));
 
 const pad = (s, n) => String(s).padEnd(n);
-console.log(`\n${pad('ID', 7)}${pad('Code', 11)}${pad('Mark', 11)}${pad('Saved', 12)}${pad('Status', 21)}${pad('Changed', 9)}Note`);
+console.log(`\n${pad('ID', 7)}${pad('Code', 11)}${pad('Mark', 11)}${pad('Saved', 12)}${pad('Status', 30)}${pad('Changed', 9)}Note`);
+let requested = 0, ranked = 0;
 for (const x of live) {
   const q = byId.get(x.id);
-  const status = q && q.pd ? (isReopen(x.r, q) ? `REOPENS ${q.pd}` : `planned ${q.pd}`) : '';
-  console.log(`${pad(x.id, 7)}${pad(q ? q.code : '?', 11)}${pad(x.r.v ? MARK[x.r.v] || x.r.v : '—', 11)}${pad(x.r.updatedAt ? dayOf(x.r.updatedAt) : '', 12)}${pad(status, 21)}${pad(x.changed ? 'yes' : '', 9)}${x.r.n ? String(x.r.n).trim().replace(/\s+/g, ' ').slice(0, 60) : ''}`);
+  const later = q ? laterMark(x.r, q) : '';
+  if (later === 'change-requested') requested++;
+  if (later === 'rank') ranked++;
+  const status = later === 'change-requested' ? `CHANGE REQUESTED (${q.pd})`
+    : later === 'rank' ? `RANK (${LAUNCH_LABEL[q.lx].toLowerCase()})`
+    : q && q.pd ? `planned ${q.pd}` : '';
+  console.log(`${pad(x.id, 7)}${pad(q ? q.code : '?', 11)}${pad(x.r.v ? MARK[x.r.v] || x.r.v : '—', 11)}${pad(x.r.updatedAt ? dayOf(x.r.updatedAt) : '', 12)}${pad(status, 30)}${pad(x.changed ? 'yes' : '', 9)}${x.r.n ? String(x.r.n).trim().replace(/\s+/g, ' ').slice(0, 60) : ''}`);
 }
+if (requested) console.log(`\n${requested} change(s) requested on an item already answered: the recorded answer stands; /decide splits each into a new entry that follows it.`);
+if (ranked) console.log(`${ranked} mark(s) on a candidate or not-planned item are ranking, not answers.`);
 if (!live.length) console.log('(nothing marked or noted yet)');
 if (cleared.length) console.log(`\n${cleared.length} record(s) cleared since the previous pull; listed at the end of the export.`);
 console.log(`\n✓ wrote ${out} (${selected.length} item(s)${args.all ? ', all live' : prev ? ', changed only; pass --all for everything' : ''})`);

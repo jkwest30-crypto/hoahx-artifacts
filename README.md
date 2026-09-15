@@ -1,8 +1,10 @@
 # hoahx-artifacts
 
 Published HOAhx go-live artifacts, deployed by Netlify from this repository's `main` branch to
-https://hoahx-requirements.netlify.app/. The site's root is the **HOAhx Decision Register**, the
-owners' checklist of the rules the platform applies by default.
+https://hoahx-requirements.netlify.app/. The site's root is the **HOAhx Decision Register**: since
+September 14, 2026 it is the one register for the first release — every requirement, what the
+platform does today, whether it is in the release, a ranked candidate, or not planned, and the test
+that will prove it works.
 `/workflow-map` is the **HOAhx Workflow Map**: every workflow by the person who uses it, with the
 exact steps and the handoffs between roles. `/design/` is the **HOAhx Design Reference** for the
 design work: the fixed stack, the tokens, the components as they ship, the layout system, and the
@@ -26,9 +28,33 @@ build, from an entry's recorded Answer and Answered date in `decisions.md`; nobo
 The owners' Keep as-is / Change / Discuss marks and their notes are the input: they are pulled,
 recorded with `/decide` (which rewrites the entry's Planned line to say what was decided), and the
 next build marks the item Planned. The headline count on the page counts Planned items only. On a
-Planned item the Keep button is hidden; a Change or Discuss saved after the planned date reopens it
-(shown as "Reopened", counted under that mark until it is re-recorded), while a mark saved on or
-before that date is shown as the input that led to the record.
+Planned item the Keep button is hidden.
+
+### What the rest of an entry's fields become on the page
+
+The triage plan (`docs/launch/scope-triage-plan.md`, section 3) gives every entry a further set of
+fields. Some are rendered, some are deliberately internal and never leave the launch program:
+
+| Field in `decisions.md` | On the page |
+|---|---|
+| `Launch:` | One of three pills — **In the release** · **Candidate** · **Not planned** — plus **Waiting on you** on the gating set. An entry with no `Launch:` value shows no pill, so a missing field can never read as a promise |
+| `Value:` | The word only (**Low / Medium / High**) with its one-sentence reason. The per-criterion scores stay internal |
+| `Test:` | **Proven by**. A `workflow:` id is resolved to that workflow's own name from `workflow-map.json`; a `tests/` path becomes a plain sentence; `none → <task>` becomes "a test written as this is built" — the task id never shows |
+| `Sources:` | Small labels. An **F-id** links to the matching screen at `/demo/#F-###`; an **R-line** is the owners' Core list by area and item. `S0-` step-0 rows are internal and are dropped in the parser, not the template |
+| `Follows:` | Drawn **both ways** from the one directional field: **Builds on** on the entry that carries it, **Continues in** on the entry it points at. Clicking either jumps to the other half, clearing any filter that would hide it |
+| `Kind:`, `Security:`, `Cost:` | **Never rendered.** The security class, its mitigations, the hours and the money stay in the launch program |
+
+### What a mark does, and what it no longer does
+
+A later mark **never reopens an entry** (Jacob, 2026-09-14). `pull-register.mjs` reports one of:
+
+- **CHANGE REQUESTED** — a Change or Discuss on an entry in the release whose answer is already
+  recorded. The recorded answer stands and the work in flight carries on; `/decide` splits the
+  request out as a new entry with a `Follows:` line and `Launch: candidate`, which then gets ranked.
+- **RANK** — any mark on a Candidate or a Not-planned entry, whatever its date. It is the owners'
+  ordering: Change means sooner, Keep as-is means fine where it sits, Discuss means talk. It is
+  never an answer and never creates launch work.
+- Nothing, when the mark is on or before the recorded date: it is the input that led to the record.
 
 ```
 decisions.md  ──build──▶  go-live/decision-register/decision-register.html  ──push main──▶  Netlify
@@ -45,13 +71,21 @@ npm run build:register -- --source ../hoahx/docs/launch/decisions.md
 The build refuses to write unless all of this holds:
 
 1. `decisions.md` parses: every entry has Area, Why, Today the platform, Question, Answer, Answered;
-   ids (`D-###`) and codes (`Q-AREA-n`) are unique; every entry sits under an `## NN · Area` header.
-2. The live shared store was fetched and **snapshotted** to `../hoahx/docs/launch/register-store/`
+   ids (`D-###`) and codes (`Q-AREA-n`) are unique; every entry sits under an `## NN · Area` header;
+   every `Launch:` value is one of the three; every `Follows:` points at a real entry, not itself.
+2. **`register-check.cjs --strict` passes.** That script lives beside `decisions.md` in the launch
+   program and owns the coverage and reference rules: every Core bullet and F-id in exactly one
+   entry, every Core bullet on an in-the-launch entry, real `Test` and `Blocks` references, no
+   pending answer on a candidate, the header count, and the excluded words. It is the one
+   implementation of those rules and the builder runs it rather than repeating it. When
+   `decisions.md` is somewhere without it, the build says so and carries on;
+   `--skip-register-check` silences that.
+3. The live shared store was fetched and **snapshotted** to `../hoahx/docs/launch/register-store/`
    (`store-YYYYMMDD-HHMMSS.json`), so every mark and note is on disk before the page changes.
-3. **No live mark or note points at an id the new page lacks.** D-numbers are permanent (a new
+4. **No live mark or note points at an id the new page lacks.** D-numbers are permanent (a new
    decision gets the next number; nothing is renumbered), so this only trips if an entry was removed;
    the build lists the stranded ids and stops. `--allow-orphans` overrides; the snapshot keeps them.
-4. The page contains none of the words the owner-facing documents exclude.
+5. The page contains none of the words the owner-facing documents exclude.
 
 Then review the diff, commit, and push `main` (or open a PR and merge it); Netlify deploys on push.
 `npm run check:register` runs the same checks and writes nothing. `--offline` skips the store check
