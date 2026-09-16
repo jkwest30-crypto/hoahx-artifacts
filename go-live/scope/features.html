@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HOAhx · Features</title>
+<meta name="description" content="Every feature beyond the proposal, one by one: what it adds, what the platform does today, its priority, its hours, and the package it belongs to.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="scope.css">
+</head>
+<body>
+<nav class="nav" data-nav aria-label="Beyond the proposal"></nav>
+
+<header class="mast"><div class="wrap mast-in">
+  <p class="eyebrow">HOAhx · Beyond the proposal</p>
+  <h1>Features, one by one</h1>
+  <p class="lede">Every feature outside the twelve items of the proposal that still has a build behind it: what it adds, what the platform does today, its priority against the brand foundation, and its hours. Your Core list first, then the other candidates.</p>
+  <p class="lede">Listed in priority rank, 1 the highest. A feature inside a package you have selected is already counted; adding it here adds nothing twice.</p>
+</div></header>
+
+<div class="controls"><div class="wrap controls-in">
+  <div class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q" type="search" placeholder="Search features" aria-label="Search features"></div>
+  <select id="area"><option value="">All areas</option></select>
+  <div class="chips" id="chips">
+    <button class="chip" data-f="all" aria-pressed="true">All</button>
+    <button class="chip" data-f="High">High</button>
+    <button class="chip" data-f="Medium">Medium</button>
+    <button class="chip" data-f="Low">Low</button>
+    <button class="chip" data-f="picked">Selected</button>
+  </div>
+  <select id="sort"><option value="rank">Priority rank</option><option value="build">Build order</option><option value="hours">Fewest hours first</option></select>
+  <span class="count" id="count"></span>
+</div></div>
+
+<main class="wrap">
+  <div class="sec-h"><span class="sec-n">1</span><h2 class="sec-t">Your Core list, beyond the proposal</h2><span class="sec-c" id="c1"></span></div>
+  <p class="sec-note">On your Core list, not in the proposal, and not in the platform today.</p>
+  <div id="core"></div>
+  <div class="sec-h"><span class="sec-n">2</span><h2 class="sec-t">Other candidates</h2><span class="sec-c" id="c2"></span></div>
+  <p class="sec-note">Ideas from the register and your demo that are outside the first release, ranked.</p>
+  <div id="cands"></div>
+  <div class="sec-h"><span class="sec-n">3</span><h2 class="sec-t">Already covered by the proposal</h2><span class="sec-c" id="c3"></span></div>
+  <p class="sec-note">Holes and errors that exist in the platform today. They are part of the security and defect work in the proposal, ship in the launch, and add no hours.</p>
+  <div id="scope"></div>
+  <div class="sec-h"><span class="sec-n">4</span><h2 class="sec-t">Set aside for the launch</h2><span class="sec-c" id="c4"></span></div>
+  <p class="sec-note">Fuller versions of features whose core part is in the launch. Ask for one and it joins the candidates.</p>
+  <div id="declined"></div>
+</main>
+
+<div class="tally" data-tally></div>
+
+<footer><div class="wrap">
+  <p>Priority follows the register's scoring against the brand foundation of September 13: whether a feature makes something clearer, gives a next step and an owner, makes history visible, how many homeowners it reaches, and whether people would notice. Open "Why" on any feature to see its scores. Hours are the build estimates for this engagement.</p>
+</div></footer>
+
+<script src="scope.js"></script>
+<script>
+(async function () {
+  const S = window.SCOPE;
+  const data = await S.load();
+  let q = '', area = '', prio = 'all', sort = 'rank';
+  const pkgById = {}; data.packages.forEach((p) => { pkgById[p.id] = p; });
+
+  const areas = [...new Set([...data.core, ...data.candidates].map((i) => i.area).filter(Boolean))].sort();
+  document.getElementById('area').innerHTML += areas.map((a) => '<option>' + S.esc(a) + '</option>').join('');
+
+  function card(i, pickable) {
+    const sel = S.selection(data);
+    const covered = i.pkg && sel.inPicked.has(i.id);
+    const picked = S.isPicked(i.id);
+    const cls = 'card' + (covered ? ' is-covered' : picked ? ' is-picked' : '') + (i.priority === 'High' ? ' is-high' : '');
+    const pkg = i.pkg ? pkgById[i.pkg] : null;
+    return '<article class="' + cls + '" id="' + S.esc(i.id) + '">' +
+      '<div class="card-h"><span class="card-id">' + S.esc(i.code) + '</span>' + (pickable ? S.pill(i.priority) : '') + S.stagePill(i) +
+      (pkg ? '<a class="pill stage" style="text-decoration:none" href="packages.html#' + S.esc(pkg.id) + '">In ' + S.esc(pkg.id) + '</a>' : '') +
+      (covered ? '<span class="pill covered">Included in ' + S.esc(i.pkg) + '</span>' : '') +
+      (pickable ? '<span class="card-area mono num" style="margin-left:auto">Rank ' + i.rank + ' · build ' + i.build + '</span>' : '<span class="card-area" style="margin-left:auto">' + S.esc(i.area) + '</span>') + '</div>' +
+      '<div class="card-t"><h3>' + S.esc(i.title) + '</h3></div>' +
+      '<div class="card-b"><dl class="rows"><dt>Adds</dt><dd>' + S.esc(i.adds) + '</dd><dt>Today</dt><dd class="today">' + S.esc(i.today) + '</dd></dl>' +
+      (pickable ? '<details class="more"><summary>Why this priority, and why this order</summary><dl class="rows">' +
+        '<dt>Value</dt><dd>' + S.esc(i.band) + ' (' + i.score + ' of 15) — ' + S.esc(i.why) + '</dd>' +
+        '<dt>Why</dt><dd>' + S.esc(i.whyRec) + '</dd>' +
+        '<dt>Basis</dt><dd>' + S.esc(i.cat) + '</dd>' +
+        '<dt>Order</dt><dd>' + S.esc(i.whyOrder) + '</dd>' +
+        (i.pairs && !i.pkg ? '<dt>Built with</dt><dd>' + S.esc(i.pairs) + '</dd>' : '') + '</dl></details>' : '') + '</div>' +
+      (pickable ? '<div class="card-f">' +
+        '<dl class="stat"><dt>Hours</dt><dd>' + S.fmtH(i.jake) + '<small>' + S.esc(i.work) + '</small></dd></dl>' +
+        '<dl class="stat"><dt>Cost</dt><dd>' + S.fmtMoney(i.jake * data.rate) + '</dd></dl>' +
+        '<div class="act"><button class="link-btn" data-note="' + S.esc(i.id) + '">' + (S.state.notes[i.id] ? 'Note ✓' : 'Add a note') + '</button>' +
+        (covered ? '<button class="btn" disabled>Included in ' + S.esc(i.pkg) + '</button>' :
+          '<button class="btn' + (picked ? ' picked' : '') + '" data-pick="' + S.esc(i.id) + '">' + (picked ? 'Selected' : 'Add to the launch') + '</button>') + '</div></div>' +
+        '<div class="note-wrap" hidden><textarea placeholder="Anything you want us to know about this feature" data-note-for="' + S.esc(i.id) + '">' + S.esc(S.state.notes[i.id] || '') + '</textarea></div>' : '') +
+      '</article>';
+  }
+
+  function matches(i) {
+    if (prio === 'picked' && !S.isPicked(i.id)) return false;
+    if (prio !== 'all' && prio !== 'picked' && i.priority !== prio) return false;
+    if (area && i.area !== area) return false;
+    if (q) { const t = (i.id + ' ' + i.code + ' ' + i.title + ' ' + i.adds + ' ' + i.today + ' ' + i.area).toLowerCase(); if (!t.includes(q)) return false; }
+    return true;
+  }
+  const sorter = () => sort === 'rank' ? (a, b) => a.rank - b.rank : sort === 'build' ? (a, b) => a.build - b.build : (a, b) => a.jake - b.jake || a.rank - b.rank;
+
+  function render() {
+    const core = data.core.filter(matches).sort(sorter());
+    const cands = data.candidates.filter(matches).sort(sorter());
+    document.getElementById('core').innerHTML = core.length ? core.map((i) => card(i, true)).join('') : '<p class="empty">Nothing matches.</p>';
+    document.getElementById('cands').innerHTML = cands.length ? cands.map((i) => card(i, true)).join('') : '<p class="empty">Nothing matches.</p>';
+    document.getElementById('c1').textContent = core.length + ' of ' + data.core.length;
+    document.getElementById('c2').textContent = cands.length + ' of ' + data.candidates.length;
+    const inScope = data.inScope.filter((i) => !q || (i.title + ' ' + i.adds).toLowerCase().includes(q));
+    document.getElementById('scope').innerHTML = inScope.map((i) => card(Object.assign({ priority: '', stage: 0 }, i), false)).join('');
+    document.getElementById('c3').textContent = data.inScope.length + ' items';
+    const decl = data.declined.filter((i) => !q || (i.title + ' ' + i.adds).toLowerCase().includes(q));
+    document.getElementById('declined').innerHTML = decl.map((i) => card(Object.assign({}, i, { priority: '', stage: 0 }), false)).join('');
+    document.getElementById('c4').textContent = data.declined.length + ' items';
+    document.getElementById('count').textContent = (core.length + cands.length) + ' of ' + (data.core.length + data.candidates.length) + ' shown';
+    S.renderNav('features.html', data);
+    S.renderTally(data);
+  }
+
+  document.getElementById('q').addEventListener('input', (e) => { q = e.target.value.trim().toLowerCase(); render(); });
+  document.getElementById('area').addEventListener('change', (e) => { area = e.target.value; render(); });
+  document.getElementById('sort').addEventListener('change', (e) => { sort = e.target.value; render(); });
+  document.getElementById('chips').addEventListener('click', (e) => {
+    const b = e.target.closest('.chip'); if (!b) return;
+    prio = b.dataset.f;
+    document.querySelectorAll('#chips .chip').forEach((c) => c.setAttribute('aria-pressed', c === b ? 'true' : 'false'));
+    render();
+  });
+  document.querySelector('main').addEventListener('click', (e) => {
+    const pick = e.target.closest('[data-pick]');
+    if (pick) { const i = [...data.core, ...data.candidates].find((x) => x.id === pick.dataset.pick); S.toggle(pick.dataset.pick, i ? i.code : ''); return; }
+    const note = e.target.closest('[data-note]');
+    if (note) { const w = note.closest('.card').querySelector('.note-wrap'); w.hidden = !w.hidden; if (!w.hidden) w.querySelector('textarea').focus(); }
+  });
+  document.querySelector('main').addEventListener('input', (e) => {
+    const t = e.target.closest('[data-note-for]'); if (!t) return;
+    const i = [...data.core, ...data.candidates].find((x) => x.id === t.dataset.noteFor);
+    S.setNote(t.dataset.noteFor, t.value, i ? i.code : '');
+    const btn = t.closest('.card').querySelector('[data-note]'); btn.textContent = t.value.trim() ? 'Note ✓' : 'Add a note';
+  });
+  document.addEventListener('scope:changed', render);
+  render();
+  if (location.hash) { const el = document.querySelector(location.hash); if (el) el.scrollIntoView(); }
+})();
+</script>
+</body>
+</html>
