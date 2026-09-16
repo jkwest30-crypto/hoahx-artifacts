@@ -148,6 +148,9 @@ details.more[open] summary::before{content:"− "}
 details.more .rows{margin-top:8px}
 .feat-list{margin:6px 0 0;padding-left:18px;color:var(--ink-2);font-size:14px}
 .feat-list li{margin:2px 0}
+.card-b .why{margin:12px 0 0;padding:10px 12px;border-left:2px solid var(--accent-2);background:var(--accent-wash);color:var(--ink);font-size:14.5px}
+.card-b .why b{font-family:"IBM Plex Mono",monospace;font-weight:500;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-right:6px}
+.card-b .after{margin:8px 0 0;font-size:13px;color:var(--muted)}
 .note-wrap{padding:0 18px 14px}
 .note-wrap textarea{width:100%;min-height:64px;font-family:inherit;font-size:14px;color:var(--ink);background:var(--surface-2);border:1px solid var(--rule-strong);border-radius:2px;padding:8px 10px;resize:vertical}
 

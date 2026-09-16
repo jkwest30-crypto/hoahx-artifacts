@@ -18,7 +18,7 @@
   <p class="eyebrow">HOAhx · Beyond the proposal</p>
   <h1>Packages</h1>
   <p class="lede">Features that share a subject and the same part of the platform, built together from one brief on one branch with one round of testing. A package costs less than its features apart, and its features are counted once.</p>
-  <p class="lede">Listed in build order: the sequence the architecture asks for. Add a package to keep it in the launch; the running total at the foot of the page shows the hours, the date, and the cost.</p>
+  <p class="lede">Listed in build order, the sequence the architecture asks for, with my reason on each. Add a package to keep it in the launch; the running total at the foot of the page shows the hours, the date, and the cost.</p>
 </div></header>
 
 <div class="controls"><div class="wrap controls-in">
@@ -60,17 +60,14 @@
       '<div class="card-t"><h3>' + S.esc(p.area) + '</h3></div>' +
       '<div class="card-b"><p>' + S.esc(p.overview) + '</p>' +
       '<ul class="feat-list">' + p.titles.map((t, i) => '<li>' + S.esc(t) + ' <a class="mono" style="font-size:11px;text-decoration:none" href="features.html#' + S.esc(p.items[i]) + '">' + S.esc(p.items[i]) + '</a></li>').join('') + '</ul>' +
-      '<details class="more"><summary>Why this priority, and why this order</summary><dl class="rows">' +
-      '<dt>Priority</dt><dd>' + S.esc(p.why) + '</dd>' +
-      '<dt>Order</dt><dd>' + S.esc(p.whyOrder) + '</dd>' +
-      '<dt>Must follow</dt><dd>' + S.esc(p.follow) + '</dd>' +
-      '<dt>Runs beside</dt><dd>' + S.esc(p.beside) + '</dd></dl></details></div>' +
+      '<p class="why"><b>Why here:</b> ' + S.esc(p.why) + '</p>' +
+      (p.follow && p.follow !== 'Nothing' ? '<p class="after">After: ' + S.esc(p.follow) + '</p>' : '') + '</div>' +
       '<div class="card-f">' +
       '<dl class="stat"><dt>Hours</dt><dd>' + S.fmtH(p.jake) + '<small>' + p.n + ' feature' + (p.n === 1 ? '' : 's') + ' · ' + S.fmtH(p.sumJake) + ' h apart</small></dd></dl>' +
       '<dl class="stat"><dt>Cost</dt><dd>' + S.fmtMoney(p.jake * data.rate) + '</dd></dl>' +
       '<div class="act"><button class="link-btn" data-note="' + S.esc(p.id) + '">' + (S.state.notes[p.id] ? 'Note ✓' : 'Add a note') + '</button>' +
       '<button class="btn' + (picked ? ' picked' : '') + '" data-pick="' + S.esc(p.id) + '">' + (picked ? 'Selected' : 'Add to the launch') + '</button></div></div>' +
-      '<div class="note-wrap" hidden><textarea placeholder="Anything you want us to know about this package" data-note-for="' + S.esc(p.id) + '">' + S.esc(S.state.notes[p.id] || '') + '</textarea></div>' +
+      '<div class="note-wrap" hidden><textarea placeholder="Anything you want me to know about this package" data-note-for="' + S.esc(p.id) + '">' + S.esc(S.state.notes[p.id] || '') + '</textarea></div>' +
       '</article>';
   }
 

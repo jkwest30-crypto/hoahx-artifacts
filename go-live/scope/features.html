@@ -80,7 +80,7 @@
       (pickable ? '<span class="card-area mono num" style="margin-left:auto">Rank ' + i.rank + ' · build ' + i.build + '</span>' : '<span class="card-area" style="margin-left:auto">' + S.esc(i.area) + '</span>') + '</div>' +
       '<div class="card-t"><h3>' + S.esc(i.title) + '</h3></div>' +
       '<div class="card-b"><dl class="rows"><dt>Adds</dt><dd>' + S.esc(i.adds) + '</dd><dt>Today</dt><dd class="today">' + S.esc(i.today) + '</dd></dl>' +
-      (pickable ? '<details class="more"><summary>Why this priority, and why this order</summary><dl class="rows">' +
+      (pickable ? '<details class="more"><summary>Why</summary><dl class="rows">' +
         '<dt>Value</dt><dd>' + S.esc(i.band) + ' (' + i.score + ' of 15) — ' + S.esc(i.why) + '</dd>' +
         '<dt>Why</dt><dd>' + S.esc(i.whyRec) + '</dd>' +
         '<dt>Basis</dt><dd>' + S.esc(i.cat) + '</dd>' +
@@ -92,7 +92,7 @@
         '<div class="act"><button class="link-btn" data-note="' + S.esc(i.id) + '">' + (S.state.notes[i.id] ? 'Note ✓' : 'Add a note') + '</button>' +
         (covered ? '<button class="btn" disabled>Included in ' + S.esc(i.pkg) + '</button>' :
           '<button class="btn' + (picked ? ' picked' : '') + '" data-pick="' + S.esc(i.id) + '">' + (picked ? 'Selected' : 'Add to the launch') + '</button>') + '</div></div>' +
-        '<div class="note-wrap" hidden><textarea placeholder="Anything you want us to know about this feature" data-note-for="' + S.esc(i.id) + '">' + S.esc(S.state.notes[i.id] || '') + '</textarea></div>' : '') +
+        '<div class="note-wrap" hidden><textarea placeholder="Anything you want me to know about this feature" data-note-for="' + S.esc(i.id) + '">' + S.esc(S.state.notes[i.id] || '') + '</textarea></div>' : '') +
       '</article>';
   }
 

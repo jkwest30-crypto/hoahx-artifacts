@@ -228,7 +228,7 @@ Four owner-facing pages for the features outside the proposal's twelve items, bu
 launch program's à la carte data (`docs/launch/scripts/build-a-la-carte.py --json` in the HOAhx
 repo, which also builds the owners' workbook from the same source):
 
-- `/scope/` — **Our recommendation**: the architect's recommendation, three releases with hours and
+- `/scope/` — **My recommendation** (Jacob's): the recommendation, three releases with hours and
   dates, and a button that selects release 1 as recommended.
 - `/scope/packages.html` — **Packages**: features grouped so they are built together, in build order,
   with priority, hours, cost, must-follow and runs-beside, and an *Add to the launch* button.

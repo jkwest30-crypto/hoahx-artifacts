@@ -166,7 +166,7 @@
   function renderNav(active, data) {
     const nav = document.querySelector('[data-nav]');
     if (!nav) return;
-    const tabs = [['index.html', 'Our recommendation'], ['packages.html', 'Packages'], ['features.html', 'Features'], ['review.html', 'Review and send']];
+    const tabs = [['index.html', 'My recommendation'], ['packages.html', 'Packages'], ['features.html', 'Features'], ['review.html', 'Review and send']];
     const sel = data ? selection(data) : null;
     nav.innerHTML = '<div class="wrap nav-in"><a class="nav-brand" href="index.html">HOAhx · Beyond the proposal</a>' +
       tabs.map(([href, label]) => '<a class="tab" href="' + href + '"' + (active === href ? ' aria-current="page"' : '') + '>' + label + '</a>').join('') +
