@@ -24,9 +24,8 @@
 <div class="controls"><div class="wrap controls-in">
   <div class="chips" id="chips">
     <button class="chip" data-f="all" aria-pressed="true">All</button>
-    <button class="chip" data-f="r1">Release 1</button>
-    <button class="chip" data-f="r2">Release 2</button>
-    <button class="chip" data-f="r3">Release 3</button>
+    <button class="chip" data-f="r1" data-group="1">MVP 1</button>
+    <button class="chip" data-f="r2" data-group="2">MVP 2</button>
     <button class="chip" data-f="cand">Candidates</button>
     <button class="chip" data-f="picked">Selected</button>
   </div>
@@ -47,13 +46,17 @@
 (async function () {
   const S = window.SCOPE;
   const data = await S.load();
-  // Which release a package is in comes from data.releases, the same resolved composition the
-  // recommendation renders, so a package held back to a later release cannot still read
-  // "Release 1" here. Anything no release carries is one of the owners' own picks.
+  // Which group a package is in comes from data.releases, the same resolved composition the
+  // recommendation renders, so a package held back to a later group cannot still read as being in
+  // MVP 1 here. Anything no group carries is one of the owners' own picks.
   const relOf = {};
   (data.releases || []).forEach((r, i) => r.ids.forEach((id) => { relOf[id] = 'r' + (i + 1); }));
   const rel = (p) => relOf[p.id] || 'cand';
-  const relName = { r1: 'Release 1', r2: 'Release 2', r3: 'Release 3', cand: 'Candidate' };
+  const relName = Object.fromEntries((data.releases || []).map((r, i) => ['r' + (i + 1), r.k]).concat([['cand', 'Candidate']]));
+  document.querySelectorAll('.chip[data-group]').forEach((b) => {
+    const r = (data.releases || [])[Number(b.dataset.group) - 1];
+    if (r) b.textContent = r.k; else b.remove();
+  });
   let filter = 'all', sort = 'build';
 
   function card(p) {
@@ -68,7 +71,7 @@
       '<p class="why"><b>Why here:</b> ' + S.esc(p.why) + '</p>' +
       (p.follow && p.follow !== 'Nothing' ? '<p class="after">After: ' + S.esc(p.follow) + '</p>' : '') + '</div>' +
       '<div class="card-f">' +
-      '<dl class="stat"><dt>Hours</dt><dd>' + S.fmtH(p.jake) + '<small>' + p.n + ' feature' + (p.n === 1 ? '' : 's') + ' · ' + S.fmtH(p.sumJake) + ' h apart</small></dd></dl>' +
+      '<dl class="stat"><dt>Hours</dt><dd>' + (Number(p.jake) > 0 ? S.fmtH(p.jake) : 'None') + '<small>' + p.n + ' feature' + (p.n === 1 ? '' : 's') + (Number(p.sumJake) > 0 ? ' · ' + S.fmtH(p.sumJake) + ' h apart' : ' · no added hours') + '</small></dd></dl>' +
       '<dl class="stat"><dt>Cost</dt><dd>' + S.fmtMoney(p.jake * data.rate) + '</dd></dl>' +
       '<div class="act"><button class="link-btn" data-note="' + S.esc(p.id) + '">' + (S.state.notes[p.id] ? 'Note ✓' : 'Add a note') + '</button>' +
       '<button class="btn' + (picked ? ' picked' : '') + '" data-pick="' + S.esc(p.id) + '">' + (picked ? 'Selected' : 'Add to the launch') + '</button></div></div>' +

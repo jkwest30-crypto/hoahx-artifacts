@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>HOAhx · My recommendation</title>
-<meta name="description" content="What to build beyond the proposal, in what order, and why: my recommendation for the HOAhx launch and the releases after it.">
+<meta name="description" content="What to build beyond the proposal, in what order, and why: my recommendation for MVP 1 of the HOAhx launch, and the rest of the Core list sized behind it.">
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,19 +17,19 @@
 <header class="mast"><div class="wrap mast-in">
   <p class="eyebrow">HOAhx · Beyond the proposal</p>
   <h1>My recommendation</h1>
-  <p class="lede">Your Core list is larger than the five-week plan was written for. Everything on it is here, sized and sequenced: what I would build first, what next, and why. Read this page, then choose by package or by feature on the pages that follow.</p>
+  <p class="lede">Your Core list is larger than the five-week plan was written for. Everything on it is here, sized: MVP 1 is the basics I would ship to get the platform out of the door, and the rest is sized behind it without a date. Read this page, then choose by package or by feature on the pages that follow.</p>
   <dl class="meta" id="meta"></dl>
 </div></header>
 
 <main class="wrap">
   <section>
-    <div class="sec-h"><h2 class="sec-t">Three releases</h2><span class="sec-c" id="rel-count"></span></div>
-    <p class="sec-note">Hours and dates come from the estimates behind these pages: build time at 4.5 hours a working day from the launch date in the plan. Each card lists its packages; open them on the Packages page.</p>
+    <div class="sec-h"><h2 class="sec-t">MVP 1, and what follows</h2><span class="sec-c" id="rel-count"></span></div>
+    <p class="sec-note" id="sec-note"></p>
     <div class="releases" id="releases"></div>
     <div class="cta">
-      <button class="btn big" id="accept">Select release 1 as recommended</button>
+      <button class="btn big" id="accept">Select MVP 1 as recommended</button>
       <a class="btn big quiet" href="packages.html">Choose package by package</a>
-      <span class="hint">Selecting adds the release-1 packages to your selection; you can change anything afterwards.</span>
+      <span class="hint">Selecting adds the MVP 1 packages to your selection; you can change anything afterwards.</span>
     </div>
   </section>
 
@@ -59,21 +59,25 @@
     pkgs: r.ids.map((id) => byId[id]).filter(Boolean),
     hours: Number(r.hours) || 0,
     days: Number(r.days) || 0,
-    date: new Date(r.date + 'T12:00:00'),
+    date: r.dated ? new Date(r.date + 'T12:00:00') : null,
     kicker: r.kicker || r.when || '',
   }));
   document.getElementById('releases').innerHTML = cards.map((c, i) =>
     '<div class="rel' + (i === 0 ? ' is-lead' : '') + '"><div class="k">' + S.esc(c.r.k + (c.kicker ? ' \u00b7 ' + c.kicker : '')) + '</div><h3>' + S.esc(c.r.name) + '</h3>' +
-    '<div class="facts"><div><b>' + S.fmtH(c.hours) + '</b><span>hours beyond the proposal</span></div><div><b>' + c.days + '</b><span>working days</span></div><div><b>' + S.esc(S.fmtDate(c.date)) + '</b><span>lands about</span></div></div>' +
-    '<ul>' + c.pkgs.map((p) => '<li><a href="packages.html#' + S.esc(p.id) + '">' + S.esc(p.id) + '</a> ' + S.esc(p.area) + ' <span class="mono num hrs">' + S.fmtH(p.jake) + ' h</span></li>').join('') + '</ul>' +
+    '<div class="facts"><div><b>' + S.fmtH(c.hours) + '</b><span>hours beyond the proposal</span></div><div><b>' + S.fmtMoney(c.hours * data.rate) + '</b><span>at $' + data.rate + ' an hour</span></div>' +
+    (c.date ? '<div><b>' + S.esc(S.fmtDate(c.date)) + '</b><span>lands about</span></div>' : '<div><b>No date yet</b><span>' + c.days + ' working days of build</span></div>') + '</div>' +
+    '<ul>' + c.pkgs.map((p) => '<li><a href="packages.html#' + S.esc(p.id) + '">' + S.esc(p.id) + '</a> ' + S.esc(p.area) + ' <span class="mono num hrs">' + S.fmtHours(p.jake) + '</span></li>').join('') + '</ul>' +
     '<p style="margin:10px 0 0;font-size:13px;color:var(--muted)">' + S.esc(c.r.note) + '</p></div>').join('');
+  document.getElementById('sec-note').textContent =
+    'Every hour on these pages is priced ' + Math.round((data.priceCut || 0) * 100) + '% under my estimate, rounded down to the half hour. '
+    + 'The date is build time at ' + data.hoursPerDay + ' hours a working day from the launch date in the plan; each card lists its packages, which open on the Packages page.';
   document.getElementById('rel-count').textContent = cards.reduce((s, c) => s + c.pkgs.length, 0) + ' packages \u00b7 ' + S.fmtH(cards.reduce((s, c) => s + c.hours, 0)) + ' h in all';
 
   document.getElementById('meta').innerHTML =
     '<div><dt>Launch date in the plan</dt><dd>' + S.esc(S.fmtDate(new Date(data.baseline + 'T12:00:00'))) + '</dd></div>' +
-    '<div><dt>Release 1 as recommended</dt><dd>' + S.fmtH(cards[0].hours) + ' h · about ' + S.esc(S.fmtDate(cards[0].date)) + '</dd></div>' +
-    '<div><dt>Cost of release 1</dt><dd>' + S.fmtMoney(cards[0].hours * data.rate) + ' at $' + data.rate + '/h</dd></div>' +
-    '<div><dt>Already covered</dt><dd>' + data.inScope.length + ' safety items, in the proposal</dd></div>';
+    '<div><dt>MVP 1 as recommended</dt><dd>' + S.fmtH(cards[0].hours) + ' h · about ' + S.esc(S.fmtDate(cards[0].date)) + '</dd></div>' +
+    '<div><dt>Cost of MVP 1</dt><dd>' + S.fmtMoney(cards[0].hours * data.rate) + ' at $' + data.rate + '/h</dd></div>' +
+    '<div><dt>The rest of the Core list</dt><dd>' + S.fmtH(cards[1].hours) + ' h · ' + S.fmtMoney(cards[1].hours * data.rate) + ', no date yet</dd></div>';
 
   document.getElementById('text').innerHTML = data.recommendation.slice(1).map((s) =>
     s.heading ? '<div class="sec-h"><h2 class="sec-t">' + S.esc(s.heading) + '</h2></div><p>' + S.esc(s.text) + '</p>' : '<p>' + S.esc(s.text) + '</p>').join('');

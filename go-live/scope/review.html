@@ -63,7 +63,7 @@
     const keys = Object.keys(stages).map(Number).sort((a, b) => a - b);
     document.getElementById('groups').innerHTML = keys.length ? keys.map((k) =>
       '<div class="review-group"><h3>Stage ' + k + ' · ' + S.esc(data.stages[String(k)]) + '</h3>' +
-      stages[k].sort((a, b) => a.build - b.build).map((e) => '<div class="line"><div class="what">' + S.esc(e.what) + '<small>' + S.esc(e.sub) + (e.note ? ' — Your note: ' + S.esc(e.note) : '') + '</small></div><div class="h">' + S.fmtH(e.hours) + ' h<small>' + S.fmtMoney(e.hours * data.rate) + '</small></div></div>').join('') + '</div>').join('')
+      stages[k].sort((a, b) => a.build - b.build).map((e) => '<div class="line"><div class="what">' + S.esc(e.what) + '<small>' + S.esc(e.sub) + (e.note ? ' — Your note: ' + S.esc(e.note) : '') + '</small></div><div class="h">' + S.fmtHours(e.hours) + '<small>' + S.fmtMoney(e.hours * data.rate) + '</small></div></div>').join('') + '</div>').join('')
       : '<p class="empty">Nothing selected yet. Start with <a href="index.html">the recommendation</a>, or choose on the <a href="packages.html">Packages</a> and <a href="features.html">Features</a> pages.</p>';
     document.getElementById('submit').disabled = !s.count;
     document.getElementById('sent').innerHTML = S.state.submittedAt ? '<div class="sent">Last sent ' + S.esc(new Date(S.state.submittedAt).toLocaleString('en-US', { dateStyle: 'long', timeStyle: 'short' })) + '. Sending again replaces it.</div>' : '';

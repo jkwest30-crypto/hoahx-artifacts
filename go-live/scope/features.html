@@ -40,7 +40,7 @@
   <p class="sec-note">On your Core list, not in the proposal, and not in the platform today.</p>
   <div id="core"></div>
   <div class="sec-h"><span class="sec-n">2</span><h2 class="sec-t">Other candidates</h2><span class="sec-c" id="c2"></span></div>
-  <p class="sec-note">Ideas from the register and your demo that are outside the first release, ranked.</p>
+  <p class="sec-note">Ideas from the register and your demo that are outside your Core list, ranked.</p>
   <div id="cands"></div>
   <div class="sec-h"><span class="sec-n">3</span><h2 class="sec-t">Already covered by the proposal</h2><span class="sec-c" id="c3"></span></div>
   <p class="sec-note">Holes and errors that exist in the platform today. They are part of the security and defect work in the proposal, ship in the launch, and add no hours.</p>
@@ -87,7 +87,7 @@
         '<dt>Order</dt><dd>' + S.esc(i.whyOrder) + '</dd>' +
         (i.pairs && !i.pkg ? '<dt>Built with</dt><dd>' + S.esc(i.pairs) + '</dd>' : '') + '</dl></details>' : '') + '</div>' +
       (pickable ? '<div class="card-f">' +
-        '<dl class="stat"><dt>Hours</dt><dd>' + S.fmtH(i.jake) + '<small>' + S.esc(i.work) + '</small></dd></dl>' +
+        '<dl class="stat"><dt>Hours</dt><dd>' + (Number(i.jake) > 0 ? S.fmtH(i.jake) : 'None') + '<small>' + S.esc(i.work) + '</small></dd></dl>' +
         '<dl class="stat"><dt>Cost</dt><dd>' + S.fmtMoney(i.jake * data.rate) + '</dd></dl>' +
         '<div class="act"><button class="link-btn" data-note="' + S.esc(i.id) + '">' + (S.state.notes[i.id] ? 'Note ✓' : 'Add a note') + '</button>' +
         (covered ? '<button class="btn" disabled>Included in ' + S.esc(i.pkg) + '</button>' :

@@ -32,6 +32,7 @@
   const fmtDate = (d) => d.toLocaleDateString('en-US', { weekday: 'short', month: 'long', day: 'numeric' });
   const fmtMoney = (n) => '$' + Math.round(n).toLocaleString('en-US');
   const fmtH = (n) => (Math.round(n * 10) / 10).toLocaleString('en-US');
+  const fmtHours = (n) => (Number(n) > 0 ? fmtH(n) + ' h' : 'included');
 
   // ── totals: a picked package counts its items once; an item inside a picked package is not counted again ──
   function selection(data) {
@@ -198,5 +199,5 @@
     return data;
   }
 
-  window.SCOPE = { state, load, selection, toggle, setNote, setMessage, selectMany, submit, renderNav, renderTally, esc, pill, stagePill, fmtDate, fmtMoney, fmtH, addWorkdays, isPicked: (id) => state.picks[id] === 'yes' };
+  window.SCOPE = { state, load, selection, toggle, setNote, setMessage, selectMany, submit, renderNav, renderTally, esc, pill, stagePill, fmtDate, fmtMoney, fmtH, fmtHours, addWorkdays, isPicked: (id) => state.picks[id] === 'yes' };
 })();
