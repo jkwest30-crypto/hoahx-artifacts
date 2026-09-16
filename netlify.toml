@@ -26,3 +26,16 @@
   from = "/workflow-map/"
   to = "/workflow-map/workflow-map.html"
   status = 200
+
+# HOAhx · Beyond the proposal: the recommendation, the packages, the features, and
+# the review page under /scope/, with their shared store at /api/picks.
+[[redirects]]
+  from = "/api/picks"
+  to = "/.netlify/functions/picks"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/scope"
+  to = "/scope/index.html"
+  status = 200

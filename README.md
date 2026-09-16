@@ -221,3 +221,30 @@ the script positions it.
 | `scripts/dev-register.mjs`, `scripts/dev-stubs/` | Local server with an in-memory store |
 | `netlify/functions/decisions.js` | The shared store API |
 | `netlify.toml` | Publish dir, the `/api/decisions` rewrite, the root redirect, the `/workflow-map` redirect |
+
+## Beyond the proposal (`/scope/`)
+
+Four owner-facing pages for the features outside the proposal's twelve items, built from the
+launch program's à la carte data (`docs/launch/scripts/build-a-la-carte.py --json` in the HOAhx
+repo, which also builds the owners' workbook from the same source):
+
+- `/scope/` — **Our recommendation**: the architect's recommendation, three releases with hours and
+  dates, and a button that selects release 1 as recommended.
+- `/scope/packages.html` — **Packages**: features grouped so they are built together, in build order,
+  with priority, hours, cost, must-follow and runs-beside, and an *Add to the launch* button.
+- `/scope/features.html` — **Features**: every feature one by one (Core list beyond the proposal,
+  other candidates, the safety items already covered, the fuller versions set aside), with search
+  and filters; a feature inside a selected package is shown as included.
+- `/scope/review.html` — **Review and send**: the selection by build stage with the hours, the
+  working days, the launch date, and the cost; a message; *Send this selection*.
+
+The pages are static and read `go-live/scope/data.json` at load. The owners' selection is kept
+in the browser and saved to a shared store (`netlify/functions/picks.js`, Netlify Blobs store
+`hoahx-scope`, one record per package or feature with history; `_message` and `_submission`
+records carry the message and the last summary sent). `DECISION_EDIT_KEY`, when set, gates it
+exactly as it gates the register.
+
+```
+build-a-la-carte.py --json  ──▶  go-live/scope/data.json  ──push main──▶  Netlify   (npm run check:scope guards the words and the shape)
+owners pick and send        ──▶  /api/picks (Blobs)       ──npm run pull:scope──▶  a summary for the change order
+```

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HOAhx · Review and send</title>
+<meta name="description" content="The features and packages you have selected for the HOAhx launch, with the hours, the date, and the cost, ready to send.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="scope.css">
+</head>
+<body>
+<nav class="nav" data-nav aria-label="Beyond the proposal"></nav>
+
+<header class="mast"><div class="wrap mast-in">
+  <p class="eyebrow">HOAhx · Beyond the proposal</p>
+  <h1>Review and send</h1>
+  <p class="lede">What you have selected, in the order it would be built, with the hours it adds, the date it moves the launch to, and the cost. Change anything on the Packages or Features pages; send when it reads the way you want it.</p>
+</div></header>
+
+<main class="wrap">
+  <div class="totals"><dl id="totals"></dl></div>
+  <div id="groups"></div>
+  <div class="send" id="send">
+    <label for="msg">A message with your selection (optional)</label>
+    <textarea id="msg" placeholder="Anything about these choices, the order, or the dates"></textarea>
+    <div class="cta" style="margin-top:0">
+      <button class="btn big" id="submit">Send this selection</button>
+      <button class="btn big quiet" id="print">Print a copy</button>
+      <span class="hint" id="hint">Sending records your selection with today's date. You can change it and send again.</span>
+    </div>
+    <div id="sent"></div>
+  </div>
+</main>
+
+<footer><div class="wrap">
+  <p>What you send becomes a change order: the hours, the cost, and the date effect written down before any of it is built. Nothing starts on its own. Hours are the build estimates for this engagement; the cost is at the rate for extra work in the proposal; the date is at 4.5 hours of build time a working day from the launch date in the plan.</p>
+</div></footer>
+
+<script src="scope.js"></script>
+<script>
+(async function () {
+  const S = window.SCOPE;
+  const data = await S.load();
+  const msg = document.getElementById('msg');
+  msg.value = S.state.message || '';
+  msg.addEventListener('input', () => S.setMessage(msg.value));
+
+  function render() {
+    const s = S.selection(data);
+    const stages = {};
+    const put = (stage, entry) => { (stages[stage] = stages[stage] || []).push(entry); };
+    s.pkgs.forEach((p) => put(p.stage, { build: p.build, what: p.id + ' · ' + p.area, sub: p.n + ' features: ' + p.titles.join('; '), hours: p.jake, note: S.state.notes[p.id] }));
+    s.items.forEach((i) => put(i.stage, { build: 100 + i.build, what: i.title, sub: i.code + (i.pkg ? ' · part of ' + i.pkg + ', selected on its own' : ''), hours: i.jake, note: S.state.notes[i.id] }));
+    document.getElementById('totals').innerHTML =
+      '<div><dt>Selected</dt><dd>' + s.count + '<small>' + s.pkgs.length + ' package' + (s.pkgs.length === 1 ? '' : 's') + ', ' + s.items.length + ' on their own</small></dd></div>' +
+      '<div><dt>Hours added</dt><dd>' + S.fmtH(s.hours) + '<small>beyond the proposal</small></dd></div>' +
+      '<div><dt>Working days</dt><dd>' + s.days + '<small>at ' + data.hoursPerDay + ' h a day</small></dd></div>' +
+      '<div><dt>Launch date</dt><dd style="font-size:16px;padding-top:4px">' + S.esc(S.fmtDate(s.date)) + '<small>from ' + S.esc(S.fmtDate(new Date(data.baseline + 'T12:00:00'))) + ' in the plan</small></dd></div>' +
+      '<div><dt>Added cost</dt><dd>' + S.fmtMoney(s.cost) + '<small>at $' + data.rate + ' an hour</small></dd></div>';
+    const keys = Object.keys(stages).map(Number).sort((a, b) => a - b);
+    document.getElementById('groups').innerHTML = keys.length ? keys.map((k) =>
+      '<div class="review-group"><h3>Stage ' + k + ' · ' + S.esc(data.stages[String(k)]) + '</h3>' +
+      stages[k].sort((a, b) => a.build - b.build).map((e) => '<div class="line"><div class="what">' + S.esc(e.what) + '<small>' + S.esc(e.sub) + (e.note ? ' — Your note: ' + S.esc(e.note) : '') + '</small></div><div class="h">' + S.fmtH(e.hours) + ' h<small>' + S.fmtMoney(e.hours * data.rate) + '</small></div></div>').join('') + '</div>').join('')
+      : '<p class="empty">Nothing selected yet. Start with <a href="index.html">the recommendation</a>, or choose on the <a href="packages.html">Packages</a> and <a href="features.html">Features</a> pages.</p>';
+    document.getElementById('submit').disabled = !s.count;
+    document.getElementById('sent').innerHTML = S.state.submittedAt ? '<div class="sent">Last sent ' + S.esc(new Date(S.state.submittedAt).toLocaleString('en-US', { dateStyle: 'long', timeStyle: 'short' })) + '. Sending again replaces it.</div>' : '';
+    S.renderNav('review.html', data);
+    return s;
+  }
+
+  function summaryText(s) {
+    const lines = ['HOAhx · Beyond the proposal · selection sent ' + new Date().toLocaleString('en-US', { dateStyle: 'long', timeStyle: 'short' }), ''];
+    s.pkgs.sort((a, b) => a.build - b.build).forEach((p) => lines.push('Package ' + p.id + ' · ' + p.area + ' · ' + S.fmtH(p.jake) + ' h' + (S.state.notes[p.id] ? ' · note: ' + S.state.notes[p.id] : '')));
+    s.items.sort((a, b) => a.build - b.build).forEach((i) => lines.push('Feature ' + i.id + ' · ' + i.title + ' · ' + S.fmtH(i.jake) + ' h' + (S.state.notes[i.id] ? ' · note: ' + S.state.notes[i.id] : '')));
+    lines.push('', 'Total ' + S.fmtH(s.hours) + ' h · ' + s.days + ' working days · launch about ' + S.fmtDate(s.date) + ' · ' + S.fmtMoney(s.cost));
+    if (S.state.message) lines.push('', 'Message: ' + S.state.message);
+    return lines.join('\n');
+  }
+
+  document.getElementById('submit').addEventListener('click', async () => {
+    const s = render();
+    const btn = document.getElementById('submit');
+    btn.disabled = true; btn.textContent = 'Sending…';
+    try {
+      await S.submit(data, summaryText(s));
+      btn.textContent = 'Sent';
+      setTimeout(() => { btn.textContent = 'Send this selection'; btn.disabled = false; }, 2500);
+    } catch (e) {
+      btn.disabled = false; btn.textContent = 'Send this selection';
+      document.getElementById('sent').innerHTML = '<div class="sent" style="border-left-color:var(--flag);background:var(--flag-wash)">Not sent: ' + S.esc(e.message === 'unauthorized' ? 'the passphrase was not accepted. Reload the page and enter it when asked.' : 'no connection. Your selection is kept in this browser; try again in a moment.') + '</div>';
+    }
+  });
+  document.getElementById('print').addEventListener('click', () => window.print());
+  document.addEventListener('scope:changed', render);
+  render();
+})();
+</script>
+</body>
+</html>

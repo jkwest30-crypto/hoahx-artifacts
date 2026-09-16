@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HOAhx · Our recommendation</title>
+<meta name="description" content="What to build beyond the proposal, in what order, and why: the architect's recommendation for the HOAhx launch and the releases after it.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="scope.css">
+</head>
+<body>
+<nav class="nav" data-nav aria-label="Beyond the proposal"></nav>
+
+<header class="mast"><div class="wrap mast-in">
+  <p class="eyebrow">HOAhx · Beyond the proposal</p>
+  <h1>Our recommendation</h1>
+  <p class="lede">Your Core list is larger than the five-week plan was written for. Everything on it is here, sized and sequenced: what to build first, what to build next, and why. Read this page, then choose by package or by feature on the pages that follow.</p>
+  <dl class="meta" id="meta"></dl>
+</div></header>
+
+<main class="wrap">
+  <section>
+    <div class="sec-h"><h2 class="sec-t">Three releases</h2><span class="sec-c" id="rel-count"></span></div>
+    <p class="sec-note">Hours and dates come from the estimates behind these pages: build time at 4.5 hours a working day from the launch date in the plan. Each card lists its packages; open them on the Packages page.</p>
+    <div class="releases" id="releases"></div>
+    <div class="cta">
+      <button class="btn big" id="accept">Select release 1 as recommended</button>
+      <a class="btn big quiet" href="packages.html">Choose package by package</a>
+      <span class="hint">Selecting adds the release-1 packages to your selection; you can change anything afterwards.</span>
+    </div>
+  </section>
+
+  <section id="text" class="prose"></section>
+</main>
+
+<footer><div class="wrap">
+  <p>Every item on these pages is an entry in your Decision Register, where its full text lives. Hours are the build estimates for this engagement; the cost is at the rate for extra work in the proposal. Nothing on these pages starts on its own: what you send becomes a change order, written down with its hours, cost, and date before any of it is built.</p>
+  <p id="generated"></p>
+</div></footer>
+
+<script src="scope.js"></script>
+<script>
+(async function () {
+  const S = window.SCOPE;
+  const data = await S.load();
+  S.renderNav('index.html', data);
+  document.addEventListener('scope:changed', () => S.renderNav('index.html', data));
+
+  const R = [
+    { k: 'Release 1 · the launch', name: 'Foundation, spine, records, money', stages: [1, 2, 3, 4], note: 'With the twelve items of the proposal.' },
+    { k: 'Release 2 · about four weeks later', name: 'Operations and community', stages: [5, 6], note: 'The features homeowners notice most, on the layers under them.' },
+    { k: 'Release 3', name: 'Administration, the Copilot, and your picks', stages: [7, 8], note: 'Plus whatever you choose from Other candidates.' },
+  ];
+  // release 1 carries the Core packages of its stages and C1; later releases carry Core packages only (candidates are the owners' picks)
+  const inRelease = (p, r) => r.stages.includes(p.stage) && (p.id.startsWith('P') || (r.stages.includes(1) && p.id === 'C1'));
+  let cursor = 0;
+  const cards = R.map((r) => {
+    const pkgs = data.packages.filter((p) => inRelease(p, r)).sort((a, b) => a.build - b.build);
+    const hours = pkgs.reduce((s, p) => s + (Number(p.jake) || 0), 0);
+    const days = Math.ceil(hours / data.hoursPerDay);
+    cursor += days;
+    const date = S.addWorkdays(data.baseline, cursor);
+    return { r, pkgs, hours, days, date };
+  });
+  document.getElementById('releases').innerHTML = cards.map((c) =>
+    '<div class="rel"><div class="k">' + S.esc(c.r.k) + '</div><h3>' + S.esc(c.r.name) + '</h3>' +
+    '<div class="facts"><div><b>' + S.fmtH(c.hours) + '</b><span>hours beyond the proposal</span></div><div><b>' + c.days + '</b><span>working days</span></div><div><b>' + S.esc(S.fmtDate(c.date)) + '</b><span>lands about</span></div></div>' +
+    '<ul>' + c.pkgs.map((p) => '<li><a href="packages.html#' + S.esc(p.id) + '">' + S.esc(p.id) + '</a> ' + S.esc(p.area) + ' <span class="mono num" style="color:var(--muted);font-size:12px">' + S.fmtH(p.jake) + ' h</span></li>').join('') + '</ul>' +
+    '<p style="margin:10px 0 0;font-size:13px;color:var(--muted)">' + S.esc(c.r.note) + '</p></div>').join('');
+  document.getElementById('rel-count').textContent = cards.reduce((s, c) => s + c.pkgs.length, 0) + ' packages · ' + S.fmtH(cards.reduce((s, c) => s + c.hours, 0)) + ' h in all';
+
+  document.getElementById('meta').innerHTML =
+    '<div><dt>Launch date in the plan</dt><dd>' + S.esc(S.fmtDate(new Date(data.baseline + 'T12:00:00'))) + '</dd></div>' +
+    '<div><dt>Release 1 as recommended</dt><dd>' + S.fmtH(cards[0].hours) + ' h · about ' + S.esc(S.fmtDate(cards[0].date)) + '</dd></div>' +
+    '<div><dt>Cost of release 1</dt><dd>' + S.fmtMoney(cards[0].hours * data.rate) + ' at $' + data.rate + '/h</dd></div>' +
+    '<div><dt>Already covered</dt><dd>' + data.inScope.length + ' safety items, in the proposal</dd></div>';
+
+  document.getElementById('text').innerHTML = data.recommendation.slice(1).map((s) =>
+    s.heading ? '<div class="sec-h"><h2 class="sec-t">' + S.esc(s.heading) + '</h2></div><p>' + S.esc(s.text) + '</p>' : '<p>' + S.esc(s.text) + '</p>').join('');
+
+  document.getElementById('generated').textContent = 'Built from the register on ' + data.generated + '.';
+
+  document.getElementById('accept').addEventListener('click', () => {
+    S.selectMany(cards[0].pkgs.map((p) => p.id), true);
+    window.location.href = 'review.html';
+  });
+})();
+</script>
+</body>
+</html>

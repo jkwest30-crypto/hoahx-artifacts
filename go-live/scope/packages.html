@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HOAhx · Packages</title>
+<meta name="description" content="Features beyond the proposal grouped so they can be built together, with hours, priority, and build order, for the owners to choose from.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="scope.css">
+</head>
+<body>
+<nav class="nav" data-nav aria-label="Beyond the proposal"></nav>
+
+<header class="mast"><div class="wrap mast-in">
+  <p class="eyebrow">HOAhx · Beyond the proposal</p>
+  <h1>Packages</h1>
+  <p class="lede">Features that share a subject and the same part of the platform, built together from one brief on one branch with one round of testing. A package costs less than its features apart, and its features are counted once.</p>
+  <p class="lede">Listed in build order: the sequence the architecture asks for. Add a package to keep it in the launch; the running total at the foot of the page shows the hours, the date, and the cost.</p>
+</div></header>
+
+<div class="controls"><div class="wrap controls-in">
+  <div class="chips" id="chips">
+    <button class="chip" data-f="all" aria-pressed="true">All</button>
+    <button class="chip" data-f="r1">Release 1</button>
+    <button class="chip" data-f="r2">Release 2</button>
+    <button class="chip" data-f="r3">Release 3</button>
+    <button class="chip" data-f="cand">Candidates</button>
+    <button class="chip" data-f="picked">Selected</button>
+  </div>
+  <select id="sort"><option value="build">Build order</option><option value="rank">Priority rank</option><option value="hours">Fewest hours first</option></select>
+  <span class="count" id="count"></span>
+</div></div>
+
+<main class="wrap"><div id="list"></div></main>
+
+<div class="tally" data-tally></div>
+
+<footer><div class="wrap">
+  <p>Must follow names what has to be in place before a package is built; Runs beside names what can be built at the same time. Hours are the build estimates for this engagement. Adding a package here and one of its features on the Features page counts the feature once.</p>
+</div></footer>
+
+<script src="scope.js"></script>
+<script>
+(async function () {
+  const S = window.SCOPE;
+  const data = await S.load();
+  const rel = (p) => p.id.startsWith('C') && p.id !== 'C1' ? 'cand' : ([1, 2, 3, 4].includes(p.stage) ? 'r1' : [5, 6].includes(p.stage) ? 'r2' : 'r3');
+  const relName = { r1: 'Release 1', r2: 'Release 2', r3: 'Release 3', cand: 'Candidate' };
+  let filter = 'all', sort = 'build';
+
+  function card(p) {
+    const picked = S.isPicked(p.id);
+    const cls = 'card' + (picked ? ' is-picked' : '') + (p.priority === 'High' ? ' is-high' : '');
+    return '<article class="' + cls + '" id="' + S.esc(p.id) + '">' +
+      '<div class="card-h"><span class="card-id">' + S.esc(p.id) + '</span>' + S.pill(p.priority) + S.stagePill(p) + '<span class="pill rel">' + S.esc(relName[rel(p)]) + '</span>' +
+      '<span class="card-area mono num" style="margin-left:auto">Build order ' + p.build + ' · rank ' + p.rank + '</span></div>' +
+      '<div class="card-t"><h3>' + S.esc(p.area) + '</h3></div>' +
+      '<div class="card-b"><p>' + S.esc(p.overview) + '</p>' +
+      '<ul class="feat-list">' + p.titles.map((t, i) => '<li>' + S.esc(t) + ' <a class="mono" style="font-size:11px;text-decoration:none" href="features.html#' + S.esc(p.items[i]) + '">' + S.esc(p.items[i]) + '</a></li>').join('') + '</ul>' +
+      '<details class="more"><summary>Why this priority, and why this order</summary><dl class="rows">' +
+      '<dt>Priority</dt><dd>' + S.esc(p.why) + '</dd>' +
+      '<dt>Order</dt><dd>' + S.esc(p.whyOrder) + '</dd>' +
+      '<dt>Must follow</dt><dd>' + S.esc(p.follow) + '</dd>' +
+      '<dt>Runs beside</dt><dd>' + S.esc(p.beside) + '</dd></dl></details></div>' +
+      '<div class="card-f">' +
+      '<dl class="stat"><dt>Hours</dt><dd>' + S.fmtH(p.jake) + '<small>' + p.n + ' feature' + (p.n === 1 ? '' : 's') + ' · ' + S.fmtH(p.sumJake) + ' h apart</small></dd></dl>' +
+      '<dl class="stat"><dt>Cost</dt><dd>' + S.fmtMoney(p.jake * data.rate) + '</dd></dl>' +
+      '<div class="act"><button class="link-btn" data-note="' + S.esc(p.id) + '">' + (S.state.notes[p.id] ? 'Note ✓' : 'Add a note') + '</button>' +
+      '<button class="btn' + (picked ? ' picked' : '') + '" data-pick="' + S.esc(p.id) + '">' + (picked ? 'Selected' : 'Add to the launch') + '</button></div></div>' +
+      '<div class="note-wrap" hidden><textarea placeholder="Anything you want us to know about this package" data-note-for="' + S.esc(p.id) + '">' + S.esc(S.state.notes[p.id] || '') + '</textarea></div>' +
+      '</article>';
+  }
+
+  function render() {
+    let list = data.packages.slice();
+    if (filter === 'picked') list = list.filter((p) => S.isPicked(p.id));
+    else if (filter !== 'all') list = list.filter((p) => rel(p) === filter);
+    list.sort(sort === 'build' ? (a, b) => a.build - b.build : sort === 'rank' ? (a, b) => a.rank - b.rank : (a, b) => a.jake - b.jake || a.rank - b.rank);
+    document.getElementById('list').innerHTML = list.length ? list.map(card).join('') : '<p class="empty">Nothing selected yet.</p>';
+    document.getElementById('count').textContent = list.length + ' of ' + data.packages.length + ' packages';
+    S.renderNav('packages.html', data);
+    S.renderTally(data);
+  }
+
+  document.getElementById('chips').addEventListener('click', (e) => {
+    const b = e.target.closest('.chip'); if (!b) return;
+    filter = b.dataset.f;
+    document.querySelectorAll('#chips .chip').forEach((c) => c.setAttribute('aria-pressed', c === b ? 'true' : 'false'));
+    render();
+  });
+  document.getElementById('sort').addEventListener('change', (e) => { sort = e.target.value; render(); });
+  document.getElementById('list').addEventListener('click', (e) => {
+    const pick = e.target.closest('[data-pick]');
+    if (pick) { S.toggle(pick.dataset.pick, pick.dataset.pick); return; }
+    const note = e.target.closest('[data-note]');
+    if (note) { const w = note.closest('.card').querySelector('.note-wrap'); w.hidden = !w.hidden; if (!w.hidden) w.querySelector('textarea').focus(); }
+  });
+  document.getElementById('list').addEventListener('input', (e) => {
+    const t = e.target.closest('[data-note-for]'); if (!t) return;
+    S.setNote(t.dataset.noteFor, t.value, t.dataset.noteFor);
+    const btn = t.closest('.card').querySelector('[data-note]'); btn.textContent = t.value.trim() ? 'Note ✓' : 'Add a note';
+  });
+  document.addEventListener('scope:changed', render);
+  render();
+  if (location.hash) { const el = document.querySelector(location.hash); if (el) el.scrollIntoView(); }
+})();
+</script>
+</body>
+</html>
