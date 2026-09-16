@@ -1,8 +1,8 @@
 /* HOAhx · Beyond the proposal — shared styles for /scope/ (recommendation, packages, features, review).
    Same tokens, type, and rhythm as the Decision Register. */
 :root{
-  --ground:#F4F6F8; --surface:#FFFFFF; --surface-2:#EAEEF3;
-  --ink:#141821; --ink-2:#3B4453; --muted:#69727F;
+  --ground:#EDF0F3; --surface:#FAFBFC; --surface-2:#E6EAEF;
+  --ink:#1B212B; --ink-2:#414A59; --muted:#6B7482;
   --rule:#D8DDE5; --rule-strong:#BEC6D2;
   --accent:#2F4B7C; --accent-2:#4C74B8; --accent-wash:#E7EEF8; --on-accent:#FFFFFF;
   --keep:#2C7A4B; --keep-wash:#E3F1E9;
@@ -11,34 +11,8 @@
   --flag:#AE3A30; --flag-wash:#F8E7E4;
   --rel:#1F5F52; --rel-wash:#E2EFEC;
   --cand:#5B5F6B; --cand-wash:#E9EBEF;
-  --shadow:0 1px 2px rgba(20,24,33,.05),0 3px 12px rgba(20,24,33,.05);
-  color-scheme:light dark;
-}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --ground:#0D1015; --surface:#151A22; --surface-2:#1C222C;
-  --ink:#E7EAF0; --ink-2:#B4BDCB; --muted:#8D98A8;
-  --rule:#252C38; --rule-strong:#39424F;
-  --accent:#8AACE0; --accent-2:#A8C4EC; --accent-wash:#1A2433; --on-accent:#0D1015;
-  --keep:#5FBA85; --keep-wash:#16281E;
-  --change:#D5A354; --change-wash:#2A2115;
-  --discuss:#BB93D8; --discuss-wash:#241A2C;
-  --flag:#E38175; --flag-wash:#2E1A18;
-  --rel:#6FBFAC; --rel-wash:#15251F;
-  --cand:#9AA3B2; --cand-wash:#1E222A;
-  --shadow:0 1px 2px rgba(0,0,0,.3),0 3px 12px rgba(0,0,0,.25);
-}}
-:root[data-theme="dark"]{
-  --ground:#0D1015; --surface:#151A22; --surface-2:#1C222C;
-  --ink:#E7EAF0; --ink-2:#B4BDCB; --muted:#8D98A8;
-  --rule:#252C38; --rule-strong:#39424F;
-  --accent:#8AACE0; --accent-2:#A8C4EC; --accent-wash:#1A2433; --on-accent:#0D1015;
-  --keep:#5FBA85; --keep-wash:#16281E;
-  --change:#D5A354; --change-wash:#2A2115;
-  --discuss:#BB93D8; --discuss-wash:#241A2C;
-  --flag:#E38175; --flag-wash:#2E1A18;
-  --rel:#6FBFAC; --rel-wash:#15251F;
-  --cand:#9AA3B2; --cand-wash:#1E222A;
-  --shadow:0 1px 2px rgba(0,0,0,.3),0 3px 12px rgba(0,0,0,.25);
+  --shadow:0 1px 2px rgba(20,24,33,.04),0 3px 12px rgba(20,24,33,.04);
+  color-scheme:light;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
