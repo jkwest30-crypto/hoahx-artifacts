@@ -17,11 +17,13 @@
 <header class="mast"><div class="wrap mast-in">
   <p class="eyebrow">HOAhx · Beyond the proposal</p>
   <h1>Review and send</h1>
-  <p class="lede">What you have selected, in the order it would be built, with the hours it adds, the date it moves the launch to, and the cost. Change anything on the Packages or Features pages; send when it reads the way you want it.</p>
+  <p class="lede">What you have selected, in the order it would be built, with the hours it adds, the date it moves the launch to, and the cost. Remove anything here; add on the Packages or Features pages; send when it reads the way you want it.</p>
 </div></header>
 
 <main class="wrap">
   <div class="totals"><dl id="totals"></dl></div>
+  <div class="review-actions" id="actions"></div>
+  <div class="undo" id="undo" role="status" aria-live="polite"></div>
   <div id="groups"></div>
   <div class="send" id="send">
     <label for="msg">A message with your selection (optional)</label>
@@ -52,8 +54,8 @@
     const s = S.selection(data);
     const stages = {};
     const put = (stage, entry) => { (stages[stage] = stages[stage] || []).push(entry); };
-    s.pkgs.forEach((p) => put(p.stage, { build: p.build, what: p.id + ' · ' + p.area, sub: p.n + ' features: ' + p.titles.join('; '), hours: p.jake, note: S.state.notes[p.id] }));
-    s.items.forEach((i) => put(i.stage, { build: 100 + i.build, what: i.title, sub: i.code + (i.pkg ? ' · part of ' + i.pkg + ', selected on its own' : ''), hours: i.jake, note: S.state.notes[i.id] }));
+    s.pkgs.forEach((p) => put(p.stage, { build: p.build, id: p.id, code: p.id, what: p.id + ' · ' + p.area, sub: p.n + ' features: ' + p.titles.join('; '), hours: p.jake, note: S.state.notes[p.id] }));
+    s.items.forEach((i) => put(i.stage, { build: 100 + i.build, id: i.id, code: i.code || '', what: i.title, sub: i.code + (i.pkg ? ' · part of ' + i.pkg + ', selected on its own' : ''), hours: i.jake, note: S.state.notes[i.id] }));
     document.getElementById('totals').innerHTML =
       '<div><dt>Selected</dt><dd>' + s.count + '<small>' + s.pkgs.length + ' package' + (s.pkgs.length === 1 ? '' : 's') + ', ' + s.items.length + ' on their own</small></dd></div>' +
       '<div><dt>Hours added</dt><dd>' + S.fmtH(s.hours) + '<small>beyond the proposal</small></dd></div>' +
@@ -63,8 +65,11 @@
     const keys = Object.keys(stages).map(Number).sort((a, b) => a - b);
     document.getElementById('groups').innerHTML = keys.length ? keys.map((k) =>
       '<div class="review-group"><h3>Stage ' + k + ' · ' + S.esc(data.stages[String(k)]) + '</h3>' +
-      stages[k].sort((a, b) => a.build - b.build).map((e) => '<div class="line"><div class="what">' + S.esc(e.what) + '<small>' + S.esc(e.sub) + (e.note ? ' — Your note: ' + S.esc(e.note) : '') + '</small></div><div class="h">' + S.fmtHours(e.hours) + '<small>' + S.fmtMoney(e.hours * data.rate) + '</small></div></div>').join('') + '</div>').join('')
+      stages[k].sort((a, b) => a.build - b.build).map((e) => '<div class="line"><div class="what">' + S.esc(e.what) + '<small>' + S.esc(e.sub) + (e.note ? ' — Your note: ' + S.esc(e.note) : '') + '</small></div><div class="h">' + S.fmtHours(e.hours) + '<small>' + S.fmtMoney(e.hours * data.rate) + '</small></div>' +
+      '<button type="button" class="rm" data-rm="' + S.esc(e.id) + '" data-code="' + S.esc(e.code) + '" data-label="' + S.esc(e.what) + '" aria-label="Remove ' + S.esc(e.what) + ' from your selection">Remove</button></div>').join('') + '</div>').join('')
       : '<p class="empty">Nothing selected yet. Start with <a href="index.html">the recommendation</a>, or choose on the <a href="packages.html">Packages</a> and <a href="features.html">Features</a> pages.</p>';
+    document.getElementById('actions').innerHTML = (s.pkgs.length + s.items.length) > 1
+      ? '<button type="button" class="link-btn" id="rm-all">Remove everything</button>' : '';
     document.getElementById('submit').disabled = !s.count;
     document.getElementById('sent').innerHTML = S.state.submittedAt ? '<div class="sent">Last sent ' + S.esc(new Date(S.state.submittedAt).toLocaleString('en-US', { dateStyle: 'long', timeStyle: 'short' })) + '. Sending again replaces it.</div>' : '';
     S.renderNav('review.html', data);
@@ -79,6 +84,40 @@
     if (S.state.message) lines.push('', 'Message: ' + S.state.message);
     return lines.join('\n');
   }
+
+  // Removing. A selection is saved to the shared store the moment it changes, and the
+  // other owner may be looking at it, so every removal is reversible until the next one.
+  let undo = null;
+  function renderUndo() {
+    const el = document.getElementById('undo');
+    if (!undo) { el.innerHTML = ''; return; }
+    el.innerHTML = '<span>' + S.esc(undo.text) + '</span><button type="button" class="link-btn" id="undo-btn">' + S.esc(undo.btn) + '</button>';
+    document.getElementById('undo-btn').addEventListener('click', () => {
+      const ids = undo.ids;
+      undo = null;
+      S.selectMany(ids, true);
+      renderUndo();
+    });
+  }
+
+  document.getElementById('groups').addEventListener('click', (ev) => {
+    const btn = ev.target.closest('[data-rm]');
+    if (!btn) return;
+    const id = btn.dataset.rm;
+    undo = { ids: [id], text: 'Removed ' + btn.dataset.label + '.', btn: 'Put it back' };
+    S.toggle(id, btn.dataset.code || '');
+    renderUndo();
+  });
+
+  document.getElementById('actions').addEventListener('click', (ev) => {
+    if (!ev.target.closest('#rm-all')) return;
+    const s = S.selection(data);
+    const ids = s.pkgs.map((p) => p.id).concat(s.items.map((i) => i.id));
+    if (!ids.length) return;
+    undo = { ids, text: 'Removed everything \u2014 ' + ids.length + ' lines.', btn: 'Put them back' };
+    S.selectMany(ids, false);
+    renderUndo();
+  });
 
   document.getElementById('submit').addEventListener('click', async () => {
     const s = render();

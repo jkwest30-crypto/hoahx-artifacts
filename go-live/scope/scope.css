@@ -177,11 +177,16 @@ details.more .rows{margin-top:8px}
 /* review */
 .review-group{margin:26px 0}
 .review-group h3{margin-bottom:8px}
-.line{display:grid;grid-template-columns:1fr auto;gap:8px 16px;padding:10px 0;border-bottom:1px solid var(--rule);align-items:baseline}
+.line{display:grid;grid-template-columns:1fr auto auto;gap:8px 16px;padding:10px 0;border-bottom:1px solid var(--rule);align-items:baseline}
 .line .what{color:var(--ink)}
 .line .what small{display:block;color:var(--muted);font-size:12.5px;margin-top:2px}
 .line .h{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;color:var(--ink);white-space:nowrap}
 .line .h small{color:var(--muted);font-size:11px;margin-left:6px}
+.line .rm{appearance:none;cursor:pointer;font-size:12px;line-height:1.2;white-space:nowrap;align-self:baseline;padding:4px 9px;margin-top:-4px;border-radius:2px;border:1px solid transparent;background:none;color:var(--muted)}
+.line .rm:hover,.line .rm:focus-visible{color:var(--flag);border-color:var(--flag);background:var(--flag-wash)}
+.review-actions{display:flex;justify-content:flex-end;margin:-6px 0 2px}
+.undo{display:flex;align-items:center;gap:14px;flex-wrap:wrap;border-left:3px solid var(--accent-2);background:var(--accent-wash);color:var(--ink);padding:11px 14px;border-radius:2px;margin:14px 0;font-size:14px}
+.undo:empty{display:none}
 .totals{background:var(--surface);border:1px solid var(--rule);border-radius:2px;padding:16px 18px;margin:20px 0;box-shadow:var(--shadow)}
 .totals dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px 20px;margin:0}
 .totals dt{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
@@ -197,7 +202,7 @@ footer{border-top:1px solid var(--rule);padding:24px 0 40px;color:var(--muted);f
 footer p{margin:0 0 8px;max-width:78ch}
 
 @media print{
-  .nav,.controls,.tally,.btn,.link-btn,.note-wrap,.send textarea,.cta{display:none!important}
+  .nav,.controls,.tally,.btn,.link-btn,.note-wrap,.send textarea,.cta,.line .rm,.undo,.review-actions{display:none!important}
   body{background:#fff;color:#000}
   .card{break-inside:avoid;box-shadow:none}
   main{padding-bottom:20px}
