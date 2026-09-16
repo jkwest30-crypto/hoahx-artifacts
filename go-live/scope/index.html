@@ -65,10 +65,10 @@
     const date = S.addWorkdays(data.baseline, cursor);
     return { r, pkgs, hours, days, date };
   });
-  document.getElementById('releases').innerHTML = cards.map((c) =>
-    '<div class="rel"><div class="k">' + S.esc(c.r.k) + '</div><h3>' + S.esc(c.r.name) + '</h3>' +
+  document.getElementById('releases').innerHTML = cards.map((c, i) =>
+    '<div class="rel' + (i === 0 ? ' is-lead' : '') + '"><div class="k">' + S.esc(c.r.k) + '</div><h3>' + S.esc(c.r.name) + '</h3>' +
     '<div class="facts"><div><b>' + S.fmtH(c.hours) + '</b><span>hours beyond the proposal</span></div><div><b>' + c.days + '</b><span>working days</span></div><div><b>' + S.esc(S.fmtDate(c.date)) + '</b><span>lands about</span></div></div>' +
-    '<ul>' + c.pkgs.map((p) => '<li><a href="packages.html#' + S.esc(p.id) + '">' + S.esc(p.id) + '</a> ' + S.esc(p.area) + ' <span class="mono num" style="color:var(--muted);font-size:12px">' + S.fmtH(p.jake) + ' h</span></li>').join('') + '</ul>' +
+    '<ul>' + c.pkgs.map((p) => '<li><a href="packages.html#' + S.esc(p.id) + '">' + S.esc(p.id) + '</a> ' + S.esc(p.area) + ' <span class="mono num hrs">' + S.fmtH(p.jake) + ' h</span></li>').join('') + '</ul>' +
     '<p style="margin:10px 0 0;font-size:13px;color:var(--muted)">' + S.esc(c.r.note) + '</p></div>').join('');
   document.getElementById('rel-count').textContent = cards.reduce((s, c) => s + c.pkgs.length, 0) + ' packages · ' + S.fmtH(cards.reduce((s, c) => s + c.hours, 0)) + ' h in all';
 
