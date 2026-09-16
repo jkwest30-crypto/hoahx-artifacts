@@ -27,7 +27,7 @@
   },
   {
    "heading": "The short version",
-   "text": "Build in layers, and ship in three releases. The first release is the launch: the twelve items of the proposal, plus the foundation, the shared history, the records, and the money features from your Core list, about 54 hours beyond the proposal, landing around October 27. The second release, 8 working days after the first, is the day-to-day operations and community features, about 36 hours, around November 6. The third is administration and the Copilot, about 13 hours, with whatever else you pick, around November 11. Nothing on your Core list is dropped; it is sequenced."
+   "text": "Build in layers, and ship in three releases. The first release is the launch: the twelve items of the proposal, plus the foundation, the shared history, the records, and the money features from your Core list, about 47 hours beyond the proposal, landing around October 26. The second release, 9 working days after the first, is the day-to-day operations and community features, about 38 hours, around November 6. The third is administration and the Copilot, about 13 hours, with whatever else you pick, around November 11. All three releases are your Core list — MVP 1 — delivered in three shipments: nothing on it is dropped or deferred past release 3, it is sequenced. What sits beyond it is the other candidates on the Features page, which carry no dates."
   },
   {
    "heading": "Why layers, and why this order",
@@ -35,11 +35,11 @@
   },
   {
    "heading": "Release 1, the launch: foundation, history, records, money",
-   "text": "Foundation (P2, and C1): the HOA Administrator role of its own, the property and community switcher, and several roles for one person. C1 is the one candidate I recommend for the launch, because your first communities are self-managed: their board members are homeowners. Today a homeowner who becomes Treasurer stops being a homeowner in the app. Fixing that later means touching every permission check again; fixing it first costs about 12 hours once. History (P1): the audit record and the activity model, so every workflow that follows records into one history from day one. Records (P5a, P5b, P3, P6a, P6b): the household and property model, the spreadsheet import that fills it, and the ownership handoff that changes it. Money (P7, P8): delinquency and payment arrangements, and the budget with monthly statements, so the payments launch tells the whole money story: what is owed, what was collected, what it was spent on. Thirteen safety items that exist in the platform today are already in the proposal's scope and ship with this release at no added hours."
+   "text": "Foundation (P2, and C1): the HOA Administrator role of its own, the property and community switcher, and several roles for one person. C1 is the one candidate I recommend for the launch, because your first communities are self-managed: their board members are homeowners. Today a homeowner who becomes Treasurer stops being a homeowner in the app. Fixing that later means touching every permission check again; fixing it first costs about 7 hours once. History (P1): the audit record and the activity model, so every workflow that follows records into one history from day one. Records (P5a, P5b, P3, P6a): the household and property model, the spreadsheet import that fills it, and the ownership handoff that changes it. Money (P7, P8): delinquency and payment arrangements, and the budget with monthly statements, so the payments launch tells the whole money story: what is owed, what was collected, what it was spent on. Thirteen safety items that exist in the platform today are already in the proposal's scope and ship with this release at no added hours."
   },
   {
-   "heading": "Release 2, about four weeks later: operations and community",
-   "text": "Communications and alerts first (P13), because every workflow's notices go through it; then documents (P12), which violation procedures and architectural requirements cite; then violations rules (P9), maintenance and vendors (P10), architectural (P16); then votes and surveys (P14), calendar, contacts, directory, roster and feed (P15b), parking and visitors (P11b, P11a). These are the features homeowners will notice most, and they are the reason to get the layers under them right first."
+   "heading": "Release 2, about two weeks later: operations and community",
+   "text": "Communications and alerts first (P13), because every workflow's notices go through it; then documents (P12), which violation procedures and architectural requirements cite; then violations rules (P9), maintenance and vendors (P10), architectural (P16); then votes and surveys (P14), calendar, contacts, directory, roster and feed (P15b), parking and visitors (P11b, P11a); and the title-company access and paid transfer package (P6b), which follows the sale and ownership handoff built in release 1. These are the features homeowners will notice most, and they are the reason to get the layers under them right first."
   },
   {
    "heading": "Release 3: administration, the Copilot, and your picks",
@@ -1794,7 +1794,7 @@
    "why": "Clarity 2 · Next step and owner 1 · History 1 · Reach 2 · Noticeable 2 = 8 of 15, Medium. Clear value for homeowners or the board against the brand foundation, worth its hours in the first release.",
    "work": "Behind the scenes (data, rules, server)",
    "cal": "13.5–20",
-   "jake": 12,
+   "jake": 7,
    "pkg": "C1",
    "pairs": "",
    "cat": "Brand foundation: strong value",
@@ -3316,6 +3316,32 @@
    "beside": "Any area package"
   },
   {
+   "id": "C1",
+   "area": "Several roles for one person",
+   "overview": "One identity, several roles in a community, separate workspaces. Touches sign-in, roles, and rules across the app, so it is a package of its own.",
+   "items": [
+    "D-012"
+   ],
+   "titles": [
+    "Several roles for one person in a community"
+   ],
+   "n": 1,
+   "cal": "13.5–20",
+   "sumJake": 7,
+   "suggested": 7,
+   "jake": 7,
+   "cat": "Brand foundation: strong value",
+   "priority": "High",
+   "why": "Your board members are homeowners, and today a Treasurer stops being a homeowner in the app. I would fix that in the foundation, once, rather than touch every permission check later.",
+   "rank": 13,
+   "build": 2,
+   "stage": 1,
+   "stageName": "Foundation: identity, roles, scoping",
+   "whyOrder": "Several roles per person changes the shape of sign-in claims and every role check; if it is built at all, build it before the workflows that check roles, never after.",
+   "follow": "Nothing",
+   "beside": "Any area package; not another access package"
+  },
+  {
    "id": "P6a",
    "area": "Reporting a sale and the ownership handoff",
    "overview": "An owner reports a sale, the account is reviewed, the incoming owner is verified and invited, and the former owner's access ends on the confirmed date.",
@@ -3335,39 +3361,13 @@
    "cat": "Value below its hours",
    "priority": "High",
    "why": "A sale is the one event where a wrong record costs a community real trouble. Once the household model is settled.",
-   "rank": 13,
+   "rank": 14,
    "build": 9,
    "stage": 3,
    "stageName": "Records: properties, households, people",
    "whyOrder": "The ownership handoff changes households and property roles; after the model is settled.",
    "follow": "P5a",
    "beside": "Any area package"
-  },
-  {
-   "id": "C1",
-   "area": "Several roles for one person",
-   "overview": "One identity, several roles in a community, separate workspaces. Touches sign-in, roles, and rules across the app, so it is a package of its own.",
-   "items": [
-    "D-012"
-   ],
-   "titles": [
-    "Several roles for one person in a community"
-   ],
-   "n": 1,
-   "cal": "13.5–20",
-   "sumJake": 12,
-   "suggested": 12,
-   "jake": 12,
-   "cat": "Brand foundation: strong value",
-   "priority": "High",
-   "why": "Your board members are homeowners, and today a Treasurer stops being a homeowner in the app. I would fix that in the foundation, once, rather than touch every permission check later.",
-   "rank": 14,
-   "build": 2,
-   "stage": 1,
-   "stageName": "Foundation: identity, roles, scoping",
-   "whyOrder": "Several roles per person changes the shape of sign-in claims and every role check; if it is built at all, build it before the workflows that check roles, never after.",
-   "follow": "Nothing",
-   "beside": "Any area package; not another access package"
   },
   {
    "id": "P10",
@@ -3898,6 +3898,67 @@
    "whyOrder": "Board roles and invitations extend the same role model; after C1 if both are picked.",
    "follow": "C1, if both are picked",
    "beside": "Any area package; not another access package"
+  }
+ ],
+ "releases": [
+  {
+   "k": "Release 1",
+   "kicker": "the launch",
+   "name": "Foundation, history, records, money",
+   "note": "With the twelve items of the proposal.",
+   "ids": [
+    "P2",
+    "C1",
+    "P1",
+    "P5a",
+    "P5b",
+    "P3",
+    "P6a",
+    "P7",
+    "P8"
+   ],
+   "hours": 47,
+   "days": 11,
+   "date": "2026-10-26",
+   "when": ""
+  },
+  {
+   "k": "Release 2",
+   "kicker": "",
+   "name": "Operations and community",
+   "note": "The features homeowners notice most, on the layers under them.",
+   "ids": [
+    "P6b",
+    "P13",
+    "P12",
+    "P9",
+    "P10",
+    "P16",
+    "P14",
+    "P15b",
+    "P11b",
+    "P11a"
+   ],
+   "hours": 38,
+   "days": 9,
+   "date": "2026-11-06",
+   "when": "about two weeks later"
+  },
+  {
+   "k": "Release 3",
+   "kicker": "",
+   "name": "Administration, the Copilot, and your picks",
+   "note": "Plus whatever you choose from Other candidates.",
+   "ids": [
+    "P4",
+    "P17",
+    "P18a",
+    "P18b"
+   ],
+   "hours": 13,
+   "days": 3,
+   "date": "2026-11-11",
+   "when": "about one week later"
   }
  ]
 }

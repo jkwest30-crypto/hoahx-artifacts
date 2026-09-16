@@ -47,7 +47,12 @@
 (async function () {
   const S = window.SCOPE;
   const data = await S.load();
-  const rel = (p) => p.id.startsWith('C') && p.id !== 'C1' ? 'cand' : ([1, 2, 3, 4].includes(p.stage) ? 'r1' : [5, 6].includes(p.stage) ? 'r2' : 'r3');
+  // Which release a package is in comes from data.releases, the same resolved composition the
+  // recommendation renders, so a package held back to a later release cannot still read
+  // "Release 1" here. Anything no release carries is one of the owners' own picks.
+  const relOf = {};
+  (data.releases || []).forEach((r, i) => r.ids.forEach((id) => { relOf[id] = 'r' + (i + 1); }));
+  const rel = (p) => relOf[p.id] || 'cand';
   const relName = { r1: 'Release 1', r2: 'Release 2', r3: 'Release 3', cand: 'Candidate' };
   let filter = 'all', sort = 'build';
 

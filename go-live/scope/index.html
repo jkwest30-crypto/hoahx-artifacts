@@ -49,28 +49,25 @@
   S.renderNav('index.html', data);
   document.addEventListener('scope:changed', () => S.renderNav('index.html', data));
 
-  const R = [
-    { k: 'Release 1 · the launch', name: 'Foundation, history, records, money', stages: [1, 2, 3, 4], note: 'With the twelve items of the proposal.' },
-    { k: 'Release 2 · right after', name: 'Operations and community', stages: [5, 6], note: 'The features homeowners notice most, on the layers under them.' },
-    { k: 'Release 3', name: 'Administration, the Copilot, and your picks', stages: [7, 8], note: 'Plus whatever you choose from Other candidates.' },
-  ];
-  // release 1 carries the Core packages of its stages and C1; later releases carry Core packages only (candidates are the owners' picks)
-  const inRelease = (p, r) => r.stages.includes(p.stage) && (p.id.startsWith('P') || (r.stages.includes(1) && p.id === 'C1'));
-  let cursor = 0;
-  const cards = R.map((r) => {
-    const pkgs = data.packages.filter((p) => inRelease(p, r)).sort((a, b) => a.build - b.build);
-    const hours = pkgs.reduce((s, p) => s + (Number(p.jake) || 0), 0);
-    const days = Math.ceil(hours / data.hoursPerDay);
-    cursor += days;
-    const date = S.addWorkdays(data.baseline, cursor);
-    return { r, pkgs, hours, days, date };
-  });
+  // The three releases come resolved from the launch program's own builder (data.releases):
+  // which packages, how many hours, how many working days, the date, and how long after the
+  // release before it. Nothing is recomputed here, so the page, the workbook and the
+  // recommendation cannot disagree about any of it.
+  const byId = Object.fromEntries(data.packages.map((p) => [p.id, p]));
+  const cards = (data.releases || []).map((r) => ({
+    r,
+    pkgs: r.ids.map((id) => byId[id]).filter(Boolean),
+    hours: Number(r.hours) || 0,
+    days: Number(r.days) || 0,
+    date: new Date(r.date + 'T12:00:00'),
+    kicker: r.kicker || r.when || '',
+  }));
   document.getElementById('releases').innerHTML = cards.map((c, i) =>
-    '<div class="rel' + (i === 0 ? ' is-lead' : '') + '"><div class="k">' + S.esc(c.r.k) + '</div><h3>' + S.esc(c.r.name) + '</h3>' +
+    '<div class="rel' + (i === 0 ? ' is-lead' : '') + '"><div class="k">' + S.esc(c.r.k + (c.kicker ? ' \u00b7 ' + c.kicker : '')) + '</div><h3>' + S.esc(c.r.name) + '</h3>' +
     '<div class="facts"><div><b>' + S.fmtH(c.hours) + '</b><span>hours beyond the proposal</span></div><div><b>' + c.days + '</b><span>working days</span></div><div><b>' + S.esc(S.fmtDate(c.date)) + '</b><span>lands about</span></div></div>' +
     '<ul>' + c.pkgs.map((p) => '<li><a href="packages.html#' + S.esc(p.id) + '">' + S.esc(p.id) + '</a> ' + S.esc(p.area) + ' <span class="mono num hrs">' + S.fmtH(p.jake) + ' h</span></li>').join('') + '</ul>' +
     '<p style="margin:10px 0 0;font-size:13px;color:var(--muted)">' + S.esc(c.r.note) + '</p></div>').join('');
-  document.getElementById('rel-count').textContent = cards.reduce((s, c) => s + c.pkgs.length, 0) + ' packages · ' + S.fmtH(cards.reduce((s, c) => s + c.hours, 0)) + ' h in all';
+  document.getElementById('rel-count').textContent = cards.reduce((s, c) => s + c.pkgs.length, 0) + ' packages \u00b7 ' + S.fmtH(cards.reduce((s, c) => s + c.hours, 0)) + ' h in all';
 
   document.getElementById('meta').innerHTML =
     '<div><dt>Launch date in the plan</dt><dd>' + S.esc(S.fmtDate(new Date(data.baseline + 'T12:00:00'))) + '</dd></div>' +
