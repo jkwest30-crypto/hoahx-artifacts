@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HOAhx · Open questions, answered</title>
+<meta name="description" content="Every open question on the HOAhx Decision Register with a recommendation: agree, or say what should change.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/answers/answers.css">
+</head>
+<body>
+<nav class="nav" aria-label="HOAhx pages"><div class="wrap nav-in">
+  <a class="nav-brand" href="/answers">HOAhx · Open questions</a>
+  <a class="tab" href="/answers" aria-current="page">Recommendations</a>
+  <a class="tab" href="/">Decision Register</a>
+  <a class="tab" href="/scope/">Beyond the proposal</a>
+  <div class="sel" id="nav-progress"></div>
+</div></nav>
+
+<header class="mast"><div class="wrap mast-in">
+  <p class="eyebrow">HOAhx · Decision Register · the open questions</p>
+  <h1 id="title">Open questions, answered by recommendation</h1>
+  <p class="lede" id="lede"></p>
+  <p class="lede small">Agree records the recommendation as your answer on every question the card covers. Change opens a box for what should be different; a sentence is enough. Nothing is final until you press Send, and you can come back to any card before then.</p>
+  <dl class="meta" id="meta"></dl>
+</div></header>
+
+<div class="controls"><div class="wrap controls-in">
+  <div class="progress" aria-hidden="true"><div class="bar" id="bar"></div></div>
+  <div class="chips" role="group" aria-label="Show">
+    <button type="button" class="chip" data-filter="all" aria-pressed="true">All</button>
+    <button type="button" class="chip" data-filter="open" aria-pressed="false">Not yet answered</button>
+    <button type="button" class="chip" data-filter="agree" aria-pressed="false">Agreed</button>
+    <button type="button" class="chip" data-filter="change" aria-pressed="false">To change</button>
+  </div>
+  <button type="button" class="link-btn" id="next">Next unanswered ↓</button>
+  <span class="count" id="count"></span>
+  <span class="status" data-status role="status" aria-live="polite"></span>
+</div></div>
+
+<main class="wrap">
+  <div id="groups"></div>
+
+  <section class="send" id="send" aria-labelledby="send-h">
+    <h2 id="send-h">When you are through</h2>
+    <p class="send-p" id="send-p"></p>
+    <label for="msg">Anything else you want to say about these answers (optional)</label>
+    <textarea id="msg" placeholder="A question, a condition, something that needs a call"></textarea>
+    <div class="cta">
+      <button class="btn big" id="submit">Send your answers</button>
+      <button class="btn big quiet" id="print">Print a copy</button>
+      <span class="hint" id="hint">Sending records your answers with today's date. You can change one and send again.</span>
+    </div>
+    <div id="sent"></div>
+  </section>
+</main>
+
+<footer><div class="wrap">
+  <p><b>What happens next.</b> An answer you agree with is recorded on each of its questions in the Decision Register and the build follows it. A change with your words is recorded the same way when it is clear, and becomes a short conversation when it is not. Every card names the questions it answers, by their register numbers, so you can find any of them on the register page.</p>
+  <p>Saved as you go, on every device that opens this page. Nothing here is deleted; every earlier answer is kept.</p>
+</div></footer>
+
+<script src="/answers/answers.js"></script>
+</body>
+</html>

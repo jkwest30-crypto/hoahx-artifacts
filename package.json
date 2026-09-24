@@ -1,8 +1,8 @@
 {
   "name": "hoahx-artifacts",
   "private": true,
-  "version": "1.5.0",
-  "description": "Published HOAhx go-live artifacts (the owners’ Decision Register, the workflow map, the design reference, the demo comparison, and Beyond the proposal: the recommendation, packages, and features the owners choose from), deployed via Netlify.",
+  "version": "1.6.0",
+  "description": "Published HOAhx go-live artifacts (the owners’ Decision Register, the workflow map, the design reference, the demo comparison, Beyond the proposal: the recommendation, packages, and features the owners choose from, and the open questions answered by recommendation), deployed via Netlify.",
   "engines": {
     "node": ">=18"
   },
@@ -18,7 +18,11 @@
     "check:prototype": "node scripts/publish-prototype.mjs --check",
     "publish:scope": "node scripts/publish-scope.mjs",
     "check:scope": "node scripts/publish-scope.mjs --check",
-    "pull:scope": "node scripts/pull-scope.mjs"
+    "pull:scope": "node scripts/pull-scope.mjs",
+    "publish:answers": "node scripts/publish-answers.mjs",
+    "check:answers": "node scripts/publish-answers.mjs --check",
+    "pull:answers": "node scripts/pull-answers.mjs",
+    "dev": "node scripts/dev-register.mjs"
   },
   "dependencies": {
     "@netlify/blobs": "^8.1.0"

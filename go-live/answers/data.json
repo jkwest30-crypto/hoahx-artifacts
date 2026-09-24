@@ -1,0 +1,916 @@
+{
+ "generated": "2026-09-23",
+ "registerUrl": "https://hoahx-requirements.netlify.app/",
+ "title": "Open questions, answered by recommendation",
+ "lede": "Every question on the Decision Register that still waits on you, grouped into 23 recommendations. Read one, press Agree if it is right, or press Change and say what should be different. Everything saves as you go; press Send at the bottom when you are through.",
+ "groups": [
+  {
+   "id": "money",
+   "title": "Money: dues, the ledger, and the books"
+  },
+  {
+   "id": "enforce",
+   "title": "Enforcement and requests"
+  },
+  {
+   "id": "community",
+   "title": "Community life"
+  },
+  {
+   "id": "records",
+   "title": "Documents, messages, and records"
+  },
+  {
+   "id": "ops",
+   "title": "Running HOAhx"
+  },
+  {
+   "id": "pricing",
+   "title": "Pricing"
+  }
+ ],
+ "cards": [
+  {
+   "id": "A01",
+   "group": "money",
+   "title": "How a homeowner pays",
+   "decisions": [
+    {
+     "id": "D-049",
+     "code": "Q-FIN-8",
+     "q": "Who pays the card processing cost: the homeowner as a convenience fee, or the community?"
+    },
+    {
+     "id": "D-046",
+     "code": "Q-FIN-5",
+     "q": "Should partial payments be accepted against a dues balance?"
+    },
+    {
+     "id": "D-044",
+     "code": "Q-FIN-3",
+     "q": "Should tenants be able to pay dues by default?"
+    }
+   ],
+   "rec": [
+    {
+     "d": [
+      "D-049"
+     ],
+     "text": "A homeowner who pays by card pays the card cost, shown as its own convenience-fee line before they confirm. A bank payment costs nothing. Where NMI says a card fee is not allowed in a community's state, that community absorbs the cost and the screen says so."
+    },
+    {
+     "d": [
+      "D-046"
+     ],
+     "text": "Any amount from one dollar up to the balance is accepted; nothing above the balance. A late fee still applies to whatever is left when the grace period ends."
+    },
+    {
+     "d": [
+      "D-044"
+     ],
+     "text": "A tenant can pay dues unless the owner switches it off on the tenant's record. The switch is repaired so it saves, and the owner is told whenever a tenant pays."
+    }
+   ],
+   "why": "A card fee that only the card payer sees steers people to the free bank payment without punishing anyone. Partial payments keep a struggling homeowner paying instead of stopping. Tenants paying by default is what most owners with tenants expect, and the owner keeps the switch."
+  },
+  {
+   "id": "A02",
+   "group": "money",
+   "title": "Late fees, and an autopay charge that fails",
+   "decisions": [
+    {
+     "id": "D-043",
+     "code": "Q-FIN-2",
+     "q": "Are late fees ever calculated and applied automatically?"
+    },
+    {
+     "id": "D-045",
+     "code": "Q-FIN-4",
+     "q": "What should happen when an autopay charge fails: retries, notice, escalation?"
+    }
+   ],
+   "rec": [
+    {
+     "d": [
+      "D-043"
+     ],
+     "text": "Late fees are applied automatically the day after the grace period on the community's dues schedule, at the amount on the schedule, and the homeowner is told the day it happens. A payment counts on the day it is submitted, not the day the bank settles it, so a bank payment started on time is never late."
+    },
+    {
+     "d": [
+      "D-045"
+     ],
+     "text": "When an autopay charge fails, the homeowner is told the same day with the reason and a one-tap retry. HOAhx retries once, three days later. After a second failure autopay pauses, the homeowner and the treasurer are told, and the balance stays due until the homeowner pays or fixes the payment method."
+    }
+   ],
+   "why": "Boards assume late fees are being charged; today they are not. Two tries and a pause keeps HOAhx from charging a bad card again and again, and puts the treasurer in the picture before anyone is far behind."
+  },
+  {
+   "id": "A03",
+   "group": "money",
+   "title": "A returned bank payment, or a dispute",
+   "decisions": [
+    {
+     "id": "D-047",
+     "code": "Q-FIN-6",
+     "q": "Who should be told when a payment is disputed or a bank payment is returned?"
+    },
+    {
+     "id": "D-050",
+     "code": "Q-FIN-9",
+     "q": "Should a returned bank payment carry a fee, and how much?"
+    }
+   ],
+   "rec": [
+    {
+     "d": [
+      "D-047"
+     ],
+     "text": "The treasurer and the homeowner are told the same day, in the app and by email (and on the phone once the apps are out). The President sees it in the weekly board summary. The homeowner's notice says what was reversed, the deadline, and how to pay again."
+    },
+    {
+     "d": [
+      "D-050"
+     ],
+     "text": "A returned bank payment carries a fixed fee the community sets in its payment rules, $25 by default, charged once per return and never above the state's cap. It appears on the homeowner's ledger with the reason."
+    }
+   ],
+   "why": "A bounced payment is invisible to the homeowner until someone tells them; telling them the same day is what gets it fixed. A fixed, published return fee is simpler to explain than passing on whatever the bank charged."
+  },
+  {
+   "id": "A04",
+   "group": "money",
+   "title": "Setting up the community's merchant account",
+   "decisions": [
+    {
+     "id": "D-051",
+     "code": "Q-FIN-10",
+     "q": "Which roles may set up the community's merchant account?"
+    },
+    {
+     "id": "D-111",
+     "code": "Q-FIN-11",
+     "q": "Should the merchant application open on NMI's own page, or sit inside HOAhx's payment setup screen?"
+    },
+    {
+     "id": "D-030",
+     "code": "Q-MGMT-5",
+     "q": "Should a management company be able to run its communities' payments through its own existing merchant account?"
+    }
+   ],
+   "rec": [
+    {
+     "d": [
+      "D-051"
+     ],
+     "text": "The President or the Treasurer applies and signs. In a community with a management company, the property manager may start the application, but the President or the Treasurer signs it."
+    },
+    {
+     "d": [
+      "D-111"
+     ],
+     "text": "The application opens on NMI's own page from HOAhx's payment setup. The version embedded inside HOAhx is a later improvement, once NMI confirms it works on the partner sandbox and inside the phone apps."
+    },
+    {
+     "d": [
+      "D-030"
+     ],
+     "text": "NMI Payments only. No bring-your-own-processor for the launch. The first management company that asks starts a conversation, not a build."
+    }
+   ],
+   "why": "Whoever signs is answerable for the community's bank details and tax records, which is an officer's act. NMI's page is built and tested; the embedded version can wait. A second processor would split what HOAhx can see of a community's money and what it earns."
+  },
+  {
+   "id": "A05",
+   "group": "money",
+   "title": "The treasurer's books",
+   "decisions": [
+    {
+     "id": "D-056",
+     "code": "Q-LDG-5",
+     "q": "Should reconciliation be required before a month or year can be closed?"
+    },
+    {
+     "id": "D-058",
+     "code": "Q-LDG-7",
+     "q": "Should treasurers get logins to NMI's own merchant portal, or only the reports inside HOAhx?"
+    }
+   ],
+   "rec": [
+    {
+     "d": [
+      "D-056"
+     ],
+     "text": "Closing a month is offered and recommended, not required. The close screen shows how many entries are still unmatched to a deposit, and a report from an unclosed month says so at the top. A required close is a later step if the first treasurers ask for it."
+    },
+    {
+     "d": [
+      "D-058"
+     ],
+     "text": "Treasurers work inside HOAhx: deposit summaries, deposit history, and NMI's transaction reports appear there, and no separate NMI portal login is issued. If a particular treasurer needs one, HOAhx support asks NMI case by case."
+    }
+   ],
+   "why": "A required close on day one stops a volunteer treasurer who is still learning; a visible warning does the job. One place to look keeps one version of the truth and one thing to support."
+  },
+  {
+   "id": "A06",
+   "group": "money",
+   "title": "What a homeowner sees of the money",
+   "decisions": [
+    {
+     "id": "D-048",
+     "code": "Q-FIN-7",
+     "q": "Should residents be able to see their full payment history including refunds and disputes?"
+    },
+    {
+     "id": "D-052",
+     "code": "Q-LDG-1",
+     "q": "Should residents see the community's full ledger, or only their own?"
+    }
+   ],
+   "rec": [
+    {
+     "d": [
+      "D-048"
+     ],
+     "text": "A homeowner sees their whole payment history, including refunds, returned payments, and payments under review for a dispute, each with its status, the reason, and what to do next. Internal notes and processor identifiers never appear."
+    },
+    {
+     "d": [
+      "D-052"
+     ],
+     "text": "A homeowner sees their own property ledger, the published budget, and budget versus actual spending. The community's line-by-line ledger stays with the board."
+    }
+   ],
+   "why": "Showing refunds and disputes honestly is the transparency HOAhx promises. The budget view answers \"where does the money go\" without the raw ledger, which would confuse more than it reveals."
+  },
+  {
+   "id": "A07",
+   "group": "money",
+   "title": "The budget and the board",
+   "decisions": [
+    {
+     "id": "D-053",
+     "code": "Q-LDG-2",
+     "q": "Should the budget require board-vote approval rather than one President click?"
+    },
+    {
+     "id": "D-054",
+     "code": "Q-LDG-3",
+     "q": "Should a published budget be amendable mid-year?"
+    },
+    {
+     "id": "D-057",
+     "code": "Q-LDG-6",
+     "q": "Should the platform produce a reserve-study report, and is the delinquency report enough for what boards must file?"
+    }
+   ],
+   "rec": [
+    {
+     "d": [
+      "D-053"
+     ],
+     "text": "The President publishes the budget alone, and the board's vote is minuted in the meeting's decision record. A required recorded vote inside the publish step stays on the candidate list for after launch."
+    },
+    {
+     "d": [
+      "D-054"
+     ],
+     "text": "A mid-year change is published as a replacement budget for the same year, linked to the one it replaced, so both stay visible with the date and the reason."
+    },
+    {
+     "d": [
+      "D-057"
+     ],
+     "text": "The delinquency report, with its aging buckets and export, ships. No reserve-study report for the launch; it stays on the candidate list."
+    }
+   ],
+   "why": "This matches how volunteer boards work: vote in the meeting, then the President publishes. A linked replacement keeps the history honest without an amendment workflow. A reserve study is a specialist's document."
+  },
+  {
+   "id": "A08",
+   "group": "money",
+   "title": "Outside professionals: auditors and attorneys",
+   "decisions": [
+    {
+     "id": "D-055",
+     "code": "Q-LDG-4",
+     "q": "Is month-by-month auditor access the right scoping model?"
+    },
+    {
+     "id": "D-082",
+     "code": "Q-DOC-4",
+     "q": "How long do Auditor and Attorney scopes last, and who sets them?"
+    }
+   ],
+   "rec": [
+    {
+     "d": [
+      "D-055"
+     ],
+     "text": "An auditor's access is granted from a screen by the President or the Treasurer: the months, the document types, and an end date. Month by month stays the model; an annual audit is granted as twelve months."
+    },
+    {
+     "d": [
+      "D-082"
+     ],
+     "text": "An attorney's access is granted per matter by the President or the Secretary, with an end date the community chooses (one year by default) and can renew. Both lapse on their date, and the board can see who has access and until when."
+    }
+   ],
+   "why": "Today an engineer has to set an auditor up by hand. A screen with an end date is what a board needs, and nobody has to review access that expires on its own."
+  },
+  {
+   "id": "A09",
+   "group": "enforce",
+   "title": "From a notice to a fee to a lien",
+   "decisions": [
+    {
+     "id": "D-062",
+     "code": "Q-VIOL-1",
+     "q": "Should there be a mandatory waiting period between a notice and a fee?"
+    },
+    {
+     "id": "D-064",
+     "code": "Q-VIOL-3",
+     "q": "Should fee amounts be constrained by a published schedule?"
+    },
+    {
+     "id": "D-063",
+     "code": "Q-VIOL-2",
+     "q": "Should the resident be guaranteed a hearing before a lien?"
+    },
+    {
+     "id": "D-065",
+     "code": "Q-VIOL-4",
+     "q": "Should escalation to a lien require a recorded board vote rather than one President action?"
+    },
+    {
+     "id": "D-068",
+     "code": "Q-VIOL-7",
+     "q": "Should tenants be able to appeal violations, given the owner is ultimately liable?"
+    }
+   ],
+   "rec": [
+    {
+     "d": [
+      "D-062",
+      "D-064"
+     ],
+     "text": "Every violation category carries a published schedule: the fee amount and the time the homeowner has to respond, set by the community (14 days by default). No fee before that time passes, and no fee outside the schedule."
+    },
+    {
+     "d": [
+      "D-063"
+     ],
+     "text": "A homeowner can ask for a hearing at every stage, up to and including the escalation to a lien. A lien is never recorded while a hearing request is open."
+    },
+    {
+     "d": [
+      "D-065"
+     ],
+     "text": "The President approves an escalation to a lien alone, with a required written reason, and never on their own property. A required board vote inside the step stays on the candidate list."
+    },
+    {
+     "d": [
+      "D-068"
+     ],
+     "text": "A tenant who is the subject of a notice can respond to it and dispute it, with photos, and the owner is told of every notice and every response on their property."
+    }
+   ],
+   "why": "A published schedule and a guaranteed hearing are what make enforcement accepted by the people it touches. Owners stay in the loop on their own property."
+  },
+  {
+   "id": "A10",
+   "group": "enforce",
+   "title": "Maintenance requests and vendors",
+   "decisions": [
+    {
+     "id": "D-069",
+     "code": "Q-MNT-1",
+     "q": "Are there response-time commitments per priority?"
+    },
+    {
+     "id": "D-070",
+     "code": "Q-MNT-2",
+     "q": "Should residents be able to close their own tickets when satisfied?"
+    },
+    {
+     "id": "D-071",
+     "code": "Q-MNT-3",
+     "q": "Should vendors see the resident's name, unit, and contact details?"
+    },
+    {
+     "id": "D-072",
+     "code": "Q-MNT-4",
+     "q": "Is 90 days the right maximum vendor assignment window?"
+    }
+   ],
+   "rec": [
+    {
+     "d": [
+      "D-069"
+     ],
+     "text": "No fixed response time per priority. Every request gets a deadline when staff triage it, shown to the homeowner, and \"urgent\" puts the request at the top of the queue. The form's promise that urgent requests are escalated immediately comes off until an escalation exists."
+    },
+    {
+     "d": [
+      "D-070"
+     ],
+     "text": "Staff or the assigned vendor mark a request resolved; the homeowner has seven days to confirm or reopen it, after which it closes on its own. A homeowner can withdraw their own request at any time."
+    },
+    {
+     "d": [
+      "D-071"
+     ],
+     "text": "An assigned vendor sees the request, its photos, the resident's name and unit, and the resident's replies, and never the email, the phone, staff notes, or costs."
+    },
+    {
+     "d": [
+      "D-072"
+     ],
+     "text": "A vendor's assignment lasts up to ninety days. Staff and the vendor are reminded a week before it lapses, and staff renew it with one tap."
+    }
+   ],
+   "why": "A deadline per request is a promise the board can keep; a fixed response time per priority is one it cannot. Seven days to confirm keeps requests from sitting open after the fix."
+  },
+  {
+   "id": "A11",
+   "group": "community",
+   "title": "Parking and passes",
+   "decisions": [
+    {
+     "id": "D-075",
+     "code": "Q-PARK-1",
+     "q": "Should two spots per property be a community setting rather than a platform constant?"
+    },
+    {
+     "id": "D-077",
+     "code": "Q-PARK-3",
+     "q": "Who validates a pass in practice, and how?"
+    }
+   ],
+   "rec": [
+    {
+     "d": [
+      "D-075"
+     ],
+     "text": "The number of spaces each property starts with is a community setting in the parking rules, two by default. Staff can still add spaces to one property by hand."
+    },
+    {
+     "d": [
+      "D-077"
+     ],
+     "text": "A pass is checked by whoever the board designates: a board member, an administrator, or the towing contractor, by entering or scanning the pass code on their phone. No gate hardware and no separate gate-staff role for the launch."
+    }
+   ],
+   "why": "One space per home is common enough that the number belongs to the community. A phone check is what a towing company does already."
+  },
+  {
+   "id": "A12",
+   "group": "community",
+   "title": "Votes, elections, and meetings",
+   "decisions": [
+    {
+     "id": "D-093",
+     "code": "Q-GOV-4",
+     "q": "Is President-only certification correct, and what happens if the President is a candidate?"
+    },
+    {
+     "id": "D-094",
+     "code": "Q-GOV-5",
+     "q": "What is the quorum default, and who sets it?"
+    },
+    {
+     "id": "D-096",
+     "code": "Q-GOV-7",
+     "q": "Are meetings complete enough: agendas and minutes exist, but no notices, RSVPs, or attendance?"
+    }
+   ],
+   "rec": [
+    {
+     "d": [
+      "D-093"
+     ],
+     "text": "An authorized officer certifies and publishes a vote result. A candidate never certifies their own election: if the President stood, the Secretary, or another officer who did not stand, certifies."
+    },
+    {
+     "d": [
+      "D-094"
+     ],
+     "text": "Every formal vote requires a quorum entered as a percentage of entitled properties, taken from the community's rules when the vote is created. There is no default of one, and a vote that closes short of quorum is recorded as failed for want of a quorum."
+    },
+    {
+     "d": [
+      "D-096"
+     ],
+     "text": "Meetings ship as they are: agenda, location, and minutes, plus the board roster, role dates, and decision records. Meeting notices, RSVPs, and attendance tracking are not in the launch."
+    }
+   ],
+   "why": "A single ballot meeting quorum is the kind of default that embarrasses a board later. Not certifying your own election is basic fairness."
+  },
+  {
+   "id": "A13",
+   "group": "community",
+   "title": "The community feed and events",
+   "decisions": [
+    {
+     "id": "D-098",
+     "code": "Q-LIFE-2",
+     "q": "Should the community feed be moderated before or after posting?"
+    },
+    {
+     "id": "D-099",
+     "code": "Q-LIFE-3",
+     "q": "Who can post to the community feed, and can posting rights be withdrawn from an individual?"
+    },
+    {
+     "id": "D-104",
+     "code": "Q-LIFE-8",
+     "q": "Should event RSVPs support guests, or only members?"
+    }
+   ],
+   "rec": [
+    {
+     "d": [
+      "D-098"
+     ],
+     "text": "The feed stays moderated after posting: a post or a comment can be hidden or removed with a reason. Nothing waits for approval before it appears."
+    },
+    {
+     "d": [
+      "D-099"
+     ],
+     "text": "Board and management roles post; residents comment and react. Taking one person's commenting rights away for a set period comes after launch, if a community needs it."
+    },
+    {
+     "d": [
+      "D-104"
+     ],
+     "text": "An event RSVP carries a guest count that counts toward capacity, and board members can RSVP too."
+    }
+   ],
+   "why": "Approval before posting kills a community feed. Comment moderation with a reason is enough for the rare problem."
+  },
+  {
+   "id": "A14",
+   "group": "community",
+   "title": "Architectural reviews",
+   "decisions": [
+    {
+     "id": "D-101",
+     "code": "Q-LIFE-5",
+     "q": "Should architectural decisions have a required response time?"
+    },
+    {
+     "id": "D-102",
+     "code": "Q-LIFE-6",
+     "q": "Is President-only architectural decision correct?"
+    }
+   ],
+   "rec": [
+    {
+     "d": [
+      "D-101"
+     ],
+     "text": "Each application type the community sets up carries a decision deadline, thirty days by default, shown to the homeowner and the reviewers. An application past its deadline appears as overdue on the board dashboard. Nothing is approved automatically."
+    },
+    {
+     "d": [
+      "D-102"
+     ],
+     "text": "The community assigns reviewers per application and names who decides, with the President as the default. Nobody reviews or decides an application on their own home."
+    }
+   ],
+   "why": "For a homeowner with a contractor waiting, the deadline on the application is the answer to \"what happens next\"."
+  },
+  {
+   "id": "A15",
+   "group": "records",
+   "title": "Documents and signatures",
+   "decisions": [
+    {
+     "id": "D-079",
+     "code": "Q-DOC-1",
+     "q": "Is the native acknowledgement workflow legally sufficient for the documents being signed?"
+    },
+    {
+     "id": "D-080",
+     "code": "Q-DOC-2",
+     "q": "Which documents must every resident sign, and what happens if they refuse?"
+    },
+    {
+     "id": "D-081",
+     "code": "Q-DOC-3",
+     "q": "Who may see the community's governing documents: residents only, or prospective buyers too?"
+    },
+    {
+     "id": "D-083",
+     "code": "Q-DOC-5",
+     "q": "Should document versions ever be deletable, for example on legal advice?"
+    }
+   ],
+   "rec": [
+    {
+     "d": [
+      "D-079"
+     ],
+     "text": "HOAhx's own electronic signature ships: the signer's identity, intent, and time, the exact version signed, a signed copy, and the evidence history. Whether that is enough for a given document is for the community's counsel; an outside signature service can be added after launch if a community needs one."
+    },
+    {
+     "d": [
+      "D-080"
+     ],
+     "text": "The community marks which documents are required, and every household is asked to sign them at onboarding. A refusal is recorded with its reason and shown to the board as an open item. Nothing is enforced automatically."
+    },
+    {
+     "d": [
+      "D-081"
+     ],
+     "text": "Documents stay members-only. A prospective buyer receives the governing documents inside the transfer package the seller requests, not through an account."
+    },
+    {
+     "d": [
+      "D-083"
+     ],
+     "text": "A document version is never deleted. On legal advice, the board hides a version from everyone but the board, with the reason recorded. The administrator's document actions are repaired so each one works or says why not."
+    }
+   ],
+   "why": "An evidence trail is what a signature is for. A takedown that hides rather than deletes keeps the record intact."
+  },
+  {
+   "id": "A16",
+   "group": "records",
+   "title": "What reaches the phone, and what cannot be switched off",
+   "decisions": [
+    {
+     "id": "D-084",
+     "code": "Q-MSG-1",
+     "q": "Are there communications a resident may not opt out of: emergency notices, legal notices, dues reminders?"
+    },
+    {
+     "id": "D-085",
+     "code": "Q-MSG-2",
+     "q": "Which notifications should reach the phone by default: announcements, request updates, payment reminders?"
+    },
+    {
+     "id": "D-147",
+     "code": "Q-MSG-9",
+     "q": "Should text-message notifications be connected for the launch, or should the launch ship with push and email only?"
+    }
+   ],
+   "rec": [
+    {
+     "d": [
+      "D-084"
+     ],
+     "text": "Legal and enforcement notices, dues and payment notices, and urgent community alerts cannot be switched off. Announcements, request updates, and community messages can, channel by channel."
+    },
+    {
+     "d": [
+      "D-085"
+     ],
+     "text": "On the phone, announcements, request updates, and payment reminders are all on by default. Quiet hours hold the non-urgent ones overnight, and each person can switch any of the three off."
+    },
+    {
+     "d": [
+      "D-147"
+     ],
+     "text": "The launch ships with push notifications on the phone and email. No text messages at launch: they need a provider, a consent step, and a per-message cost the proposal left out. Text messages become a per-community option after launch if the first communities ask."
+    }
+   ],
+   "why": "The notices a homeowner cannot mute are the ones that protect them. Three phone notices on by default, with quiet hours, is the line between an app people keep and one they silence."
+  },
+  {
+   "id": "A17",
+   "group": "records",
+   "title": "Messages and announcements",
+   "decisions": [
+    {
+     "id": "D-087",
+     "code": "Q-MSG-4",
+     "q": "Should managers, the President, and the Secretary be able to read every conversation in the community?"
+    },
+    {
+     "id": "D-088",
+     "code": "Q-MSG-5",
+     "q": "Is a 10,000-character announcement limit right?"
+    }
+   ],
+   "rec": [
+    {
+     "d": [
+      "D-087"
+     ],
+     "text": "Managers, the President, and the Secretary can read every conversation with the office, as now, and the message screen says so plainly, so nobody mistakes a thread with the office for a private one."
+    },
+    {
+     "d": [
+      "D-088"
+     ],
+     "text": "The announcement limit of 10,000 characters stays. Anything longer is attached from the document library."
+    }
+   ],
+   "why": "Officers covering for each other need to read the thread; the fix is to say so on the screen. A policy pasted into an announcement belongs in the library anyway."
+  },
+  {
+   "id": "A18",
+   "group": "records",
+   "title": "What is kept, for how long, and what a resident can take with them",
+   "decisions": [
+    {
+     "id": "D-105",
+     "code": "Q-SEC-1",
+     "q": "What is the data retention policy, per record type?"
+    },
+    {
+     "id": "D-089",
+     "code": "Q-MSG-6",
+     "q": "What is the retention period for messages and announcements?"
+    },
+    {
+     "id": "D-100",
+     "code": "Q-LIFE-4",
+     "q": "How long is visitor access history retained, and who may see it?"
+    },
+    {
+     "id": "D-106",
+     "code": "Q-SEC-2",
+     "q": "Is there a data export or deletion path for a resident who requests one?"
+    }
+   ],
+   "rec": [
+    {
+     "d": [
+      "D-105"
+     ],
+     "text": "Financial records, seven years. Violation and enforcement records, seven years. Visitor logs, one year. Messages and announcements, three years. Audit records, for the life of the community. Personal data is removed when an account is deleted. This goes into the app-store privacy disclosures now; automatic deletion is added after launch."
+    },
+    {
+     "d": [
+      "D-089"
+     ],
+     "text": "Messages and announcements follow that policy: three years, no separate rule."
+    },
+    {
+     "d": [
+      "D-100"
+     ],
+     "text": "Officers and managers see the whole visitor log; each resident sees their own entries. The log is kept for one year."
+    },
+    {
+     "d": [
+      "D-106"
+     ],
+     "text": "A resident deletes their account and personal data in the app; their community records (requests, payments, notices) stay with the community. An export of their data is requested from HOAhx support and delivered within thirty days; a self-serve export comes after launch."
+    }
+   ],
+   "why": "The app stores require a stated policy. Seven years matches what most states expect of HOA financial records, and one year is enough for a visitor log."
+  },
+  {
+   "id": "A19",
+   "group": "ops",
+   "title": "Who gets the alerts, and the monthly spending cap",
+   "decisions": [
+    {
+     "id": "D-112",
+     "code": "Q-SEC-6",
+     "q": "Who is the named recipient of production alerts, and who is the backup?"
+    },
+    {
+     "id": "D-109",
+     "code": "Q-SEC-5",
+     "q": "Who receives the error, uptime, and spending alerts, and what is the monthly spending cap?"
+    },
+    {
+     "id": "D-107",
+     "code": "Q-SEC-3",
+     "q": "Who is notified when a security rule denies an unexpected access, and is anyone watching?"
+    }
+   ],
+   "rec": [
+    {
+     "d": [
+      "D-112"
+     ],
+     "text": "Dan is the named recipient of production alerts, by email and text, with Rustin as the backup, and a one-page \"when this fires\" note: what to check, when to call Jacob, how to pause payments. Jacob is copied through launch and the thirty days after. Say so if it should be the other way round."
+    },
+    {
+     "d": [
+      "D-109"
+     ],
+     "text": "The same two people receive the error, uptime, and spending alerts. The monthly spending cap on the hosting account is $150, with a warning at $75; the accounts run well under that today, and a lower cap would page you for nothing."
+    },
+    {
+     "d": [
+      "D-107"
+     ],
+     "text": "Unexpected access denials are counted and reach the same people as a daily summary; a sudden spike alerts within minutes."
+    }
+   ],
+   "why": "An alert nobody owns is noise. One named person, one backup, one note."
+  },
+  {
+   "id": "A20",
+   "group": "ops",
+   "title": "HOAhx Copilot: the provider and its monthly cost",
+   "decisions": [
+    {
+     "id": "D-178",
+     "code": "Q-HELP-2",
+     "q": "Which provider should power HOAhx Copilot, at what monthly cost, and should it be in the launch or follow it?"
+    }
+   ],
+   "rec": [
+    {
+     "d": [
+      "D-178"
+     ],
+     "text": "Copilot ships in the launch, as on your Core list. Jacob selects and connects the provider, a hosted language-model service billed per question (about two cents a question), on an account in HOAhx's name, with a monthly cap of $50 and a warning at $35. You approve the cap and the card it goes on; the provider can be swapped later without changing what homeowners see."
+    }
+   ],
+   "why": "At launch scale the cost is tens of dollars a month, and the cap keeps it there. Your decision is the cap, not the vendor."
+  },
+  {
+   "id": "A21",
+   "group": "ops",
+   "title": "Two people claiming the same home",
+   "decisions": [
+    {
+     "id": "D-040",
+     "code": "Q-PROP-5",
+     "q": "Who is authoritative when a property has two people claiming ownership?"
+    }
+   ],
+   "rec": [
+    {
+     "d": [
+      "D-040"
+     ],
+     "text": "When two people claim ownership, an administrator verifies the deed or the closing record before the primary-owner designation changes. One primary owner per property is enforced, and the outcome is recorded with its evidence. Until it is verified, the owner on record stays primary and the bills keep going to them."
+    }
+   ],
+   "why": "Rare, but today the bill goes to whoever was recorded first. A checked record is the only fair tie-breaker."
+  },
+  {
+   "id": "A22",
+   "group": "ops",
+   "title": "What HOAhx support can see",
+   "decisions": [
+    {
+     "id": "D-025",
+     "code": "Q-PLAT-6",
+     "q": "Should Platform Support be able to see resident names and addresses at all?"
+    }
+   ],
+   "rec": [
+    {
+     "d": [
+      "D-025"
+     ],
+     "text": "Support sees a first name, a last initial, a masked email, and which communities and roles a person holds; never an address, a phone number, or a full name. A full household comes into view only through temporary support access that the community authorizes, with a reason, a scope, a time limit, and a complete record of what was done."
+    }
+   ],
+   "why": "Support can help without seeing more than it needs, and the community decides when it sees more."
+  },
+  {
+   "id": "A23",
+   "group": "pricing",
+   "title": "Pricing: the four loose ends",
+   "note": "Your plans, prices, and trial terms are recorded (D-059). These four points were left open in your requirements document.",
+   "decisions": [
+    {
+     "id": "D-059",
+     "code": "Q-BILL-1",
+     "q": "What are the plans, prices, and trial terms? Still open: the 449 / 500 tier boundary, the founding-cohort rule, the card fee on the community's subscription, and the annual mid-term proration rule."
+    }
+   ],
+   "rec": [
+    {
+     "d": [
+      "D-059"
+     ],
+     "text": "The top flat tier is 301 to 500 homes at $229, as in your requirements document (not 449). Above 500 homes, $0.50 per active home per month."
+    },
+    {
+     "d": [
+      "D-059"
+     ],
+     "text": "Founding communities: the first ten communities that subscribe by January 31, 2027 keep their monthly price for twenty-four months, whatever the list price does. Nothing else is discounted."
+    },
+    {
+     "d": [
+      "D-059"
+     ],
+     "text": "On an annual plan the home count is checked at renewal only: no mid-term charge when homes are added, no mid-term refund when they leave. The new tier applies from the renewal and is shown at checkout."
+    },
+    {
+     "d": [
+      "D-059"
+     ],
+     "text": "The subscription price is the price: HOAhx absorbs the card cost on a community's own subscription, and an annual plan can also be paid by bank transfer."
+    }
+   ],
+   "why": "Each of these has an answer that is simple to say at checkout. A founding rate rewards the communities that take the first step without a discount that never ends."
+  }
+ ]
+}

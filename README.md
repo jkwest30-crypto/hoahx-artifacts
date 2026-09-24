@@ -218,9 +218,9 @@ the script positions it.
 | `go-live/demo/` | The published demo comparison and its two text files (copied from the HOAhx repo's `docs/prototype/` by `publish:prototype`; do not edit) |
 | `scripts/publish-prototype.mjs` | Copies and checks the demo comparison and its two files from the HOAhx repo |
 | `go-live/launch-plan/index.html` | The published launch plan (standalone copy, updated by hand; no publish script yet) |
-| `scripts/dev-register.mjs`, `scripts/dev-stubs/` | Local server with an in-memory store |
+| `scripts/dev-register.mjs`, `scripts/dev-stubs/` | Local server for the whole site, every function on an in-memory store (`npm run dev`) |
 | `netlify/functions/decisions.js` | The shared store API |
-| `netlify.toml` | Publish dir, the `/api/decisions` rewrite, the root redirect, the `/workflow-map` redirect |
+| `netlify.toml` | Publish dir, the `/api/decisions`, `/api/picks`, and `/api/answers` rewrites, the root redirect, the `/workflow-map`, `/scope`, and `/answers` redirects |
 
 ## Beyond the proposal (`/scope/`)
 
@@ -248,3 +248,34 @@ exactly as it gates the register.
 build-a-la-carte.py --json  ──▶  go-live/scope/data.json  ──push main──▶  Netlify   (npm run check:scope guards the words and the shape)
 owners pick and send        ──▶  /api/picks (Blobs)       ──npm run pull:scope──▶  a summary for the change order
 ```
+
+## Open questions, answered by recommendation (`/answers`)
+
+One owner-facing page for every Decision Register entry that still waits on the owners:
+the open questions consolidated into recommendation cards (23 cards for 57 pending entries plus
+the four loose ends on D-059 as of 2026-09-23), each with a plain recommendation, a "why", and the
+register numbers it answers. The owners press **Agree** (the recommendation becomes the answer on
+every question the card covers) or **Change** (a text box opens for what should be different),
+and **Send** when they are through.
+
+- `go-live/answers/index.html`, `answers.js`, `answers.css` — the page, authored here; asset
+  paths are absolute (`/answers/…`) because the page is served at `/answers` without a slash.
+- `go-live/answers/data.json` — the cards, published from the HOAhx repo's
+  `docs/launch/recommendations.json` (the source of truth for the wording; gitignored there).
+- `netlify/functions/answers.js` — the shared store (Netlify Blobs store `hoahx-answers`, one
+  record per card with history, `_message` and `_submission` like `/scope/`). `DECISION_EDIT_KEY`,
+  when set, gates it exactly as it gates the register.
+- `scripts/publish-answers.mjs` — copies and guards the data: shape, every D-number on exactly
+  one card and with a recommendation line, the excluded words, and, with `--register <decisions.md>`,
+  that every D-number is still a pending entry (D-059 excepted).
+- `scripts/pull-answers.mjs` — reads the store and writes the `### D-### · Q-ID` / `Mark:` /
+  `Note:` blocks that `/decide` applies: Agree becomes a Change mark whose note is the
+  recommendation text; Change carries the owners' words; Change with nothing written is Discuss.
+
+```
+docs/launch/recommendations.json ──npm run publish:answers -- --source … --register …──▶ go-live/answers/data.json ──push main──▶ Netlify
+owners agree, change, send       ──▶  /api/answers (Blobs)  ──npm run pull:answers -- --out ../hoahx/docs/launch/register-store/answers-<date>.md──▶ /decide
+```
+
+`npm run dev` (`scripts/dev-register.mjs`) serves the whole site locally with every function under
+`netlify/functions/` on an in-memory store: http://localhost:8788/answers.

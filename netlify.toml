@@ -39,3 +39,16 @@
   from = "/scope"
   to = "/scope/index.html"
   status = 200
+
+# HOAhx · Open questions, answered by recommendation: the owners' Agree / Change page at
+# /answers, with its shared store at /api/answers.
+[[redirects]]
+  from = "/api/answers"
+  to = "/.netlify/functions/answers"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/answers"
+  to = "/answers/index.html"
+  status = 200

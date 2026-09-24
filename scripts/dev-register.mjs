@@ -1,6 +1,7 @@
 #!/usr/bin/env node
-// Local stand-in for the Netlify site: serves go-live/ with netlify.toml's two redirects and
-// runs netlify/functions/decisions.js against an in-memory store (scripts/dev-stubs).
+// Local stand-in for the Netlify site: serves go-live/ with netlify.toml's redirects and runs
+// every function under netlify/functions/ (decisions, picks, answers) at /api/<name> against an
+// in-memory store (scripts/dev-stubs).
 //   node scripts/dev-register.mjs [--port 8788]      DECISION_EDIT_KEY=secret to test the passphrase gate
 // Nothing here touches the real shared register.
 import http from 'node:http';
@@ -19,7 +20,10 @@ const PORT = +(args.port || process.env.PORT || 8788);
 process.env.NODE_PATH = [path.join(here, 'dev-stubs'), process.env.NODE_PATH || ''].filter(Boolean).join(path.delimiter);
 Module._initPaths();
 const require = createRequire(import.meta.url);
-const { handler } = require(path.join(root, 'netlify', 'functions', 'decisions.js'));
+const handlers = {};
+for (const f of fs.readdirSync(path.join(root, 'netlify', 'functions')).filter((n) => n.endsWith('.js'))) {
+  handlers[f.slice(0, -3)] = require(path.join(root, 'netlify', 'functions', f)).handler;
+}
 
 const TYPES = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.pdf': 'application/pdf', '.png': 'image/png' };
 
@@ -29,7 +33,9 @@ function readBody(req) {
 
 http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://localhost:${PORT}`);
-  if (url.pathname === '/api/decisions' || url.pathname === '/.netlify/functions/decisions') {
+  const fn = (url.pathname.match(/^\/api\/([a-z]+)$/) || url.pathname.match(/^\/\.netlify\/functions\/([a-z]+)$/) || [])[1];
+  if (fn && handlers[fn]) {
+    const handler = handlers[fn];
     const body = await readBody(req);
     const headers = {}; for (const [k, v] of Object.entries(req.headers)) headers[k.toLowerCase()] = v;
     const out = await handler({ httpMethod: req.method, headers, body, queryStringParameters: Object.fromEntries(url.searchParams) });
@@ -37,9 +43,10 @@ http.createServer(async (req, res) => {
     console.log(`${req.method} ${req.url} -> ${out.statusCode}`);
     return;
   }
-  let file = url.pathname === '/' ? '/decision-register/decision-register.html' : decodeURIComponent(url.pathname);
+  const aliases = { '/': '/decision-register/decision-register.html', '/workflow-map': '/workflow-map/workflow-map.html', '/scope': '/scope/index.html', '/answers': '/answers/index.html', '/answers/': '/answers/index.html' };
+  let file = aliases[url.pathname] || decodeURIComponent(url.pathname);
   const abs = path.join(root, 'go-live', file);
   if (!abs.startsWith(path.join(root, 'go-live')) || !fs.existsSync(abs) || fs.statSync(abs).isDirectory()) { res.writeHead(404); res.end('not found'); return; }
   res.writeHead(200, { 'Content-Type': TYPES[path.extname(abs)] || 'application/octet-stream', 'Cache-Control': 'no-store' });
   fs.createReadStream(abs).pipe(res);
-}).listen(PORT, () => console.log(`Decision Register dev server: http://localhost:${PORT}/  (edit key ${process.env.DECISION_EDIT_KEY ? 'REQUIRED' : 'not set'})`));
+}).listen(PORT, () => console.log(`Dev server: http://localhost:${PORT}/  (functions: ${Object.keys(handlers).join(', ')}; edit key ${process.env.DECISION_EDIT_KEY ? 'REQUIRED' : 'not set'})`));
