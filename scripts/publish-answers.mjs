@@ -8,7 +8,15 @@
  *
  *   npm run publish:answers -- --source ../hoahx/docs/launch/recommendations.json
  *   npm run publish:answers -- --source ../hoahx/docs/launch/recommendations.json --register ../hoahx/docs/launch/decisions.md
- *   npm run check:answers                      # verify the committed data.json, write nothing
+ *   npm run publish:answers -- --source … --register … --screens ../hoahx/docs/launch/screen-review.json
+ *   npm run check:answers                      # verify the committed data.json and screens.json, write nothing
+ *
+ * --screens publishes the "Screens to review" section (docs/launch/screen-review.json in the
+ * HOAhx repo) as go-live/answers/screens.json. The internal mapping each screen carries in the
+ * source (its register entry and its stub in register-stubs.md) is stripped: it is for the pull,
+ * never for the page. Screen ids are "S-<code>" so they cannot collide with the A## cards, and the
+ * register's pending guard does not apply to them (their entries are answered; a change becomes a
+ * Follows candidate).
  *
  * Refuses to write if the data is malformed, a card names a group that does not exist, a
  * D-number appears on two cards, a recommendation line names a D-number its card does not
@@ -25,6 +33,8 @@ const args = process.argv.slice(2);
 const opt = (name, dflt) => (args.includes(name) ? args[args.indexOf(name) + 1] : dflt);
 const source = resolve(root, opt('--source', 'go-live/answers/data.json'));
 const register = opt('--register', '');
+const screensSource = opt('--screens', '');
+const screensTarget = resolve(root, 'go-live/answers/screens.json');
 const checkOnly = args.includes('--check');
 const target = resolve(root, 'go-live/answers/data.json');
 const pagesDir = resolve(root, 'go-live/answers');
@@ -85,6 +95,49 @@ if (register) {
 const excluded = /\bStripe\b|\bClaude\b|\bAI\b|\bcustomer\b|\bas today\b|\balready handles\b|\bworkshop\b/;
 const hitData = JSON.stringify(data).match(excluded);
 if (hitData) fail(`excluded word "${hitData[0]}" appears in the data`);
+
+// ── screens to review ──
+const INTERNAL = ['register', 'stub'];
+function checkScreens(src, stripped) {
+  for (const k of ['generated', 'due', 'previewUrl', 'title', 'lede', 'features']) if (!(k in src)) fail(`screens: no "${k}"`);
+  if (!Array.isArray(src.features) || !src.features.length) fail('screens: features must be a non-empty array');
+  const ids = new Set(), codes = new Set();
+  for (const f of src.features) {
+    for (const k of ['id', 'title', 'screens']) if (!(k in f)) fail(`screens: feature ${f.id || '?'} has no "${k}"`);
+    if (!/^[A-Z]$/.test(f.id)) fail(`screens: feature id "${f.id}" is not one letter`);
+    if (!Array.isArray(f.screens) || !f.screens.length) fail(`screens: feature ${f.id} has no screens`);
+    for (const sc of f.screens) {
+      for (const k of ['id', 'code', 'title', 'look', 'url']) if (!(k in sc)) fail(`screens: ${sc.id || sc.code || '?'} has no "${k}"`);
+      if (!/^[A-Z]\d{1,2}$/.test(sc.code) || sc.code[0] !== f.id) fail(`screens: code "${sc.code}" does not belong to feature ${f.id}`);
+      if (sc.id !== 'S-' + sc.code) fail(`screens: ${sc.code} must have id "S-${sc.code}", has "${sc.id}"`);
+      if (ids.has(sc.id) || codes.has(sc.code)) fail(`screens: ${sc.code} appears twice`);
+      ids.add(sc.id); codes.add(sc.code);
+      if (!sc.url.startsWith(src.previewUrl + '/' + sc.code)) fail(`screens: ${sc.code} links to ${sc.url}, not ${src.previewUrl}/${sc.code}`);
+      if (sc.sides != null && !Array.isArray(sc.sides)) fail(`screens: ${sc.code} sides must be an array`);
+      if (!stripped) {
+        if (!/^D-\d{3}$/.test(sc.register || '')) fail(`screens: ${sc.code} needs its register entry (D-###) in the source`);
+        if (!/^F-\d{3}$/.test(sc.stub || '')) fail(`screens: ${sc.code} needs its stub (F-###) in the source`);
+      } else if (INTERNAL.some((k) => k in sc)) fail(`screens: ${sc.code} carries internal mapping on the page`);
+    }
+  }
+  const hit = JSON.stringify(src).match(excluded);
+  if (hit) fail(`excluded word "${hit[0]}" appears in the screens`);
+  return ids.size;
+}
+function stripScreens(src) {
+  return Object.assign({}, src, { features: src.features.map((f) => Object.assign({}, f, { screens: f.screens.map((sc) => { const o = Object.assign({}, sc); for (const k of INTERNAL) delete o[k]; return o; }) })) });
+}
+let screensOut = null, screensCount = 0;
+if (screensSource) {
+  const p = resolve(root, screensSource);
+  if (!existsSync(p)) fail(`screens source not found: ${p}`);
+  let src;
+  try { src = JSON.parse(readFileSync(p, 'utf8')); } catch (e) { fail(`screens source is not valid JSON: ${e.message}`); }
+  screensCount = checkScreens(src, false);
+  screensOut = JSON.stringify(stripScreens(src), null, 1);
+} else if (existsSync(screensTarget)) {
+  screensCount = checkScreens(JSON.parse(readFileSync(screensTarget, 'utf8')), true);
+}
 for (const f of readdirSync(pagesDir).filter((n) => n.endsWith('.html') || n.endsWith('.js'))) {
   const text = readFileSync(resolve(pagesDir, f), 'utf8');
   const hit = text.match(excluded);
@@ -92,8 +145,12 @@ for (const f of readdirSync(pagesDir).filter((n) => n.endsWith('.html') || n.end
   if (/localhost|client-walkthrough/.test(text)) fail(`${f} links to a file that is not on this site`);
 }
 
-console.log(`${data.cards.length} cards, ${seenD.size} decisions, ${data.groups.length} groups; generated ${data.generated}`);
+console.log(`${data.cards.length} cards, ${seenD.size} decisions, ${data.groups.length} groups; generated ${data.generated}; ${screensCount} screens to review`);
 if (checkOnly) { console.log('check only; nothing written'); process.exit(0); }
+if (screensOut !== null) {
+  if (existsSync(screensTarget) && readFileSync(screensTarget, 'utf8') === screensOut) console.log('go-live/answers/screens.json is already current');
+  else { writeFileSync(screensTarget, screensOut); console.log(`wrote go-live/answers/screens.json (${screensOut.length} bytes)`); }
+}
 const out = JSON.stringify(data, null, 1);
 if (existsSync(target) && readFileSync(target, 'utf8') === out) { console.log('go-live/answers/data.json is already current'); process.exit(0); }
 writeFileSync(target, out);

@@ -1,0 +1,77 @@
+{
+ "generated": "2026-09-25",
+ "due": "2026-10-02",
+ "previewUrl": "https://hoahx-staging.web.app/preview",
+ "title": "Screens to review",
+ "lede": "The new screens are on the test site with sample data for a made-up community; nothing you click there is saved. Open a screen, step through its Demo states, then answer here: Yes to build it as shown, Change with a sentence on what should be different, or Discuss to talk it through on the next call.",
+ "howTo": "On each screen, the Demo state control at the top steps through every situation the screen has to handle. A few screens have a side switch too, because two different people see them. Please look at every state: the awkward cases are where the design earns its keep.",
+ "features": [
+  {
+   "id": "D",
+   "title": "Bringing a community in",
+   "intro": "How a board gets its properties, owners and opening balances into HOAhx from its own spreadsheet, and how it sees residents join.",
+   "screens": [
+    {
+     "id": "S-D1",
+     "code": "D1",
+     "title": "Upload the spreadsheet and match the columns",
+     "look": "The board uploads its own CSV or Excel file. HOAhx suggests which column is which; a person confirms or corrects every suggestion. The messy file and the second import are the states to linger on.",
+     "url": "https://hoahx-staging.web.app/preview/D1",
+     "states": 3,
+     "sides": []
+    },
+    {
+     "id": "S-D2",
+     "code": "D2",
+     "title": "Check it before it goes in",
+     "look": "Rows ready, rows needing a decision, rows that cannot go in. A duplicate, a missing detail and a value that only looks wrong are treated as three different things; only a blocked row stops the import.",
+     "url": "https://hoahx-staging.web.app/preview/D2",
+     "states": 3,
+     "sides": []
+    },
+    {
+     "id": "S-D3",
+     "code": "D3",
+     "title": "Opening balances: the treasurer signs off",
+     "look": "The total of all opening balances next to the figure the treasurer expected. Nothing is saved until the treasurer approves it, possibly a different person on a different day.",
+     "url": "https://hoahx-staging.web.app/preview/D3",
+     "states": 4,
+     "sides": [
+      "The treasurer",
+      "The administrator"
+     ]
+    },
+    {
+     "id": "S-D4",
+     "code": "D4",
+     "title": "What past imports did, and fixing one",
+     "look": "Every import on record: who ran it, what it added or changed, and how a mistake is corrected with the correction kept on record.",
+     "url": "https://hoahx-staging.web.app/preview/D4",
+     "states": 3,
+     "sides": []
+    },
+    {
+     "id": "S-D5",
+     "code": "D5",
+     "title": "Who has joined",
+     "look": "Every home and person against the four steps, invited, joined, verified, active; whose invitation has lapsed; sending again to one person or to everyone not yet joined.",
+     "url": "https://hoahx-staging.web.app/preview/D5",
+     "states": 3,
+     "sides": []
+    },
+    {
+     "id": "S-D6",
+     "code": "D6",
+     "title": "Someone joined without an invitation",
+     "look": "What the board sees when a person claims a home without a link, and the plain \"we are checking\" screen that person sees, ending with the offer of automatic payments.",
+     "url": "https://hoahx-staging.web.app/preview/D6",
+     "states": 4,
+     "sides": [
+      "The board",
+      "The person joining"
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -7,10 +7,12 @@
 //   GET  /api/answers?full=1   -> every record with its history
 //   POST /api/answers          { id, v, n, code?, key? } -> saves that one record and returns it
 //
-//   id: a recommendation card ("A01" … "A23"), "_message" (the owners' closing message), or
-//       "_submission" (n = the plain-text summary the page sends when the owners press Send)
+//   id: a recommendation card ("A01" … "A23"), a screen to review ("S-D1" … "S-A7", the
+//       "Screens to review" section of the same page), "_message" (the owners' closing message),
+//       or "_submission" (n = the plain-text summary the page sends when the owners press Send)
 //   v:  "agree" when the owners agree with the recommendation, "change" when they want it changed
-//       (n then carries what should be different), "" when cleared
+//       (n then carries what should be different), "" when cleared.
+//       A screen ("S-…") takes "yes", "change" or "discuss" instead; "agree" is not a screen answer.
 //
 // If DECISION_EDIT_KEY is set on the Netlify site, every request must carry it (the same
 // passphrase as the Decision Register): the `x-edit-key` header, `key` in a POST body, or
@@ -25,6 +27,8 @@ const HISTORY_MAX = 40;
 const NOTE_MAX = 20000;
 const ID_RE = /^[A-Za-z_][A-Za-z0-9-]{0,31}$/;
 const MARKS = ['', 'agree', 'change'];
+const SCREEN_ID_RE = /^S-[A-Z]\d{1,2}$/;
+const SCREEN_MARKS = ['', 'yes', 'change', 'discuss'];
 
 function json(body, status) {
   return { statusCode: status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }, body: JSON.stringify(body) };
@@ -88,7 +92,7 @@ exports.handler = async (event) => {
       const id = payload.id;
       if (typeof id !== 'string' || !ID_RE.test(id)) return json({ error: 'missing or invalid id' }, 400);
       const v = payload.v == null ? '' : String(payload.v);
-      if (!MARKS.includes(v)) return json({ error: 'invalid v' }, 400);
+      if (!(SCREEN_ID_RE.test(id) ? SCREEN_MARKS : MARKS).includes(v)) return json({ error: 'invalid v' }, 400);
       const n = payload.n == null ? '' : String(payload.n).slice(0, NOTE_MAX);
       const code = payload.code == null ? '' : String(payload.code).slice(0, 40);
       const key = PREFIX + id;

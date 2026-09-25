@@ -1,5 +1,8 @@
 /* HOAhx · Open questions, answered by recommendation — behaviour for /answers.
-   Data: ./data.json (published from the HOAhx repo's docs/launch/recommendations.json).
+   Data: ./data.json (published from the HOAhx repo's docs/launch/recommendations.json) for the
+   recommendation cards, and ./screens.json (published from docs/launch/screen-review.json) for
+   the "Screens to review" section: one card per new screen on the test site, answered Yes /
+   Change / Discuss.
    Answers: kept in this browser (localStorage) and saved to the site's shared store
    (POST /api/answers, one record per card, history kept), so both owners see the same
    answers on every device and the launch program can read them back. */
@@ -10,6 +13,9 @@
   const LS_EDIT_KEY = 'hoahx-edit-key';
   const API = '/api/answers';
   const REGISTER = '/';
+  const isScreenId = (id) => /^S-[A-Z]\d{1,2}$/.test(id);
+  const DECISION_MARKS = ['agree', 'change'];
+  const SCREEN_MARKS = ['yes', 'change', 'discuss'];
 
   // ── state ────────────────────────────────────────────────────────────────
   const state = { marks: {}, notes: {}, when: {}, message: '', submittedAt: '', editKey: '', filter: 'all' };
@@ -66,6 +72,10 @@
     if (i > 0) pending[i] = rec; else pending.push(rec);
     flush();
   }
+  function validMark(id, v) {
+    const allowed = isScreenId(id) ? SCREEN_MARKS : DECISION_MARKS;
+    return allowed.includes(v) ? v : '';
+  }
   async function pullServer() {
     try {
       const url = state.editKey ? API + '?key=' + encodeURIComponent(state.editKey) : API;
@@ -76,7 +86,7 @@
       Object.entries(live).forEach(([id, rec]) => {
         if (id === '_submission') { if (rec.updatedAt) { state.submittedAt = rec.updatedAt; } return; }
         if (id === '_message') { state.message = rec.n || ''; return; }
-        state.marks[id] = rec.v === 'agree' || rec.v === 'change' ? rec.v : '';
+        state.marks[id] = validMark(id, rec.v);
         state.notes[id] = rec.n || '';
         state.when[id] = rec.updatedAt || '';
       });
@@ -96,7 +106,7 @@
   // ── answers ──────────────────────────────────────────────────────────────
   function setMark(id, v, code) {
     const cur = state.marks[id] || '';
-    const next = cur === v ? '' : v;           // pressing the lit button clears it
+    const next = cur === v ? '' : validMark(id, v);   // pressing the lit button clears it
     state.marks[id] = next;
     state.when[id] = new Date().toISOString();
     persist();
@@ -125,6 +135,7 @@
   // ── rendering ────────────────────────────────────────────────────────────
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const fmtDay = (iso) => (iso ? new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '');
+  const fmtLong = (day) => (day ? new Date(day + 'T12:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : '');
   const registerLink = (id) => REGISTER + '#' + encodeURIComponent(id);
 
   function tally(data) {
@@ -132,11 +143,29 @@
     data.cards.forEach((c) => { const v = state.marks[c.id]; if (v === 'agree') agree += 1; else if (v === 'change') change += 1; });
     return { agree, change, done: agree + change, total: data.cards.length, open: data.cards.length - agree - change };
   }
+  function tallyScreens(screens) {
+    let yes = 0, change = 0, discuss = 0;
+    allScreens(screens).forEach((s) => { const v = state.marks[s.id]; if (v === 'yes') yes += 1; else if (v === 'change') change += 1; else if (v === 'discuss') discuss += 1; });
+    const total = allScreens(screens).length;
+    return { yes, change, discuss, done: yes + change + discuss, total, open: total - yes - change - discuss };
+  }
+  function allScreens(screens) { return screens ? screens.features.flatMap((f) => f.screens) : []; }
 
-  function stateOf(id) { return state.marks[id] === 'agree' ? 'agree' : state.marks[id] === 'change' ? 'change' : 'open'; }
+  function stateOf(id) { return validMark(id, state.marks[id]) || 'open'; }
+  const PILL = { open: 'Waiting on you', agree: 'Agreed', change: 'Change asked', yes: 'Yes', discuss: 'To discuss' };
+  const WHEN = { agree: 'Agreed ', change: 'Change asked ', yes: 'Yes ', discuss: 'To discuss ' };
   function pillFor(id) {
     const s = stateOf(id);
-    return '<span class="pill state ' + s + '">' + (s === 'agree' ? 'Agreed' : s === 'change' ? 'Change asked' : 'Waiting on you') + '</span>';
+    return '<span class="pill state ' + s + '">' + PILL[s] + '</span>';
+  }
+  function whenText(id) {
+    const s = stateOf(id);
+    return s !== 'open' && state.when[id] ? WHEN[s] + fmtDay(state.when[id]) : '';
+  }
+  function changePanel(id, hidden, hint) {
+    return '<div class="change-panel"' + (hidden ? ' hidden' : '') + '><label for="note-' + esc(id) + '">What should be different?</label>' +
+      '<textarea id="note-' + esc(id) + '" data-note="' + esc(id) + '" placeholder="A sentence is enough: the part to change and what it should be instead.">' + esc(state.notes[id] || '') + '</textarea>' +
+      '<span class="hint">' + hint + '</span></div>';
   }
 
   function cardHtml(c, n) {
@@ -144,7 +173,7 @@
     const codes = c.decisions.map((d) => '<a class="d" href="' + registerLink(d.id) + '" title="' + esc(d.q) + '">' + esc(d.id) + '</a>').join('');
     const rec = c.rec.map((r) => '<li>' + esc(r.text) + '<span class="tag">answers ' + r.d.map(esc).join(', ') + '</span></li>').join('');
     const qs = c.decisions.map((d) => '<li><span class="code">' + esc(d.id) + ' · ' + esc(d.code) + '</span><a href="' + registerLink(d.id) + '">' + esc(d.q) + '</a></li>').join('');
-    return '<article class="card is-' + s + '" id="' + esc(c.id) + '" data-card="' + esc(c.id) + '" data-state="' + s + '">' +
+    return '<article class="card is-' + s + '" id="' + esc(c.id) + '" data-card="' + esc(c.id) + '" data-kind="decision" data-state="' + s + '">' +
       '<div class="card-h"><span class="card-n">' + String(n).padStart(2, '0') + ' of ' + TOTAL + '</span>' + pillFor(c.id) + '</div>' +
       '<div class="card-t"><h3>' + esc(c.title) + '</h3></div>' +
       '<div class="chips-d">' + codes + '</div>' +
@@ -155,14 +184,31 @@
       '<div class="card-f"><div class="act">' +
       '<button type="button" class="btn agree" data-mark="agree" aria-pressed="' + (s === 'agree') + '">Agree</button>' +
       '<button type="button" class="btn quiet change" data-mark="change" aria-pressed="' + (s === 'change') + '">Change</button>' +
-      '<span class="when">' + (s !== 'open' && state.when[c.id] ? (s === 'agree' ? 'Agreed ' : 'Change asked ') + esc(fmtDay(state.when[c.id])) : '') + '</span></div>' +
-      '<div class="change-panel"' + (s === 'change' ? '' : ' hidden') + '><label for="note-' + esc(c.id) + '">What should be different?</label>' +
-      '<textarea id="note-' + esc(c.id) + '" data-note="' + esc(c.id) + '" placeholder="A sentence is enough: the part to change and what it should be instead.">' + esc(state.notes[c.id] || '') + '</textarea>' +
-      '<span class="hint">Saved as you type. Leave it blank if you would rather talk it through.</span></div></div></article>';
+      '<span class="when">' + esc(whenText(c.id)) + '</span></div>' +
+      changePanel(c.id, s !== 'change', 'Saved as you type. Leave it blank if you would rather talk it through.') + '</div></article>';
+  }
+
+  function screenCardHtml(sc, n, total) {
+    const s = stateOf(sc.id);
+    const sides = sc.sides && sc.sides.length ? ' It has a side switch: ' + sc.sides.map(esc).join(' and ') + ' see different things.' : '';
+    const states = sc.states ? sc.states + ' Demo state' + (sc.states === 1 ? '' : 's') + ' to step through.' : 'Step through every Demo state.';
+    return '<article class="card is-' + s + '" id="' + esc(sc.id) + '" data-card="' + esc(sc.id) + '" data-kind="screen" data-state="' + s + '">' +
+      '<div class="card-h"><span class="card-n">Screen ' + n + ' of ' + total + '</span>' + pillFor(sc.id) + '</div>' +
+      '<div class="card-t"><h3><span class="card-code">' + esc(sc.code) + '</span> · ' + esc(sc.title) + '</h3></div>' +
+      '<div class="card-b"><p class="look">' + esc(sc.look) + '</p>' +
+      '<div class="open-row"><a class="btn open" href="' + esc(sc.url) + '" target="_blank" rel="noopener">Open ' + esc(sc.code) + ' on the test site</a>' +
+      '<span class="hint">Opens in a new tab. Sample data; nothing you click there is saved.</span></div>' +
+      '<p class="screen-hint">' + states + sides + '</p></div>' +
+      '<div class="card-f"><div class="act">' +
+      '<button type="button" class="btn yes" data-mark="yes" aria-pressed="' + (s === 'yes') + '">Yes, build it as shown</button>' +
+      '<button type="button" class="btn quiet change" data-mark="change" aria-pressed="' + (s === 'change') + '">Change</button>' +
+      '<button type="button" class="btn quiet discuss" data-mark="discuss" aria-pressed="' + (s === 'discuss') + '">Discuss</button>' +
+      '<span class="when">' + esc(whenText(sc.id)) + '</span></div>' +
+      changePanel(sc.id, s !== 'change', 'Saved as you type. Name the state if it is one situation and not the whole screen.') + '</div></article>';
   }
 
   let TOTAL = 0;
-  function renderAll(data) {
+  function renderAll(data, screens) {
     TOTAL = data.cards.length;
     let n = 0;
     const html = data.groups.map((g) => {
@@ -172,65 +218,94 @@
         cards.map((c) => cardHtml(c, ++n)).join('') + '</section>';
     }).join('');
     document.getElementById('groups').innerHTML = html;
-    applyFilter(data);
+    renderScreens(screens);
+    applyFilter(data, screens);
   }
 
-  function refreshCard(data, id) {
-    const c = data.cards.find((x) => x.id === id);
+  function renderScreens(screens) {
+    const section = document.getElementById('screens');
+    const total = allScreens(screens).length;
+    if (!total) { section.hidden = true; return; }
+    section.hidden = false;
+    document.getElementById('screens-lede').textContent = screens.lede || '';
+    document.getElementById('screens-howto').textContent = screens.howTo || '';
+    document.getElementById('screens-due').textContent = screens.due ? 'Please answer every screen by ' + fmtLong(screens.due) : '';
+    let n = 0;
+    document.getElementById('features').innerHTML = screens.features.map((f) =>
+      '<section class="group" data-group="screens-' + esc(f.id) + '"><div class="sec-h"><h2 class="sec-t">' + esc(f.title) + '</h2><span class="sec-c" data-group-count></span></div>' +
+      (f.intro ? '<p class="feature-intro">' + esc(f.intro) + '</p>' : '') +
+      f.screens.map((sc) => screenCardHtml(sc, ++n, total)).join('') + '</section>').join('');
+    document.querySelector('.chip[data-filter="discuss"]').hidden = false;
+  }
+
+  function refreshCard(id) {
     const el = document.querySelector('[data-card="' + id + '"]');
-    if (!c || !el) return;
+    if (!el) return;
     const s = stateOf(id);
     el.className = 'card is-' + s;
     el.dataset.state = s;
     el.querySelector('.state').outerHTML = pillFor(id);
-    el.querySelector('[data-mark="agree"]').setAttribute('aria-pressed', String(s === 'agree'));
-    el.querySelector('[data-mark="change"]').setAttribute('aria-pressed', String(s === 'change'));
-    el.querySelector('.when').textContent = s !== 'open' && state.when[id] ? (s === 'agree' ? 'Agreed ' : 'Change asked ') + fmtDay(state.when[id]) : '';
+    el.querySelectorAll('[data-mark]').forEach((b) => b.setAttribute('aria-pressed', String(s === b.dataset.mark)));
+    el.querySelector('.when').textContent = whenText(id);
     const panel = el.querySelector('.change-panel');
     panel.hidden = s !== 'change';
     if (s === 'change') panel.querySelector('textarea').focus();
   }
 
-  function applyFilter(data) {
+  function matches(filter, s) {
+    if (filter === 'all') return true;
+    if (filter === 'agree') return s === 'agree' || s === 'yes';
+    return s === filter;
+  }
+  function applyFilter(data, screens) {
     const f = state.filter;
-    document.querySelectorAll('.card').forEach((el) => {
-      const s = el.dataset.state;
-      el.hidden = !(f === 'all' || s === f);
-    });
+    document.querySelectorAll('.card').forEach((el) => { el.hidden = !matches(f, el.dataset.state); });
     document.querySelectorAll('.group').forEach((g) => {
       const shown = g.querySelectorAll('.card:not([hidden])').length;
       g.hidden = shown === 0;
       const total = g.querySelectorAll('.card').length;
-      const agreed = g.querySelectorAll('.card[data-state="agree"]').length;
-      const changed = g.querySelectorAll('.card[data-state="change"]').length;
-      g.querySelector('[data-group-count]').textContent = (agreed + changed) + ' of ' + total + ' answered';
+      const answered = g.querySelectorAll('.card:not([data-state="open"])').length;
+      g.querySelector('[data-group-count]').textContent = answered + ' of ' + total + ' answered';
     });
     document.querySelectorAll('.chip').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.filter === f)));
-    renderProgress(data);
+    renderProgress(data, screens);
   }
 
-  function renderProgress(data) {
+  function renderProgress(data, screens) {
     const t = tally(data);
-    document.getElementById('bar').style.width = (t.total ? Math.round(100 * t.done / t.total) : 0) + '%';
-    document.getElementById('count').textContent = t.done + ' of ' + t.total + ' answered · ' + t.agree + ' agreed · ' + t.change + ' to change';
-    document.getElementById('nav-progress').innerHTML = '<b>' + t.done + '</b> of <b>' + t.total + '</b> answered';
+    const ts = tallyScreens(screens);
+    const done = t.done + ts.done, total = t.total + ts.total, open = t.open + ts.open;
+    document.getElementById('bar').style.width = (total ? Math.round(100 * done / total) : 0) + '%';
+    document.getElementById('count').textContent = t.done + ' of ' + t.total + ' answered · ' + t.agree + ' agreed · ' + t.change + ' to change' +
+      (ts.total ? ' · screens ' + ts.done + ' of ' + ts.total : '');
+    document.getElementById('nav-progress').innerHTML = '<b>' + t.done + '</b> of <b>' + t.total + '</b> answered' + (ts.total ? ' · screens <b>' + ts.done + '</b> of <b>' + ts.total + '</b>' : '');
     const decisions = data.cards.reduce((s, c) => s + c.decisions.length, 0);
     document.getElementById('meta').innerHTML =
+      (ts.total ? '<div><dt>Screens to review</dt><dd>' + ts.total + ' on the test site' + (screens.due ? ', by ' + esc(fmtLong(screens.due)) : '') + '</dd></div>' : '') +
       '<div><dt>Open questions</dt><dd>' + decisions + ' on the register</dd></div>' +
       '<div><dt>Recommendations</dt><dd>' + t.total + ', one per card</dd></div>' +
-      '<div><dt>Prepared</dt><dd>' + esc(new Date(data.generated + 'T12:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })) + '</dd></div>' +
-      '<div><dt>Where you are</dt><dd>' + (t.done ? t.agree + ' agreed, ' + t.change + ' to change, ' + t.open + ' left' : 'Nothing answered yet') + '</dd></div>';
-    document.getElementById('send-p').textContent = t.open === 0
-      ? 'Every card is answered: ' + t.agree + ' agreed and ' + t.change + ' to change. Press Send and they are recorded.'
-      : t.open + ' card' + (t.open === 1 ? '' : 's') + ' still waiting. You can send now and come back for the rest, or finish first.';
-    document.getElementById('submit').disabled = t.done === 0;
+      '<div><dt>Prepared</dt><dd>' + esc(fmtLong(data.generated)) + '</dd></div>' +
+      '<div><dt>Where you are</dt><dd>' + (done ? (ts.total ? 'Screens: ' + ts.yes + ' yes, ' + ts.change + ' to change, ' + ts.discuss + ' to discuss, ' + ts.open + ' left. ' : '') + 'Questions: ' + t.agree + ' agreed, ' + t.change + ' to change, ' + t.open + ' left' : 'Nothing answered yet') + '</dd></div>';
+    document.getElementById('send-p').textContent = open === 0
+      ? 'Every card is answered' + (ts.total ? ': ' + ts.total + ' screens and ' + t.total + ' recommendations' : ': ' + t.agree + ' agreed and ' + t.change + ' to change') + '. Press Send and they are recorded.'
+      : open + ' card' + (open === 1 ? '' : 's') + ' still waiting' + (ts.total && ts.open ? ' (' + ts.open + ' of them screens)' : '') + '. You can send now and come back for the rest, or finish first.';
+    document.getElementById('submit').disabled = done === 0;
     document.getElementById('sent').innerHTML = state.submittedAt ? '<div class="sent">Last sent ' + esc(new Date(state.submittedAt).toLocaleString('en-US', { dateStyle: 'long', timeStyle: 'short' })) + '. Sending again replaces it.</div>' : '';
-    document.getElementById('next').hidden = t.open === 0;
+    document.getElementById('next').hidden = open === 0;
   }
 
-  function summaryText(data) {
+  function summaryText(data, screens) {
     const t = tally(data);
+    const ts = tallyScreens(screens);
     const lines = ['HOAhx · Open questions · answers sent ' + new Date().toLocaleString('en-US', { dateStyle: 'long', timeStyle: 'short' }), ''];
+    if (ts.total) {
+      lines.push('SCREENS');
+      allScreens(screens).forEach((sc) => {
+        const s = stateOf(sc.id);
+        lines.push(sc.code + ' ' + sc.title + ': ' + (s === 'open' ? 'not answered' : s.toUpperCase()) + (s === 'change' && state.notes[sc.id] ? ' — ' + state.notes[sc.id] : ''));
+      });
+      lines.push(ts.yes + ' yes · ' + ts.change + ' to change · ' + ts.discuss + ' to discuss · ' + ts.open + ' not answered', '', 'RECOMMENDATIONS');
+    }
     data.cards.forEach((c, i) => {
       const s = stateOf(c.id);
       lines.push((i + 1) + '. ' + c.title + ' (' + c.decisions.map((d) => d.id).join(', ') + '): ' + (s === 'agree' ? 'AGREE' : s === 'change' ? 'CHANGE' : 'not answered') + (s === 'change' && state.notes[c.id] ? ' — ' + state.notes[c.id] : ''));
@@ -245,27 +320,34 @@
     const res = await fetch('/answers/data.json', { cache: 'no-cache' });
     if (!res.ok) throw new Error('data.json not found');
     const data = await res.json();
+    let screens = null;
+    try {
+      const rs = await fetch('/answers/screens.json', { cache: 'no-cache' });
+      if (rs.ok) screens = await rs.json();
+    } catch (e) { /* no screens published yet: the section stays hidden */ }
     document.getElementById('title').textContent = data.title;
     document.getElementById('lede').textContent = data.lede;
     document.title = 'HOAhx · ' + data.title;
     await pullServer();
     window.addEventListener('online', flush);
-    renderAll(data);
+    renderAll(data, screens);
+    if (location.hash === '#screens' && screens) document.getElementById('screens').scrollIntoView({ block: 'start' });
 
     const msg = document.getElementById('msg');
     msg.value = state.message || '';
     msg.addEventListener('input', () => setMessage(msg.value));
 
-    document.getElementById('groups').addEventListener('click', (ev) => {
+    const main = document.querySelector('main');
+    main.addEventListener('click', (ev) => {
       const btn = ev.target.closest('[data-mark]');
       if (!btn) return;
       const card = btn.closest('[data-card]');
       const id = card.dataset.card;
       setMark(id, btn.dataset.mark, id);
-      refreshCard(data, id);
-      applyFilter(data);
+      refreshCard(id);
+      applyFilter(data, screens);
     });
-    document.getElementById('groups').addEventListener('input', (ev) => {
+    main.addEventListener('input', (ev) => {
       const ta = ev.target.closest('[data-note]');
       if (ta) setNote(ta.dataset.note, ta.value, ta.dataset.note);
     });
@@ -273,7 +355,7 @@
       const chip = ev.target.closest('.chip');
       if (!chip) return;
       state.filter = chip.dataset.filter;
-      applyFilter(data);
+      applyFilter(data, screens);
     });
     document.getElementById('next').addEventListener('click', () => {
       const y = window.scrollY + 130;
@@ -285,9 +367,9 @@
       const btn = document.getElementById('submit');
       btn.disabled = true; btn.textContent = 'Sending…';
       try {
-        await submit(summaryText(data));
+        await submit(summaryText(data, screens));
         btn.textContent = 'Sent';
-        renderProgress(data);
+        renderProgress(data, screens);
         setTimeout(() => { btn.textContent = 'Send your answers'; btn.disabled = false; }, 2500);
       } catch (e) {
         btn.disabled = false; btn.textContent = 'Send your answers';

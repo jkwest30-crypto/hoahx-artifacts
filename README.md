@@ -260,6 +260,11 @@ and **Send** when they are through.
 
 - `go-live/answers/index.html`, `answers.js`, `answers.css` — the page, authored here; asset
   paths are absolute (`/answers/…`) because the page is served at `/answers` without a slash.
+- `go-live/answers/screens.json` — the **Screens to review** section of the same page (one card
+  per new screen on the staging test site, answered Yes / Change / Discuss on ids `S-D1`…),
+  published from the HOAhx repo's `docs/launch/screen-review.json` with `--screens`; the
+  source's internal mapping (register entry, stub) is stripped on publish and read back by
+  `pull:answers -- --screens <source>`.
 - `go-live/answers/data.json` — the cards, published from the HOAhx repo's
   `docs/launch/recommendations.json` (the source of truth for the wording; gitignored there).
 - `netlify/functions/answers.js` — the shared store (Netlify Blobs store `hoahx-answers`, one

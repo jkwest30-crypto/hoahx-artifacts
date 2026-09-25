@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>HOAhx · Open questions, answered</title>
-<meta name="description" content="Every open question on the HOAhx Decision Register with a recommendation: agree, or say what should change.">
+<meta name="description" content="The new HOAhx screens to review, and every open question on the Decision Register with a recommendation: answer each one here.">
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,6 +15,7 @@
 <nav class="nav" aria-label="HOAhx pages"><div class="wrap nav-in">
   <a class="nav-brand" href="/answers">HOAhx · Open questions</a>
   <a class="tab" href="/answers" aria-current="page">Recommendations</a>
+  <a class="tab" href="/answers#screens">Screens</a>
   <a class="tab" href="/">Decision Register</a>
   <a class="tab" href="/scope/">Beyond the proposal</a>
   <div class="sel" id="nav-progress"></div>
@@ -25,6 +26,7 @@
   <h1 id="title">Open questions, answered by recommendation</h1>
   <p class="lede" id="lede"></p>
   <p class="lede small">Agree records the recommendation as your answer on every question the card covers. Change opens a box for what should be different; a sentence is enough. Nothing is final until you press Send, and you can come back to any card before then.</p>
+  <p class="lede small"><a href="#screens">The new screens on the test site</a> are answered the same way, one card per screen: Yes, Change or Discuss.</p>
   <dl class="meta" id="meta"></dl>
 </div></header>
 
@@ -35,6 +37,7 @@
     <button type="button" class="chip" data-filter="open" aria-pressed="false">Not yet answered</button>
     <button type="button" class="chip" data-filter="agree" aria-pressed="false">Agreed</button>
     <button type="button" class="chip" data-filter="change" aria-pressed="false">To change</button>
+    <button type="button" class="chip" data-filter="discuss" aria-pressed="false" hidden>To discuss</button>
   </div>
   <button type="button" class="link-btn" id="next">Next unanswered ↓</button>
   <span class="count" id="count"></span>
@@ -42,6 +45,17 @@
 </div></div>
 
 <main class="wrap">
+  <section class="screens" id="screens" aria-labelledby="screens-h" hidden>
+    <div class="screens-h">
+      <p class="eyebrow">On the test site · sample data · nothing you click there is saved</p>
+      <h2 id="screens-h">Screens to review</h2>
+      <p id="screens-lede"></p>
+      <p id="screens-howto"></p>
+      <p class="due" id="screens-due"></p>
+    </div>
+    <div id="features"></div>
+  </section>
+
   <div id="groups"></div>
 
   <section class="send" id="send" aria-labelledby="send-h">
@@ -59,7 +73,8 @@
 </main>
 
 <footer><div class="wrap">
-  <p><b>What happens next.</b> An answer you agree with is recorded on each of its questions in the Decision Register and the build follows it. A change with your words is recorded the same way when it is clear, and becomes a short conversation when it is not. Every card names the questions it answers, by their register numbers, so you can find any of them on the register page.</p>
+  <p><b>What happens next on a screen.</b> A Yes is recorded and the data behind that screen is built as shown. A Change with your words becomes a follow-up item on the plan. A Discuss goes on the agenda for the next call. The screens stay on the test site until the real thing replaces them.</p>
+  <p><b>What happens next on a recommendation.</b> An answer you agree with is recorded on each of its questions in the Decision Register and the build follows it. A change with your words is recorded the same way when it is clear, and becomes a short conversation when it is not. Every card names the questions it answers, by their register numbers, so you can find any of them on the register page.</p>
   <p>Saved as you go, on every device that opens this page. Nothing here is deleted; every earlier answer is kept.</p>
 </div></footer>
 
