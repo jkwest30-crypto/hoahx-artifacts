@@ -67,9 +67,29 @@ if (screens && screens.features && screens.features.length) {
     if (v === 'yes') { sYes += 1; lines.push('Screen: accepted', `Note: Yes to ${sc.code} as shown on the test site; date the stub ${sc.stub || ''} and build the data behind it.`); }
     else if (v === 'change') { sChange += 1; lines.push(note ? 'Mark: Change' : 'Mark: Discuss', note ? `Note: ${note}` : `Note: (Change pressed on ${sc.code} with nothing written; ask the owners.)`, `Follows: a candidate on ${sc.register || 'its register entry'} with the owners' words, never a reopen (the entry is answered).`); }
     else { sDiscuss += 1; lines.push('Mark: Discuss', `Note: ${note || '(Discuss pressed on ' + sc.code + '; put it on the next call.)'}`); }
+    if (rec.by) lines.push(`By: ${rec.by}`);
     lines.push(`Updated: ${rec.updatedAt || ''}`, '');
   }
   lines.push('| Screen | Title | Register | Stub | Answer | Date |', '|---|---|---|---|---|---|', ...screenSummary, '', `Screens yes ${sYes} · to change ${sChange} · to discuss ${sDiscuss} · not answered ${sOpen}`, '');
+}
+
+// ── screens answered on the preview but not in the review list ──
+// The screen preview on the test site (hoahx-staging.web.app/preview) lets the owners sign off
+// or ask for a change on any of its screens, not only the ones this page lists. Those answers
+// are in the same store under the same "S-<code>" ids; report them rather than drop them.
+const listed = new Set(screens && screens.features ? screens.features.flatMap((f) => f.screens.map((sc) => sc.id)) : []);
+const extra = Object.keys(all).filter((id) => /^S-[A-Z]\d{1,2}$/.test(id) && !listed.has(id) && all[id] && all[id].v).sort();
+if (extra.length) {
+  lines.push('## Screens answered on the preview, not in the review list yet', '', 'Not on the /answers page. Map each to its register entry and stub by hand before /decide.', '');
+  for (const id of extra) {
+    const rec = all[id];
+    const note = rec.n ? String(rec.n).trim() : '';
+    const status = rec.v === 'yes' ? 'Yes (signed off)' : rec.v === 'change' ? (note ? 'Change' : 'Change, nothing written') : 'Discuss';
+    lines.push(`### ${id} · ${id.slice(2)} — ${status}${rec.updatedAt ? ` (${when(rec.updatedAt)})` : ''}`);
+    if (note) lines.push(`Note: ${note}`);
+    if (rec.by) lines.push(`By: ${rec.by}`);
+    lines.push(`Updated: ${rec.updatedAt || ''}`, '');
+  }
 }
 
 let agreed = 0, changed = 0, discuss = 0, open = 0;

@@ -5,7 +5,7 @@
 //
 //   GET  /api/answers          -> { "<id>": { v, n, code, updatedAt }, ... }   (live marks, notes, the message, the last submission)
 //   GET  /api/answers?full=1   -> every record with its history
-//   POST /api/answers          { id, v, n, code?, key? } -> saves that one record and returns it
+//   POST /api/answers          { id, v, n, code?, by?, key? } -> saves that one record and returns it
 //
 //   id: a recommendation card ("A01" … "A23"), a screen to review ("S-D1" … "S-A7", the
 //       "Screens to review" section of the same page), "_message" (the owners' closing message),
@@ -13,6 +13,11 @@
 //   v:  "agree" when the owners agree with the recommendation, "change" when they want it changed
 //       (n then carries what should be different), "" when cleared.
 //       A screen ("S-…") takes "yes", "change" or "discuss" instead; "agree" is not a screen answer.
+//   by: who answered, as they typed their name (the screen preview on the test site asks for it;
+//       this page does not, so an answer given here carries no name).
+//
+// The screen preview on the test site (https://hoahx-staging.web.app/preview) answers the same
+// "S-…" records from another origin: CORS is open to that origin and to local dev servers only.
 //
 // If DECISION_EDIT_KEY is set on the Netlify site, every request must carry it (the same
 // passphrase as the Decision Register): the `x-edit-key` header, `key` in a POST body, or
@@ -29,6 +34,22 @@ const ID_RE = /^[A-Za-z_][A-Za-z0-9-]{0,31}$/;
 const MARKS = ['', 'agree', 'change'];
 const SCREEN_ID_RE = /^S-[A-Z]\d{1,2}$/;
 const SCREEN_MARKS = ['', 'yes', 'change', 'discuss'];
+const BY_MAX = 60;
+const CORS_ORIGINS = ['https://hoahx-staging.web.app', 'https://hoahx-staging.firebaseapp.com'];
+const LOCAL_ORIGIN_RE = /^http:\/\/(localhost|127\.0\.0\.1):\d{2,5}$/;
+
+function corsFor(event) {
+  const h = event.headers || {};
+  const origin = h.origin || h.Origin || '';
+  if (!origin || !(CORS_ORIGINS.includes(origin) || LOCAL_ORIGIN_RE.test(origin))) return {};
+  return {
+    'Access-Control-Allow-Origin': origin,
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, x-edit-key',
+    'Access-Control-Max-Age': '600',
+    Vary: 'Origin',
+  };
+}
 
 function json(body, status) {
   return { statusCode: status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }, body: JSON.stringify(body) };
@@ -56,6 +77,7 @@ function publicView(rec) {
   if (rec.v) out.v = rec.v;
   if (rec.n) out.n = rec.n;
   if (rec.code) out.code = rec.code;
+  if (rec.by) out.by = rec.by;
   if (rec.updatedAt) out.updatedAt = rec.updatedAt;
   return out;
 }
@@ -69,7 +91,15 @@ async function readAll(store) {
   return all;
 }
 
+// Every answer, including a refusal, carries the CORS headers for an allowed origin, so the
+// preview can read a 401 and ask for the passphrase.
 exports.handler = async (event) => {
+  const res = await handle(event);
+  res.headers = Object.assign({}, res.headers, corsFor(event));
+  return res;
+};
+
+async function handle(event) {
   if (event.httpMethod === 'OPTIONS') return json({}, 200);
   try {
     let payload = null;
@@ -95,15 +125,16 @@ exports.handler = async (event) => {
       if (!(SCREEN_ID_RE.test(id) ? SCREEN_MARKS : MARKS).includes(v)) return json({ error: 'invalid v' }, 400);
       const n = payload.n == null ? '' : String(payload.n).slice(0, NOTE_MAX);
       const code = payload.code == null ? '' : String(payload.code).slice(0, 40);
+      const by = payload.by == null ? '' : String(payload.by).replace(/[\u0000-\u001f]/g, '').trim().slice(0, BY_MAX);
       const key = PREFIX + id;
       const prev = (await store.get(key, { type: 'json' })) || null;
       const now = new Date().toISOString();
       const history = (prev && Array.isArray(prev.history)) ? prev.history.slice() : [];
       if (prev && (prev.v !== v || (prev.n || '') !== n)) {
-        history.push({ v: prev.v || '', n: prev.n || '', at: prev.updatedAt || now });
+        history.push({ v: prev.v || '', n: prev.n || '', by: prev.by || '', at: prev.updatedAt || now });
         while (history.length > HISTORY_MAX) history.shift();
       }
-      const rec = { v, n, code: code || (prev && prev.code) || '', updatedAt: now, history };
+      const rec = { v, n, by, code: code || (prev && prev.code) || '', updatedAt: now, history };
       await store.setJSON(key, rec);
       return json(Object.assign({ id }, publicView(rec)), 200);
     }
@@ -112,4 +143,4 @@ exports.handler = async (event) => {
   } catch (e) {
     return json({ error: 'store unavailable', detail: String(e && e.message || e) }, 500);
   }
-};
+}

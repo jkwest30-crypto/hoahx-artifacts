@@ -18,14 +18,14 @@
   const SCREEN_MARKS = ['yes', 'change', 'discuss'];
 
   // ── state ────────────────────────────────────────────────────────────────
-  const state = { marks: {}, notes: {}, when: {}, message: '', submittedAt: '', editKey: '', filter: 'all' };
+  const state = { marks: {}, notes: {}, when: {}, by: {}, message: '', submittedAt: '', editKey: '', filter: 'all' };
   try {
     const saved = JSON.parse(localStorage.getItem(LS_KEY) || '{}');
     Object.assign(state, saved);
     state.editKey = localStorage.getItem(LS_EDIT_KEY) || '';
   } catch (e) { /* storage unavailable: the page still works */ }
   function persist() {
-    try { localStorage.setItem(LS_KEY, JSON.stringify({ marks: state.marks, notes: state.notes, when: state.when, message: state.message, submittedAt: state.submittedAt })); } catch (e) { /* ignore */ }
+    try { localStorage.setItem(LS_KEY, JSON.stringify({ marks: state.marks, notes: state.notes, when: state.when, by: state.by, message: state.message, submittedAt: state.submittedAt })); } catch (e) { /* ignore */ }
   }
 
   // ── shared store ─────────────────────────────────────────────────────────
@@ -89,6 +89,7 @@
         state.marks[id] = validMark(id, rec.v);
         state.notes[id] = rec.n || '';
         state.when[id] = rec.updatedAt || '';
+        state.by[id] = rec.by || '';
       });
       persist();
       setStatus('');
@@ -109,6 +110,7 @@
     const next = cur === v ? '' : validMark(id, v);   // pressing the lit button clears it
     state.marks[id] = next;
     state.when[id] = new Date().toISOString();
+    state.by[id] = '';   // this page asks for no name; the store records this answer without one
     persist();
     queue(id, next, state.notes[id] || '', code);
     return next;
@@ -116,6 +118,7 @@
   const noteTimers = {};
   function setNote(id, text, code) {
     state.notes[id] = text;
+    state.by[id] = '';
     persist();
     clearTimeout(noteTimers[id]);
     noteTimers[id] = setTimeout(() => queue(id, state.marks[id] || '', text, code), 700);
@@ -160,7 +163,7 @@
   }
   function whenText(id) {
     const s = stateOf(id);
-    return s !== 'open' && state.when[id] ? WHEN[s] + fmtDay(state.when[id]) : '';
+    return s !== 'open' && state.when[id] ? WHEN[s] + fmtDay(state.when[id]) + (state.by[id] ? ' by ' + state.by[id] : '') : '';
   }
   function changePanel(id, hidden, hint) {
     return '<div class="change-panel"' + (hidden ? ' hidden' : '') + '><label for="note-' + esc(id) + '">What should be different?</label>' +
