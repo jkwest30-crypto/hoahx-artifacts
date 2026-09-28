@@ -63,6 +63,13 @@
   to = "/hub/index.html"
   status = 200
 
+# What is in the shared Drive folder right now, for the hub (netlify/functions/hub.js). Read-only.
+[[redirects]]
+  from = "/api/hub"
+  to = "/.netlify/functions/hub"
+  status = 200
+  force = true
+
 # HOAhx · Videos to review: the owners' page at /videos (also a section on /answers) and Jacob's
 # sign-off page at /videos/review (linked from nowhere), with their shared store at /api/videos.
 [[redirects]]

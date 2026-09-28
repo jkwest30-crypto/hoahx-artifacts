@@ -1,11 +1,14 @@
-/* HOAhx · Hub. Draws the whole page from /hub/data.json (see scripts/publish-hub.mjs for the
-   shape). Read-only: no shared store, nothing saved. Asset paths are absolute because the page
-   is served at /hub with no trailing slash. */
+/* HOAhx · Hub. Two lists, one page. /hub/data.json is the published list (the review pages and
+   what is waiting on the owners; see scripts/publish-hub.mjs). /api/hub is what is in the shared
+   Drive folder right now (netlify/functions/hub.js): people add a document by filing it there.
+   The page draws the first at once and adds the second when it answers; if it does not answer,
+   the page is the published list alone. Read-only: nothing is saved. Asset paths are absolute
+   because the page is served at /hub with no trailing slash. */
 (function () {
   'use strict';
 
-  var KINDS = [['all', 'All'], ['page', 'Pages'], ['doc', 'Docs'], ['sheet', 'Sheets'], ['slides', 'Slides'], ['pdf', 'PDFs'], ['video', 'Videos'], ['folder', 'Folders']];
-  var LABEL = { page: 'PAGE', doc: 'DOC', sheet: 'SHEET', slides: 'SLIDES', pdf: 'PDF', video: 'VIDEO', folder: 'FOLDER' };
+  var KINDS = [['all', 'All'], ['page', 'Pages'], ['doc', 'Docs'], ['sheet', 'Sheets'], ['slides', 'Slides'], ['pdf', 'PDFs'], ['video', 'Videos'], ['folder', 'Folders'], ['file', 'Files']];
+  var LABEL = { page: 'PAGE', doc: 'DOC', sheet: 'SHEET', slides: 'SLIDES', pdf: 'PDF', video: 'VIDEO', folder: 'FOLDER', file: 'FILE' };
   var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   var NEW_DAYS = 7;
   var NEW_MAX = 5;
@@ -16,6 +19,7 @@
   var search = document.getElementById('q');
   var state = { q: '', kind: 'all' };
   var data = null;
+  var today = '';   // what "new this week" is counted from: the list's date, or the day Drive was read
 
   function el(tag, cls, text) {
     var n = document.createElement(tag);
@@ -38,7 +42,7 @@
     var p = iso.split('-');
     return MONTHS[+p[1] - 1] + ' ' + (+p[2]);
   }
-  function isNew(row) { return !!row.date && day(data.updated) - day(row.date) < NEW_DAYS; }
+  function isNew(row) { return !!row.date && day(today) - day(row.date) < NEW_DAYS; }
 
   function matches(row) {
     if (state.kind !== 'all' && row.k !== state.kind) return false;
@@ -54,7 +58,7 @@
     if (row.tag) t.appendChild(el('span', 'tag', row.tag));
     else if (isNew(row)) t.appendChild(el('span', 'tag new', 'New'));
     a.appendChild(t);
-    a.appendChild(el('span', 'd', row.d));
+    if (row.d) a.appendChild(el('span', 'd', row.d));
     if (row.by || row.date) {
       var m = el('span', 'm');
       if (row.by) m.appendChild(el('span', '', 'Kept by ' + row.by));
@@ -145,7 +149,7 @@
       sec.id = s.id;
       var head = el('div', 'sec-head');
       head.appendChild(el('h2', '', s.name));
-      head.appendChild(el('p', '', s.about));
+      if (s.about) head.appendChild(el('p', '', s.about));
       if (s.folder) {
         var f = link('folder', s.folder);
         f.textContent = 'Open this folder in Drive';
@@ -193,9 +197,43 @@
     }
   }
 
-  function start(json) {
-    data = json;
-    document.getElementById('asof').textContent = 'List updated ' + shortDate(data.updated) + ', ' + data.updated.slice(0, 4) + '.';
+  function driveId(href) {
+    var m = /\/(?:d|folders)\/([A-Za-z0-9_-]{10,})/.exec(href || '');
+    return m ? m[1] : '';
+  }
+  function same(a, b) { return String(a).trim().toLowerCase() === String(b).trim().toLowerCase(); }
+
+  // Adds what is in the Drive folder to the published list. A document already on the published
+  // list keeps its published line, so nothing shows twice.
+  function merge(live) {
+    var have = {};
+    function seen(href) { var id = driveId(href); return have[href] || (id && have[id]); }
+    function mark(href) { have[href] = true; var id = driveId(href); if (id) have[id] = true; }
+    data.sections.forEach(function (s) { s.groups.forEach(function (g) { g.rows.forEach(function (r) { mark(r.href); }); }); });
+    (live.sections || []).forEach(function (ls) {
+      if (!ls || typeof ls.name !== 'string' || !ls.name) return;
+      var s = data.sections.filter(function (x) { return same(x.name, ls.name); })[0];
+      if (!s) {
+        s = { id: 's-' + (ls.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'more'), name: ls.name, about: '', folder: null, columns: 2, groups: [] };
+        data.sections.push(s);
+      }
+      if (typeof ls.folder === 'string' && ls.folder.indexOf('https://drive.google.com/') === 0) s.folder = ls.folder;
+      (ls.groups || []).forEach(function (lg) {
+        if (!lg || typeof lg.name !== 'string' || !lg.name) return;
+        var g = s.groups.filter(function (x) { return same(x.name, lg.name); })[0];
+        if (!g) { g = { name: lg.name, rows: [] }; s.groups.push(g); }
+        (lg.rows || []).forEach(function (r) {
+          if (!r || typeof r.t !== 'string' || typeof r.href !== 'string' || r.href.indexOf('https://') !== 0 || seen(r.href)) return;
+          mark(r.href);
+          g.rows.push({ k: LABEL[r.k] ? r.k : 'file', t: r.t, d: typeof r.d === 'string' ? r.d : '', href: r.href, by: typeof r.by === 'string' ? r.by : '', date: /^\d{4}-\d{2}-\d{2}$/.test(r.date || '') ? r.date : '' });
+        });
+      });
+    });
+    if (/^\d{4}-\d{2}-\d{2}/.test(live.fetched || '') && live.fetched.slice(0, 10) > today) today = live.fetched.slice(0, 10);
+  }
+
+  function chips() {
+    kinds.textContent = '';
     KINDS.forEach(function (k) {
       var has = k[0] === 'all' || data.sections.some(function (s) {
         return s.groups.some(function (g) { return g.rows.some(function (r) { return r.k === k[0]; }); });
@@ -204,7 +242,7 @@
       var b = el('button', 'chip', k[1]);
       b.type = 'button';
       b.id = 'kind-' + k[0];
-      b.setAttribute('aria-pressed', k[0] === 'all' ? 'true' : 'false');
+      b.setAttribute('aria-pressed', k[0] === state.kind ? 'true' : 'false');
       b.addEventListener('click', function () {
         state.kind = k[0];
         Array.prototype.forEach.call(kinds.children, function (c) { c.setAttribute('aria-pressed', c === b ? 'true' : 'false'); });
@@ -212,6 +250,14 @@
       });
       kinds.appendChild(b);
     });
+  }
+
+  function start(json) {
+    data = json;
+    today = data.updated;
+    var asof = document.getElementById('asof');
+    asof.textContent = 'List updated ' + shortDate(data.updated) + ', ' + data.updated.slice(0, 4) + '.';
+    chips();
     search.addEventListener('input', function () {
       state.q = search.value.trim().toLowerCase();
       draw();
@@ -222,6 +268,17 @@
       var target = document.getElementById(location.hash.slice(1));
       if (target) target.scrollIntoView();
     }
+    // The Drive folder, as it is now. No answer is not an error: the published list stands.
+    fetch('/api/hub')
+      .then(function (res) { return res.ok ? res.json() : null; })
+      .then(function (live) {
+        if (!live || !live.configured || !Array.isArray(live.sections)) return;
+        merge(live);
+        chips();
+        draw();
+        asof.textContent += ' Documents and links come straight from the shared Drive folder.';
+      })
+      .catch(function () { /* the published list stands */ });
   }
 
   fetch('/hub/data.json', { cache: 'no-store' })

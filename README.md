@@ -298,28 +298,74 @@ https://hoahx-requirements.netlify.app/hub is the owners' front door: what is wa
 what is new this week, then every document and review page under **Product** (grouped by product
 feature), **Developer review** and **UX**. The documents themselves stay in the shared Google
 Drive; the page holds a link and one line about each, so Drive's own sharing decides who can open
-what. The page is static and read-only: no shared store, no passphrase.
+what. The page is read-only: no shared store, no passphrase.
+
+The page draws **two lists as one**:
+
+| List | Holds | Kept by | Reaches the page |
+|---|---|---|---|
+| Published: `go-live/hub/data.json` | The review pages on this site, the app, the demo, and **Waiting on you** | The launch program's `docs/launch/hub.json`, through `publish:hub` and its guards | On a push to `main` |
+| Live: `/api/hub` | Every file in the shared Drive folder, and the web addresses in its **Hub links** sheet | Anyone who can edit the Drive folder | Within five minutes, no publish |
+
+The page shows the published list at once and adds the live one when it answers. If `/api/hub`
+does not answer (not set up, Drive unreachable), the page is the published list alone and shows
+no error. A document on both lists keeps its published line and shows once.
+
+### How people add to the hub (in Drive, never on the page)
+
+| To | In the `Owners' hub` Drive folder |
+|---|---|
+| Add a document | Put it in the section's folder, in the group's folder: `Product / Pricing / <file>` |
+| Add a document kept in someone else's Drive | Add a shortcut to it in that folder |
+| Change its title here | Rename the file. An extension (`.pdf`) is not shown |
+| Give it the line under the title | The file's Description, in Drive's details pane |
+| Move it to another group | Move the file |
+| Add a group | Make a folder inside the section's folder |
+| Add a section | Make a folder beside Product, Developer review and UX |
+| Add a web address | A row in the sheet named **Hub links**: Section, Group, Title, Link, Description |
+| Remove something | Take the file out of the folder, or delete the row |
+
+A file directly inside a section's folder lands in a group named Other. Files beside the section
+folders (the Hub links sheet, the how-to) are the hub's own and are never listed. A row of the
+sheet is left out, and named in the answer's `skipped`, when its link does not start with
+`https://`, it has no title, or its section is not a folder.
+
+### Files
 
 - `go-live/hub/index.html`, `hub.js`, `hub.css` — the page, authored here; asset paths are
   absolute (`/hub/…`) because the page is served at `/hub` without a slash.
-- `go-live/hub/data.json` — the list, published from the HOAhx repo's `docs/launch/hub.json`.
-- `scripts/publish-hub.mjs` — copies and guards the list: shape, https links, the kind fits the
-  link, no link listed twice, real dates none later than the list's own, and the excluded words in
-  the data and the page. `--links` also requests every link that is not a Drive link and refuses
-  on one that does not answer 200 (Drive answers a sign-in page to anyone, so it is not asked).
+- `go-live/hub/data.json` — the published list, from the HOAhx repo's `docs/launch/hub.json`.
+- `scripts/publish-hub.mjs` — copies and guards the published list: shape, https links, the kind
+  fits the link, no link listed twice, real dates none later than the list's own, and the excluded
+  words in the data and the page. `--links` also requests every link that is not a Drive link and
+  refuses on one that does not answer 200 (Drive answers a sign-in page to anyone, so it is not asked).
+- `netlify/functions/hub.js` — the live list. Signs in to Google as a service account asked for
+  `drive.readonly`, lists the folders, reads the sheet as CSV, keeps the result five minutes.
+  Tests: `tests/hub-drive.test.mjs`, with Google's answers faked.
 
 ```
 docs/launch/hub.json ──npm run publish:hub -- --source ../hoahx/docs/launch/hub.json──▶ go-live/hub/data.json ──push main──▶ Netlify
+Owners' hub (Drive)  ──/api/hub, read on request, kept five minutes──▶ the page
 ```
 
-**To add a document:** add one row to its group in `hub.json` (`k` the kind, `t` the title, `d`
-one line, `href` the link, and optionally `by`, `date`, `tag`), set `updated` to today, publish,
-push. A group with no rows shows "Nothing here yet", so the owners see where a document will go.
-**New this week** is every row dated within seven days of `updated`; **Waiting on you** is the
-`waiting` list and is written by hand, from the launch program's owner items.
+### Settings the live list needs (Netlify, scope Functions)
 
-Before listing a Drive document, check it is shared with everyone who has the hub link: a
-document private to its author is a dead link for the owners.
+| Setting | Value |
+|---|---|
+| `HUB_DRIVE_FOLDER` | The id of the `Owners' hub` folder (the last part of its address) |
+| `HUB_GOOGLE_EMAIL` | The service account's address. The folder is shared with it as **Viewer** |
+| `HUB_GOOGLE_KEY` | The `private_key` from that account's JSON key file, from `-----BEGIN` to `END PRIVATE KEY-----` |
+
+Until all three exist `/api/hub` answers `503 {"configured": false}` and asks Google nothing.
+The key is a secret: it goes into Netlify's settings by hand and nowhere else, never into this
+repository, a message, or a terminal.
+
+### Two things to know
+
+- Anyone who can open the hub sees the **title** of every file in those folders, whether or not
+  Drive lets them open it. A document whose name is private does not belong there.
+- Before the published list names a Drive document, check it is shared with everyone who has the
+  hub link: a document private to its author opens Drive's "You need access" page.
 
 ## Videos to review (`/videos`, a section on `/answers`, and `/videos/review`)
 

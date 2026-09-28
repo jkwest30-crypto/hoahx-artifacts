@@ -1,7 +1,7 @@
 {
   "name": "hoahx-artifacts",
   "private": true,
-  "version": "1.8.0",
+  "version": "1.9.0",
   "description": "Published HOAhx go-live artifacts (the owners\u2019 Decision Register, the workflow map, the design reference, the demo comparison, the open questions answered by recommendation, and the hub that links to all of them and to the documents in the shared Drive), deployed via Netlify.",
   "engines": {
     "node": ">=18"
