@@ -37,20 +37,20 @@
       if (r.ok) answers = (await r.json()).owners || {};
     } catch (e) { /* the cards still show, without answers */ }
     const done = videos.filter((v) => state(v, answers) !== 'open').length;
-    const pill = (s) => s === 'approved' ? '<span class="pill yes">Looks right</span>' : s === 'wrong' ? '<span class="pill wrong">Something looks wrong</span>' : '<span class="pill open">Not reviewed</span>';
+    const pill = (s) => s === 'approved' ? '<span class="v-pill yes">Looks right</span>' : s === 'wrong' ? '<span class="v-pill wrong">Something looks wrong</span>' : '<span class="v-pill">Not reviewed</span>';
     style();
     el.hidden = false;
     const tab = document.querySelector('a[href="#videos-to-review"]'); if (tab) tab.hidden = false;
-    el.className = 'vreview';
+    el.className = 'vreview sec';
     el.setAttribute('aria-labelledby', 'videos-to-review-h');
-    el.innerHTML = `<div class="vreview-h"><p class="eyebrow">Recorded from the product · sample community · HOAhx has not launched</p>
+    el.innerHTML = `<div class="v-head"><p class="v-eyebrow">Recorded from the product · sample community · HOAhx has not launched</p>
       <h2 id="videos-to-review-h">Videos to review</h2>
       <p>Short recordings of what was built, one feature each. Open one to watch it, then say whether it looks right, or what looks wrong, with a screenshot if that helps. New videos appear here as they are ready.</p>
-      <p class="due">${done} of ${videos.length} reviewed${list.waiting ? ` · ${list.waiting} more being checked` : ''}</p></div>
-      <div class="vgrid">${videos.map((v) => { const s = state(v, answers); return `<div class="vtile${s === 'approved' ? ' is-yes' : s === 'wrong' ? ' is-wrong' : ''}">
-        <div class="row"><span class="card-n">${esc(v.id)}${v.length ? ' · ' + esc(v.length) : ''}</span>${pill(s)}</div>
+      <p class="v-due">${done} of ${videos.length} reviewed${list.waiting ? ` · ${list.waiting} more being checked` : ''}</p></div>
+      <div class="v-grid">${videos.map((v) => { const s = state(v, answers); return `<div class="v-tile${s === 'approved' ? ' is-yes' : s === 'wrong' ? ' is-wrong' : ''}">
+        <div class="v-row"><span class="v-num">${esc(v.id)}${v.length ? ' · ' + esc(v.length) : ''}</span>${pill(s)}</div>
         <h3>${esc(v.title)}</h3><p>${esc(v.about)}</p>
-        <div class="row">${v.updateComing ? '<span class="hint">A new version is coming</span>' : '<span></span>'}<a class="btn quiet" href="/videos#v-${esc(v.id)}">Review this video →</a></div></div>`; }).join('')}</div>`;
+        <div class="v-row">${v.updateComing ? '<span class="v-hint">A new version is coming</span>' : '<span></span>'}<a class="v-go" href="/videos#v-${esc(v.id)}">Review this video →</a></div></div>`; }).join('')}</div>`;
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
 })();

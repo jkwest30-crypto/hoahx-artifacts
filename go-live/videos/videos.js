@@ -15,7 +15,7 @@
     get(k) { try { return localStorage.getItem(k) || ''; } catch (e) { return ''; } },
     set(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* private window: fine */ } },
   };
-  const fmtDay = (iso) => { const d = new Date(iso); return isNaN(d) ? '' : d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }); };
+  const fmtDay = (iso) => { const d = new Date(/^\d{4}-\d{2}-\d{2}$/.test(iso || '') ? iso + 'T12:00:00' : iso); return isNaN(d) ? '' : d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }); };
   const fmtWhen = (iso) => { const d = new Date(iso); return isNaN(d) ? '' : d.toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }); };
   const ROLE = { homeowner: 'For a homeowner', board: 'For a board', 'management company': 'For a management company', 'community staff': 'For community staff' };
 
@@ -164,7 +164,7 @@
     const banner = v.updateComing ? '<p class="banner">A new version of this video is being checked. It will replace this one here, on the same link.</p>'
       : o.recheck ? '<p class="banner">This video was recorded again after your note. Please watch it once more and say whether it is fixed.</p>'
       : o.updated ? '<p class="banner quiet">Recorded again since you said it looks right. Watching it again is optional.</p>' : '';
-    const showForm = S.open[v.id] || o.state === 'wrong';
+    const showForm = S.open[v.id] || (o.state === 'wrong' && !notes.length);
     return `<article class="card vcard${cls}${companion ? ' companion' : ''}" id="v-${v.id}">
       <div class="card-h"><span class="card-n">${v.id}${v.length ? ' · ' + esc(v.length) : ''}</span>${companion ? '<span class="sub">What else can happen</span>' : ''}<span class="state">${pill}</span></div>
       <div class="card-t"><h3>${esc(v.title)}</h3></div>
@@ -173,6 +173,7 @@
         <a class="btn quiet watch" href="${esc(v.driveUrl)}" target="_blank" rel="noopener">${driveIcon}Watch the video</a>
         <button type="button" class="btn yes" data-status="approved" data-vid="${v.id}" aria-pressed="${o.state === 'approved'}">Looks right</button>
         <button type="button" class="btn wrong" data-status="wrong" data-vid="${v.id}" aria-pressed="${o.state === 'wrong' || !!S.open[v.id]}">Something looks wrong</button>
+        ${notes.length && !showForm ? `<button type="button" class="link-btn" data-add="${v.id}">Add a note</button>` : ''}
       </div>
       ${notes.length || showForm ? `<div class="notes">${notes.map(noteHtml).join('')}${notes.length ? '<p class="hint">To ask about a note, quote its reference, for example ' + esc(notes[0].ref) + '.</p>' : ''}${showForm ? formHtml(v) : ''}</div>` : ''}
       </div></article>`;
@@ -188,7 +189,7 @@
     const reset = r && r.status && r.commit !== v.commit ? `<p class="banner">Recorded again (${esc(v.commit)}). You ${r.status === 'approved' ? 'approved' : 'flagged'} ${esc(r.commit)}; this recording needs your look.</p>` : '';
     const ownersLine = onPage ? `Owners have ${esc(onPage.commit)}${onPage.updateComing ? ' (update waiting on you)' : ''}: ${o.state === 'approved' ? 'looks right' : o.state === 'wrong' ? 'something looks wrong' : o.recheck ? 'asked to check again' : 'not answered'}` : 'Not on the owners\' page';
     const ownerNotes = notesFor(v.id, 'owners'), myNotes = notesFor(v.id, 'jacob');
-    const showForm = S.open[v.id] || j === 'fix';
+    const showForm = S.open[v.id] || (j === 'fix' && !myNotes.length);
     return `<article class="card vcard${j === 'approved' ? ' is-yes' : j === 'fix' ? ' is-wrong' : ''}" id="v-${v.id}">
       <div class="card-h"><span class="card-n">${v.id}${v.length ? ' · ' + esc(v.length) : ''}</span>${v.companionOf ? `<span class="sub">Companion of ${esc(v.companionOf)}</span>` : ''}<span class="state">${pill}</span></div>
       <div class="card-t"><h3>${esc(v.title)}</h3></div>
@@ -198,6 +199,7 @@
         <a class="btn quiet watch" href="${esc(v.driveUrl)}" target="_blank" rel="noopener">${driveIcon}Watch this recording</a>
         <button type="button" class="btn yes" data-status="approved" data-vid="${v.id}" aria-pressed="${j === 'approved'}">Approve for the owners</button>
         <button type="button" class="btn wrong" data-status="fix" data-vid="${v.id}" aria-pressed="${j === 'fix' || !!S.open[v.id]}">Needs a fix</button>
+        ${myNotes.length && !showForm ? `<button type="button" class="link-btn" data-add="${v.id}">Add a note</button>` : ''}
         ${j !== 'open' ? `<button type="button" class="link-btn" data-status="" data-vid="${v.id}">Clear</button>` : ''}
       </div>
       ${ownerNotes.length ? `<div class="notes owners-notes"><div class="notes-h">The owners' notes</div>${ownerNotes.map(noteHtml).join('')}</div>` : ''}
@@ -273,6 +275,8 @@
   async function setStatus(vid, status) {
     const v = byId(vid);
     const current = MODE === 'jacob' ? jacobState(v) : ownersState(v).state;
+    const flag = MODE === 'jacob' ? 'fix' : 'wrong';
+    if (status === flag && current === flag && notesFor(vid, side).length) { S.open[vid] = true; render(); return; }
     const next = current === status && status ? '' : status;
     if (status === (MODE === 'jacob' ? 'fix' : 'wrong') && current !== status) S.open[vid] = true;
     try {
@@ -334,6 +338,7 @@
   app.addEventListener('click', (ev) => {
     const t = ev.target.closest('button');
     if (!t) return;
+    if (t.dataset.add) { S.open[t.dataset.add] = true; render(); const ta = $(`#t-${t.dataset.add}`); if (ta) ta.focus(); return; }
     if (t.dataset.filter) { S.filter = t.dataset.filter; store.set('videos-filter-' + MODE, S.filter); render(); return; }
     if (t.dataset.status !== undefined && t.dataset.vid) { setStatus(t.dataset.vid, t.dataset.status); return; }
     if (t.dataset.zoom || t.dataset.remove) {

@@ -341,3 +341,31 @@ push. A group with no rows shows "Nothing here yet", so the owners see where a d
 
 Before listing a Drive document, check it is shared with everyone who has the hub link: a
 document private to its author is a dead link for the owners.
+
+## Videos to review (`/videos`, a section on `/answers`, and `/videos/review`)
+
+Short feature videos recorded from the product, reviewed in two passes:
+
+1. **Jacob, at `/videos/review`** (linked from nowhere, gated by `VIDEO_REVIEW_KEY`). Every recording
+   the recorder lists in the HOAhx repo's `docs/launch/videos/videos.json` appears here. The takes sit
+   in `HOAhx/video-review/pending-recordings/` in Drive, which the owners cannot open. He approves a
+   recording, or flags it with a note and screenshots. An approval is of one recording (its `commit`):
+   a new recording of the same video waits for a new approval.
+2. **The owners, at `/videos`**, and one card per video in the "Videos to review" section of
+   `/answers` (`go-live/videos/answers-section.js`, mounted into `#videos-to-review`). They choose
+   Looks right, or Something looks wrong with a note and screenshots.
+
+`npm run sync:videos` (run by the `update-documentation` skill) reads Jacob's approvals, copies each
+newly approved take into `HOAhx/Videos for the owners/` over the file of the same name (so the owners'
+link never changes), and writes `go-live/videos/data.json` and `go-live/videos/review/all.json`. It
+never commits or pushes. `npm run pull:videos` writes every note to
+`docs/launch/videos/review-store/` in the HOAhx repo, copies each full-size screenshot to
+`HOAhx/video-review/screenshots/<video>/`, checks the copy (size, md5, opens as an image at the
+expected size), and only then drops the full size from the store; the small preview stays on the
+page. `npm run find:videos -- V05-N004` prints everything about one note, with Drive links.
+
+Store: `netlify/functions/videos.js` (Netlify Blobs, "hoahx-video-review"). The owners' side follows
+`DECISION_EDIT_KEY` like every other store here; Jacob's side needs `VIDEO_REVIEW_KEY` and is closed
+while it is unset. Every note gets a permanent reference (`V05-N004`), and screenshot files in Drive
+start with it. Drive is reached through the `hoahx-drive` rclone remote, which can only see folders
+rclone created.
