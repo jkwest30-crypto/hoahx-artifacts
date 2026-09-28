@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HOAhx · Hub</title>
+<meta name="description" content="Every HOAhx document and review page in one place: what is waiting on you, then Product, Developer review and UX.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/hub/hub.css">
+</head>
+<body>
+<nav class="nav" aria-label="HOAhx pages"><div class="wrap nav-in">
+  <a class="nav-brand" href="/hub">HOAhx · Hub</a>
+  <a class="tab" href="/hub" aria-current="page">Hub</a>
+  <a class="tab" href="/answers">Recommendations</a>
+  <a class="tab" href="/answers#screens">Screens</a>
+  <a class="tab" href="/">Decision Register</a>
+  <a class="tab" href="/scope/">Beyond the proposal</a>
+</div></nav>
+
+<header class="mast"><div class="wrap mast-in">
+  <p class="eyebrow">HOAhx · The owners' hub</p>
+  <h1>Every HOAhx document and review page, in one place</h1>
+  <p class="lede">The documents live in the shared Google Drive. This page is the front door: what is waiting on you, then everything else by section.</p>
+  <div class="find">
+    <label for="q">Find a document or page</label>
+    <input id="q" type="search" placeholder="Find a document or page" autocomplete="off">
+    <div class="chips" id="kinds" role="group" aria-label="Show only one kind"></div>
+  </div>
+  <p class="asof" id="asof"></p>
+</div></header>
+
+<div class="wrap page">
+  <aside class="rail" aria-label="Sections"><div class="rail-in" id="rail"></div></aside>
+  <main class="main" id="main" aria-live="polite">
+    <p class="none" id="loading">Loading the list…</p>
+  </main>
+</div>
+
+<footer><div class="wrap">
+  <p><b>Who can open a document.</b> A link opens the document in Google Drive, so only people it is shared with can read it. This page holds links and one-line descriptions, never the documents themselves.</p>
+  <p><b>Missing something?</b> Tell Jacob the document and the section it belongs in.</p>
+</div></footer>
+
+<script src="/hub/hub.js"></script>
+</body>
+</html>

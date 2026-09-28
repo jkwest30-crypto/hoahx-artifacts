@@ -220,7 +220,7 @@ the script positions it.
 | `go-live/launch-plan/index.html` | The published launch plan (standalone copy, updated by hand; no publish script yet) |
 | `scripts/dev-register.mjs`, `scripts/dev-stubs/` | Local server for the whole site, every function on an in-memory store (`npm run dev`) |
 | `netlify/functions/decisions.js` | The shared store API |
-| `netlify.toml` | Publish dir, the `/api/decisions`, `/api/picks`, and `/api/answers` rewrites, the root redirect, the `/workflow-map`, `/scope`, and `/answers` redirects |
+| `netlify.toml` | Publish dir, the `/api/decisions`, `/api/picks`, and `/api/answers` rewrites, the root redirect, the `/workflow-map`, `/scope`, `/answers`, and `/hub` redirects |
 
 ## Beyond the proposal (`/scope/`)
 
@@ -296,3 +296,32 @@ owners agree, change, send       ──▶  /api/answers (Blobs)  ──npm run 
 
 `npm run dev` (`scripts/dev-register.mjs`) serves the whole site locally with every function under
 `netlify/functions/` on an in-memory store: http://localhost:8788/answers.
+
+## The hub (`/hub`)
+
+https://hoahx-requirements.netlify.app/hub is the owners' front door: what is waiting on them,
+what is new this week, then every document and review page under **Product** (grouped by product
+feature), **Developer review** and **UX**. The documents themselves stay in the shared Google
+Drive; the page holds a link and one line about each, so Drive's own sharing decides who can open
+what. The page is static and read-only: no shared store, no passphrase.
+
+- `go-live/hub/index.html`, `hub.js`, `hub.css` — the page, authored here; asset paths are
+  absolute (`/hub/…`) because the page is served at `/hub` without a slash.
+- `go-live/hub/data.json` — the list, published from the HOAhx repo's `docs/launch/hub.json`.
+- `scripts/publish-hub.mjs` — copies and guards the list: shape, https links, the kind fits the
+  link, no link listed twice, real dates none later than the list's own, and the excluded words in
+  the data and the page. `--links` also requests every link that is not a Drive link and refuses
+  on one that does not answer 200 (Drive answers a sign-in page to anyone, so it is not asked).
+
+```
+docs/launch/hub.json ──npm run publish:hub -- --source ../hoahx/docs/launch/hub.json──▶ go-live/hub/data.json ──push main──▶ Netlify
+```
+
+**To add a document:** add one row to its group in `hub.json` (`k` the kind, `t` the title, `d`
+one line, `href` the link, and optionally `by`, `date`, `tag`), set `updated` to today, publish,
+push. A group with no rows shows "Nothing here yet", so the owners see where a document will go.
+**New this week** is every row dated within seven days of `updated`; **Waiting on you** is the
+`waiting` list and is written by hand, from the launch program's owner items.
+
+Before listing a Drive document, check it is shared with everyone who has the hub link: a
+document private to its author is a dead link for the owners.

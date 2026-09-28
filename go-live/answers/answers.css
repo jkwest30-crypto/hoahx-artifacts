@@ -28,7 +28,7 @@ button:focus-visible,textarea:focus-visible{outline:2px solid var(--accent-2);ou
 /* nav */
 .nav{background:var(--surface);border-bottom:1px solid var(--rule);position:sticky;top:0;z-index:30;box-shadow:var(--shadow)}
 .nav::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--brand)}
-.nav-in{display:flex;align-items:center;gap:6px;padding:10px 0;flex-wrap:wrap}
+.nav-in{display:flex;align-items:center;gap:6px;padding-top:10px;padding-bottom:10px;flex-wrap:wrap}
 .nav-brand{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-right:10px;text-decoration:none}
 .nav a.tab{font-size:13.5px;color:var(--ink-2);text-decoration:none;padding:6px 10px;border-radius:2px;border:1px solid transparent}
 .nav a.tab[aria-current="page"]{color:var(--accent);background:var(--accent-wash)}
@@ -39,7 +39,7 @@ button:focus-visible,textarea:focus-visible{outline:2px solid var(--accent-2);ou
 
 /* masthead */
 .mast{background:linear-gradient(180deg,#F2F7FD 0%,var(--surface) 62%);border-bottom:1px solid var(--rule)}
-.mast-in{padding:34px 0 26px}
+.mast-in{padding-top:34px;padding-bottom:26px}
 .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 12px}
 h1{font-family:Newsreader,Georgia,serif;font-weight:500;font-size:clamp(30px,4.2vw,44px);line-height:1.06;letter-spacing:-.015em;margin:0;text-wrap:balance}
 h2{font-family:Newsreader,Georgia,serif;font-weight:500;font-size:24px;letter-spacing:-.01em;margin:0}
@@ -53,7 +53,7 @@ h3{font-family:Newsreader,Georgia,serif;font-weight:500;font-size:20px;letter-sp
 
 /* controls */
 .controls{position:sticky;top:49px;z-index:20;background:var(--surface);border-bottom:1px solid var(--rule);box-shadow:var(--shadow)}
-.controls-in{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;padding:10px 0 12px}
+.controls-in{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;padding-top:10px;padding-bottom:12px}
 .progress{flex-basis:100%;height:4px;background:var(--surface-2);border-radius:2px;overflow:hidden}
 .progress .bar{height:100%;width:0;background:var(--brand);transition:width .3s}
 .chips{display:flex;gap:6px;flex-wrap:wrap}

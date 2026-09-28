@@ -1,0 +1,220 @@
+{
+ "updated": "2026-09-28",
+ "drive": null,
+ "waiting": [
+  {
+   "t": "Sign off the 27 screens",
+   "due": "Due Fri Oct 2",
+   "d": "Mark each screen Yes, Change or Discuss.",
+   "go": "Open screens",
+   "href": "https://hoahx-requirements.netlify.app/answers#screens"
+  },
+  {
+   "t": "Answer the open recommendations",
+   "due": "13 payment answers open",
+   "d": "Agree, or write what you would change. One card can answer several questions.",
+   "go": "Open recommendations",
+   "href": "https://hoahx-requirements.netlify.app/answers"
+  }
+ ],
+ "sections": [
+  {
+   "id": "product",
+   "name": "Product",
+   "about": "Grouped by product feature.",
+   "folder": null,
+   "columns": 2,
+   "groups": [
+    {
+     "name": "Launch features",
+     "rows": [
+      {
+       "k": "doc",
+       "t": "Core Features for MVP 1 (Launch)",
+       "d": "The owners' Core list for the first release.",
+       "href": "https://docs.google.com/document/d/10ce7Dcbtura73EzWQyjkGuXCT4nb1VC8Bcx_WUNpMb4/edit",
+       "by": "Rustin",
+       "date": "2026-09-15"
+      }
+     ]
+    },
+    {
+     "name": "Pricing",
+     "rows": []
+    },
+    {
+     "name": "Market",
+     "rows": [
+      {
+       "k": "sheet",
+       "t": "Core Competitive Analysis",
+       "d": "HOAhx beside comparable platforms.",
+       "href": "https://docs.google.com/spreadsheets/d/1eOFVHpPFHZnrkC48AY3f1NlTlgAcmWqQA0saHYU3G2k/edit",
+       "by": "Dan",
+       "date": "2026-09-21"
+      }
+     ]
+    },
+    {
+     "name": "Mockups",
+     "rows": [
+      {
+       "k": "page",
+       "t": "Owners' demo, version 3",
+       "d": "The click-through demo the 27 screens were built from.",
+       "href": "https://hoahx-requirements.netlify.app/demo/v3/"
+      },
+      {
+       "k": "page",
+       "t": "Demo compared with the app",
+       "d": "Each demo section beside what the app does.",
+       "href": "https://hoahx-requirements.netlify.app/demo/"
+      }
+     ]
+    },
+    {
+     "name": "Demo sites",
+     "rows": [
+      {
+       "k": "page",
+       "t": "The app, production",
+       "d": "app.hoahx.com.",
+       "href": "https://app.hoahx.com",
+       "date": "2026-09-26"
+      },
+      {
+       "k": "page",
+       "t": "The app, test site",
+       "d": "The newest build, with sample communities.",
+       "href": "https://hoahx-staging.web.app"
+      },
+      {
+       "k": "page",
+       "t": "Screen previews",
+       "d": "All 27 screens on the test site, with sample data.",
+       "href": "https://hoahx-staging.web.app/preview"
+      }
+     ]
+    },
+    {
+     "name": "Demo videos",
+     "rows": []
+    },
+    {
+     "name": "Payments",
+     "rows": []
+    },
+    {
+     "name": "Website",
+     "rows": [
+      {
+       "k": "doc",
+       "t": "Website Ideas and information",
+       "d": "Ideas and reference material for the public website.",
+       "href": "https://docs.google.com/document/d/1RMxN88vmUfO63b9VeAQkfXghcb1zl-HFbj5_ZdfU5Xc/edit",
+       "by": "Dan",
+       "date": "2026-09-25"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "developer",
+   "name": "Developer review",
+   "about": "Pages the developer publishes for you to read, mark and answer.",
+   "folder": null,
+   "columns": 1,
+   "groups": [
+    {
+     "name": "Review and answer",
+     "rows": [
+      {
+       "k": "page",
+       "t": "Screens sign-off",
+       "d": "Yes, Change or Discuss on each of the 27 screens.",
+       "href": "https://hoahx-requirements.netlify.app/answers#screens",
+       "tag": "Due Oct 2"
+      },
+      {
+       "k": "page",
+       "t": "Recommendations",
+       "d": "Open questions, each with one recommendation. Agree or Change.",
+       "href": "https://hoahx-requirements.netlify.app/answers",
+       "tag": "13 open"
+      },
+      {
+       "k": "page",
+       "t": "Decision Register",
+       "d": "Every product decision, with Keep, Change or Discuss.",
+       "href": "https://hoahx-requirements.netlify.app/"
+      },
+      {
+       "k": "page",
+       "t": "Beyond the proposal",
+       "d": "Packages and features outside the launch, sized and priced.",
+       "href": "https://hoahx-requirements.netlify.app/scope/"
+      }
+     ]
+    },
+    {
+     "name": "Plan and progress",
+     "rows": [
+      {
+       "k": "page",
+       "t": "Launch Plan",
+       "d": "Milestones, weekly updates, and what is waiting on you.",
+       "href": "https://hoahx-requirements.netlify.app/launch-plan/",
+       "date": "2026-09-26"
+      },
+      {
+       "k": "page",
+       "t": "Workflow map",
+       "d": "91 workflows across 14 roles, with who can do what.",
+       "href": "https://hoahx-requirements.netlify.app/workflow-map"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ux",
+   "name": "UX",
+   "about": "Design and brand documents.",
+   "folder": null,
+   "columns": 2,
+   "groups": [
+    {
+     "name": "Design system",
+     "rows": [
+      {
+       "k": "page",
+       "t": "Design system catalog",
+       "d": "Colours, type, and every component with live examples.",
+       "href": "https://hoahx.netlify.app/#/design-system",
+       "by": "Tenyson"
+      },
+      {
+       "k": "page",
+       "t": "Design reference",
+       "d": "The tokens, components and layout rules the screens follow.",
+       "href": "https://hoahx-requirements.netlify.app/design/"
+      }
+     ]
+    },
+    {
+     "name": "Brand",
+     "rows": []
+    },
+    {
+     "name": "Screens and flows",
+     "rows": []
+    },
+    {
+     "name": "Research",
+     "rows": []
+    }
+   ]
+  }
+ ]
+}

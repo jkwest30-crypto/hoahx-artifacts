@@ -52,3 +52,10 @@
   from = "/answers"
   to = "/answers/index.html"
   status = 200
+
+# HOAhx · Hub: the owners' front door, at /hub. Links to the documents in the shared Google
+# Drive and to the review pages on this site. Static; it has no shared store.
+[[redirects]]
+  from = "/hub"
+  to = "/hub/index.html"
+  status = 200
