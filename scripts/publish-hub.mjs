@@ -53,7 +53,9 @@ if (!Array.isArray(data.waiting)) fail('data has no "waiting" list');
 if (!Array.isArray(data.sections) || !data.sections.length) fail('data has no "sections"');
 
 for (const w of data.waiting) {
-  for (const k of ['t', 'due', 'd', 'go']) if (!isText(w[k], 160)) fail(`a "waiting" item has no "${k}": ${JSON.stringify(w)}`);
+  for (const k of ['t', 'd', 'go']) if (!isText(w[k], 160)) fail(`a "waiting" item has no "${k}": ${JSON.stringify(w)}`);
+  // "due" is a date or a short label; an item with no deadline carries none, so nothing on the page goes stale.
+  if ('due' in w && !isText(w.due, 40)) fail(`"${w.t}" in "waiting": "due" is empty or longer than 40 characters`);
   if (!isLink(w.href)) fail(`"${w.t}" in "waiting" has no https link`);
 }
 
@@ -99,11 +101,14 @@ for (const s of data.sections) {
   }
 }
 
+if (/\/scope\b|beyond the proposal/i.test(JSON.stringify(data))) fail('the list links to or names Beyond the proposal, which the hub does not offer: take the row out');
 const excluded = /\bStripe\b|\bClaude\b|\bAI\b|\bcustomer\b|\bas today\b|\balready handles\b|\bworkshop\b/;
 const hitData = JSON.stringify(data).match(excluded);
 if (hitData) fail(`excluded word "${hitData[0]}" appears in the data`);
 for (const f of readdirSync(pagesDir).filter((n) => n.endsWith('.html') || n.endsWith('.js'))) {
   const text = readFileSync(resolve(pagesDir, f), 'utf8');
+  // Beyond the proposal is not offered to the owners from the hub (Jacob, 2026-09-28).
+  if (/\/scope\b|beyond the proposal/i.test(text)) fail(`${f} links to or names Beyond the proposal, which the hub does not offer`);
   const hit = text.match(excluded);
   if (hit) fail(`excluded word "${hit[0]}" appears in ${f}`);
   if (/localhost|client-walkthrough/.test(text)) fail(`${f} links to a file that is not on this site`);

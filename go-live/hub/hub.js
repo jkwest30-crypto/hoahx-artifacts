@@ -89,7 +89,7 @@
         var li = el('li');
         var a = link('need-row', w.href);
         var t = el('span', 't', w.t);
-        t.appendChild(el('span', 'due', w.due));
+        if (w.due) t.appendChild(el('span', 'due', w.due));
         a.appendChild(t);
         a.appendChild(el('span', 'go', w.go));
         a.appendChild(el('span', 'd', w.d));

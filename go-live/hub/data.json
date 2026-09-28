@@ -5,16 +5,15 @@
   {
    "t": "Sign off the 27 screens",
    "due": "Due Fri Oct 2",
-   "d": "Mark each screen Yes, Change or Discuss.",
+   "d": "Each screen opens on the test site, where you mark it Signed off or Change.",
    "go": "Open screens",
-   "href": "https://hoahx-requirements.netlify.app/answers#screens"
+   "href": "https://hoahx-requirements.netlify.app/#screens"
   },
   {
-   "t": "Answer the open recommendations",
-   "due": "13 payment answers open",
-   "d": "Agree, or write what you would change. One card can answer several questions.",
-   "go": "Open recommendations",
-   "href": "https://hoahx-requirements.netlify.app/answers"
+   "t": "Answer your open questions",
+   "d": "Every question still waiting on you, each with our recommendation. Agree, Change or Discuss.",
+   "go": "Open questions",
+   "href": "https://hoahx-requirements.netlify.app/#questions"
   }
  ],
  "sections": [
@@ -131,23 +130,10 @@
      "rows": [
       {
        "k": "page",
-       "t": "Screens sign-off",
-       "d": "Yes, Change or Discuss on each of the 27 screens.",
-       "href": "https://hoahx-requirements.netlify.app/answers#screens",
-       "tag": "Due Oct 2"
-      },
-      {
-       "k": "page",
-       "t": "Recommendations",
-       "d": "Open questions, each with one recommendation. Agree or Change.",
-       "href": "https://hoahx-requirements.netlify.app/answers",
-       "tag": "13 open"
-      },
-      {
-       "k": "page",
-       "t": "Beyond the proposal",
-       "d": "Packages and features outside the launch, sized and priced.",
-       "href": "https://hoahx-requirements.netlify.app/scope/"
+       "t": "Your open questions",
+       "d": "Every question waiting on you with our recommendation, and where each of the 27 screens stands.",
+       "href": "https://hoahx-requirements.netlify.app/",
+       "date": "2026-09-28"
       }
      ]
     },
