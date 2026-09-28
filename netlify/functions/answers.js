@@ -1,6 +1,6 @@
 // Shared, server-side store for the owners' answers on the open questions page (served at the
 // site root and at /answers). Backed by Netlify Blobs (site-wide store "hoahx-answers"); no
-// external database. Same rules as picks.js and decisions.js: one blob per id, history kept,
+// external database. Same rules as decisions.js: one blob per id, history kept,
 // nothing ever deleted.
 //
 //   GET  /api/answers          -> { "<id>": { v, n, code, by, updatedAt }, ... }   (live marks, notes, the message, the last submission)

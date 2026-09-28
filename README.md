@@ -223,46 +223,25 @@ the script positions it.
 | `go-live/launch-plan/index.html` | The published launch plan (standalone copy, updated by hand; no publish script yet) |
 | `scripts/dev-register.mjs`, `scripts/dev-stubs/` | Local server for the whole site, every function on an in-memory store (`npm run dev`) |
 | `netlify/functions/decisions.js` | The shared store API |
-| `netlify.toml` | Publish dir, the `/api/decisions`, `/api/picks`, and `/api/answers` rewrites, the root redirect, the `/workflow-map`, `/scope`, `/answers`, and `/hub` redirects |
+| `netlify.toml` | Publish dir, the `/api/decisions` and `/api/answers` rewrites, the root redirect, the `/workflow-map`, `/answers`, and `/hub` redirects, and `/scope` leading to `/hub` |
 
-## Beyond the proposal (`/scope/`)
+## Beyond the proposal (taken down 2026-09-28)
 
-Four owner-facing pages for the features outside the proposal's twelve items, built from the
-launch program's à la carte data (`docs/launch/scripts/build-a-la-carte.py --json` in the HOAhx
-repo, which also builds the owners' workbook from the same source):
+The four pages under `/scope/` (the recommendation, Packages, Features, Review and send), their
+store function (`/api/picks`), the lock file and the `publish:scope`, `check:scope` and
+`pull:scope` scripts were removed on September 28, 2026: the owners' selection of September 17
+became change order 2, and nothing was left to choose there. `/scope` and everything under it
+now lead to `/hub`.
 
-- `/scope/` — **My recommendation** (Jacob's): the recommendation, three releases with hours and
-  dates, and a button that selects release 1 as recommended.
-- `/scope/packages.html` — **Packages**: features grouped so they are built together, in build order,
-  with priority, hours, cost, must-follow and runs-beside, and an *Add to the launch* button.
-- `/scope/features.html` — **Features**: every feature one by one (Core list beyond the proposal,
-  other candidates, the safety items already covered, the fuller versions set aside), with search
-  and filters; a feature inside a selected package is shown as included.
-- `/scope/review.html` — **Review and send**: the selection by build stage with the hours, the
-  working days, the launch date, and the cost; a message; *Send this selection*.
+What was on them is kept in the launch program, in
+`docs/launch/register-store/scope-final-2026-09-28/`: the store with its full history, the
+selection as a summary, the lock (the 23 packages and 70 features agreed), and the page data.
+The Netlify Blobs store `hoahx-scope` was not deleted. The pages themselves are in this
+repository's history, up to the commit before this section changed.
 
-The pages are static and read `go-live/scope/data.json` at load. The owners' selection is kept
-in the browser and saved to a shared store (`netlify/functions/picks.js`, Netlify Blobs store
-`hoahx-scope`, one record per package or feature with history; `_message` and `_submission`
-records carry the message and the last summary sent). `DECISION_EDIT_KEY`, when set, gates it
-exactly as it gates the register.
-
-**Locked since 2026-09-28: the owners' selection of September 17.** They chose 23 packages
-(every feature inside them, 70 in all) and change order 2, signed Sep 26, made it the agreement.
-`netlify/functions/scope-locked.json` lists them. The store answers a POST for any of them, or for
-the Sep 17 `_submission` and `_message`, with **423 locked**, and every GET returns a locked
-package as selected plus the lock itself as `_locked`. The pages read `_locked`: a banner on every
-page, the locked cards marked *Agreed September 17 · locked* with no button and no note, the review
-listing them read-only above the additions. Totals, *Send these additions*, `_additions` (the
-summary) and `_addmsg` (the message) cover only what is added after Sep 17, so a later package is
-still a normal pick. `npm run check:scope` fails if the lock names a package or feature that is
-not in the data, or misses a feature of a locked package. Changing `scope-locked.json` changes
-what the owners agreed: only with a signed change order.
-
-```
-build-a-la-carte.py --json  ──▶  go-live/scope/data.json  ──push main──▶  Netlify   (npm run check:scope guards the words and the shape)
-owners pick and send        ──▶  /api/picks (Blobs)       ──npm run pull:scope──▶  a summary for the change order
-```
+The owners' demo page (`/demo/v3/`) used to load the scope stylesheet. It now loads its own
+`go-live/demo/v3/base.css`, which its generator in the HOAhx repo
+(`docs/prototype/v3/build-v3-page.py`) writes beside the page.
 
 ## Your open questions (`/` and `/answers`)
 

@@ -28,18 +28,19 @@
   to = "/workflow-map/workflow-map.html"
   status = 200
 
-# HOAhx · Beyond the proposal: the recommendation, the packages, the features, and
-# the review page under /scope/, with their shared store at /api/picks.
+# Beyond the proposal (/scope/) was taken down on 2026-09-28. The owners have used its address,
+# so a bookmark or an old link leads to the hub rather than to "Page not found".
 [[redirects]]
-  from = "/api/picks"
-  to = "/.netlify/functions/picks"
-  status = 200
+  from = "/scope"
+  to = "/hub"
+  status = 302
   force = true
 
 [[redirects]]
-  from = "/scope"
-  to = "/scope/index.html"
-  status = 200
+  from = "/scope/*"
+  to = "/hub"
+  status = 302
+  force = true
 
 # HOAhx · Your open questions: every question still waiting on the owners, answered Agree,
 # Change or Discuss, and where each new screen stands. Served at / and at /answers, with its

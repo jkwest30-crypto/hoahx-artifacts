@@ -1,5 +1,5 @@
-/* HOAhx · Beyond the proposal — shared styles for /scope/ (recommendation, packages, features, review).
-   Same tokens, type, and rhythm as the Decision Register. */
+/* HOAhx · the owners' demo, version 3: base styles (tokens, type, the page frame).
+   Kept beside the page, so the page depends on no other page of the site. */
 :root{
   /* A tinted ground with white cards: calm at full page, and enough separation to read.
      Every text colour below clears 4.5:1 on its own background, 5.5:1 where the type is 10-13px. */
