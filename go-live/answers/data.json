@@ -1,8 +1,8 @@
 {
- "generated": "2026-09-23",
+ "generated": "2026-09-28",
  "registerUrl": "https://hoahx-requirements.netlify.app/",
  "title": "Open questions, answered by recommendation",
- "lede": "Every question on the Decision Register that still waits on you, grouped into 23 recommendations. Read one, press Agree if it is right, or press Change and say what should be different. Everything saves as you go; press Send at the bottom when you are through.",
+ "lede": "Every question on the Decision Register that still waits on you, grouped into 28 recommendations. Read one, press Agree if it is right, or press Change and say what should be different. Everything saves as you go; press Send at the bottom when you are through.",
  "groups": [
   {
    "id": "money",
@@ -769,7 +769,7 @@
   {
    "id": "A19",
    "group": "ops",
-   "title": "Who gets the alerts, and the monthly spending cap",
+   "title": "Who gets the alerts, and the monthly spending alert",
    "decisions": [
     {
      "id": "D-112",
@@ -798,7 +798,7 @@
      "d": [
       "D-109"
      ],
-     "text": "The same two people receive the error, uptime, and spending alerts. The monthly spending cap on the hosting account is $150, with a warning at $75; the accounts run well under that today, and a lower cap would page you for nothing."
+     "text": "The same two people receive the error, uptime, and spending alerts. The hosting account is set to alert at $150 a month, with an earlier warning at $75. That is a notice, not a spending cap: Google Cloud cannot stop the bill at a number, it can only tell you the number was passed. The accounts run comfortably under both today, and a lower number would page you for nothing."
     },
     {
      "d": [
@@ -911,6 +911,122 @@
     }
    ],
    "why": "Each of these has an answer that is simple to say at checkout. A founding rate rewards the communities that take the first step without a discount that never ends."
+  },
+  {
+   "id": "A24",
+   "group": "money",
+   "title": "Correcting a balance by hand",
+   "decisions": [
+    {
+     "id": "D-226",
+     "code": "Q-LDG-14",
+     "q": "Should a balance adjustment stay capped at what the home owes?"
+    },
+    {
+     "id": "D-227",
+     "code": "Q-LDG-15",
+     "q": "Should a credit or an adjustment always need a second financial approver, with charges and fees left to one person?"
+    }
+   ],
+   "rec": [
+    {
+     "d": [
+      "D-226"
+     ],
+     "text": "An adjustment can bring a home's balance down to zero and no further. It can clear a debt, but it can never turn one into money the community owes the homeowner. When money genuinely has to go back to a homeowner, that is a refund, which already needs two financial people."
+    },
+    {
+     "d": [
+      "D-227"
+     ],
+     "text": "One financial person can post a charge or a fee. A credit or an adjustment, anything that takes money off what a home owes, needs a second financial person to approve it, and nobody approves an entry on their own home."
+    }
+   ],
+   "why": "The entry that quietly forgives a balance is the one that most needs a witness. Charges and fees stay quick, because the homeowner sees them and will ask."
+  },
+  {
+   "id": "A25",
+   "group": "community",
+   "title": "Gate and guest codes for tenants",
+   "decisions": [
+    {
+     "id": "D-224",
+     "code": "Q-PARK-12",
+     "q": "Should an active tenant see the home's gate and guest codes?"
+    }
+   ],
+   "rec": [
+    {
+     "d": [
+      "D-224"
+     ],
+     "text": "A tenant living in the home sees its gate and guest codes, the same as the owner, and loses them the day the tenancy ends. Another household never sees them. If you would rather the codes stay with the owner alone, a tenant is shown who to ask instead."
+    }
+   ],
+   "why": "A tenant needs the code to get in and to let a visitor in. Hiding it just means the owner texts it to them, which protects nothing and leaves no record."
+  },
+  {
+   "id": "A26",
+   "group": "ops",
+   "title": "Who may appoint an HOA Administrator",
+   "decisions": [
+    {
+     "id": "D-225",
+     "code": "Q-RBAC-10",
+     "q": "May a Property Manager or a Management Company Administrator appoint an HOA Administrator?"
+    }
+   ],
+   "rec": [
+    {
+     "d": [
+      "D-225"
+     ],
+     "text": "The President, a Property Manager, or a Management Company Administrator can appoint an HOA Administrator. An HOA Administrator cannot appoint another one. If you want the board alone to hold that appointment, the two management roles lose that one permission and nothing else changes."
+    }
+   ],
+   "why": "The HOA Administrator runs a community day to day. Letting the management company appoint one means a managed community does not wait on a board meeting to be staffed."
+  },
+  {
+   "id": "A27",
+   "group": "ops",
+   "title": "How far back a restore can reach",
+   "decisions": [
+    {
+     "id": "D-222",
+     "code": "Q-SEC-13",
+     "q": "Should a daily backup be kept for 30 days and then deleted?"
+    }
+   ],
+   "rec": [
+    {
+     "d": [
+      "D-222"
+     ],
+     "text": "A copy of every community's records is taken each night and kept for 30 days, then deleted automatically. Anything that went wrong in the last month, such as a bad import or a deletion nobody noticed, can be put back. A longer window costs a little more storage and is a one-line change."
+    }
+   ],
+   "why": "This is only how far back a restore can reach. How long HOAhx keeps a community's records is a separate question, on the card about what is kept."
+  },
+  {
+   "id": "A28",
+   "group": "ops",
+   "title": "The app icon",
+   "decisions": [
+    {
+     "id": "D-223",
+     "code": "Q-HOME-4",
+     "q": "Is the black HX tile the icon for both app stores and the phone home screen?"
+    }
+   ],
+   "rec": [
+    {
+     "d": [
+      "D-223"
+     ],
+     "text": "The designer's black HX tile is the icon in the App Store, on Google Play, and on the phone's home screen, with the 512-pixel version as the Google Play listing icon."
+    }
+   ],
+   "why": "The icon is what people see in the store and on their phone every day. Changing it after the first submission means new artwork and another store review, so it is worth a yes now."
   }
  ]
 }
