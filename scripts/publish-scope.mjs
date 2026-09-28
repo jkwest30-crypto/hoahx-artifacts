@@ -42,6 +42,18 @@ for (const p of data.packages) {
 }
 for (const i of [...data.core, ...data.candidates]) if (typeof i.jake !== 'number') fail(`${i.id} has no numeric estimate`);
 
+// The owners' agreed selection of September 17 (netlify/functions/scope-locked.json) must still
+// name real packages and exactly their features, or the lock would silently stop covering them.
+const lockPath = resolve(root, 'netlify/functions/scope-locked.json');
+if (!existsSync(lockPath)) fail('netlify/functions/scope-locked.json is missing: the agreed selection would be editable');
+const lock = JSON.parse(readFileSync(lockPath, 'utf8'));
+const pkgById = Object.fromEntries(data.packages.map((p) => [p.id, p]));
+for (const id of lock.packages) if (!pkgById[id]) fail(`the locked selection names package ${id}, which is not in the data`);
+const lockedFeatures = new Set(lock.packages.flatMap((id) => pkgById[id].items));
+const listed = new Set(lock.features);
+for (const id of lockedFeatures) if (!listed.has(id)) fail(`${id} is inside a locked package but not in the lock's features`);
+for (const id of listed) if (!lockedFeatures.has(id)) fail(`the lock names feature ${id}, which is not inside a locked package`);
+
 const excluded = /\bStripe\b|\bClaude\b|\bAI\b|\bcustomer\b|\bas today\b|\balready handles\b|\bworkshop\b/;
 const dataText = JSON.stringify(data);
 const hitData = dataText.match(excluded);
@@ -53,6 +65,7 @@ for (const f of readdirSync(pagesDir).filter((n) => n.endsWith('.html') || n.end
   if (/localhost|client-walkthrough/.test(text)) fail(`${f} links to a file that is not on this site`);
 }
 
+console.log(`locked: ${lock.packages.length} packages, ${lock.features.length} features agreed ${lock.chosenAt}`);
 console.log(`${data.core.length} core, ${data.candidates.length} candidates, ${data.declined.length} set aside, ${data.inScope.length} in scope, ${data.packages.length} packages; generated ${data.generated}; baseline ${data.baseline}, $${data.rate}/h, ${data.hoursPerDay} h/day`);
 if (checkOnly) { console.log('check only; nothing written'); process.exit(0); }
 const out = JSON.stringify(data, null, 1);

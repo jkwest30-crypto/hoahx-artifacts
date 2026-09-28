@@ -17,19 +17,20 @@
 <header class="mast"><div class="wrap mast-in">
   <p class="eyebrow">HOAhx · Beyond the proposal</p>
   <h1>Review and send</h1>
-  <p class="lede">What you have selected, in the order it would be built, with the hours it adds, the date it moves the launch to, and the cost. Remove anything here; add on the Packages or Features pages; send when it reads the way you want it.</p>
+  <p class="lede">Your selection of September 17 is agreed and locked, and is listed first. Below it is anything you add after it, in the order it would be built, with the hours and the cost. Remove an addition here; add on the Packages or Features pages; send when it reads the way you want it.</p>
 </div></header>
 
 <main class="wrap">
   <div class="totals"><dl id="totals"></dl></div>
   <div class="review-actions" id="actions"></div>
   <div class="undo" id="undo" role="status" aria-live="polite"></div>
+  <div id="agreed"></div>
   <div id="groups"></div>
   <div class="send" id="send">
-    <label for="msg">A message with your selection (optional)</label>
+    <label for="msg">A message with your additions (optional)</label>
     <textarea id="msg" placeholder="Anything about these choices, the order, or the dates"></textarea>
     <div class="cta" style="margin-top:0">
-      <button class="btn big" id="submit">Send this selection</button>
+      <button class="btn big" id="submit">Send these additions</button>
       <button class="btn big quiet" id="print">Print a copy</button>
       <span class="hint" id="hint">Sending records your selection with today's date. You can change it and send again.</span>
     </div>
@@ -56,31 +57,36 @@
     const put = (stage, entry) => { (stages[stage] = stages[stage] || []).push(entry); };
     s.pkgs.forEach((p) => put(p.stage, { build: p.build, id: p.id, code: p.id, what: p.id + ' · ' + p.area, sub: p.n + ' features: ' + p.titles.join('; '), hours: p.jake, note: S.state.notes[p.id] }));
     s.items.forEach((i) => put(i.stage, { build: 100 + i.build, id: i.id, code: i.code || '', what: i.title, sub: i.code + (i.pkg ? ' · part of ' + i.pkg + ', selected on its own' : ''), hours: i.jake, note: S.state.notes[i.id] }));
+    document.getElementById('agreed').innerHTML = s.agreed.length
+      ? '<div class="review-group is-locked"><h3>Agreed September 17 · locked</h3><p class="agreed-note">These ' + s.agreed.length + ' packages (' + s.agreedCount + ' features) are in the launch as agreed. They cannot be removed or changed here.</p>' +
+        '<ul class="agreed-list">' + s.agreed.slice().sort((a, b) => a.build - b.build).map((p) => '<li><a href="packages.html#' + S.esc(p.id) + '">' + S.esc(p.id) + '</a> ' + S.esc(p.area) + '</li>').join('') + '</ul></div>'
+      : '';
     document.getElementById('totals').innerHTML =
-      '<div><dt>Selected</dt><dd>' + s.count + '<small>' + s.pkgs.length + ' package' + (s.pkgs.length === 1 ? '' : 's') + ', ' + s.items.length + ' on their own</small></dd></div>' +
+      '<div><dt>Added since</dt><dd>' + s.count + '<small>' + s.pkgs.length + ' package' + (s.pkgs.length === 1 ? '' : 's') + ', ' + s.items.length + ' on their own</small></dd></div>' +
       '<div><dt>Hours added</dt><dd>' + S.fmtH(s.hours) + '<small>beyond the proposal</small></dd></div>' +
       '<div><dt>Working days</dt><dd>' + s.days + '<small>at ' + data.hoursPerDay + ' h a day</small></dd></div>' +
-      '<div><dt>Launch date</dt><dd style="font-size:16px;padding-top:4px">' + S.esc(S.fmtDate(s.date)) + '<small>from ' + S.esc(S.fmtDate(new Date(data.baseline + 'T12:00:00'))) + ' in the plan</small></dd></div>' +
+      '<div><dt>Timing</dt><dd style="font-size:16px;padding-top:4px">Agreed with you<small>before any of it is built</small></dd></div>' +
       '<div><dt>Added cost</dt><dd>' + S.fmtMoney(s.cost) + '<small>at $' + data.rate + ' an hour</small></dd></div>';
     const keys = Object.keys(stages).map(Number).sort((a, b) => a - b);
     document.getElementById('groups').innerHTML = keys.length ? keys.map((k) =>
       '<div class="review-group"><h3>Stage ' + k + ' · ' + S.esc(data.stages[String(k)]) + '</h3>' +
       stages[k].sort((a, b) => a.build - b.build).map((e) => '<div class="line"><div class="what">' + S.esc(e.what) + '<small>' + S.esc(e.sub) + (e.note ? ' — Your note: ' + S.esc(e.note) : '') + '</small></div><div class="h">' + S.fmtHours(e.hours) + '<small>' + S.fmtMoney(e.hours * data.rate) + '</small></div>' +
       '<button type="button" class="rm" data-rm="' + S.esc(e.id) + '" data-code="' + S.esc(e.code) + '" data-label="' + S.esc(e.what) + '" aria-label="Remove ' + S.esc(e.what) + ' from your selection">Remove</button></div>').join('') + '</div>').join('')
+      : s.agreed.length ? '<p class="empty">Nothing added since September 17. To add something, choose it on the <a href="packages.html">Packages</a> or <a href="features.html">Features</a> page.</p>'
       : '<p class="empty">Nothing selected yet. Start with <a href="index.html">the recommendation</a>, or choose on the <a href="packages.html">Packages</a> and <a href="features.html">Features</a> pages.</p>';
     document.getElementById('actions').innerHTML = (s.pkgs.length + s.items.length) > 1
       ? '<button type="button" class="link-btn" id="rm-all">Remove everything</button>' : '';
     document.getElementById('submit').disabled = !s.count;
-    document.getElementById('sent').innerHTML = S.state.submittedAt ? '<div class="sent">Last sent ' + S.esc(new Date(S.state.submittedAt).toLocaleString('en-US', { dateStyle: 'long', timeStyle: 'short' })) + '. Sending again replaces it.</div>' : '';
+    document.getElementById('sent').innerHTML = S.state.submittedAt ? '<div class="sent">Additions last sent ' + S.esc(new Date(S.state.submittedAt).toLocaleString('en-US', { dateStyle: 'long', timeStyle: 'short' })) + '. Sending again replaces them; your September 17 selection is not affected.</div>' : '';
     S.renderNav('review.html', data);
     return s;
   }
 
   function summaryText(s) {
-    const lines = ['HOAhx · Beyond the proposal · selection sent ' + new Date().toLocaleString('en-US', { dateStyle: 'long', timeStyle: 'short' }), ''];
+    const lines = ['HOAhx · Beyond the proposal · additions to the agreed selection of September 17, sent ' + new Date().toLocaleString('en-US', { dateStyle: 'long', timeStyle: 'short' }), ''];
     s.pkgs.sort((a, b) => a.build - b.build).forEach((p) => lines.push('Package ' + p.id + ' · ' + p.area + ' · ' + S.fmtH(p.jake) + ' h' + (S.state.notes[p.id] ? ' · note: ' + S.state.notes[p.id] : '')));
     s.items.sort((a, b) => a.build - b.build).forEach((i) => lines.push('Feature ' + i.id + ' · ' + i.title + ' · ' + S.fmtH(i.jake) + ' h' + (S.state.notes[i.id] ? ' · note: ' + S.state.notes[i.id] : '')));
-    lines.push('', 'Total ' + S.fmtH(s.hours) + ' h · ' + s.days + ' working days · launch about ' + S.fmtDate(s.date) + ' · ' + S.fmtMoney(s.cost));
+    lines.push('', 'Added ' + S.fmtH(s.hours) + ' h · ' + s.days + ' working days · ' + S.fmtMoney(s.cost) + ' · timing to be agreed');
     if (S.state.message) lines.push('', 'Message: ' + S.state.message);
     return lines.join('\n');
   }
@@ -126,9 +132,9 @@
     try {
       await S.submit(data, summaryText(s));
       btn.textContent = 'Sent';
-      setTimeout(() => { btn.textContent = 'Send this selection'; btn.disabled = false; }, 2500);
+      setTimeout(() => { btn.textContent = 'Send these additions'; btn.disabled = false; }, 2500);
     } catch (e) {
-      btn.disabled = false; btn.textContent = 'Send this selection';
+      btn.disabled = false; btn.textContent = 'Send these additions';
       document.getElementById('sent').innerHTML = '<div class="sent" style="border-left-color:var(--flag);background:var(--flag-wash)">Not sent: ' + S.esc(e.message === 'unauthorized' ? 'the passphrase was not accepted. Reload the page and enter it when asked.' : 'no connection. Your selection is kept in this browser; try again in a moment.') + '</div>';
     }
   });

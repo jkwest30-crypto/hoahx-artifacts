@@ -18,7 +18,7 @@
   <p class="eyebrow">HOAhx · Beyond the proposal</p>
   <h1>Packages</h1>
   <p class="lede">Features that share a subject and the same part of the platform, built together from one brief on one branch with one round of testing. A package costs less than its features apart, and its features are counted once.</p>
-  <p class="lede">Listed in build order, the sequence the architecture asks for, with my reason on each. Add a package to keep it in the launch; the running total at the foot of the page shows the hours, the date, and the cost.</p>
+  <p class="lede">Listed in build order, the sequence the architecture asks for, with my reason on each. Add a package to keep it in the launch; the running total at the foot of the page shows what you add: its hours and its cost.</p>
 </div></header>
 
 <div class="controls"><div class="wrap controls-in">
@@ -61,7 +61,8 @@
 
   function card(p) {
     const picked = S.isPicked(p.id);
-    const cls = 'card' + (picked ? ' is-picked' : '') + (p.priority === 'High' ? ' is-high' : '');
+    const locked = S.isLocked(p.id);
+    const cls = 'card' + (picked ? ' is-picked' : '') + (locked ? ' is-locked' : '') + (p.priority === 'High' ? ' is-high' : '');
     return '<article class="' + cls + '" id="' + S.esc(p.id) + '">' +
       '<div class="card-h"><span class="card-id">' + S.esc(p.id) + '</span>' + S.pill(p.priority) + S.stagePill(p) + '<span class="pill rel">' + S.esc(relName[rel(p)]) + '</span>' +
       '<span class="card-area mono num" style="margin-left:auto">Build order ' + p.build + ' · rank ' + p.rank + '</span></div>' +
@@ -71,11 +72,12 @@
       '<p class="why"><b>Why here:</b> ' + S.esc(p.why) + '</p>' +
       (p.follow && p.follow !== 'Nothing' ? '<p class="after">After: ' + S.esc(p.follow) + '</p>' : '') + '</div>' +
       '<div class="card-f">' +
-      '<dl class="stat"><dt>Hours</dt><dd>' + (Number(p.jake) > 0 ? S.fmtH(p.jake) : 'None') + '<small>' + p.n + ' feature' + (p.n === 1 ? '' : 's') + (Number(p.sumJake) > 0 ? ' · ' + S.fmtH(p.sumJake) + ' h apart' : ' · no added hours') + '</small></dd></dl>' +
+      (locked ? '<div class="act"><span class="pill locked">Agreed September 17 · in the launch · locked</span></div></div>' : '') +
+      (locked ? '' : '<dl class="stat"><dt>Hours</dt><dd>' + (Number(p.jake) > 0 ? S.fmtH(p.jake) : 'None') + '<small>' + p.n + ' feature' + (p.n === 1 ? '' : 's') + (Number(p.sumJake) > 0 ? ' · ' + S.fmtH(p.sumJake) + ' h apart' : ' · no added hours') + '</small></dd></dl>' +
       '<dl class="stat"><dt>Cost</dt><dd>' + S.fmtMoney(p.jake * data.rate) + '</dd></dl>' +
       '<div class="act"><button class="link-btn" data-note="' + S.esc(p.id) + '">' + (S.state.notes[p.id] ? 'Note ✓' : 'Add a note') + '</button>' +
       '<button class="btn' + (picked ? ' picked' : '') + '" data-pick="' + S.esc(p.id) + '">' + (picked ? 'Selected' : 'Add to the launch') + '</button></div></div>' +
-      '<div class="note-wrap" hidden><textarea placeholder="Anything you want me to know about this package" data-note-for="' + S.esc(p.id) + '">' + S.esc(S.state.notes[p.id] || '') + '</textarea></div>' +
+      '<div class="note-wrap" hidden><textarea placeholder="Anything you want me to know about this package" data-note-for="' + S.esc(p.id) + '">' + S.esc(S.state.notes[p.id] || '') + '</textarea></div>') +
       '</article>';
   }
 

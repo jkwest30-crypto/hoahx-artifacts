@@ -84,7 +84,13 @@
 
   document.getElementById('generated').textContent = 'Built from the register on ' + data.generated + '.';
 
-  document.getElementById('accept').addEventListener('click', () => {
+  // The selection of September 17 is agreed and locked (every package on this page): the
+  // button that selected MVP 1 has nothing left to do, so it gives way to a plain statement.
+  if (cards[0].pkgs.every((p) => S.isLocked(p.id))) {
+    const cta = document.querySelector('.cta');
+    cta.innerHTML = '<span class="hint">This recommendation is kept as it was written on September 16. On September 17 you chose every package on it, and that selection is agreed and locked. <a href="review.html">See what is agreed</a>, or add a package on the <a href="packages.html">Packages</a> page.</span>';
+  }
+  document.getElementById('accept') && document.getElementById('accept').addEventListener('click', () => {
     S.selectMany(cards[0].pkgs.map((p) => p.id), true);
     window.location.href = 'review.html';
   });

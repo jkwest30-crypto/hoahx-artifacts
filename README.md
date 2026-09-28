@@ -244,6 +244,18 @@ in the browser and saved to a shared store (`netlify/functions/picks.js`, Netlif
 records carry the message and the last summary sent). `DECISION_EDIT_KEY`, when set, gates it
 exactly as it gates the register.
 
+**Locked since 2026-09-28: the owners' selection of September 17.** They chose 23 packages
+(every feature inside them, 70 in all) and change order 2, signed Sep 26, made it the agreement.
+`netlify/functions/scope-locked.json` lists them. The store answers a POST for any of them, or for
+the Sep 17 `_submission` and `_message`, with **423 locked**, and every GET returns a locked
+package as selected plus the lock itself as `_locked`. The pages read `_locked`: a banner on every
+page, the locked cards marked *Agreed September 17 · locked* with no button and no note, the review
+listing them read-only above the additions. Totals, *Send these additions*, `_additions` (the
+summary) and `_addmsg` (the message) cover only what is added after Sep 17, so a later package is
+still a normal pick. `npm run check:scope` fails if the lock names a package or feature that is
+not in the data, or misses a feature of a locked package. Changing `scope-locked.json` changes
+what the owners agreed: only with a signed change order.
+
 ```
 build-a-la-carte.py --json  ──▶  go-live/scope/data.json  ──push main──▶  Netlify   (npm run check:scope guards the words and the shape)
 owners pick and send        ──▶  /api/picks (Blobs)       ──npm run pull:scope──▶  a summary for the change order

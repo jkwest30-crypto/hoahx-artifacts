@@ -71,12 +71,13 @@
     const sel = S.selection(data);
     const covered = i.pkg && sel.inPicked.has(i.id);
     const picked = S.isPicked(i.id);
+    const locked = S.isLocked(i.id);
     const cls = 'card' + (covered ? ' is-covered' : picked ? ' is-picked' : '') + (i.priority === 'High' ? ' is-high' : '');
     const pkg = i.pkg ? pkgById[i.pkg] : null;
     return '<article class="' + cls + '" id="' + S.esc(i.id) + '">' +
       '<div class="card-h"><span class="card-id">' + S.esc(i.code) + '</span>' + (pickable ? S.pill(i.priority) : '') + S.stagePill(i) +
       (pkg ? '<a class="pill stage" style="text-decoration:none" href="packages.html#' + S.esc(pkg.id) + '">In ' + S.esc(pkg.id) + '</a>' : '') +
-      (covered ? '<span class="pill covered">Included in ' + S.esc(i.pkg) + '</span>' : '') +
+      (locked ? '<span class="pill locked">Agreed Sep 17 · locked</span>' : covered ? '<span class="pill covered">Included in ' + S.esc(i.pkg) + '</span>' : '') +
       (pickable ? '<span class="card-area mono num" style="margin-left:auto">Rank ' + i.rank + ' · build ' + i.build + '</span>' : '<span class="card-area" style="margin-left:auto">' + S.esc(i.area) + '</span>') + '</div>' +
       '<div class="card-t"><h3>' + S.esc(i.title) + '</h3></div>' +
       '<div class="card-b"><dl class="rows"><dt>Adds</dt><dd>' + S.esc(i.adds) + '</dd><dt>Today</dt><dd class="today">' + S.esc(i.today) + '</dd></dl>' +
@@ -89,10 +90,10 @@
       (pickable ? '<div class="card-f">' +
         '<dl class="stat"><dt>Hours</dt><dd>' + (Number(i.jake) > 0 ? S.fmtH(i.jake) : 'None') + '<small>' + S.esc(i.work) + '</small></dd></dl>' +
         '<dl class="stat"><dt>Cost</dt><dd>' + S.fmtMoney(i.jake * data.rate) + '</dd></dl>' +
-        '<div class="act"><button class="link-btn" data-note="' + S.esc(i.id) + '">' + (S.state.notes[i.id] ? 'Note ✓' : 'Add a note') + '</button>' +
-        (covered ? '<button class="btn" disabled>Included in ' + S.esc(i.pkg) + '</button>' :
+        '<div class="act">' + (locked ? '' : '<button class="link-btn" data-note="' + S.esc(i.id) + '">' + (S.state.notes[i.id] ? 'Note ✓' : 'Add a note') + '</button>') +
+        (locked ? '<button class="btn" disabled>In the launch · ' + S.esc(i.pkg || 'agreed') + '</button>' : covered ? '<button class="btn" disabled>Included in ' + S.esc(i.pkg) + '</button>' :
           '<button class="btn' + (picked ? ' picked' : '') + '" data-pick="' + S.esc(i.id) + '">' + (picked ? 'Selected' : 'Add to the launch') + '</button>') + '</div></div>' +
-        '<div class="note-wrap" hidden><textarea placeholder="Anything you want me to know about this feature" data-note-for="' + S.esc(i.id) + '">' + S.esc(S.state.notes[i.id] || '') + '</textarea></div>' : '') +
+        (locked ? '' : '<div class="note-wrap" hidden><textarea placeholder="Anything you want me to know about this feature" data-note-for="' + S.esc(i.id) + '">' + S.esc(S.state.notes[i.id] || '') + '</textarea></div>') : '') +
       '</article>';
   }
 

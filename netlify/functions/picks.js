@@ -6,15 +6,24 @@
 //   GET  /api/picks?full=1   -> every record with its history
 //   POST /api/picks          { id, v, n, code?, key? } -> saves that one record and returns it
 //
-//   id: a package ("P5a", "C1"), a feature ("D-012"), "_message" (the owners' message), or
-//       "_submission" (n = the plain-text summary the page sends when the owners press Send)
+//   id: a package ("P5a", "C1"), a feature ("D-012"), "_addmsg" (the owners' message with additions), or
+//       "_additions" (n = the plain-text summary the page sends when the owners press Send;
+//       "_submission" holds the September 17 summary and is locked)
 //   v:  "yes" when selected, "" when not
+//
+// Locked: the owners' selection of September 17 (scope-locked.json, agreed in change order 2).
+// Every package and feature named there always reads as selected, and a POST that names one is
+// refused with 423, so nobody can take an agreed feature out of the launch from the page. The
+// Sep 17 summary and message (_submission, _message) are locked too; later additions are sent as
+// _additions with their message in _addmsg. GET returns
+// the lock as `_locked` so the pages can show it.
 //
 // If DECISION_EDIT_KEY is set on the Netlify site, every request must carry it (the same
 // passphrase as the Decision Register): the `x-edit-key` header, `key` in a POST body, or
 // `?key=` on a GET.
 
 const { getStore } = require('@netlify/blobs');
+const LOCK = require('./scope-locked.json');
 
 const EDIT_KEY = process.env.DECISION_EDIT_KEY || '';
 const STORE_NAME = 'hoahx-scope';
@@ -23,6 +32,9 @@ const HISTORY_MAX = 40;
 const NOTE_MAX = 20000;
 const ID_RE = /^[A-Za-z_][A-Za-z0-9-]{0,31}$/;
 const MARKS = ['', 'yes'];
+const LOCKED_PICKS = new Set([...LOCK.packages, ...LOCK.features]);
+const LOCKED_IDS = new Set([...LOCKED_PICKS, '_submission', '_message']);
+const LOCK_VIEW = { chosenAt: LOCK.chosenAt, agreedIn: LOCK.agreedIn, packages: LOCK.packages, features: LOCK.features };
 
 function json(body, status) {
   return { statusCode: status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }, body: JSON.stringify(body) };
@@ -76,15 +88,20 @@ exports.handler = async (event) => {
 
     if (event.httpMethod === 'GET') {
       const all = await readAll(store);
-      if ((event.queryStringParameters || {}).full === '1') return json(all, 200);
+      // A locked package reads as selected whatever its stored record says.
+      for (const id of LOCK.packages) all[id] = Object.assign({}, all[id] || {}, { v: 'yes', code: (all[id] && all[id].code) || id });
+      if ((event.queryStringParameters || {}).full === '1') return json(Object.assign(all, { _locked: LOCK_VIEW }), 200);
       const live = {};
       for (const [id, rec] of Object.entries(all)) if (isLive(rec)) live[id] = publicView(rec);
+      live._locked = LOCK_VIEW;
       return json(live, 200);
     }
 
     if (event.httpMethod === 'POST') {
       const id = payload.id;
       if (typeof id !== 'string' || !ID_RE.test(id)) return json({ error: 'missing or invalid id' }, 400);
+      if (id === '_locked') return json({ error: 'missing or invalid id' }, 400);
+      if (LOCKED_IDS.has(id)) return json({ error: 'locked', id, agreedIn: LOCK.agreedIn }, 423);
       const v = payload.v == null ? '' : String(payload.v);
       if (!MARKS.includes(v)) return json({ error: 'invalid v' }, 400);
       const n = payload.n == null ? '' : String(payload.n).slice(0, NOTE_MAX);

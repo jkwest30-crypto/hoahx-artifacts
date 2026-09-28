@@ -207,3 +207,13 @@ footer p{margin:0 0 8px;max-width:78ch}
   .card{break-inside:avoid;box-shadow:none}
   main{padding-bottom:20px}
 }
+
+/* The agreed selection of September 17: locked, shown as agreed, never editable here. */
+.locked-note{margin:20px 0 0;max-width:72ch;padding:12px 16px;border-left:3px solid var(--keep);background:var(--keep-wash);color:var(--ink);font-size:14.5px;line-height:1.55;border-radius:2px}
+.pill.locked{background:var(--keep-wash);color:var(--keep)}
+.card.is-locked{border-left-color:var(--keep)}
+.card.is-locked .card-f{justify-content:flex-start}
+.review-group.is-locked h3{color:var(--keep)}
+.agreed-note{margin:0 0 8px;color:var(--ink-2);font-size:14px}
+.agreed-list{margin:0;padding-left:20px;columns:2 280px;font-size:14px;line-height:1.7}
+.agreed-list a{font-family:"IBM Plex Mono",monospace;font-size:12px;text-decoration:none}
