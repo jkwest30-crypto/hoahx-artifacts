@@ -3,8 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>HOAhx · Open questions, answered</title>
-<meta name="description" content="The new HOAhx screens to review, and every open question on the Decision Register with a recommendation: answer each one here.">
+<meta name="color-scheme" content="light only">
+<title>HOAhx · Your open questions</title>
+<meta name="description" content="Everything HOAhx still needs from you, in one place: the open questions, each with our recommendation, and where each new screen stands.">
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,71 +13,56 @@
 <link rel="stylesheet" href="/answers/answers.css">
 </head>
 <body>
-<nav class="nav" aria-label="HOAhx pages"><div class="wrap nav-in">
-  <a class="nav-brand" href="/answers">HOAhx · Open questions</a>
-  <a class="tab" href="/answers" aria-current="page">Recommendations</a>
-  <a class="tab" href="/answers#screens">Screens</a>
-  <a class="tab" href="/">Decision Register</a>
-  <a class="tab" href="/scope/">Beyond the proposal</a>
+<nav class="nav" aria-label="Sections"><div class="wrap nav-in">
+  <a class="nav-brand" href="#top">HOAhx · Waiting on you</a>
+  <a class="tab" href="#screens">Screens</a>
+  <a class="tab" href="#questions">Questions</a>
   <a class="tab" href="/hub">Hub</a>
-  <div class="sel" id="nav-progress"></div>
+  <span class="nav-up">Last updated <span id="nav-updated"></span><span class="status" data-status role="status" aria-live="polite"></span></span>
 </div></nav>
 
-<header class="mast"><div class="wrap mast-in">
-  <p class="eyebrow">HOAhx · Decision Register · the open questions</p>
-  <h1 id="title">Open questions, answered by recommendation</h1>
+<header class="mast" id="top"><div class="wrap mast-in">
+  <p class="eyebrow">HOAhx · Everything waiting on you</p>
+  <h1>Your open questions</h1>
   <p class="lede" id="lede"></p>
-  <p class="lede small">Agree records the recommendation as your answer on every question the card covers. Change opens a box for what should be different; a sentence is enough. Nothing is final until you press Send, and you can come back to any card before then.</p>
-  <p class="lede small"><a href="#screens">The new screens on the test site</a> are answered the same way, one card per screen: Yes, Change or Discuss.</p>
-  <dl class="meta" id="meta"></dl>
+  <p class="updated">Last updated <b id="updated"></b></p>
+  <div class="where" aria-labelledby="where-h">
+    <p class="where-h" id="where-h">Where you are</p>
+    <div class="where-cols" id="where"></div>
+  </div>
 </div></header>
 
-<div class="controls"><div class="wrap controls-in">
-  <div class="progress" aria-hidden="true"><div class="bar" id="bar"></div></div>
-  <div class="chips" role="group" aria-label="Show">
-    <button type="button" class="chip" data-filter="all" aria-pressed="true">All</button>
-    <button type="button" class="chip" data-filter="open" aria-pressed="false">Not yet answered</button>
-    <button type="button" class="chip" data-filter="agree" aria-pressed="false">Agreed</button>
-    <button type="button" class="chip" data-filter="change" aria-pressed="false">To change</button>
-    <button type="button" class="chip" data-filter="discuss" aria-pressed="false" hidden>To discuss</button>
-  </div>
-  <button type="button" class="link-btn" id="next">Next unanswered ↓</button>
-  <span class="count" id="count"></span>
-  <span class="status" data-status role="status" aria-live="polite"></span>
-</div></div>
-
 <main class="wrap">
-  <section class="screens" id="screens" aria-labelledby="screens-h" hidden>
-    <div class="screens-h">
-      <p class="eyebrow">On the test site · sample data · nothing you click there is saved</p>
-      <h2 id="screens-h">Screens to review</h2>
-      <p id="screens-lede"></p>
-      <p id="screens-howto"></p>
-      <p class="due" id="screens-due"></p>
+  <section class="sec" id="screens" aria-labelledby="screens-h">
+    <div class="sec-head">
+      <h2 id="screens-h">Screens</h2>
+      <p id="screens-p">Each screen is answered on the screen itself. Open one, step through it, and press Signed off, Change or Discuss there. This page shows where each one stands.</p>
+      <div class="chips" id="screen-chips" role="group" aria-label="Show screens"></div>
     </div>
-    <div id="features"></div>
+    <div id="screen-groups" class="cards"></div>
   </section>
 
-  <div id="groups"></div>
-
-  <section class="send" id="send" aria-labelledby="send-h">
-    <h2 id="send-h">When you are through</h2>
-    <p class="send-p" id="send-p"></p>
-    <label for="msg">Anything else you want to say about these answers (optional)</label>
-    <textarea id="msg" placeholder="A question, a condition, something that needs a call"></textarea>
-    <div class="cta">
-      <button class="btn big" id="submit">Send your answers</button>
-      <button class="btn big quiet" id="print">Print a copy</button>
-      <span class="hint" id="hint">Sending records your answers with today's date. You can change one and send again.</span>
+  <section class="sec" id="questions" aria-labelledby="questions-h">
+    <div class="sec-head">
+      <h2 id="questions-h">Questions</h2>
+      <p>Every question has our recommendation under it. Select a recommendation to read it in full, then Agree, Change or Discuss. When every question on a card is agreed, the card is agreed.</p>
+      <div class="chips" id="q-chips" role="group" aria-label="Show questions"></div>
     </div>
-    <div id="sent"></div>
+    <div id="q-groups" class="cards"></div>
+  </section>
+
+  <section class="send" aria-labelledby="send-h">
+    <h2 id="send-h">When you are through</h2>
+    <p id="send-p"></p>
+    <div class="btns"><button type="button" class="btn primary" id="send-btn">Send your answers</button></div>
+    <p class="sent" id="sent" role="status" aria-live="polite"></p>
   </section>
 </main>
 
 <footer><div class="wrap">
-  <p><b>What happens next on a screen.</b> A Yes is recorded and the data behind that screen is built as shown. A Change with your words becomes a follow-up item on the plan. A Discuss goes on the agenda for the next call. The screens stay on the test site until the real thing replaces them.</p>
-  <p><b>What happens next on a recommendation.</b> An answer you agree with is recorded on each of its questions in the Decision Register and the build follows it. A change with your words is recorded the same way when it is clear, and becomes a short conversation when it is not. Every card names the questions it answers, by their register numbers, so you can find any of them on the register page.</p>
-  <p>Saved as you go, on every device that opens this page. Nothing here is deleted; every earlier answer is kept.</p>
+  <p><b>What happens next on a question.</b> An answer you agree with is recorded and the build follows it. A change in your words is recorded the same way when it is clear, and becomes a short conversation when it is not. A Discuss goes on the agenda for the next call.</p>
+  <p><b>What happens next on a screen.</b> A screen you sign off is built as shown. A change becomes a follow-up item on the plan. A Discuss goes on the agenda for the next call.</p>
+  <p>Saved as you go, on every device that opens this page. Every earlier answer is kept.</p>
 </div></footer>
 
 <script src="/answers/answers.js"></script>

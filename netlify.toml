@@ -8,11 +8,12 @@
   status = 200
   force = true
 
-# Serve the decision register at the site's root URL, without changing
-# what appears in the browser's address bar.
+# The site's root serves the owners' open questions page (the same page as /answers), without
+# changing what appears in the browser's address bar. The decision register is an internal
+# tool: it stays at /decision-register/decision-register.html and nothing links to it.
 [[redirects]]
   from = "/"
-  to = "/decision-register/decision-register.html"
+  to = "/answers/index.html"
   status = 200
 
 # Serve the workflow map at /workflow-map, without changing what appears in
@@ -40,8 +41,9 @@
   to = "/scope/index.html"
   status = 200
 
-# HOAhx · Open questions, answered by recommendation: the owners' Agree / Change page at
-# /answers, with its shared store at /api/answers.
+# HOAhx · Your open questions: every question still waiting on the owners, answered Agree,
+# Change or Discuss, and where each new screen stands. Served at / and at /answers, with its
+# shared store at /api/answers.
 [[redirects]]
   from = "/api/answers"
   to = "/.netlify/functions/answers"

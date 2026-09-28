@@ -1,75 +1,253 @@
 {
- "generated": "2026-09-25",
- "due": "2026-10-02",
+ "updated": "2026-09-28",
  "previewUrl": "https://hoahx-staging.web.app/preview",
- "title": "Screens to review",
- "lede": "The new screens are on the test site with sample data for a made-up community; nothing you click there is saved. Open a screen, step through its Demo states, then answer here: Yes to build it as shown, Change with a sentence on what should be different, or Discuss to talk it through on the next call.",
- "howTo": "On each screen, the Demo state control at the top steps through every situation the screen has to handle. A few screens have a side switch too, because two different people see them. Please look at every state: the awkward cases are where the design earns its keep.",
  "features": [
+  {
+   "id": "A",
+   "title": "The community's HOAhx subscription",
+   "screens": [
+    {
+     "id": "S-A1",
+     "code": "A1",
+     "title": "Plans and prices",
+     "what": "The plans side by side, with the one this community falls in by its number of homes, the monthly and annual price of each, and what paying annually saves. Prices are marked provisional until you set them.",
+     "url": "https://hoahx-staging.web.app/preview/A1",
+     "videos": []
+    },
+    {
+     "id": "S-A2",
+     "code": "A2",
+     "title": "The free trial, and starting the subscription",
+     "what": "How many days of the free trial are left and what happens when it ends, then the steps to start: accept the terms, add a bank account or card, confirm. It ends with a receipt and the next renewal date.",
+     "url": "https://hoahx-staging.web.app/preview/A2",
+     "videos": []
+    },
+    {
+     "id": "S-A3",
+     "code": "A3",
+     "title": "Billing home: plan, next charge, invoices",
+     "what": "The board's billing page: the current plan, the next charge and its date, the payment method on file, and every invoice. A board member who is not a billing contact can look but cannot change anything.",
+     "url": "https://hoahx-staging.web.app/preview/A3",
+     "videos": []
+    },
+    {
+     "id": "S-A4",
+     "code": "A4",
+     "title": "Billing contacts, and handing over the account",
+     "what": "Who holds the account: the Account Owner, the backups and any Billing Administrator, with what each may do. Handing the account to someone else waits for that person to accept, and the last backup cannot be removed.",
+     "url": "https://hoahx-staging.web.app/preview/A4",
+     "videos": []
+    },
+    {
+     "id": "S-A5",
+     "code": "A5",
+     "title": "When a payment has not gone through",
+     "what": "What the board sees when a subscription payment does not go through: the amount owed, the date of the next change and what it will be, with the full schedule below. Paying and reaching support work at every stage, and residents are never affected.",
+     "url": "https://hoahx-staging.web.app/preview/A5",
+     "videos": []
+    },
+    {
+     "id": "S-A6",
+     "code": "A6",
+     "title": "Cancelling, and taking the records along",
+     "what": "What cancelling means, when it takes effect, and what is kept and for how long. The board can take the community's records along first, and can come back later.",
+     "url": "https://hoahx-staging.web.app/preview/A6",
+     "videos": []
+    },
+    {
+     "id": "S-A7",
+     "code": "A7",
+     "title": "The HOAhx staff side",
+     "what": "For HOAhx staff: every community's subscription with its plan, status, next renewal and days past due. Extending a trial, making an exception or restoring access each asks for a written reason, and the reason is kept.",
+     "url": "https://hoahx-staging.web.app/preview/A7",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "B",
+   "title": "Approvals and sensitive actions",
+   "screens": [
+    {
+     "id": "S-B1",
+     "code": "B1",
+     "title": "Asking for a refund",
+     "what": "A board member asks to refund a payment: the amount, the reason, and signing in again before it is sent. It shows the most that can be refunded, and refuses a request on the asker's own home or a second request for the same payment.",
+     "url": "https://hoahx-staging.web.app/preview/B1",
+     "videos": [
+      "08",
+      "30"
+     ]
+    },
+    {
+     "id": "S-B2",
+     "code": "B2",
+     "title": "Approvals waiting for me",
+     "what": "Every request waiting on this person: who asked, how much, why, and the time left to decide. They sign in again to approve or decline, and cannot act on a request they made or one for their own home.",
+     "url": "https://hoahx-staging.web.app/preview/B2",
+     "videos": [
+      "08",
+      "30"
+     ]
+    },
+    {
+     "id": "S-B3",
+     "code": "B3",
+     "title": "The approval record",
+     "what": "The permanent record of one refund: who asked and why, who approved, that both signed in again, the amount and where the money went back to. Nothing on it can be edited, and the homeowner gets a receipt.",
+     "url": "https://hoahx-staging.web.app/preview/B3",
+     "videos": [
+      "08",
+      "30"
+     ]
+    },
+    {
+     "id": "S-B4",
+     "code": "B4",
+     "title": "Who may do what",
+     "what": "Each role down the side and the eight kinds of action across the top. A permission can be taken away from one person, with a reason; nobody can change their own.",
+     "url": "https://hoahx-staging.web.app/preview/B4",
+     "videos": []
+    },
+    {
+     "id": "S-B5",
+     "code": "B5",
+     "title": "Exporting a list safely",
+     "what": "Before a list is downloaded: what the file will contain, what is left out and why, and how many records. The person gives a reason first, and some roles may not export at all.",
+     "url": "https://hoahx-staging.web.app/preview/B5",
+     "videos": []
+    },
+    {
+     "id": "S-B6",
+     "code": "B6",
+     "title": "Naming the two Financial Approvers",
+     "what": "Why a community needs two Financial Approvers, who is eligible, and who has been chosen. Online payments are held back until two are named.",
+     "url": "https://hoahx-staging.web.app/preview/B6",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "C",
+   "title": "Falling behind, payment plans, the ledger and statements",
+   "screens": [
+    {
+     "id": "S-C1",
+     "code": "C1",
+     "title": "Who is behind",
+     "what": "Every home with an overdue balance: the amount, how long it has been overdue, where the case stands, who is following up and the last thing sent. A notice can go to several homes at once, with a confirmation naming how many.",
+     "url": "https://hoahx-staging.web.app/preview/C1",
+     "videos": []
+    },
+    {
+     "id": "S-C2",
+     "code": "C2",
+     "title": "One household's case",
+     "what": "One home's case from the start: how the balance built up, every notice with its date and whether it arrived, the person who owns the case, and the next step with its date. A payment plan or a waived fee is offered from here.",
+     "url": "https://hoahx-staging.web.app/preview/C2",
+     "videos": []
+    },
+    {
+     "id": "S-C3",
+     "code": "C3",
+     "title": "\"I am behind\": the homeowner's view",
+     "what": "What a homeowner who has fallen behind sees: what is owed and what it is made of, the date that matters, what happens then, the choices, and a named person to talk to. Plain wording, no red banners.",
+     "url": "https://hoahx-staging.web.app/preview/C3",
+     "videos": []
+    },
+    {
+     "id": "S-C4",
+     "code": "C4",
+     "title": "Setting up a payment plan",
+     "what": "The treasurer proposes a schedule: how many payments, how much, which dates, and whether late fees pause while the plan is kept. A second person approves it, then the homeowner accepts.",
+     "url": "https://hoahx-staging.web.app/preview/C4",
+     "videos": []
+    },
+    {
+     "id": "S-C5",
+     "code": "C5",
+     "title": "A payment plan in progress",
+     "what": "A plan under way, read as a plan: four of nine paid, the next payment and its date, what remains. The homeowner and the board see the same, including what happens after a missed installment.",
+     "url": "https://hoahx-staging.web.app/preview/C5",
+     "videos": []
+    },
+    {
+     "id": "S-C6",
+     "code": "C6",
+     "title": "Waiving a fee or adjusting a balance",
+     "what": "A request to waive a late fee or adjust a balance: the amount, the reason, who is asking and who must approve. It takes two people, the same as a refund, and the homeowner's ledger shows the result.",
+     "url": "https://hoahx-staging.web.app/preview/C6",
+     "videos": []
+    },
+    {
+     "id": "S-C7",
+     "code": "C7",
+     "title": "A ledger you can follow",
+     "what": "Every entry with its date, its kind and the running balance beside it. A correction is a new entry that names the one it corrects; nothing is edited or removed. Drawn once for the homeowner and once for the board.",
+     "url": "https://hoahx-staging.web.app/preview/C7",
+     "videos": []
+    },
+    {
+     "id": "S-C8",
+     "code": "C8",
+     "title": "Statements, exports, and matching deposits",
+     "what": "A statement for each home and a collection summary for the community, each marked with its period. A bank deposit opens to show the payments inside it, with a clear mark where a deposit and the ledger disagree.",
+     "url": "https://hoahx-staging.web.app/preview/C8",
+     "videos": []
+    }
+   ]
+  },
   {
    "id": "D",
    "title": "Bringing a community in",
-   "intro": "How a board gets its properties, owners and opening balances into HOAhx from its own spreadsheet, and how it sees residents join.",
    "screens": [
     {
      "id": "S-D1",
      "code": "D1",
      "title": "Upload the spreadsheet and match the columns",
-     "look": "The board uploads its own CSV or Excel file. HOAhx suggests which column is which; a person confirms or corrects every suggestion. The messy file and the second import are the states to linger on.",
+     "what": "The board uploads its own CSV or Excel file. HOAhx suggests which column is which; a person confirms or corrects every suggestion. The messy file and the second import are the states to linger on.",
      "url": "https://hoahx-staging.web.app/preview/D1",
-     "states": 3,
-     "sides": []
+     "videos": []
     },
     {
      "id": "S-D2",
      "code": "D2",
      "title": "Check it before it goes in",
-     "look": "Rows ready, rows needing a decision, rows that cannot go in. A duplicate, a missing detail and a value that only looks wrong are treated as three different things; only a blocked row stops the import.",
+     "what": "Rows ready, rows needing a decision, rows that cannot go in. A duplicate, a missing detail and a value that only looks wrong are treated as three different things; only a blocked row stops the import.",
      "url": "https://hoahx-staging.web.app/preview/D2",
-     "states": 3,
-     "sides": []
+     "videos": []
     },
     {
      "id": "S-D3",
      "code": "D3",
      "title": "Opening balances: the treasurer signs off",
-     "look": "The total of all opening balances next to the figure the treasurer expected. Nothing is saved until the treasurer approves it, possibly a different person on a different day.",
+     "what": "The total of all opening balances next to the figure the treasurer expected. Nothing is saved until the treasurer approves it, possibly a different person on a different day.",
      "url": "https://hoahx-staging.web.app/preview/D3",
-     "states": 4,
-     "sides": [
-      "The treasurer",
-      "The administrator"
-     ]
+     "videos": []
     },
     {
      "id": "S-D4",
      "code": "D4",
      "title": "What past imports did, and fixing one",
-     "look": "Every import on record: who ran it, what it added or changed, and how a mistake is corrected with the correction kept on record.",
+     "what": "Every import on record: who ran it, what it added or changed, and how a mistake is corrected with the correction kept on record.",
      "url": "https://hoahx-staging.web.app/preview/D4",
-     "states": 3,
-     "sides": []
+     "videos": []
     },
     {
      "id": "S-D5",
      "code": "D5",
      "title": "Who has joined",
-     "look": "Every home and person against the four steps, invited, joined, verified, active; whose invitation has lapsed; sending again to one person or to everyone not yet joined.",
+     "what": "Every home and person against the four steps, invited, joined, verified, active; whose invitation has lapsed; sending again to one person or to everyone not yet joined.",
      "url": "https://hoahx-staging.web.app/preview/D5",
-     "states": 3,
-     "sides": []
+     "videos": []
     },
     {
      "id": "S-D6",
      "code": "D6",
      "title": "Someone joined without an invitation",
-     "look": "What the board sees when a person claims a home without a link, and the plain \"we are checking\" screen that person sees, ending with the offer of automatic payments.",
+     "what": "What the board sees when a person claims a home without a link, and the plain \"we are checking\" screen that person sees, ending with the offer of automatic payments.",
      "url": "https://hoahx-staging.web.app/preview/D6",
-     "states": 4,
-     "sides": [
-      "The board",
-      "The person joining"
-     ]
+     "videos": []
     }
    ]
   }

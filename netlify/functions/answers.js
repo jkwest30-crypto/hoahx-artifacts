@@ -1,27 +1,30 @@
-// Shared, server-side store for the owners' answers on /answers (HOAhx · Open questions, answered
-// by recommendation). Backed by Netlify Blobs (site-wide store "hoahx-answers"); no external
-// database. Same shape and rules as picks.js and decisions.js: one blob per recommendation card,
-// history kept, nothing ever deleted.
+// Shared, server-side store for the owners' answers on the open questions page (served at the
+// site root and at /answers). Backed by Netlify Blobs (site-wide store "hoahx-answers"); no
+// external database. Same rules as picks.js and decisions.js: one blob per id, history kept,
+// nothing ever deleted.
 //
-//   GET  /api/answers          -> { "<id>": { v, n, code, updatedAt }, ... }   (live marks, notes, the message, the last submission)
+//   GET  /api/answers          -> { "<id>": { v, n, code, by, updatedAt }, ... }   (live marks, notes, the message, the last submission)
 //   GET  /api/answers?full=1   -> every record with its history
 //   POST /api/answers          { id, v, n, code?, by?, key? } -> saves that one record and returns it
 //
-//   id: a recommendation card ("A01" … "A23"), a screen to review ("S-D1" … "S-A7", the
-//       "Screens to review" section of the same page), "_message" (the owners' closing message),
-//       or "_submission" (n = the plain-text summary the page sends when the owners press Send)
-//   v:  "agree" when the owners agree with the recommendation, "change" when they want it changed
-//       (n then carries what should be different), "" when cleared.
-//       A screen ("S-…") takes "yes", "change" or "discuss" instead; "agree" is not a screen answer.
+//   id: one question ("A01-1" … "A28-1": a card's id, a dash, the question's own permanent
+//       number), a screen ("S-D1" … "S-A7"), "_message" (a closing message), or "_submission"
+//       (n = the plain-text summary the page sends when the owners press Send).
+//       A card-level id ("A01") is what the page saved before it asked per question. It is still
+//       accepted, so an old tab left open does not fail, but the page no longer reads it.
+//   v:  for a question: "agree", "change" (n carries what it should be instead), "discuss"
+//       (n carries what to talk through, if anything), or "" when cleared.
+//       for a screen: "yes", "change", "discuss" or "". "agree" is not a screen answer.
+//       for a card-level id: "agree", "change" or "".
 //   by: who answered, as they typed their name (the screen preview on the test site asks for it;
-//       this page does not, so an answer given here carries no name).
+//       the questions page does not, so an answer given there carries no name).
 //
-// The screen preview on the test site (https://hoahx-staging.web.app/preview) answers the same
-// "S-…" records from another origin: CORS is open to that origin and to local dev servers only.
+// The screen preview on the test site (https://hoahx-staging.web.app/preview) answers the "S-…"
+// records from another origin: CORS is open to that origin and to local dev servers only.
 //
-// If DECISION_EDIT_KEY is set on the Netlify site, every request must carry it (the same
-// passphrase as the Decision Register): the `x-edit-key` header, `key` in a POST body, or
-// `?key=` on a GET.
+// If DECISION_EDIT_KEY is set on the Netlify site, every request must carry it: the `x-edit-key`
+// header, `key` in a POST body, or `?key=` on a GET. The same variable gates the other stores
+// on this site.
 
 const { getStore } = require('@netlify/blobs');
 
@@ -32,6 +35,8 @@ const HISTORY_MAX = 40;
 const NOTE_MAX = 20000;
 const ID_RE = /^[A-Za-z_][A-Za-z0-9-]{0,31}$/;
 const MARKS = ['', 'agree', 'change'];
+const QUESTION_ID_RE = /^A\d{2}-\d{1,2}$/;
+const QUESTION_MARKS = ['', 'agree', 'change', 'discuss'];
 const SCREEN_ID_RE = /^S-[A-Z]\d{1,2}$/;
 const SCREEN_MARKS = ['', 'yes', 'change', 'discuss'];
 const BY_MAX = 60;
@@ -49,6 +54,27 @@ function corsFor(event) {
     'Access-Control-Max-Age': '600',
     Vary: 'Origin',
   };
+}
+
+// Which answers an id may carry. A question and a screen each have their own three; anything
+// else (a card-level id from the earlier page, the message, the submission) keeps the first two.
+function marksFor(id) {
+  if (SCREEN_ID_RE.test(id)) return SCREEN_MARKS;
+  if (QUESTION_ID_RE.test(id)) return QUESTION_MARKS;
+  return MARKS;
+}
+
+// The record a POST body asks to save, or the reason it is refused. Pure: no store, no clock.
+function validate(payload) {
+  if (!payload || typeof payload !== 'object' || Array.isArray(payload)) return { error: 'invalid json body' };
+  const id = payload.id;
+  if (typeof id !== 'string' || !ID_RE.test(id)) return { error: 'missing or invalid id' };
+  const v = payload.v == null ? '' : String(payload.v);
+  if (!marksFor(id).includes(v)) return { error: 'invalid v' };
+  const n = payload.n == null ? '' : String(payload.n).slice(0, NOTE_MAX);
+  const code = payload.code == null ? '' : String(payload.code).slice(0, 40);
+  const by = payload.by == null ? '' : String(payload.by).replace(/[\u0000-\u001f]/g, '').trim().slice(0, BY_MAX);
+  return { id, v, n, code, by };
 }
 
 function json(body, status) {
@@ -93,6 +119,9 @@ async function readAll(store) {
 
 // Every answer, including a refusal, carries the CORS headers for an allowed origin, so the
 // preview can read a 401 and ask for the passphrase.
+exports.validate = validate;
+exports.marksFor = marksFor;
+
 exports.handler = async (event) => {
   const res = await handle(event);
   res.headers = Object.assign({}, res.headers, corsFor(event));
@@ -119,13 +148,9 @@ async function handle(event) {
     }
 
     if (event.httpMethod === 'POST') {
-      const id = payload.id;
-      if (typeof id !== 'string' || !ID_RE.test(id)) return json({ error: 'missing or invalid id' }, 400);
-      const v = payload.v == null ? '' : String(payload.v);
-      if (!(SCREEN_ID_RE.test(id) ? SCREEN_MARKS : MARKS).includes(v)) return json({ error: 'invalid v' }, 400);
-      const n = payload.n == null ? '' : String(payload.n).slice(0, NOTE_MAX);
-      const code = payload.code == null ? '' : String(payload.code).slice(0, 40);
-      const by = payload.by == null ? '' : String(payload.by).replace(/[\u0000-\u001f]/g, '').trim().slice(0, BY_MAX);
+      const asked = validate(payload);
+      if (asked.error) return json({ error: asked.error }, 400);
+      const { id, v, n, code, by } = asked;
       const key = PREFIX + id;
       const prev = (await store.get(key, { type: 'json' })) || null;
       const now = new Date().toISOString();

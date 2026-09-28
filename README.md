@@ -1,10 +1,13 @@
 # hoahx-artifacts
 
 Published HOAhx go-live artifacts, deployed by Netlify from this repository's `main` branch to
-https://hoahx-requirements.netlify.app/. The site's root is the **HOAhx Decision Register**: since
-September 14, 2026 it is the one register for the first release — every requirement, what the
-platform does today, whether it is in the release, a ranked candidate, or not planned, and the test
-that will prove it works.
+https://hoahx-requirements.netlify.app/. The site's root is the owners' page, **Your open
+questions**: everything still waiting on the owners in one place (it also answers at `/answers`).
+The **HOAhx Decision Register** is an internal tool at
+`/decision-register/decision-register.html`, linked from no page on the site: since September 14,
+2026 it is the one register for the first release — every requirement, what the platform does
+today, whether it is in the release, a ranked candidate, or not planned, and the test that will
+prove it works.
 `/workflow-map` is the **HOAhx Workflow Map**: every workflow by the person who uses it, with the
 exact steps and the handoffs between roles. `/design/` is the **HOAhx Design Reference** for the
 design work: the fixed stack, the tokens, the components as they ship, the layout system, and the
@@ -261,41 +264,54 @@ build-a-la-carte.py --json  ──▶  go-live/scope/data.json  ──push main�
 owners pick and send        ──▶  /api/picks (Blobs)       ──npm run pull:scope──▶  a summary for the change order
 ```
 
-## Open questions, answered by recommendation (`/answers`)
+## Your open questions (`/` and `/answers`)
 
-One owner-facing page for every Decision Register entry that still waits on the owners:
-the open questions consolidated into recommendation cards (23 cards for 57 pending entries plus
-the four loose ends on D-059 as of 2026-09-23), each with a plain recommendation, a "why", and the
-register numbers it answers. The owners press **Agree** (the recommendation becomes the answer on
-every question the card covers) or **Change** (a text box opens for what should be different),
-and **Send** when they are through.
+The owners' page: everything still waiting on them, in one place. Every open question with a
+plain recommendation under it, answered **Agree**, **Change** or **Discuss** per question (Change
+and Discuss open a note box inline, under that question), and where each of the 27 new screens
+stands: **Signed off · Changes suggested · To discuss · Not reviewed**. A screen is answered on
+the screen itself, on the staging test site; here its status is read-only. A question or screen
+that a recorded video shows fully built carries a "Built" tag and a link to that video.
 
-- `go-live/answers/index.html`, `answers.js`, `answers.css` — the page, authored here; asset
-  paths are absolute (`/answers/…`) because the page is served at `/answers` without a slash.
-- `go-live/answers/screens.json` — the **Screens to review** section of the same page (one card
-  per new screen on the staging test site, answered Yes / Change / Discuss on ids `S-D1`…),
-  published from the HOAhx repo's `docs/launch/screen-review.json` with `--screens`; the
-  source's internal mapping (register entry, stub) is stripped on publish and read back by
-  `pull:answers -- --screens <source>`.
-- `go-live/answers/data.json` — the cards, published from the HOAhx repo's
-  `docs/launch/recommendations.json` (the source of truth for the wording; gitignored there).
+Nothing on the page, and nothing in the two files it reads, names the Decision Register or
+carries its numbering. The publisher refuses to write otherwise.
+
+- `go-live/answers/index.html`, `answers.js`, `answers.css` — the page, authored here. Light
+  only. Asset paths are absolute (`/answers/…`) because the same page is served at `/`, at
+  `/answers` and at `/answers/`.
+- `go-live/answers/data.json` — the questions: `updated`, `groups`, `cards[] { id, group, title,
+  note?, why, rows[] { id, qs[], rec, videos[] } }`, and `videos { "07": { title, seconds, url } }`.
+  A row's `id` (`A01-1`) is permanent: answers are saved under it.
+- `go-live/answers/screens.json` — the screens: `updated`, `previewUrl`, `features[] { id, title,
+  screens[] { id "S-A1", code, title, what, url, videos[] } }`.
 - `netlify/functions/answers.js` — the shared store (Netlify Blobs store `hoahx-answers`, one
-  record per card with history, `_message` and `_submission` like `/scope/`). `DECISION_EDIT_KEY`,
-  when set, gates it exactly as it gates the register.
-- `scripts/publish-answers.mjs` — copies and guards the data: shape, every D-number on exactly
-  one card and with a recommendation line, the excluded words, and, with `--register <decisions.md>`,
-  that every D-number is still a pending entry (D-059 excepted).
-- `scripts/pull-answers.mjs` — reads the store and writes the `### D-### · Q-ID` / `Mark:` /
-  `Note:` blocks that `/decide` applies: Agree becomes a Change mark whose note is the
-  recommendation text; Change carries the owners' words; Change with nothing written is Discuss.
+  record per id with history, nothing deleted). A question (`A01-1`) takes `agree`, `change`,
+  `discuss` or empty; a screen (`S-A1`) takes `yes`, `change`, `discuss` or empty; `_submission`
+  holds the summary the page sends. CORS is open to the staging test site and to local servers,
+  because the sign-off panel there saves the screens' answers. `DECISION_EDIT_KEY`, when set,
+  gates it as it gates the other stores.
+- `scripts/publish-answers.mjs` — **the one command**, `npm run sync:answers`: snapshots the live
+  store into the launch program, drops the questions whose entry is no longer pending, rebuilds
+  the screens from the spec and the preview modules, resolves every video number to a title, a
+  length and a Drive link (refusing a video that was never recorded, is not current, or has no
+  file in Drive), runs the guards on the page and both files, and writes the two files. It never
+  commits or pushes. `npm run check:answers` verifies what is committed and reads nothing else.
+- `scripts/pull-answers.mjs` — reads the store and writes the `Mark:` / `Note:` blocks that
+  `/decide` applies, one per register entry, mapped through the wording source (the published
+  files carry no numbering).
+- `scripts/answers-lib.mjs` — what both are made of, as pure functions; `tests/` covers it and
+  the store (`npm test`, Node's own test runner, no dependency).
+- `scripts/check-answers-page.mjs` — a headless browser pass over the page on the local dev
+  server. It answers questions, so it refuses any site that is not a local address.
 
 ```
-docs/launch/recommendations.json ──npm run publish:answers -- --source … --register …──▶ go-live/answers/data.json ──push main──▶ Netlify
-owners agree, change, send       ──▶  /api/answers (Blobs)  ──npm run pull:answers -- --out ../hoahx/docs/launch/register-store/answers-<date>.md──▶ /decide
+the launch program ──npm run sync:answers──▶ go-live/answers/data.json + screens.json ──push main──▶ Netlify
+owners agree, change, discuss, send ──▶ /api/answers (Blobs) ──npm run pull:answers -- --out …/register-store/answers-<date>.md──▶ /decide
+the sign-off panel on the test site  ──▶ /api/answers (the same store, ids S-A1 … S-D6)
 ```
 
 `npm run dev` (`scripts/dev-register.mjs`) serves the whole site locally with every function under
-`netlify/functions/` on an in-memory store: http://localhost:8788/answers.
+`netlify/functions/` on an in-memory store: http://localhost:8788/.
 
 ## The hub (`/hub`)
 

@@ -19,12 +19,14 @@
     "publish:scope": "node scripts/publish-scope.mjs",
     "check:scope": "node scripts/publish-scope.mjs --check",
     "pull:scope": "node scripts/pull-scope.mjs",
+    "sync:answers": "node scripts/publish-answers.mjs",
     "publish:answers": "node scripts/publish-answers.mjs",
     "check:answers": "node scripts/publish-answers.mjs --check",
     "pull:answers": "node scripts/pull-answers.mjs",
     "publish:hub": "node scripts/publish-hub.mjs",
     "check:hub": "node scripts/publish-hub.mjs --check",
-    "dev": "node scripts/dev-register.mjs"
+    "dev": "node scripts/dev-register.mjs",
+    "test": "node --test tests/"
   },
   "dependencies": {
     "@netlify/blobs": "^8.1.0"

@@ -1,157 +1,176 @@
 #!/usr/bin/env node
 /**
- * Publishes the data behind /answers (HOAhx · Open questions, answered by recommendation):
- * copies the recommendations JSON kept in the HOAhx repo (docs/launch/recommendations.json,
- * the source of truth for the wording) into go-live/answers/data.json after checking it.
- * The page itself (index.html, answers.js, answers.css) is authored in this repo and reads
- * data.json at load.
+ * The one command that keeps the owners' open questions page current (served at the site root
+ * and at /answers). It reads the launch program in the HOAhx repo and writes the two files the
+ * page reads, go-live/answers/data.json and go-live/answers/screens.json.
  *
- *   npm run publish:answers -- --source ../hoahx/docs/launch/recommendations.json
- *   npm run publish:answers -- --source ../hoahx/docs/launch/recommendations.json --register ../hoahx/docs/launch/decisions.md
- *   npm run publish:answers -- --source … --register … --screens ../hoahx/docs/launch/screen-review.json
- *   npm run check:answers                      # verify the committed data.json and screens.json, write nothing
+ *   npm run sync:answers                     # the whole thing, against ../hoahx and the live store
+ *   npm run sync:answers -- --hoahx <path>   # another checkout of the HOAhx repo
+ *   npm run sync:answers -- --dry-run        # everything but the writing: shows what would change
+ *   npm run check:answers                    # verify the committed page and files, read nothing else
+ *   npm run publish:answers                  # the same command as sync:answers, under its old name
  *
- * --screens publishes the "Screens to review" section (docs/launch/screen-review.json in the
- * HOAhx repo) as go-live/answers/screens.json. The internal mapping each screen carries in the
- * source (its register entry and its stub in register-stubs.md) is stripped: it is for the pull,
- * never for the page. Screen ids are "S-<code>" so they cannot collide with the A## cards, and the
- * register's pending guard does not apply to them (their entries are answered; a change becomes a
- * Follows candidate).
+ * In order:
+ *   1. snapshots the live store into <hoahx>/docs/launch/register-store/ (the owners' words are
+ *      copied before anything about the page changes; --site and --key choose the store,
+ *      --skip-snapshot is for a machine with no network and says so loudly)
+ *   2. drops the questions whose entry in decisions.md is no longer pending
+ *   3. rebuilds the list of screens from the spec and the preview modules
+ *   4. resolves every video number to its title, length and Drive link, and refuses a video that
+ *      was never recorded, is not current, or has no file in Drive
+ *   5. runs the guards: the words the owner-facing documents exclude, and every mark of the
+ *      internal numbering, in the page and in both published files
+ *   6. writes the two files and prints what changed
  *
- * Refuses to write if the data is malformed, a card names a group that does not exist, a
- * D-number appears on two cards, a recommendation line names a D-number its card does not
- * carry, a word the owner-facing documents exclude appears in the data or the page, or, when
- * --register is given, a D-number on a card is not a pending entry in decisions.md (D-059 is
- * the one allowed exception: its four loose ends sit on a recorded answer).
+ * It never commits and never pushes: a push to main is what puts the page in front of the owners.
+ *
+ * Inputs, all under <hoahx>: docs/launch/recommendations.json (the wording),
+ * docs/launch/screen-review.json (the screens' descriptions and internal mapping),
+ * docs/launch/decisions.md (which entries are pending), and docs/launch/owners-questions/sync.json
+ * (which git ref the screens and the videos are read at, the recorder's manifest, the Drive
+ * folder). Tracked files are read from a git ref, never from a working tree.
  */
-import { existsSync, readFileSync, writeFileSync, readdirSync } from 'node:fs';
-import { dirname, resolve } from 'node:path';
+import { execFileSync } from 'node:child_process';
+import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import {
+  buildPublished, buildQuestions, buildScreens, checkPublished, checkSource, describeChange,
+  guardPublished, parseRegister, parseScreensSpec, previewCode, resolveVideos, videoNumbers,
+} from './answers-lib.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
-const opt = (name, dflt) => (args.includes(name) ? args[args.indexOf(name) + 1] : dflt);
-const source = resolve(root, opt('--source', 'go-live/answers/data.json'));
-const register = opt('--register', '');
-const screensSource = opt('--screens', '');
-const screensTarget = resolve(root, 'go-live/answers/screens.json');
-const checkOnly = args.includes('--check');
-const target = resolve(root, 'go-live/answers/data.json');
+const has = (name) => args.includes(name);
+const opt = (name, dflt) => (has(name) ? args[args.indexOf(name) + 1] : dflt);
 const pagesDir = resolve(root, 'go-live/answers');
-const ANSWERED_EXCEPTIONS = new Set(['D-059']);
+const dataTarget = join(pagesDir, 'data.json');
+const screensTarget = join(pagesDir, 'screens.json');
 
-function fail(message) { console.error(`publish-answers: ${message}`); process.exit(1); }
+function fail(message) { console.error(`sync-answers: ${message}`); process.exit(1); }
+const readJson = (path, what) => {
+  if (!existsSync(path)) fail(`${what} not found: ${path}`);
+  try { return JSON.parse(readFileSync(path, 'utf8')); } catch (e) { return fail(`${what} is not valid JSON: ${e.message}`); }
+};
+const readPublished = () => (existsSync(dataTarget) && existsSync(screensTarget)
+  ? { data: JSON.parse(readFileSync(dataTarget, 'utf8')), screens: JSON.parse(readFileSync(screensTarget, 'utf8')) }
+  : null);
 
-if (!existsSync(source)) fail(`source not found: ${source}`);
-let data;
-try { data = JSON.parse(readFileSync(source, 'utf8')); } catch (e) { fail(`source is not valid JSON: ${e.message}`); }
-for (const k of ['generated', 'title', 'lede', 'groups', 'cards']) if (!(k in data)) fail(`data has no "${k}"`);
-if (!Array.isArray(data.groups) || !data.groups.length) fail('groups must be a non-empty array');
-if (!Array.isArray(data.cards) || !data.cards.length) fail('cards must be a non-empty array');
-
-const groupIds = new Set(data.groups.map((g) => g.id));
-const cardIds = new Set();
-const seenD = new Map();
-for (const c of data.cards) {
-  for (const k of ['id', 'group', 'title', 'decisions', 'rec', 'why']) if (!(k in c)) fail(`card ${c.id || '?'} has no "${k}"`);
-  if (!/^A\d{2}$/.test(c.id)) fail(`card id "${c.id}" is not A##`);
-  if (cardIds.has(c.id)) fail(`card ${c.id} appears twice`);
-  cardIds.add(c.id);
-  if (!groupIds.has(c.group)) fail(`card ${c.id} names group "${c.group}", which does not exist`);
-  if (!c.decisions.length) fail(`card ${c.id} carries no decisions`);
-  const own = new Set();
-  for (const d of c.decisions) {
-    if (!/^D-\d{3}$/.test(d.id)) fail(`card ${c.id}: "${d.id}" is not a D-number`);
-    if (!d.code || !d.q) fail(`card ${c.id}: ${d.id} needs a code and a question`);
-    if (seenD.has(d.id)) fail(`${d.id} is on two cards: ${seenD.get(d.id)} and ${c.id}`);
-    seenD.set(d.id, c.id);
-    own.add(d.id);
+/**
+ * The page as it stands: nothing an owner must not read. A check reads the two published files
+ * too; a sync guards the ones it is about to write instead of the ones it is about to replace.
+ */
+function guardPage(withJson) {
+  const names = readdirSync(pagesDir).filter((n) => (withJson ? /\.(html|js|css|json)$/ : /\.(html|js|css)$/).test(n));
+  for (const name of names) {
+    try { guardPublished(`go-live/answers/${name}`, readFileSync(join(pagesDir, name), 'utf8')); } catch (e) { fail(e.message); }
   }
-  if (!c.rec.length) fail(`card ${c.id} has no recommendation lines`);
-  for (const r of c.rec) {
-    if (!Array.isArray(r.d) || !r.d.length || !r.text) fail(`card ${c.id}: every recommendation line needs d[] and text`);
-    for (const id of r.d) if (!own.has(id)) fail(`card ${c.id}: a recommendation line names ${id}, which the card does not carry`);
-  }
-  const covered = new Set(c.rec.flatMap((r) => r.d));
-  for (const id of own) if (!covered.has(id)) fail(`card ${c.id}: ${id} has no recommendation line`);
+  return names;
 }
 
-if (register) {
-  const text = readFileSync(resolve(root, register), 'utf8');
-  const pending = new Set();
-  let cur = null;
-  for (const line of text.split('\n')) {
-    const m = line.match(/^### (D-\d{3}) /);
-    if (m) { cur = m[1]; continue; }
-    if (cur && /^- Answer: pending\b/.test(line)) pending.add(cur);
-  }
-  for (const id of seenD.keys()) {
-    if (!pending.has(id) && !ANSWERED_EXCEPTIONS.has(id)) fail(`${id} (card ${seenD.get(id)}) is not a pending entry in ${register}`);
-  }
-  const missing = [...pending].filter((id) => !seenD.has(id));
-  if (missing.length) console.warn(`publish-answers: pending in the register but on no card: ${missing.join(', ')}`);
+if (has('--check')) {
+  const pub = readPublished();
+  if (!pub) fail('go-live/answers/data.json or screens.json is missing');
+  let n;
+  try { n = checkPublished(pub.data, pub.screens); } catch (e) { fail(e.message); }
+  const names = guardPage(true);
+  console.log(`${n.rows} questions on ${n.cards} cards, ${n.screens} screens, ${n.videos} videos linked; last updated ${pub.data.updated}`);
+  console.log(`guards passed on ${names.join(', ')}`);
+  console.log('check only; nothing written');
+  process.exit(0);
 }
 
-const excluded = /\bStripe\b|\bClaude\b|\bAI\b|\bcustomer\b|\bas today\b|\balready handles\b|\bworkshop\b/;
-const hitData = JSON.stringify(data).match(excluded);
-if (hitData) fail(`excluded word "${hitData[0]}" appears in the data`);
+const hoahx = resolve(root, opt('--hoahx', '../hoahx'));
+if (!existsSync(join(hoahx, 'docs/launch'))) fail(`no launch program at ${hoahx}/docs/launch (pass --hoahx <path to the HOAhx checkout>)`);
+const config = readJson(join(hoahx, 'docs/launch/owners-questions/sync.json'), 'the sync settings');
+const git = (...a) => execFileSync('git', ['-C', hoahx, ...a], { stdio: ['ignore', 'pipe', 'pipe'], maxBuffer: 64 * 1024 * 1024 }).toString();
+const revOf = (ref) => { try { return git('rev-parse', '--short', ref).trim(); } catch (e) { return fail(`the git ref "${ref}" does not exist in ${hoahx}; set it in docs/launch/owners-questions/sync.json`); } };
+const today = opt('--today', new Date().toLocaleDateString('en-CA'));
 
-// ── screens to review ──
-const INTERNAL = ['register', 'stub'];
-function checkScreens(src, stripped) {
-  for (const k of ['generated', 'due', 'previewUrl', 'title', 'lede', 'features']) if (!(k in src)) fail(`screens: no "${k}"`);
-  if (!Array.isArray(src.features) || !src.features.length) fail('screens: features must be a non-empty array');
-  const ids = new Set(), codes = new Set();
-  for (const f of src.features) {
-    for (const k of ['id', 'title', 'screens']) if (!(k in f)) fail(`screens: feature ${f.id || '?'} has no "${k}"`);
-    if (!/^[A-Z]$/.test(f.id)) fail(`screens: feature id "${f.id}" is not one letter`);
-    if (!Array.isArray(f.screens) || !f.screens.length) fail(`screens: feature ${f.id} has no screens`);
-    for (const sc of f.screens) {
-      for (const k of ['id', 'code', 'title', 'look', 'url']) if (!(k in sc)) fail(`screens: ${sc.id || sc.code || '?'} has no "${k}"`);
-      if (!/^[A-Z]\d{1,2}$/.test(sc.code) || sc.code[0] !== f.id) fail(`screens: code "${sc.code}" does not belong to feature ${f.id}`);
-      if (sc.id !== 'S-' + sc.code) fail(`screens: ${sc.code} must have id "S-${sc.code}", has "${sc.id}"`);
-      if (ids.has(sc.id) || codes.has(sc.code)) fail(`screens: ${sc.code} appears twice`);
-      ids.add(sc.id); codes.add(sc.code);
-      if (!sc.url.startsWith(src.previewUrl + '/' + sc.code)) fail(`screens: ${sc.code} links to ${sc.url}, not ${src.previewUrl}/${sc.code}`);
-      if (sc.sides != null && !Array.isArray(sc.sides)) fail(`screens: ${sc.code} sides must be an array`);
-      if (!stripped) {
-        if (!/^D-\d{3}$/.test(sc.register || '')) fail(`screens: ${sc.code} needs its register entry (D-###) in the source`);
-        if (!/^F-\d{3}$/.test(sc.stub || '')) fail(`screens: ${sc.code} needs its stub (F-###) in the source`);
-      } else if (INTERNAL.some((k) => k in sc)) fail(`screens: ${sc.code} carries internal mapping on the page`);
-    }
-  }
-  const hit = JSON.stringify(src).match(excluded);
-  if (hit) fail(`excluded word "${hit[0]}" appears in the screens`);
-  return ids.size;
-}
-function stripScreens(src) {
-  return Object.assign({}, src, { features: src.features.map((f) => Object.assign({}, f, { screens: f.screens.map((sc) => { const o = Object.assign({}, sc); for (const k of INTERNAL) delete o[k]; return o; }) })) });
-}
-let screensOut = null, screensCount = 0;
-if (screensSource) {
-  const p = resolve(root, screensSource);
-  if (!existsSync(p)) fail(`screens source not found: ${p}`);
-  let src;
-  try { src = JSON.parse(readFileSync(p, 'utf8')); } catch (e) { fail(`screens source is not valid JSON: ${e.message}`); }
-  screensCount = checkScreens(src, false);
-  screensOut = JSON.stringify(stripScreens(src), null, 1);
-} else if (existsSync(screensTarget)) {
-  screensCount = checkScreens(JSON.parse(readFileSync(screensTarget, 'utf8')), true);
-}
-for (const f of readdirSync(pagesDir).filter((n) => n.endsWith('.html') || n.endsWith('.js'))) {
-  const text = readFileSync(resolve(pagesDir, f), 'utf8');
-  const hit = text.match(excluded);
-  if (hit) fail(`excluded word "${hit[0]}" appears in ${f}`);
-  if (/localhost|client-walkthrough/.test(text)) fail(`${f} links to a file that is not on this site`);
+// 1 · the owners' words first
+if (has('--skip-snapshot')) {
+  console.warn('sync-answers: SNAPSHOT SKIPPED (--skip-snapshot). The live store was not copied before this run.');
+} else {
+  const site = opt('--site', 'https://hoahx-requirements.netlify.app').replace(/\/$/, '');
+  const key = opt('--key', process.env.DECISION_EDIT_KEY || '');
+  let res;
+  try { res = await fetch(`${site}/api/answers?full=1${key ? '&key=' + encodeURIComponent(key) : ''}`, { headers: key ? { 'x-edit-key': key } : {} }); } catch (e) { fail(`the store at ${site} could not be reached (${e.message}); nothing was written`); }
+  if (res.status === 401) fail('the store asked for the passphrase: pass --key or set DECISION_EDIT_KEY');
+  if (!res.ok) fail(`the store at ${site} answered ${res.status}; nothing was written`);
+  const all = await res.json();
+  const dir = join(hoahx, 'docs/launch/register-store');
+  mkdirSync(dir, { recursive: true });
+  const stamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\..+$/, '').replace('T', '-');
+  const file = join(dir, `answers-store-${stamp}.json`);
+  if (!has('--dry-run')) writeFileSync(file, JSON.stringify({ pulledAt: new Date().toISOString(), site, records: all }, null, 1));
+  const liveCount = Object.values(all).filter((r) => r && (r.v || (r.n && String(r.n).trim()))).length;
+  console.log(`1 · snapshot: ${Object.keys(all).length} records, ${liveCount} live${has('--dry-run') ? ' (dry run: not written)' : ' -> ' + file}`);
 }
 
-console.log(`${data.cards.length} cards, ${seenD.size} decisions, ${data.groups.length} groups; generated ${data.generated}; ${screensCount} screens to review`);
-if (checkOnly) { console.log('check only; nothing written'); process.exit(0); }
-if (screensOut !== null) {
-  if (existsSync(screensTarget) && readFileSync(screensTarget, 'utf8') === screensOut) console.log('go-live/answers/screens.json is already current');
-  else { writeFileSync(screensTarget, screensOut); console.log(`wrote go-live/answers/screens.json (${screensOut.length} bytes)`); }
-}
-const out = JSON.stringify(data, null, 1);
-if (existsSync(target) && readFileSync(target, 'utf8') === out) { console.log('go-live/answers/data.json is already current'); process.exit(0); }
-writeFileSync(target, out);
-console.log(`wrote go-live/answers/data.json (${out.length} bytes)`);
+// 2 · the questions still waiting
+const source = readJson(resolve(root, opt('--source', join(hoahx, 'docs/launch/recommendations.json'))), 'the wording source');
+let counts;
+try { counts = checkSource(source); } catch (e) { fail(e.message); }
+const registerPath = resolve(root, opt('--register', join(hoahx, 'docs/launch/decisions.md')));
+if (!existsSync(registerPath)) fail(`decisions.md not found: ${registerPath}`);
+const { all: entries, pending } = parseRegister(readFileSync(registerPath, 'utf8'));
+for (const c of source.cards) for (const d of c.decisions) if (!entries.has(d.id)) fail(`${d.id} (card ${c.id}) is not an entry in decisions.md`);
+const answeredButOpen = config.answeredButOpen || [];
+const questions = buildQuestions(source, { pending, answeredButOpen });
+const onCards = new Set(source.cards.flatMap((c) => c.decisions.map((d) => d.id)));
+const unasked = [...pending].filter((id) => !onCards.has(id));
+console.log(`2 · questions: ${questions.rows} of ${counts.lines} lines still waiting, on ${questions.cards.length} cards`);
+for (const d of questions.dropped) console.log(`    dropped ${d.id}: ${d.why}`);
+if (unasked.length) console.warn(`    pending in decisions.md but on no card: ${unasked.join(', ')}`);
+
+// 3 · the screens
+if (!has('--no-fetch')) { try { git('fetch', '--quiet', 'origin'); } catch (e) { console.warn('sync-answers: could not fetch origin; reading the refs as they are on this machine'); } }
+const screensRef = config.screens.ref;
+const screensRev = revOf(screensRef);
+const spec = parseScreensSpec(git('show', `${screensRef}:${config.screens.spec}`));
+const previewFiles = git('ls-tree', '-r', '--name-only', screensRef, '--', 'src').split('\n').filter((f) => f.endsWith('.preview.ts'));
+const built = previewFiles.map((f) => previewCode(git('show', `${screensRef}:${f}`))).filter(Boolean);
+const screensSource = readJson(resolve(root, opt('--screens', join(hoahx, 'docs/launch/screen-review.json'))), 'the screens source');
+let screens;
+try { screens = buildScreens(screensSource, spec, built, config.screens.expected); } catch (e) { fail(e.message); }
+console.log(`3 · screens: ${screens.total} from ${config.screens.spec} at ${screensRef} (${screensRev}), ${previewFiles.length} preview modules`);
+
+// 4 · the videos
+const numbers = videoNumbers(questions, screens);
+let videos = {};
+if (numbers.length) {
+  const v = config.videos;
+  const videosRev = revOf(v.ref);
+  const manifest = readJson(join(hoahx, v.manifest), "the recorder's manifest");
+  const storyboard = JSON.parse(git('show', `${v.ref}:${v.storyboard}`));
+  const hashOf = (file) => { try { return git('rev-parse', '--verify', '--quiet', `${v.ref}:${file}`).trim() || 'missing'; } catch (e) { return 'missing'; } };
+  let driveFiles;
+  try { driveFiles = JSON.parse(execFileSync('rclone', ['lsjson', v.drive, '--files-only'], { stdio: ['ignore', 'pipe', 'pipe'], timeout: 90000 }).toString()); } catch (e) { fail(`the Drive folder ${v.drive} could not be listed (${String(e.message).split('\n')[0]}); no video link can be checked, nothing was written`); }
+  try { videos = resolveVideos(numbers, { manifest, storyboard, hashOf, driveFiles }); } catch (e) { fail(e.message); }
+  console.log(`4 · videos: ${Object.keys(videos).length} linked (${Object.keys(videos).join(', ')}), current at ${v.ref} (${videosRev}), each with a file in ${v.drive}`);
+} else console.log('4 · videos: none named');
+
+// 5 · the guards
+const previous = readPublished();
+const next = buildPublished({ questions, screens, videos, today, previous });
+const dataOut = JSON.stringify(next.data, null, 1);
+const screensOut = JSON.stringify(next.screens, null, 1);
+try {
+  checkPublished(next.data, next.screens);
+  guardPublished('data.json', dataOut);
+  guardPublished('screens.json', screensOut);
+} catch (e) { fail(e.message); }
+const names = guardPage(false);
+console.log(`5 · guards passed on data.json, screens.json, ${names.join(', ')}`);
+
+// 6 · the two files
+const changes = describeChange(previous, next);
+const same = previous && JSON.stringify(previous.data, null, 1) === dataOut && JSON.stringify(previous.screens, null, 1) === screensOut;
+if (same) { console.log(`6 · nothing changed; the page still reads "Last updated ${next.data.updated}"`); process.exit(0); }
+console.log(`6 · ${changes.length} change${changes.length === 1 ? '' : 's'}; last updated ${next.data.updated}`);
+for (const line of changes.slice(0, 60)) console.log(`    ${line}`);
+if (changes.length > 60) console.log(`    … and ${changes.length - 60} more`);
+if (has('--dry-run')) { console.log('dry run; nothing written'); process.exit(0); }
+writeFileSync(dataTarget, dataOut);
+writeFileSync(screensTarget, screensOut);
+console.log(`wrote go-live/answers/data.json (${dataOut.length} bytes) and screens.json (${screensOut.length} bytes). Not committed, not pushed.`);
