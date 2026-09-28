@@ -1,6 +1,6 @@
 {
  "updated": "2026-09-28",
- "drive": null,
+ "drive": "https://drive.google.com/drive/folders/1yrLpnPhmn8mZ3bE-DEwZ5RO2fRRCWaxe",
  "waiting": [
   {
    "t": "Sign off the 27 screens",
@@ -21,7 +21,7 @@
    "id": "product",
    "name": "Product",
    "about": "Grouped by product feature.",
-   "folder": null,
+   "folder": "https://drive.google.com/drive/folders/1LJTiJsIv_ZiZhnt99PsMP7LPJueaXedu",
    "columns": 2,
    "groups": [
     {
@@ -39,7 +39,16 @@
     },
     {
      "name": "Pricing",
-     "rows": []
+     "rows": [
+      {
+       "k": "doc",
+       "t": "Trial, billing and onboarding requirements",
+       "d": "The free trial, prices by community size, annual pricing and the implementation fee. On the second tab of the document.",
+       "href": "https://docs.google.com/document/d/1-6M45J1MjyXs0M1NM4-f9uvnYGhoEEtTd5jOF9rqkbc/edit",
+       "by": "Dan",
+       "date": "2026-09-09"
+      }
+     ]
     },
     {
      "name": "Market",
@@ -101,7 +110,16 @@
     },
     {
      "name": "Payments",
-     "rows": []
+     "rows": [
+      {
+       "k": "pdf",
+       "t": "NMI solution proposal",
+       "d": "NMI's proposal for how HOAhx takes payments: signing a community up, the payment form, and saved payment methods.",
+       "href": "https://drive.google.com/file/d/1W_igjelCHg-_nTz2q9PJLW6m-NV7ns6K/view",
+       "by": "Jacob",
+       "date": "2026-09-09"
+      }
+     ]
     },
     {
      "name": "Website",
@@ -161,7 +179,7 @@
    "id": "ux",
    "name": "UX",
    "about": "Design and brand documents.",
-   "folder": null,
+   "folder": "https://drive.google.com/drive/folders/1DdAbB3CuDaGchxHieF1Y5PsDRAzknFRR",
    "columns": 2,
    "groups": [
     {
@@ -184,7 +202,16 @@
     },
     {
      "name": "Brand",
-     "rows": []
+     "rows": [
+      {
+       "k": "doc",
+       "t": "Brand Foundation",
+       "d": "Purpose, vision, mission, values, the HOAhx Standard, and the creative direction.",
+       "href": "https://docs.google.com/document/d/1IASLf9UotopaZauflRN-kLZ-E_W48LCkxLRJxLMw9Yo/edit",
+       "by": "Rustin",
+       "date": "2026-09-14"
+      }
+     ]
     },
     {
      "name": "Screens and flows",
