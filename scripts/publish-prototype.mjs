@@ -8,7 +8,12 @@
  * project (prompt-preamble.md).
  *
  *   npm run publish:prototype -- --source ../hoahx/docs/prototype
- *   npm run publish:prototype -- --check        # verify only, write nothing
+ *   npm run check:prototype                              # verify what is published, read nothing else
+ *   npm run check:prototype -- --source <folder>         # verify a source before publishing it
+ *
+ * Publish from a checkout that is at origin/dev. The HOAhx main checkout is often far behind it
+ * and carries other sessions' uncommitted files, so a check that read it by default failed on
+ * text the source no longer had.
  *
  * Refuses to write if the page has no embedded data, a file is missing, the page
  * links to something not on this site, or a file contains a word the owner-facing
@@ -21,10 +26,13 @@ import { forbiddenWords } from './register-lib.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
-const sourceArg = args.includes('--source') ? args[args.indexOf('--source') + 1] : '../hoahx/docs/prototype';
+const hasSource = args.includes('--source');
+const sourceArg = hasSource ? args[args.indexOf('--source') + 1] : '../hoahx/docs/prototype';
 const checkOnly = args.includes('--check');
-const source = resolve(root, sourceArg);
 const targetDir = resolve(root, 'go-live/demo');
+// A check with no source named is a check of what is published, like every other check here.
+const checkPublished = checkOnly && !hasSource;
+const source = checkPublished ? targetDir : resolve(root, sourceArg);
 
 const FILES = [
   ['prototype-comparison.html', 'index.html'],
@@ -40,9 +48,9 @@ function fail(message) {
 
 if (!existsSync(source)) fail(`source folder not found: ${source}`);
 const texts = new Map();
-for (const [from] of FILES) {
-  const file = resolve(source, from);
-  if (!existsSync(file)) fail(`missing ${from} in ${source}; run \`node scripts/build-prototype-comparison.cjs\` in the HOAhx repo first`);
+for (const [from, to] of FILES) {
+  const file = resolve(source, checkPublished ? to : from);
+  if (!existsSync(file)) fail(checkPublished ? `go-live/demo/${to} is missing` : `missing ${from} in ${source}; run \`node scripts/build-prototype-comparison.cjs\` in the HOAhx repo first`);
   texts.set(from, readFileSync(file, 'utf8'));
 }
 
@@ -78,7 +86,7 @@ for (const item of [...data.features.flatMap((f) => f.app || []), ...(data.appOn
 
 console.log(`demo v${data.demo.version} (${data.demo.date}) vs app ${data.app.branch}: ${data.features.length} features (${data.counts.demoOnly} demo only, ${data.counts.both} in both), ${data.counts.appOnly} app-only items; built ${data.generated}`);
 if (checkOnly) {
-  console.log('check only; nothing written');
+  console.log(checkPublished ? 'checked what is published in go-live/demo/; nothing written' : 'check only; nothing written');
   process.exit(0);
 }
 

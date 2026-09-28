@@ -182,7 +182,9 @@ The script refuses to write if the page has no embedded data, a file is missing,
 something not on this site, or a file contains a word the owner-facing documents exclude (the demo's
 own label "HOAhx AI" is allowed). Then commit and push `main` (or open a PR and merge it); Netlify
 deploys on push. The folder is static: no shared store, no passphrase. `npm run check:prototype` runs
-the same checks and writes nothing.
+the same checks on what is published in `go-live/demo/` and writes nothing; add `-- --source <folder>`
+to check a source before publishing it. Publish from a checkout that is at `origin/dev`: the HOAhx
+main checkout is often far behind it.
 
 ## The launch plan
 
@@ -322,8 +324,13 @@ no error. A document on both lists keeps its published line and shows once.
 | Move it to another group | Move the file |
 | Add a group | Make a folder inside the section's folder |
 | Add a section | Make a folder beside Product, Developer review and UX |
-| Add a web address | A row in the sheet named **Hub links**: Section, Group, Title, Link, Description |
+| Add a web address | A row on the **Links** tab of the sheet named **Hub links**: Section and Group from their dropdowns, then Title, Link, Description |
+| Offer a new group in the dropdown | Its name in the next empty cell of column B on the sheet's **Lists** tab |
 | Remove something | Take the file out of the folder, or delete the row |
+
+The sheet refuses, as it is typed, a section or a group that is not on its Lists tab and a link
+that does not start with `https://`. The function checks the same things again, because a rule
+in a sheet can be removed by anyone who can edit it. The function reads the sheet's first tab.
 
 A file directly inside a section's folder lands in a group named Other. Files beside the section
 folders (the Hub links sheet, the how-to) are the hub's own and are never listed. A row of the
