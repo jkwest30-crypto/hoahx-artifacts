@@ -19,7 +19,7 @@ import crypto from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import {
-  REVIEW_ROOT, SHARED_DIR, SHARED_ROOT, REF_RE, buildJacobData, buildOwnersData, describeNote, driveView, guardOwnersData,
+  REVIEW_ROOT, SHARED_DIR, SHARED_ROOT, REF_RE, buildJacobData, findForbidden, buildOwnersData, describeNote, driveView, guardOwnersData,
   planPublish, readManifest, screenshotName, verifyCopy,
 } from './videos-lib.mjs';
 
@@ -131,9 +131,13 @@ function check() {
   if (!owners) problems.push('go-live/videos/data.json is missing or not JSON');
   if (!jacob) problems.push('go-live/videos/review/all.json is missing or not JSON');
   if (owners) problems.push(...guardOwnersData(owners));
-  for (const f of ['go-live/videos/index.html', 'go-live/videos/videos.js', 'go-live/videos/answers-section.js']) {
-    const text = fs.readFileSync(path.join(root, f), 'utf8');
-    for (const w of ['Stripe', 'Claude', 'Playwright', 'emulator']) if (new RegExp(`\\b${w}\\b`).test(text.replace(/\/\/.*$/gm, ''))) problems.push(`${f}: "${w}"`);
+  // Everything an owner's browser loads from go-live/videos/ (the section on /answers included), with
+  // code comments removed: the excluded words, "register", and the internal numbering.
+  const ownerFiles = ['go-live/videos/index.html', 'go-live/videos/videos.js', 'go-live/videos/videos.css', 'go-live/videos/answers-section.js', 'go-live/videos/data.json'];
+  for (const f of ownerFiles) {
+    const text = fs.readFileSync(path.join(root, f), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:])\/\/.*$/gm, '$1').replace(/<!--[\s\S]*?-->/g, '');
+    const hit = findForbidden(text);
+    if (hit.length) problems.push(`${f}: ${[...new Set(hit)].join(', ')}`);
   }
   if (problems.length) fail(`check:videos found:\n  ${problems.join('\n  ')}`);
   console.log(`check:videos: ok (${owners.videos.length} video(s) on the owners' page).`);
