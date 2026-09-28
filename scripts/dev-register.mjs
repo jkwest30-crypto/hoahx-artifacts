@@ -43,7 +43,7 @@ http.createServer(async (req, res) => {
     console.log(`${req.method} ${req.url} -> ${out.statusCode}`);
     return;
   }
-  const aliases = { '/': '/answers/index.html', '/workflow-map': '/workflow-map/workflow-map.html', '/scope': '/scope/index.html', '/answers': '/answers/index.html', '/answers/': '/answers/index.html', '/hub': '/hub/index.html', '/hub/': '/hub/index.html' };
+  const aliases = { '/': '/answers/index.html', '/workflow-map': '/workflow-map/workflow-map.html', '/scope': '/scope/index.html', '/answers': '/answers/index.html', '/answers/': '/answers/index.html', '/hub': '/hub/index.html', '/hub/': '/hub/index.html', '/videos': '/videos/index.html', '/videos/': '/videos/index.html', '/videos/review': '/videos/review/index.html', '/videos/review/': '/videos/review/index.html' };
   let file = aliases[url.pathname] || decodeURIComponent(url.pathname);
   const abs = path.join(root, 'go-live', file);
   if (!abs.startsWith(path.join(root, 'go-live')) || !fs.existsSync(abs) || fs.statSync(abs).isDirectory()) { res.writeHead(404); res.end('not found'); return; }

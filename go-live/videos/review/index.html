@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HOAhx · Video sign-off</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/answers/answers.css">
+<link rel="stylesheet" href="/videos/videos.css">
+</head>
+<body data-mode="jacob">
+<nav class="nav" aria-label="Video sign-off"><div class="wrap nav-in">
+  <span class="nav-brand">HOAhx · Video sign-off</span>
+  <span class="private">Private · not linked from any page</span>
+  <div class="sel" id="updated"></div>
+</div></nav>
+
+<header class="mast"><div class="wrap mast-in">
+  <p class="eyebrow">Your pass before the owners see anything</p>
+  <h1>Feature videos, signed off by you</h1>
+  <p class="lede">Every recording waits here first, in a folder the owners cannot open. Approve one and the next sync copies it into the shared folder, over the old file, so the owners' link never changes. A new recording of a video resets your approval of it.</p>
+  <dl class="meta" id="stats"></dl>
+</div></header>
+
+<div class="wrap" id="key-box" hidden>
+  <form class="send key-form" id="key-form">
+    <h2>Your passphrase</h2>
+    <p class="send-p">This page reads and writes your sign-offs, so it needs the <code>VIDEO_REVIEW_KEY</code> set on the site. It is remembered in this browser.</p>
+    <p class="err-line" id="key-msg"></p>
+    <label for="key-in">Passphrase</label>
+    <input type="password" id="key-in" autocomplete="current-password" required>
+    <div class="cta"><button class="btn" type="submit">Open</button></div>
+  </form>
+</div>
+
+<main class="wrap" id="app" aria-live="polite"><p class="empty">Loading…</p></main>
+<script src="/videos/videos.js"></script>
+</body>
+</html>

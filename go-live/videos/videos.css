@@ -1,0 +1,83 @@
+/* HOAhx · Videos to review — additions to /answers/answers.css (same tokens, type and rhythm). */
+.nav .private{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--flag);background:var(--flag-wash);padding:3px 8px;border-radius:2px}
+body[data-mode] main.wrap{padding:22px 16px 90px}
+@media (min-width:640px){body[data-mode] main.wrap{padding-inline:24px}}
+.chips{margin:0 0 14px}
+.empty{color:var(--muted);font-size:14px;padding:12px 0}
+.vcard{scroll-margin-top:70px}
+.vcard.is-wrong{border-left-color:var(--flag)}
+.vcard.companion{margin-left:22px}
+@media (max-width:560px){.vcard.companion{margin-left:10px}}
+.vcard.flash{box-shadow:0 0 0 3px var(--accent-2)}
+.vcard h3{text-wrap:balance}
+.card-h .sub{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.about{margin:0;color:var(--ink);font-size:14.5px;max-width:68ch}
+.facts{display:flex;flex-wrap:wrap;gap:3px 14px;margin:8px 0 0;font-size:12.5px;color:var(--muted)}
+.facts .mono,.mono{font-family:"IBM Plex Mono",monospace;font-size:11.5px;overflow-wrap:anywhere}
+.banner{margin:10px 0 0;padding:8px 12px;border-left:3px solid var(--change);background:var(--change-wash);color:var(--ink);font-size:13.5px;border-radius:2px}
+.banner.quiet{border-left-color:var(--rule-strong);background:var(--surface-2);color:var(--ink-2)}
+.pill.wrong{background:var(--flag-wash);color:var(--flag)}
+.pill.sent{background:var(--accent-wash);color:var(--accent)}
+.btn.wrong{background:transparent;color:var(--flag);border-color:var(--flag)}
+.btn.wrong:hover{background:var(--flag-wash)}
+.btn.wrong[aria-pressed="true"]{background:var(--flag);border-color:var(--flag);color:#fff}
+.btn.yes{background:transparent;color:var(--keep);border-color:var(--keep)}
+.btn.yes:hover{background:var(--keep-wash)}
+.btn.watch{display:inline-flex;align-items:center;gap:6px;text-decoration:none}
+.btn.watch svg{width:14px;height:14px}
+.act .link-btn{font-size:13px}
+.notes{margin-top:12px;padding-top:12px;border-top:1px solid var(--rule);display:grid;gap:10px}
+.owners-notes{background:var(--flag-wash);margin-inline:-18px;padding:12px 18px}
+.notes-h{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.note-item{display:grid;gap:5px;padding-bottom:10px;border-bottom:1px dashed var(--rule-strong);min-width:0}
+.note-item:last-of-type{border-bottom:0}
+.note-item p{margin:0;font-size:14px;white-space:pre-wrap;overflow-wrap:anywhere}
+.note-meta{font-size:12.5px;color:var(--muted)}
+.note-meta b{color:var(--ink-2);font-weight:600}
+.ref{font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:500;color:var(--accent);background:var(--accent-wash);padding:1px 6px;border-radius:2px;user-select:all}
+.thumbs{display:flex;flex-wrap:wrap;gap:8px}
+.thumbs img{display:block;max-width:160px;height:auto;max-height:110px;object-fit:contain;border:1px solid var(--rule-strong);border-radius:2px;background:var(--surface)}
+.hint{font-size:12.5px;color:var(--muted)}
+.err-line{font-size:13px;color:var(--flag)}
+.note-form{display:grid;gap:7px;margin-top:4px}
+.note-form label{font-size:13.5px;font-weight:500}
+.note-form textarea,.note-form input[type=text],.key-form input{width:100%;font:inherit;font-size:14px;color:var(--ink);background:var(--surface);border:1px solid var(--rule-strong);border-radius:2px;padding:8px 10px}
+.note-form textarea{min-height:76px;resize:vertical}
+.drop{display:flex;flex-wrap:wrap;align-items:center;gap:10px;border:1px dashed var(--rule-strong);border-radius:2px;padding:10px;background:var(--surface)}
+.drop.over{border-color:var(--accent-2);background:var(--accent-wash)}
+.drop input[type=file]{position:absolute;width:1px;height:1px;opacity:0}
+.file-btn{cursor:pointer;font-size:13.5px;font-weight:500;color:var(--accent);border:1px solid var(--accent);border-radius:2px;padding:6px 12px}
+.drop:focus-within .file-btn{outline:2px solid var(--accent-2);outline-offset:2px}
+.checks{display:grid;gap:10px}
+.check{display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);gap:12px;background:var(--surface);border:1px solid var(--rule);border-left:3px solid var(--keep);border-radius:2px;padding:10px}
+.check.warn{border-left-color:var(--change)}
+@media (max-width:520px){.check{grid-template-columns:1fr}}
+.check-img{appearance:none;border:1px solid var(--rule-strong);background:var(--surface-2);padding:0;cursor:zoom-in;border-radius:2px;align-self:start}
+.check-img img{display:block;width:100%;height:auto;max-height:280px;object-fit:contain}
+.check-body{min-width:0;display:grid;gap:4px;align-content:start}
+.check-h{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--muted)}
+.check-list{margin:0;padding:0;list-style:none;display:grid;gap:3px;font-size:13px}
+.check-list li::before{font-family:"IBM Plex Mono",monospace;margin-right:6px}
+.check-list .good{color:var(--keep)}.check-list .good::before{content:"✓"}
+.check-list .bad{color:var(--change)}.check-list .bad::before{content:"!"}
+.check-list .info{color:var(--muted)}.check-list .info::before{content:"·"}
+.confirm{display:flex;gap:8px;align-items:center;font-size:13.5px;font-weight:500;margin-top:4px}
+.check .link-btn{justify-self:start;font-size:12.5px}
+.form-row{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
+.key-form{max-width:520px;margin:22px 0 0}
+.key-form label{display:block;font-size:14px;font-weight:500;margin:10px 0 6px}
+.key-form .cta{margin-top:12px}
+code{font-family:"IBM Plex Mono",monospace;font-size:.92em}
+
+/* the section on /answers */
+.vreview{margin:34px 0 0;scroll-margin-top:120px}
+.vreview-h{background:var(--surface);border:1px solid var(--rule);border-left:3px solid var(--accent);border-radius:2px;padding:16px 18px;margin:0 0 14px;box-shadow:var(--shadow)}
+.vreview-h p{margin:8px 0 0;color:var(--ink-2);font-size:14.5px;max-width:70ch}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.vtile{background:var(--surface);border:1px solid var(--rule);border-left:3px solid var(--rule-strong);border-radius:2px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;box-shadow:var(--shadow);min-width:0}
+.vtile.is-yes{border-left-color:var(--keep)}
+.vtile.is-wrong{border-left-color:var(--flag)}
+.vtile h3{font-size:17px}
+.vtile p{margin:0;font-size:13.5px;color:var(--ink-2);flex:1}
+.vtile .row{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.vtile a.btn{text-decoration:none;font-size:13.5px;padding:7px 12px;min-height:0}

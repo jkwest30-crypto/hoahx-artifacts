@@ -61,3 +61,21 @@
   from = "/hub"
   to = "/hub/index.html"
   status = 200
+
+# HOAhx · Videos to review: the owners' page at /videos (also a section on /answers) and Jacob's
+# sign-off page at /videos/review (linked from nowhere), with their shared store at /api/videos.
+[[redirects]]
+  from = "/api/videos"
+  to = "/.netlify/functions/videos"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/videos"
+  to = "/videos/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/videos/review"
+  to = "/videos/review/index.html"
+  status = 200
