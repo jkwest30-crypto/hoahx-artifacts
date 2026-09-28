@@ -145,12 +145,6 @@
       },
       {
        "k": "page",
-       "t": "Decision Register",
-       "d": "Every product decision, with Keep, Change or Discuss.",
-       "href": "https://hoahx-requirements.netlify.app/"
-      },
-      {
-       "k": "page",
        "t": "Beyond the proposal",
        "d": "Packages and features outside the launch, sized and priced.",
        "href": "https://hoahx-requirements.netlify.app/scope/"

@@ -62,6 +62,8 @@ for (const [from, text] of texts) {
   if (hits.length) fail(`excluded word "${hits[0].label}" appears in ${from} (line ${hits[0].line}): ${hits[0].text}`);
 }
 if (/client-walkthrough|localhost|claude\.ai\/code\/artifact|chatgpt\.site/.test(html)) fail('the page links to something that is not on this site');
+// The Decision Register is an internal tool: no owner-facing page names it or links to it.
+if (/decision[ -]register/i.test(html)) fail('the page names the Decision Register, which is internal: take the link out of docs/prototype/comparison-template.html in the HOAhx repo and rebuild');
 // Static links in the markup (outside the page's scripts) must point at this site.
 const markup = html.replace(/<script[\s\S]*?<\/script>/g, '');
 for (const m of markup.matchAll(/href="([^"#]+)/g)) {

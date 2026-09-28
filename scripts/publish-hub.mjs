@@ -43,6 +43,9 @@ function isText(s, max) { return typeof s === 'string' && s.trim().length > 0 &&
 if (!existsSync(source)) fail(`source not found: ${source}`);
 let data;
 try { data = JSON.parse(readFileSync(source, 'utf8')); } catch (e) { fail(`source is not valid JSON: ${e.message}`); }
+// The Decision Register is an internal tool: the hub neither lists it nor links to it.
+if (/decision[ -]register/i.test(JSON.stringify(data))) fail('the list names the Decision Register, which is internal: take the row out');
+if (/decision[ -]register/i.test(readFileSync(resolve(root, 'go-live/hub/index.html'), 'utf8'))) fail('go-live/hub/index.html names the Decision Register, which is internal');
 
 if (!isDate(data.updated)) fail('"updated" must be a date, YYYY-MM-DD');
 if (data.drive !== null && !(data.drive && DRIVE.test(data.drive))) fail('"drive" must be null or a Google Drive link');
