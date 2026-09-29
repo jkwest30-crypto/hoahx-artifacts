@@ -139,7 +139,7 @@ try {
   let store = await live();
   check('agreeing every question on a card makes the card Agreed', (await text(card(page, 'A02').locator('.card-h .pill'))) === 'Agreed' && (await text(card(page, 'A02').locator('.card-h small'))) === `${a02.rows.length} of ${a02.rows.length} answered`, await text(card(page, 'A02').locator('.card-h .side')));
   check('each of its answers is in the store, under the question\'s own id', a02.rows.every((r) => store[r.id] && store[r.id].v === 'agree'), JSON.stringify(a02.rows.map((r) => [r.id, store[r.id] && store[r.id].v])));
-  check('the counts follow', new RegExp(`Questions ${a02.rows.length} of ${nRows} answered ${a02.rows.length} Agreed`).test(await text(page.locator('#where'))) && /1 of \d+ cards agreed/.test(await text(page.locator('.group-h', { has: page.locator('h3', { hasText: 'Money' }) }))));
+  check('the counts follow', new RegExp(`Questions ${a02.rows.length} of ${nRows} answered ${a02.rows.length} Agreed`).test(await text(page.locator('#where'))) && /1 of \d+ cards agreed/.test(await text(page.locator('.group', { has: page.locator('[data-card="A02"]') }).locator('.group-h'))));
   await row(page, 'A01-1').locator('[data-mark="agree"]').click(); await saved(page);
   check('a card with one question agreed and others open is In progress', (await text(card(page, 'A01').locator('.card-h .pill'))) === 'In progress');
 
@@ -222,9 +222,10 @@ try {
   check(`the ${critRows.length} critical questions come first with a Critical badge; the rest follow`, rowOrder.filter(Boolean).length === critRows.length && (await page.locator('[data-row][data-critical="true"] .crit-badge').count()) === critRows.length && rowOrder.indexOf(true) === 0);
   // the film of the screen, beside the link that opens it: watching is the other way to review it
   const filmed = scr.features.flatMap((f) => f.screens).filter((x) => x.walk);
-  const films = await page.locator('[data-screen] a.see').evaluateAll((as) => as.map((a) => ({ href: a.getAttribute('href'), target: a.target, text: a.innerText.replace(/\s+/g, ' ').trim() })));
+  const filmedByScreen = Object.fromEntries(scr.features.flatMap((f) => f.screens).filter((x) => x.walk).map((x) => [x.code, x.walk.url]));
+  const films = await page.locator('[data-screen] a.see').evaluateAll((as) => as.map((a) => ({ screen: a.closest('[data-screen]').dataset.screen, href: a.getAttribute('href'), target: a.target, text: a.innerText.replace(/\s+/g, ' ').trim() })));
   check(`each screen with a film offers it, in a new tab, with its length (${filmed.length} of 27)`,
-    films.length === filmed.length && films.every((f, i) => f.href === filmed[i].walk.url && DRIVE.test(f.href) && f.target === '_blank' && /^Watch it \d+:\d\d$/.test(f.text)),
+    films.length === filmed.length && films.every((f) => filmedByScreen[f.screen] === f.href && DRIVE.test(f.href) && f.target === '_blank' && /^Watch it \d+:\d\d$/.test(f.text)),
     films.length ? JSON.stringify(films[0]) : 'no screen carries a film');
   // A film of a screen says nothing about whether the thing is built, so it must never sit under
   // the Built badge: that badge belongs to the feature videos beside it, which are the claim.
