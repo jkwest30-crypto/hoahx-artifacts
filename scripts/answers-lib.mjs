@@ -154,8 +154,9 @@ export function previewCode(moduleText) {
  * The screens as published: the spec decides which screens exist, in which order and under
  * which title; the source adds the owners' wording and the videos; a screen with no preview
  * module has nothing to link to and is refused. The source's internal mapping never leaves it.
+ * `walkthroughs` adds the film of a screen where there is one to link (resolveWalkthroughs).
  */
-export function buildScreens(source, spec, builtCodes, expected) {
+export function buildScreens(source, spec, builtCodes, expected, walkthroughs = {}) {
   for (const k of ['previewUrl', 'features']) if (!(k in source)) throw new Error(`the screens source has no "${k}"`);
   if (!/^https:\/\//.test(source.previewUrl)) throw new Error('the screens source needs an https previewUrl');
   const wording = new Map();
@@ -178,7 +179,10 @@ export function buildScreens(source, spec, builtCodes, expected) {
       const videos = w.videos || [];
       if (!Array.isArray(videos)) throw new Error(`${s.code}: "videos" must be a list`);
       for (const n of videos) if (!VIDEO_NO.test(n)) throw new Error(`${s.code}: video "${n}" is not a two-digit number`);
-      return { id: 'S-' + s.code, code: s.code, title: s.title, what: String(w.look).trim(), url: source.previewUrl + '/' + s.code, videos: videos.slice() };
+      const out = { id: 'S-' + s.code, code: s.code, title: s.title, what: String(w.look).trim(), url: source.previewUrl + '/' + s.code, videos: videos.slice() };
+      const walk = walkthroughs[s.code];
+      if (walk) out.walk = { seconds: Math.round(walk.seconds), url: walk.url };
+      return out;
     }),
   }));
   for (const code of wording.keys()) if (!inSpec.has(code)) throw new Error(`the screens source describes ${code}, which the spec does not list`);
@@ -233,6 +237,87 @@ export function resolveVideos(numbers, { manifest, storyboard, hashOf, driveFile
   return videos;
 }
 
+// ── the screen walk-throughs ─────────────────────────────────────────────────
+// One film per screen, state by state, so that watching a screen is an alternative to opening
+// it and stepping through it. This is not a feature video: a feature-video link on this page
+// means "this is built", and every screen has a walk-through whether it is built or not.
+// A walk-through's identity is the screen's own code, so there is no second numbering.
+const REL_IMPORT = /(?:from|import)\s*\(?\s*['"](\.[^'"]+)['"]/g;
+const TS_EXTS = ['', '.ts', '.tsx', '/index.ts', '/index.tsx'];
+
+/**
+ * The files one screen is made of: its preview module and, through it, every file it imports
+ * by a relative path — its view, its fixtures and the helpers beside them. Imports written
+ * against the "@/" alias are left out on purpose: a change to a shared button is not a change
+ * to this screen, and 27 walk-throughs must not all go stale because one was restyled.
+ *   entry   the screen's *.preview.ts path
+ *   exists  path -> is there a file at this path in the tree
+ *   read    path -> its text, or null
+ */
+export function previewClosure(entry, { exists, read }) {
+  const resolve = (from, spec) => {
+    const out = from.split('/').slice(0, -1);
+    for (const part of spec.split('/')) {
+      if (part === '.') continue;
+      else if (part === '..') out.pop();
+      else out.push(part);
+    }
+    const base = out.join('/');
+    for (const ext of TS_EXTS) if (exists(base + ext)) return base + ext;
+    return null;
+  };
+  const seen = new Set();
+  const queue = [entry];
+  while (queue.length) {
+    const file = queue.shift();
+    if (seen.has(file)) continue;
+    seen.add(file);
+    const text = read(file);
+    if (text == null) continue;
+    for (const m of String(text).matchAll(REL_IMPORT)) {
+      const target = resolve(file, m[1]);
+      if (target) queue.push(target);
+    }
+  }
+  return [...seen].sort();
+}
+
+/** What a screen is, by content: its files and their blob ids. `hashOf` gives 'missing' for none. */
+export function screenFingerprint(files, hashOf) {
+  const text = ['s1', ...files.map((f) => `${f}:${hashOf(f)}`)].join('\n');
+  return crypto.createHash('sha256').update(text).digest('hex').slice(0, 12);
+}
+
+/**
+ * The walk-through link for every screen that may have one, and why each of the others may not.
+ * Unlike a feature video, whose number is named by hand, a walk-through is looked up for all 27
+ * at once — so one that cannot be linked is left off the page and reported, never fatal.
+ *
+ *   manifest   screen-walkthroughs.json from the launch program
+ *   driveFiles [{ Name, ID }] from `rclone lsjson` of the folder the takes were uploaded to
+ *   current    code -> true when the screen's files are the ones the take was filmed from
+ *   readable   url  -> true when the Drive link opens for someone who was only given the link
+ * @returns { walkthroughs: { "A1": { seconds, url } }, refused: ["A1: …"] }
+ */
+export function resolveWalkthroughs(codes, { manifest, driveFiles, current, readable }) {
+  const filmed = new Map(((manifest && manifest.walkthroughs) || []).map((w) => [w.code, w]));
+  const inDrive = new Map((driveFiles || []).filter((f) => f.ID).map((f) => [f.Name, f.ID]));
+  const walkthroughs = {};
+  const refused = [];
+  for (const code of [...new Set(codes)].sort()) {
+    const w = filmed.get(code);
+    if (!w) { refused.push(`${code}: never filmed (no entry in the walk-through manifest)`); continue; }
+    if (!Number.isFinite(w.seconds) || w.seconds <= 0) { refused.push(`${code}: the manifest gives no length`); continue; }
+    if (!current(code)) { refused.push(`${code} (${w.title}): not current, the screen changed since it was filmed at ${w.commit}`); continue; }
+    const id = inDrive.get(w.file);
+    if (!id) { refused.push(`${code} (${w.title}): no file named ${w.file} in the Drive folder`); continue; }
+    const url = driveLink(id);
+    if (!readable(url)) { refused.push(`${code} (${w.title}): the Drive file is not readable by link, so the owners would meet a sign-in page`); continue; }
+    walkthroughs[code] = { seconds: Math.round(w.seconds), url };
+  }
+  return { walkthroughs, refused };
+}
+
 /** Every video number the questions and the screens name. */
 export function videoNumbers(questions, screens) {
   return [
@@ -280,7 +365,7 @@ export function checkPublished(data, screens) {
       rows += 1;
     }
   }
-  const allowedScreen = new Set(['id', 'code', 'title', 'what', 'url', 'videos']);
+  const allowedScreen = new Set(['id', 'code', 'title', 'what', 'url', 'videos', 'walk']);
   const codes = new Set();
   for (const f of screens.features) for (const s of f.screens) {
     for (const k of Object.keys(s)) if (!allowedScreen.has(k)) throw new Error(`screens.json: ${s.code} carries "${k}", which the page does not read`);
@@ -290,6 +375,13 @@ export function checkPublished(data, screens) {
     if (!s.what || !s.title) throw new Error(`screens.json: ${s.code} has no title or description`);
     if (s.url !== screens.previewUrl + '/' + s.code) throw new Error(`screens.json: ${s.code} links to ${s.url}`);
     for (const n of s.videos) if (!data.videos[n]) throw new Error(`screens.json: ${s.code} names video ${n}, which has no link`);
+    if ('walk' in s) {
+      const w = s.walk;
+      if (!w || typeof w !== 'object') throw new Error(`screens.json: ${s.code} has a "walk" that is not a link`);
+      for (const k of Object.keys(w)) if (k !== 'seconds' && k !== 'url') throw new Error(`screens.json: ${s.code}'s walk carries "${k}", which the page does not read`);
+      if (!(w.seconds > 0)) throw new Error(`screens.json: ${s.code}'s walk has no length`);
+      if (!/^https:\/\/drive\.google\.com\/file\/d\/[\w-]+\/view$/.test(w.url || '')) throw new Error(`screens.json: ${s.code}'s walk has no Drive link`);
+    }
   }
   for (const [n, v] of Object.entries(data.videos)) {
     if (!VIDEO_NO.test(n) || !v.title || !(v.seconds > 0) || !/^https:\/\/drive\.google\.com\/file\/d\/[\w-]+\/view$/.test(v.url)) throw new Error(`data.json: video ${n} is incomplete`);
@@ -318,6 +410,12 @@ export function describeChange(before, after) {
     const was = sa.get(code);
     if (!was) out.push(`+ screen ${code}: ${s.title}`);
     else if (was.title !== s.title || (was.what || was.look) !== s.what || JSON.stringify(was.videos || []) !== JSON.stringify(s.videos)) out.push(`~ screen ${code}: ${s.title}`);
+    const wa = was && was.walk, wb = s.walk;
+    if (was && JSON.stringify(wa || null) !== JSON.stringify(wb || null)) {
+      out.push(wb && !wa ? `+ screen ${code}: a video of it, ${wb.seconds}s`
+        : wa && !wb ? `- screen ${code}: its video is no longer linked`
+        : `~ screen ${code}: a new video of it, ${wb.seconds}s`);
+    }
   }
   for (const [code, s] of sa) if (!sb.has(code)) out.push(`- screen ${code}: ${s.title}`);
   return out;

@@ -212,6 +212,16 @@ try {
   check('a screen card has no answer buttons', (await page.locator('#screen-groups button').count()) === 0 && (await page.locator('#screens textarea').count()) === 0);
   const hrefs = await page.locator('[data-screen] a.go').evaluateAll((as) => as.map((a) => a.getAttribute('href')));
   check('every screen links to itself on the test site', hrefs.length === 27 && hrefs.every((h, i) => h === scr.previewUrl + '/' + scr.features.flatMap((f) => f.screens)[i].code), hrefs[0]);
+  // the film of the screen, beside the link that opens it: watching is the other way to review it
+  const filmed = scr.features.flatMap((f) => f.screens).filter((x) => x.walk);
+  const films = await page.locator('[data-screen] a.see').evaluateAll((as) => as.map((a) => ({ href: a.getAttribute('href'), target: a.target, text: a.innerText.replace(/\s+/g, ' ').trim() })));
+  check(`each screen with a film offers it, in a new tab, with its length (${filmed.length} of 27)`,
+    films.length === filmed.length && films.every((f, i) => f.href === filmed[i].walk.url && DRIVE.test(f.href) && f.target === '_blank' && /^Watch it \d+:\d\d$/.test(f.text)),
+    films.length ? JSON.stringify(films[0]) : 'no screen carries a film');
+  // A film of a screen says nothing about whether the thing is built, so it must never sit under
+  // the Built badge: that badge belongs to the feature videos beside it, which are the claim.
+  const underBuilt = await page.locator('[data-screen] a.see').evaluateAll((as) => as.filter((a) => a.closest('.vids')).length);
+  check('the film of a screen sits outside the Built group', underBuilt === 0);
   // what the sign-off panel on the test site would save
   await api('POST', { id: 'S-A1', v: 'yes', by: 'Rustin' });
   await api('POST', { id: 'S-A5', v: 'change', n: 'The banner should say who to call, not only the date.', by: 'Rustin' });

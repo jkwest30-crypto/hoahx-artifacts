@@ -115,6 +115,9 @@ main{display:flex;flex-direction:column;gap:44px;padding-top:34px;padding-bottom
 .scr-foot{margin-top:auto;padding-top:4px;display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center;font-size:13.5px}
 .go{font-weight:500;text-decoration:none;border-bottom:1px solid currentColor}
 .vids{display:flex;flex-wrap:wrap;gap:4px 14px;align-items:center;font-size:13px}
+.see{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 10px;border:1px solid var(--rule-strong);border-radius:8px;color:var(--accent);text-decoration:none;font-weight:500;font-size:13px}
+.see i{font-style:normal;color:var(--muted);font-variant-numeric:tabular-nums}
+.see:hover{background:var(--accent-wash);border-color:var(--accent-2)}
 .built{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--keep);background:var(--keep-wash);padding:1px 7px}
 .watch{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--keep);font-weight:500}
 .watch::before{content:"";width:0;height:0;border-left:7px solid currentColor;border-top:4.5px solid transparent;border-bottom:4.5px solid transparent;flex:none}

@@ -7,6 +7,8 @@
  *   npm run sync:answers                     # the whole thing, against ../hoahx and the live store
  *   npm run sync:answers -- --hoahx <path>   # another checkout of the HOAhx repo
  *   npm run sync:answers -- --dry-run        # everything but the writing: shows what would change
+ *   npm run sync:answers -- --screens-ref <ref>  # read the screens at another ref, to see what the
+ *                                            # page will say once a branch has landed (with --dry-run)
  *   npm run check:answers                    # verify the committed page and files, read nothing else
  *   npm run publish:answers                  # the same command as sync:answers, under its old name
  *
@@ -15,7 +17,9 @@
  *      copied before anything about the page changes; --site and --key choose the store,
  *      --skip-snapshot is for a machine with no network and says so loudly)
  *   2. drops the questions whose entry in decisions.md is no longer pending
- *   3. rebuilds the list of screens from the spec and the preview modules
+ *   3. rebuilds the list of screens from the spec and the preview modules, and links the film of
+ *      each screen, leaving off (and naming) any whose screen has changed since it was filmed,
+ *      whose take is not in Drive, or whose Drive file is not readable by link
  *   4. resolves every video number to its title, length and Drive link, and refuses a video that
  *      was never recorded, is not current, or has no file in Drive
  *   5. runs the guards: the words the owner-facing documents exclude, and every mark of the
@@ -36,7 +40,8 @@ import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
   buildPublished, buildQuestions, buildScreens, checkPublished, checkSource, describeChange,
-  guardPublished, parseRegister, parseScreensSpec, previewCode, resolveVideos, videoNumbers,
+  guardPublished, parseRegister, parseScreensSpec, previewClosure, previewCode, resolveVideos,
+  resolveWalkthroughs, screenFingerprint, videoNumbers,
 } from './answers-lib.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -87,6 +92,22 @@ const git = (...a) => execFileSync('git', ['-C', hoahx, ...a], { stdio: ['ignore
 const revOf = (ref) => { try { return git('rev-parse', '--short', ref).trim(); } catch (e) { return fail(`the git ref "${ref}" does not exist in ${hoahx}; set it in docs/launch/owners-questions/sync.json`); } };
 const today = opt('--today', new Date().toLocaleDateString('en-CA'));
 
+/**
+ * Does this Drive link open for someone who was only given the link? A file that was never
+ * shared answers 401 and shows a sign-in page, which is what an owner would meet. Asking is
+ * the difference between a link and a dead end, and nothing else on this page checks it.
+ * Anything other than a clear yes is treated as no: a link we cannot vouch for is not published.
+ */
+async function linkReadable(url) {
+  try {
+    const res = await fetch(url, { redirect: 'follow', signal: AbortSignal.timeout(20000) });
+    return res.status === 200;
+  } catch (e) {
+    console.warn(`     could not open ${url} (${e.message})`);
+    return false;
+  }
+}
+
 // 1 · the owners' words first
 if (has('--skip-snapshot')) {
   console.warn('sync-answers: SNAPSHOT SKIPPED (--skip-snapshot). The live store was not copied before this run.');
@@ -125,14 +146,68 @@ if (unasked.length) console.warn(`    pending in decisions.md but on no card: ${
 
 // 3 · the screens
 if (!has('--no-fetch')) { try { git('fetch', '--quiet', 'origin'); } catch (e) { console.warn('sync-answers: could not fetch origin; reading the refs as they are on this machine'); } }
-const screensRef = config.screens.ref;
+const screensRef = opt('--screens-ref', config.screens.ref);
 const screensRev = revOf(screensRef);
 const spec = parseScreensSpec(git('show', `${screensRef}:${config.screens.spec}`));
 const previewFiles = git('ls-tree', '-r', '--name-only', screensRef, '--', 'src').split('\n').filter((f) => f.endsWith('.preview.ts'));
-const built = previewFiles.map((f) => previewCode(git('show', `${screensRef}:${f}`))).filter(Boolean);
+const moduleOf = new Map();
+for (const f of previewFiles) { const c = previewCode(git('show', `${screensRef}:${f}`)); if (c) moduleOf.set(c, f); }
+const built = [...moduleOf.keys()];
 const screensSource = readJson(resolve(root, opt('--screens', join(hoahx, 'docs/launch/screen-review.json'))), 'the screens source');
+
+// 3b · the film of each screen. It is linked only when the screen is the one that was filmed,
+// which is decided by content: the preview module and everything it imports relatively, at the
+// ref the page reads and at the commit the take was filmed from.
+const walkCfg = config.walkthroughs || null;
+const walkPath = walkCfg && join(hoahx, walkCfg.manifest);
+let walkthroughs = {};
+if (walkCfg && existsSync(walkPath)) {
+  const manifest = readJson(walkPath, 'the walk-through manifest');
+  const filmRef = manifest.commit;
+  revOf(filmRef);
+  const treeAt = (ref) => new Set(git('ls-tree', '-r', '--name-only', ref, '--', 'src').split('\n').filter(Boolean));
+  const at = (ref) => {
+    const tree = treeAt(ref);
+    return {
+      exists: (f) => tree.has(f),
+      read: (f) => { try { return git('show', `${ref}:${f}`); } catch (e) { return null; } },
+      hashOf: (f) => { try { return git('rev-parse', '--verify', '--quiet', `${ref}:${f}`).trim() || 'missing'; } catch (e) { return 'missing'; } },
+    };
+  };
+  const now = at(screensRef), then = at(filmRef);
+  const fingerprintAt = (side, code) => {
+    const module = moduleOf.get(code) || (manifest.walkthroughs.find((w) => w.code === code) || {}).module;
+    if (!module) return 'no module';
+    return screenFingerprint(previewClosure(module, side), side.hashOf);
+  };
+  const current = (code) => fingerprintAt(now, code) === fingerprintAt(then, code);
+  let driveFiles;
+  try { driveFiles = JSON.parse(execFileSync('rclone', ['lsjson', walkCfg.drive, '--files-only'], { stdio: ['ignore', 'pipe', 'pipe'], timeout: 120000 }).toString()); } catch (e) { fail(`the Drive folder ${walkCfg.drive} could not be listed (${String(e.message).split('\n')[0]}); no screen video can be checked, nothing was written`); }
+  // Readability is the last gate and the only one that needs the network, so it is asked only
+  // about the links that would otherwise be used: resolve once trusting every link, check those,
+  // then resolve again for real. resolveWalkthroughs is pure, so running it twice costs nothing.
+  const codes = spec.flatMap((f) => f.screens.map((x) => x.code));
+  const would = resolveWalkthroughs(codes, { manifest, driveFiles, current, readable: () => true });
+  const readable = new Map();
+  if (has('--trust-drive-links')) {
+    console.warn('     --trust-drive-links: the Drive links were NOT opened to check the owners can see them');
+    for (const [, w] of Object.entries(would.walkthroughs)) readable.set(w.url, true);
+  } else {
+    await Promise.all(Object.values(would.walkthroughs).map(async (w) => {
+      readable.set(w.url, await linkReadable(w.url));
+    }));
+  }
+  const out = resolveWalkthroughs(codes, { manifest, driveFiles, current, readable: (url) => readable.get(url) === true });
+  walkthroughs = out.walkthroughs;
+  const n = Object.keys(walkthroughs).length;
+  console.log(`3b · screen videos: ${n} linked, filmed from ${filmRef}, each current at ${screensRef} and readable by link`);
+  for (const r of out.refused) console.log(`     not linked — ${r}`);
+} else if (walkCfg) {
+  console.log(`3b · screen videos: none (no manifest at ${walkCfg.manifest})`);
+}
+
 let screens;
-try { screens = buildScreens(screensSource, spec, built, config.screens.expected); } catch (e) { fail(e.message); }
+try { screens = buildScreens(screensSource, spec, built, config.screens.expected, walkthroughs); } catch (e) { fail(e.message); }
 console.log(`3 · screens: ${screens.total} from ${config.screens.spec} at ${screensRef} (${screensRev}), ${previewFiles.length} preview modules`);
 
 // 4 · the videos

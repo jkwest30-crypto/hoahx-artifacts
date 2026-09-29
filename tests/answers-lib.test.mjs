@@ -4,8 +4,8 @@ import assert from 'node:assert/strict';
 import crypto from 'node:crypto';
 import {
   buildPublished, buildPull, buildQuestions, buildScreens, checkPublished, checkSource, describeChange,
-  driveLink, findForbidden, guardPublished, parseRegister, parseScreensSpec, previewCode, resolveVideos,
-  videoFingerprint, videoNumbers,
+  driveLink, findForbidden, guardPublished, parseRegister, parseScreensSpec, previewClosure, previewCode,
+  resolveVideos, resolveWalkthroughs, screenFingerprint, videoFingerprint, videoNumbers,
 } from '../scripts/answers-lib.mjs';
 
 const clone = (x) => JSON.parse(JSON.stringify(x));
@@ -312,4 +312,133 @@ test('pull: screens carry Signed off, Change and Discuss, with who answered', ()
   assert.match(p.text, /### S-B1 · B1 · old — Discuss \(2026-09-29\)\nRegister: D-042 · Stub: F-059\nMark: Discuss\nNote: Working days or calendar days\?\nBy: Rustin/);
   assert.match(p.text, /## Screens answered on the test site that the source does not list\n\n.*\n\n### S-C9 — yes/);
   assert.deepEqual(p.screens, { yes: 1, change: 1, discuss: 1, open: 0 });
+});
+
+// ── the screen walk-throughs ──────────────────────────────────────────────────
+// A film of one screen, state by state. It is not a feature video: it says nothing about
+// whether the thing is built, and every screen has one.
+const TREE = {
+  'src/components/a/plans.preview.ts': "import { lazy } from 'react';\nimport type { P } from './PlansView';\nimport { TIERS } from './fixtures';\nimport { Button } from '@/components/ui/button';\nexport default definePreview({ code: 'A1' })",
+  'src/components/a/PlansView.tsx': "import { price } from './pricing';\nimport { Card } from '@/components/ui/card';\nexport const V = 1;",
+  'src/components/a/pricing.ts': 'export const price = 1;',
+  'src/components/a/fixtures.ts': 'export const TIERS = [];',
+  'src/components/ui/button.tsx': 'export const Button = 1;',
+  'src/components/b/refund.preview.ts': "export default definePreview({ code: 'B1' })",
+};
+const treeSide = (tree) => ({
+  exists: (f) => f in tree,
+  read: (f) => (f in tree ? tree[f] : null),
+  hashOf: (f) => (f in tree ? crypto.createHash('sha1').update(tree[f]).digest('hex').slice(0, 8) : 'missing'),
+});
+const manifest = () => clone({
+  schema: 1, commit: 'abc1234', driveFolder: 'HOAhx/video-review/pending-recordings',
+  walkthroughs: [
+    { code: 'A1', title: 'Plans and prices', file: 'a1-plans-and-prices--walkthrough--desktop.mp4', seconds: 48, commit: 'abc1234' },
+    { code: 'B1', title: 'Asking for a refund', file: 'b1-asking-for-a-refund--walkthrough--desktop.mp4', seconds: 72, commit: 'abc1234' },
+  ],
+});
+const DRIVE = [
+  { Name: 'a1-plans-and-prices--walkthrough--desktop.mp4', ID: 'aaa111' },
+  { Name: 'b1-asking-for-a-refund--walkthrough--desktop.mp4', ID: 'bbb222' },
+];
+const resolveWalk = (codes, over = {}) => resolveWalkthroughs(codes, {
+  manifest: manifest(), driveFiles: DRIVE, current: () => true, readable: () => true, ...over,
+});
+
+test('walk-through: a screen is its preview module and everything it imports relatively', () => {
+  const files = previewClosure('src/components/a/plans.preview.ts', treeSide(TREE));
+  assert.deepEqual(files, [
+    'src/components/a/PlansView.tsx',
+    'src/components/a/fixtures.ts',
+    'src/components/a/plans.preview.ts',
+    'src/components/a/pricing.ts',
+  ], 'the view, its fixtures and the helper below it — and not the shared button behind "@/"');
+});
+
+test('walk-through: a change under the screen stales it, a change to a shared part does not', () => {
+  const entry = 'src/components/a/plans.preview.ts';
+  const before = treeSide(TREE);
+  const was = screenFingerprint(previewClosure(entry, before), before.hashOf);
+
+  const restyled = { ...TREE, 'src/components/ui/button.tsx': 'export const Button = 2;' };
+  const after1 = treeSide(restyled);
+  assert.equal(screenFingerprint(previewClosure(entry, after1), after1.hashOf), was,
+    'restyling a shared button must not stale all 27 films');
+
+  const repriced = { ...TREE, 'src/components/a/pricing.ts': 'export const price = 2;' };
+  const after2 = treeSide(repriced);
+  assert.notEqual(screenFingerprint(previewClosure(entry, after2), after2.hashOf), was,
+    'a pricing change two imports down is a change to the screen');
+
+  const gone = { ...TREE }; delete gone['src/components/a/fixtures.ts'];
+  const after3 = treeSide(gone);
+  assert.notEqual(screenFingerprint(previewClosure(entry, after3), after3.hashOf), was, 'a missing file is a change');
+});
+
+test('walk-through: each screen that has a film gets a link, by its own code', () => {
+  const { walkthroughs, refused } = resolveWalk(['A1', 'B1']);
+  assert.deepEqual(refused, []);
+  assert.deepEqual(walkthroughs, {
+    A1: { seconds: 48, url: driveLink('aaa111') },
+    B1: { seconds: 72, url: driveLink('bbb222') },
+  });
+});
+
+test('walk-through: one that cannot be linked is left off and named, never fatal', () => {
+  const never = resolveWalk(['A1', 'C7']);
+  assert.deepEqual(Object.keys(never.walkthroughs), ['A1'], 'the other 26 still get their links');
+  assert.match(never.refused.join('\n'), /^C7: never filmed/m);
+
+  const stale = resolveWalk(['A1', 'B1'], { current: (code) => code !== 'B1' });
+  assert.deepEqual(Object.keys(stale.walkthroughs), ['A1']);
+  assert.match(stale.refused.join('\n'), /B1 \(Asking for a refund\): not current, the screen changed since it was filmed at abc1234/);
+
+  const notUploaded = resolveWalk(['A1', 'B1'], { driveFiles: DRIVE.slice(0, 1) });
+  assert.deepEqual(Object.keys(notUploaded.walkthroughs), ['A1']);
+  assert.match(notUploaded.refused.join('\n'), /B1 .*: no file named b1-.* in the Drive folder/);
+
+  const m = manifest(); delete m.walkthroughs[1].seconds;
+  const noLength = resolveWalk(['A1', 'B1'], { manifest: m });
+  assert.deepEqual(Object.keys(noLength.walkthroughs), ['A1']);
+  assert.match(noLength.refused.join('\n'), /B1: the manifest gives no length/);
+});
+
+test('walk-through: a Drive file nobody may open is not a link', () => {
+  // The one that shipped 27 dead links if nobody asked: the file is there, the screen is current,
+  // and the owner meets a sign-in page. Anything but a clear yes counts as no.
+  const shared = driveLink('aaa111');
+  const { walkthroughs, refused } = resolveWalk(['A1', 'B1'], { readable: (url) => url === shared });
+  assert.deepEqual(Object.keys(walkthroughs), ['A1']);
+  assert.match(refused.join('\n'), /B1 \(Asking for a refund\): the Drive file is not readable by link, so the owners would meet a sign-in page/);
+  assert.deepEqual(Object.keys(resolveWalk(['A1'], { readable: () => undefined }).walkthroughs), []);
+});
+
+test('walk-through: the published screen carries the link, and the page reads nothing else', () => {
+  const spec = parseScreensSpec(SPEC);
+  const walk = resolveWalk(['A1', 'B1']).walkthroughs;
+  const s = buildScreens(screensSource(), spec, ['A1', 'A2', 'B1'], 3, walk);
+  assert.deepEqual(s.features[0].screens[0].walk, { seconds: 48, url: driveLink('aaa111') });
+  assert.equal('walk' in s.features[0].screens[1], false, 'A2 was never filmed, so it carries nothing');
+
+  const data = { updated: '2026-09-28', groups: [], cards: [], videos: {} };
+  const ok = { updated: '2026-09-28', previewUrl: s.previewUrl, features: clone(s.features) };
+  ok.features[1].screens[0].videos = [];
+  assert.equal(checkPublished(data, ok).screens, 3);
+
+  const bad = clone(ok); bad.features[0].screens[0].walk.title = 'Plans and prices';
+  assert.throws(() => checkPublished(data, bad), /A1's walk carries "title", which the page does not read/);
+  const short = clone(ok); short.features[0].screens[0].walk.seconds = 0;
+  assert.throws(() => checkPublished(data, short), /A1's walk has no length/);
+  const elsewhere = clone(ok); elsewhere.features[0].screens[0].walk.url = 'https://example.com/a1.mp4';
+  assert.throws(() => checkPublished(data, elsewhere), /A1's walk has no Drive link/);
+});
+
+test('walk-through: the sync says when a film appears, is re-filmed, or goes', () => {
+  const spec = parseScreensSpec(SPEC);
+  const none = { screens: { features: buildScreens(screensSource(), spec, ['A1', 'A2', 'B1'], 3).features }, data: { cards: [] } };
+  const one = { screens: { features: buildScreens(screensSource(), spec, ['A1', 'A2', 'B1'], 3, resolveWalk(['A1']).walkthroughs).features }, data: { cards: [] } };
+  assert.deepEqual(describeChange(none, one), ['+ screen A1: a video of it, 48s']);
+  const longer = clone(one); longer.screens.features[0].screens[0].walk.seconds = 61;
+  assert.deepEqual(describeChange(one, longer), ['~ screen A1: a new video of it, 61s']);
+  assert.deepEqual(describeChange(one, none), ['- screen A1: its video is no longer linked']);
 });

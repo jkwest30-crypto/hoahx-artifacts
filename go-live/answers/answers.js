@@ -181,6 +181,11 @@
     const links = (nums || []).map(watchLink).join('');
     return links ? '<div class="vids"><span class="built">Built</span>' + links + '</div>' : '';
   }
+  // A film of the screen itself, state by state: the same review as opening it, sitting still.
+  // Unlike the videos above it says nothing about whether the feature is built.
+  function watchScreen(x) {
+    return x.walk ? '<a class="see" href="' + esc(x.walk.url) + '" target="_blank" rel="noopener">Watch it <i>' + len(x.walk.seconds) + '</i></a>' : '';
+  }
   function stat(n, label, c) { return '<div class="stat"><span class="n">' + n + '</span><span class="l"><i class="dot c-' + c + '"></i>' + label + '</span></div>'; }
   function meter(parts, total) { return '<div class="meter" aria-hidden="true">' + parts.map(([n, c]) => '<i class="c-' + c + '" style="width:' + (total ? 100 * n / total : 0) + '%"></i>').join('') + '</div>'; }
 
@@ -211,7 +216,7 @@
       : '';
     return '<article class="scr" data-screen="' + esc(x.code) + '" data-state="' + s + '"><div class="scr-top"><span class="code">' + esc(x.code) + '</span><span class="pill ' + S_CLASS[s] + '">' + S_LABEL[s] + (day ? ' · ' + esc(day) : '') + '</span></div>' +
       '<h4>' + esc(x.title) + '</h4><p>' + esc(x.what) + '</p>' + said +
-      '<div class="scr-foot"><a class="go" href="' + esc(x.url) + '" target="_blank" rel="noopener">' + (s === 'open' ? 'Open ' + esc(x.code) + ' and review it' : 'Open ' + esc(x.code)) + '</a>' + vids(x.videos) + '</div></article>';
+      '<div class="scr-foot"><a class="go" href="' + esc(x.url) + '" target="_blank" rel="noopener">' + (s === 'open' ? 'Open ' + esc(x.code) + ' and review it' : 'Open ' + esc(x.code)) + '</a>' + watchScreen(x) + vids(x.videos) + '</div></article>';
   }
   function renderScreens() {
     const s = tallyS();
