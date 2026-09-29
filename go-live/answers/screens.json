@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-28",
+ "updated": "2026-09-29",
  "previewUrl": "https://hoahx-staging.web.app/preview",
  "features": [
   {
@@ -12,7 +12,11 @@
      "title": "Plans and prices",
      "what": "The plans side by side, with the one this community falls in by its number of homes, the monthly and annual price of each, and what paying annually saves. Prices are marked provisional until you set them.",
      "url": "https://hoahx-staging.web.app/preview/A1",
-     "videos": []
+     "videos": [],
+     "walk": {
+      "seconds": 48,
+      "url": "https://drive.google.com/file/d/1L1CrsGiBPE1AL-Z68vX79hhYeGmCtc-5/view"
+     }
     },
     {
      "id": "S-A2",
@@ -20,7 +24,11 @@
      "title": "The free trial, and starting the subscription",
      "what": "How many days of the free trial are left and what happens when it ends, then the steps to start: accept the terms, add a bank account or card, confirm. It ends with a receipt and the next renewal date.",
      "url": "https://hoahx-staging.web.app/preview/A2",
-     "videos": []
+     "videos": [],
+     "walk": {
+      "seconds": 65,
+      "url": "https://drive.google.com/file/d/1dN61wNPKXfMGM6juiFAwyRLe8Y1vBNZR/view"
+     }
     },
     {
      "id": "S-A3",
@@ -28,7 +36,11 @@
      "title": "Billing home: plan, next charge, invoices",
      "what": "The board's billing page: the current plan, the next charge and its date, the payment method on file, and every invoice. A board member who is not a billing contact can look but cannot change anything.",
      "url": "https://hoahx-staging.web.app/preview/A3",
-     "videos": []
+     "videos": [],
+     "walk": {
+      "seconds": 67,
+      "url": "https://drive.google.com/file/d/1WbOCctnclbKYSUqU0CKI6U1AC3vCRO5D/view"
+     }
     },
     {
      "id": "S-A4",
@@ -36,7 +48,11 @@
      "title": "Billing contacts, and handing over the account",
      "what": "Who holds the account: the Account Owner, the backups and any Billing Administrator, with what each may do. Handing the account to someone else waits for that person to accept, and the last backup cannot be removed.",
      "url": "https://hoahx-staging.web.app/preview/A4",
-     "videos": []
+     "videos": [],
+     "walk": {
+      "seconds": 64,
+      "url": "https://drive.google.com/file/d/1GHKikoJRUVnK9Z2V_hv61Qr-STt4LyzH/view"
+     }
     },
     {
      "id": "S-A5",
@@ -44,7 +60,11 @@
      "title": "When a payment has not gone through",
      "what": "What the board sees when a subscription payment does not go through: the amount owed, the date of the next change and what it will be, with the full schedule below. Paying and reaching support work at every stage, and residents are never affected.",
      "url": "https://hoahx-staging.web.app/preview/A5",
-     "videos": []
+     "videos": [],
+     "walk": {
+      "seconds": 80,
+      "url": "https://drive.google.com/file/d/1rFWyp4qyNEQc7k-f_ALidsl_oXIJFb4x/view"
+     }
     },
     {
      "id": "S-A6",
@@ -52,7 +72,11 @@
      "title": "Cancelling, and taking the records along",
      "what": "What cancelling means, when it takes effect, and what is kept and for how long. The board can take the community's records along first, and can come back later.",
      "url": "https://hoahx-staging.web.app/preview/A6",
-     "videos": []
+     "videos": [],
+     "walk": {
+      "seconds": 68,
+      "url": "https://drive.google.com/file/d/1xSMlHzcTdQSovK2zkwz70blk62Wc2Rqk/view"
+     }
     },
     {
      "id": "S-A7",
@@ -60,7 +84,11 @@
      "title": "The HOAhx staff side",
      "what": "For HOAhx staff: every community's subscription with its plan, status, next renewal and days past due. Extending a trial, making an exception or restoring access each asks for a written reason, and the reason is kept.",
      "url": "https://hoahx-staging.web.app/preview/A7",
-     "videos": []
+     "videos": [],
+     "walk": {
+      "seconds": 53,
+      "url": "https://drive.google.com/file/d/126FzP0amgKHOyvfLSPWQMxVFCYIbVsQh/view"
+     }
     }
    ]
   },
@@ -77,7 +105,11 @@
      "videos": [
       "08",
       "30"
-     ]
+     ],
+     "walk": {
+      "seconds": 72,
+      "url": "https://drive.google.com/file/d/1g9U_uFrLpC9pp2R_K_t3eK_nn4qHWB_1/view"
+     }
     },
     {
      "id": "S-B2",
@@ -88,7 +120,11 @@
      "videos": [
       "08",
       "30"
-     ]
+     ],
+     "walk": {
+      "seconds": 54,
+      "url": "https://drive.google.com/file/d/1Of8YPdwoF5JrHEvTybeK97f4f1pE0KJ7/view"
+     }
     },
     {
      "id": "S-B3",
@@ -99,7 +135,11 @@
      "videos": [
       "08",
       "30"
-     ]
+     ],
+     "walk": {
+      "seconds": 78,
+      "url": "https://drive.google.com/file/d/19uvYvOq89w5-E6TDk-5rNIfR9IhoQ273/view"
+     }
     },
     {
      "id": "S-B4",
@@ -107,7 +147,11 @@
      "title": "Who may do what",
      "what": "Each role down the side and the eight kinds of action across the top. A permission can be taken away from one person, with a reason; nobody can change their own.",
      "url": "https://hoahx-staging.web.app/preview/B4",
-     "videos": []
+     "videos": [],
+     "walk": {
+      "seconds": 48,
+      "url": "https://drive.google.com/file/d/1J8UFb-LLmGMEVcFnNJuRIYB9OEVb_unG/view"
+     }
     },
     {
      "id": "S-B5",
@@ -115,7 +159,11 @@
      "title": "Exporting a list safely",
      "what": "Before a list is downloaded: what the file will contain, what is left out and why, and how many records. The person gives a reason first, and some roles may not export at all.",
      "url": "https://hoahx-staging.web.app/preview/B5",
-     "videos": []
+     "videos": [],
+     "walk": {
+      "seconds": 50,
+      "url": "https://drive.google.com/file/d/19fgN7d3ZVlTLzuS1KeIr1UPBjyX39-x3/view"
+     }
     },
     {
      "id": "S-B6",
@@ -123,7 +171,11 @@
      "title": "Naming the two Financial Approvers",
      "what": "Why a community needs two Financial Approvers, who is eligible, and who has been chosen. Online payments are held back until two are named.",
      "url": "https://hoahx-staging.web.app/preview/B6",
-     "videos": []
+     "videos": [],
+     "walk": {
+      "seconds": 53,
+      "url": "https://drive.google.com/file/d/1HqTM7EUpjaCy22GlmCn7eFDu4-0BOw07/view"
+     }
     }
    ]
   },
@@ -137,7 +189,11 @@
      "title": "Who is behind",
      "what": "Every home with an overdue balance: the amount, how long it has been overdue, where the case stands, who is following up and the last thing sent. A notice can go to several homes at once, with a confirmation naming how many.",
      "url": "https://hoahx-staging.web.app/preview/C1",
-     "videos": []
+     "videos": [],
+     "walk": {
+      "seconds": 59,
+      "url": "https://drive.google.com/file/d/1Es_mEp5kQTsSxg9SxQ360l6oNzH8oSpL/view"
+     }
     },
     {
      "id": "S-C2",
@@ -145,7 +201,11 @@
      "title": "One household's case",
      "what": "One home's case from the start: how the balance built up, every notice with its date and whether it arrived, the person who owns the case, and the next step with its date. A payment plan or a waived fee is offered from here.",
      "url": "https://hoahx-staging.web.app/preview/C2",
-     "videos": []
+     "videos": [],
+     "walk": {
+      "seconds": 56,
+      "url": "https://drive.google.com/file/d/1qq9UegWJMjux9YT9reK0pPGWElcgH4-M/view"
+     }
     },
     {
      "id": "S-C3",
@@ -153,7 +213,11 @@
      "title": "\"I am behind\": the homeowner's view",
      "what": "What a homeowner who has fallen behind sees: what is owed and what it is made of, the date that matters, what happens then, the choices, and a named person to talk to. Plain wording, no red banners.",
      "url": "https://hoahx-staging.web.app/preview/C3",
-     "videos": []
+     "videos": [],
+     "walk": {
+      "seconds": 55,
+      "url": "https://drive.google.com/file/d/1Ww4KM9IRjFVlUfURQ0TSRLXv9BtvNtCr/view"
+     }
     },
     {
      "id": "S-C4",
@@ -161,7 +225,11 @@
      "title": "Setting up a payment plan",
      "what": "The treasurer proposes a schedule: how many payments, how much, which dates, and whether late fees pause while the plan is kept. A second person approves it, then the homeowner accepts.",
      "url": "https://hoahx-staging.web.app/preview/C4",
-     "videos": []
+     "videos": [],
+     "walk": {
+      "seconds": 87,
+      "url": "https://drive.google.com/file/d/1b5OKcJ0hoO1WPqGTmKu-NFE1Kptnepiy/view"
+     }
     },
     {
      "id": "S-C5",
@@ -169,7 +237,11 @@
      "title": "A payment plan in progress",
      "what": "A plan under way, read as a plan: four of nine paid, the next payment and its date, what remains. The homeowner and the board see the same, including what happens after a missed installment.",
      "url": "https://hoahx-staging.web.app/preview/C5",
-     "videos": []
+     "videos": [],
+     "walk": {
+      "seconds": 111,
+      "url": "https://drive.google.com/file/d/1jiXXAGRRCYSWDtu8LXRgSYU3eYItwo7F/view"
+     }
     },
     {
      "id": "S-C6",
@@ -177,7 +249,11 @@
      "title": "Waiving a fee or adjusting a balance",
      "what": "A request to waive a late fee or adjust a balance: the amount, the reason, who is asking and who must approve. It takes two people, the same as a refund, and the homeowner's ledger shows the result.",
      "url": "https://hoahx-staging.web.app/preview/C6",
-     "videos": []
+     "videos": [],
+     "walk": {
+      "seconds": 75,
+      "url": "https://drive.google.com/file/d/1L3PHyLhcm3FkdZ_QOKgoKWPJhJziA-gw/view"
+     }
     },
     {
      "id": "S-C7",
@@ -185,7 +261,11 @@
      "title": "A ledger you can follow",
      "what": "Every entry with its date, its kind and the running balance beside it. A correction is a new entry that names the one it corrects; nothing is edited or removed. Drawn once for the homeowner and once for the board.",
      "url": "https://hoahx-staging.web.app/preview/C7",
-     "videos": []
+     "videos": [],
+     "walk": {
+      "seconds": 96,
+      "url": "https://drive.google.com/file/d/1CxhwmpZDGEmKihJjNosYv_AiaY8kvrnQ/view"
+     }
     },
     {
      "id": "S-C8",
@@ -193,7 +273,11 @@
      "title": "Statements, exports, and matching deposits",
      "what": "A statement for each home and a collection summary for the community, each marked with its period. A bank deposit opens to show the payments inside it, with a clear mark where a deposit and the ledger disagree.",
      "url": "https://hoahx-staging.web.app/preview/C8",
-     "videos": []
+     "videos": [],
+     "walk": {
+      "seconds": 54,
+      "url": "https://drive.google.com/file/d/14QqlpGA0H7SZIgeBuQLvSLHi-ojDhQms/view"
+     }
     }
    ]
   },
@@ -207,7 +291,11 @@
      "title": "Upload the spreadsheet and match the columns",
      "what": "The board uploads its own CSV or Excel file. HOAhx suggests which column is which; a person confirms or corrects every suggestion. The messy file and the second import are the states to linger on.",
      "url": "https://hoahx-staging.web.app/preview/D1",
-     "videos": []
+     "videos": [],
+     "walk": {
+      "seconds": 52,
+      "url": "https://drive.google.com/file/d/1D0xT8dYcQDn0Dwbed6vpPrtoe9jJuxwz/view"
+     }
     },
     {
      "id": "S-D2",
@@ -215,7 +303,11 @@
      "title": "Check it before it goes in",
      "what": "Rows ready, rows needing a decision, rows that cannot go in. A duplicate, a missing detail and a value that only looks wrong are treated as three different things; only a blocked row stops the import.",
      "url": "https://hoahx-staging.web.app/preview/D2",
-     "videos": []
+     "videos": [],
+     "walk": {
+      "seconds": 52,
+      "url": "https://drive.google.com/file/d/1t3-YbflpR_SBzEjKk59o1eC8wMLcem2w/view"
+     }
     },
     {
      "id": "S-D3",
@@ -223,7 +315,11 @@
      "title": "Opening balances: the treasurer signs off",
      "what": "The total of all opening balances next to the figure the treasurer expected. Nothing is saved until the treasurer approves it, possibly a different person on a different day.",
      "url": "https://hoahx-staging.web.app/preview/D3",
-     "videos": []
+     "videos": [],
+     "walk": {
+      "seconds": 75,
+      "url": "https://drive.google.com/file/d/1He9AAd8byOq8-kg6pne0ay4hOzp3dLoj/view"
+     }
     },
     {
      "id": "S-D4",
@@ -231,7 +327,11 @@
      "title": "What past imports did, and fixing one",
      "what": "Every import on record: who ran it, what it added or changed, and how a mistake is corrected with the correction kept on record.",
      "url": "https://hoahx-staging.web.app/preview/D4",
-     "videos": []
+     "videos": [],
+     "walk": {
+      "seconds": 48,
+      "url": "https://drive.google.com/file/d/1R7cO8RLFJaVjy55ofnfH3TvjKvFOnGvV/view"
+     }
     },
     {
      "id": "S-D5",
@@ -239,7 +339,11 @@
      "title": "Who has joined",
      "what": "Every home and person against the four steps, invited, joined, verified, active; whose invitation has lapsed; sending again to one person or to everyone not yet joined.",
      "url": "https://hoahx-staging.web.app/preview/D5",
-     "videos": []
+     "videos": [],
+     "walk": {
+      "seconds": 52,
+      "url": "https://drive.google.com/file/d/1yJBT3EbgeCiKBgZ5mQ8xBVkZ5VkDg46c/view"
+     }
     },
     {
      "id": "S-D6",
@@ -247,7 +351,11 @@
      "title": "Someone joined without an invitation",
      "what": "What the board sees when a person claims a home without a link, and the plain \"we are checking\" screen that person sees, ending with the offer of automatic payments.",
      "url": "https://hoahx-staging.web.app/preview/D6",
-     "videos": []
+     "videos": [],
+     "walk": {
+      "seconds": 61,
+      "url": "https://drive.google.com/file/d/1ybZLfA_ExJIHTxJaMp4C66fG1kgVTH5B/view"
+     }
     }
    ]
   }
