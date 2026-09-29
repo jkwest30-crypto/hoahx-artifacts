@@ -794,6 +794,110 @@
      "videos": []
     }
    ]
+  },
+  {
+   "id": "A29",
+   "group": "enforce",
+   "title": "Who reads a homeowner's written appeal",
+   "why": "The appeal is the homeowner's own side of a case those roles already read in full, and the decision itself stays with the roles allowed to review it.",
+   "rows": [
+    {
+     "id": "A29-1",
+     "qs": [
+      "When a homeowner appeals a violation in writing, should the Secretary and Treasurer read the appeal text as well as the people who decide it?"
+     ],
+     "rec": "Keep it: whoever may read the case reads the homeowner's appeal, and only the roles who may review a violation decide it. If the appeal should be narrower, the read narrows to the roles who decide, and the Secretary and Treasurer see that an appeal exists without its text.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A30",
+   "group": "enforce",
+   "title": "Co-owners seeing each other's requests and reviews",
+   "why": "The owners of one home answer for it together, and a co-owner who cannot see a request on their own home hears about the decision from the contractor.",
+   "rows": [
+    {
+     "id": "A30-1",
+     "qs": [
+      "Should the owners of one home see each other's maintenance requests and architectural reviews?"
+     ],
+     "rec": "Yes: the owners of a home see each other's requests and reviews, on the request pages first and then on the home's timeline, so every row a co-owner reads opens. If not, each owner keeps seeing only their own.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A31",
+   "group": "records",
+   "title": "A board-only document sent for signature",
+   "why": "A rule with one exception hidden in the download path is a rule that will be misread, and nothing the communities do today needs it.",
+   "rows": [
+    {
+     "id": "A31-1",
+     "qs": [
+      "May the office send a board-only document to a homeowner for signature, so that homeowner can open that one document to sign it?"
+     ],
+     "rec": "No: a document a homeowner is asked to sign is one they may read, so the office publishes it to residents before asking for a signature, and a request to sign a board-only document is refused. If the exception should stay, it becomes the rule: a homeowner asked to sign a board-only document may read that version, before and after declining.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A32",
+   "group": "ops",
+   "title": "A community always keeps a President",
+   "why": "The President is the only community role that appoints and removes board roles, so a community without one can appoint nobody and stays stuck until someone outside it acts. Closing one's own account is a right the app stores require of every app.",
+   "rows": [
+    {
+     "id": "A32-1",
+     "qs": [
+      "Must a community always have a President, so that nobody in the community can remove, deactivate or archive its only one?"
+     ],
+     "rec": "Keep it: a community keeps a President. The role is handed on before its holder is removed, and HOAhx can step in when a President is gone. If the rule should hold HOAhx staff too, it is one condition and one test.",
+     "videos": []
+    },
+    {
+     "id": "A32-2",
+     "qs": [
+      "Should the only President of a community be asked to hand the role to someone else before they close their own account?"
+     ],
+     "rec": "Leave it for the launch: the right to close one's own account stands, and HOAhx appoints the next President when it happens. A hand-over step on the account-closing screen (\"give the President role to someone first\") is a candidate for after the launch.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A33",
+   "group": "ops",
+   "title": "When a homeowner's membership ends, the home goes with it",
+   "why": "\"Removed\" should mean removed: a person the board has ended should not keep reading the home's codes, ledger and household through a record the board cannot see.",
+   "rows": [
+    {
+     "id": "A33-1",
+     "qs": [
+      "When the board deactivates, archives, or marks a homeowner as moved out, should that person lose access to their home in the app as well as to the community?"
+     ],
+     "rec": "Keep it: ending a person's membership ends their access to the community and to the home, the records stay, and restoring the account brings the access back. If an owner who has moved out should keep signing in to a home they rent out, the office keeps their membership active and records the move-out on the tenant instead.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A34",
+   "group": "community",
+   "title": "Every tenant gets a tenant record",
+   "why": "The owner's switches only protect a home when every tenant of it has them.",
+   "rows": [
+    {
+     "id": "A34-1",
+     "qs": [
+      "Should every tenant have a tenant record, so the owner's switches apply to every tenant and not only to those the owner or the office added through the tenant forms?"
+     ],
+     "rec": "Yes: every tenant gets a tenant record, created when staff assign the tenant role, with the switches off until the owner grants them, so every tenant is held to the owner's choices. If not, a tenant without a record keeps the access of a household member.",
+     "videos": []
+    }
+   ]
   }
  ],
  "videos": {
