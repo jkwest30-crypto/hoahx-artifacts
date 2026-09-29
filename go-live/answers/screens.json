@@ -28,6 +28,10 @@
      "walk": {
       "seconds": 65,
       "url": "https://drive.google.com/file/d/1dN61wNPKXfMGM6juiFAwyRLe8Y1vBNZR/view"
+     },
+     "critical": {
+      "date": "2026-10-02",
+      "why": "Needed by Oct 2: A1 leads to this screen, so it is signed off first."
      }
     },
     {
@@ -52,6 +56,10 @@
      "walk": {
       "seconds": 64,
       "url": "https://drive.google.com/file/d/1GHKikoJRUVnK9Z2V_hv61Qr-STt4LyzH/view"
+     },
+     "critical": {
+      "date": "2026-10-02",
+      "why": "Needed by Oct 2: A3 leads to this screen, so it is signed off first."
      }
     },
     {
@@ -76,6 +84,10 @@
      "walk": {
       "seconds": 68,
       "url": "https://drive.google.com/file/d/1xSMlHzcTdQSovK2zkwz70blk62Wc2Rqk/view"
+     },
+     "critical": {
+      "date": "2026-10-02",
+      "why": "Needed by Oct 2: A3 leads to this screen, so it is signed off first."
      }
     },
     {
@@ -109,6 +121,10 @@
      "walk": {
       "seconds": 72,
       "url": "https://drive.google.com/file/d/1g9U_uFrLpC9pp2R_K_t3eK_nn4qHWB_1/view"
+     },
+     "critical": {
+      "date": "2026-09-30",
+      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
      }
     },
     {
@@ -124,6 +140,10 @@
      "walk": {
       "seconds": 54,
       "url": "https://drive.google.com/file/d/1Of8YPdwoF5JrHEvTybeK97f4f1pE0KJ7/view"
+     },
+     "critical": {
+      "date": "2026-09-30",
+      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
      }
     },
     {
@@ -139,6 +159,10 @@
      "walk": {
       "seconds": 78,
       "url": "https://drive.google.com/file/d/19uvYvOq89w5-E6TDk-5rNIfR9IhoQ273/view"
+     },
+     "critical": {
+      "date": "2026-10-02",
+      "why": "Needed by Oct 2: C7 leads to this screen, so it is signed off first."
      }
     },
     {
@@ -175,6 +199,10 @@
      "walk": {
       "seconds": 53,
       "url": "https://drive.google.com/file/d/1HqTM7EUpjaCy22GlmCn7eFDu4-0BOw07/view"
+     },
+     "critical": {
+      "date": "2026-09-30",
+      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
      }
     }
    ]
@@ -193,6 +221,10 @@
      "walk": {
       "seconds": 59,
       "url": "https://drive.google.com/file/d/1Es_mEp5kQTsSxg9SxQ360l6oNzH8oSpL/view"
+     },
+     "critical": {
+      "date": "2026-09-30",
+      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
      }
     },
     {
@@ -205,6 +237,10 @@
      "walk": {
       "seconds": 56,
       "url": "https://drive.google.com/file/d/1qq9UegWJMjux9YT9reK0pPGWElcgH4-M/view"
+     },
+     "critical": {
+      "date": "2026-09-30",
+      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
      }
     },
     {
@@ -217,6 +253,10 @@
      "walk": {
       "seconds": 55,
       "url": "https://drive.google.com/file/d/1Ww4KM9IRjFVlUfURQ0TSRLXv9BtvNtCr/view"
+     },
+     "critical": {
+      "date": "2026-09-30",
+      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
      }
     },
     {
@@ -229,6 +269,10 @@
      "walk": {
       "seconds": 87,
       "url": "https://drive.google.com/file/d/1b5OKcJ0hoO1WPqGTmKu-NFE1Kptnepiy/view"
+     },
+     "critical": {
+      "date": "2026-09-30",
+      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
      }
     },
     {
@@ -241,6 +285,10 @@
      "walk": {
       "seconds": 111,
       "url": "https://drive.google.com/file/d/1jiXXAGRRCYSWDtu8LXRgSYU3eYItwo7F/view"
+     },
+     "critical": {
+      "date": "2026-09-30",
+      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
      }
     },
     {
@@ -253,6 +301,10 @@
      "walk": {
       "seconds": 75,
       "url": "https://drive.google.com/file/d/1L3PHyLhcm3FkdZ_QOKgoKWPJhJziA-gw/view"
+     },
+     "critical": {
+      "date": "2026-09-30",
+      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
      }
     },
     {
@@ -265,6 +317,10 @@
      "walk": {
       "seconds": 96,
       "url": "https://drive.google.com/file/d/1CxhwmpZDGEmKihJjNosYv_AiaY8kvrnQ/view"
+     },
+     "critical": {
+      "date": "2026-09-30",
+      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
      }
     },
     {
@@ -277,6 +333,10 @@
      "walk": {
       "seconds": 54,
       "url": "https://drive.google.com/file/d/14QqlpGA0H7SZIgeBuQLvSLHi-ojDhQms/view"
+     },
+     "critical": {
+      "date": "2026-09-30",
+      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
      }
     }
    ]

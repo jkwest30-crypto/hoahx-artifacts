@@ -211,7 +211,7 @@ function published(today, previous) {
 
 test('published: both files pass their own check and the guards', () => {
   const p = published('2026-09-28');
-  assert.deepEqual(checkPublished(p.data, p.screens), { cards: 3, rows: 5, screens: 3, videos: 1 });
+  assert.deepEqual(checkPublished(p.data, p.screens), { cards: 3, rows: 5, screens: 3, videos: 1, critical: { rows: 0, screens: 0 } });
   assert.doesNotThrow(() => guardPublished('data.json', JSON.stringify(p.data)));
   assert.doesNotThrow(() => guardPublished('screens.json', JSON.stringify(p.screens)));
 });
@@ -441,4 +441,87 @@ test('walk-through: the sync says when a film appears, is re-filmed, or goes', (
   const longer = clone(one); longer.screens.features[0].screens[0].walk.seconds = 61;
   assert.deepEqual(describeChange(one, longer), ['~ screen A1: a new video of it, 61s']);
   assert.deepEqual(describeChange(one, none), ['- screen A1: its video is no longer linked']);
+});
+
+// ── what is critical ─────────────────────────────────────────────────────────
+import {
+  addWorkingDays, criticalFirst, criticalForEntries, criticalForScreen, dueWithin, parseBlocks,
+  parseMilestones, parseScreenLinks, parseTaskMilestones,
+} from '../scripts/answers-lib.mjs';
+
+const PLAN = [
+  '| M3 | Accounts secured | Sep 18 → **Sep 23** | x | y |',
+  '| M8 | Payment integration built and verified in sandbox | Sep 18 → **Sep 30** | x | y |',
+  '| M4 | Protection, monitoring, and backups | Sep 25 → **Oct 9** | x | y |',
+  '| M13 | Submission | **Oct 16** | x | y |',
+  '| M9 | Live payment test | Sep 25 → **within a week of O1 approval; done by Oct 28** | x | y |',
+].join('\n');
+const STATUS = '| M3 | Accounts that move money secured | Sep 23 | **Done 2026-09-23** (S1) |';
+const BACKLOG = ['### Item 2 · Build NMI · milestone M8, Sep 18', '| N3 | x | y |', '### Item 4 · Abuse · part of milestone M4', '| A2 | x |', '### Week 4 · Submission', '| ST3 | x |', '### Item 12 · milestone M13', '| ST3 | later |'].join('\n');
+const DECISIONS = ['### D-049 · Q-FIN-8', '- Blocks: N3, M7 (Q&A question 5)', '### D-107 · Q-X', '- Blocks: A2', '### D-105 · Q-Y', '- Blocks: ST3', '### D-030 · Q-Z', '- Blocks: none'].join('\n');
+const plan = () => ({ milestones: parseMilestones(PLAN, STATUS), taskMilestone: parseTaskMilestones(BACKLOG), today: '2026-09-29', windowDays: 10 });
+
+test('critical: the window counts working days, the milestones and their done state come from the plan', () => {
+  assert.equal(addWorkingDays('2026-09-29', 10), '2026-10-13');
+  assert.equal(addWorkingDays('2026-10-02', 1), '2026-10-05');
+  const m = parseMilestones(PLAN, STATUS);
+  assert.equal(m.M8.date, '2026-09-30');
+  assert.equal(m.M3.done, true);
+  assert.equal(m.M8.done, false);
+  assert.ok(!('M9' in m), 'a target that is not one plain date is left out, not guessed');
+  assert.deepEqual(parseBlocks(DECISIONS)['D-049'], ['N3', 'M7']);
+  assert.equal(parseTaskMilestones(BACKLOG).ST3, 'M13');
+});
+
+test('critical: a question is critical only when what it blocks is due in the window and not done', () => {
+  const blocks = parseBlocks(DECISIONS);
+  const c = (ids) => criticalForEntries(ids, blocks, plan());
+  assert.deepEqual(c(['D-049']), { date: '2026-09-30', why: 'Needed by Sep 30: payment integration built and verified in sandbox.' });
+  assert.equal(c(['D-107']).date, '2026-10-09');
+  assert.equal(c(['D-105']), null, 'submission is Oct 16, past the window');
+  assert.equal(c(['D-030']), null, 'blocks none');
+  assert.equal(dueWithin(['M3'], plan()), null, 'a milestone that is done blocks nothing');
+  assert.equal(c(['D-049', 'D-107']).date, '2026-09-30', 'the soonest wins');
+});
+
+test('critical: a screen is critical when another screen leads to it or a due task waits on it', () => {
+  const links = parseScreenLinks(['### A1 · Plans', '- Can do: choose a plan; continue to A2.', '- Draw these states: A9 is not read', '### A2 · Trial', '- Shows: a trial'].join('\n'));
+  assert.deepEqual(links, { A2: ['A1'] });
+  const m = plan().milestones;
+  m.M17 = { name: 'The 27 screens approved by the owners', date: '2026-10-02', done: false };
+  const blocks = parseBlocks(DECISIONS);
+  const p = plan();
+  assert.match(criticalForScreen('A2', 'D-030', { blocksOf: blocks, ledBy: links }, p, m.M17).why, /^Needed by Oct 2: A1 leads to this screen/);
+  assert.equal(criticalForScreen('A1', 'D-030', { blocksOf: blocks, ledBy: links }, p, m.M17), null);
+  assert.equal(criticalForScreen('A1', 'D-049', { blocksOf: blocks, ledBy: links }, p, m.M17).date, '2026-09-30');
+});
+
+test('critical: buildQuestions puts critical questions and cards first, soonest due first, others in their order', () => {
+  const blocks = { 'D-049': ['N3'], 'D-046': ['A2'], 'D-062': [], 'D-064': [], 'D-059': [] };
+  const q = buildQuestions(source(), { pending: pendingAll(), answeredButOpen: ['D-059'], criticalOf: (ids) => criticalForEntries(ids, blocks, plan()) });
+  assert.equal(q.critical, 2);
+  assert.deepEqual(q.cards.map((c) => c.id), ['A01', 'A09', 'A23']);
+  assert.deepEqual(q.cards[0].rows.map((r) => r.id), ['A01-1', 'A01-2']);
+  assert.equal(q.cards[0].rows[0].critical.date, '2026-09-30');
+  assert.equal(q.cards[0].rows[1].critical.date, '2026-10-09');
+  assert.equal(q.cards[1].rows[0].critical, undefined);
+  // a later-due card that comes first in the source is moved behind the sooner one
+  const src = source();
+  src.cards.reverse();
+  const q2 = buildQuestions(src, { pending: pendingAll(), answeredButOpen: ['D-059'], criticalOf: (ids) => criticalForEntries(ids, blocks, plan()) });
+  assert.equal(q2.cards[0].id, 'A01');
+  assert.deepEqual(q2.cards.slice(1).map((c) => c.id), ['A23', 'A09'], 'the rest keep the order they had');
+  assert.deepEqual(criticalFirst([{ d: null }, { d: '2026-10-09' }, { d: '2026-09-30' }], (x) => x.d).map((x) => x.d), ['2026-09-30', '2026-10-09', null]);
+});
+
+test('critical: the published file allows a plain reason and nothing else, and the page guards still hold', () => {
+  const data = { updated: '2026-09-29', groups: [{ id: 'money', title: 'Money' }], videos: {}, cards: [{ id: 'A01', group: 'money', title: 'T', why: 'w', rows: [{ id: 'A01-1', qs: ['q?'], rec: 'r', videos: [], critical: { date: '2026-09-30', why: 'Needed by Sep 30: payment integration built and verified in sandbox.' } }] }] };
+  const screens = { updated: '2026-09-29', previewUrl: 'https://x.test/preview', features: [{ id: 'A', title: 'A', screens: [{ id: 'S-A1', code: 'A1', title: 't', what: 'w', url: 'https://x.test/preview/A1', videos: [], critical: { date: '2026-10-02', why: 'Needed by Oct 2: A2 leads to this screen, so it is signed off first.' } }] }] };
+  assert.deepEqual(checkPublished(data, screens).critical, { rows: 1, screens: 1 });
+  const bad = clone(data); bad.cards[0].rows[0].critical.why = 'Urgent';
+  assert.throws(() => checkPublished(bad, screens), /one plain line/);
+  const extra = clone(data); extra.cards[0].rows[0].critical.d = 'D-049';
+  assert.throws(() => checkPublished(extra, screens), /does not read/);
+  const leak = clone(screens); leak.features[0].screens[0].critical.why = 'Needed by Oct 2: see D-049.';
+  assert.throws(() => guardPublished('screens.json', JSON.stringify(leak)), /D-049/);
 });

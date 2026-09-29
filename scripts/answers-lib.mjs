@@ -103,7 +103,7 @@ function questionsOf(q) { return (Array.isArray(q) ? q : [q]).map((x) => String(
  * a recorded answer and still have open points on the page; their lines stay until the source
  * gives them `closed`.
  */
-export function buildQuestions(src, { pending, answeredButOpen = [] }) {
+export function buildQuestions(src, { pending, answeredButOpen = [], criticalOf = null }) {
   const stay = new Set(answeredButOpen);
   const dropped = [], cards = [];
   for (const c of src.cards) {
@@ -114,9 +114,13 @@ export function buildQuestions(src, { pending, answeredButOpen = [] }) {
       const open = r.d.filter((id) => pending.has(id) || stay.has(id));
       if (!open.length) { dropped.push({ id: r.id, why: `${r.d.join(', ')} no longer pending` }); continue; }
       const qs = r.q != null ? questionsOf(r.q) : open.map((id) => questionOf.get(id));
-      rows.push({ id: r.id, qs, rec: r.text, videos: r.videos.slice() });
+      const row = { id: r.id, qs, rec: r.text, videos: r.videos.slice() };
+      const crit = criticalOf && criticalOf(open);
+      if (crit) row.critical = crit;
+      rows.push(row);
     }
     if (!rows.length) continue;
+    if (criticalOf) rows.splice(0, rows.length, ...criticalFirst(rows, (r) => r.critical && r.critical.date));
     const card = { id: c.id, group: c.group, title: c.title };
     if (c.note) card.note = c.note;
     card.why = c.why;
@@ -125,7 +129,146 @@ export function buildQuestions(src, { pending, answeredButOpen = [] }) {
   }
   const used = new Set(cards.map((c) => c.group));
   const groups = src.groups.filter((g) => used.has(g.id)).map((g) => ({ id: g.id, title: g.title }));
-  return { groups, cards, dropped, rows: cards.reduce((n, c) => n + c.rows.length, 0) };
+  if (criticalOf) cards.splice(0, cards.length, ...criticalFirst(cards, (c) => c.rows.reduce((d, r) => (r.critical && (!d || r.critical.date < d) ? r.critical.date : d), '') || ''));
+  return { groups, cards, dropped, rows: cards.reduce((n, c) => n + c.rows.length, 0), critical: cards.reduce((n, c) => n + c.rows.filter((r) => r.critical).length, 0) };
+}
+
+// ── what is critical ─────────────────────────────────────────────────────────
+// One rule, read from the launch program and never from taste:
+//   A question is CRITICAL when a task or milestone that its decision blocks (the "Blocks" line
+//   of its entry in decisions.md) is due within CRITICAL_WINDOW_DAYS working days from today and
+//   is not done. A task is due when its milestone is (the milestone its backlog section names).
+//   A screen is CRITICAL when another screen leads to it (its sign-off decides what that screen
+//   goes to), or when a task or milestone blocked by its own entry is due within the same window.
+// Order: critical first, soonest due first, then the rest in the order they already had.
+// What the data cannot say (a lane's work, a release blocker) is not guessed: it is not critical.
+export const CRITICAL_WINDOW_DAYS = 10;
+const MONTHS = { Jan: 1, Feb: 2, Mar: 3, Apr: 4, May: 5, Jun: 6, Jul: 7, Aug: 8, Sep: 9, Oct: 10, Nov: 11, Dec: 12 };
+const isoDay = (y, m, d) => `${y}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+
+/** The date `n` working days (Monday to Friday) after `iso`. */
+export function addWorkingDays(iso, n) {
+  const d = new Date(iso + 'T12:00:00Z');
+  let left = n;
+  while (left > 0) { d.setUTCDate(d.getUTCDate() + 1); if (d.getUTCDay() !== 0 && d.getUTCDay() !== 6) left -= 1; }
+  return d.toISOString().slice(0, 10);
+}
+/** "Sep 30" for 2026-09-30. */
+export const shortDay = (iso) => { const [, m, d] = iso.split('-').map(Number); return `${Object.keys(MONTHS)[m - 1]} ${d}`; };
+
+/**
+ * The milestones of plan.md (`| M8 | name | Sep 18 → **Sep 30** | …`) with their date, and which of
+ * them status.md reads as done. A milestone whose target is not one plain date is left out.
+ */
+export function parseMilestones(planMd, statusMd, year = 2026) {
+  const out = {};
+  for (const line of String(planMd).split('\n')) {
+    const cells = line.split('|').map((c) => c.trim());
+    if (cells.length < 5 || !/^M\d+[a-d]?$/.test(cells[1])) continue;
+    const bold = /\*\*(?:done )?(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) (\d{1,2})\*\*/i.exec(cells[3]);
+    const plain = /^(Jan|Feb|Mar|Apr|Sep|Oct|Nov|Dec) (\d{1,2})$/.exec(cells[3]);
+    const hit = bold || plain;
+    if (!hit) continue;
+    out[cells[1]] = { name: cells[2], date: isoDay(year, MONTHS[hit[1][0].toUpperCase() + hit[1].slice(1).toLowerCase()], Number(hit[2])), done: /\bdone\b/i.test(cells[3]) };
+  }
+  for (const line of String(statusMd).split('\n')) {
+    const cells = line.split('|').map((c) => c.trim());
+    if (cells.length < 6 || !/^M\d/.test(cells[1])) continue;
+    if (!/^\**Done\b/i.test(cells[cells.length - 2])) continue;
+    for (const id of cells[1].split('/').map((x) => x.trim())) if (out[id]) out[id].done = true;
+  }
+  return out;
+}
+
+/** Which milestone each task of backlog.md belongs to: the one its section heading names. */
+export function parseTaskMilestones(backlogMd) {
+  const out = {};
+  let cur = null;
+  for (const line of String(backlogMd).split('\n')) {
+    const h = /^#{2,3} (.*)/.exec(line);
+    if (h) { const m = /milestone (M\d+[a-d]?)/.exec(h[1]); cur = m ? m[1] : null; continue; }
+    const r = /^\| ([A-Z]{1,3}\d+) \|/.exec(line);
+    if (r && cur && !(r[1] in out)) out[r[1]] = cur;
+  }
+  return out;
+}
+
+/** What each entry of decisions.md blocks: `D-049` -> ['N3', 'M7']. */
+export function parseBlocks(decisionsMd) {
+  const out = {};
+  let cur = null;
+  for (const line of String(decisionsMd).split('\n')) {
+    const m = /^### (D-\d{3}) /.exec(line);
+    if (m) { cur = m[1]; continue; }
+    const b = cur && /^- Blocks: (.*)$/.exec(line);
+    if (b) out[cur] = b[1].replace(/\([^)]*\)/g, '').match(/\b[A-Z]{1,3}\d+[a-d]?\b/g) || [];
+  }
+  return out;
+}
+
+/** Which screens lead to which: `C2` opens `C1`, `C4`, `C6`, so C1 is led to by C2. */
+export function parseScreenLinks(screensMd) {
+  const ledBy = {};
+  let code = null;
+  for (const line of String(screensMd).split('\n')) {
+    const h = /^### ([A-Z]\d{1,2}) · /.exec(line);
+    if (h) { code = h[1]; continue; }
+    if (/^#{1,3} /.test(line)) { code = null; continue; }
+    if (!code || !/^- (Shows|Can do|Where):/.test(line)) continue;
+    for (const to of new Set(line.match(/\b[A-Z]\d{1,2}\b/g) || [])) if (to !== code) (ledBy[to] = ledBy[to] || new Set()).add(code);
+  }
+  return Object.fromEntries(Object.entries(ledBy).map(([k, v]) => [k, [...v].sort()]));
+}
+
+/**
+ * The earliest due item among `items` (task or milestone ids) inside the window, or null.
+ * `plan` = { milestones, taskMilestone, today, windowDays }.
+ */
+export function dueWithin(items, plan) {
+  const limit = addWorkingDays(plan.today, plan.windowDays ?? CRITICAL_WINDOW_DAYS);
+  let best = null;
+  for (const id of items) {
+    const mid = /^M\d/.test(id) ? id : plan.taskMilestone[id];
+    const m = mid && plan.milestones[mid];
+    if (!m || m.done || m.date < plan.today || m.date > limit) continue;
+    if (!best || m.date < best.date) best = { date: m.date, name: m.name, milestone: mid, via: id };
+  }
+  return best;
+}
+
+const lowerFirst = (t) => (t ? t[0].toLowerCase() + t.slice(1) : t);
+/** The one plain line an owner reads under a critical question. */
+export const criticalLine = (due) => `Needed by ${shortDay(due.date)}: ${lowerFirst(due.name)}.`;
+
+/**
+ * For a question row: its decisions' blocks, judged against the plan.
+ * Returns { date, why } or null.
+ */
+export function criticalForEntries(entryIds, blocksOf, plan) {
+  const due = dueWithin(entryIds.flatMap((id) => blocksOf[id] || []), plan);
+  return due ? { date: due.date, why: criticalLine(due) } : null;
+}
+
+/**
+ * For a screen: another screen leading to it (due when the screens are signed off, the date of
+ * the sign-off milestone), or a task its own entry blocks. Returns { date, why } or null.
+ */
+export function criticalForScreen(code, entryId, { blocksOf, ledBy }, plan, signOff) {
+  const found = [];
+  const due = dueWithin(blocksOf[entryId] || [], plan);
+  if (due) found.push({ date: due.date, why: criticalLine(due) });
+  const from = ledBy[code] || [];
+  if (from.length && signOff && !signOff.done && signOff.date >= plan.today) {
+    found.push({ date: signOff.date, why: `Needed by ${shortDay(signOff.date)}: ${from.join(' and ')} lead${from.length === 1 ? 's' : ''} to this screen, so it is signed off first.` });
+  }
+  found.sort((a, b) => a.date.localeCompare(b.date));
+  return found[0] || null;
+}
+
+/** Critical first (soonest due first), then the rest in the order they came. Stable. */
+export function criticalFirst(list, dateOf) {
+  const key = (x) => dateOf(x) || '9999-99-99';
+  return list.map((x, i) => ({ x, i })).sort((a, b) => key(a.x).localeCompare(key(b.x)) || a.i - b.i).map((e) => e.x);
 }
 
 // ── the screens ──────────────────────────────────────────────────────────────
@@ -156,7 +299,7 @@ export function previewCode(moduleText) {
  * module has nothing to link to and is refused. The source's internal mapping never leaves it.
  * `walkthroughs` adds the film of a screen where there is one to link (resolveWalkthroughs).
  */
-export function buildScreens(source, spec, builtCodes, expected, walkthroughs = {}) {
+export function buildScreens(source, spec, builtCodes, expected, walkthroughs = {}, criticalOf = null) {
   for (const k of ['previewUrl', 'features']) if (!(k in source)) throw new Error(`the screens source has no "${k}"`);
   if (!/^https:\/\//.test(source.previewUrl)) throw new Error('the screens source needs an https previewUrl');
   const wording = new Map();
@@ -182,13 +325,15 @@ export function buildScreens(source, spec, builtCodes, expected, walkthroughs = 
       const out = { id: 'S-' + s.code, code: s.code, title: s.title, what: String(w.look).trim(), url: source.previewUrl + '/' + s.code, videos: videos.slice() };
       const walk = walkthroughs[s.code];
       if (walk) out.walk = { seconds: Math.round(walk.seconds), url: walk.url };
+      const crit = criticalOf && criticalOf(s.code, w.register);
+      if (crit) out.critical = crit;
       return out;
     }),
   }));
   for (const code of wording.keys()) if (!inSpec.has(code)) throw new Error(`the screens source describes ${code}, which the spec does not list`);
   const total = features.reduce((n, f) => n + f.screens.length, 0);
   if (expected && total !== expected) throw new Error(`expected ${expected} screens, the spec lists ${total}`);
-  return { previewUrl: source.previewUrl, features, total };
+  return { previewUrl: source.previewUrl, features, total, critical: features.reduce((n, f) => n + f.screens.filter((x) => x.critical).length, 0) };
 }
 
 // ── the videos ───────────────────────────────────────────────────────────────
@@ -340,6 +485,13 @@ export function buildPublished({ questions, screens, videos, today, previous }) 
   return { data, screens: scr };
 }
 
+function checkCritical(where, c) {
+  if (!c || typeof c !== 'object') throw new Error(`${where} has a "critical" that is not a reason`);
+  for (const k of Object.keys(c)) if (k !== 'date' && k !== 'why') throw new Error(`${where}: critical carries "${k}", which the page does not read`);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(c.date || '')) throw new Error(`${where}: critical has no date`);
+  if (!/^Needed by [A-Z][a-z]{2} \d{1,2}: .+\.$/.test(c.why || '')) throw new Error(`${where}: critical must say why in one plain line ("Needed by <date>: <what>.")`);
+}
+
 /** Checks a published pair as the page will read it. Returns counts; throws on anything wrong. */
 export function checkPublished(data, screens) {
   for (const k of ['updated', 'groups', 'cards', 'videos']) if (!(k in data)) throw new Error(`data.json has no "${k}"`);
@@ -348,7 +500,7 @@ export function checkPublished(data, screens) {
   const groups = new Set(data.groups.map((g) => g.id));
   const ids = new Set();
   const allowedCard = new Set(['id', 'group', 'title', 'note', 'why', 'rows']);
-  const allowedRow = new Set(['id', 'qs', 'rec', 'videos']);
+  const allowedRow = new Set(['id', 'qs', 'rec', 'videos', 'critical']);
   let rows = 0;
   for (const c of data.cards) {
     for (const k of Object.keys(c)) if (!allowedCard.has(k)) throw new Error(`data.json: card ${c.id} carries "${k}", which the page does not read`);
@@ -361,11 +513,12 @@ export function checkPublished(data, screens) {
       ids.add(r.id);
       if (!Array.isArray(r.qs) || !r.qs.length || r.qs.some((q) => !q)) throw new Error(`data.json: ${r.id} has no question`);
       if (!r.rec) throw new Error(`data.json: ${r.id} has no recommendation`);
+      if ('critical' in r) checkCritical(`data.json: ${r.id}`, r.critical);
       for (const n of r.videos) if (!data.videos[n]) throw new Error(`data.json: ${r.id} names video ${n}, which has no link`);
       rows += 1;
     }
   }
-  const allowedScreen = new Set(['id', 'code', 'title', 'what', 'url', 'videos', 'walk']);
+  const allowedScreen = new Set(['id', 'code', 'title', 'what', 'url', 'videos', 'walk', 'critical']);
   const codes = new Set();
   for (const f of screens.features) for (const s of f.screens) {
     for (const k of Object.keys(s)) if (!allowedScreen.has(k)) throw new Error(`screens.json: ${s.code} carries "${k}", which the page does not read`);
@@ -373,6 +526,7 @@ export function checkPublished(data, screens) {
     if (codes.has(s.code)) throw new Error(`screens.json: ${s.code} appears twice`);
     codes.add(s.code);
     if (!s.what || !s.title) throw new Error(`screens.json: ${s.code} has no title or description`);
+    if ('critical' in s) checkCritical(`screens.json: ${s.code}`, s.critical);
     if (s.url !== screens.previewUrl + '/' + s.code) throw new Error(`screens.json: ${s.code} links to ${s.url}`);
     for (const n of s.videos) if (!data.videos[n]) throw new Error(`screens.json: ${s.code} names video ${n}, which has no link`);
     if ('walk' in s) {
@@ -386,7 +540,8 @@ export function checkPublished(data, screens) {
   for (const [n, v] of Object.entries(data.videos)) {
     if (!VIDEO_NO.test(n) || !v.title || !(v.seconds > 0) || !/^https:\/\/drive\.google\.com\/file\/d\/[\w-]+\/view$/.test(v.url)) throw new Error(`data.json: video ${n} is incomplete`);
   }
-  return { cards: data.cards.length, rows, screens: codes.size, videos: Object.keys(data.videos).length };
+  const critical = { rows: data.cards.reduce((n, c) => n + c.rows.filter((r) => r.critical).length, 0), screens: screens.features.reduce((n, f) => n + f.screens.filter((x) => x.critical).length, 0) };
+  return { cards: data.cards.length, rows, screens: codes.size, videos: Object.keys(data.videos).length, critical };
 }
 
 /** What changed between two published pairs, in plain lines, for the person running the sync. */
@@ -401,6 +556,7 @@ export function describeChange(before, after) {
       if (JSON.stringify(was.qs) !== JSON.stringify(r.qs)) out.push(`~ question ${id}: the question reads differently`);
       if (was.rec !== r.rec) out.push(`~ question ${id}: the recommendation reads differently`);
       if (JSON.stringify(was.videos) !== JSON.stringify(r.videos)) out.push(`~ question ${id}: videos ${was.videos.join(', ') || 'none'} -> ${r.videos.join(', ') || 'none'}`);
+      if (JSON.stringify(was.critical || null) !== JSON.stringify(r.critical || null)) out.push(`~ question ${id}: ${r.critical ? 'critical, ' + r.critical.why : 'no longer critical'}`);
     }
   }
   for (const [id, r] of a) if (!b.has(id)) out.push(`- question ${id}: ${r.qs.join(' / ')}`);
@@ -410,6 +566,7 @@ export function describeChange(before, after) {
     const was = sa.get(code);
     if (!was) out.push(`+ screen ${code}: ${s.title}`);
     else if (was.title !== s.title || (was.what || was.look) !== s.what || JSON.stringify(was.videos || []) !== JSON.stringify(s.videos)) out.push(`~ screen ${code}: ${s.title}`);
+    if (was && JSON.stringify(was.critical || null) !== JSON.stringify(s.critical || null)) out.push(`~ screen ${code}: ${s.critical ? 'critical, ' + s.critical.why : 'no longer critical'}`);
     const wa = was && was.walk, wb = s.walk;
     if (was && JSON.stringify(wa || null) !== JSON.stringify(wb || null)) {
       out.push(wb && !wa ? `+ screen ${code}: a video of it, ${wb.seconds}s`

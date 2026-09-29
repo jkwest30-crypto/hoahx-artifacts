@@ -39,8 +39,8 @@ import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
-  buildPublished, buildQuestions, buildScreens, checkPublished, checkSource, describeChange,
-  guardPublished, parseRegister, parseScreensSpec, previewClosure, previewCode, resolveVideos,
+  CRITICAL_WINDOW_DAYS, addWorkingDays, buildPublished, buildQuestions, buildScreens, checkPublished, checkSource, describeChange,
+  criticalForEntries, criticalForScreen, guardPublished, parseBlocks, parseMilestones, parseRegister, parseScreenLinks, parseTaskMilestones, parseScreensSpec, previewClosure, previewCode, resolveVideos,
   resolveWalkthroughs, screenFingerprint, videoNumbers,
 } from './answers-lib.mjs';
 
@@ -79,7 +79,7 @@ if (has('--check')) {
   let n;
   try { n = checkPublished(pub.data, pub.screens); } catch (e) { fail(e.message); }
   const names = guardPage(true);
-  console.log(`${n.rows} questions on ${n.cards} cards, ${n.screens} screens, ${n.videos} videos linked; last updated ${pub.data.updated}`);
+  console.log(`${n.rows} questions (${n.critical.rows} critical) on ${n.cards} cards, ${n.screens} screens (${n.critical.screens} critical), ${n.videos} videos linked; last updated ${pub.data.updated}`);
   console.log(`guards passed on ${names.join(', ')}`);
   console.log('check only; nothing written');
   process.exit(0);
@@ -137,10 +137,17 @@ if (!existsSync(registerPath)) fail(`decisions.md not found: ${registerPath}`);
 const { all: entries, pending } = parseRegister(readFileSync(registerPath, 'utf8'));
 for (const c of source.cards) for (const d of c.decisions) if (!entries.has(d.id)) fail(`${d.id} (card ${c.id}) is not an entry in decisions.md`);
 const answeredButOpen = config.answeredButOpen || [];
-const questions = buildQuestions(source, { pending, answeredButOpen });
+// what is critical, from the plan: see "what is critical" in answers-lib.mjs
+const readText = (rel) => { const p = join(hoahx, rel); return existsSync(p) ? readFileSync(p, 'utf8') : ''; };
+const registerText = readFileSync(registerPath, 'utf8');
+const milestones = parseMilestones(readText('docs/launch/plan.md'), readText('docs/launch/status.md'));
+const plan = { milestones, taskMilestone: parseTaskMilestones(readText('docs/launch/backlog.md')), today, windowDays: CRITICAL_WINDOW_DAYS };
+const blocksOf = parseBlocks(registerText);
+if (!Object.keys(milestones).length) fail('no milestones could be read from docs/launch/plan.md, so nothing can be judged critical; nothing was written');
+const questions = buildQuestions(source, { pending, answeredButOpen, criticalOf: (ids) => criticalForEntries(ids, blocksOf, plan) });
 const onCards = new Set(source.cards.flatMap((c) => c.decisions.map((d) => d.id)));
 const unasked = [...pending].filter((id) => !onCards.has(id));
-console.log(`2 · questions: ${questions.rows} of ${counts.lines} lines still waiting, on ${questions.cards.length} cards`);
+console.log(`2 · questions: ${questions.rows} of ${counts.lines} lines still waiting, on ${questions.cards.length} cards, ${questions.critical} critical (blocking something due by ${addWorkingDays(today, CRITICAL_WINDOW_DAYS)})`);
 for (const d of questions.dropped) console.log(`    dropped ${d.id}: ${d.why}`);
 if (unasked.length) console.warn(`    pending in decisions.md but on no card: ${unasked.join(', ')}`);
 
@@ -206,9 +213,11 @@ if (walkCfg && existsSync(walkPath)) {
   console.log(`3b · screen videos: none (no manifest at ${walkCfg.manifest})`);
 }
 
+const ledBy = parseScreenLinks(git('show', `${screensRef}:${config.screens.spec}`));
+const signOff = milestones.M17;
 let screens;
-try { screens = buildScreens(screensSource, spec, built, config.screens.expected, walkthroughs); } catch (e) { fail(e.message); }
-console.log(`3 · screens: ${screens.total} from ${config.screens.spec} at ${screensRef} (${screensRev}), ${previewFiles.length} preview modules`);
+try { screens = buildScreens(screensSource, spec, built, config.screens.expected, walkthroughs, (code, entry) => criticalForScreen(code, entry, { blocksOf, ledBy }, plan, signOff)); } catch (e) { fail(e.message); }
+console.log(`3 · screens: ${screens.total} (${screens.critical} critical) from ${config.screens.spec} at ${screensRef} (${screensRev}), ${previewFiles.length} preview modules`);
 
 // 4 · the videos
 const numbers = videoNumbers(questions, screens);

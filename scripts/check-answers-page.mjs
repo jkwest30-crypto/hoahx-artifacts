@@ -211,7 +211,15 @@ try {
   // ── screens: read-only here, set on the screen itself ──
   check('a screen card has no answer buttons', (await page.locator('#screen-groups button').count()) === 0 && (await page.locator('#screens textarea').count()) === 0);
   const hrefs = await page.locator('[data-screen] a.go').evaluateAll((as) => as.map((a) => a.getAttribute('href')));
-  check('every screen links to itself on the test site', hrefs.length === 27 && hrefs.every((h, i) => h === scr.previewUrl + '/' + scr.features.flatMap((f) => f.screens)[i].code), hrefs[0]);
+  check('every screen links to itself on the test site', hrefs.length === 27 && hrefs.slice().sort().join() === scr.features.flatMap((f) => f.screens).map((x) => scr.previewUrl + '/' + x.code).sort().join(), hrefs[0]);
+  // critical first: marked in words, with one plain reason, before everything that is not
+  const critScreens = scr.features.flatMap((f) => f.screens).filter((x) => x.critical);
+  const shownCrit = await page.locator('[data-screen]').evaluateAll((els) => els.map((e) => e.dataset.critical === 'true'));
+  const firstPlain = shownCrit.indexOf(false);
+  check(`the ${critScreens.length} critical screens come first, each with a Critical badge and its reason`, shownCrit.filter(Boolean).length === critScreens.length && (firstPlain === -1 || shownCrit.slice(firstPlain).every((x) => !x)) && (await page.locator('[data-screen][data-critical="true"] .crit-badge').count()) === critScreens.length && (await page.locator('[data-screen][data-critical="true"] .crit-why').allInnerTexts()).every((t) => /^Needed by [A-Z][a-z]{2} \d{1,2}: /.test(t)));
+  const critRows = data.cards.flatMap((c) => c.rows).filter((r) => r.critical);
+  const rowOrder = await page.locator('[data-row]').evaluateAll((els) => els.map((e) => e.dataset.critical === 'true'));
+  check(`the ${critRows.length} critical questions come first with a Critical badge; the rest follow`, rowOrder.filter(Boolean).length === critRows.length && (await page.locator('[data-row][data-critical="true"] .crit-badge').count()) === critRows.length && rowOrder.indexOf(true) === 0);
   // the film of the screen, beside the link that opens it: watching is the other way to review it
   const filmed = scr.features.flatMap((f) => f.screens).filter((x) => x.walk);
   const films = await page.locator('[data-screen] a.see').evaluateAll((as) => as.map((a) => ({ href: a.getAttribute('href'), target: a.target, text: a.innerText.replace(/\s+/g, ' ').trim() })));

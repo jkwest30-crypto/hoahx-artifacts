@@ -206,6 +206,12 @@
 
   function chip(group, key, label, n, cur) { return '<button type="button" class="chip" data-' + group + '="' + key + '" aria-pressed="' + (cur === key) + '">' + label + ' <b>' + n + '</b></button>'; }
 
+  function critHtml(c) { return c ? '<p class="crit"><span class="crit-badge">Critical</span><span class="crit-why">' + esc(c.why) + '</span></p>' : ''; }
+  // Critical first, soonest due first; the rest keep the order they came in.
+  function byDue(list, dateOf) { return list.map((x, i) => [x, i]).sort((a, b) => (dateOf(a[0]) || '9999').localeCompare(dateOf(b[0]) || '9999') || a[1] - b[1]).map((e) => e[0]); }
+  const CRIT_SCREENS = 'Critical: other screens or work depend on these';
+  const CRIT_QUESTIONS = 'Critical: needed first';
+
   function screenHtml(x) {
     const s = stateOf(x.id);
     const day = s === 'open' ? '' : fmtDay(state.when[x.id]);
@@ -214,18 +220,21 @@
     const said = s === 'change' || s === 'discuss'
       ? '<div class="said c-' + S_CLASS[s] + '"><b>' + (s === 'discuss' ? (who ? who + ' wants to talk this through' : 'To talk through') : (who ? who + ' asked for a change' : 'A change was asked for')) + '</b>' + (note ? esc(note) : 'No note left.') + '</div>'
       : '';
-    return '<article class="scr" data-screen="' + esc(x.code) + '" data-state="' + s + '"><div class="scr-top"><span class="code">' + esc(x.code) + '</span><span class="pill ' + S_CLASS[s] + '">' + S_LABEL[s] + (day ? ' · ' + esc(day) : '') + '</span></div>' +
-      '<h4>' + esc(x.title) + '</h4><p>' + esc(x.what) + '</p>' + said +
+    return '<article class="scr' + (x.critical ? ' is-critical' : '') + '" data-screen="' + esc(x.code) + '" data-state="' + s + '"' + (x.critical ? ' data-critical="true"' : '') + '><div class="scr-top"><span class="code">' + esc(x.code) + '</span><span class="pill ' + S_CLASS[s] + '">' + S_LABEL[s] + (day ? ' · ' + esc(day) : '') + '</span></div>' +
+      '<h4>' + esc(x.title) + '</h4>' + critHtml(x.critical) + '<p>' + esc(x.what) + '</p>' + said +
       '<div class="scr-foot"><a class="go" href="' + esc(x.url) + '" target="_blank" rel="noopener">' + (s === 'open' ? 'Open ' + esc(x.code) + ' and review it' : 'Open ' + esc(x.code)) + '</a>' + watchScreen(x) + vids(x.videos) + '</div></article>';
   }
   function renderScreens() {
     const s = tallyS();
     $('screen-chips').innerHTML = chip('sf', 'all', 'All', screens.length, ui.sFilter) + chip('sf', 'yes', 'Signed off', s.yes, ui.sFilter) + chip('sf', 'change', 'Changes suggested', s.change, ui.sFilter) + chip('sf', 'discuss', 'To discuss', s.discuss, ui.sFilter) + chip('sf', 'open', 'Not reviewed', s.open, ui.sFilter);
-    $('screen-groups').innerHTML = SCREENS.features.map((f) => {
-      const list = f.screens.filter((x) => ui.sFilter === 'all' || stateOf(x.id) === ui.sFilter);
+    const seen = (x) => ui.sFilter === 'all' || stateOf(x.id) === ui.sFilter;
+    const hot = byDue(screens.filter((x) => x.critical), (x) => x.critical.date);
+    const groups = (hot.length ? [{ title: CRIT_SCREENS, critical: true, screens: hot }] : []).concat(SCREENS.features.map((f) => ({ title: f.title, screens: f.screens.filter((x) => !x.critical) })));
+    $('screen-groups').innerHTML = groups.map((f) => {
+      const list = f.screens.filter(seen);
       if (!list.length) return '';
       const done = f.screens.filter((x) => stateOf(x.id) === 'yes').length;
-      return '<div class="group"><div class="group-h"><h3>' + esc(f.title) + '</h3><span class="num">' + done + ' of ' + f.screens.length + ' signed off</span></div><div class="screens">' + list.map(screenHtml).join('') + '</div></div>';
+      return '<div class="group' + (f.critical ? ' group-critical' : '') + '"><div class="group-h"><h3>' + esc(f.title) + '</h3><span class="num">' + done + ' of ' + f.screens.length + ' signed off</span></div><div class="screens">' + list.map(screenHtml).join('') + '</div></div>';
     }).join('') || '<p class="empty">No screens in this view.</p>';
   }
 
@@ -240,7 +249,7 @@
     const note = String(state.notes[r.id] || '').trim();
     const boxHere = ui.editing === r.id && (s === 'change' || s === 'discuss');
     const day = s === 'open' ? '' : fmtDay(state.when[r.id]);
-    return '<div class="q is-' + s + '" data-row="' + esc(r.id) + '" data-state="' + s + '"><div class="q-main">' +
+    return '<div class="q is-' + s + (r.critical ? ' is-critical' : '') + '" data-row="' + esc(r.id) + '" data-state="' + s + '"' + (r.critical ? ' data-critical="true"' : '') + '><div class="q-main">' + critHtml(r.critical) +
       r.qs.map((q) => '<p class="q-text">' + esc(q) + '</p>').join('') +
       '<button type="button" class="rec-btn" data-toggle aria-expanded="' + exp + '"><span class="k">Our recommendation</span><span class="t">' + esc(r.rec) + '</span></button>' +
       vids(r.videos) +
@@ -255,12 +264,16 @@
   function renderQuestions() {
     const t = tallyQ();
     $('q-chips').innerHTML = chip('qf', 'all', 'All', rows.length, ui.qFilter) + chip('qf', 'open', 'Not answered', t.open, ui.qFilter) + chip('qf', 'agree', 'Agreed', t.agree, ui.qFilter) + chip('qf', 'change', 'To change', t.change, ui.qFilter) + chip('qf', 'discuss', 'To discuss', t.discuss, ui.qFilter);
-    $('q-groups').innerHTML = DATA.groups.map((g) => {
-      const all = DATA.cards.filter((c) => c.group === g.id);
+    const isHot = (c) => c.rows.some((r) => r.critical);
+    const hotCards = byDue(DATA.cards.filter(isHot), (c) => c.rows.reduce((d, r) => (r.critical && (!d || r.critical.date < d) ? r.critical.date : d), ''));
+    const sections = (hotCards.length ? [{ title: CRIT_QUESTIONS, critical: true, cards: hotCards }] : [])
+      .concat(DATA.groups.map((g) => ({ title: g.title, cards: DATA.cards.filter((c) => c.group === g.id && !isHot(c)) })));
+    $('q-groups').innerHTML = sections.map((g) => {
+      const all = g.cards;
       const shown = all.map((c) => ({ c, list: c.rows.filter((r) => ui.qFilter === 'all' || stateOf(r.id) === ui.qFilter || ui.editing === r.id) })).filter((x) => x.list.length);
       if (!shown.length) return '';
       const agreed = all.filter((c) => cardState(c).k === 'agree').length;
-      return '<div class="group"><div class="group-h"><h3>' + esc(g.title) + '</h3><span class="num">' + agreed + ' of ' + all.length + ' cards agreed</span></div>' +
+      return '<div class="group' + (g.critical ? ' group-critical' : '') + '"><div class="group-h"><h3>' + esc(g.title) + '</h3><span class="num">' + agreed + ' of ' + all.length + ' cards agreed</span></div>' +
         shown.map(({ c, list }) => {
           const cs = cardState(c);
           return '<article class="card" data-card="' + esc(c.id) + '" data-state="' + cs.k + '"><div class="card-h"><h4>' + esc(c.title) + '</h4><div class="side"><span class="pill ' + Q_CLASS[cs.k] + '">' + cs.label + '</span><small class="num">' + cs.done + ' of ' + c.rows.length + ' answered</small></div></div>' +

@@ -39,7 +39,11 @@
       "Who pays the card processing cost: the homeowner as a convenience fee, or the community?"
      ],
      "rec": "A homeowner who pays by card pays the card cost, shown as its own convenience-fee line before they confirm. A bank payment costs nothing. Where NMI says a card fee is not allowed in a community's state, that community absorbs the cost and the screen says so.",
-     "videos": []
+     "videos": [],
+     "critical": {
+      "date": "2026-09-30",
+      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
+     }
     },
     {
      "id": "A01-2",
@@ -47,7 +51,11 @@
       "Should partial payments be accepted against a dues balance?"
      ],
      "rec": "Any amount from one dollar up to the balance is accepted; nothing above the balance. A late fee still applies to whatever is left when the grace period ends.",
-     "videos": []
+     "videos": [],
+     "critical": {
+      "date": "2026-09-30",
+      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
+     }
     },
     {
      "id": "A01-3",
@@ -55,7 +63,11 @@
       "Should tenants be able to pay dues by default?"
      ],
      "rec": "A tenant can pay dues unless the owner switches it off on the tenant's record. The switch is repaired so it saves, and the owner is told whenever a tenant pays.",
-     "videos": []
+     "videos": [],
+     "critical": {
+      "date": "2026-09-30",
+      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
+     }
     }
    ]
   },
@@ -71,7 +83,11 @@
       "Are late fees ever calculated and applied automatically?"
      ],
      "rec": "Late fees are applied automatically the day after the grace period on the community's dues schedule, at the amount on the schedule, and the homeowner is told the day it happens. A payment counts on the day it is submitted, not the day the bank settles it, so a bank payment started on time is never late.",
-     "videos": []
+     "videos": [],
+     "critical": {
+      "date": "2026-09-30",
+      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
+     }
     },
     {
      "id": "A02-2",
@@ -79,7 +95,11 @@
       "What should happen when an autopay charge fails: retries, notice, escalation?"
      ],
      "rec": "When an autopay charge fails, the homeowner is told the same day with the reason and a one-tap retry. HOAhx retries once, three days later. After a second failure autopay pauses, the homeowner and the treasurer are told, and the balance stays due until the homeowner pays or fixes the payment method.",
-     "videos": []
+     "videos": [],
+     "critical": {
+      "date": "2026-09-30",
+      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
+     }
     }
    ]
   },
@@ -95,7 +115,11 @@
       "Who should be told when a payment is disputed or a bank payment is returned?"
      ],
      "rec": "The treasurer and the homeowner are told the same day, in the app and by email (and on the phone once the apps are out). The President sees it in the weekly board summary. The homeowner's notice says what was reversed, the deadline, and how to pay again.",
-     "videos": []
+     "videos": [],
+     "critical": {
+      "date": "2026-09-30",
+      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
+     }
     },
     {
      "id": "A03-2",
@@ -103,7 +127,11 @@
       "Should a returned bank payment carry a fee, and how much?"
      ],
      "rec": "A returned bank payment carries a fixed fee the community sets in its payment rules, $25 by default, charged once per return and never above the state's cap. It appears on the homeowner's ledger with the reason.",
-     "videos": []
+     "videos": [],
+     "critical": {
+      "date": "2026-09-30",
+      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
+     }
     }
    ]
   },
@@ -119,7 +147,11 @@
       "Which roles may set up the community's merchant account?"
      ],
      "rec": "The President or the Treasurer applies and signs. In a community with a management company, the property manager may start the application, but the President or the Treasurer signs it.",
-     "videos": []
+     "videos": [],
+     "critical": {
+      "date": "2026-09-30",
+      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
+     }
     },
     {
      "id": "A04-2",
@@ -127,7 +159,11 @@
       "Should the merchant application open on NMI's own page, or sit inside HOAhx's payment setup screen?"
      ],
      "rec": "The application opens on NMI's own page from HOAhx's payment setup. The version embedded inside HOAhx is a later improvement, once NMI confirms it works on the partner sandbox and inside the phone apps.",
-     "videos": []
+     "videos": [],
+     "critical": {
+      "date": "2026-09-30",
+      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
+     }
     },
     {
      "id": "A04-3",
@@ -135,7 +171,11 @@
       "Should a management company be able to run its communities' payments through its own existing merchant account?"
      ],
      "rec": "NMI Payments only. No bring-your-own-processor for the launch. The first management company that asks starts a conversation, not a build.",
-     "videos": []
+     "videos": [],
+     "critical": {
+      "date": "2026-09-30",
+      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
+     }
     }
    ]
   },
@@ -154,7 +194,11 @@
      "videos": [
       "07",
       "29"
-     ]
+     ],
+     "critical": {
+      "date": "2026-09-30",
+      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
+     }
     },
     {
      "id": "A05-2",
@@ -165,7 +209,11 @@
      "videos": [
       "06",
       "28"
-     ]
+     ],
+     "critical": {
+      "date": "2026-09-30",
+      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
+     }
     }
    ]
   },
@@ -181,7 +229,11 @@
       "Should residents be able to see their full payment history including refunds and disputes?"
      ],
      "rec": "A homeowner sees their whole payment history, including refunds, returned payments, and payments under review for a dispute, each with its status, the reason, and what to do next. Internal notes and processor identifiers never appear.",
-     "videos": []
+     "videos": [],
+     "critical": {
+      "date": "2026-09-30",
+      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
+     }
     },
     {
      "id": "A06-2",
@@ -190,6 +242,114 @@
      ],
      "rec": "A homeowner sees their own property ledger, the published budget, and budget versus actual spending. The community's line-by-line ledger stays with the board.",
      "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A16",
+   "group": "records",
+   "title": "What reaches the phone, and what cannot be switched off",
+   "why": "The notices a homeowner cannot mute are the ones that protect them. Three phone notices on by default, with quiet hours, is the line between an app people keep and one they silence.",
+   "rows": [
+    {
+     "id": "A16-1",
+     "qs": [
+      "Are there communications a resident may not opt out of: emergency notices, legal notices, dues reminders?"
+     ],
+     "rec": "Legal and enforcement notices, dues and payment notices, and urgent community alerts cannot be switched off. Announcements, request updates, and community messages can, channel by channel.",
+     "videos": [],
+     "critical": {
+      "date": "2026-10-09",
+      "why": "Needed by Oct 9: app shell and push notifications."
+     }
+    },
+    {
+     "id": "A16-2",
+     "qs": [
+      "Which notifications should reach the phone by default: announcements, request updates, payment reminders?"
+     ],
+     "rec": "On the phone, announcements, request updates, and payment reminders are all on by default. Quiet hours hold the non-urgent ones overnight, and each person can switch any of the three off.",
+     "videos": [],
+     "critical": {
+      "date": "2026-10-09",
+      "why": "Needed by Oct 9: app shell and push notifications."
+     }
+    },
+    {
+     "id": "A16-3",
+     "qs": [
+      "Should text-message notifications be connected for the launch, or should the launch ship with push and email only?"
+     ],
+     "rec": "The launch ships with push notifications on the phone and email. No text messages at launch: they need a provider, a consent step, and a per-message cost the proposal left out. Text messages become a per-community option after launch if the first communities ask.",
+     "videos": [],
+     "critical": {
+      "date": "2026-10-09",
+      "why": "Needed by Oct 9: app shell and push notifications."
+     }
+    }
+   ]
+  },
+  {
+   "id": "A19",
+   "group": "ops",
+   "title": "Who gets the alerts, and the monthly spending alert",
+   "why": "An alert nobody owns is noise. One named person, one backup, one note.",
+   "rows": [
+    {
+     "id": "A19-1",
+     "qs": [
+      "Who is the named recipient of production alerts, and who is the backup?"
+     ],
+     "rec": "Dan is the named recipient of production alerts, by email and text, with Rustin as the backup, and a one-page \"when this fires\" note: what to check, when to call Jacob, how to pause payments. Jacob is copied through launch and the thirty days after. Say so if it should be the other way round.",
+     "videos": [],
+     "critical": {
+      "date": "2026-10-09",
+      "why": "Needed by Oct 9: protection, monitoring, and backups."
+     }
+    },
+    {
+     "id": "A19-2",
+     "qs": [
+      "Who receives the error, uptime, and spending alerts, and what is the monthly spending cap?"
+     ],
+     "rec": "The same two people receive the error, uptime, and spending alerts. The hosting account is set to alert at $150 a month, with an earlier warning at $75. That is a notice, not a spending cap: Google Cloud cannot stop the bill at a number, it can only tell you the number was passed. The accounts run comfortably under both today, and a lower number would page you for nothing.",
+     "videos": [],
+     "critical": {
+      "date": "2026-10-09",
+      "why": "Needed by Oct 9: protection, monitoring, and backups."
+     }
+    },
+    {
+     "id": "A19-3",
+     "qs": [
+      "Who is notified when a security rule denies an unexpected access, and is anyone watching?"
+     ],
+     "rec": "Unexpected access denials are counted and reach the same people as a daily summary; a sudden spike alerts within minutes.",
+     "videos": [],
+     "critical": {
+      "date": "2026-10-09",
+      "why": "Needed by Oct 9: protection, monitoring, and backups."
+     }
+    }
+   ]
+  },
+  {
+   "id": "A27",
+   "group": "ops",
+   "title": "How far back a restore can reach",
+   "why": "This is only how far back a restore can reach. How long HOAhx keeps a community's records is a separate question, on the card about what is kept.",
+   "rows": [
+    {
+     "id": "A27-1",
+     "qs": [
+      "Should a daily backup be kept for 30 days and then deleted?"
+     ],
+     "rec": "A copy of every community's records is taken each night and kept for 30 days, then deleted automatically. Anything that went wrong in the last month, such as a bad import or a deletion nobody noticed, can be put back. A longer window costs a little more storage and is a one-line change.",
+     "videos": [],
+     "critical": {
+      "date": "2026-10-09",
+      "why": "Needed by Oct 9: protection, monitoring, and backups."
+     }
     }
    ]
   },
@@ -485,38 +645,6 @@
    ]
   },
   {
-   "id": "A16",
-   "group": "records",
-   "title": "What reaches the phone, and what cannot be switched off",
-   "why": "The notices a homeowner cannot mute are the ones that protect them. Three phone notices on by default, with quiet hours, is the line between an app people keep and one they silence.",
-   "rows": [
-    {
-     "id": "A16-1",
-     "qs": [
-      "Are there communications a resident may not opt out of: emergency notices, legal notices, dues reminders?"
-     ],
-     "rec": "Legal and enforcement notices, dues and payment notices, and urgent community alerts cannot be switched off. Announcements, request updates, and community messages can, channel by channel.",
-     "videos": []
-    },
-    {
-     "id": "A16-2",
-     "qs": [
-      "Which notifications should reach the phone by default: announcements, request updates, payment reminders?"
-     ],
-     "rec": "On the phone, announcements, request updates, and payment reminders are all on by default. Quiet hours hold the non-urgent ones overnight, and each person can switch any of the three off.",
-     "videos": []
-    },
-    {
-     "id": "A16-3",
-     "qs": [
-      "Should text-message notifications be connected for the launch, or should the launch ship with push and email only?"
-     ],
-     "rec": "The launch ships with push notifications on the phone and email. No text messages at launch: they need a provider, a consent step, and a per-message cost the proposal left out. Text messages become a per-community option after launch if the first communities ask.",
-     "videos": []
-    }
-   ]
-  },
-  {
    "id": "A17",
    "group": "records",
    "title": "Messages and announcements",
@@ -576,38 +704,6 @@
       "Is there a data export or deletion path for a resident who requests one?"
      ],
      "rec": "A resident deletes their account and personal data in the app; their community records (requests, payments, notices) stay with the community. An export of their data is requested from HOAhx support and delivered within thirty days; a self-serve export comes after launch.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A19",
-   "group": "ops",
-   "title": "Who gets the alerts, and the monthly spending alert",
-   "why": "An alert nobody owns is noise. One named person, one backup, one note.",
-   "rows": [
-    {
-     "id": "A19-1",
-     "qs": [
-      "Who is the named recipient of production alerts, and who is the backup?"
-     ],
-     "rec": "Dan is the named recipient of production alerts, by email and text, with Rustin as the backup, and a one-page \"when this fires\" note: what to check, when to call Jacob, how to pause payments. Jacob is copied through launch and the thirty days after. Say so if it should be the other way round.",
-     "videos": []
-    },
-    {
-     "id": "A19-2",
-     "qs": [
-      "Who receives the error, uptime, and spending alerts, and what is the monthly spending cap?"
-     ],
-     "rec": "The same two people receive the error, uptime, and spending alerts. The hosting account is set to alert at $150 a month, with an earlier warning at $75. That is a notice, not a spending cap: Google Cloud cannot stop the bill at a number, it can only tell you the number was passed. The accounts run comfortably under both today, and a lower number would page you for nothing.",
-     "videos": []
-    },
-    {
-     "id": "A19-3",
-     "qs": [
-      "Who is notified when a security rule denies an unexpected access, and is anyone watching?"
-     ],
-     "rec": "Unexpected access denials are counted and reach the same people as a daily summary; a sudden spike alerts within minutes.",
      "videos": []
     }
    ]
@@ -760,22 +856,6 @@
       "33",
       "37"
      ]
-    }
-   ]
-  },
-  {
-   "id": "A27",
-   "group": "ops",
-   "title": "How far back a restore can reach",
-   "why": "This is only how far back a restore can reach. How long HOAhx keeps a community's records is a separate question, on the card about what is kept.",
-   "rows": [
-    {
-     "id": "A27-1",
-     "qs": [
-      "Should a daily backup be kept for 30 days and then deleted?"
-     ],
-     "rec": "A copy of every community's records is taken each night and kept for 30 days, then deleted automatically. Anything that went wrong in the last month, such as a bad import or a deletion nobody noticed, can be put back. A longer window costs a little more storage and is a one-line change.",
-     "videos": []
     }
    ]
   },
