@@ -198,3 +198,17 @@ export function describeNote(note, video) {
   }
   return lines.join('\n');
 }
+
+// Jacob's review passphrase (VIDEO_REVIEW_KEY), in this order: --key, then the shell's
+// VIDEO_REVIEW_KEY, then the Netlify site's own environment (`netlify` is the lookup, faked in
+// tests). The value is returned, never printed; `source` says where it came from.
+export async function resolveReviewKey({ flag, env, netlify }) {
+  if (flag) return { key: flag, source: '--key' };
+  if (env) return { key: env, source: 'VIDEO_REVIEW_KEY in the shell' };
+  let key;
+  try { key = await netlify(); } catch (e) {
+    throw new Error(`Netlify could not give Jacob's passphrase: ${e.message}. Pass --key, or set VIDEO_REVIEW_KEY in the shell.`);
+  }
+  if (!key) throw new Error('Netlify has no VIDEO_REVIEW_KEY for the site. Set it in the site\'s environment variables, or pass --key.');
+  return { key, source: 'the Netlify site' };
+}

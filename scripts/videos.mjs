@@ -7,8 +7,10 @@
 //                                                            full-size screenshots -> Drive, checked, then dropped
 //   node scripts/videos.mjs find  V05-N004                   everything about one note
 //
-// Options: --key <VIDEO_REVIEW_KEY> (or the env var), --edit-key <DECISION_EDIT_KEY> if set on the site,
-//          --site <url> (default the live site), --hoahx <path to the hoahx checkout>.
+// Options: --key <VIDEO_REVIEW_KEY> (or the env var; with neither, the key is read from the Netlify site's
+//          environment through the Netlify CLI), --edit-key <DECISION_EDIT_KEY> if set on the site,
+//          --site <url> (default the live site), --hoahx <path to the hoahx checkout>,
+//          --any-branch (let sync write into a checkout that is not on main).
 //
 // sync never commits or pushes. It copies approved recordings into the shared Drive folder
 // ("HOAhx/Videos for the owners/<file>", replacing the file of the same name so the owners' link does not change)
@@ -20,7 +22,7 @@ import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import {
   REVIEW_ROOT, SHARED_DIR, SHARED_ROOT, REF_RE, buildJacobData, findForbidden, buildOwnersData, describeNote, driveView, guardOwnersData,
-  planPublish, readManifest, screenshotName, verifyCopy,
+  planPublish, readManifest, resolveReviewKey, screenshotName, verifyCopy,
 } from './videos-lib.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -36,7 +38,8 @@ const MANIFEST = path.join(HOAHX, 'docs/launch/videos/videos.json');
 const LOCAL = path.join(HOAHX, 'docs/launch/videos/review-store');
 const OWNERS_FILE = path.join(root, 'go-live/videos/data.json');
 const JACOB_FILE = path.join(root, 'go-live/videos/review/all.json');
-const KEY = opt('key', process.env.VIDEO_REVIEW_KEY || '');
+// The Netlify site that serves /api/videos (hoahx-requirements). Override with NETLIFY_SITE_ID.
+const NETLIFY_SITE_ID = process.env.NETLIFY_SITE_ID || '04cef402-8aab-4a1d-b3a7-aaa4be99d643';
 const EDIT_KEY = opt('edit-key', process.env.DECISION_EDIT_KEY || '');
 const DRY = flag('dry-run');
 const stamp = () => new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
@@ -46,10 +49,48 @@ function fail(msg) { console.error(`\n✗ ${msg}`); process.exit(1); }
 const readJson = (f, dflt) => { try { return JSON.parse(fs.readFileSync(f, 'utf8')); } catch (e) { return dflt; } };
 const writeJson = (f, v) => { fs.mkdirSync(path.dirname(f), { recursive: true }); fs.writeFileSync(f, JSON.stringify(v, null, 2) + '\n'); };
 
+// Reads VIDEO_REVIEW_KEY from the site's environment with the Netlify CLI, in this checkout's folder.
+// Links the folder to the site first when it is not linked (that writes only the gitignored
+// .netlify/state.json; no site setting changes). The CLI's own --site flag hangs, so the link is used.
+// stdout is captured and parsed, never echoed; errors carry the CLI's stderr only.
+function netlifyReviewKey() {
+  const cli = (args) => {
+    try {
+      return execFileSync('netlify', args, { cwd: root, encoding: 'utf8', timeout: 90_000, stdio: ['ignore', 'pipe', 'pipe'] });
+    } catch (e) {
+      if (e.code === 'ENOENT') throw new Error('the Netlify CLI is not installed (npm install -g netlify-cli, then netlify login)');
+      const why = (e.stderr || '').toString().replace(/\u001b\[[0-9;]*m/g, '').trim().split('\n').slice(-3).join(' ');
+      throw new Error(`netlify ${args[0]} failed${e.signal ? ` (${e.signal}, timed out?)` : ''}${why ? `: ${why}` : ''}. Is the CLI logged in (netlify login)?`);
+    }
+  };
+  const statePath = path.join(root, '.netlify/state.json');
+  const linked = readJson(statePath, {}).siteId;
+  if (linked && linked !== NETLIFY_SITE_ID) throw new Error(`this folder is linked to another Netlify site (${linked}), not ${NETLIFY_SITE_ID}`);
+  if (!linked) {
+    console.log(`Linking ${root} to the Netlify site ${NETLIFY_SITE_ID} (local .netlify/state.json only).`);
+    cli(['link', '--id', NETLIFY_SITE_ID]);
+    if (readJson(statePath, {}).siteId !== NETLIFY_SITE_ID) throw new Error('netlify link did not link this folder');
+  }
+  const out = cli(['env:get', 'VIDEO_REVIEW_KEY', '--json', '--context', 'production', '--scope', 'functions']);
+  let parsed; try { parsed = JSON.parse(out); } catch (e) { throw new Error('netlify env:get did not answer JSON'); }
+  return (parsed && typeof parsed.VIDEO_REVIEW_KEY === 'string') ? parsed.VIDEO_REVIEW_KEY : '';
+}
+
+let KEY = '';
+async function reviewKey() {
+  if (KEY) return KEY;
+  try {
+    const got = await resolveReviewKey({ flag: opt('key', ''), env: process.env.VIDEO_REVIEW_KEY || '', netlify: netlifyReviewKey });
+    console.log(`Jacob's passphrase: from ${got.source}.`);
+    KEY = got.key;
+  } catch (e) { fail(e.message); }
+  return KEY;
+}
+
 async function api(query, body) {
-  if (!KEY) fail('Jacob\'s passphrase is needed: --key <VIDEO_REVIEW_KEY> or VIDEO_REVIEW_KEY in the shell.');
+  const key = await reviewKey();
   const url = `${SITE}/api/videos${query || ''}`;
-  const headers = { 'Content-Type': 'application/json', 'x-review-key': KEY };
+  const headers = { 'Content-Type': 'application/json', 'x-review-key': key };
   if (EDIT_KEY) headers['x-edit-key'] = EDIT_KEY;
   const res = await fetch(url, body ? { method: 'POST', headers, body: JSON.stringify(body) } : { headers });
   const text = await res.text();
@@ -68,7 +109,24 @@ function rclone(args, { quiet } = {}) {
 const lsjson = (target, extra = []) => JSON.parse(rclone(['lsjson', '--hash', ...extra, target]) || '[]');
 
 // ---- sync --------------------------------------------------------------------------------------
+// sync writes go-live/ files that are then committed from this checkout. Refuse to write them into a
+// checkout that is neither on main nor exactly at origin/main: another session's unpublished work may
+// sit on that branch (as on publish/films). Read-only commands and --dry-run work on any branch.
+function assertPublishableCheckout() {
+  if (DRY || flag('any-branch')) return;
+  const git = (...a) => execFileSync('git', ['-C', root, ...a], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim();
+  let branch, head, main;
+  try { branch = git('rev-parse', '--abbrev-ref', 'HEAD'); head = git('rev-parse', 'HEAD'); } catch (e) { return; }
+  try { main = git('rev-parse', 'origin/main'); } catch (e) { main = ''; }
+  if (branch === 'main' || head === main) return;
+  fail(`This checkout (${root}) is on "${branch}", which is not main and not at origin/main: sync would write the owners' files into it.\n` +
+    `  Run it from a checkout at origin/main (git -C ${root} fetch origin, then\n` +
+    `  git -C ${root} worktree add --detach ../hoahx-artifacts-videos origin/main and run it there),\n` +
+    '  or pass --any-branch if writing into this branch is intended. pull, find, check and --dry-run work on any branch.');
+}
+
 async function sync() {
+  assertPublishableCheckout();
   const manifest = readJson(MANIFEST, null);
   if (!manifest) fail(`No recorder manifest at ${MANIFEST}.`);
   const { videos, problems } = readManifest(manifest);
