@@ -119,9 +119,12 @@ try {
   check('nothing an owner can read names the internal numbering or an excluded word', !FORBIDDEN.test(words), (FORBIDDEN.exec(words) || [''])[0]);
   // Only the links a person can see: the Videos tab stays hidden until the video list has something in it.
   const nav = await page.locator('.nav a:visible').evaluateAll((as) => as.map((a) => a.textContent.trim() + ' -> ' + a.getAttribute('href')));
+  // The Hub tab is off the page while the hub is being reworked (Jacob, 2026-09-29); /hub still answers.
   const videosShown = (await page.locator('#videos-to-review .v-tile').count()) > 0;
-  const expectedNav = 'HOAhx · Waiting on you -> #top, Screens -> #screens, Questions -> #questions, ' + (videosShown ? 'Videos -> #videos-to-review, ' : '') + 'Hub -> /hub';
-  check('the navigation links to this page\'s sections and the hub only', nav.join(', ') === expectedNav, nav.join(', '));
+  const productShown = (await page.locator('#product-videos .pv-row').count()) > 0;
+  const expectedNav = ['HOAhx · Waiting on you -> #top', 'Screens -> #screens', 'Questions -> #questions']
+    .concat(productShown ? [/^Product videos( \(\d+\))? -> #product-videos$/] : [], videosShown ? ['Videos -> #videos-to-review'] : []);
+  check('the navigation links to this page\'s sections only', nav.length === expectedNav.length && nav.every((n, i) => typeof expectedNav[i] === 'string' ? n === expectedNav[i] : expectedNav[i].test(n)), nav.join(', ') === expectedNav, nav.join(', '));
   const other = await openPage(desktop, '/answers');
   check('/answers is the same page', (await other.locator('[data-row]').count()) === nRows && (await text(other.locator('h1'))) === 'Your open questions');
   await other.close();
