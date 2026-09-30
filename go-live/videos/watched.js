@@ -1,7 +1,7 @@
-/* HOAhx · Product videos: every product video the owners can open today, and who has watched each.
+/* HOAhx · Product videos: every feature video the owners can open today, and who has watched each.
+ * The films of the 27 screens are not listed here: they sit beside each screen in the Screens section.
  * One script for /answers and /hub. It mounts into <section id="product-videos"> and reads:
  *   /answers/data.json     the feature videos linked from the questions (videos: { "07": { title, seconds, url } })
- *   /answers/screens.json  the film of each screen (screens[].walk: { seconds, url })
  *   /videos/data.json      the feature videos approved for the owners (videos[]: { id, title, length, driveUrl })
  *   /api/videos            watched: { f07: { Dan: at, Tenyson: at }, sA1: { Rustin: at } }
  * A video is watched once Dan or Rustin has ticked it. Tenyson may tick too; his tick alone does not count.
@@ -26,8 +26,8 @@
     try { const r = await fetch(path, { cache: 'no-cache' }); return r.ok ? await r.json() : null; } catch (e) { return null; }
   }
 
-  /** The list, feature videos first (by number), then the film of each screen (in the screens' order). */
-  function buildItems(answers, screens, approved) {
+  /** The list: the feature videos, by number. */
+  function buildItems(answers, approved) {
     const feat = new Map();
     for (const [id, v] of Object.entries((answers && answers.videos) || {})) {
       if (v && v.url) feat.set(id, { id: 'f' + id, num: id, title: v.title, length: len(v.seconds), url: v.url });
@@ -36,13 +36,6 @@
       if (v && v.driveUrl) feat.set(v.id, { id: 'f' + v.id, num: v.id, title: v.title, length: v.length || '', url: v.driveUrl });
     }
     const out = [...feat.values()].sort((a, b) => a.num.localeCompare(b.num)).map((v) => Object.assign(v, { kind: 'feature', label: 'Video ' + v.num }));
-    for (const f of (screens && screens.features) || []) {
-      for (const s of f.screens || []) {
-        if (s.walk && s.walk.url && /^[A-Z]\d{1,2}$/.test(s.code)) {
-          out.push({ id: 's' + s.code, kind: 'screen', label: 'Screen ' + s.code, title: s.title, length: len(s.walk.seconds), url: s.walk.url });
-        }
-      }
-    }
     return out;
   }
 
@@ -123,7 +116,7 @@
     el.innerHTML = `<div class="pv-head">
         <p class="pv-eyebrow">Recorded from the product · sample community · HOAhx has not launched</p>
         <h2 id="product-videos-h">Product videos</h2>
-        <p>Every video of the product you can open today. Watch one, then tick your name beside it. A video counts as watched once Dan or Rustin has ticked it; Tenyson is welcome to tick too, but his tick alone does not take it off the list. More than one person can tick the same video.</p>
+        <p>Every feature video you can open today. Watch one, then tick your name beside it. A video counts as watched once Dan or Rustin has ticked it; Tenyson is welcome to tick too, but his tick alone does not take it off the list. More than one person can tick the same video.</p>
         <div class="pv-count"><p><b class="pv-n">${left}</b> of ${total} still to watch</p>
           <div class="pv-meter" aria-hidden="true"><i style="width:${total ? (100 * done / total).toFixed(1) : 0}%"></i></div></div>
         <div class="pv-bar">
@@ -134,8 +127,7 @@
           <span class="pv-status${statusErr ? ' err' : ''}" role="status" aria-live="polite">${esc(statusText)}</span>
         </div>
       </div>
-      ${group('Feature videos', items.filter((v) => v.kind === 'feature'))}
-      ${group('A film of each screen', items.filter((v) => v.kind === 'screen'))}`;
+      ${group('Feature videos', items)}`;
     if (keep) { const f = el.querySelector(keep); if (f) f.focus(); }
   }
 
@@ -147,8 +139,8 @@
   async function run() {
     el = document.getElementById('product-videos');
     if (!el) return;
-    const [answers, screens, approved] = await Promise.all([load('/answers/data.json'), load('/answers/screens.json'), load('/videos/data.json')]);
-    items = buildItems(answers, screens, approved);
+    const [answers, approved] = await Promise.all([load('/answers/data.json'), load('/videos/data.json')]);
+    items = buildItems(answers, approved);
     if (!items.length) return; // nothing to watch yet: no empty section
     style();
     el.hidden = false;
