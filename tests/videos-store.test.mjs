@@ -98,3 +98,32 @@ test('note numbers: per video, across both sides, never reused', async () => {
   assert.equal((await note('jacob', '03', J)).body.ref, 'V03-N002');
   assert.equal((await note('owners', '04')).body.ref, 'V04-N001');
 });
+
+test('watched: each person ticks a product video on their own record; unticking takes it off', async () => {
+  const { call } = open();
+  const tick = (item, who, watched) => call('POST', { body: { action: 'watched', item, who, watched } });
+  assert.equal((await tick('f07', 'Dan', true)).status, 200);
+  assert.equal((await tick('f07', 'Tenyson', true)).status, 200);
+  assert.equal((await tick('sA1', 'Rustin', true)).status, 200);
+  let pub = (await call('GET')).body;
+  assert.deepEqual(Object.keys(pub.watched.f07).sort(), ['Dan', 'Tenyson']);
+  assert.deepEqual(Object.keys(pub.watched.sA1), ['Rustin']);
+  await tick('f07', 'Dan', false);
+  pub = (await call('GET')).body;
+  assert.deepEqual(Object.keys(pub.watched.f07), ['Tenyson']);
+  const rec = await stub.getStore('hoahx-video-review').get('watched/f07/Dan', { type: 'json' });
+  assert.equal(rec.watched, false);
+  assert.equal(rec.history.at(-1).watched, true);
+});
+
+test('watched: validation and the owners\' passphrase', async () => {
+  let { call } = open();
+  const bad = async (body) => (await call('POST', { body: { action: 'watched', item: 'f07', who: 'Dan', watched: true, ...body } })).body.error;
+  assert.match(await bad({ item: '7' }), /item/);
+  assert.match(await bad({ item: 'sa1' }), /item/);
+  assert.match(await bad({ who: 'Jacob' }), /Dan, Rustin or Tenyson/);
+  assert.match(await bad({ watched: 'yes' }), /true or false/);
+  ({ call } = open({ ownerKey: 'ok' }));
+  assert.equal((await call('POST', { body: { action: 'watched', item: 'f07', who: 'Dan', watched: true } })).status, 401);
+  assert.equal((await call('POST', { headers: { 'x-edit-key': 'ok' }, body: { action: 'watched', item: 'f07', who: 'Dan', watched: true } })).status, 200);
+});
