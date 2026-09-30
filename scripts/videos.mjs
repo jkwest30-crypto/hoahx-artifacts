@@ -191,7 +191,7 @@ function check() {
   if (owners) problems.push(...guardOwnersData(owners));
   // Everything an owner's browser loads from go-live/videos/ (the section on /answers included), with
   // code comments removed: the excluded words, "register", and the internal numbering.
-  const ownerFiles = ['go-live/videos/index.html', 'go-live/videos/videos.js', 'go-live/videos/videos.css', 'go-live/videos/answers-section.js', 'go-live/videos/data.json'];
+  const ownerFiles = ['go-live/videos/index.html', 'go-live/videos/videos.js', 'go-live/videos/videos.css', 'go-live/videos/answers-section.js', 'go-live/videos/watched.js', 'go-live/videos/watched.css', 'go-live/videos/data.json'];
   for (const f of ownerFiles) {
     const text = fs.readFileSync(path.join(root, f), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:])\/\/.*$/gm, '$1').replace(/<!--[\s\S]*?-->/g, '');
     const hit = findForbidden(text);

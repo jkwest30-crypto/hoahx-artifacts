@@ -16,6 +16,10 @@
 //     note    { side, vid, text, commit, by, images: [{ preview, w, h }] }  -> the note, with its ref
 //     image   { side, ref, i, data }                    the full-size copy of one screenshot, after its note
 //     moved   { ref, i, drive: { id, name } }           jacob only: the copy is in Drive and checked; drop the full size
+//     watched { item, who, watched }                    owners: who has watched one product video (the list on
+//                                                        /answers and /hub). item "f07" is feature video 07,
+//                                                        "sA1" the film of screen A1; who is Dan, Rustin or Tenyson.
+//   GET answers also carry  watched: { f07: { Dan: at, Tenyson: at }, ... }  (only the ones watched now)
 //
 // A note's ref ("V05-N004") is numbered per video across both sides and never reused.
 
@@ -34,6 +38,8 @@ const IMAGES_MAX = 6;
 const PREVIEW_MAX = 90 * 1024;          // characters of a data: URL, about 65 KB of JPEG
 const FULL_MAX = 4 * 1024 * 1024;       // characters of base64, about 3 MB of JPEG (the request limit is 6 MB)
 const HISTORY_MAX = 40;
+const ITEM_RE = /^(f\d{2}|s[A-Z]\d{1,2})$/;
+const WATCHERS = ['Dan', 'Rustin', 'Tenyson'];
 
 function json(body, status) {
   return { statusCode: status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }, body: JSON.stringify(body) };
@@ -101,6 +107,15 @@ function validateNote(p) {
   return { side, vid: p.vid, text, commit: p.commit, by: side === 'jacob' ? 'Jacob' : by, images: out };
 }
 
+/** A "watched" mark a POST asks to save, or why it is refused. Pure. */
+function validateWatched(p) {
+  const item = String(p.item || '');
+  if (!ITEM_RE.test(item)) return { error: 'invalid item' };
+  if (!WATCHERS.includes(p.who)) return { error: 'who must be Dan, Rustin or Tenyson' };
+  if (typeof p.watched !== 'boolean') return { error: 'watched must be true or false' };
+  return { item, who: p.who, watched: p.watched };
+}
+
 function publicNote(n) {
   return {
     ref: n.ref, vid: n.vid, side: n.side, by: n.by, at: n.at, commit: n.commit, text: n.text,
@@ -151,7 +166,15 @@ async function handle(event) {
       .sort((a, b) => a.ref.localeCompare(b.ref));
     const ownersOut = {};
     for (const [vid, r] of Object.entries(owners)) ownersOut[vid] = { status: r.status, commit: r.commit, by: r.by, at: r.at };
-    const body = { owners: ownersOut, notes };
+    // One record per video and person, so two people ticking the same video at once never overwrite each other.
+    const watchedRaw = await readPrefix(store, 'watched/');
+    const watched = {};
+    for (const [k, r] of Object.entries(watchedRaw)) {
+      const [item, who] = k.split('/');
+      if (!r.watched || !ITEM_RE.test(item) || !WATCHERS.includes(who)) continue;
+      (watched[item] = watched[item] || {})[who] = r.at;
+    }
+    const body = { owners: ownersOut, notes, watched };
     if (wantJacob) {
       const jacob = await readPrefix(store, 'jacob/');
       body.jacob = {};
@@ -176,6 +199,18 @@ async function handle(event) {
     const rec = { status: a.status, commit: a.commit, by: a.by, at: now, history };
     await store.setJSON(key, rec);
     return json({ vid: a.vid, side: a.side, status: rec.status, commit: rec.commit, by: rec.by, at: now }, 200);
+  }
+
+  if (action === 'watched') {
+    const a = validateWatched(payload);
+    if (a.error) return json({ error: a.error }, 400);
+    const denied = need('owners'); if (denied) return denied;
+    const key = `watched/${a.item}/${a.who}`;
+    const prev = await store.get(key, { type: 'json' });
+    const history = (prev && Array.isArray(prev.history)) ? prev.history.slice() : [];
+    if (prev) { history.push({ watched: prev.watched, at: prev.at }); while (history.length > HISTORY_MAX) history.shift(); }
+    await store.setJSON(key, { watched: a.watched, at: now, history });
+    return json({ item: a.item, who: a.who, watched: a.watched, at: now }, 200);
   }
 
   if (action === 'note') {
@@ -228,6 +263,7 @@ async function handle(event) {
 
 exports.validateStatus = validateStatus;
 exports.validateNote = validateNote;
+exports.validateWatched = validateWatched;
 exports.allowedSides = allowedSides;
 
 exports.handler = async (event) => {
