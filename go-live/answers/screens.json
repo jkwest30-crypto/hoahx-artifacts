@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-29",
+ "updated": "2026-10-02",
  "previewUrl": "https://hoahx-staging.web.app/preview",
  "features": [
   {
@@ -121,10 +121,6 @@
      "walk": {
       "seconds": 72,
       "url": "https://drive.google.com/file/d/1g9U_uFrLpC9pp2R_K_t3eK_nn4qHWB_1/view"
-     },
-     "critical": {
-      "date": "2026-09-30",
-      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
      }
     },
     {
@@ -140,10 +136,6 @@
      "walk": {
       "seconds": 54,
       "url": "https://drive.google.com/file/d/1Of8YPdwoF5JrHEvTybeK97f4f1pE0KJ7/view"
-     },
-     "critical": {
-      "date": "2026-09-30",
-      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
      }
     },
     {
@@ -199,10 +191,6 @@
      "walk": {
       "seconds": 53,
       "url": "https://drive.google.com/file/d/1HqTM7EUpjaCy22GlmCn7eFDu4-0BOw07/view"
-     },
-     "critical": {
-      "date": "2026-09-30",
-      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
      }
     }
    ]
@@ -223,8 +211,8 @@
       "url": "https://drive.google.com/file/d/1Es_mEp5kQTsSxg9SxQ360l6oNzH8oSpL/view"
      },
      "critical": {
-      "date": "2026-09-30",
-      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
+      "date": "2026-10-02",
+      "why": "Needed by Oct 2: C2 leads to this screen, so it is signed off first."
      }
     },
     {
@@ -239,8 +227,8 @@
       "url": "https://drive.google.com/file/d/1qq9UegWJMjux9YT9reK0pPGWElcgH4-M/view"
      },
      "critical": {
-      "date": "2026-09-30",
-      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
+      "date": "2026-10-02",
+      "why": "Needed by Oct 2: C4 and C5 and C6 lead to this screen, so it is signed off first."
      }
     },
     {
@@ -253,10 +241,6 @@
      "walk": {
       "seconds": 55,
       "url": "https://drive.google.com/file/d/1Ww4KM9IRjFVlUfURQ0TSRLXv9BtvNtCr/view"
-     },
-     "critical": {
-      "date": "2026-09-30",
-      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
      }
     },
     {
@@ -271,8 +255,8 @@
       "url": "https://drive.google.com/file/d/1b5OKcJ0hoO1WPqGTmKu-NFE1Kptnepiy/view"
      },
      "critical": {
-      "date": "2026-09-30",
-      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
+      "date": "2026-10-02",
+      "why": "Needed by Oct 2: C2 leads to this screen, so it is signed off first."
      }
     },
     {
@@ -285,10 +269,6 @@
      "walk": {
       "seconds": 111,
       "url": "https://drive.google.com/file/d/1jiXXAGRRCYSWDtu8LXRgSYU3eYItwo7F/view"
-     },
-     "critical": {
-      "date": "2026-09-30",
-      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
      }
     },
     {
@@ -303,8 +283,8 @@
       "url": "https://drive.google.com/file/d/1L3PHyLhcm3FkdZ_QOKgoKWPJhJziA-gw/view"
      },
      "critical": {
-      "date": "2026-09-30",
-      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
+      "date": "2026-10-02",
+      "why": "Needed by Oct 2: C2 leads to this screen, so it is signed off first."
      }
     },
     {
@@ -317,10 +297,6 @@
      "walk": {
       "seconds": 96,
       "url": "https://drive.google.com/file/d/1CxhwmpZDGEmKihJjNosYv_AiaY8kvrnQ/view"
-     },
-     "critical": {
-      "date": "2026-09-30",
-      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
      }
     },
     {
@@ -333,10 +309,6 @@
      "walk": {
       "seconds": 54,
       "url": "https://drive.google.com/file/d/14QqlpGA0H7SZIgeBuQLvSLHi-ojDhQms/view"
-     },
-     "critical": {
-      "date": "2026-09-30",
-      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
      }
     }
    ]
@@ -351,11 +323,7 @@
      "title": "Upload the spreadsheet and match the columns",
      "what": "The board uploads its own CSV or Excel file. HOAhx suggests which column is which; a person confirms or corrects every suggestion. The messy file and the second import are the states to linger on.",
      "url": "https://hoahx-staging.web.app/preview/D1",
-     "videos": [],
-     "walk": {
-      "seconds": 52,
-      "url": "https://drive.google.com/file/d/1D0xT8dYcQDn0Dwbed6vpPrtoe9jJuxwz/view"
-     }
+     "videos": []
     },
     {
      "id": "S-D2",
@@ -363,11 +331,7 @@
      "title": "Check it before it goes in",
      "what": "Rows ready, rows needing a decision, rows that cannot go in. A duplicate, a missing detail and a value that only looks wrong are treated as three different things; only a blocked row stops the import.",
      "url": "https://hoahx-staging.web.app/preview/D2",
-     "videos": [],
-     "walk": {
-      "seconds": 52,
-      "url": "https://drive.google.com/file/d/1t3-YbflpR_SBzEjKk59o1eC8wMLcem2w/view"
-     }
+     "videos": []
     },
     {
      "id": "S-D3",
@@ -391,11 +355,7 @@
      "title": "Who has joined",
      "what": "Every home and person against the four steps, invited, joined, verified, active; whose invitation has lapsed; sending again to one person or to everyone not yet joined.",
      "url": "https://hoahx-staging.web.app/preview/D5",
-     "videos": [],
-     "walk": {
-      "seconds": 52,
-      "url": "https://drive.google.com/file/d/1yJBT3EbgeCiKBgZ5mQ8xBVkZ5VkDg46c/view"
-     }
+     "videos": []
     },
     {
      "id": "S-D6",
@@ -403,11 +363,7 @@
      "title": "Someone joined without an invitation",
      "what": "What the board sees when a person claims a home without a link, and the plain \"we are checking\" screen that person sees, ending with the offer of automatic payments.",
      "url": "https://hoahx-staging.web.app/preview/D6",
-     "videos": [],
-     "walk": {
-      "seconds": 61,
-      "url": "https://drive.google.com/file/d/1ybZLfA_ExJIHTxJaMp4C66fG1kgVTH5B/view"
-     }
+     "videos": []
     }
    ]
   }

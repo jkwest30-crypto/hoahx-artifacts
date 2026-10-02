@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-29",
+ "updated": "2026-10-02",
  "groups": [
   {
    "id": "money",
@@ -28,224 +28,6 @@
  ],
  "cards": [
   {
-   "id": "A01",
-   "group": "money",
-   "title": "How a homeowner pays",
-   "why": "A card fee that only the card payer sees steers people to the free bank payment without punishing anyone. Partial payments keep a struggling homeowner paying instead of stopping. Tenants paying by default is what most owners with tenants expect, and the owner keeps the switch.",
-   "rows": [
-    {
-     "id": "A01-1",
-     "qs": [
-      "Who pays the card processing cost: the homeowner as a convenience fee, or the community?"
-     ],
-     "rec": "A homeowner who pays by card pays the card cost, shown as its own convenience-fee line before they confirm. A bank payment costs nothing. Where NMI says a card fee is not allowed in a community's state, that community absorbs the cost and the screen says so.",
-     "videos": [],
-     "critical": {
-      "date": "2026-09-30",
-      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
-     }
-    },
-    {
-     "id": "A01-2",
-     "qs": [
-      "Should partial payments be accepted against a dues balance?"
-     ],
-     "rec": "Any amount from one dollar up to the balance is accepted; nothing above the balance. A late fee still applies to whatever is left when the grace period ends.",
-     "videos": [],
-     "critical": {
-      "date": "2026-09-30",
-      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
-     }
-    },
-    {
-     "id": "A01-3",
-     "qs": [
-      "Should tenants be able to pay dues by default?"
-     ],
-     "rec": "A tenant can pay dues unless the owner switches it off on the tenant's record. The switch is repaired so it saves, and the owner is told whenever a tenant pays.",
-     "videos": [],
-     "critical": {
-      "date": "2026-09-30",
-      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
-     }
-    }
-   ]
-  },
-  {
-   "id": "A02",
-   "group": "money",
-   "title": "Late fees, and an autopay charge that fails",
-   "why": "Boards assume late fees are being charged; today they are not. Two tries and a pause keeps HOAhx from charging a bad card again and again, and puts the treasurer in the picture before anyone is far behind.",
-   "rows": [
-    {
-     "id": "A02-1",
-     "qs": [
-      "Are late fees ever calculated and applied automatically?"
-     ],
-     "rec": "Late fees are applied automatically the day after the grace period on the community's dues schedule, at the amount on the schedule, and the homeowner is told the day it happens. A payment counts on the day it is submitted, not the day the bank settles it, so a bank payment started on time is never late.",
-     "videos": [],
-     "critical": {
-      "date": "2026-09-30",
-      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
-     }
-    },
-    {
-     "id": "A02-2",
-     "qs": [
-      "What should happen when an autopay charge fails: retries, notice, escalation?"
-     ],
-     "rec": "When an autopay charge fails, the homeowner is told the same day with the reason and a one-tap retry. HOAhx retries once, three days later. After a second failure autopay pauses, the homeowner and the treasurer are told, and the balance stays due until the homeowner pays or fixes the payment method.",
-     "videos": [],
-     "critical": {
-      "date": "2026-09-30",
-      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
-     }
-    }
-   ]
-  },
-  {
-   "id": "A03",
-   "group": "money",
-   "title": "A returned bank payment, or a dispute",
-   "why": "A bounced payment is invisible to the homeowner until someone tells them; telling them the same day is what gets it fixed. A fixed, published return fee is simpler to explain than passing on whatever the bank charged.",
-   "rows": [
-    {
-     "id": "A03-1",
-     "qs": [
-      "Who should be told when a payment is disputed or a bank payment is returned?"
-     ],
-     "rec": "The treasurer and the homeowner are told the same day, in the app and by email (and on the phone once the apps are out). The President sees it in the weekly board summary. The homeowner's notice says what was reversed, the deadline, and how to pay again.",
-     "videos": [],
-     "critical": {
-      "date": "2026-09-30",
-      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
-     }
-    },
-    {
-     "id": "A03-2",
-     "qs": [
-      "Should a returned bank payment carry a fee, and how much?"
-     ],
-     "rec": "A returned bank payment carries a fixed fee the community sets in its payment rules, $25 by default, charged once per return and never above the state's cap. It appears on the homeowner's ledger with the reason.",
-     "videos": [],
-     "critical": {
-      "date": "2026-09-30",
-      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
-     }
-    }
-   ]
-  },
-  {
-   "id": "A04",
-   "group": "money",
-   "title": "Setting up the community's merchant account",
-   "why": "Whoever signs is answerable for the community's bank details and tax records, which is an officer's act. NMI's page is built and tested; the embedded version can wait. A second processor would split what HOAhx can see of a community's money and what it earns.",
-   "rows": [
-    {
-     "id": "A04-1",
-     "qs": [
-      "Which roles may set up the community's merchant account?"
-     ],
-     "rec": "The President or the Treasurer applies and signs. In a community with a management company, the property manager may start the application, but the President or the Treasurer signs it.",
-     "videos": [],
-     "critical": {
-      "date": "2026-09-30",
-      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
-     }
-    },
-    {
-     "id": "A04-2",
-     "qs": [
-      "Should the merchant application open on NMI's own page, or sit inside HOAhx's payment setup screen?"
-     ],
-     "rec": "The application opens on NMI's own page from HOAhx's payment setup. The version embedded inside HOAhx is a later improvement, once NMI confirms it works on the partner sandbox and inside the phone apps.",
-     "videos": [],
-     "critical": {
-      "date": "2026-09-30",
-      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
-     }
-    },
-    {
-     "id": "A04-3",
-     "qs": [
-      "Should a management company be able to run its communities' payments through its own existing merchant account?"
-     ],
-     "rec": "NMI Payments only. No bring-your-own-processor for the launch. The first management company that asks starts a conversation, not a build.",
-     "videos": [],
-     "critical": {
-      "date": "2026-09-30",
-      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
-     }
-    }
-   ]
-  },
-  {
-   "id": "A05",
-   "group": "money",
-   "title": "The treasurer's books",
-   "why": "A required close on day one stops a volunteer treasurer who is still learning; a visible warning does the job. One place to look keeps one version of the truth and one thing to support.",
-   "rows": [
-    {
-     "id": "A05-1",
-     "qs": [
-      "Should reconciliation be required before a month or year can be closed?"
-     ],
-     "rec": "Closing a month is offered and recommended, not required. The close screen shows how many entries are still unmatched to a deposit, and a report from an unclosed month says so at the top. A required close is a later step if the first treasurers ask for it.",
-     "videos": [
-      "07",
-      "29"
-     ],
-     "critical": {
-      "date": "2026-09-30",
-      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
-     }
-    },
-    {
-     "id": "A05-2",
-     "qs": [
-      "Should treasurers get logins to NMI's own merchant portal, or only the reports inside HOAhx?"
-     ],
-     "rec": "Treasurers work inside HOAhx: deposit summaries, deposit history, and NMI's transaction reports appear there, and no separate NMI portal login is issued. If a particular treasurer needs one, HOAhx support asks NMI case by case.",
-     "videos": [
-      "06",
-      "28"
-     ],
-     "critical": {
-      "date": "2026-09-30",
-      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
-     }
-    }
-   ]
-  },
-  {
-   "id": "A06",
-   "group": "money",
-   "title": "What a homeowner sees of the money",
-   "why": "Showing refunds and disputes honestly is the transparency HOAhx promises. The budget view answers \"where does the money go\" without the raw ledger, which would confuse more than it reveals.",
-   "rows": [
-    {
-     "id": "A06-1",
-     "qs": [
-      "Should residents be able to see their full payment history including refunds and disputes?"
-     ],
-     "rec": "A homeowner sees their whole payment history, including refunds, returned payments, and payments under review for a dispute, each with its status, the reason, and what to do next. Internal notes and processor identifiers never appear.",
-     "videos": [],
-     "critical": {
-      "date": "2026-09-30",
-      "why": "Needed by Sep 30: payment integration built and verified in sandbox."
-     }
-    },
-    {
-     "id": "A06-2",
-     "qs": [
-      "Should residents see the community's full ledger, or only their own?"
-     ],
-     "rec": "A homeowner sees their own property ledger, the published budget, and budget versus actual spending. The community's line-by-line ledger stays with the board.",
-     "videos": []
-    }
-   ]
-  },
-  {
    "id": "A16",
    "group": "records",
    "title": "What reaches the phone, and what cannot be switched off",
@@ -256,7 +38,7 @@
      "qs": [
       "Are there communications a resident may not opt out of: emergency notices, legal notices, dues reminders?"
      ],
-     "rec": "Legal and enforcement notices, dues and payment notices, and urgent community alerts cannot be switched off. Announcements, request updates, and community messages can, channel by channel.",
+     "rec": "Legal and enforcement notices, dues and payment notices, and urgent community alerts cannot be switched off. An urgent alert still reaches each person only on the channels they keep on (the app, email or text), so it never forces a channel they turned off. Announcements, request updates, and community messages can be switched off, channel by channel.",
      "videos": [],
      "critical": {
       "date": "2026-10-09",
@@ -280,7 +62,7 @@
      "qs": [
       "Should text-message notifications be connected for the launch, or should the launch ship with push and email only?"
      ],
-     "rec": "The launch ships with push notifications on the phone and email. No text messages at launch: they need a provider, a consent step, and a per-message cost the proposal left out. Text messages become a per-community option after launch if the first communities ask.",
+     "rec": "Push notifications and email ship with the apps. Text messages are built for the launch as an option each community switches on: each person's consent is recorded, a reply of STOP is honored, quiet hours are respected except for urgent alerts, and the cost per message is shown to the community before it turns them on. If you would rather launch without them, they stay switched off.",
      "videos": [],
      "critical": {
       "date": "2026-10-09",
@@ -350,6 +132,240 @@
       "date": "2026-10-09",
       "why": "Needed by Oct 9: protection, monitoring, and backups."
      }
+    }
+   ]
+  },
+  {
+   "id": "A18",
+   "group": "records",
+   "title": "What is kept, for how long, and what a resident can take with them",
+   "why": "The app stores require a stated policy. Seven years matches what most states expect of HOA financial records, and one year is enough for a visitor log.",
+   "rows": [
+    {
+     "id": "A18-1",
+     "qs": [
+      "What is the data retention policy, per record type?"
+     ],
+     "rec": "Financial records, seven years. Violation and enforcement records, seven years after the violation is closed. Visitor logs, one year. Messages and announcements, three years. Audit records, for the life of the community. Personal data is removed when an account is deleted. These periods go into the app-store privacy disclosures, and each kind of record is deleted automatically when its period ends, unless a legal hold stops it. Which violations count as closed (cured, passed reinspection, lien satisfied) is for the community's counsel to settle; until then those are kept.",
+     "videos": [],
+     "critical": {
+      "date": "2026-10-16",
+      "why": "Needed by Oct 16: store submission."
+     }
+    },
+    {
+     "id": "A18-4",
+     "qs": [
+      "Is there a data export or deletion path for a resident who requests one?"
+     ],
+     "rec": "A resident deletes their account and personal data in the app; their community records (requests, payments, notices) stay with the community. An export of their data is requested from HOAhx support and delivered within thirty days; a self-serve export comes after launch.",
+     "videos": [],
+     "critical": {
+      "date": "2026-10-16",
+      "why": "Needed by Oct 16: store submission."
+     }
+    },
+    {
+     "id": "A18-2",
+     "qs": [
+      "What is the retention period for messages and announcements?"
+     ],
+     "rec": "Messages and announcements follow that policy: three years, no separate rule.",
+     "videos": []
+    },
+    {
+     "id": "A18-3",
+     "qs": [
+      "How long is visitor access history retained, and who may see it?"
+     ],
+     "rec": "Officers and managers see the whole visitor log; each resident sees their own entries. The log is kept for one year.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A28",
+   "group": "ops",
+   "title": "The app icon",
+   "why": "The icon is what people see in the store and on their phone every day. Changing it after the first submission means new artwork and another store review, so it is worth a yes now.",
+   "rows": [
+    {
+     "id": "A28-1",
+     "qs": [
+      "Is the black HX tile the icon for both app stores and the phone home screen?"
+     ],
+     "rec": "The designer's black HX tile is the icon in the App Store, on Google Play, and on the phone's home screen, with the 512-pixel version as the Google Play listing icon.",
+     "videos": [],
+     "critical": {
+      "date": "2026-10-16",
+      "why": "Needed by Oct 16: store submission."
+     }
+    }
+   ]
+  },
+  {
+   "id": "A01",
+   "group": "money",
+   "title": "How a homeowner pays",
+   "why": "A card fee that only the card payer sees steers people to the free bank payment without punishing anyone. Partial payments keep a struggling homeowner paying instead of stopping. Tenants paying by default is what most owners with tenants expect, and the owner keeps the switch.",
+   "rows": [
+    {
+     "id": "A01-1",
+     "qs": [
+      "Who pays the card processing cost: the homeowner as a convenience fee, or the community?"
+     ],
+     "rec": "A homeowner who pays by card pays the card cost, shown as its own convenience-fee line before they confirm. A bank payment costs nothing. Where NMI says a card fee is not allowed in a community's state, that community absorbs the cost and the screen says so.",
+     "videos": []
+    },
+    {
+     "id": "A01-2",
+     "qs": [
+      "Should partial payments be accepted against a dues balance?"
+     ],
+     "rec": "Any amount from one dollar up is accepted. A payment above what is owed, including a second payment made by mistake, stays on the account as a credit, and AutoPay uses that credit first. A late fee still applies to whatever is left when the grace period ends.",
+     "videos": []
+    },
+    {
+     "id": "A01-3",
+     "qs": [
+      "Should tenants be able to pay dues by default?"
+     ],
+     "rec": "A tenant can pay dues unless the owner switches it off on the tenant's record. The switch is repaired so it saves, and the owner is told whenever a tenant pays.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A02",
+   "group": "money",
+   "title": "Late fees, and an autopay charge that fails",
+   "why": "Boards assume late fees are being charged; today they are not. Two tries and a pause keeps HOAhx from charging a bad card again and again, and puts the treasurer in the picture before anyone is far behind.",
+   "rows": [
+    {
+     "id": "A02-1",
+     "qs": [
+      "Are late fees ever calculated and applied automatically?"
+     ],
+     "rec": "Late fees are applied automatically the day after the grace period on the community's dues schedule, at the amount on the schedule, and the homeowner is told the day it happens. A payment counts on the day it is submitted, not the day the bank settles it, so a bank payment started on time is never late.",
+     "videos": []
+    },
+    {
+     "id": "A02-2",
+     "qs": [
+      "What should happen when an autopay charge fails: retries, notice, escalation?"
+     ],
+     "rec": "When an autopay charge fails, the homeowner is told the same day with the reason and a one-tap retry. HOAhx retries once, three days later. After a second failure autopay pauses, the homeowner and the treasurer are told, and the balance stays due until the homeowner pays or fixes the payment method.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A03",
+   "group": "money",
+   "title": "A returned bank payment, or a dispute",
+   "why": "A bounced payment is invisible to the homeowner until someone tells them; telling them the same day is what gets it fixed. A fixed, published return fee is simpler to explain than passing on whatever the bank charged.",
+   "rows": [
+    {
+     "id": "A03-1",
+     "qs": [
+      "Who should be told when a payment is disputed or a bank payment is returned?"
+     ],
+     "rec": "The treasurer and the homeowner are told the same day, in the app and by email (and on the phone once the apps are out). The President sees it in the weekly board summary. The homeowner's notice says what was reversed, the deadline, and how to pay again.",
+     "videos": []
+    },
+    {
+     "id": "A03-2",
+     "qs": [
+      "Should a returned bank payment carry a fee, and how much?"
+     ],
+     "rec": "A returned bank payment carries a fixed fee the community sets in its payment rules, $25 by default, charged once per return and never above the state's cap. It appears on the homeowner's ledger with the reason.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A04",
+   "group": "money",
+   "title": "Setting up the community's merchant account",
+   "why": "Whoever signs is answerable for the community's bank details and tax records, which is an officer's act. NMI's page is built and tested; the embedded version can wait. A second processor would split what HOAhx can see of a community's money and what it earns.",
+   "rows": [
+    {
+     "id": "A04-1",
+     "qs": [
+      "Which roles may set up the community's merchant account?"
+     ],
+     "rec": "The President or the Treasurer applies and signs. In a community with a management company, the property manager may start the application, but the President or the Treasurer signs it.",
+     "videos": []
+    },
+    {
+     "id": "A04-2",
+     "qs": [
+      "Should the merchant application open on NMI's own page, or sit inside HOAhx's payment setup screen?"
+     ],
+     "rec": "The application opens on NMI's own page from HOAhx's payment setup. The version embedded inside HOAhx is a later improvement, once NMI confirms it works on the partner sandbox and inside the phone apps.",
+     "videos": []
+    },
+    {
+     "id": "A04-3",
+     "qs": [
+      "Should a management company be able to run its communities' payments through its own existing merchant account?"
+     ],
+     "rec": "NMI Payments only. No bring-your-own-processor for the launch. The first management company that asks starts a conversation, not a build.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A05",
+   "group": "money",
+   "title": "The treasurer's books",
+   "why": "A required close on day one stops a volunteer treasurer who is still learning; a visible warning does the job. One place to look keeps one version of the truth and one thing to support.",
+   "rows": [
+    {
+     "id": "A05-1",
+     "qs": [
+      "Should reconciliation be required before a month or year can be closed?"
+     ],
+     "rec": "Closing a month is offered and recommended, not required. The close screen shows how many entries are still unmatched to a deposit, and a report from an unclosed month says so at the top. A required close is a later step if the first treasurers ask for it.",
+     "videos": [
+      "07",
+      "29"
+     ]
+    },
+    {
+     "id": "A05-2",
+     "qs": [
+      "Should treasurers get logins to NMI's own merchant portal, or only the reports inside HOAhx?"
+     ],
+     "rec": "Treasurers work inside HOAhx: deposit summaries, deposit history, and NMI's transaction reports appear there, and no separate NMI portal login is issued. If a particular treasurer needs one, HOAhx support asks NMI case by case.",
+     "videos": [
+      "06",
+      "28"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "A06",
+   "group": "money",
+   "title": "What a homeowner sees of the money",
+   "why": "Showing refunds and disputes honestly is the transparency HOAhx promises. The budget view answers \"where does the money go\" without the raw ledger, which would confuse more than it reveals.",
+   "rows": [
+    {
+     "id": "A06-1",
+     "qs": [
+      "Should residents be able to see their full payment history including refunds and disputes?"
+     ],
+     "rec": "A homeowner sees their whole payment history, including refunds, returned payments, and payments under review for a dispute, each with its status, the reason, and what to do next. Internal notes and processor identifiers never appear.",
+     "videos": []
+    },
+    {
+     "id": "A06-2",
+     "qs": [
+      "Should residents see the community's full ledger, or only their own?"
+     ],
+     "rec": "A homeowner sees their own property ledger, the published budget, and budget versus actual spending. The community's line-by-line ledger stays with the board.",
+     "videos": []
     }
    ]
   },
@@ -454,7 +470,7 @@
    "id": "A10",
    "group": "enforce",
    "title": "Maintenance requests and vendors",
-   "why": "A deadline per request is a promise the board can keep; a fixed response time per priority is one it cannot. Seven days to confirm keeps requests from sitting open after the fix.",
+   "why": "A deadline per request is a promise the board can keep; a fixed response time per priority is one it cannot. One window counted from the fix keeps requests from sitting open, without cutting off a homeowner whose fix failed a week later.",
    "rows": [
     {
      "id": "A10-1",
@@ -469,7 +485,7 @@
      "qs": [
       "Should residents be able to close their own tickets when satisfied?"
      ],
-     "rec": "Staff or the assigned vendor mark a request resolved; the homeowner has seven days to confirm or reopen it, after which it closes on its own. A homeowner can withdraw their own request at any time.",
+     "rec": "Staff or the assigned vendor mark a request resolved. The homeowner then confirms the fix, or reopens the request with a reason within fourteen days of that resolution; after that they send a new request. A homeowner cannot close a request staff have not resolved, and can withdraw their own request at any time.",
      "videos": []
     },
     {
@@ -639,7 +655,7 @@
      "qs": [
       "Should document versions ever be deletable, for example on legal advice?"
      ],
-     "rec": "A document version is never deleted. On legal advice, the board hides a version from everyone but the board, with the reason recorded. The administrator's document actions are repaired so each one works or says why not.",
+     "rec": "A document version is never deleted. On legal advice, the board takes a document down: it is hidden from everyone but the board, with the reason recorded, and its files, signatures and history are kept. Bringing a taken-down document back is not offered at launch. The administrator's document actions are repaired so each one works or says why not.",
      "videos": []
     }
    ]
@@ -664,46 +680,6 @@
       "Is a 10,000-character announcement limit right?"
      ],
      "rec": "The announcement limit of 10,000 characters stays. Anything longer is attached from the document library.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A18",
-   "group": "records",
-   "title": "What is kept, for how long, and what a resident can take with them",
-   "why": "The app stores require a stated policy. Seven years matches what most states expect of HOA financial records, and one year is enough for a visitor log.",
-   "rows": [
-    {
-     "id": "A18-1",
-     "qs": [
-      "What is the data retention policy, per record type?"
-     ],
-     "rec": "Financial records, seven years. Violation and enforcement records, seven years. Visitor logs, one year. Messages and announcements, three years. Audit records, for the life of the community. Personal data is removed when an account is deleted. This goes into the app-store privacy disclosures now; automatic deletion is added after launch.",
-     "videos": []
-    },
-    {
-     "id": "A18-2",
-     "qs": [
-      "What is the retention period for messages and announcements?"
-     ],
-     "rec": "Messages and announcements follow that policy: three years, no separate rule.",
-     "videos": []
-    },
-    {
-     "id": "A18-3",
-     "qs": [
-      "How long is visitor access history retained, and who may see it?"
-     ],
-     "rec": "Officers and managers see the whole visitor log; each resident sees their own entries. The log is kept for one year.",
-     "videos": []
-    },
-    {
-     "id": "A18-4",
-     "qs": [
-      "Is there a data export or deletion path for a resident who requests one?"
-     ],
-     "rec": "A resident deletes their account and personal data in the app; their community records (requests, payments, notices) stay with the community. An export of their data is requested from HOAhx support and delivered within thirty days; a self-serve export comes after launch.",
      "videos": []
     }
    ]
@@ -741,36 +717,12 @@
    ]
   },
   {
-   "id": "A22",
-   "group": "ops",
-   "title": "What HOAhx support can see",
-   "why": "Support can help without seeing more than it needs, and the community decides when it sees more.",
-   "rows": [
-    {
-     "id": "A22-1",
-     "qs": [
-      "Should Platform Support be able to see resident names and addresses at all?"
-     ],
-     "rec": "Support sees a first name, a last initial, a masked email, and which communities and roles a person holds; never an address, a phone number, or a full name. A full household comes into view only through temporary support access that the community authorizes, with a reason, a scope, a time limit, and a complete record of what was done.",
-     "videos": []
-    }
-   ]
-  },
-  {
    "id": "A23",
    "group": "pricing",
-   "title": "Pricing: the four loose ends",
-   "note": "Your plans, prices, and trial terms are recorded. These four points were left open in your requirements document.",
+   "title": "Pricing: the three loose ends",
+   "note": "Your plans, prices, tiers and trial terms are recorded. These three points were left open in your requirements document.",
    "why": "Each of these has an answer that is simple to say at checkout. A founding rate rewards the communities that take the first step without a discount that never ends.",
    "rows": [
-    {
-     "id": "A23-1",
-     "qs": [
-      "Where does the top flat tier end: 449 homes or 500?"
-     ],
-     "rec": "The top flat tier is 301 to 500 homes at $229, as in your requirements document (not 449). Above 500 homes, $0.50 per active home per month.",
-     "videos": []
-    },
     {
      "id": "A23-2",
      "qs": [
@@ -856,22 +808,6 @@
       "33",
       "37"
      ]
-    }
-   ]
-  },
-  {
-   "id": "A28",
-   "group": "ops",
-   "title": "The app icon",
-   "why": "The icon is what people see in the store and on their phone every day. Changing it after the first submission means new artwork and another store review, so it is worth a yes now.",
-   "rows": [
-    {
-     "id": "A28-1",
-     "qs": [
-      "Is the black HX tile the icon for both app stores and the phone home screen?"
-     ],
-     "rec": "The designer's black HX tile is the icon in the App Store, on Google Play, and on the phone's home screen, with the 512-pixel version as the Google Play listing icon.",
-     "videos": []
     }
    ]
   },
@@ -975,6 +911,54 @@
       "Should every tenant have a tenant record, so the owner's switches apply to every tenant and not only to those the owner or the office added through the tenant forms?"
      ],
      "rec": "Yes: every tenant gets a tenant record, created when staff assign the tenant role, with the switches off until the owner grants them, so every tenant is held to the owner's choices. If not, a tenant without a record keeps the access of a household member.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A36",
+   "group": "money",
+   "title": "When a homeowner pays twice",
+   "why": "An alert should mean someone probably made a mistake, not that someone paid early. A credit someone asked to have back should not be spent by AutoPay while the treasurer decides, and a request nobody answers should not lock it away for good.",
+   "rows": [
+    {
+     "id": "A36-1",
+     "qs": [
+      "When a homeowner pays more than they owe, when should the treasurer be alerted?"
+     ],
+     "rec": "Keep it as built: the treasurer and the president are alerted when a homeowner pays twice in one dues period or pays more than was owed, once per home per period. No alert for a homeowner who simply pays ahead, or who pays in two parts.",
+     "videos": []
+    },
+    {
+     "id": "A36-2",
+     "qs": [
+      "A homeowner with a credit asks for the money back. Until the treasurer decides, should AutoPay leave that credit alone, and for how long? And how often may a homeowner ask?"
+     ],
+     "rec": "Keep thirty days and one request a month: once a homeowner asks for a credit back, AutoPay leaves it alone until the treasurer decides or thirty days pass. Add two buttons before launch: the treasurer can decline with a short note to the homeowner, and the homeowner can change their mind and keep the credit.",
+     "videos": []
+    },
+    {
+     "id": "A36-3",
+     "qs": [
+      "If a tenant pays the dues for a home, may the tenant ask for a refund of a credit on that home's account, or only the owner?"
+     ],
+     "rec": "A tenant may ask for a refund only when the owner has let them see the balance and pay. The money always goes back to the card or account it came from, and the owner is told when a tenant asks.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A37",
+   "group": "community",
+   "title": "Telling a new resident the board's answer",
+   "why": "Someone waiting to join a community should hear the answer without having to look for it.",
+   "rows": [
+    {
+     "id": "A37-1",
+     "qs": [
+      "Should HOAhx email a person when the board approves, declines, or asks for more proof on their request to join?"
+     ],
+     "rec": "Yes: one short email for each answer: approved, declined with the board's reason, or more proof needed. The waiting screen says an email will follow, so nobody has to keep checking the app.",
      "videos": []
     }
    ]
