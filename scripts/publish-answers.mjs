@@ -9,6 +9,9 @@
  *   npm run sync:answers -- --dry-run        # everything but the writing: shows what would change
  *   npm run sync:answers -- --screens-ref <ref>  # read the screens at another ref, to see what the
  *                                            # page will say once a branch has landed (with --dry-run)
+ *   npm run sync:answers -- --store <snapshot.json> --accepted <file> --dry-run
+ *                                            # replay: the owners' answers from a saved snapshot and
+ *                                            # Jacob's decisions from another file (nothing fetched)
  *   npm run check:answers                    # verify the committed page and files, read nothing else
  *   npm run publish:answers                  # the same command as sync:answers, under its old name
  *
@@ -17,6 +20,10 @@
  *      copied before anything about the page changes; --site and --key choose the store,
  *      --skip-snapshot is for a machine with no network and says so loudly)
  *   2. drops the questions whose entry in decisions.md is no longer pending
+ *   2b. Jacob's accept step: a line or screen whose answer he accepted (docs/launch/register-store/
+ *      accepted.json) moves to the Answered Questions tab with what will be built and its status
+ *      (docs/launch/owners-questions/answered-status.json); one he replied to stays open with our
+ *      reply on it. Nothing moves without his accept, and a Discuss never moves.
  *   3. rebuilds the list of screens from the spec and the preview modules, and links the film of
  *      each screen, leaving off (and naming) any whose screen has changed since it was filmed,
  *      whose take is not in Drive, or whose Drive file is not readable by link
@@ -39,7 +46,7 @@ import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
-  CRITICAL_WINDOW_DAYS, addWorkingDays, buildPublished, buildQuestions, buildScreens, checkPublished, checkSource, describeChange,
+  CRITICAL_WINDOW_DAYS, addWorkingDays, applyAcceptance, buildPublished, parseAnswers, checkAccepted, checkAnsweredStatus, buildQuestions, buildScreens, checkPublished, checkSource, describeChange,
   criticalForEntries, criticalForScreen, guardPublished, parseBlocks, parseMilestones, parseRegister, parseScreenLinks, parseTaskMilestones, parseScreensSpec, previewClosure, previewCode, resolveVideos,
   resolveWalkthroughs, screenFingerprint, videoNumbers,
 } from './answers-lib.mjs';
@@ -79,7 +86,7 @@ if (has('--check')) {
   let n;
   try { n = checkPublished(pub.data, pub.screens); } catch (e) { fail(e.message); }
   const names = guardPage(true);
-  console.log(`${n.rows} questions (${n.critical.rows} critical) on ${n.cards} cards, ${n.screens} screens (${n.critical.screens} critical), ${n.videos} videos linked; last updated ${pub.data.updated}`);
+  console.log(`${n.rows} questions (${n.critical.rows} critical) on ${n.cards} cards, ${n.answered} answered, ${n.screens} screens (${n.critical.screens} critical), ${n.videos} videos linked; last updated ${pub.data.updated}`);
   console.log(`guards passed on ${names.join(', ')}`);
   console.log('check only; nothing written');
   process.exit(0);
@@ -109,7 +116,13 @@ async function linkReadable(url) {
 }
 
 // 1 · the owners' words first
-if (has('--skip-snapshot')) {
+let storeRecords = null;
+const storeDir = join(hoahx, 'docs/launch/register-store');
+if (has('--store')) {
+  const snap = readJson(resolve(root, opt('--store')), 'the store snapshot');
+  storeRecords = snap.records || snap;
+  console.log(`1 · store read from ${opt('--store')} (${Object.keys(storeRecords).length} records); the live store was not read`);
+} else if (has('--skip-snapshot')) {
   console.warn('sync-answers: SNAPSHOT SKIPPED (--skip-snapshot). The live store was not copied before this run.');
 } else {
   const site = opt('--site', 'https://hoahx-requirements.netlify.app').replace(/\/$/, '');
@@ -119,13 +132,24 @@ if (has('--skip-snapshot')) {
   if (res.status === 401) fail('the store asked for the passphrase: pass --key or set DECISION_EDIT_KEY');
   if (!res.ok) fail(`the store at ${site} answered ${res.status}; nothing was written`);
   const all = await res.json();
-  const dir = join(hoahx, 'docs/launch/register-store');
+  storeRecords = all;
+  const dir = storeDir;
   mkdirSync(dir, { recursive: true });
   const stamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\..+$/, '').replace('T', '-');
   const file = join(dir, `answers-store-${stamp}.json`);
   if (!has('--dry-run')) writeFileSync(file, JSON.stringify({ pulledAt: new Date().toISOString(), site, records: all }, null, 1));
   const liveCount = Object.values(all).filter((r) => r && (r.v || (r.n && String(r.n).trim()))).length;
   console.log(`1 · snapshot: ${Object.keys(all).length} records, ${liveCount} live${has('--dry-run') ? ' (dry run: not written)' : ' -> ' + file}`);
+}
+
+if (!storeRecords) {
+  // no live read: the newest snapshot stands in for the store, and says so
+  const snaps = existsSync(storeDir) ? readdirSync(storeDir).filter((n) => /^answers-store-\d{8}-\d{6}\.json$/.test(n)).sort() : [];
+  if (snaps.length) {
+    const snap = readJson(join(storeDir, snaps[snaps.length - 1]), 'the newest store snapshot');
+    storeRecords = snap.records || {};
+    console.warn(`    the owners' answers for the accept step come from ${snaps[snaps.length - 1]}`);
+  } else storeRecords = {};
 }
 
 // 2 · the questions still waiting
@@ -219,6 +243,21 @@ let screens;
 try { screens = buildScreens(screensSource, spec, built, config.screens.expected, walkthroughs, (code, entry) => criticalForScreen(code, entry, { blocksOf, ledBy }, plan, signOff)); } catch (e) { fail(e.message); }
 console.log(`3 · screens: ${screens.total} (${screens.critical} critical) from ${config.screens.spec} at ${screensRef} (${screensRev}), ${previewFiles.length} preview modules`);
 
+// 2b · Jacob's accept step: accepted answers to the Answered Questions tab, replies on their cards
+const acceptedPath = resolve(root, opt('--accepted', join(storeDir, 'accepted.json')));
+const statusPath = resolve(root, opt('--status', join(hoahx, 'docs/launch/owners-questions/answered-status.json')));
+let accepted = {}, answeredStatus = {};
+try {
+  if (existsSync(acceptedPath)) accepted = checkAccepted(readJson(acceptedPath, 'accepted.json'));
+  if (existsSync(statusPath)) answeredStatus = checkAnsweredStatus(readJson(statusPath, 'answered-status.json'));
+} catch (e) { fail(e.message); }
+const acceptance = applyAcceptance({ source, questions, screenSource: screensSource, screens, store: storeRecords, accepted, status: answeredStatus, answers: parseAnswers(registerText), today });
+Object.assign(questions, acceptance.questions);
+screens = acceptance.screens;
+const answered = acceptance.answered;
+console.log(`2b · accepted: ${answered.length} on the Answered Questions tab (${answered.filter((a) => a.kind === 'screen').length} screens), ${acceptance.replied} with our reply, ${questions.rows} questions still open${existsSync(acceptedPath) ? '' : ' (no accepted.json yet)'}`);
+for (const h of acceptance.held) console.log(`    ${h.moved ? 'note' : 'held'} ${h.id}: ${h.why}`);
+
 // 4 · the videos
 const numbers = videoNumbers(questions, screens);
 let videos = {};
@@ -236,7 +275,7 @@ if (numbers.length) {
 
 // 5 · the guards
 const previous = readPublished();
-const next = buildPublished({ questions, screens, videos, today, previous });
+const next = buildPublished({ questions, screens, videos, today, previous, answered });
 const dataOut = JSON.stringify(next.data, null, 1);
 const screensOut = JSON.stringify(next.screens, null, 1);
 try {

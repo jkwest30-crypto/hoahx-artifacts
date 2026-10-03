@@ -7,6 +7,11 @@
  *   npm run pull:answers -- --out ../hoahx/docs/launch/register-store/answers-2026-09-29.md
  *   npm run pull:answers -- --site http://localhost:8789 --key <passphrase>
  *   npm run pull:answers -- --hoahx <path to the HOAhx checkout>
+ *   npm run pull:answers -- --out <md> --accept-file ../hoahx/docs/launch/register-store/answers-to-accept-2026-10-03.json
+ *                                              # also sorts every answer Jacob has not decided yet for
+ *                                              # his accept step (clean / open-point / discuss), keeping
+ *                                              # the intake lane's drafted replies on unchanged answers
+ *   npm run pull:answers -- --store <snapshot.json> ...   # read a saved snapshot instead of the store
  *
  * The published files carry no internal numbering, so every answer is mapped back through the
  * wording source in the HOAhx repo (docs/launch/recommendations.json, docs/launch/screen-review.json).
@@ -26,7 +31,7 @@
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { buildPull, checkSource } from './answers-lib.mjs';
+import { buildAcceptRows, buildPull, checkAccepted, checkSource } from './answers-lib.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
@@ -48,11 +53,17 @@ const screens = readJson(resolve(root, opt('--screens', join(hoahx, 'docs/launch
 const settings = join(hoahx, 'docs/launch/owners-questions/sync.json');
 const answeredButOpen = existsSync(settings) ? (JSON.parse(readFileSync(settings, 'utf8')).answeredButOpen || []) : [];
 
-let res;
-try { res = await fetch(site + '/api/answers?full=1' + (key ? '&key=' + encodeURIComponent(key) : ''), { headers: key ? { 'x-edit-key': key } : {} }); } catch (e) { fail(`the store at ${site} could not be reached (${e.message})`); }
-if (res.status === 401) fail('unauthorized; pass --key or set DECISION_EDIT_KEY');
-if (!res.ok) fail(`${res.status} from ${site}`);
-const store = await res.json();
+let store;
+if (opt('--store', '')) {
+  const snap = readJson(resolve(opt('--store')), 'the store snapshot');
+  store = snap.records || snap;
+} else {
+  let res;
+  try { res = await fetch(site + '/api/answers?full=1' + (key ? '&key=' + encodeURIComponent(key) : ''), { headers: key ? { 'x-edit-key': key } : {} }); } catch (e) { fail(`the store at ${site} could not be reached (${e.message})`); }
+  if (res.status === 401) fail('unauthorized; pass --key or set DECISION_EDIT_KEY');
+  if (!res.ok) fail(`${res.status} from ${site}`);
+  store = await res.json();
+}
 
 const pull = buildPull({ source, screens, store, site, now: new Date().toISOString(), answeredButOpen });
 if (out) {
@@ -60,3 +71,19 @@ if (out) {
   console.log(`wrote ${out}`);
   console.log(pull.summary.filter((l) => !l.endsWith('| not answered | |')).join('\n') || 'no question answered yet');
 } else console.log(pull.text);
+
+// Jacob's accept step: every answer he has not decided on yet, sorted, for his page and the gate
+const acceptFile = opt('--accept-file', '');
+if (acceptFile) {
+  const acceptedPath = resolve(opt('--accepted', join(hoahx, 'docs/launch/register-store/accepted.json')));
+  let accepted = {};
+  try { if (existsSync(acceptedPath)) accepted = checkAccepted(JSON.parse(readFileSync(acceptedPath, 'utf8'))); } catch (e) { fail(e.message); }
+  const target = resolve(acceptFile);
+  const previous = existsSync(target) ? JSON.parse(readFileSync(target, 'utf8')) : [];
+  const rows = buildAcceptRows({ source, screens, store, accepted, previous });
+  writeFileSync(target, JSON.stringify(rows, null, 1) + '\n');
+  const n = (k) => rows.filter((r) => r.sort === k).length;
+  console.log(`wrote ${acceptFile}: ${rows.length} answers to accept (${n('clean')} clean, ${n('open-point')} open point, ${n('discuss')} discuss); ${Object.keys(accepted).length} already decided`);
+  const undrafted = rows.filter((r) => r.recommendation === 'reply' && !r.draftReply).length;
+  if (undrafted) console.log(`${undrafted} open point(s) need a drafted reply in owner wording before they reach Jacob's page`);
+}

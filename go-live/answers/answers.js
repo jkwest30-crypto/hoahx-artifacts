@@ -38,8 +38,8 @@
     try { localStorage.setItem(LS_KEY, JSON.stringify({ marks: state.marks, notes: state.notes, when: state.when, by: state.by, submittedAt: state.submittedAt, pending: state.pending })); } catch (e) { /* ignore */ }
   }
 
-  const ui = { open: {}, editing: null, qFilter: 'all', sFilter: 'all' };
-  let DATA = null, SCREENS = null, rows = [], screens = [];
+  const ui = { open: {}, editing: null, qFilter: 'all', sFilter: 'all', aFilter: 'all' };
+  let DATA = null, SCREENS = null, rows = [], screens = [], answered = [], answeredIds = new Set();
 
   // ── shared store ─────────────────────────────────────────────────────────
   const pending = state.pending;
@@ -221,13 +221,13 @@
       ? '<div class="said c-' + S_CLASS[s] + '"><b>' + (s === 'discuss' ? (who ? who + ' wants to talk this through' : 'To talk through') : (who ? who + ' asked for a change' : 'A change was asked for')) + '</b>' + (note ? esc(note) : 'No note left.') + '</div>'
       : '';
     return '<article class="scr' + (x.critical ? ' is-critical' : '') + '" data-screen="' + esc(x.code) + '" data-state="' + s + '"' + (x.critical ? ' data-critical="true"' : '') + '><div class="scr-top"><span class="code">' + esc(x.code) + '</span><span class="pill ' + S_CLASS[s] + '">' + S_LABEL[s] + (day ? ' · ' + esc(day) : '') + '</span></div>' +
-      '<h4>' + esc(x.title) + '</h4>' + critHtml(x.critical) + '<p>' + esc(x.what) + '</p>' + said +
+      '<h4>' + esc(x.title) + '</h4>' + critHtml(x.critical) + '<p>' + esc(x.what) + '</p>' + said + replyHtml(x.reply) +
       '<div class="scr-foot"><a class="go" href="' + esc(x.url) + '" target="_blank" rel="noopener">' + (s === 'open' ? 'Open ' + esc(x.code) + ' and review it' : 'Open ' + esc(x.code)) + '</a>' + watchScreen(x) + vids(x.videos) + '</div></article>';
   }
   function renderScreens() {
     const s = tallyS();
     $('screen-chips').innerHTML = chip('sf', 'all', 'All', screens.length, ui.sFilter) + chip('sf', 'yes', 'Signed off', s.yes, ui.sFilter) + chip('sf', 'change', 'Changes suggested', s.change, ui.sFilter) + chip('sf', 'discuss', 'To discuss', s.discuss, ui.sFilter) + chip('sf', 'open', 'Not reviewed', s.open, ui.sFilter);
-    const seen = (x) => ui.sFilter === 'all' || stateOf(x.id) === ui.sFilter;
+    const seen = (x) => !answeredIds.has(x.id) && (ui.sFilter === 'all' || stateOf(x.id) === ui.sFilter);
     const hot = byDue(screens.filter((x) => x.critical), (x) => x.critical.date);
     const groups = (hot.length ? [{ title: CRIT_SCREENS, critical: true, screens: hot }] : []).concat(SCREENS.features.map((f) => ({ title: f.title, screens: f.screens.filter((x) => !x.critical) })));
     $('screen-groups').innerHTML = groups.map((f) => {
@@ -252,7 +252,7 @@
     return '<div class="q is-' + s + (r.critical ? ' is-critical' : '') + '" data-row="' + esc(r.id) + '" data-state="' + s + '"' + (r.critical ? ' data-critical="true"' : '') + '><div class="q-main">' + critHtml(r.critical) +
       r.qs.map((q) => '<p class="q-text">' + esc(q) + '</p>').join('') +
       '<button type="button" class="rec-btn" data-toggle aria-expanded="' + exp + '"><span class="k">Our recommendation</span><span class="t">' + esc(r.rec) + '</span></button>' +
-      vids(r.videos) +
+      vids(r.videos) + replyHtml(r.reply) +
       (boxHere ? inlineBox(r, s) : '') +
       (!boxHere && NOTE[s] ? '<div class="q-note c-' + s + '"><b>' + (note ? NOTE[s].shown : NOTE[s].none) + '</b>' + (note ? '<span>' + esc(note) + '</span>' : '') + '<button type="button" class="link-btn" data-edit>' + (note ? 'Edit' : 'Add a note') + '</button></div>' : '') +
       '</div><div class="q-act"><div class="btns">' +
@@ -282,7 +282,44 @@
         }).join('') + '</div>';
     }).join('') || '<p class="empty">Nothing in this view.</p>';
   }
-  function renderAll() { renderWhere(); renderScreens(); renderQuestions(); }
+  // ── answered ─────────────────────────────────────────────────────────────
+  // What the owners answered and we have taken in. The answer is theirs: an Agree is our
+  // recommendation, a change is their own words, read from the store like every other note.
+  const A_STATUS = { planned: 'Planned', built: 'Built', live: 'Live' };
+  const A_STATUS_HINT = { planned: 'On the plan; not built yet', built: 'Built and on the test site', live: 'Live for everyone' };
+  function replyHtml(text) { return text ? '<div class="reply"><b>Our reply</b><span>' + esc(text) + '</span></div>' : ''; }
+  function answeredHtml(a) {
+    const isScreen = a.kind === 'screen';
+    const note = String(state.notes[a.id] || '').trim();
+    const who = state.by[a.id] ? ' (' + esc(state.by[a.id]) + ')' : '';
+    const label = isScreen ? (a.answer === 'yes' ? 'Signed off' : 'Changes asked') : ({ agree: 'Agreed', change: 'Changed', discuss: 'Settled together' }[a.answer] || 'Answered');
+    const yours = a.answer === 'agree' ? 'You agreed with our recommendation.'
+      : a.answer === 'yes' ? 'You signed this screen off as shown.'
+      : a.answer === 'discuss' ? 'You asked to talk it through' + (note ? ': ' + esc(note) : '.') + ' What was settled is below.'
+      : (note ? esc(note) : 'Your change, as you wrote it on the page.');
+    return '<article class="ans" data-answered="' + esc(a.id) + '" data-status="' + esc(a.status) + '">' +
+      '<div class="ans-top"><span class="pill ' + ({ change: 'change', discuss: 'discuss' }[a.answer] || 'keep') + '">' + label + '</span>' +
+      '<span class="pill st st-' + esc(a.status) + '" title="' + esc(A_STATUS_HINT[a.status] || '') + '">' + esc(A_STATUS[a.status] || a.status) + '</span></div>' +
+      '<p class="ans-card">' + (isScreen ? esc(a.code) + ' · ' : '') + esc(a.card) + '</p>' +
+      a.qs.map((q) => '<h4>' + esc(q) + '</h4>').join('') +
+      '<div class="ans-part"><b>Your answer' + who + '</b><span>' + yours + '</span></div>' +
+      (a.answer !== 'agree' && a.rec ? '<div class="ans-part was"><b>Our recommendation was</b><span>' + esc(a.rec) + '</span></div>' : '') +
+      '<div class="ans-part"><b>What will be built</b><span>' + esc(a.build) + '</span></div>' +
+      '<p class="ans-when">Answered ' + esc(fmtDate(a.answeredOn, 'short')) + ' · taken in ' + esc(fmtDate(a.acceptedOn, 'short')) +
+      (isScreen && a.url ? ' · <a href="' + esc(a.url) + '" target="_blank" rel="noopener">Open ' + esc(a.code) + '</a>' : '') + '</p></article>';
+  }
+  function renderAnswered() {
+    const sec = $('answered'), tab = $('answered-tab');
+    if (!sec) return;
+    sec.hidden = !answered.length;
+    if (tab) tab.hidden = !answered.length;
+    if (!answered.length) return;
+    const n = (k) => answered.filter((a) => a.status === k).length;
+    $('a-chips').innerHTML = chip('af', 'all', 'All', answered.length, ui.aFilter) + chip('af', 'planned', 'Planned', n('planned'), ui.aFilter) + chip('af', 'built', 'Built', n('built'), ui.aFilter) + chip('af', 'live', 'Live', n('live'), ui.aFilter);
+    const list = answered.filter((a) => ui.aFilter === 'all' || a.status === ui.aFilter);
+    $('a-list').innerHTML = list.length ? list.map(answeredHtml).join('') : '<p class="empty">Nothing in this view.</p>';
+  }
+  function renderAll() { renderWhere(); renderScreens(); renderQuestions(); renderAnswered(); }
 
   function noteField(id) { return document.getElementById('note-' + id); }
   function edit(id) {
@@ -329,7 +366,10 @@
     [DATA, SCREENS] = await Promise.all([load('/answers/data.json'), load('/answers/screens.json')]);
     rows = DATA.cards.flatMap((c) => c.rows);
     screens = SCREENS.features.flatMap((f) => f.screens);
-    $('lede').textContent = 'Everything HOAhx still needs from you, in one place: ' + rows.length + ' questions, each with our recommendation, and the ' + screens.length + ' new screens to sign off.';
+    answered = Array.isArray(DATA.answered) ? DATA.answered : [];
+    answeredIds = new Set(answered.map((a) => a.id));
+    $('lede').textContent = 'Everything HOAhx still needs from you, in one place: ' + rows.length + ' questions, each with our recommendation, and the ' + screens.length + ' new screens to sign off.' +
+      (answered.length ? ' ' + answered.length + ' answer' + (answered.length === 1 ? '' : 's') + ' you gave ' + (answered.length === 1 ? 'is' : 'are') + ' taken in, under Answered Questions.' : '');
     $('updated').textContent = fmtDate(DATA.updated, 'long');
     $('nav-updated').textContent = fmtDate(DATA.updated, 'short');
     renderAll();
@@ -374,6 +414,7 @@
     $('q-groups').addEventListener('input', (ev) => { const ta = ev.target.closest('[data-note]'); if (ta) setNote(ta.dataset.note, ta.value); });
     $('q-groups').addEventListener('toggle', (ev) => { const d = ev.target.closest && ev.target.closest('[data-why]'); if (d) ui.open['why-' + d.dataset.why] = d.open; }, true);
     $('q-chips').addEventListener('click', (ev) => { const c = ev.target.closest('[data-qf]'); if (!c) return; if (ui.editing) done(); ui.qFilter = c.dataset.qf; renderQuestions(); const again = document.querySelector('[data-qf="' + ui.qFilter + '"]'); if (again) again.focus({ preventScroll: true }); });
+    $('a-chips').addEventListener('click', (ev) => { const c = ev.target.closest('[data-af]'); if (!c) return; ui.aFilter = c.dataset.af; renderAnswered(); const again = document.querySelector('[data-af="' + ui.aFilter + '"]'); if (again) again.focus({ preventScroll: true }); });
     $('screen-chips').addEventListener('click', (ev) => { const c = ev.target.closest('[data-sf]'); if (!c) return; ui.sFilter = c.dataset.sf; renderScreens(); const again = document.querySelector('[data-sf="' + ui.sFilter + '"]'); if (again) again.focus({ preventScroll: true }); });
     document.addEventListener('keydown', (ev) => { if (ev.key === 'Escape' && ui.editing) done(); });
     $('send-btn').addEventListener('click', async () => {

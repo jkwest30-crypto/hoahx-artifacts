@@ -211,7 +211,7 @@ function published(today, previous) {
 
 test('published: both files pass their own check and the guards', () => {
   const p = published('2026-09-28');
-  assert.deepEqual(checkPublished(p.data, p.screens), { cards: 3, rows: 5, screens: 3, videos: 1, critical: { rows: 0, screens: 0 } });
+  assert.deepEqual(checkPublished(p.data, p.screens), { cards: 3, rows: 5, screens: 3, videos: 1, critical: { rows: 0, screens: 0 }, answered: 0 });
   assert.doesNotThrow(() => guardPublished('data.json', JSON.stringify(p.data)));
   assert.doesNotThrow(() => guardPublished('screens.json', JSON.stringify(p.screens)));
 });

@@ -17,6 +17,7 @@
   <a class="nav-brand" href="#top">HOAhx · Waiting on you</a>
   <a class="tab" href="#screens">Screens</a>
   <a class="tab" href="#questions">Questions</a>
+  <a class="tab" href="#answered" id="answered-tab" hidden>Answered</a>
   <a class="tab" href="#product-videos" hidden>Product videos</a>
   <a class="tab" href="#videos-to-review" hidden>Videos</a>
   <span class="nav-up">Last updated <span id="nav-updated"></span><span class="status" data-status role="status" aria-live="polite"></span></span>
@@ -52,6 +53,15 @@
     <div id="q-groups" class="cards"></div>
   </section>
 
+  <section class="sec" id="answered" aria-labelledby="answered-h" hidden>
+    <div class="sec-head">
+      <h2 id="answered-h">Answered Questions</h2>
+      <p>Answers you gave that we have taken in. Each one says what will be built and where it stands: Planned, Built, or Live on the test site and then for everyone.</p>
+      <div class="chips" id="a-chips" role="group" aria-label="Show answered questions"></div>
+    </div>
+    <div id="a-list" class="answered"></div>
+  </section>
+
   <section id="product-videos" hidden></section>
 
   <section id="videos-to-review" hidden></section>
@@ -66,6 +76,7 @@
 
 <footer><div class="wrap">
   <p><b>What happens next on a question.</b> An answer you agree with is recorded and the build follows it. A change in your words is recorded the same way when it is clear, and becomes a short conversation when it is not. A Discuss goes on the agenda for the next call.</p>
+  <p><b>When an answer moves to Answered.</b> We read every answer. Once nothing in it is still open, it moves to Answered Questions with what will be built and where it stands. If your answer asks us something, our reply shows under the question, and the question stays here until it is settled.</p>
   <p><b>What happens next on a screen.</b> A screen you sign off is built as shown. A change becomes a follow-up item on the plan. A Discuss goes on the agenda for the next call.</p>
   <p>Saved as you go, on every device that opens this page. Every earlier answer is kept.</p>
 </div></footer>

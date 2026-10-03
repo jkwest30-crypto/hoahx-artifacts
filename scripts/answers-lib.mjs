@@ -41,6 +41,25 @@ export function parseRegister(markdown) {
   return { all, pending };
 }
 
+/**
+ * The recorded answer of every entry that is no longer pending, as plain text: the outcome the
+ * Answered Questions tab shows as what will be built. "Agreed with the recommendation of <date>:"
+ * and markdown emphasis are taken off; the text is still guarded before it is published.
+ */
+export function parseAnswers(markdown) {
+  const out = new Map();
+  let cur = null;
+  for (const line of String(markdown).split('\n')) {
+    const m = /^### (D-\d{3}) /.exec(line);
+    if (m) { cur = m[1]; continue; }
+    const a = cur && /^- Answer: (.+)$/.exec(line);
+    if (a && !/^pending\b/.test(a[1])) {
+      out.set(cur, a[1].replace(/\*\*/g, '').replace(/^Agreed with (?:our|the) recommendation(?: of \d{4}-\d{2}-\d{2})?:\s*/i, '').trim());
+    }
+  }
+  return out;
+}
+
 // ── the wording source ───────────────────────────────────────────────────────
 const LINE_ID = /^A\d{2}-\d{1,2}$/;
 const VIDEO_NO = /^\d{2}$/;
@@ -476,8 +495,8 @@ export function videoNumbers(questions, screens) {
  * The two files the page reads. `updated` moves only when something an owner reads changed:
  * a run that changes nothing keeps the date the page already shows.
  */
-export function buildPublished({ questions, screens, videos, today, previous }) {
-  const data = { updated: today, groups: questions.groups, cards: questions.cards, videos };
+export function buildPublished({ questions, screens, videos, today, previous, answered = [] }) {
+  const data = { updated: today, groups: questions.groups, cards: questions.cards, answered, videos };
   const scr = { updated: today, previewUrl: screens.previewUrl, features: screens.features };
   const same = (a, b) => b && JSON.stringify(Object.assign({}, a, { updated: '' })) === JSON.stringify(Object.assign({}, b, { updated: '' }));
   const prev = previous || {};
@@ -500,7 +519,7 @@ export function checkPublished(data, screens) {
   const groups = new Set(data.groups.map((g) => g.id));
   const ids = new Set();
   const allowedCard = new Set(['id', 'group', 'title', 'note', 'why', 'rows']);
-  const allowedRow = new Set(['id', 'qs', 'rec', 'videos', 'critical']);
+  const allowedRow = new Set(['id', 'qs', 'rec', 'videos', 'critical', 'reply']);
   let rows = 0;
   for (const c of data.cards) {
     for (const k of Object.keys(c)) if (!allowedCard.has(k)) throw new Error(`data.json: card ${c.id} carries "${k}", which the page does not read`);
@@ -514,11 +533,31 @@ export function checkPublished(data, screens) {
       if (!Array.isArray(r.qs) || !r.qs.length || r.qs.some((q) => !q)) throw new Error(`data.json: ${r.id} has no question`);
       if (!r.rec) throw new Error(`data.json: ${r.id} has no recommendation`);
       if ('critical' in r) checkCritical(`data.json: ${r.id}`, r.critical);
+      if ('reply' in r && !String(r.reply || '').trim()) throw new Error(`data.json: ${r.id} has an empty reply`);
       for (const n of r.videos) if (!data.videos[n]) throw new Error(`data.json: ${r.id} names video ${n}, which has no link`);
       rows += 1;
     }
   }
-  const allowedScreen = new Set(['id', 'code', 'title', 'what', 'url', 'videos', 'walk', 'critical']);
+  const answered = data.answered || [];
+  if (!Array.isArray(answered)) throw new Error('data.json: "answered" is not a list');
+  const allowedAnswered = { question: new Set(['id', 'kind', 'card', 'qs', 'answer', 'rec', 'build', 'answeredOn', 'acceptedOn', 'status']), screen: new Set(['id', 'kind', 'code', 'card', 'qs', 'answer', 'build', 'url', 'answeredOn', 'acceptedOn', 'status']) };
+  const answeredIds = new Set();
+  for (const a of answered) {
+    const allowed = allowedAnswered[a && a.kind];
+    if (!allowed) throw new Error(`data.json: an answered item has kind "${a && a.kind}"`);
+    for (const k of Object.keys(a)) if (!allowed.has(k)) throw new Error(`data.json: answered ${a.id} carries "${k}", which the page does not read`);
+    if (a.kind === 'question' ? !LINE_ID.test(a.id) : !SCREEN_ID.test(a.id)) throw new Error(`data.json: answered "${a.id}" is not a ${a.kind} id`);
+    if (ids.has(a.id)) throw new Error(`data.json: ${a.id} is both open and answered`);
+    if (answeredIds.has(a.id)) throw new Error(`data.json: ${a.id} is answered twice`);
+    answeredIds.add(a.id);
+    if (!Array.isArray(a.qs) || !a.qs.length || a.qs.some((q) => !q)) throw new Error(`data.json: answered ${a.id} has no question`);
+    if (!String(a.build || '').trim()) throw new Error(`data.json: answered ${a.id} does not say what will be built`);
+    if (!ANSWER_STATUSES.includes(a.status)) throw new Error(`data.json: answered ${a.id} has status "${a.status}"`);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(a.acceptedOn || '') || !/^\d{4}-\d{2}-\d{2}$/.test(a.answeredOn || '')) throw new Error(`data.json: answered ${a.id} has no dates`);
+    const ok = a.kind === 'question' ? ['agree', 'change', 'discuss'] : ['yes', 'change'];
+    if (!ok.includes(a.answer)) throw new Error(`data.json: answered ${a.id} has answer "${a.answer}"`);
+  }
+  const allowedScreen = new Set(['id', 'code', 'title', 'what', 'url', 'videos', 'walk', 'critical', 'reply']);
   const codes = new Set();
   for (const f of screens.features) for (const s of f.screens) {
     for (const k of Object.keys(s)) if (!allowedScreen.has(k)) throw new Error(`screens.json: ${s.code} carries "${k}", which the page does not read`);
@@ -527,6 +566,7 @@ export function checkPublished(data, screens) {
     codes.add(s.code);
     if (!s.what || !s.title) throw new Error(`screens.json: ${s.code} has no title or description`);
     if ('critical' in s) checkCritical(`screens.json: ${s.code}`, s.critical);
+    if ('reply' in s && !String(s.reply || '').trim()) throw new Error(`screens.json: ${s.code} has an empty reply`);
     if (s.url !== screens.previewUrl + '/' + s.code) throw new Error(`screens.json: ${s.code} links to ${s.url}`);
     for (const n of s.videos) if (!data.videos[n]) throw new Error(`screens.json: ${s.code} names video ${n}, which has no link`);
     if ('walk' in s) {
@@ -541,7 +581,8 @@ export function checkPublished(data, screens) {
     if (!VIDEO_NO.test(n) || !v.title || !(v.seconds > 0) || !/^https:\/\/drive\.google\.com\/file\/d\/[\w-]+\/view$/.test(v.url)) throw new Error(`data.json: video ${n} is incomplete`);
   }
   const critical = { rows: data.cards.reduce((n, c) => n + c.rows.filter((r) => r.critical).length, 0), screens: screens.features.reduce((n, f) => n + f.screens.filter((x) => x.critical).length, 0) };
-  return { cards: data.cards.length, rows, screens: codes.size, videos: Object.keys(data.videos).length, critical };
+  for (const a of answered) if (a.kind === 'screen' && !codes.has(a.code)) throw new Error(`data.json: answered ${a.id} is not a published screen`);
+  return { cards: data.cards.length, rows, screens: codes.size, videos: Object.keys(data.videos).length, critical, answered: answered.length };
 }
 
 /** What changed between two published pairs, in plain lines, for the person running the sync. */
@@ -575,6 +616,17 @@ export function describeChange(before, after) {
     }
   }
   for (const [code, s] of sa) if (!sb.has(code)) out.push(`- screen ${code}: ${s.title}`);
+  for (const [id, r] of b) { const was = a.get(id); if (was && (was.reply || '') !== (r.reply || '')) out.push(r.reply ? `~ question ${id}: our reply shown` : `~ question ${id}: our reply removed`); }
+  for (const [code, s] of sb) { const was = sa.get(code); if (was && (was.reply || '') !== (s.reply || '')) out.push(s.reply ? `~ screen ${code}: our reply shown` : `~ screen ${code}: our reply removed`); }
+  const ansOf = (d) => new Map(((d && d.answered) || []).map((x) => [x.id, x]));
+  const aa = ansOf(before && before.data), ab = ansOf(after.data);
+  for (const [id, x] of ab) {
+    const was = aa.get(id);
+    if (!was) out.push(`+ answered ${id}: ${x.qs.join(' / ')} (${x.status})`);
+    else if (was.status !== x.status) out.push(`~ answered ${id}: ${was.status} -> ${x.status}`);
+    else if (was.build !== x.build) out.push(`~ answered ${id}: what will be built reads differently`);
+  }
+  for (const [id, x] of aa) if (!ab.has(id)) out.push(`- answered ${id}: ${x.qs.join(' / ')}`);
   return out;
 }
 
@@ -706,4 +758,185 @@ export function buildPull({ source, screens, store, site, now, answeredButOpen =
 
   out.push('## Summary', '', '| Card | Entry | Questions | Answer | Date |', '|---|---|---|---|---|', ...summary, '', `Entries agreed ${tally.agreed} · changed with a note ${tally.changed} · to discuss ${tally.discuss} · held for the rest of their questions ${tally.held} · not answered ${tally.open}`, '');
   return { text: out.join('\n'), tally, screens: count, summary, old, stray };
+}
+
+// ── Jacob's accept step and the Answered Questions tab ───────────────────────
+// An owner's answer can carry a question or a condition, so nothing an owner answered leaves the
+// open list until Jacob accepts it (docs/launch/register-store/accepted.json, written only from
+// his own decision). An accepted answer moves to the Answered Questions tab with what will be
+// built and where that stands (planned / built / live, docs/launch/owners-questions/
+// answered-status.json, written at the wrap). A "reply" keeps the question open and shows our
+// reply on it. Screens follow the same rule.
+export const ANSWER_STATUSES = ['planned', 'built', 'live'];
+const SCREEN_ID = /^S-[A-Z]\d{1,2}$/;
+const isAnswerId = (id) => LINE_ID.test(id) || SCREEN_ID.test(id);
+const ymd = (iso) => (/^\d{4}-\d{2}-\d{2}/.test(String(iso || '')) ? String(iso).slice(0, 10) : '');
+
+/** Checks accepted.json. Returns it; throws on the first thing wrong. */
+export function checkAccepted(accepted) {
+  if (!accepted || typeof accepted !== 'object' || Array.isArray(accepted)) throw new Error('accepted.json must be an object keyed by answer id');
+  for (const [id, a] of Object.entries(accepted)) {
+    if (!isAnswerId(id)) throw new Error(`accepted.json: "${id}" is not a question (A##-n) or screen (S-<code>) id`);
+    if (!a || !['accept', 'reply'].includes(a.decision)) throw new Error(`accepted.json: ${id} has decision "${a && a.decision}", not accept or reply`);
+    if (!ymd(a.at)) throw new Error(`accepted.json: ${id} has no date ("at")`);
+    if (a.decision === 'reply' && !String(a.reply || '').trim()) throw new Error(`accepted.json: ${id} is a reply with no reply text`);
+  }
+  return accepted;
+}
+
+/** Checks answered-status.json (missing ids read as planned). */
+export function checkAnsweredStatus(status) {
+  if (!status || typeof status !== 'object' || Array.isArray(status)) throw new Error('answered-status.json must be an object keyed by answer id');
+  for (const [id, s] of Object.entries(status)) {
+    if (!isAnswerId(id)) throw new Error(`answered-status.json: "${id}" is not an answer id`);
+    if (!ANSWER_STATUSES.includes(s)) throw new Error(`answered-status.json: ${id} is "${s}", not ${ANSWER_STATUSES.join(' / ')}`);
+  }
+  return status;
+}
+
+// A note that asks something, sets a condition or says "yes, but" is an open point, not a clean answer.
+const OPEN_POINT = /\?|\b(but|unless|only if|as long as|provided|before (?:sign ?off|we|you)|clarify|confirm|what did you mean|not sure|depends|instead of|however|except)\b/i;
+const firstOpenPoint = (note) => {
+  const parts = String(note).split(/(?<=[.?!])\s+|\n+/).map((s) => s.trim()).filter(Boolean);
+  const hit = parts.find((s) => OPEN_POINT.test(s)) || parts[0] || '';
+  return hit.length > 240 ? hit.slice(0, 237) + '…' : hit;
+};
+
+/**
+ * How one owner answer is sorted for Jacob: clean (recommend accept), open-point (recommend a
+ * reply, drafted by the intake lane in owner wording) or discuss (recommend hold for the call).
+ * A first pass only: the intake lane reads every open-point and may move it.
+ */
+export function sortAnswer(rec) {
+  const v = rec && rec.v, note = String((rec && rec.n) || '').trim();
+  if (v === 'agree' || v === 'yes') {
+    if (note && OPEN_POINT.test(note)) return { sort: 'open-point', recommendation: 'reply', openPoint: firstOpenPoint(note) };
+    return { sort: 'clean', recommendation: 'accept', openPoint: '' };
+  }
+  if (v === 'change' && note) {
+    return OPEN_POINT.test(note) ? { sort: 'open-point', recommendation: 'reply', openPoint: firstOpenPoint(note) } : { sort: 'clean', recommendation: 'accept', openPoint: '' };
+  }
+  return { sort: 'discuss', recommendation: 'hold', openPoint: note ? firstOpenPoint(note) : '' };
+}
+
+/**
+ * The rows of answers-to-accept-<date>.json: one per answered question line and per screen mark
+ * that accepted.json does not already hold. `previous` (the same day's file, when there is one)
+ * keeps the intake lane's work (its sort, its drafted reply) on an answer that has not changed.
+ */
+export function buildAcceptRows({ source, screens, store, accepted = {}, previous = [] }) {
+  const prev = new Map((previous || []).map((r) => [r.id, r]));
+  const out = [];
+  const push = (row, rec) => {
+    if (accepted[row.id]) return;
+    const note = String(rec.n || '').trim();
+    const base = Object.assign(row, { answer: rec.v, note, who: rec.by || '', at: rec.updatedAt || '' }, sortAnswer(rec), { draftReply: '' });
+    const was = prev.get(row.id);
+    if (was && was.answer === base.answer && (was.note || '') === note && (was.at || '') === base.at) {
+      for (const k of ['sort', 'openPoint', 'recommendation', 'draftReply']) if (k in was) base[k] = was[k];
+    }
+    out.push(base);
+  };
+  if (screens && screens.features) {
+    for (const f of screens.features) for (const sc of f.screens) {
+      const id = sc.id || 'S-' + sc.code, rec = live(store[id]);
+      if (rec) push({ id, card: sc.code, question: sc.title }, rec);
+    }
+  }
+  for (const c of source.cards) {
+    const qOf = new Map(c.decisions.map((d) => [d.id, d.q]));
+    for (const r of c.rec) {
+      if (r.closed) continue;
+      const rec = live(store[r.id]);
+      if (rec) push({ id: r.id, card: c.id, question: r.q != null ? questionsOf(r.q).join(' ') : r.d.map((id) => qOf.get(id)).join(' ') }, rec);
+    }
+  }
+  return out;
+}
+
+/**
+ * Applies Jacob's decisions to what the sync is about to publish. Returns the questions with the
+ * accepted lines taken off the open list and our reply on the replied ones, the reply for each
+ * replied screen, the Answered Questions list, and what was held back with the reason.
+ * An accepted line moves only when the owners' answer on it is an answer (Agree, Signed off, or a
+ * Change with words): a Discuss or a cleared mark stays open, whatever accepted.json says.
+ */
+export function applyAcceptance({ source, questions, screenSource, screens, store, accepted, status = {}, answers = new Map(), today }) {
+  const held = [], answered = [], replies = { rows: {}, screens: {} };
+  // what will be built: the source's own owner wording first, then the recorded answer, when it
+  // passes the guards; otherwise the fallback, and the reason is reported
+  const recorded = (ids, id) => {
+    if (!ids.every((d) => answers.has(d))) return '';
+    const text = ids.map((d) => answers.get(d)).join(' ');
+    const bad = findForbidden(text);
+    if (bad.length) { held.push({ id, why: `moved, but its recorded answer carries ${bad.map((b) => `"${b}"`).join(', ')}; give the line "planned" wording in the source`, moved: true }); return ''; }
+    return text;
+  };
+  const statusOf = (id) => status[id] || 'planned';
+  const moved = new Set();
+  for (const c of source.cards) {
+    const qOf = new Map(c.decisions.map((d) => [d.id, d.q]));
+    for (const r of c.rec) {
+      const a = accepted[r.id];
+      if (!a) continue;
+      if (a.decision === 'reply') { replies.rows[r.id] = String(a.reply).trim(); continue; }
+      const rec = live(store[r.id]);
+      const note = rec ? String(rec.n || '').trim() : '';
+      if (!rec) { held.push({ id: r.id, why: 'accepted, but the owners\' answer is no longer in the store' }); continue; }
+      const talked = rec.v === 'discuss' || (rec.v === 'change' && !note);
+      // a Discuss (or a Change with nothing written) is a conversation: it moves only once its
+      // outcome is recorded on every entry behind the line
+      if (talked && !r.d.every((d) => answers.has(d))) { held.push({ id: r.id, why: `accepted, but the owners' mark is ${rec.v === 'change' ? 'Change with nothing written' : rec.v} and the outcome is not recorded yet: it stays open` }); continue; }
+      if (!['agree', 'change', 'discuss'].includes(rec.v)) { held.push({ id: r.id, why: `accepted, but the owners' mark is "${rec.v}": it stays open` }); continue; }
+      moved.add(r.id);
+      const outcome = r.planned ? '' : recorded(r.d, r.id);
+      answered.push({
+        id: r.id, kind: 'question', card: c.title,
+        qs: r.q != null ? questionsOf(r.q) : r.d.map((id) => qOf.get(id)),
+        answer: talked ? 'discuss' : rec.v, rec: r.text,
+        build: String(r.planned || outcome || (rec.v === 'agree' ? r.text : talked ? 'What we settled when we talked it through.' : 'Built the way you asked, in your words above.')).trim(),
+        answeredOn: ymd(rec.updatedAt) || ymd(a.at), acceptedOn: ymd(a.at), status: statusOf(r.id),
+      });
+    }
+  }
+  const wording = new Map();
+  if (screenSource && screenSource.features) for (const f of screenSource.features) for (const sc of f.screens) wording.set(sc.code, sc);
+  if (screens && screens.features) {
+    for (const f of screens.features) for (const sc of f.screens) {
+      const a = accepted[sc.id];
+      if (!a) continue;
+      if (a.decision === 'reply') { replies.screens[sc.code] = String(a.reply).trim(); continue; }
+      const rec = live(store[sc.id]);
+      const note = rec ? String(rec.n || '').trim() : '';
+      if (!rec) { held.push({ id: sc.id, why: 'accepted, but the owners\' mark is no longer in the store' }); continue; }
+      if (!(rec.v === 'yes' || (rec.v === 'change' && note))) { held.push({ id: sc.id, why: `accepted, but the owners' mark is ${rec.v === 'change' ? 'Change with nothing written' : rec.v}: it stays open` }); continue; }
+      const w = wording.get(sc.code) || {};
+      answered.push({
+        id: sc.id, kind: 'screen', code: sc.code, card: f.title, qs: [sc.title], answer: rec.v,
+        build: String(w.planned || (rec.v === 'yes' ? 'Built as shown on the screen.' : 'Built with the changes you asked for, in your words above.')).trim(),
+        url: sc.url, answeredOn: ymd(rec.updatedAt) || ymd(a.at), acceptedOn: ymd(a.at), status: statusOf(sc.id),
+      });
+    }
+  }
+  for (const [id] of Object.entries(accepted)) {
+    if (LINE_ID.test(id) && !source.cards.some((c) => c.rec.some((r) => r.id === id))) held.push({ id, why: 'in accepted.json, but no question has this id' });
+  }
+  // the open list without the moved lines, with our replies
+  const cards = [];
+  for (const c of questions.cards) {
+    const rows = c.rows.filter((r) => !moved.has(r.id)).map((r) => (replies.rows[r.id] ? Object.assign({}, r, { reply: replies.rows[r.id] }) : r));
+    if (rows.length) cards.push(Object.assign({}, c, { rows }));
+  }
+  const used = new Set(cards.map((c) => c.group));
+  const out = Object.assign({}, questions, {
+    cards,
+    groups: questions.groups.filter((g) => used.has(g.id)),
+    rows: cards.reduce((n, c) => n + c.rows.length, 0),
+    critical: cards.reduce((n, c) => n + c.rows.filter((r) => r.critical).length, 0),
+  });
+  const screensOut = screens && Object.assign({}, screens, {
+    features: screens.features.map((f) => Object.assign({}, f, { screens: f.screens.map((s) => (replies.screens[s.code] ? Object.assign({}, s, { reply: replies.screens[s.code] }) : s)) })),
+  });
+  answered.sort((x, y) => (y.acceptedOn || '').localeCompare(x.acceptedOn || '') || x.id.localeCompare(y.id));
+  return { questions: out, screens: screensOut, answered, held, replied: Object.keys(replies.rows).length + Object.keys(replies.screens).length, today };
 }
