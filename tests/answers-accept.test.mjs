@@ -178,6 +178,8 @@ test('sort: Agree and Signed off are clean, a question or a condition is an open
   const open = sortAnswer({ v: 'change', n: 'Keep the trial. Who can cancel?' });
   assert.deepEqual(open, { sort: 'open-point', recommendation: 'reply', openPoint: 'Who can cancel?' });
   assert.equal(sortAnswer({ v: 'change', n: 'Yes, but only if the board approves.' }).sort, 'open-point');
+  assert.equal(sortAnswer({ v: 'change', n: 'Cover the waiver. If it only covers fees, say so.' }).sort, 'open-point');
+  assert.equal(sortAnswer({ v: 'change', n: 'Please list every state of the plan. '.repeat(10) }).sort, 'open-point', 'a long list of requests needs an answer back');
   assert.equal(sortAnswer({ v: 'discuss', n: '' }).recommendation, 'hold');
   assert.equal(sortAnswer({ v: 'change', n: '' }).sort, 'discuss', 'a Change with nothing written is a conversation');
 });

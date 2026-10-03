@@ -795,7 +795,10 @@ export function checkAnsweredStatus(status) {
 }
 
 // A note that asks something, sets a condition or says "yes, but" is an open point, not a clean answer.
-const OPEN_POINT = /\?|\b(but|unless|only if|as long as|provided|before (?:sign ?off|we|you)|clarify|confirm|what did you mean|not sure|depends|instead of|however|except)\b/i;
+// A long note (several requests at once) needs an answer back too, whatever its wording.
+const OPEN_POINT = /\?|\b(but|if|unless|as long as|provided|before (?:sign ?off|we|you)|clarify|confirm|define|what did you mean|not sure|depends|instead of|however|except)\b/i;
+const LONG_NOTE = 300;
+const asksSomething = (note) => OPEN_POINT.test(note) || note.length > LONG_NOTE;
 const firstOpenPoint = (note) => {
   const parts = String(note).split(/(?<=[.?!])\s+|\n+/).map((s) => s.trim()).filter(Boolean);
   const hit = parts.find((s) => OPEN_POINT.test(s)) || parts[0] || '';
@@ -810,11 +813,11 @@ const firstOpenPoint = (note) => {
 export function sortAnswer(rec) {
   const v = rec && rec.v, note = String((rec && rec.n) || '').trim();
   if (v === 'agree' || v === 'yes') {
-    if (note && OPEN_POINT.test(note)) return { sort: 'open-point', recommendation: 'reply', openPoint: firstOpenPoint(note) };
+    if (note && asksSomething(note)) return { sort: 'open-point', recommendation: 'reply', openPoint: firstOpenPoint(note) };
     return { sort: 'clean', recommendation: 'accept', openPoint: '' };
   }
   if (v === 'change' && note) {
-    return OPEN_POINT.test(note) ? { sort: 'open-point', recommendation: 'reply', openPoint: firstOpenPoint(note) } : { sort: 'clean', recommendation: 'accept', openPoint: '' };
+    return asksSomething(note) ? { sort: 'open-point', recommendation: 'reply', openPoint: firstOpenPoint(note) } : { sort: 'clean', recommendation: 'accept', openPoint: '' };
   }
   return { sort: 'discuss', recommendation: 'hold', openPoint: note ? firstOpenPoint(note) : '' };
 }
