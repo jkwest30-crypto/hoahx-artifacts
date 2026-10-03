@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-02",
+ "updated": "2026-10-03",
  "groups": [
   {
    "id": "money",
@@ -77,18 +77,6 @@
    "title": "Who gets the alerts, and the monthly spending alert",
    "why": "An alert nobody owns is noise. One named person, one backup, one note.",
    "rows": [
-    {
-     "id": "A19-1",
-     "qs": [
-      "Who is the named recipient of production alerts, and who is the backup?"
-     ],
-     "rec": "Dan is the named recipient of production alerts, by email and text, with Rustin as the backup, and a one-page \"when this fires\" note: what to check, when to call Jacob, how to pause payments. Jacob is copied through launch and the thirty days after. Say so if it should be the other way round.",
-     "videos": [],
-     "critical": {
-      "date": "2026-10-09",
-      "why": "Needed by Oct 9: protection, monitoring, and backups."
-     }
-    },
     {
      "id": "A19-2",
      "qs": [
@@ -184,71 +172,11 @@
    ]
   },
   {
-   "id": "A28",
-   "group": "ops",
-   "title": "The app icon",
-   "why": "The icon is what people see in the store and on their phone every day. Changing it after the first submission means new artwork and another store review, so it is worth a yes now.",
-   "rows": [
-    {
-     "id": "A28-1",
-     "qs": [
-      "Is the black HX tile the icon for both app stores and the phone home screen?"
-     ],
-     "rec": "The designer's black HX tile is the icon in the App Store, on Google Play, and on the phone's home screen, with the 512-pixel version as the Google Play listing icon.",
-     "videos": [],
-     "critical": {
-      "date": "2026-10-16",
-      "why": "Needed by Oct 16: store submission."
-     }
-    }
-   ]
-  },
-  {
-   "id": "A01",
-   "group": "money",
-   "title": "How a homeowner pays",
-   "why": "A card fee that only the card payer sees steers people to the free bank payment without punishing anyone. Partial payments keep a struggling homeowner paying instead of stopping. Tenants paying by default is what most owners with tenants expect, and the owner keeps the switch.",
-   "rows": [
-    {
-     "id": "A01-1",
-     "qs": [
-      "Who pays the card processing cost: the homeowner as a convenience fee, or the community?"
-     ],
-     "rec": "A homeowner who pays by card pays the card cost, shown as its own convenience-fee line before they confirm. A bank payment costs nothing. Where NMI says a card fee is not allowed in a community's state, that community absorbs the cost and the screen says so.",
-     "videos": []
-    },
-    {
-     "id": "A01-2",
-     "qs": [
-      "Should partial payments be accepted against a dues balance?"
-     ],
-     "rec": "Any amount from one dollar up is accepted. A payment above what is owed, including a second payment made by mistake, stays on the account as a credit, and AutoPay uses that credit first. A late fee still applies to whatever is left when the grace period ends.",
-     "videos": []
-    },
-    {
-     "id": "A01-3",
-     "qs": [
-      "Should tenants be able to pay dues by default?"
-     ],
-     "rec": "A tenant can pay dues unless the owner switches it off on the tenant's record. The switch is repaired so it saves, and the owner is told whenever a tenant pays.",
-     "videos": []
-    }
-   ]
-  },
-  {
    "id": "A02",
    "group": "money",
    "title": "Late fees, and an autopay charge that fails",
    "why": "Boards assume late fees are being charged; today they are not. Two tries and a pause keeps HOAhx from charging a bad card again and again, and puts the treasurer in the picture before anyone is far behind.",
    "rows": [
-    {
-     "id": "A02-1",
-     "qs": [
-      "Are late fees ever calculated and applied automatically?"
-     ],
-     "rec": "Late fees are applied automatically the day after the grace period on the community's dues schedule, at the amount on the schedule, and the homeowner is told the day it happens. A payment counts on the day it is submitted, not the day the bank settles it, so a bank payment started on time is never late.",
-     "videos": []
-    },
     {
      "id": "A02-2",
      "qs": [
@@ -260,51 +188,11 @@
    ]
   },
   {
-   "id": "A03",
-   "group": "money",
-   "title": "A returned bank payment, or a dispute",
-   "why": "A bounced payment is invisible to the homeowner until someone tells them; telling them the same day is what gets it fixed. A fixed, published return fee is simpler to explain than passing on whatever the bank charged.",
-   "rows": [
-    {
-     "id": "A03-1",
-     "qs": [
-      "Who should be told when a payment is disputed or a bank payment is returned?"
-     ],
-     "rec": "The treasurer and the homeowner are told the same day, in the app and by email (and on the phone once the apps are out). The President sees it in the weekly board summary. The homeowner's notice says what was reversed, the deadline, and how to pay again.",
-     "videos": []
-    },
-    {
-     "id": "A03-2",
-     "qs": [
-      "Should a returned bank payment carry a fee, and how much?"
-     ],
-     "rec": "A returned bank payment carries a fixed fee the community sets in its payment rules, $25 by default, charged once per return and never above the state's cap. It appears on the homeowner's ledger with the reason.",
-     "videos": []
-    }
-   ]
-  },
-  {
    "id": "A04",
    "group": "money",
    "title": "Setting up the community's merchant account",
    "why": "Whoever signs is answerable for the community's bank details and tax records, which is an officer's act. NMI's page is built and tested; the embedded version can wait. A second processor would split what HOAhx can see of a community's money and what it earns.",
    "rows": [
-    {
-     "id": "A04-1",
-     "qs": [
-      "Which roles may set up the community's merchant account?"
-     ],
-     "rec": "The President or the Treasurer applies and signs. In a community with a management company, the property manager may start the application, but the President or the Treasurer signs it.",
-     "videos": []
-    },
-    {
-     "id": "A04-2",
-     "qs": [
-      "Should the merchant application open on NMI's own page, or sit inside HOAhx's payment setup screen?"
-     ],
-     "rec": "The application opens on NMI's own page from HOAhx's payment setup. The version embedded inside HOAhx is a later improvement, once NMI confirms it works on the partner sandbox and inside the phone apps.",
-     "videos": []
-    },
     {
      "id": "A04-3",
      "qs": [
@@ -331,17 +219,6 @@
       "07",
       "29"
      ]
-    },
-    {
-     "id": "A05-2",
-     "qs": [
-      "Should treasurers get logins to NMI's own merchant portal, or only the reports inside HOAhx?"
-     ],
-     "rec": "Treasurers work inside HOAhx: deposit summaries, deposit history, and NMI's transaction reports appear there, and no separate NMI portal login is issued. If a particular treasurer needs one, HOAhx support asks NMI case by case.",
-     "videos": [
-      "06",
-      "28"
-     ]
     }
    ]
   },
@@ -351,14 +228,6 @@
    "title": "What a homeowner sees of the money",
    "why": "Showing refunds and disputes honestly is the transparency HOAhx promises. The budget view answers \"where does the money go\" without the raw ledger, which would confuse more than it reveals.",
    "rows": [
-    {
-     "id": "A06-1",
-     "qs": [
-      "Should residents be able to see their full payment history including refunds and disputes?"
-     ],
-     "rec": "A homeowner sees their whole payment history, including refunds, returned payments, and payments under review for a dispute, each with its status, the reason, and what to do next. Internal notes and processor identifiers never appear.",
-     "videos": []
-    },
     {
      "id": "A06-2",
      "qs": [
@@ -762,14 +631,6 @@
      ],
      "rec": "An adjustment can bring a home's balance down to zero and no further. It can clear a debt, but it can never turn one into money the community owes the homeowner. When money genuinely has to go back to a homeowner, that is a refund, which already needs two financial people.",
      "videos": []
-    },
-    {
-     "id": "A24-2",
-     "qs": [
-      "Should a credit or an adjustment always need a second financial approver, with charges and fees left to one person?"
-     ],
-     "rec": "One financial person can post a charge or a fee. A credit or an adjustment, anything that takes money off what a home owes, needs a second financial person to approve it, and nobody approves an entry on their own home.",
-     "videos": []
     }
    ]
   },
@@ -964,6 +825,204 @@
    ]
   }
  ],
+ "answered": [
+  {
+   "id": "A01-1",
+   "kind": "question",
+   "card": "How a homeowner pays",
+   "qs": [
+    "Who pays the card processing cost: the homeowner as a convenience fee, or the community?"
+   ],
+   "answer": "discuss",
+   "rec": "A homeowner who pays by card pays the card cost, shown as its own convenience-fee line before they confirm. A bank payment costs nothing. Where NMI says a card fee is not allowed in a community's state, that community absorbs the cost and the screen says so.",
+   "build": "The homeowner pays the card cost as a convenience fee, shown as its own line with the total before they confirm. Bank payments stay free. The fee is switched on for a community once NMI confirms in writing how its fee program works: the rate, which cards it may be added to, and which states allow it. Until then, and for any card or state where NMI says a fee may not be added, no fee is charged, the community absorbs the cost, and the screen shows no fee line.",
+   "answeredOn": "2026-09-30",
+   "acceptedOn": "2026-10-03",
+   "status": "planned"
+  },
+  {
+   "id": "A01-2",
+   "kind": "question",
+   "card": "How a homeowner pays",
+   "qs": [
+    "Should partial payments be accepted against a dues balance?"
+   ],
+   "answer": "discuss",
+   "rec": "Any amount from one dollar up is accepted. A payment above what is owed, including a second payment made by mistake, stays on the account as a credit, and AutoPay uses that credit first. A late fee still applies to whatever is left when the grace period ends.",
+   "build": "Any amount from one dollar up is accepted. A payment above what is owed stays on the account as a credit, AutoPay uses that credit first, and the homeowner can ask for it back. A late fee still applies to whatever is left when the grace period ends.",
+   "answeredOn": "2026-09-30",
+   "acceptedOn": "2026-10-03",
+   "status": "planned"
+  },
+  {
+   "id": "A01-3",
+   "kind": "question",
+   "card": "How a homeowner pays",
+   "qs": [
+    "Should tenants be able to pay dues by default?"
+   ],
+   "answer": "discuss",
+   "rec": "A tenant can pay dues unless the owner switches it off on the tenant's record. The switch is repaired so it saves, and the owner is told whenever a tenant pays.",
+   "build": "Tenant payments are off by default. The owner switches payment on for a named tenant of that home and can switch it off again at any time. A tenant's payment posts to that home's ledger, shows the tenant as the payer, and the owner is told each time. Permission to pay gives the tenant nothing else: no wider view of the account, and the assessment stays the owner's responsibility. Switching it off also ends any AutoPay that tenant set up.",
+   "answeredOn": "2026-09-30",
+   "acceptedOn": "2026-10-03",
+   "status": "planned"
+  },
+  {
+   "id": "A02-1",
+   "kind": "question",
+   "card": "Late fees, and an autopay charge that fails",
+   "qs": [
+    "Are late fees ever calculated and applied automatically?"
+   ],
+   "answer": "agree",
+   "rec": "Late fees are applied automatically the day after the grace period on the community's dues schedule, at the amount on the schedule, and the homeowner is told the day it happens. A payment counts on the day it is submitted, not the day the bank settles it, so a bank payment started on time is never late.",
+   "build": "Late fees are applied automatically the day after the grace period on the community's dues schedule, at the amount on the schedule, and the homeowner is told the day it happens. A payment counts on the day it is submitted, not the day the bank settles it, so a bank payment started on time is never late.",
+   "answeredOn": "2026-09-30",
+   "acceptedOn": "2026-10-03",
+   "status": "planned"
+  },
+  {
+   "id": "A03-1",
+   "kind": "question",
+   "card": "A returned bank payment, or a dispute",
+   "qs": [
+    "Who should be told when a payment is disputed or a bank payment is returned?"
+   ],
+   "answer": "discuss",
+   "rec": "The treasurer and the homeowner are told the same day, in the app and by email (and on the phone once the apps are out). The President sees it in the weekly board summary. The homeowner's notice says what was reversed, the deadline, and how to pay again.",
+   "build": "The homeowner and the Treasurer are told the same day, in the app and by email, and by text message only if the homeowner opted in. The Treasurer is the community's finance contact; where no Treasurer is seated, the President is. The notice says which of the two happened, in different words for each: a bank payment returned, or a card payment disputed. The homeowner's notice says what happened, what it did to their balance, and how to pay again. A dispute also opens an urgent task for the Treasurer with the processor's deadline and the next steps; the President is alerted to a dispute as the backup, without the card or bank details. Other board members see only that an item is open.",
+   "answeredOn": "2026-09-30",
+   "acceptedOn": "2026-10-03",
+   "status": "planned"
+  },
+  {
+   "id": "A03-2",
+   "kind": "question",
+   "card": "A returned bank payment, or a dispute",
+   "qs": [
+    "Should a returned bank payment carry a fee, and how much?"
+   ],
+   "answer": "discuss",
+   "rec": "A returned bank payment carries a fixed fee the community sets in its payment rules, $25 by default, charged once per return and never above the state's cap. It appears on the homeowner's ledger with the reason.",
+   "build": "No returned-payment fee by default. A community may switch one on and set the amount in its payment rules after confirming that its governing documents and its state allow it. The fee is shown on the bank payment screen and in the AutoPay consent before the homeowner authorizes anything. It applies once per returned payment, only when the bank's reason is insufficient or uncollected funds, never to a card dispute, and it is never counted when a late fee is worked out. The setting stays unavailable to communities until NMI confirms in writing that the fee is allowed and where the return reason is reported.",
+   "answeredOn": "2026-09-30",
+   "acceptedOn": "2026-10-03",
+   "status": "planned"
+  },
+  {
+   "id": "A04-1",
+   "kind": "question",
+   "card": "Setting up the community's merchant account",
+   "qs": [
+    "Which roles may set up the community's merchant account?"
+   ],
+   "answer": "discuss",
+   "rec": "The President or the Treasurer applies and signs. In a community with a management company, the property manager may start the application, but the President or the Treasurer signs it.",
+   "build": "The community's Account Owner, the President or the Treasurer opens the merchant application from HOAhx and submits it on NMI's page. For the launch, a property manager cannot open it. HOAhx records who opened the application, when, and every status NMI sends back. A management company starting an application on a community's behalf, with the board's recorded authorization and an officer still submitting it, is agreed as the rule and built when the first managed community is boarded.",
+   "answeredOn": "2026-09-30",
+   "acceptedOn": "2026-10-03",
+   "status": "planned"
+  },
+  {
+   "id": "A04-2",
+   "kind": "question",
+   "card": "Setting up the community's merchant account",
+   "qs": [
+    "Should the merchant application open on NMI's own page, or sit inside HOAhx's payment setup screen?"
+   ],
+   "answer": "discuss",
+   "rec": "The application opens on NMI's own page from HOAhx's payment setup. The version embedded inside HOAhx is a later improvement, once NMI confirms it works on the partner sandbox and inside the phone apps.",
+   "build": "The application opens on NMI's own hosted page, started from HOAhx's payment setup. HOAhx collects and stores no bank, tax or identity details. When NMI answers, the community's payment setup shows one of four statuses in plain words (pending, more information needed, approved, declined) with what happens next and who has to act. The embedded version stays a later improvement.",
+   "answeredOn": "2026-09-30",
+   "acceptedOn": "2026-10-03",
+   "status": "planned"
+  },
+  {
+   "id": "A05-2",
+   "kind": "question",
+   "card": "The treasurer's books",
+   "qs": [
+    "Should treasurers get logins to NMI's own merchant portal, or only the reports inside HOAhx?"
+   ],
+   "answer": "discuss",
+   "rec": "Treasurers work inside HOAhx: deposit summaries, deposit history, and NMI's transaction reports appear there, and no separate NMI portal login is issued. If a particular treasurer needs one, HOAhx support asks NMI case by case.",
+   "build": "Treasurers work inside HOAhx for payments, refunds, returns and disputes, with filters and an export. No shared NMI login is ever issued. Bank deposits and NMI's processing fees are read in NMI's portal until NMI makes that data available to HOAhx, so each treasurer who needs it gets their own named NMI login, limited to viewing, with two-factor sign-in. Deposit and fee reports move inside HOAhx when NMI confirms the data.",
+   "answeredOn": "2026-09-30",
+   "acceptedOn": "2026-10-03",
+   "status": "planned"
+  },
+  {
+   "id": "A06-1",
+   "kind": "question",
+   "card": "What a homeowner sees of the money",
+   "qs": [
+    "Should residents be able to see their full payment history including refunds and disputes?"
+   ],
+   "answer": "discuss",
+   "rec": "A homeowner sees their whole payment history, including refunds, returned payments, and payments under review for a dispute, each with its status, the reason, and what to do next. Internal notes and processor identifiers never appear.",
+   "build": "Yes. A homeowner sees their own whole payment history: the date, the amount, the payment method shown only by its type and last four digits, the current status, and any refund, returned payment or dispute, each with a plain explanation and the next step. Internal notes and processor identifiers never appear.",
+   "answeredOn": "2026-09-30",
+   "acceptedOn": "2026-10-03",
+   "status": "planned"
+  },
+  {
+   "id": "A19-1",
+   "kind": "question",
+   "card": "Who gets the alerts, and the monthly spending alert",
+   "qs": [
+    "Who is the named recipient of production alerts, and who is the backup?"
+   ],
+   "answer": "agree",
+   "rec": "Dan is the named recipient of production alerts, by email and text, with Rustin as the backup, and a one-page \"when this fires\" note: what to check, when to call Jacob, how to pause payments. Jacob is copied through launch and the thirty days after. Say so if it should be the other way round.",
+   "build": "Dan is the named recipient of production alerts, by email and text, with Rustin as the backup, and a one-page \"when this fires\" note: what to check, when to call Jacob, how to pause payments. Jacob is copied through launch and the thirty days after. Say so if it should be the other way round.",
+   "answeredOn": "2026-10-02",
+   "acceptedOn": "2026-10-03",
+   "status": "planned"
+  },
+  {
+   "id": "A22-1",
+   "kind": "question",
+   "card": "What HOAhx support can see",
+   "qs": [
+    "Should Platform Support be able to see resident names and addresses at all?"
+   ],
+   "answer": "change",
+   "rec": "Support sees a first name, a last initial, a masked email, and which communities and roles a person holds; never an address, a phone number, or a full name. A full household comes into view only through temporary support access that the community authorizes, with a reason, a scope, a time limit, and a complete record of what was done.",
+   "build": "Platform Support should see a resident's first name, last initial, masked email, community, and role by default. Full names, addresses, and phone numbers should be hidden. If a specific support issue requires more information, an authorized community contact must approve temporary, read-only access to only what's needed. That access must expire automatically and be fully logged. Support must never see full payment or bank details, impersonate a resident to take action, change resident or financial records, or perform financial actions. By authorized community contact, we mean the Community Account Owner, the designated Backup Owner, or someone the owner has explicitly granted Support Access Approver permission. Board members, residents, and Billing Admins should not have approval authority by default. The answer page and the demo's permissions should reflect this.",
+   "answeredOn": "2026-10-01",
+   "acceptedOn": "2026-10-03",
+   "status": "planned"
+  },
+  {
+   "id": "A24-2",
+   "kind": "question",
+   "card": "Correcting a balance by hand",
+   "qs": [
+    "Should a credit or an adjustment always need a second financial approver, with charges and fees left to one person?"
+   ],
+   "answer": "change",
+   "rec": "One financial person can post a charge or a fee. A credit or an adjustment, anything that takes money off what a home owes, needs a second financial person to approve it, and nobody approves an entry on their own home.",
+   "build": "Please require a second financial approver for manual credits, write-offs, and adjustments that reduce a homeowner’s balance. The requester cannot approve their own entry, and no one can approve an adjustment to their own home. Exclude automatic credits tied to actual overpayments, and allow one authorized person to post routine charges or fees that follow the board-approved schedule. Log all entries and approvals with the amount, reason, user, and timestamp.",
+   "answeredOn": "2026-10-02",
+   "acceptedOn": "2026-10-03",
+   "status": "planned"
+  },
+  {
+   "id": "A28-1",
+   "kind": "question",
+   "card": "The app icon",
+   "qs": [
+    "Is the black HX tile the icon for both app stores and the phone home screen?"
+   ],
+   "answer": "agree",
+   "rec": "The designer's black HX tile is the icon in the App Store, on Google Play, and on the phone's home screen, with the 512-pixel version as the Google Play listing icon.",
+   "build": "The designer's black HX tile is the icon in the App Store, on Google Play, and on the phone's home screen, with the 512-pixel version as the Google Play listing icon.",
+   "answeredOn": "2026-10-02",
+   "acceptedOn": "2026-10-03",
+   "status": "planned"
+  }
+ ],
  "videos": {
   "11": {
    "title": "Appointing an HOA Administrator",
@@ -974,11 +1033,6 @@
    "title": "Your gate and guest codes: what else can happen",
    "seconds": 141,
    "url": "https://drive.google.com/file/d/1qjGiEWEigrsguGxQPXnP79D2KKQwoIby/view"
-  },
-  "28": {
-   "title": "The month, checked against NMI: what else can happen",
-   "seconds": 132,
-   "url": "https://drive.google.com/file/d/1e_uw-9sJRQfTwx2N-T3Yl8c4z-Z-iRUd/view"
   },
   "29": {
    "title": "Closing the month: what else can happen",
@@ -1004,11 +1058,6 @@
    "title": "What an HOA Administrator can and can't do: what else can happen",
    "seconds": 121,
    "url": "https://drive.google.com/file/d/11v_eq6qSjwxg5NeoySL3dw5I_AtJ9aAF/view"
-  },
-  "06": {
-   "title": "The month, checked against NMI",
-   "seconds": 64,
-   "url": "https://drive.google.com/file/d/1mJmuKBO6PqeRdLL9hH2kuUeqHuFqpXc0/view"
   },
   "07": {
    "title": "Closing the month",
