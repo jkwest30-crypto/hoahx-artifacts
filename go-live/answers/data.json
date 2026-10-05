@@ -327,6 +327,54 @@
      "videos": []
     }
    ]
+  },
+  {
+   "id": "A38",
+   "group": "money",
+   "title": "Opening balances brought in from your spreadsheet",
+   "why": "A balance belongs to the home, not to a person; the figure should be the same for every owner and should not look overdue before the community starts.",
+   "rows": [
+    {
+     "id": "A38-1",
+     "qs": [
+      "When a home has more than one owner, whose account does the opening balance from your spreadsheet go on?"
+     ],
+     "rec": "The first active owner of the home; the balance stays on the home's ledger, so every owner of the home sees the same figure.",
+     "videos": []
+    },
+    {
+     "id": "A38-2",
+     "qs": [
+      "What date should an opening balance from your spreadsheet carry on a home's ledger?"
+     ],
+     "rec": "The approval day, so nothing looks overdue before anyone could see it.",
+     "videos": []
+    },
+    {
+     "id": "A38-3",
+     "qs": [
+      "If a homeowner starts with a credit from your spreadsheet, may AutoPay use it before the community's start date?"
+     ],
+     "rec": "Keep and show the credit; AutoPay waits for the start date.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A39",
+   "group": "pricing",
+   "title": "Changing a plan's price for communities already paying",
+   "why": "Communities should never be surprised by a bill.",
+   "rows": [
+    {
+     "id": "A39-1",
+     "qs": [
+      "When HOAhx changes the price of a plan after communities are already paying on it, what happens to those communities?"
+     ],
+     "rec": "Communities already paying keep their price until HOAhx moves them, with at least 30 days' notice before any new price is charged. It matches the rule for home-count changes and avoids a surprise bill.",
+     "videos": []
+    }
+   ]
   }
  ],
  "answered": [
