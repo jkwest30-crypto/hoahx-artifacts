@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-03",
+ "updated": "2026-10-05",
  "previewUrl": "https://hoahx-staging.web.app/preview",
  "features": [
   {
@@ -50,15 +50,10 @@
      "what": "Who holds the account: the Account Owner, the backups and any Billing Administrator, with what each may do. Handing the account to someone else waits for that person to accept, and the last backup cannot be removed.",
      "url": "https://hoahx-staging.web.app/preview/A4",
      "videos": [],
-     "walk": {
-      "seconds": 64,
-      "url": "https://drive.google.com/file/d/1GHKikoJRUVnK9Z2V_hv61Qr-STt4LyzH/view"
-     },
      "critical": {
       "date": "2026-10-09",
       "why": "Needed by Oct 9: app shell and push notifications."
-     },
-     "reply": "Thank you. We have your notes on this screen. We are checking each one against what is built and what is planned, and we will send you a screen-by-screen answer."
+     }
     },
     {
      "id": "S-A5",
@@ -82,8 +77,7 @@
      "walk": {
       "seconds": 68,
       "url": "https://drive.google.com/file/d/1xSMlHzcTdQSovK2zkwz70blk62Wc2Rqk/view"
-     },
-     "reply": "Thank you. We have your notes on this screen. We are checking each one against what is built and what is planned, and we will send you a screen-by-screen answer."
+     }
     },
     {
      "id": "S-A7",
@@ -117,7 +111,7 @@
       "seconds": 72,
       "url": "https://drive.google.com/file/d/1g9U_uFrLpC9pp2R_K_t3eK_nn4qHWB_1/view"
      },
-     "reply": "Thank you. We have your notes on this screen. We are checking each one against what is built and what is planned, and we will send you a screen-by-screen answer."
+     "reply": "Point 3: When a home is sold or the owner moves out with a credit on the account, should the credit go back to the person who paid it? We recommend yes: it is never carried to the next owner, and the treasurer gets a task to refund it to the original payment method, with a second approver.\n\nPoint 4: we recommend a change. The ledger records only money that moved: the payment, the credit it left, the refund, the return, each linked to the original. Requests and approvals live in the approval record, which opens from the ledger line and keeps the full history.\n\nEverything else we will build as you wrote it."
     },
     {
      "id": "S-B2",
@@ -133,7 +127,7 @@
       "seconds": 54,
       "url": "https://drive.google.com/file/d/1Of8YPdwoF5JrHEvTybeK97f4f1pE0KJ7/view"
      },
-     "reply": "Thank you. We have your notes on this screen. We are checking each one against what is built and what is planned, and we will send you a screen-by-screen answer."
+     "reply": "Point 5: A refund request nobody approves within 48 hours: should it lapse, as you decided on September 10, or stay waiting and be flagged? We recommend it lapses, with a reminder at 24 hours and a notice to everyone involved when it does.\n\nEverything else we will build as you wrote it."
     },
     {
      "id": "S-B3",
@@ -148,8 +142,7 @@
      "walk": {
       "seconds": 78,
       "url": "https://drive.google.com/file/d/19uvYvOq89w5-E6TDk-5rNIfR9IhoQ273/view"
-     },
-     "reply": "Thank you. We have your notes on this screen. We are checking each one against what is built and what is planned, and we will send you a screen-by-screen answer."
+     }
     },
     {
      "id": "S-B4",
@@ -158,10 +151,7 @@
      "what": "Each role down the side and the eight kinds of action across the top. A permission can be taken away from one person, with a reason; nobody can change their own.",
      "url": "https://hoahx-staging.web.app/preview/B4",
      "videos": [],
-     "walk": {
-      "seconds": 48,
-      "url": "https://drive.google.com/file/d/1J8UFb-LLmGMEVcFnNJuRIYB9OEVb_unG/view"
-     }
+     "reply": "Thank you. Most of this is already how the platform works: a refund is requested by one financial user and approved by a different Financial Approver, and nobody can approve their own request or change their own access. We will bring the role grid into line with that rule so the Treasurer's and the approvers' columns match the refund workflow, make sure the last active administrator or Financial Approver can never be removed, explain what the Yes counts mean, and let an authorized user restore a single permission without resetting the whole role. We will report back on each point screen by screen."
     },
     {
      "id": "S-B5",
@@ -173,7 +163,8 @@
      "walk": {
       "seconds": 50,
       "url": "https://drive.google.com/file/d/19fgN7d3ZVlTLzuS1KeIr1UPBjyX39-x3/view"
-     }
+     },
+     "reply": "Thank you. We agree with all four points. The reason will clear whenever the export changes and a fresh reason will be required for each file. Ballot participation (which homes voted, for quorum) will stay separate from vote results, and results will be aggregated with no link from a household to its choice. 'Member since' comes off the default roster export. The permission and the field filtering are enforced on the server, and the download notice will say the file holds community data to share only with authorized people. We will confirm each point when it is built."
     },
     {
      "id": "S-B6",
@@ -185,8 +176,7 @@
      "walk": {
       "seconds": 53,
       "url": "https://drive.google.com/file/d/1HqTM7EUpjaCy22GlmCn7eFDu4-0BOw07/view"
-     },
-     "reply": "Thank you. We have your notes on this screen. We are checking each one against what is built and what is planned, and we will send you a screen-by-screen answer."
+     }
     }
    ]
   },
@@ -218,7 +208,7 @@
       "seconds": 56,
       "url": "https://drive.google.com/file/d/1qq9UegWJMjux9YT9reK0pPGWElcgH4-M/view"
      },
-     "reply": "Thank you. We have your notes on this screen. We are checking each one against what is built and what is planned, and we will send you a screen-by-screen answer."
+     "reply": "Point 5: we recommend a change. Show only 'Delivered' or 'Failed' from the email service, with the exact notice, recipient, method and time. A duplicate second reminder is refused.\n\nEverything else we will build as you wrote it."
     },
     {
      "id": "S-C3",
@@ -230,8 +220,7 @@
      "walk": {
       "seconds": 55,
       "url": "https://drive.google.com/file/d/1Ww4KM9IRjFVlUfURQ0TSRLXv9BtvNtCr/view"
-     },
-     "reply": "Thank you. We have your notes on this screen. We are checking each one against what is built and what is planned, and we will send you a screen-by-screen answer."
+     }
     },
     {
      "id": "S-C4",
@@ -269,8 +258,7 @@
      "walk": {
       "seconds": 75,
       "url": "https://drive.google.com/file/d/1L3PHyLhcm3FkdZ_QOKgoKWPJhJziA-gw/view"
-     },
-     "reply": "Thank you. We have your notes on this screen. We are checking each one against what is built and what is planned, and we will send you a screen-by-screen answer."
+     }
     },
     {
      "id": "S-C7",
@@ -278,12 +266,7 @@
      "title": "A ledger you can follow",
      "what": "Every entry with its date, its kind and the running balance beside it. A correction is a new entry that names the one it corrects; nothing is edited or removed. Drawn once for the homeowner and once for the board.",
      "url": "https://hoahx-staging.web.app/preview/C7",
-     "videos": [],
-     "walk": {
-      "seconds": 96,
-      "url": "https://drive.google.com/file/d/1CxhwmpZDGEmKihJjNosYv_AiaY8kvrnQ/view"
-     },
-     "reply": "Thank you. We have your notes on this screen. We are checking each one against what is built and what is planned, and we will send you a screen-by-screen answer."
+     "videos": []
     },
     {
      "id": "S-C8",
@@ -295,8 +278,7 @@
      "walk": {
       "seconds": 54,
       "url": "https://drive.google.com/file/d/14QqlpGA0H7SZIgeBuQLvSLHi-ojDhQms/view"
-     },
-     "reply": "Thank you. We have your notes on this screen. We are checking each one against what is built and what is planned, and we will send you a screen-by-screen answer."
+     }
     }
    ]
   },

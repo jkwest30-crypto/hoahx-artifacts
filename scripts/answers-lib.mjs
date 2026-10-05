@@ -769,7 +769,8 @@ export function buildPull({ source, screens, store, site, now, answeredButOpen =
 // reply on it. Screens follow the same rule.
 export const ANSWER_STATUSES = ['planned', 'built', 'live'];
 const SCREEN_ID = /^S-[A-Z]\d{1,2}$/;
-const isAnswerId = (id) => LINE_ID.test(id) || SCREEN_ID.test(id);
+// A09-1b: the second half of a split line, recorded by /decide
+const isAnswerId = (id) => LINE_ID.test(id) || SCREEN_ID.test(id) || /^A\d{2}-\d{1,2}b$/.test(id);
 const ymd = (iso) => (/^\d{4}-\d{2}-\d{2}/.test(String(iso || '')) ? String(iso).slice(0, 10) : '');
 
 /** Checks accepted.json. Returns it; throws on the first thing wrong. */
