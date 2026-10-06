@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-05",
+ "updated": "2026-10-06",
  "groups": [
   {
    "id": "money",
@@ -179,28 +179,13 @@
    "why": "Each of these has an answer that is simple to say at checkout. A founding rate rewards the communities that take the first step without a discount that never ends.",
    "rows": [
     {
-     "id": "A23-2",
-     "qs": [
-      "Which communities count as founding communities, and what do they keep?"
-     ],
-     "rec": "Founding communities: the first ten communities that subscribe by January 31, 2027 keep their monthly price for twenty-four months, whatever the list price does. Nothing else is discounted.",
-     "videos": []
-    },
-    {
      "id": "A23-3",
      "qs": [
       "On an annual plan, what happens when the number of homes changes mid-term?"
      ],
      "rec": "On an annual plan the home count is checked at renewal only: no mid-term charge when homes are added, no mid-term refund when they leave. The new tier applies from the renewal and is shown at checkout.",
-     "videos": []
-    },
-    {
-     "id": "A23-4",
-     "qs": [
-      "Who pays the card cost on the community's own subscription?"
-     ],
-     "rec": "The subscription price is the price: HOAhx absorbs the card cost on a community's own subscription, and an annual plan can also be paid by bank transfer.",
-     "videos": []
+     "videos": [],
+     "reply": "Thank you. We agree: no mid-term charge or refund within the paid tier, the home count is checked at renewal, and the renewal price is shown in advance. We will add your point: if a community grows beyond its tier's maximum, the administrator is notified and must approve before the plan changes or anything more is billed."
     }
    ]
   },
@@ -287,44 +272,13 @@
    "why": "An alert should mean someone probably made a mistake, not that someone paid early. A credit someone asked to have back should not be spent by AutoPay while the treasurer decides, and a request nobody answers should not lock it away for good.",
    "rows": [
     {
-     "id": "A36-1",
-     "qs": [
-      "When a homeowner pays more than they owe, when should the treasurer be alerted?"
-     ],
-     "rec": "Keep it as built: the treasurer and the president are alerted when a homeowner pays twice in one dues period or pays more than was owed, once per home per period. No alert for a homeowner who simply pays ahead, or who pays in two parts.",
-     "videos": []
-    },
-    {
      "id": "A36-2",
      "qs": [
       "A homeowner with a credit asks for the money back. Until the treasurer decides, should AutoPay leave that credit alone, and for how long? And how often may a homeowner ask?"
      ],
      "rec": "Keep thirty days and one request a month: once a homeowner asks for a credit back, AutoPay leaves it alone until the treasurer decides or thirty days pass. Add two buttons before launch: the treasurer can decline with a short note to the homeowner, and the homeowner can change their mind and keep the credit.",
-     "videos": []
-    },
-    {
-     "id": "A36-3",
-     "qs": [
-      "If a tenant pays the dues for a home, may the tenant ask for a refund of a credit on that home's account, or only the owner?"
-     ],
-     "rec": "A tenant may ask for a refund only when the owner has let them see the balance and pay. The money always goes back to the card or account it came from, and the owner is told when a tenant asks.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A37",
-   "group": "community",
-   "title": "Telling a new resident the board's answer",
-   "why": "Someone waiting to join a community should hear the answer without having to look for it.",
-   "rows": [
-    {
-     "id": "A37-1",
-     "qs": [
-      "Should HOAhx email a person when the board approves, declines, or asks for more proof on their request to join?"
-     ],
-     "rec": "Yes: one short email for each answer: approved, declined with the board's reason, or more proof needed. The waiting screen says an email will follow, so nobody has to keep checking the app.",
-     "videos": []
+     "videos": [],
+     "reply": "Thank you. We will reserve only the requested amount while a request is open, so AutoPay can still apply any remaining credit; the request goes to the treasurer, a second authorized approver issues any refund, and the homeowner can withdraw it and keep the credit. We will add a reminder to the treasurer when a request is still open after five business days. One open request per account at a time works for us, and we recommend keeping the thirty-day limit as an outer bound rather than releasing the credit sooner. If you would rather have no time limit, tell us and we will keep the credit reserved until the treasurer decides."
     }
    ]
   },
@@ -340,7 +294,8 @@
       "When a home has more than one owner, whose account does the opening balance from your spreadsheet go on?"
      ],
      "rec": "The first active owner of the home; the balance stays on the home's ledger, so every owner of the home sees the same figure.",
-     "videos": []
+     "videos": [],
+     "reply": "Thank you. The balance goes on the home's ledger, so every owner of the home sees the same figure, and it is attached to the first active owner. We will add your safeguards: a preview with the homes matched, the credits and amounts owed and totals that can be checked against your spreadsheet, a block on importing the same file twice, the import date and source in the account history, and an authorized administrator's confirmation before any balance affects resident notices, AutoPay or collections."
     },
     {
      "id": "A38-2",
@@ -348,36 +303,303 @@
       "What date should an opening balance from your spreadsheet carry on a home's ledger?"
      ],
      "rec": "The approval day, so nothing looks overdue before anyone could see it.",
+     "videos": [],
+     "reply": "Thank you. We recommend the approval day as the date the balance carries on the ledger, so nothing looks overdue before anyone could see it, and we will keep your cutover date and any original due dates and aging from the spreadsheet on the record. A balance that arrives as one total is marked as imported and held for administrator review before any overdue notice, fee or collection. If you would rather the ledger carry the cutover date, tell us and we will do that, with the same hold on notices and fees until the administrator approves."
+    }
+   ]
+  },
+  {
+   "id": "A40",
+   "group": "community",
+   "title": "Amending a published budget",
+   "why": "Preparing figures is already their job, and nothing reaches residents without the board's recorded approval.",
+   "rows": [
+    {
+     "id": "A40-1",
+     "qs": [
+      "Who may start an amendment to a budget the board has already published?"
+     ],
+     "rec": "Keep it as built: whoever may prepare the budget may start an amendment; only the President records the board's approval and publishes it.",
      "videos": []
     },
     {
-     "id": "A38-3",
+     "id": "A40-2",
      "qs": [
-      "If a homeowner starts with a credit from your spreadsheet, may AutoPay use it before the community's start date?"
+      "When an amended budget is published, who should be told, and how?"
      ],
-     "rec": "Keep and show the credit; AutoPay waits for the start date.",
+     "rec": "Keep it as built: one in-app notice each to the board and to residents, no e-mail.",
+     "videos": []
+    },
+    {
+     "id": "A40-3",
+     "qs": [
+      "What should residents see of the board's approval of a published budget?"
+     ],
+     "rec": "Keep the minutes on the board's screen; residents read the minutes in Documents when the board shares them there.",
+     "videos": []
+    },
+    {
+     "id": "A40-4",
+     "qs": [
+      "Which documents may the board attach as the record of a budget approval?"
+     ],
+     "rec": "Keep it: the approval is backed by the meeting minutes, and the board files the minutes first.",
      "videos": []
     }
    ]
   },
   {
-   "id": "A39",
+   "id": "A41",
    "group": "pricing",
-   "title": "Changing a plan's price for communities already paying",
-   "why": "Communities should never be surprised by a bill.",
+   "title": "Plan changes and pricing for larger communities",
+   "why": "Nothing has been paid, so there is nothing to make up or refund; a charge inside a free trial is the opposite of what the trial promises.",
    "rows": [
     {
-     "id": "A39-1",
+     "id": "A41-1",
      "qs": [
-      "When HOAhx changes the price of a plan after communities are already paying on it, what happens to those communities?"
+      "When a community changes its HOAhx plan during the free trial, what happens?"
      ],
-     "rec": "Communities already paying keep their price until HOAhx moves them, with at least 30 days' notice before any new price is charged. It matches the rule for home-count changes and avoids a surprise bill.",
+     "rec": "The new plan starts at once and nothing is charged during the trial. The trial keeps its end date, and the first charge at its end is the new plan's price.",
+     "videos": []
+    },
+    {
+     "id": "A41-2",
+     "qs": [
+      "When a community moves to a different plan that costs the same, when does it take effect?"
+     ],
+     "rec": "On the next billing date, nothing charged or refunded now, told as \"a plan change at the same price\".",
+     "videos": []
+    },
+    {
+     "id": "A41-3",
+     "qs": [
+      "How should the price work for a community with more than 500 homes? Today the five flat tiers run to 458 homes, then every home pays the same monthly per-home rate from 459 homes, with no upper limit."
+     ],
+     "rec": "Keep the per-home rate from 459 to 500 homes. A community above 500 homes does not buy in the app: the screen says HOAhx sets up its plan with it, and HOAhx sets that community's price and setup fee.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A42",
+   "group": "community",
+   "title": "Tenants and rental managers for a home",
+   "why": "This was the earlier recommendation, and it keeps the owner, who knows the lease, in charge of the tenant's access.",
+   "rows": [
+    {
+     "id": "A42-1",
+     "qs": [
+      "May a homeowner invite their own tenant and choose what the tenant may use and until when?"
+     ],
+     "rec": "Yes, as built.",
+     "videos": []
+    },
+    {
+     "id": "A42-2",
+     "qs": [
+      "An owner who rents out a home can name a rental manager (a rental company or a person) for that home, with a start and end date. What may the rental manager do?"
+     ],
+     "rec": "Pay the home's dues with their own payment method, receive the home's notices and send maintenance requests for it; never vote, never see the owner's saved payment details or other homes. The owner, or the board at the owner's request, names and removes them, and every change is in the home's history.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A43",
+   "group": "enforce",
+   "title": "Architectural request types and parking permits",
+   "why": "The days to decide are the board's commitment to homeowners, so the person who decides should set them; adding the Administrator later is a small change.",
+   "rows": [
+    {
+     "id": "A43-1",
+     "qs": [
+      "Who sets up a community's architectural request types: the kinds of request, what each must include, and the days to decide?"
+     ],
+     "rec": "Keep it with the President, the person who decides architectural requests, for launch; let the HOA Administrator do it too only if a community asks.",
+     "videos": []
+    },
+    {
+     "id": "A43-2",
+     "qs": [
+      "Which documents should a household keep on a vehicle before the community gives it an active parking permit?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    },
+    {
+     "id": "A43-3",
+     "qs": [
+      "When a household changes the license plate on a vehicle that has an active parking permit, what should happen to the permit?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A44",
+   "group": "money",
+   "title": "Account-status letters, the card fee and refund requests",
+   "why": "A lender or a title company usually acts within a month; a shorter window keeps an old balance from being read as current, and a homeowner can create a new letter at any time.",
+   "rows": [
+    {
+     "id": "A44-1",
+     "qs": [
+      "For how long should a lender or a buyer be able to check a homeowner's account-status letter online?"
+     ],
+     "rec": "Keep it as built: 30 days.",
+     "videos": []
+    },
+    {
+     "id": "A44-2",
+     "qs": [
+      "Should the account-status letter say plainly that it is not a resale or estoppel certificate?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    },
+    {
+     "id": "A44-3",
+     "qs": [
+      "Who may create an account-status letter for a home?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    },
+    {
+     "id": "A44-4",
+     "qs": [
+      "When a card payment that carried the convenience fee is refunded, should the fee be returned too?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    },
+    {
+     "id": "A44-5",
+     "qs": [
+      "Should AutoPay by card add the convenience fee to each automatic payment?"
+     ],
+     "rec": "Keep it as built: no fee on AutoPay at launch.",
+     "videos": []
+    },
+    {
+     "id": "A44-6",
+     "qs": [
+      "After the treasurer declines a refund request, may the homeowner ask again in the same month?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    },
+    {
+     "id": "A44-7",
+     "qs": [
+      "Who may answer a homeowner's refund request (refund it, decline it, or keep the credit)?"
+     ],
+     "rec": "Keep it as built.",
      "videos": []
     }
    ]
   }
  ],
  "answered": [
+  {
+   "id": "A23-2",
+   "kind": "question",
+   "card": "Pricing: the three loose ends",
+   "qs": [
+    "Which communities count as founding communities, and what do they keep?"
+   ],
+   "answer": "agree",
+   "rec": "Founding communities: the first ten communities that subscribe by January 31, 2027 keep their monthly price for twenty-four months, whatever the list price does. Nothing else is discounted.",
+   "build": "Owners' \"HOAhx Trial, Billing & Onboarding Requirements\" (Google Doc, Sep 9, read Sep 10) plus the Sep 9 pricing sheet. Tiers (boundary confirmed by Jacob 2026-09-28, recorded 2026-10-01 so Tenyson and Jake build to one structure): $59 (1–50 homes, $1.18 a home at 50), $89 (51–100, $0.89 at 100), $129 (101–200, $0.65 at 200), $179 (201–300, $0.60 at 300), $229 (301–458, down to about $0.50), then from 459 homes $0.50 per active home per month on every home, no further tiers. 459 is the crossover because $229 ÷ $0.50 = 458 homes, so 459 homes = $229.50 and the two halves meet without a step. This replaces the doc's 301–500 and the sheet's \"through 449\". All MVP features included; no Basic/Pro/Premium packages. Trial: 30 days, no card, full product on the community's real data, guided setup from day one; expires to a locked read-only state; data kept 90 days; reactivation by purchasing; advance notice before deletion. Monthly conversion: normal monthly rate + a one-time \"Community Implementation & Launch\" fee, charged through the subscription's payment method; first paid month at 100% by default; HOAhx staff may apply a one-time 50% discount to the first paid month (manual, once, does not change the standard price). Annual: no recurring discount; first year = 11.5 × monthly (50% off the first month equivalent) with the implementation fee waived, collected as one payment; renewals at 12 × the then-current monthly rate, shown clearly at checkout. Implementation fee: $49 (1–50), $99 (51–100), $149 (101–200), $199 (201–300), $249 (301–500), $299 starting point above 500, configurable. Home count: active property/unit records in HOAhx at each billing date (occupied or vacant; future phases don't count); tier changes apply from the next charge, never retroactively, in both directions; notify the administrator before a new amount is charged; annual terms keep counting and should support a prorated adjustment on a material increase (the doc's own note: \"clarify\"). Card fee: \"no idea until NMI\" — pending the NMI agreement. Founding rate: not addressed in either document — still open. The doc also specifies a trial lifecycle beyond the plan catalogue: welcome on day 1 with internal capture of start/expiry/homes/admin; a day 7–10 activation check with an internal alert on low activity; day 14 and day 21 board-approval questions (capturing the next board-meeting date, flagging high-intent or needs-follow-up); a day 28 reminder by status; internal-only trial extensions (7 days, 14 days, custom date) with original/new dates, grantor, and reason recorded and no extension the community can request for itself; twelve internal sales statuses; and an internal activity timeline of trial and conversion events. That lifecycle is outside SB2 and the twelve items — see `changes.md` Proposed 2026-09-10.",
+   "answeredOn": "2026-10-05",
+   "acceptedOn": "2026-10-06",
+   "status": "planned"
+  },
+  {
+   "id": "A23-4",
+   "kind": "question",
+   "card": "Pricing: the three loose ends",
+   "qs": [
+    "Who pays the card cost on the community's own subscription?"
+   ],
+   "answer": "discuss",
+   "rec": "The subscription price is the price: HOAhx absorbs the card cost on a community's own subscription, and an annual plan can also be paid by bank transfer.",
+   "build": "Owners' \"HOAhx Trial, Billing & Onboarding Requirements\" (Google Doc, Sep 9, read Sep 10) plus the Sep 9 pricing sheet. Tiers (boundary confirmed by Jacob 2026-09-28, recorded 2026-10-01 so Tenyson and Jake build to one structure): $59 (1–50 homes, $1.18 a home at 50), $89 (51–100, $0.89 at 100), $129 (101–200, $0.65 at 200), $179 (201–300, $0.60 at 300), $229 (301–458, down to about $0.50), then from 459 homes $0.50 per active home per month on every home, no further tiers. 459 is the crossover because $229 ÷ $0.50 = 458 homes, so 459 homes = $229.50 and the two halves meet without a step. This replaces the doc's 301–500 and the sheet's \"through 449\". All MVP features included; no Basic/Pro/Premium packages. Trial: 30 days, no card, full product on the community's real data, guided setup from day one; expires to a locked read-only state; data kept 90 days; reactivation by purchasing; advance notice before deletion. Monthly conversion: normal monthly rate + a one-time \"Community Implementation & Launch\" fee, charged through the subscription's payment method; first paid month at 100% by default; HOAhx staff may apply a one-time 50% discount to the first paid month (manual, once, does not change the standard price). Annual: no recurring discount; first year = 11.5 × monthly (50% off the first month equivalent) with the implementation fee waived, collected as one payment; renewals at 12 × the then-current monthly rate, shown clearly at checkout. Implementation fee: $49 (1–50), $99 (51–100), $149 (101–200), $199 (201–300), $249 (301–500), $299 starting point above 500, configurable. Home count: active property/unit records in HOAhx at each billing date (occupied or vacant; future phases don't count); tier changes apply from the next charge, never retroactively, in both directions; notify the administrator before a new amount is charged; annual terms keep counting and should support a prorated adjustment on a material increase (the doc's own note: \"clarify\"). Card fee: \"no idea until NMI\" — pending the NMI agreement. Founding rate: not addressed in either document — still open. The doc also specifies a trial lifecycle beyond the plan catalogue: welcome on day 1 with internal capture of start/expiry/homes/admin; a day 7–10 activation check with an internal alert on low activity; day 14 and day 21 board-approval questions (capturing the next board-meeting date, flagging high-intent or needs-follow-up); a day 28 reminder by status; internal-only trial extensions (7 days, 14 days, custom date) with original/new dates, grantor, and reason recorded and no extension the community can request for itself; twelve internal sales statuses; and an internal activity timeline of trial and conversion events. That lifecycle is outside SB2 and the twelve items — see `changes.md` Proposed 2026-09-10.",
+   "answeredOn": "2026-10-05",
+   "acceptedOn": "2026-10-06",
+   "status": "planned"
+  },
+  {
+   "id": "A36-1",
+   "kind": "question",
+   "card": "When a homeowner pays twice",
+   "qs": [
+    "When a homeowner pays more than they owe, when should the treasurer be alerted?"
+   ],
+   "answer": "change",
+   "rec": "Keep it as built: the treasurer and the president are alerted when a homeowner pays twice in one dues period or pays more than was owed, once per home per period. No alert for a homeowner who simply pays ahead, or who pays in two parts.",
+   "build": "Keep it as built, with the owners' additions: alert the treasurer and the president when a homeowner pays twice in one dues period or pays more than was owed, and flag likely duplicate payments or unexplained account credits for the treasurer to review; apply legitimate payments to the right current or future charges; keep excess money as a credit by default and tell the homeowner; a refund needs a second authorized approver; log the payment, credit, review and any refund in the account history.",
+   "answeredOn": "2026-10-05",
+   "acceptedOn": "2026-10-06",
+   "status": "planned"
+  },
+  {
+   "id": "A36-3",
+   "kind": "question",
+   "card": "When a homeowner pays twice",
+   "qs": [
+    "If a tenant pays the dues for a home, may the tenant ask for a refund of a credit on that home's account, or only the owner?"
+   ],
+   "answer": "change",
+   "rec": "A tenant may ask for a refund only when the owner has let them see the balance and pay. The money always goes back to the card or account it came from, and the owner is told when a tenant asks.",
+   "build": "Yes, as recommended, with the owners' conditions: a tenant may ask only for a credit traceable to the tenant's own payment and only when the owner has allowed the tenant to pay; the owner is told when the request is submitted; it goes through the normal approval with a second approver; a refund goes only to the original payment method; the tenant sees the full account balance only if the owner separately allows it.",
+   "answeredOn": "2026-10-05",
+   "acceptedOn": "2026-10-06",
+   "status": "planned"
+  },
+  {
+   "id": "A37-1",
+   "kind": "question",
+   "card": "Telling a new resident the board's answer",
+   "qs": [
+    "Should HOAhx email a person when the board approves, declines, or asks for more proof on their request to join?"
+   ],
+   "answer": "discuss",
+   "rec": "Yes: one short email for each answer: approved, declined with the board's reason, or more proof needed. The waiting screen says an email will follow, so nobody has to keep checking the app.",
+   "build": "Yes: email the person and notify them in the app when the board approves, declines or asks for more proof. For more proof, say what is missing and how to send it; for an approval or a decline, give the outcome and next steps without private board discussion. The waiting screen says they will be notified, so nobody has to keep checking.",
+   "answeredOn": "2026-10-05",
+   "acceptedOn": "2026-10-06",
+   "status": "planned"
+  },
+  {
+   "id": "A38-3",
+   "kind": "question",
+   "card": "Opening balances brought in from your spreadsheet",
+   "qs": [
+    "If a homeowner starts with a credit from your spreadsheet, may AutoPay use it before the community's start date?"
+   ],
+   "answer": "discuss",
+   "rec": "Keep and show the credit; AutoPay waits for the start date.",
+   "build": "Agreed: keep the imported credit and show it as pending until the community's start date; do not lose it or reduce it before then.",
+   "answeredOn": "2026-10-05",
+   "acceptedOn": "2026-10-06",
+   "status": "planned"
+  },
+  {
+   "id": "A39-1",
+   "kind": "question",
+   "card": "Changing a plan's price for communities already paying",
+   "qs": [
+    "When HOAhx changes the price of a plan after communities are already paying on it, what happens to those communities?"
+   ],
+   "answer": "discuss",
+   "rec": "Communities already paying keep their price until HOAhx moves them, with at least 30 days' notice before any new price is charged. It matches the rule for home-count changes and avoids a surprise bill.",
+   "build": "Agreed: communities already paying keep their price until HOAhx moves them, with at least 30 days' written notice before any new price is charged. A monthly plan takes the new price no earlier than the next billing date after the notice; an annual plan keeps its price through the paid term and changes at renewal, with advance notice. The first ten communities that subscribe by January 31, 2027 keep their starting monthly price for 24 months.",
+   "answeredOn": "2026-10-05",
+   "acceptedOn": "2026-10-06",
+   "status": "planned"
+  },
   {
    "id": "A01-1",
    "kind": "question",
@@ -460,7 +682,7 @@
    "build": "The President's click no longer counts as approval. The budget goes Draft, Approved, Published; approval records the approving board or committee, the date, the vote outcome and the minutes or resolution, and it cannot be published without them.",
    "answeredOn": "2026-10-02",
    "acceptedOn": "2026-10-05",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A07-2",
@@ -474,7 +696,7 @@
    "build": "An amendment is published as a new version for the same year, linked to the original, which stays unchanged, with the reason, effective date, approval and publish date; the board and residents are told.",
    "answeredOn": "2026-10-02",
    "acceptedOn": "2026-10-05",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A07-3",
@@ -559,7 +781,7 @@
    "build": "Built the way you asked, in your words above.",
    "answeredOn": "2026-10-02",
    "acceptedOn": "2026-10-05",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A10-2",
@@ -573,7 +795,7 @@
    "build": "Staff or the vendor mark the work complete, the resident has 7 days (the community can change it) to confirm or reopen, a reminder goes before it closes as \"Closed, no response\", and the resident can reopen it later. A resident cancels before dispatch, or asks staff to cancel after.",
    "answeredOn": "2026-10-02",
    "acceptedOn": "2026-10-05",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A10-3",
@@ -587,7 +809,7 @@
    "build": "Agreed, with the refinement. The assigned vendor sees only that work order: the unit, the issue, relevant photos, access instructions and the messages needed for the repair; staff notes, estimates, costs and unrelated resident information stay private. Contact is through in-app messaging or a masked method by default; an authorized HOA user may share a specific detail, and the time it was shared is recorded. Vendor access ends when the work order closes or the assignment is removed.",
    "answeredOn": "2026-10-02",
    "acceptedOn": "2026-10-05",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A10-4",
@@ -601,7 +823,7 @@
    "build": "Most is built (access tied to one work order, 30 days by default, a reminder before it lapses, staff extend it). I add a required reason on each extension. A long project is extended again with a new date, up to 90 days at a time.",
    "answeredOn": "2026-10-02",
    "acceptedOn": "2026-10-05",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A11-1",

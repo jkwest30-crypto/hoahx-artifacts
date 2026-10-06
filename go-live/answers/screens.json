@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-05",
+ "updated": "2026-10-06",
  "previewUrl": "https://hoahx-staging.web.app/preview",
  "features": [
   {
@@ -191,10 +191,6 @@
      "what": "Every home with an overdue balance: the amount, how long it has been overdue, where the case stands, who is following up and the last thing sent. A notice can go to several homes at once, with a confirmation naming how many.",
      "url": "https://hoahx-staging.web.app/preview/C1",
      "videos": [],
-     "walk": {
-      "seconds": 59,
-      "url": "https://drive.google.com/file/d/1Es_mEp5kQTsSxg9SxQ360l6oNzH8oSpL/view"
-     },
      "reply": "Thank you. We have your notes on this screen. We are checking each one against what is built and what is planned, and we will send you a screen-by-screen answer."
     },
     {
@@ -204,10 +200,6 @@
      "what": "One home's case from the start: how the balance built up, every notice with its date and whether it arrived, the person who owns the case, and the next step with its date. A payment plan or a waived fee is offered from here.",
      "url": "https://hoahx-staging.web.app/preview/C2",
      "videos": [],
-     "walk": {
-      "seconds": 56,
-      "url": "https://drive.google.com/file/d/1qq9UegWJMjux9YT9reK0pPGWElcgH4-M/view"
-     },
      "reply": "Point 5: we recommend a change. Show only 'Delivered' or 'Failed' from the email service, with the exact notice, recipient, method and time. A duplicate second reminder is refused.\n\nEverything else we will build as you wrote it."
     },
     {
@@ -229,10 +221,6 @@
      "what": "The treasurer proposes a schedule: how many payments, how much, which dates, and whether late fees pause while the plan is kept. A second person approves it, then the homeowner accepts.",
      "url": "https://hoahx-staging.web.app/preview/C4",
      "videos": [],
-     "walk": {
-      "seconds": 87,
-      "url": "https://drive.google.com/file/d/1b5OKcJ0hoO1WPqGTmKu-NFE1Kptnepiy/view"
-     },
      "reply": "Thank you. We have your notes on this screen. We are checking each one against what is built and what is planned, and we will send you a screen-by-screen answer."
     },
     {
@@ -254,11 +242,7 @@
      "title": "Waiving a fee or adjusting a balance",
      "what": "A request to waive a late fee or adjust a balance: the amount, the reason, who is asking and who must approve. It takes two people, the same as a refund, and the homeowner's ledger shows the result.",
      "url": "https://hoahx-staging.web.app/preview/C6",
-     "videos": [],
-     "walk": {
-      "seconds": 75,
-      "url": "https://drive.google.com/file/d/1L3PHyLhcm3FkdZ_QOKgoKWPJhJziA-gw/view"
-     }
+     "videos": []
     },
     {
      "id": "S-C7",
