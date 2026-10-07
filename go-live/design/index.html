@@ -717,7 +717,7 @@ You are helping design screens and components for HOAhx, a community-management 
   <section id="reg">
     <div class="sec-h"><span class="k">Routes</span><h2>Navigation labels, sections, and page widths</h2></div>
     <p class="intro">Generated from the route registry. "Phone tab" is the bottom-tab priority (lowest four shown for the person's role). "Module" is the community feature flag that hides the route when off. Routes not in nav are detail pages reached from a parent. Access is enforced in code and on the server; "Who" is the intended audience.</p>
-    <div class="filter"><input type="search" id="reg-filter" placeholder="Filter routes, labels, sections, audiences…" aria-label="Filter routes"><span class="cnt" id="reg-count">110 routes</span></div>
+    <div class="filter"><input type="search" id="reg-filter" placeholder="Filter routes, labels, sections, audiences…" aria-label="Filter routes"><span class="cnt" id="reg-count">119 routes</span></div>
     <div class="tbl"><table id="reg-table">
       <thead><tr><th>Route</th><th>Label</th><th>Section</th><th>Who</th><th>Module</th><th>Width</th><th>Phone tab</th><th>In nav</th></tr></thead>
       <tbody><tr><td><code>/</code></td><td>Dashboard</td><td>Overview</td><td>Every role with a dashboard</td><td>—</td><td>wide</td><td>1</td><td>yes</td></tr>
@@ -740,8 +740,10 @@ You are helping design screens and components for HOAhx, a community-management 
 <tr><td><code>/platform/recovery</code></td><td>Recovery</td><td>Access</td><td>HOAhx staff</td><td>—</td><td>narrow</td><td>—</td><td>no</td></tr>
 <tr><td><code>/demo</code></td><td>Demo Communities</td><td>Platform</td><td>HOAhx staff</td><td>—</td><td>wide</td><td>—</td><td>no</td></tr>
 <tr><td><code>/my-household</code></td><td>My Household</td><td>My Community</td><td>Residents</td><td>—</td><td>standard</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/my-activity</code></td><td>Activity</td><td>My Community</td><td>Residents</td><td>—</td><td>standard</td><td>—</td><td>yes</td></tr>
 <tr><td><code>/residents</code></td><td>Member Management</td><td>Administration</td><td>Board / management</td><td>—</td><td>full</td><td>2</td><td>yes</td></tr>
 <tr><td><code>/properties</code></td><td>Properties</td><td>Administration</td><td>Board / management</td><td>—</td><td>full</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/properties/import</code></td><td>Import a Spreadsheet</td><td>Administration</td><td>Everyone in the community</td><td>—</td><td>full</td><td>—</td><td>yes</td></tr>
 <tr><td><code>/maintenance</code></td><td>Requests</td><td>Operations</td><td>Board / management</td><td>—</td><td>full</td><td>3</td><td>yes</td></tr>
 <tr><td><code>/my-maintenance</code></td><td>My Requests</td><td>My Community</td><td>Residents</td><td>—</td><td>narrow</td><td>2</td><td>yes</td></tr>
 <tr><td><code>/assigned-work</code></td><td>Assigned Maintenance</td><td>Assigned Work</td><td>Vendor / auditor / attorney</td><td>—</td><td>standard</td><td>1</td><td>yes</td></tr>
@@ -793,15 +795,19 @@ You are helping design screens and components for HOAhx, a community-management 
 <tr><td><code>/dues-schedule</code></td><td>Dues Schedule</td><td>Financial</td><td>Board / management</td><td>—</td><td>standard</td><td>—</td><td>yes</td></tr>
 <tr><td><code>/payments/manual</code></td><td>Record Manual Payment</td><td>Financial</td><td>Board / management</td><td>—</td><td>standard</td><td>—</td><td>no</td></tr>
 <tr><td><code>/payments/reconciliation</code></td><td>Payment Reconciliation</td><td>Financial</td><td>Board / management</td><td>—</td><td>full</td><td>—</td><td>no</td></tr>
+<tr><td><code>/ledger/adjustments</code></td><td>Adjustment approvals</td><td>Financial</td><td>Board / management</td><td>—</td><td>wide</td><td>—</td><td>no</td></tr>
+<tr><td><code>/ledger/reports</code></td><td>Reports and reconciliation</td><td>Financial</td><td>Board / management</td><td>—</td><td>full</td><td>—</td><td>no</td></tr>
 <tr><td><code>/financial-reports/audit</code></td><td>Audit Reports</td><td>Financial</td><td>Vendor / auditor / attorney</td><td>—</td><td>full</td><td>—</td><td>yes</td></tr>
-<tr><td><code>/payments</code></td><td>Payments</td><td>Financial</td><td>Community admins</td><td>—</td><td>full</td><td>—</td><td>no</td></tr>
 <tr><td><code>/subscriptions</code></td><td>Subscriptions</td><td>Financial</td><td>Community admins</td><td>—</td><td>full</td><td>—</td><td>no</td></tr>
+<tr><td><code>/billing-contacts</code></td><td>Billing Contacts</td><td>Financial</td><td>Board and management</td><td>—</td><td>standard</td><td>—</td><td>no</td></tr>
+<tr><td><code>/legal-holds</code></td><td>Legal Holds</td><td>Administration</td><td>Everyone in the community</td><td>—</td><td>standard</td><td>—</td><td>yes</td></tr>
 <tr><td><code>/my-subscription</code></td><td>My Subscription</td><td>Account</td><td>Residents</td><td>—</td><td>standard</td><td>—</td><td>no</td></tr>
 <tr><td><code>/analytics</code></td><td>Analytics</td><td>Administration</td><td>Board / management</td><td>analytics</td><td>full</td><td>—</td><td>yes</td></tr>
 <tr><td><code>/hoa-settings</code></td><td>HOA Settings</td><td>Administration</td><td>Settings viewers</td><td>—</td><td>standard</td><td>—</td><td>yes</td></tr>
 <tr><td><code>/re-engagement</code></td><td>Resident Re-engagement</td><td>Administration</td><td>Board / management</td><td>—</td><td>standard</td><td>—</td><td>yes</td></tr>
 <tr><td><code>/hoa-settings/permissions</code></td><td>Permissions</td><td>Administration</td><td>Board / management</td><td>—</td><td>wide</td><td>—</td><td>yes</td></tr>
 <tr><td><code>/activity-log</code></td><td>Audit Log</td><td>Administration</td><td>Board / management</td><td>—</td><td>full</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/audit-records</code></td><td>Audit Records</td><td>Administration</td><td>Everyone signed in</td><td>—</td><td>full</td><td>—</td><td>yes</td></tr>
 <tr><td><code>/ai-insights</code></td><td>AI Insights</td><td>Administration</td><td>Community admins</td><td>analytics</td><td>full</td><td>—</td><td>no</td></tr>
 <tr><td><code>/notifications</code></td><td>Notifications</td><td>Administration</td><td>Board / management</td><td>—</td><td>standard</td><td>—</td><td>no</td></tr>
 <tr><td><code>/notification-settings</code></td><td>Notification Templates</td><td>Administration</td><td>Board / management</td><td>—</td><td>narrow</td><td>—</td><td>no</td></tr>
@@ -810,8 +816,10 @@ You are helping design screens and components for HOAhx, a community-management 
 <tr><td><code>/my-profile</code></td><td>My Profile</td><td>Account</td><td>Residents</td><td>—</td><td>narrow</td><td>—</td><td>yes</td></tr>
 <tr><td><code>/my-notifications</code></td><td>Notifications</td><td>Account</td><td>Residents</td><td>—</td><td>standard</td><td>—</td><td>yes</td></tr>
 <tr><td><code>/my-notification-settings</code></td><td>Notification Settings</td><td>Account</td><td>Residents</td><td>—</td><td>narrow</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/help</code></td><td>Help</td><td>Account</td><td>Everyone signed in</td><td>—</td><td>narrow</td><td>—</td><td>yes</td></tr>
 <tr><td><code>/my-account</code></td><td>My Account</td><td>Account</td><td>Residents</td><td>—</td><td>narrow</td><td>4</td><td>yes</td></tr>
 <tr><td><code>/privacy-security</code></td><td>Privacy &amp; Security</td><td>Account</td><td>Everyone signed in</td><td>—</td><td>narrow</td><td>—</td><td>no</td></tr>
+<tr><td><code>/platform/hoas/:hoaId/legal-holds</code></td><td>Legal Holds</td><td>Platform</td><td>HOAhx staff</td><td>—</td><td>standard</td><td>—</td><td>no</td></tr>
 <tr><td><code>/platform/hoas/:id</code></td><td>HOA Client</td><td>Platform</td><td>HOAhx staff</td><td>—</td><td>full</td><td>—</td><td>no</td></tr>
 <tr><td><code>/platform/hoas/onboard</code></td><td>Create HOA</td><td>Platform</td><td>HOAhx staff</td><td>—</td><td>standard</td><td>—</td><td>no</td></tr>
 <tr><td><code>/platform/billing/accounts</code></td><td>Billing Accounts</td><td>Business</td><td>HOAhx staff</td><td>—</td><td>full</td><td>—</td><td>no</td></tr>
@@ -819,6 +827,7 @@ You are helping design screens and components for HOAhx, a community-management 
 <tr><td><code>/platform/billing/renewals</code></td><td>Renewals</td><td>Business</td><td>HOAhx staff</td><td>—</td><td>full</td><td>—</td><td>no</td></tr>
 <tr><td><code>/platform/billing/invoices</code></td><td>Invoices</td><td>Business</td><td>HOAhx staff</td><td>—</td><td>full</td><td>—</td><td>no</td></tr>
 <tr><td><code>/platform/billing/audit</code></td><td>Billing Audit</td><td>Business</td><td>HOAhx staff</td><td>—</td><td>full</td><td>—</td><td>no</td></tr>
+<tr><td><code>/platform/billing/history</code></td><td>Billing History</td><td>Business</td><td>HOAhx staff</td><td>—</td><td>wide</td><td>—</td><td>no</td></tr>
 <tr><td><code>/platform/billing/plans</code></td><td>Billing Plans</td><td>Business</td><td>HOAhx staff</td><td>—</td><td>wide</td><td>—</td><td>no</td></tr>
 <tr><td><code>/management/portfolio</code></td><td>Portfolio</td><td>Management Company</td><td>Management company</td><td>—</td><td>full</td><td>—</td><td>yes</td></tr>
 <tr><td><code>/management/portfolio/financials</code></td><td>Portfolio Financials</td><td>Management Company</td><td>Management company</td><td>—</td><td>full</td><td>—</td><td>no</td></tr>

@@ -309,7 +309,7 @@ Routes, with the page file in `src/pages` and the frame width the registry assig
 | `/my-maintenance` | My Requests | maintenance/ | narrow | request list, submit sheet with category, photos (camera in the app), status timeline |
 | `/my-violations` | Violations | violations/MyViolations.tsx | narrow | already on the mobile family; notices, evidence, appeal / respond |
 | `/my-household` | My Household | MyHousehold.tsx | standard | people, dependents, pets, vehicles, tenants; **gate code and guest code** with a "code not working / change my code" request (new, September) |
-| `/my-account`, `/my-profile`, `/privacy-security`, `/my-notification-settings` | My Account… | MyAccount.tsx, MyProfile.tsx, PrivacySecurity.tsx, NotificationSettings.tsx | narrow | profile, theme toggle, two-factor status (7.4), sessions, **account deletion request** (new), notification preferences |
+| `/my-account`, `/privacy-security`, `/my-notification-settings` (`/my-profile` redirects to `/my-account`) | My Account… | MyAccount.tsx, PrivacySecurity.tsx, NotificationSettings.tsx | narrow | profile, theme toggle, two-factor status (7.4), sessions, **account deletion request** (new), notification preferences |
 | `/messages` | Messages | Messages.tsx | full | conversations with the community office |
 | `/documents` | Documents | documents/ | standard | folders, files, "board only" items are simply absent for residents |
 | `/my-communications` | HOA Directory | communications/ | full | community announcements with read states, and contacts (`/announcements` itself is the board's compose screen) |
@@ -511,7 +511,6 @@ Generated from `src/lib/appRouteRegistry.ts`. "Phone tab" is the priority the bo
 | `/notification-settings` | Notification Templates | Administration | Board / management | — | narrow | — | no |
 | `/amenities` | Amenities | Administration | Community admins | clubhouse | full | — | no |
 | `/communications` | Communications | Administration | Board / management | — | full | — | no |
-| `/my-profile` | My Profile | Account | Residents | — | narrow | — | yes |
 | `/my-notifications` | Notifications | Account | Residents | — | standard | — | yes |
 | `/my-notification-settings` | Notification Settings | Account | Residents | — | narrow | — | yes |
 | `/my-account` | My Account | Account | Residents | — | narrow | 4 | yes |
