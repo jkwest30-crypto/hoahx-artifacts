@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-06",
+ "updated": "2026-10-07",
  "groups": [
   {
    "id": "money",
@@ -1256,7 +1256,7 @@
    "code": "C6",
    "card": "Falling behind, payment plans, the ledger and statements",
    "qs": [
-    "Waiving a fee or adjusting a balance"
+    "Waiving a fee or correcting a charge"
    ],
    "answer": "change",
    "build": "Built with the changes you asked for, in your words above.",

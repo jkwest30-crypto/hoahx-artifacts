@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-06",
+ "updated": "2026-10-07",
  "previewUrl": "https://hoahx-staging.web.app/preview",
  "features": [
   {
@@ -12,11 +12,7 @@
      "title": "Plans and prices",
      "what": "The plans side by side, with the one this community falls in by its number of homes, the monthly and annual price of each, and what paying annually saves. Prices are marked provisional until you set them.",
      "url": "https://hoahx-staging.web.app/preview/A1",
-     "videos": [],
-     "walk": {
-      "seconds": 48,
-      "url": "https://drive.google.com/file/d/1L1CrsGiBPE1AL-Z68vX79hhYeGmCtc-5/view"
-     }
+     "videos": []
     },
     {
      "id": "S-A2",
@@ -25,10 +21,6 @@
      "what": "How many days of the free trial are left and what happens when it ends, then the steps to start: accept the terms, add a bank account or card, confirm. It ends with a receipt and the next renewal date.",
      "url": "https://hoahx-staging.web.app/preview/A2",
      "videos": [],
-     "walk": {
-      "seconds": 65,
-      "url": "https://drive.google.com/file/d/1dN61wNPKXfMGM6juiFAwyRLe8Y1vBNZR/view"
-     },
      "reply": "Thank you. We have your notes on this screen. We are checking each one against what is built and what is planned, and we will send you a screen-by-screen answer."
     },
     {
@@ -37,11 +29,7 @@
      "title": "Billing home: plan, next charge, invoices",
      "what": "The board's billing page: the current plan, the next charge and its date, the payment method on file, and every invoice. A board member who is not a billing contact can look but cannot change anything.",
      "url": "https://hoahx-staging.web.app/preview/A3",
-     "videos": [],
-     "walk": {
-      "seconds": 67,
-      "url": "https://drive.google.com/file/d/1WbOCctnclbKYSUqU0CKI6U1AC3vCRO5D/view"
-     }
+     "videos": []
     },
     {
      "id": "S-A4",
@@ -61,11 +49,7 @@
      "title": "When a payment has not gone through",
      "what": "What the board sees when a subscription payment does not go through: the amount owed, the date of the next change and what it will be, with the full schedule below. Paying and reaching support work at every stage, and residents are never affected.",
      "url": "https://hoahx-staging.web.app/preview/A5",
-     "videos": [],
-     "walk": {
-      "seconds": 80,
-      "url": "https://drive.google.com/file/d/1rFWyp4qyNEQc7k-f_ALidsl_oXIJFb4x/view"
-     }
+     "videos": []
     },
     {
      "id": "S-A6",
@@ -73,11 +57,7 @@
      "title": "Cancelling, and taking the records along",
      "what": "What cancelling means, when it takes effect, and what is kept and for how long. The board can take the community's records along first, and can come back later.",
      "url": "https://hoahx-staging.web.app/preview/A6",
-     "videos": [],
-     "walk": {
-      "seconds": 68,
-      "url": "https://drive.google.com/file/d/1xSMlHzcTdQSovK2zkwz70blk62Wc2Rqk/view"
-     }
+     "videos": []
     },
     {
      "id": "S-A7",
@@ -85,11 +65,7 @@
      "title": "The HOAhx staff side",
      "what": "For HOAhx staff: every community's subscription with its plan, status, next renewal and days past due. Extending a trial, making an exception or restoring access each asks for a written reason, and the reason is kept.",
      "url": "https://hoahx-staging.web.app/preview/A7",
-     "videos": [],
-     "walk": {
-      "seconds": 53,
-      "url": "https://drive.google.com/file/d/126FzP0amgKHOyvfLSPWQMxVFCYIbVsQh/view"
-     }
+     "videos": []
     }
    ]
   },
@@ -107,10 +83,6 @@
       "08",
       "30"
      ],
-     "walk": {
-      "seconds": 72,
-      "url": "https://drive.google.com/file/d/1g9U_uFrLpC9pp2R_K_t3eK_nn4qHWB_1/view"
-     },
      "reply": "Point 3: When a home is sold or the owner moves out with a credit on the account, should the credit go back to the person who paid it? We recommend yes: it is never carried to the next owner, and the treasurer gets a task to refund it to the original payment method, with a second approver.\n\nPoint 4: we recommend a change. The ledger records only money that moved: the payment, the credit it left, the refund, the return, each linked to the original. Requests and approvals live in the approval record, which opens from the ledger line and keeps the full history.\n\nEverything else we will build as you wrote it."
     },
     {
@@ -123,10 +95,6 @@
       "08",
       "30"
      ],
-     "walk": {
-      "seconds": 54,
-      "url": "https://drive.google.com/file/d/1Of8YPdwoF5JrHEvTybeK97f4f1pE0KJ7/view"
-     },
      "reply": "Point 5: A refund request nobody approves within 48 hours: should it lapse, as you decided on September 10, or stay waiting and be flagged? We recommend it lapses, with a reminder at 24 hours and a notice to everyone involved when it does.\n\nEverything else we will build as you wrote it."
     },
     {
@@ -172,11 +140,7 @@
      "title": "Naming the two Financial Approvers",
      "what": "Why a community needs two Financial Approvers, who is eligible, and who has been chosen. Online payments are held back until two are named.",
      "url": "https://hoahx-staging.web.app/preview/B6",
-     "videos": [],
-     "walk": {
-      "seconds": 53,
-      "url": "https://drive.google.com/file/d/1HqTM7EUpjaCy22GlmCn7eFDu4-0BOw07/view"
-     }
+     "videos": []
     }
    ]
   },
@@ -208,11 +172,7 @@
      "title": "\"I am behind\": the homeowner's view",
      "what": "What a homeowner who has fallen behind sees: what is owed and what it is made of, the date that matters, what happens then, the choices, and a named person to talk to. Plain wording, no red banners.",
      "url": "https://hoahx-staging.web.app/preview/C3",
-     "videos": [],
-     "walk": {
-      "seconds": 55,
-      "url": "https://drive.google.com/file/d/1Ww4KM9IRjFVlUfURQ0TSRLXv9BtvNtCr/view"
-     }
+     "videos": []
     },
     {
      "id": "S-C4",
@@ -239,7 +199,7 @@
     {
      "id": "S-C6",
      "code": "C6",
-     "title": "Waiving a fee or adjusting a balance",
+     "title": "Waiving a fee or correcting a charge",
      "what": "A request to waive a late fee or adjust a balance: the amount, the reason, who is asking and who must approve. It takes two people, the same as a refund, and the homeowner's ledger shows the result.",
      "url": "https://hoahx-staging.web.app/preview/C6",
      "videos": []
