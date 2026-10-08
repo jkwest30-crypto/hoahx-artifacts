@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-07",
+ "updated": "2026-10-08",
  "groups": [
   {
    "id": "money",
@@ -167,7 +167,8 @@
       "Who is authoritative when a property has two people claiming ownership?"
      ],
      "rec": "When two people claim ownership, an administrator verifies the deed or the closing record before the primary-owner designation changes. One primary owner per property is enforced, and the outcome is recorded with its evidence. Until it is verified, the owner on record stays primary and the bills keep going to them.",
-     "videos": []
+     "videos": [],
+     "reply": "Thank you, we agree with all of it. An administrator verifies the deed or closing record before anything changes, the record shows what was reviewed and who approved it, and a claim alone never removes an owner, changes a vote or redirects a notice. We will keep owners and the primary contact as separate things, allow more than one verified owner on a home, and let the community name one primary contact. Bills and payment history stay with the home."
     }
    ]
   },
@@ -205,7 +206,8 @@
       "11",
       "33",
       "37"
-     ]
+     ],
+     "reply": "Agreed. Appointing an HOA Administrator becomes its own permission, separate from inviting residents. An HOA Administrator cannot appoint another by default, management roles can appoint only in communities they manage, and a community can limit appointment to its board. The invite stays expiring and revocable, and who granted or revoked the role, and when, is recorded."
     }
    ]
   },
@@ -221,7 +223,8 @@
       "May the office send a board-only document to a homeowner for signature, so that homeowner can open that one document to sign it?"
      ],
      "rec": "No: a document a homeowner is asked to sign is one they may read, so the office publishes it to residents before asking for a signature, and a request to sign a board-only document is refused. If the exception should stay, it becomes the rule: a homeowner asked to sign a board-only document may read that version, before and after declining.",
-     "videos": []
+     "videos": [],
+     "reply": "Agreed, with one clarification: a homeowner asked to sign gets that one document only and never the board-only folder. When the document holds confidential board information, the office sends a redacted or resident-facing version for signature instead. Delivery, opening and signature are recorded, and the signer keeps a copy of the completed document."
     }
    ]
   },
@@ -237,7 +240,8 @@
       "Must a community always have a President, so that nobody in the community can remove, deactivate or archive its only one?"
      ],
      "rec": "Keep it: a community keeps a President. The role is handed on before its holder is removed, and HOAhx can step in when a President is gone. If the rule should hold HOAhx staff too, it is one condition and one test.",
-     "videos": []
+     "videos": [],
+     "reply": "Agreed. A community may record the President seat as vacant, which is separate from account access: the last authorized account administrator cannot be removed or deactivated until the access is handed to another authorized person, or a verified recovery through HOAhx support is recorded. Any President change follows the community's own rules."
     },
     {
      "id": "A32-2",
@@ -245,7 +249,8 @@
       "Should the only President of a community be asked to hand the role to someone else before they close their own account?"
      ],
      "rec": "Leave it for the launch: the right to close one's own account stands, and HOAhx appoints the next President when it happens. A hand-over step on the account-closing screen (\"give the President role to someone first\") is a candidate for after the launch.",
-     "videos": []
+     "videos": [],
+     "reply": "Agreed, and this replaces our earlier suggestion. When the only President closes their account, HOAhx appoints no one: the seat is recorded as vacant until the community appoints a successor in its own way. If that person is also the last authorized account administrator, they hand that access to someone else first, or it goes through verified recovery. Both changes are recorded."
     }
    ]
   },
@@ -261,7 +266,8 @@
       "When the board deactivates, archives, or marks a homeowner as moved out, should that person lose access to their home in the app as well as to the community?"
      ],
      "rec": "Keep it: ending a person's membership ends their access to the community and to the home, the records stay, and restoring the account brings the access back. If an owner who has moved out should keep signing in to a home they rent out, the office keeps their membership active and records the move-out on the tenant instead.",
-     "videos": []
+     "videos": [],
+     "reply": "Agreed. Marking someone as moved out ends their occupant access but never a verified owner's access, including when they rent the home out. Tenants have their own accounts, which end when their occupancy ends. When a home is sold, access changes after the new ownership is verified, and the home's history and audit trail stay."
     }
    ]
   },
@@ -494,6 +500,126 @@
      "id": "A44-7",
      "qs": [
       "Who may answer a homeowner's refund request (refund it, decline it, or keep the credit)?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A45",
+   "group": "money",
+   "title": "Account credits, refund requests from tenants, and opening balances",
+   "why": "The treasurer is asked to look only at money nobody has checked, and a refund request is answered once for each home each month.",
+   "rows": [
+    {
+     "id": "A45-1",
+     "qs": [
+      "When a home has a credit on its account, which kinds of entries should count as explained, so the treasurer is not asked to look at them?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    },
+    {
+     "id": "A45-2",
+     "qs": [
+      "Which tenants may ask for a refund of their own payment?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    },
+    {
+     "id": "A45-3",
+     "qs": [
+      "When the owner asks for a refund of a credit that partly came from their tenant's payment, should the owner's request cover the whole credit?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    },
+    {
+     "id": "A45-4",
+     "qs": [
+      "Does a tenant's refund request use the home's one request a month?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    },
+    {
+     "id": "A45-5",
+     "qs": [
+      "When the treasurer approves opening balances, which balances should be flagged for a second look besides the very large ones the import already warns about?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A46",
+   "group": "community",
+   "title": "Clubhouse bookings, event replies and the neighbor directory",
+   "why": "Each keeps what a homeowner sees simple and keeps personal plans and addresses private unless the household chose to share them.",
+   "rows": [
+    {
+     "id": "A46-1",
+     "qs": [
+      "Which amenity's rules govern a clubhouse booking when a community has more than one clubhouse-type amenity?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    },
+    {
+     "id": "A46-2",
+     "qs": [
+      "Should the rest of the household see a member's clubhouse booking in the home's history?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    },
+    {
+     "id": "A46-3",
+     "qs": [
+      "When the community has not set a guest limit on an event, may residents bring guests?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    },
+    {
+     "id": "A46-4",
+     "qs": [
+      "Who besides residents may RSVP to a community event?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    },
+    {
+     "id": "A46-5",
+     "qs": [
+      "In the neighbor directory, does showing a household's unit also show its street?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A47",
+   "group": "ops",
+   "title": "Support's reply promise and recording a home's change of hands",
+   "why": "A person who asks for help knows when to expect an answer, and a former owner's access ends on the day the home changes hands.",
+   "rows": [
+    {
+     "id": "A47-1",
+     "qs": [
+      "When someone sends a problem with the app to HOAhx support from the Help screen, the screen says support usually reads it within one business day. Is one business day the promise you want to make?"
+     ],
+     "rec": "Keep one business day for launch; shorten it later once you see how many reports arrive.",
+     "videos": []
+    },
+    {
+     "id": "A47-2",
+     "qs": [
+      "When staff transfer a home after someone joined it without an invitation, may the date the home changed hands be in the future?"
      ],
      "rec": "Keep it as built.",
      "videos": []
