@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-29",
+ "updated": "2026-10-08",
  "groups": [
   {
    "id": "money",
@@ -28,256 +28,17 @@
  ],
  "cards": [
   {
-   "id": "A01",
-   "group": "money",
-   "title": "How a homeowner pays",
-   "why": "A card fee that only the card payer sees steers people to the free bank payment without punishing anyone. Partial payments keep a struggling homeowner paying instead of stopping. Tenants paying by default is what most owners with tenants expect, and the owner keeps the switch.",
-   "rows": [
-    {
-     "id": "A01-1",
-     "qs": [
-      "Who pays the card processing cost: the homeowner as a convenience fee, or the community?"
-     ],
-     "rec": "A homeowner who pays by card pays the card cost, shown as its own convenience-fee line before they confirm. A bank payment costs nothing. Where NMI says a card fee is not allowed in a community's state, that community absorbs the cost and the screen says so.",
-     "videos": []
-    },
-    {
-     "id": "A01-2",
-     "qs": [
-      "Should partial payments be accepted against a dues balance?"
-     ],
-     "rec": "Any amount from one dollar up to the balance is accepted; nothing above the balance. A late fee still applies to whatever is left when the grace period ends.",
-     "videos": []
-    },
-    {
-     "id": "A01-3",
-     "qs": [
-      "Should tenants be able to pay dues by default?"
-     ],
-     "rec": "A tenant can pay dues unless the owner switches it off on the tenant's record. The switch is repaired so it saves, and the owner is told whenever a tenant pays.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A02",
-   "group": "money",
-   "title": "Late fees, and an autopay charge that fails",
-   "why": "Boards assume late fees are being charged; today they are not. Two tries and a pause keeps HOAhx from charging a bad card again and again, and puts the treasurer in the picture before anyone is far behind.",
-   "rows": [
-    {
-     "id": "A02-1",
-     "qs": [
-      "Are late fees ever calculated and applied automatically?"
-     ],
-     "rec": "Late fees are applied automatically the day after the grace period on the community's dues schedule, at the amount on the schedule, and the homeowner is told the day it happens. A payment counts on the day it is submitted, not the day the bank settles it, so a bank payment started on time is never late.",
-     "videos": []
-    },
-    {
-     "id": "A02-2",
-     "qs": [
-      "What should happen when an autopay charge fails: retries, notice, escalation?"
-     ],
-     "rec": "When an autopay charge fails, the homeowner is told the same day with the reason and a one-tap retry. HOAhx retries once, three days later. After a second failure autopay pauses, the homeowner and the treasurer are told, and the balance stays due until the homeowner pays or fixes the payment method.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A03",
-   "group": "money",
-   "title": "A returned bank payment, or a dispute",
-   "why": "A bounced payment is invisible to the homeowner until someone tells them; telling them the same day is what gets it fixed. A fixed, published return fee is simpler to explain than passing on whatever the bank charged.",
-   "rows": [
-    {
-     "id": "A03-1",
-     "qs": [
-      "Who should be told when a payment is disputed or a bank payment is returned?"
-     ],
-     "rec": "The treasurer and the homeowner are told the same day, in the app and by email (and on the phone once the apps are out). The President sees it in the weekly board summary. The homeowner's notice says what was reversed, the deadline, and how to pay again.",
-     "videos": []
-    },
-    {
-     "id": "A03-2",
-     "qs": [
-      "Should a returned bank payment carry a fee, and how much?"
-     ],
-     "rec": "A returned bank payment carries a fixed fee the community sets in its payment rules, $25 by default, charged once per return and never above the state's cap. It appears on the homeowner's ledger with the reason.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A04",
-   "group": "money",
-   "title": "Setting up the community's merchant account",
-   "why": "Whoever signs is answerable for the community's bank details and tax records, which is an officer's act. NMI's page is built and tested; the embedded version can wait. A second processor would split what HOAhx can see of a community's money and what it earns.",
-   "rows": [
-    {
-     "id": "A04-1",
-     "qs": [
-      "Which roles may set up the community's merchant account?"
-     ],
-     "rec": "The President or the Treasurer applies and signs. In a community with a management company, the property manager may start the application, but the President or the Treasurer signs it.",
-     "videos": []
-    },
-    {
-     "id": "A04-2",
-     "qs": [
-      "Should the merchant application open on NMI's own page, or sit inside HOAhx's payment setup screen?"
-     ],
-     "rec": "The application opens on NMI's own page from HOAhx's payment setup. The version embedded inside HOAhx is a later improvement, once NMI confirms it works on the partner sandbox and inside the phone apps.",
-     "videos": []
-    },
-    {
-     "id": "A04-3",
-     "qs": [
-      "Should a management company be able to run its communities' payments through its own existing merchant account?"
-     ],
-     "rec": "NMI Payments only. No bring-your-own-processor for the launch. The first management company that asks starts a conversation, not a build.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A05",
-   "group": "money",
-   "title": "The treasurer's books",
-   "why": "A required close on day one stops a volunteer treasurer who is still learning; a visible warning does the job. One place to look keeps one version of the truth and one thing to support.",
-   "rows": [
-    {
-     "id": "A05-1",
-     "qs": [
-      "Should reconciliation be required before a month or year can be closed?"
-     ],
-     "rec": "Closing a month is offered and recommended, not required. The close screen shows how many entries are still unmatched to a deposit, and a report from an unclosed month says so at the top. A required close is a later step if the first treasurers ask for it.",
-     "videos": [
-      "07",
-      "29"
-     ]
-    },
-    {
-     "id": "A05-2",
-     "qs": [
-      "Should treasurers get logins to NMI's own merchant portal, or only the reports inside HOAhx?"
-     ],
-     "rec": "Treasurers work inside HOAhx: deposit summaries, deposit history, and NMI's transaction reports appear there, and no separate NMI portal login is issued. If a particular treasurer needs one, HOAhx support asks NMI case by case.",
-     "videos": [
-      "06",
-      "28"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "A06",
-   "group": "money",
-   "title": "What a homeowner sees of the money",
-   "why": "Showing refunds and disputes honestly is the transparency HOAhx promises. The budget view answers \"where does the money go\" without the raw ledger, which would confuse more than it reveals.",
-   "rows": [
-    {
-     "id": "A06-1",
-     "qs": [
-      "Should residents be able to see their full payment history including refunds and disputes?"
-     ],
-     "rec": "A homeowner sees their whole payment history, including refunds, returned payments, and payments under review for a dispute, each with its status, the reason, and what to do next. Internal notes and processor identifiers never appear.",
-     "videos": []
-    },
-    {
-     "id": "A06-2",
-     "qs": [
-      "Should residents see the community's full ledger, or only their own?"
-     ],
-     "rec": "A homeowner sees their own property ledger, the published budget, and budget versus actual spending. The community's line-by-line ledger stays with the board.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A07",
-   "group": "money",
-   "title": "The budget and the board",
-   "why": "This matches how volunteer boards work: vote in the meeting, then the President publishes. A linked replacement keeps the history honest without an amendment workflow. A reserve study is a specialist's document.",
-   "rows": [
-    {
-     "id": "A07-1",
-     "qs": [
-      "Should the budget require board-vote approval rather than one President click?"
-     ],
-     "rec": "The President publishes the budget alone, and the board's vote is minuted in the meeting's decision record. A required recorded vote inside the publish step stays on the candidate list for after launch.",
-     "videos": []
-    },
-    {
-     "id": "A07-2",
-     "qs": [
-      "Should a published budget be amendable mid-year?"
-     ],
-     "rec": "A mid-year change is published as a replacement budget for the same year, linked to the one it replaced, so both stay visible with the date and the reason.",
-     "videos": []
-    },
-    {
-     "id": "A07-3",
-     "qs": [
-      "Should the platform produce a reserve-study report, and is the delinquency report enough for what boards must file?"
-     ],
-     "rec": "The delinquency report, with its aging buckets and export, ships. No reserve-study report for the launch; it stays on the candidate list.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A08",
-   "group": "money",
-   "title": "Outside professionals: auditors and attorneys",
-   "why": "Today an engineer has to set an auditor up by hand. A screen with an end date is what a board needs, and nobody has to review access that expires on its own.",
-   "rows": [
-    {
-     "id": "A08-1",
-     "qs": [
-      "Is month-by-month auditor access the right scoping model?"
-     ],
-     "rec": "An auditor's access is granted from a screen by the President or the Treasurer: the months, the document types, and an end date. Month by month stays the model; an annual audit is granted as twelve months.",
-     "videos": []
-    },
-    {
-     "id": "A08-2",
-     "qs": [
-      "How long do Auditor and Attorney scopes last, and who sets them?"
-     ],
-     "rec": "An attorney's access is granted per matter by the President or the Secretary, with an end date the community chooses (one year by default) and can renew. Both lapse on their date, and the board can see who has access and until when.",
-     "videos": []
-    }
-   ]
-  },
-  {
    "id": "A09",
    "group": "enforce",
    "title": "From a notice to a fee to a lien",
    "why": "A published schedule and a guaranteed hearing are what make enforcement accepted by the people it touches. Owners stay in the loop on their own property.",
    "rows": [
     {
-     "id": "A09-1",
-     "qs": [
-      "Should there be a mandatory waiting period between a notice and a fee?",
-      "Should fee amounts be constrained by a published schedule?"
-     ],
-     "rec": "Every violation category carries a published schedule: the fee amount and the time the homeowner has to respond, set by the community (14 days by default). No fee before that time passes, and no fee outside the schedule.",
-     "videos": []
-    },
-    {
      "id": "A09-2",
      "qs": [
       "Should the resident be guaranteed a hearing before a lien?"
      ],
      "rec": "A homeowner can ask for a hearing at every stage, up to and including the escalation to a lien. A lien is never recorded while a hearing request is open.",
-     "videos": []
-    },
-    {
-     "id": "A09-3",
-     "qs": [
-      "Should escalation to a lien require a recorded board vote rather than one President action?"
-     ],
-     "rec": "The President approves an escalation to a lien alone, with a required written reason, and never on their own property. A required board vote inside the step stays on the candidate list.",
      "videos": []
     },
     {
@@ -291,85 +52,11 @@
    ]
   },
   {
-   "id": "A10",
-   "group": "enforce",
-   "title": "Maintenance requests and vendors",
-   "why": "A deadline per request is a promise the board can keep; a fixed response time per priority is one it cannot. Seven days to confirm keeps requests from sitting open after the fix.",
-   "rows": [
-    {
-     "id": "A10-1",
-     "qs": [
-      "Are there response-time commitments per priority?"
-     ],
-     "rec": "No fixed response time per priority. Every request gets a deadline when staff triage it, shown to the homeowner, and \"urgent\" puts the request at the top of the queue. The form's promise that urgent requests are escalated immediately comes off until an escalation exists.",
-     "videos": []
-    },
-    {
-     "id": "A10-2",
-     "qs": [
-      "Should residents be able to close their own tickets when satisfied?"
-     ],
-     "rec": "Staff or the assigned vendor mark a request resolved; the homeowner has seven days to confirm or reopen it, after which it closes on its own. A homeowner can withdraw their own request at any time.",
-     "videos": []
-    },
-    {
-     "id": "A10-3",
-     "qs": [
-      "Should vendors see the resident's name, unit, and contact details?"
-     ],
-     "rec": "An assigned vendor sees the request, its photos, the resident's name and unit, and the resident's replies, and never the email, the phone, staff notes, or costs.",
-     "videos": [
-      "36"
-     ]
-    },
-    {
-     "id": "A10-4",
-     "qs": [
-      "Is 90 days the right maximum vendor assignment window?"
-     ],
-     "rec": "A vendor's assignment lasts up to ninety days. Staff and the vendor are reminded a week before it lapses, and staff renew it with one tap.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A11",
-   "group": "community",
-   "title": "Parking and passes",
-   "why": "One space per home is common enough that the number belongs to the community. A phone check is what a towing company does already.",
-   "rows": [
-    {
-     "id": "A11-1",
-     "qs": [
-      "Should two spots per property be a community setting rather than a platform constant?"
-     ],
-     "rec": "The number of spaces each property starts with is a community setting in the parking rules, two by default. Staff can still add spaces to one property by hand.",
-     "videos": []
-    },
-    {
-     "id": "A11-2",
-     "qs": [
-      "Who validates a pass in practice, and how?"
-     ],
-     "rec": "A pass is checked by whoever the board designates: a board member, an administrator, or the towing contractor, by entering or scanning the pass code on their phone. No gate hardware and no separate gate-staff role for the launch.",
-     "videos": []
-    }
-   ]
-  },
-  {
    "id": "A12",
    "group": "community",
    "title": "Votes, elections, and meetings",
    "why": "A single ballot meeting quorum is the kind of default that embarrasses a board later. Not certifying your own election is basic fairness.",
    "rows": [
-    {
-     "id": "A12-1",
-     "qs": [
-      "Is President-only certification correct, and what happens if the President is a candidate?"
-     ],
-     "rec": "An authorized officer certifies and publishes a vote result. A candidate never certifies their own election: if the President stood, the Secretary, or another officer who did not stand, certifies.",
-     "videos": []
-    },
     {
      "id": "A12-2",
      "qs": [
@@ -409,14 +96,6 @@
      ],
      "rec": "Board and management roles post; residents comment and react. Taking one person's commenting rights away for a set period comes after launch, if a community needs it.",
      "videos": []
-    },
-    {
-     "id": "A13-3",
-     "qs": [
-      "Should event RSVPs support guests, or only members?"
-     ],
-     "rec": "An event RSVP carries a guest count that counts toward capacity, and board members can RSVP too.",
-     "videos": []
     }
    ]
   },
@@ -433,86 +112,6 @@
      ],
      "rec": "Each application type the community sets up carries a decision deadline, thirty days by default, shown to the homeowner and the reviewers. An application past its deadline appears as overdue on the board dashboard. Nothing is approved automatically.",
      "videos": []
-    },
-    {
-     "id": "A14-2",
-     "qs": [
-      "Is President-only architectural decision correct?"
-     ],
-     "rec": "The community assigns reviewers per application and names who decides, with the President as the default. Nobody reviews or decides an application on their own home.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A15",
-   "group": "records",
-   "title": "Documents and signatures",
-   "why": "An evidence trail is what a signature is for. A takedown that hides rather than deletes keeps the record intact.",
-   "rows": [
-    {
-     "id": "A15-1",
-     "qs": [
-      "Is the native acknowledgement workflow legally sufficient for the documents being signed?"
-     ],
-     "rec": "HOAhx's own electronic signature ships: the signer's identity, intent, and time, the exact version signed, a signed copy, and the evidence history. Whether that is enough for a given document is for the community's counsel; an outside signature service can be added after launch if a community needs one.",
-     "videos": []
-    },
-    {
-     "id": "A15-2",
-     "qs": [
-      "Which documents must every resident sign, and what happens if they refuse?"
-     ],
-     "rec": "The community marks which documents are required, and every household is asked to sign them at onboarding. A refusal is recorded with its reason and shown to the board as an open item. Nothing is enforced automatically.",
-     "videos": []
-    },
-    {
-     "id": "A15-3",
-     "qs": [
-      "Who may see the community's governing documents: residents only, or prospective buyers too?"
-     ],
-     "rec": "Documents stay members-only. A prospective buyer receives the governing documents inside the transfer package the seller requests, not through an account.",
-     "videos": []
-    },
-    {
-     "id": "A15-4",
-     "qs": [
-      "Should document versions ever be deletable, for example on legal advice?"
-     ],
-     "rec": "A document version is never deleted. On legal advice, the board hides a version from everyone but the board, with the reason recorded. The administrator's document actions are repaired so each one works or says why not.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A16",
-   "group": "records",
-   "title": "What reaches the phone, and what cannot be switched off",
-   "why": "The notices a homeowner cannot mute are the ones that protect them. Three phone notices on by default, with quiet hours, is the line between an app people keep and one they silence.",
-   "rows": [
-    {
-     "id": "A16-1",
-     "qs": [
-      "Are there communications a resident may not opt out of: emergency notices, legal notices, dues reminders?"
-     ],
-     "rec": "Legal and enforcement notices, dues and payment notices, and urgent community alerts cannot be switched off. Announcements, request updates, and community messages can, channel by channel.",
-     "videos": []
-    },
-    {
-     "id": "A16-2",
-     "qs": [
-      "Which notifications should reach the phone by default: announcements, request updates, payment reminders?"
-     ],
-     "rec": "On the phone, announcements, request updates, and payment reminders are all on by default. Quiet hours hold the non-urgent ones overnight, and each person can switch any of the three off.",
-     "videos": []
-    },
-    {
-     "id": "A16-3",
-     "qs": [
-      "Should text-message notifications be connected for the launch, or should the launch ship with push and email only?"
-     ],
-     "rec": "The launch ships with push notifications on the phone and email. No text messages at launch: they need a provider, a consent step, and a per-message cost the proposal left out. Text messages become a per-community option after launch if the first communities ask.",
-     "videos": []
     }
    ]
   },
@@ -528,86 +127,6 @@
       "Should managers, the President, and the Secretary be able to read every conversation in the community?"
      ],
      "rec": "Managers, the President, and the Secretary can read every conversation with the office, as now, and the message screen says so plainly, so nobody mistakes a thread with the office for a private one.",
-     "videos": []
-    },
-    {
-     "id": "A17-2",
-     "qs": [
-      "Is a 10,000-character announcement limit right?"
-     ],
-     "rec": "The announcement limit of 10,000 characters stays. Anything longer is attached from the document library.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A18",
-   "group": "records",
-   "title": "What is kept, for how long, and what a resident can take with them",
-   "why": "The app stores require a stated policy. Seven years matches what most states expect of HOA financial records, and one year is enough for a visitor log.",
-   "rows": [
-    {
-     "id": "A18-1",
-     "qs": [
-      "What is the data retention policy, per record type?"
-     ],
-     "rec": "Financial records, seven years. Violation and enforcement records, seven years. Visitor logs, one year. Messages and announcements, three years. Audit records, for the life of the community. Personal data is removed when an account is deleted. This goes into the app-store privacy disclosures now; automatic deletion is added after launch.",
-     "videos": []
-    },
-    {
-     "id": "A18-2",
-     "qs": [
-      "What is the retention period for messages and announcements?"
-     ],
-     "rec": "Messages and announcements follow that policy: three years, no separate rule.",
-     "videos": []
-    },
-    {
-     "id": "A18-3",
-     "qs": [
-      "How long is visitor access history retained, and who may see it?"
-     ],
-     "rec": "Officers and managers see the whole visitor log; each resident sees their own entries. The log is kept for one year.",
-     "videos": []
-    },
-    {
-     "id": "A18-4",
-     "qs": [
-      "Is there a data export or deletion path for a resident who requests one?"
-     ],
-     "rec": "A resident deletes their account and personal data in the app; their community records (requests, payments, notices) stay with the community. An export of their data is requested from HOAhx support and delivered within thirty days; a self-serve export comes after launch.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A19",
-   "group": "ops",
-   "title": "Who gets the alerts, and the monthly spending alert",
-   "why": "An alert nobody owns is noise. One named person, one backup, one note.",
-   "rows": [
-    {
-     "id": "A19-1",
-     "qs": [
-      "Who is the named recipient of production alerts, and who is the backup?"
-     ],
-     "rec": "Dan is the named recipient of production alerts, by email and text, with Rustin as the backup, and a one-page \"when this fires\" note: what to check, when to call Jacob, how to pause payments. Jacob is copied through launch and the thirty days after. Say so if it should be the other way round.",
-     "videos": []
-    },
-    {
-     "id": "A19-2",
-     "qs": [
-      "Who receives the error, uptime, and spending alerts, and what is the monthly spending cap?"
-     ],
-     "rec": "The same two people receive the error, uptime, and spending alerts. The hosting account is set to alert at $150 a month, with an earlier warning at $75. That is a notice, not a spending cap: Google Cloud cannot stop the bill at a number, it can only tell you the number was passed. The accounts run comfortably under both today, and a lower number would page you for nothing.",
-     "videos": []
-    },
-    {
-     "id": "A19-3",
-     "qs": [
-      "Who is notified when a security rule denies an unexpected access, and is anyone watching?"
-     ],
-     "rec": "Unexpected access denials are counted and reach the same people as a daily summary; a sudden spike alerts within minutes.",
      "videos": []
     }
    ]
@@ -645,36 +164,12 @@
    ]
   },
   {
-   "id": "A22",
-   "group": "ops",
-   "title": "What HOAhx support can see",
-   "why": "Support can help without seeing more than it needs, and the community decides when it sees more.",
-   "rows": [
-    {
-     "id": "A22-1",
-     "qs": [
-      "Should Platform Support be able to see resident names and addresses at all?"
-     ],
-     "rec": "Support sees a first name, a last initial, a masked email, and which communities and roles a person holds; never an address, a phone number, or a full name. A full household comes into view only through temporary support access that the community authorizes, with a reason, a scope, a time limit, and a complete record of what was done.",
-     "videos": []
-    }
-   ]
-  },
-  {
    "id": "A23",
    "group": "pricing",
-   "title": "Pricing: the four loose ends",
-   "note": "Your plans, prices, and trial terms are recorded. These four points were left open in your requirements document.",
+   "title": "Pricing: the three loose ends",
+   "note": "Your plans, prices, tiers and trial terms are recorded. These three points were left open in your requirements document.",
    "why": "Each of these has an answer that is simple to say at checkout. A founding rate rewards the communities that take the first step without a discount that never ends.",
    "rows": [
-    {
-     "id": "A23-1",
-     "qs": [
-      "Where does the top flat tier end: 449 homes or 500?"
-     ],
-     "rec": "The top flat tier is 301 to 500 homes at $229, as in your requirements document (not 449). Above 500 homes, $0.50 per active home per month.",
-     "videos": []
-    },
     {
      "id": "A23-2",
      "qs": [
@@ -702,48 +197,6 @@
    ]
   },
   {
-   "id": "A24",
-   "group": "money",
-   "title": "Correcting a balance by hand",
-   "why": "The entry that quietly forgives a balance is the one that most needs a witness. Charges and fees stay quick, because the homeowner sees them and will ask.",
-   "rows": [
-    {
-     "id": "A24-1",
-     "qs": [
-      "Should a balance adjustment stay capped at what the home owes?"
-     ],
-     "rec": "An adjustment can bring a home's balance down to zero and no further. It can clear a debt, but it can never turn one into money the community owes the homeowner. When money genuinely has to go back to a homeowner, that is a refund, which already needs two financial people.",
-     "videos": []
-    },
-    {
-     "id": "A24-2",
-     "qs": [
-      "Should a credit or an adjustment always need a second financial approver, with charges and fees left to one person?"
-     ],
-     "rec": "One financial person can post a charge or a fee. A credit or an adjustment, anything that takes money off what a home owes, needs a second financial person to approve it, and nobody approves an entry on their own home.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A25",
-   "group": "community",
-   "title": "Gate and guest codes for tenants",
-   "why": "A tenant needs the code to get in and to let a visitor in. Hiding it just means the owner texts it to them, which protects nothing and leaves no record.",
-   "rows": [
-    {
-     "id": "A25-1",
-     "qs": [
-      "Should an active tenant see the home's gate and guest codes?"
-     ],
-     "rec": "A tenant living in the home sees its gate and guest codes, the same as the owner, and loses them the day the tenancy ends. Another household never sees them. If you would rather the codes stay with the owner alone, a tenant is shown who to ask instead.",
-     "videos": [
-      "25"
-     ]
-    }
-   ]
-  },
-  {
    "id": "A26",
    "group": "ops",
    "title": "Who may appoint an HOA Administrator",
@@ -764,38 +217,6 @@
    ]
   },
   {
-   "id": "A27",
-   "group": "ops",
-   "title": "How far back a restore can reach",
-   "why": "This is only how far back a restore can reach. How long HOAhx keeps a community's records is a separate question, on the card about what is kept.",
-   "rows": [
-    {
-     "id": "A27-1",
-     "qs": [
-      "Should a daily backup be kept for 30 days and then deleted?"
-     ],
-     "rec": "A copy of every community's records is taken each night and kept for 30 days, then deleted automatically. Anything that went wrong in the last month, such as a bad import or a deletion nobody noticed, can be put back. A longer window costs a little more storage and is a one-line change.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A28",
-   "group": "ops",
-   "title": "The app icon",
-   "why": "The icon is what people see in the store and on their phone every day. Changing it after the first submission means new artwork and another store review, so it is worth a yes now.",
-   "rows": [
-    {
-     "id": "A28-1",
-     "qs": [
-      "Is the black HX tile the icon for both app stores and the phone home screen?"
-     ],
-     "rec": "The designer's black HX tile is the icon in the App Store, on Google Play, and on the phone's home screen, with the 512-pixel version as the Google Play listing icon.",
-     "videos": []
-    }
-   ]
-  },
-  {
    "id": "A29",
    "group": "enforce",
    "title": "Who reads a homeowner's written appeal",
@@ -807,22 +228,6 @@
       "When a homeowner appeals a violation in writing, should the Secretary and Treasurer read the appeal text as well as the people who decide it?"
      ],
      "rec": "Keep it: whoever may read the case reads the homeowner's appeal, and only the roles who may review a violation decide it. If the appeal should be narrower, the read narrows to the roles who decide, and the Secretary and Treasurer see that an appeal exists without its text.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A30",
-   "group": "enforce",
-   "title": "Co-owners seeing each other's requests and reviews",
-   "why": "The owners of one home answer for it together, and a co-owner who cannot see a request on their own home hears about the decision from the contractor.",
-   "rows": [
-    {
-     "id": "A30-1",
-     "qs": [
-      "Should the owners of one home see each other's maintenance requests and architectural reviews?"
-     ],
-     "rec": "Yes: the owners of a home see each other's requests and reviews, on the request pages first and then on the home's timeline, so every row a co-owner reads opens. If not, each owner keeps seeing only their own.",
      "videos": []
     }
    ]
@@ -884,17 +289,353 @@
    ]
   },
   {
-   "id": "A34",
-   "group": "community",
-   "title": "Every tenant gets a tenant record",
-   "why": "The owner's switches only protect a home when every tenant of it has them.",
+   "id": "A36",
+   "group": "money",
+   "title": "When a homeowner pays twice",
+   "why": "An alert should mean someone probably made a mistake, not that someone paid early. A credit someone asked to have back should not be spent by AutoPay while the treasurer decides, and a request nobody answers should not lock it away for good.",
    "rows": [
     {
-     "id": "A34-1",
+     "id": "A36-2",
      "qs": [
-      "Should every tenant have a tenant record, so the owner's switches apply to every tenant and not only to those the owner or the office added through the tenant forms?"
+      "A homeowner with a credit asks for the money back. Until the treasurer decides, should AutoPay leave that credit alone, and for how long? And how often may a homeowner ask?"
      ],
-     "rec": "Yes: every tenant gets a tenant record, created when staff assign the tenant role, with the switches off until the owner grants them, so every tenant is held to the owner's choices. If not, a tenant without a record keeps the access of a household member.",
+     "rec": "Keep thirty days and one request a month: once a homeowner asks for a credit back, AutoPay leaves it alone until the treasurer decides or thirty days pass. Add two buttons before launch: the treasurer can decline with a short note to the homeowner, and the homeowner can change their mind and keep the credit.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A38",
+   "group": "money",
+   "title": "Opening balances brought in from your spreadsheet",
+   "why": "A balance belongs to the home, not to a person; the figure should be the same for every owner and should not look overdue before the community starts.",
+   "rows": [
+    {
+     "id": "A38-1",
+     "qs": [
+      "When a home has more than one owner, whose account does the opening balance from your spreadsheet go on?"
+     ],
+     "rec": "The first active owner of the home; the balance stays on the home's ledger, so every owner of the home sees the same figure.",
+     "videos": []
+    },
+    {
+     "id": "A38-2",
+     "qs": [
+      "What date should an opening balance from your spreadsheet carry on a home's ledger?"
+     ],
+     "rec": "The approval day, so nothing looks overdue before anyone could see it.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A40",
+   "group": "community",
+   "title": "Amending a published budget",
+   "why": "Preparing figures is already their job, and nothing reaches residents without the board's recorded approval.",
+   "rows": [
+    {
+     "id": "A40-1",
+     "qs": [
+      "Who may start an amendment to a budget the board has already published?"
+     ],
+     "rec": "Keep it as built: whoever may prepare the budget may start an amendment; only the President records the board's approval and publishes it.",
+     "videos": []
+    },
+    {
+     "id": "A40-2",
+     "qs": [
+      "When an amended budget is published, who should be told, and how?"
+     ],
+     "rec": "Keep it as built: one in-app notice each to the board and to residents, no e-mail.",
+     "videos": []
+    },
+    {
+     "id": "A40-3",
+     "qs": [
+      "What should residents see of the board's approval of a published budget?"
+     ],
+     "rec": "Keep the minutes on the board's screen; residents read the minutes in Documents when the board shares them there.",
+     "videos": []
+    },
+    {
+     "id": "A40-4",
+     "qs": [
+      "Which documents may the board attach as the record of a budget approval?"
+     ],
+     "rec": "Keep it: the approval is backed by the meeting minutes, and the board files the minutes first.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A41",
+   "group": "pricing",
+   "title": "Plan changes and pricing for larger communities",
+   "why": "Nothing has been paid, so there is nothing to make up or refund; a charge inside a free trial is the opposite of what the trial promises.",
+   "rows": [
+    {
+     "id": "A41-1",
+     "qs": [
+      "When a community changes its HOAhx plan during the free trial, what happens?"
+     ],
+     "rec": "The new plan starts at once and nothing is charged during the trial. The trial keeps its end date, and the first charge at its end is the new plan's price.",
+     "videos": []
+    },
+    {
+     "id": "A41-2",
+     "qs": [
+      "When a community moves to a different plan that costs the same, when does it take effect?"
+     ],
+     "rec": "On the next billing date, nothing charged or refunded now, told as \"a plan change at the same price\".",
+     "videos": []
+    },
+    {
+     "id": "A41-3",
+     "qs": [
+      "How should the price work for a community with more than 500 homes? Today the five flat tiers run to 458 homes, then every home pays the same monthly per-home rate from 459 homes, with no upper limit."
+     ],
+     "rec": "Keep the per-home rate from 459 to 500 homes. A community above 500 homes does not buy in the app: the screen says HOAhx sets up its plan with it, and HOAhx sets that community's price and setup fee.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A42",
+   "group": "community",
+   "title": "Tenants and rental managers for a home",
+   "why": "This was the earlier recommendation, and it keeps the owner, who knows the lease, in charge of the tenant's access.",
+   "rows": [
+    {
+     "id": "A42-1",
+     "qs": [
+      "May a homeowner invite their own tenant and choose what the tenant may use and until when?"
+     ],
+     "rec": "Yes, as built.",
+     "videos": []
+    },
+    {
+     "id": "A42-2",
+     "qs": [
+      "An owner who rents out a home can name a rental manager (a rental company or a person) for that home, with a start and end date. What may the rental manager do?"
+     ],
+     "rec": "Pay the home's dues with their own payment method, receive the home's notices and send maintenance requests for it; never vote, never see the owner's saved payment details or other homes. The owner, or the board at the owner's request, names and removes them, and every change is in the home's history.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A43",
+   "group": "enforce",
+   "title": "Architectural request types and parking permits",
+   "why": "The days to decide are the board's commitment to homeowners, so the person who decides should set them; adding the Administrator later is a small change.",
+   "rows": [
+    {
+     "id": "A43-1",
+     "qs": [
+      "Who sets up a community's architectural request types: the kinds of request, what each must include, and the days to decide?"
+     ],
+     "rec": "Keep it with the President, the person who decides architectural requests, for launch; let the HOA Administrator do it too only if a community asks.",
+     "videos": []
+    },
+    {
+     "id": "A43-2",
+     "qs": [
+      "Which documents should a household keep on a vehicle before the community gives it an active parking permit?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    },
+    {
+     "id": "A43-3",
+     "qs": [
+      "When a household changes the license plate on a vehicle that has an active parking permit, what should happen to the permit?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A44",
+   "group": "money",
+   "title": "Account-status letters, the card fee and refund requests",
+   "why": "A lender or a title company usually acts within a month; a shorter window keeps an old balance from being read as current, and a homeowner can create a new letter at any time.",
+   "rows": [
+    {
+     "id": "A44-1",
+     "qs": [
+      "For how long should a lender or a buyer be able to check a homeowner's account-status letter online?"
+     ],
+     "rec": "Keep it as built: 30 days.",
+     "videos": []
+    },
+    {
+     "id": "A44-2",
+     "qs": [
+      "Should the account-status letter say plainly that it is not a resale or estoppel certificate?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    },
+    {
+     "id": "A44-3",
+     "qs": [
+      "Who may create an account-status letter for a home?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    },
+    {
+     "id": "A44-4",
+     "qs": [
+      "When a card payment that carried the convenience fee is refunded, should the fee be returned too?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    },
+    {
+     "id": "A44-5",
+     "qs": [
+      "Should AutoPay by card add the convenience fee to each automatic payment?"
+     ],
+     "rec": "Keep it as built: no fee on AutoPay at launch.",
+     "videos": []
+    },
+    {
+     "id": "A44-6",
+     "qs": [
+      "After the treasurer declines a refund request, may the homeowner ask again in the same month?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    },
+    {
+     "id": "A44-7",
+     "qs": [
+      "Who may answer a homeowner's refund request (refund it, decline it, or keep the credit)?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A45",
+   "group": "money",
+   "title": "Account credits, refund requests from tenants, and opening balances",
+   "why": "The treasurer is asked to look only at money nobody has checked, and a refund request is answered once for each home each month.",
+   "rows": [
+    {
+     "id": "A45-1",
+     "qs": [
+      "When a home has a credit on its account, which kinds of entries should count as explained, so the treasurer is not asked to look at them?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    },
+    {
+     "id": "A45-2",
+     "qs": [
+      "Which tenants may ask for a refund of their own payment?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    },
+    {
+     "id": "A45-3",
+     "qs": [
+      "When the owner asks for a refund of a credit that partly came from their tenant's payment, should the owner's request cover the whole credit?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    },
+    {
+     "id": "A45-4",
+     "qs": [
+      "Does a tenant's refund request use the home's one request a month?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    },
+    {
+     "id": "A45-5",
+     "qs": [
+      "When the treasurer approves opening balances, which balances should be flagged for a second look besides the very large ones the import already warns about?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A46",
+   "group": "community",
+   "title": "Clubhouse bookings, event replies and the neighbor directory",
+   "why": "Each keeps what a homeowner sees simple and keeps personal plans and addresses private unless the household chose to share them.",
+   "rows": [
+    {
+     "id": "A46-1",
+     "qs": [
+      "Which amenity's rules govern a clubhouse booking when a community has more than one clubhouse-type amenity?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    },
+    {
+     "id": "A46-2",
+     "qs": [
+      "Should the rest of the household see a member's clubhouse booking in the home's history?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    },
+    {
+     "id": "A46-3",
+     "qs": [
+      "When the community has not set a guest limit on an event, may residents bring guests?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    },
+    {
+     "id": "A46-4",
+     "qs": [
+      "Who besides residents may RSVP to a community event?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    },
+    {
+     "id": "A46-5",
+     "qs": [
+      "In the neighbor directory, does showing a household's unit also show its street?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A47",
+   "group": "ops",
+   "title": "Support's reply promise and recording a home's change of hands",
+   "why": "A person who asks for help knows when to expect an answer, and a former owner's access ends on the day the home changes hands.",
+   "rows": [
+    {
+     "id": "A47-1",
+     "qs": [
+      "When someone sends a problem with the app to HOAhx support from the Help screen, the screen says support usually reads it within one business day. Is one business day the promise you want to make?"
+     ],
+     "rec": "Keep one business day for launch; shorten it later once you see how many reports arrive.",
+     "videos": []
+    },
+    {
+     "id": "A47-2",
+     "qs": [
+      "When staff transfer a home after someone joined it without an invitation, may the date the home changed hands be in the future?"
+     ],
+     "rec": "Keep it as built.",
      "videos": []
     }
    ]
@@ -906,21 +647,6 @@
    "seconds": 60,
    "url": "https://drive.google.com/file/d/10XKkTnTmQEylr8lu78cRaVGaE1t093ow/view"
   },
-  "25": {
-   "title": "Your gate and guest codes: what else can happen",
-   "seconds": 141,
-   "url": "https://drive.google.com/file/d/1qjGiEWEigrsguGxQPXnP79D2KKQwoIby/view"
-  },
-  "28": {
-   "title": "The month, checked against NMI: what else can happen",
-   "seconds": 132,
-   "url": "https://drive.google.com/file/d/1e_uw-9sJRQfTwx2N-T3Yl8c4z-Z-iRUd/view"
-  },
-  "29": {
-   "title": "Closing the month: what else can happen",
-   "seconds": 145,
-   "url": "https://drive.google.com/file/d/1LJwvzHA1FABJZn-pZ34WokGzFf1R7Srt/view"
-  },
   "30": {
    "title": "A refund takes two people: what else can happen",
    "seconds": 252,
@@ -931,25 +657,10 @@
    "seconds": 131,
    "url": "https://drive.google.com/file/d/1ouAseefAABXMZNYYqDNcra-ju7lmLISi/view"
   },
-  "36": {
-   "title": "A maintenance request, from start to finish: what else can happen",
-   "seconds": 172,
-   "url": "https://drive.google.com/file/d/1z7bJjjVgLkQ2D-4Rgd0URZMKXyqvz3sn/view"
-  },
   "37": {
    "title": "What an HOA Administrator can and can't do: what else can happen",
    "seconds": 121,
    "url": "https://drive.google.com/file/d/11v_eq6qSjwxg5NeoySL3dw5I_AtJ9aAF/view"
-  },
-  "06": {
-   "title": "The month, checked against NMI",
-   "seconds": 64,
-   "url": "https://drive.google.com/file/d/1mJmuKBO6PqeRdLL9hH2kuUeqHuFqpXc0/view"
-  },
-  "07": {
-   "title": "Closing the month",
-   "seconds": 75,
-   "url": "https://drive.google.com/file/d/1sq8iBMKmPnwyMvHjZC3O-t4WeDMK6Pr3/view"
   },
   "08": {
    "title": "A refund takes two people",
