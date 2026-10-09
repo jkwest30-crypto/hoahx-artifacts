@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-08",
+ "updated": "2026-10-09",
  "groups": [
   {
    "id": "money",
@@ -142,15 +142,15 @@
   {
    "id": "A20",
    "group": "ops",
-   "title": "HOAhx Copilot: the provider and its monthly cost",
-   "why": "At launch scale the cost is tens of dollars a month, and the cap keeps it there. Your decision is the cap, not the vendor.",
+   "title": "the HOAhx Assistant: the provider and its monthly cost",
+   "why": "At launch scale the cost is tens of dollars a month, and the cap keeps it there. Your decision is the cap, not the vendor. Answers are written in plain words with the next step and a button to reach a person; no list of sources is shown on the screen.",
    "rows": [
     {
      "id": "A20-1",
      "qs": [
-      "Which provider should power HOAhx Copilot, at what monthly cost, and should it be in the launch or follow it?"
+      "Which provider should power the HOAhx Assistant, at what monthly cost, and should it be in the launch or follow it?"
      ],
-     "rec": "Copilot ships in the launch, as on your Core list. Jacob selects and connects the provider, a hosted language-model service billed per question (about two cents a question), on an account in HOAhx's name, with a monthly cap of $50 and a warning at $35. You approve the cap and the card it goes on; the provider can be swapped later without changing what homeowners see.",
+     "rec": "The Assistant ships in the launch, as on your Core list. Jacob selects and connects the provider, a hosted language-model service billed per question (about two cents a question), on an account in HOAhx's name, with a monthly cap of $50 and a warning at $35. You approve the cap and the card it goes on; the provider can be swapped later without changing what homeowners see.",
      "videos": []
     }
    ]
@@ -194,14 +194,14 @@
    "id": "A26",
    "group": "ops",
    "title": "Who may appoint an HOA Administrator",
-   "why": "The HOA Administrator runs a community day to day. Letting the management company appoint one means a managed community does not wait on a board meeting to be staffed.",
+   "why": "The HOA Administrator runs a community day to day. Keeping the appointment with the board, or with the management company only by agreement, keeps the keys to a community's administration with the people it answers to.",
    "rows": [
     {
      "id": "A26-1",
      "qs": [
       "May a Property Manager or a Management Company Administrator appoint an HOA Administrator?"
      ],
-     "rec": "The President, a Property Manager, or a Management Company Administrator can appoint an HOA Administrator. An HOA Administrator cannot appoint another one. If you want the board alone to hold that appointment, the two management roles lose that one permission and nothing else changes.",
+     "rec": "The President appoints an HOA Administrator. A Management Company Administrator can only where the management agreement says so, and a Property Manager cannot. An HOA Administrator cannot appoint another one. (Rustin asked for this on October 8; the earlier recommendation let all three appoint.)",
      "videos": [
       "11",
       "33",
@@ -625,6 +625,274 @@
      "videos": []
     }
    ]
+  },
+  {
+   "id": "A48",
+   "group": "records",
+   "title": "Asking tenants and adults in a home to sign",
+   "why": "Everyone the community asks to sign is asked fairly, and the board sees who cannot be reached and why.",
+   "rows": [
+    {
+     "id": "A48-1",
+     "qs": [
+      "May a tenant be asked to sign only while their tenancy is active and the owner shares documents with them, and an adult in the home only once they have their own account?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    },
+    {
+     "id": "A48-2",
+     "qs": [
+      "When the board sends a document for signature, should the list read Owners, Tenants and Adults in each home, with anyone who cannot be asked shown greyed out with the reason?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    },
+    {
+     "id": "A48-3",
+     "qs": [
+      "If an owner stops sharing the community's documents with their tenant after the tenant was asked to sign one, should that request stay open for the tenant to answer?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A49",
+   "group": "community",
+   "title": "Checking and certifying a board vote",
+   "why": "A vote can always be certified by someone who is not standing, and the record says who did.",
+   "rows": [
+    {
+     "id": "A49-1",
+     "qs": [
+      "When the community names an inspector to check a board vote's totals, may any member who is not standing and has no conflict be the inspector, or only a board officer?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    },
+    {
+     "id": "A49-2",
+     "qs": [
+      "When the community names both officers to certify a board vote and an inspector to check it, may the inspector certify the results too, or only the officers?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A50",
+   "group": "money",
+   "title": "Late fees, dues for a group of homes, and imported balances",
+   "why": "Each home is charged the right amount from the first day, and a late fee matches what is actually unpaid.",
+   "rows": [
+    {
+     "id": "A50-1",
+     "qs": [
+      "When a community's late fee is a percentage, is it a percentage of the full dues for that period, or of the part still unpaid after the grace period?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    },
+    {
+     "id": "A50-2",
+     "qs": [
+      "Some homes pay different dues on the same schedule (townhomes and houses, for example). Is a named group of homes with its own amount, applied from the next due date, how your community charges?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    },
+    {
+     "id": "A50-3",
+     "qs": [
+      "When a community's spreadsheet lists the same home twice with two different opening balances, what should the import do?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A51",
+   "group": "ops",
+   "title": "Who may use the HOAhx Assistant and what it may cite",
+   "why": "Everyone who lives in the community can ask, and each answer cites only what that person may already see.",
+   "rows": [
+    {
+     "id": "A51-1",
+     "qs": [
+      "Who may use the HOAhx Assistant once it is turned on?"
+     ],
+     "rec": "Let tenants use it too, reading only what the owner shares with them (their own requests and violations, community documents and announcements, never the owner's payments); keep staff without a home out until you ask for a staff version.",
+     "videos": []
+    },
+    {
+     "id": "A51-2",
+     "qs": [
+      "When a homeowner asks the HOAhx Assistant, may its answer cite a maintenance request or a violation that their tenant filed or received on that home?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A52",
+   "group": "community",
+   "title": "Selling a home, and board roles that end",
+   "why": "A home is handed only to a confirmed buyer, and the community always keeps a President.",
+   "rows": [
+    {
+     "id": "A52-1",
+     "qs": [
+      "When a home is sold, should the buyer have to create their HOAhx account and be added to the home before the community confirms the handoff?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    },
+    {
+     "id": "A52-2",
+     "qs": [
+      "Can a sale's handoff be confirmed ahead of the closing day, to take effect on that day?"
+     ],
+     "rec": "Keep it as built for the launch; scheduling a handoff ahead can follow after launch.",
+     "videos": []
+    },
+    {
+     "id": "A52-3",
+     "qs": [
+      "When a home is sold, should a board role the seller held through that home end with the sale, except the President's, which stays until the board names another?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    },
+    {
+     "id": "A52-4",
+     "qs": [
+      "A board role can carry a term with an end date. Should it end by itself on that day, except the only President's, which stays until another is named?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A53",
+   "group": "records",
+   "title": "Access for an outside auditor",
+   "why": "An auditor sees exactly the months and kinds of records the board chose, and access ends on its own.",
+   "rows": [
+    {
+     "id": "A53-1",
+     "qs": [
+      "When the President or Treasurer gives an outside auditor access, what range of records may one grant cover?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    },
+    {
+     "id": "A53-2",
+     "qs": [
+      "May an auditor keep access longer than a year, or with no end date?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    },
+    {
+     "id": "A53-3",
+     "qs": [
+      "When the board gives an auditor access, should the documents already published in the chosen kinds and months, board-only ones included, open to the auditor at once?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A54",
+   "group": "community",
+   "title": "A tenant's bookings when the owner turns reservations off",
+   "why": "A tenant always knows whether a booking they made still stands.",
+   "rows": [
+    {
+     "id": "A54-1",
+     "qs": [
+      "When the owner of a home switches a tenant's amenity reservations off, should the tenant still see the bookings they made while it was on?"
+     ],
+     "rec": "Keep it as built.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A55",
+   "group": "money",
+   "title": "\"HOA dues\" or \"assessments\" in what homeowners read",
+   "why": "Homeowners read one plain word for what they pay, without changing a label you have already approved; an answer by October 13 lets it ship with the launch.",
+   "rows": [
+    {
+     "id": "A55-1",
+     "qs": [
+      "Should homeowners read \"HOA dues\" in the text of their payment screens, with the menu label kept as \"Assessments\"?"
+     ],
+     "rec": "Yes: \"HOA dues\" in the homeowner text, the menu label \"Assessments\" kept as you signed it off, and \"assessment\" kept on the board's screens. If you would rather the menu read \"HOA dues\" too, say so.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A56",
+   "group": "ops",
+   "title": "How long an invitation lasts",
+   "why": "A homeowner who reads mail slowly should still be able to accept; the roles that carry authority already expire in 72 hours or less.",
+   "rows": [
+    {
+     "id": "A56-1",
+     "qs": [
+      "Should every invitation expire after three days, or should homeowners keep 7 days?"
+     ],
+     "rec": "Keep 7 days for homeowners and three days for board and staff roles, as decided on September 10.",
+     "videos": [
+      "11"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "A57",
+   "group": "money",
+   "title": "Second-factor check when a refund is approved",
+   "why": "A refund moves money out of the community's account, so the step that approves it should be as strong as the risk.",
+   "rows": [
+    {
+     "id": "A57-1",
+     "qs": [
+      "Should approving a refund ask for the second factor again, or is the password re-check on top of a two-factor sign-in enough for the launch?"
+     ],
+     "rec": "Keep what is built for the launch: two-factor at sign-in, two different financial people, and a fresh password check before money moves. Add the second-factor re-check later, with passkeys.",
+     "videos": [
+      "33"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "A58",
+   "group": "money",
+   "title": "Spreadsheet import of actual spending",
+   "why": "Budget versus actual is only as good as the actuals; today the treasurer enters them by category beside the uploaded statement.",
+   "rows": [
+    {
+     "id": "A58-1",
+     "qs": [
+      "Should the spreadsheet import of actual spending, with column mapping and duplicate flags, come into the launch ahead of downloadable receipts?"
+     ],
+     "rec": "Keep it after launch as recorded on October 1, unless you both rank it above downloadable receipts; then the first slice (column mapping and duplicate flags) comes in first.",
+     "videos": []
+    }
+   ]
   }
  ],
  "answered": [
@@ -710,7 +978,7 @@
    "build": "Agreed: keep the imported credit and show it as pending until the community's start date; do not lose it or reduce it before then.",
    "answeredOn": "2026-10-05",
    "acceptedOn": "2026-10-06",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A39-1",
@@ -752,7 +1020,7 @@
    "build": "Agreed: two retries (3 and 7 days after the first failure), only for failures the processor marks retryable, none after a hard decline or a stop-payment; retries stop once the home is paid or AutoPay is off; and late fees follow the grace period, never the failed attempt. The sandbox test results are met by the payment verification and will be sent before this is marked complete.",
    "answeredOn": "2026-09-30",
    "acceptedOn": "2026-10-05",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A04-3",
@@ -766,7 +1034,7 @@
    "build": "Only HOAhx's own gateway is accepted. Each community has its own merchant account that settles to its own bank, and there is no bring-your-own-processor mode; that stays an option for after launch. The boarding part of the sandbox test waits on the processor's pricing and boarding; the rest is covered by the payment verification.",
    "answeredOn": "2026-09-30",
    "acceptedOn": "2026-10-05",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A05-1",
@@ -777,7 +1045,7 @@
    ],
    "answer": "discuss",
    "rec": "Closing a month is offered and recommended, not required. The close screen shows how many entries are still unmatched to a deposit, and a report from an unclosed month says so at the top. A required close is a later step if the first treasurers ask for it.",
-   "build": "What we settled when we talked it through.",
+   "build": "At launch the treasurer can reconcile deposits but does not have to before closing a month or year. Requiring unmatched deposits to be cleared first, with a financial approver's recorded reason as the way around it, comes after launch.",
    "answeredOn": "2026-09-30",
    "acceptedOn": "2026-10-05",
    "status": "planned"
@@ -794,7 +1062,7 @@
    "build": "The plan already. Homeowners see their own ledger, the approved budget, budget against actual, and published statements; the community's detailed ledger stays with the board and finance. Records owners are entitled to are shared through the document library, where each document's audience is set.",
    "answeredOn": "2026-09-30",
    "acceptedOn": "2026-10-05",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A07-1",
@@ -833,7 +1101,7 @@
    ],
    "answer": "change",
    "rec": "The delinquency report, with its aging buckets and export, ships. No reserve-study report for the launch; it stays on the candidate list.",
-   "build": "Built the way you asked, in your words above.",
+   "build": "The delinquency report ships with a chosen as-of date and says it is an operations and collections report, not proof of a filing. No reserve study is generated: the board uploads its own and it is shared as a community document. Recording the study's date and provider comes after launch.",
    "answeredOn": "2026-10-02",
    "acceptedOn": "2026-10-05",
    "status": "planned"
@@ -847,7 +1115,7 @@
    ],
    "answer": "change",
    "rec": "An auditor's access is granted from a screen by the President or the Treasurer: the months, the document types, and an end date. Month by month stays the model; an annual audit is granted as twelve months.",
-   "build": "Built the way you asked, in your words above.",
+   "build": "The President or Treasurer grants an auditor read-only access for a date range (a full fiscal year included) and chosen kinds of documents and data, with a required end date; access ends on that date by itself. Auditor and attorney access stay separate. A record of every view and download, and two-step sign-in for auditors, come after launch.",
    "answeredOn": "2026-10-02",
    "acceptedOn": "2026-10-05",
    "status": "planned"
@@ -861,10 +1129,10 @@
    ],
    "answer": "change",
    "rec": "An attorney's access is granted per matter by the President or the Secretary, with an end date the community chooses (one year by default) and can renew. Both lapse on their date, and the board can see who has access and until when.",
-   "build": "Built the way you asked, in your words above.",
+   "build": "An attorney gets access for one legal matter, with an end date the community sets and a renewal; it ends by itself on that date, and stays separate from auditor access. A record of every view and download, two-step sign-in and the board's list of who has access come after launch.",
    "answeredOn": "2026-10-02",
    "acceptedOn": "2026-10-05",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A09-1",
@@ -876,7 +1144,7 @@
    ],
    "answer": "change",
    "rec": "Every violation category carries a published schedule: the fee amount and the time the homeowner has to respond, set by the community (14 days by default). No fee before that time passes, and no fee outside the schedule.",
-   "build": "Built the way you asked, in your words above.",
+   "build": "Fees come only from the adopted fee schedule. Each community sets its notice, cure and hearing timeline, the notice names the rule, and no fee is added before the cure deadline. The hearing window is separate, and interest and late fees on a fine pause while a timely hearing request is decided.",
    "answeredOn": "2026-10-02",
    "acceptedOn": "2026-10-05",
    "status": "planned"
@@ -904,7 +1172,7 @@
    ],
    "answer": "change",
    "rec": "No fixed response time per priority. Every request gets a deadline when staff triage it, shown to the homeowner, and \"urgent\" puts the request at the top of the queue. The form's promise that urgent requests are escalated immediately comes off until an escalation exists.",
-   "build": "Built the way you asked, in your words above.",
+   "build": "Each request is confirmed when sent and gets a deadline when staff triage it; the homeowner sees the status and the next expected update, staff give a reason when they change a priority, and the form tells residents to call emergency services or the utility in an emergency. Target times by priority and automatic escalation of urgent requests come after launch; targets are never guarantees.",
    "answeredOn": "2026-10-02",
    "acceptedOn": "2026-10-05",
    "status": "built"
@@ -991,7 +1259,7 @@
    "build": "The community names who may certify; a candidate or anyone with a conflict cannot; if the President is a candidate another officer or an assigned inspector certifies; results publish only after certification; ballots stay secret.",
    "answeredOn": "2026-10-02",
    "acceptedOn": "2026-10-05",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A13-3",
@@ -1030,7 +1298,7 @@
    ],
    "answer": "change",
    "rec": "HOAhx's own electronic signature ships: the signer's identity, intent, and time, the exact version signed, a signed copy, and the evidence history. Whether that is enough for a given document is for the community's counsel; an outside signature service can be added after launch if a community needs one.",
-   "build": "Built the way you asked, in your words above.",
+   "build": "HOAhx's own electronic signature records who signed, their intent, the time and the exact version signed, gives the signer a copy and keeps the evidence history; it never claims a signature is legally enough for every document. Consent to electronic records, a tamper-evident fingerprint and extra steps for some document types come after launch.",
    "answeredOn": "2026-10-02",
    "acceptedOn": "2026-10-05",
    "status": "planned"
@@ -1058,7 +1326,7 @@
    ],
    "answer": "discuss",
    "rec": "Documents stay members-only. A prospective buyer receives the governing documents inside the transfer package the seller requests, not through an account.",
-   "build": "What we settled when we talked it through.",
+   "build": "Documents stay for members only. A buyer receives the governing documents in the transfer package the seller requests, through a time-limited link, with who requested, received and opened it recorded.",
    "answeredOn": "2026-10-02",
    "acceptedOn": "2026-10-05",
    "status": "planned"
@@ -1142,10 +1410,10 @@
    ],
    "answer": "change",
    "rec": "Financial records, seven years. Violation and enforcement records, seven years after the violation is closed. Visitor logs, one year. Messages and announcements, three years. Audit records, for the life of the community. Personal data is removed when an account is deleted. These periods go into the app-store privacy disclosures, and each kind of record is deleted automatically when its period ends, unless a legal hold stops it. Which violations count as closed (cured, passed reinspection, lien satisfied) is for the community's counsel to settle; until then those are kept.",
-   "build": "Built the way you asked, in your words above.",
+   "build": "Records are deleted automatically by type on one schedule of suggested periods; a legal hold stops deletion until it is lifted, and residents are told what is kept and why. The periods are for review with the community's counsel. Periods each community sets for itself, and removing personal details when an account closes, come after launch.",
    "answeredOn": "2026-10-02",
    "acceptedOn": "2026-10-05",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A18-2",
@@ -1156,10 +1424,10 @@
    ],
    "answer": "change",
    "rec": "Messages and announcements follow that policy: three years, no separate rule.",
-   "build": "Built the way you asked, in your words above.",
+   "build": "Messages and announcements are kept under the same schedule of suggested periods as other records. Four message categories, each with its own period, come after launch.",
    "answeredOn": "2026-10-02",
    "acceptedOn": "2026-10-05",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A18-3",
@@ -1215,7 +1483,7 @@
    "build": "Immediate alerts on denials involving money, standing in for a user, administrator access or another community's data, to Dan, then Rustin, and Jake; user, action, community, time and a reference, nothing sensitive; who acknowledges is written down and the flow tested before October 9.",
    "answeredOn": "2026-10-02",
    "acceptedOn": "2026-10-05",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A24-1",
@@ -1257,7 +1525,7 @@
    "build": "Agreed. A daily backup is kept 30 days and then deleted automatically. Backups are encrypted, access is restricted, they hold all required community data and documents, and they are kept separate from the retention policy for financial records and other documents. The restore process is documented and a restore is tested before launch.",
    "answeredOn": "2026-10-02",
    "acceptedOn": "2026-10-05",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A29-1",
@@ -1282,10 +1550,10 @@
    ],
    "answer": "discuss",
    "rec": "Yes: the owners of a home see each other's requests and reviews, on the request pages first and then on the home's timeline, so every row a co-owner reads opens. If not, each owner keeps seeing only their own.",
-   "build": "What we settled when we talked it through.",
+   "build": "Yes: the verified owners of a home see each other's requests and reviews, while each person's sign-in, contact details and payment methods stay private. An administrator restricting one request or document for a documented privacy or safety reason comes after launch.",
    "answeredOn": "2026-10-02",
    "acceptedOn": "2026-10-05",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A34-1",
@@ -1299,7 +1567,7 @@
    "build": "Agreed. Every authorized tenant gets an individual tenant record tied to the correct home, however they were added (a tenant form, the owner, staff or an approved import), never a shared household login. The home's tenant access settings apply to every active tenant, each person's access stays individually manageable, who added or changed a tenant and when is recorded, and ending one tenancy ends only that person's access.",
    "answeredOn": "2026-10-02",
    "acceptedOn": "2026-10-05",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "S-A4",
@@ -1461,7 +1729,7 @@
    "build": "Late fees are applied automatically the day after the grace period on the community's dues schedule, at the amount on the schedule, and the homeowner is told the day it happens. A payment counts on the day it is submitted, not the day the bank settles it, so a bank payment started on time is never late.",
    "answeredOn": "2026-09-30",
    "acceptedOn": "2026-10-03",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A03-1",
