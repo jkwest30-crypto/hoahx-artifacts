@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-09",
+ "updated": "2026-10-10",
  "groups": [
   {
    "id": "money",
@@ -377,11 +377,11 @@
      "videos": []
     },
     {
-     "id": "A41-3",
+     "id": "A41-4",
      "qs": [
-      "How should the price work for a community with more than 500 homes? Today the five flat tiers run to 458 homes, then every home pays the same monthly per-home rate from 459 homes, with no upper limit."
+      "The implementation fee for a community of 500 homes or more is $299 for now. Should it stay one flat $299 at every size, or change with size?"
      ],
-     "rec": "Keep the per-home rate from 459 to 500 homes. A community above 500 homes does not buy in the app: the screen says HOAhx sets up its plan with it, and HOAhx sets that community's price and setup fee.",
+     "rec": "Keep one flat $299 for every community of 500 homes or more, so a large community sees its full price and buys in the app like any other. The monthly price is already set by size ($0.50 a home), so the fee does not need to grow too. Revisit once the first large communities are set up.",
      "videos": []
     }
    ]
@@ -890,6 +890,46 @@
       "Should the spreadsheet import of actual spending, with column mapping and duplicate flags, come into the launch ahead of downloadable receipts?"
      ],
      "rec": "Keep it after launch as recorded on October 1, unless you both rank it above downloadable receipts; then the first slice (column mapping and duplicate flags) comes in first.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A59",
+   "group": "money",
+   "title": "Past Due for special assessments and behind on dues",
+   "why": "The balance, the late fee and the board's list of homes behind should all say the same thing on the same day.",
+   "rows": [
+    {
+     "id": "A59-1",
+     "qs": [
+      "Should a special assessment also wait out the dues grace period before it reads Past Due, or is it past due the day after its due date?"
+     ],
+     "rec": "A special assessment is past due the day after its own due date; the grace period belongs to the dues schedule.",
+     "videos": []
+    },
+    {
+     "id": "A59-2",
+     "qs": [
+      "Should a home count as behind on its dues (the board's delinquency list) from the day after the due date, or only once the grace period has passed?"
+     ],
+     "rec": "A home counts as behind once the grace period has passed, the same day the late fee is added and the invoice reads Past Due.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A60",
+   "group": "community",
+   "title": "Who a message can be sent to at launch",
+   "why": "These choices already reach any group of homes; a saved list is a convenience that can follow.",
+   "rows": [
+    {
+     "id": "A60-1",
+     "qs": [
+      "Is sending to everyone, residents only, ticked homes, a building or a type of home enough for launch, with saved named lists after launch?"
+     ],
+     "rec": "Launch with everyone, residents only, ticked homes, a building or a type of home; named lists you keep come after launch.",
      "videos": []
     }
    ]

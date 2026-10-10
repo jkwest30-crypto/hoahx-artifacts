@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-09",
+ "updated": "2026-10-10",
  "previewUrl": "https://hoahx-staging.web.app/preview",
  "features": [
   {
@@ -37,11 +37,7 @@
      "title": "Billing contacts, and handing over the account",
      "what": "Who holds the account: the Account Owner, the backups and any Billing Administrator, with what each may do. Handing the account to someone else waits for that person to accept, and the last backup cannot be removed.",
      "url": "https://hoahx-staging.web.app/preview/A4",
-     "videos": [],
-     "critical": {
-      "date": "2026-10-09",
-      "why": "Needed by Oct 9: app shell and push notifications."
-     }
+     "videos": []
     },
     {
      "id": "S-A5",
@@ -190,10 +186,6 @@
      "what": "A plan under way, read as a plan: four of nine paid, the next payment and its date, what remains. The homeowner and the board see the same, including what happens after a missed installment.",
      "url": "https://hoahx-staging.web.app/preview/C5",
      "videos": [],
-     "walk": {
-      "seconds": 111,
-      "url": "https://drive.google.com/file/d/1jiXXAGRRCYSWDtu8LXRgSYU3eYItwo7F/view"
-     },
      "reply": "Thank you. We have your notes on this screen. We are checking each one against what is built and what is planned, and we will send you a screen-by-screen answer."
     },
     {
