@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-10",
+ "updated": "2026-10-13",
  "previewUrl": "https://hoahx-staging.web.app/preview",
  "features": [
   {
@@ -42,7 +42,7 @@
     {
      "id": "S-A5",
      "code": "A5",
-     "title": "When a payment has not gone through",
+     "title": "When a payment hasn't gone through",
      "what": "What the board sees when a subscription payment does not go through: the amount owed, the date of the next change and what it will be, with the full schedule below. Paying and reaching support work at every stage, and residents are never affected.",
      "url": "https://hoahx-staging.web.app/preview/A5",
      "videos": []
@@ -58,7 +58,7 @@
     {
      "id": "S-A7",
      "code": "A7",
-     "title": "The HOAhx staff side",
+     "title": "The HOA HX staff side",
      "what": "For HOAhx staff: every community's subscription with its plan, status, next renewal and days past due. Extending a trial, making an exception or restoring access each asks for a written reason, and the reason is kept.",
      "url": "https://hoahx-staging.web.app/preview/A7",
      "videos": []
@@ -102,11 +102,7 @@
      "videos": [
       "08",
       "30"
-     ],
-     "walk": {
-      "seconds": 78,
-      "url": "https://drive.google.com/file/d/19uvYvOq89w5-E6TDk-5rNIfR9IhoQ273/view"
-     }
+     ]
     },
     {
      "id": "S-B4",
@@ -124,10 +120,6 @@
      "what": "Before a list is downloaded: what the file will contain, what is left out and why, and how many records. The person gives a reason first, and some roles may not export at all.",
      "url": "https://hoahx-staging.web.app/preview/B5",
      "videos": [],
-     "walk": {
-      "seconds": 50,
-      "url": "https://drive.google.com/file/d/19fgN7d3ZVlTLzuS1KeIr1UPBjyX39-x3/view"
-     },
      "reply": "Thank you. We agree with all four points. The reason will clear whenever the export changes and a fresh reason will be required for each file. Ballot participation (which homes voted, for quorum) will stay separate from vote results, and results will be aggregated with no link from a household to its choice. 'Member since' comes off the default roster export. The permission and the field filtering are enforced on the server, and the download notice will say the file holds community data to share only with authorized people. We will confirm each point when it is built."
     },
     {
@@ -210,11 +202,7 @@
      "title": "Statements, exports, and matching deposits",
      "what": "A statement for each home and a collection summary for the community, each marked with its period. A bank deposit opens to show the payments inside it, with a clear mark where a deposit and the ledger disagree.",
      "url": "https://hoahx-staging.web.app/preview/C8",
-     "videos": [],
-     "walk": {
-      "seconds": 54,
-      "url": "https://drive.google.com/file/d/14QqlpGA0H7SZIgeBuQLvSLHi-ojDhQms/view"
-     }
+     "videos": []
     }
    ]
   },

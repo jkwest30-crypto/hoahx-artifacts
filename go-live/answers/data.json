@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-10",
+ "updated": "2026-10-13",
  "groups": [
   {
    "id": "money",
@@ -326,7 +326,8 @@
       "Who may start an amendment to a budget the board has already published?"
      ],
      "rec": "Keep it as built: whoever may prepare the budget may start an amendment; only the President records the board's approval and publishes it.",
-     "videos": []
+     "videos": [],
+     "reply": "Thank you. Your change is clear and we agree it fits communities better than tying it to one role. For launch we recommend: a Treasurer or authorized board member starts the draft, the original budget is always kept, and the approval details, the publisher and the date go in the history. Before we add a separate publisher role, we would like to confirm: for launch, may the President record the board's approval and publish, with the community able to designate its administrator to publish after launch?"
     },
     {
      "id": "A40-2",
@@ -342,7 +343,8 @@
       "What should residents see of the board's approval of a published budget?"
      ],
      "rec": "Keep the minutes on the board's screen; residents read the minutes in Documents when the board shares them there.",
-     "videos": []
+     "videos": [],
+     "reply": "Thank you. Agreed: residents see that the board approved the budget and the date, and board-only records are never exposed automatically. We recommend the approved minutes or resolution appear as a link only when the board has shared that document in Documents. Full minutes stay in Documents under the community's control. Does that match what you want?"
     },
     {
      "id": "A40-4",
@@ -350,63 +352,8 @@
       "Which documents may the board attach as the record of a budget approval?"
      ],
      "rec": "Keep it: the approval is backed by the meeting minutes, and the board files the minutes first.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A41",
-   "group": "pricing",
-   "title": "Plan changes and pricing for larger communities",
-   "why": "Nothing has been paid, so there is nothing to make up or refund; a charge inside a free trial is the opposite of what the trial promises.",
-   "rows": [
-    {
-     "id": "A41-1",
-     "qs": [
-      "When a community changes its HOAhx plan during the free trial, what happens?"
-     ],
-     "rec": "The new plan starts at once and nothing is charged during the trial. The trial keeps its end date, and the first charge at its end is the new plan's price.",
-     "videos": []
-    },
-    {
-     "id": "A41-2",
-     "qs": [
-      "When a community moves to a different plan that costs the same, when does it take effect?"
-     ],
-     "rec": "On the next billing date, nothing charged or refunded now, told as \"a plan change at the same price\".",
-     "videos": []
-    },
-    {
-     "id": "A41-4",
-     "qs": [
-      "The implementation fee for a community of 500 homes or more is $299 for now. Should it stay one flat $299 at every size, or change with size?"
-     ],
-     "rec": "Keep one flat $299 for every community of 500 homes or more, so a large community sees its full price and buys in the app like any other. The monthly price is already set by size ($0.50 a home), so the fee does not need to grow too. Revisit once the first large communities are set up.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A42",
-   "group": "community",
-   "title": "Tenants and rental managers for a home",
-   "why": "This was the earlier recommendation, and it keeps the owner, who knows the lease, in charge of the tenant's access.",
-   "rows": [
-    {
-     "id": "A42-1",
-     "qs": [
-      "May a homeowner invite their own tenant and choose what the tenant may use and until when?"
-     ],
-     "rec": "Yes, as built.",
-     "videos": []
-    },
-    {
-     "id": "A42-2",
-     "qs": [
-      "An owner who rents out a home can name a rental manager (a rental company or a person) for that home, with a start and end date. What may the rental manager do?"
-     ],
-     "rec": "Pay the home's dues with their own payment method, receive the home's notices and send maintenance requests for it; never vote, never see the owner's saved payment details or other homes. The owner, or the board at the owner's request, names and removes them, and every change is in the home's history.",
-     "videos": []
+     "videos": [],
+     "reply": "Thank you. Agreed that minutes should not be the only accepted evidence. We recommend the board attaches approved minutes, a signed resolution or written consent, with the approval date and the vote recorded and kept with the published amendment. Publication stays blocked until one of these is on record. Please confirm this list is complete for launch."
     }
    ]
   },
@@ -422,86 +369,6 @@
       "Who sets up a community's architectural request types: the kinds of request, what each must include, and the days to decide?"
      ],
      "rec": "Keep it with the President, the person who decides architectural requests, for launch; let the HOA Administrator do it too only if a community asks.",
-     "videos": []
-    },
-    {
-     "id": "A43-2",
-     "qs": [
-      "Which documents should a household keep on a vehicle before the community gives it an active parking permit?"
-     ],
-     "rec": "Keep it as built.",
-     "videos": []
-    },
-    {
-     "id": "A43-3",
-     "qs": [
-      "When a household changes the license plate on a vehicle that has an active parking permit, what should happen to the permit?"
-     ],
-     "rec": "Keep it as built.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A44",
-   "group": "money",
-   "title": "Account-status letters, the card fee and refund requests",
-   "why": "A lender or a title company usually acts within a month; a shorter window keeps an old balance from being read as current, and a homeowner can create a new letter at any time.",
-   "rows": [
-    {
-     "id": "A44-1",
-     "qs": [
-      "For how long should a lender or a buyer be able to check a homeowner's account-status letter online?"
-     ],
-     "rec": "Keep it as built: 30 days.",
-     "videos": []
-    },
-    {
-     "id": "A44-2",
-     "qs": [
-      "Should the account-status letter say plainly that it is not a resale or estoppel certificate?"
-     ],
-     "rec": "Keep it as built.",
-     "videos": []
-    },
-    {
-     "id": "A44-3",
-     "qs": [
-      "Who may create an account-status letter for a home?"
-     ],
-     "rec": "Keep it as built.",
-     "videos": []
-    },
-    {
-     "id": "A44-4",
-     "qs": [
-      "When a card payment that carried the convenience fee is refunded, should the fee be returned too?"
-     ],
-     "rec": "Keep it as built.",
-     "videos": []
-    },
-    {
-     "id": "A44-5",
-     "qs": [
-      "Should AutoPay by card add the convenience fee to each automatic payment?"
-     ],
-     "rec": "Keep it as built: no fee on AutoPay at launch.",
-     "videos": []
-    },
-    {
-     "id": "A44-6",
-     "qs": [
-      "After the treasurer declines a refund request, may the homeowner ask again in the same month?"
-     ],
-     "rec": "Keep it as built.",
-     "videos": []
-    },
-    {
-     "id": "A44-7",
-     "qs": [
-      "Who may answer a homeowner's refund request (refund it, decline it, or keep the credit)?"
-     ],
-     "rec": "Keep it as built.",
      "videos": []
     }
    ]
@@ -521,137 +388,9 @@
      "videos": []
     },
     {
-     "id": "A45-2",
-     "qs": [
-      "Which tenants may ask for a refund of their own payment?"
-     ],
-     "rec": "Keep it as built.",
-     "videos": []
-    },
-    {
      "id": "A45-3",
      "qs": [
       "When the owner asks for a refund of a credit that partly came from their tenant's payment, should the owner's request cover the whole credit?"
-     ],
-     "rec": "Keep it as built.",
-     "videos": []
-    },
-    {
-     "id": "A45-4",
-     "qs": [
-      "Does a tenant's refund request use the home's one request a month?"
-     ],
-     "rec": "Keep it as built.",
-     "videos": []
-    },
-    {
-     "id": "A45-5",
-     "qs": [
-      "When the treasurer approves opening balances, which balances should be flagged for a second look besides the very large ones the import already warns about?"
-     ],
-     "rec": "Keep it as built.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A46",
-   "group": "community",
-   "title": "Clubhouse bookings, event replies and the neighbor directory",
-   "why": "Each keeps what a homeowner sees simple and keeps personal plans and addresses private unless the household chose to share them.",
-   "rows": [
-    {
-     "id": "A46-1",
-     "qs": [
-      "Which amenity's rules govern a clubhouse booking when a community has more than one clubhouse-type amenity?"
-     ],
-     "rec": "Keep it as built.",
-     "videos": []
-    },
-    {
-     "id": "A46-2",
-     "qs": [
-      "Should the rest of the household see a member's clubhouse booking in the home's history?"
-     ],
-     "rec": "Keep it as built.",
-     "videos": []
-    },
-    {
-     "id": "A46-3",
-     "qs": [
-      "When the community has not set a guest limit on an event, may residents bring guests?"
-     ],
-     "rec": "Keep it as built.",
-     "videos": []
-    },
-    {
-     "id": "A46-4",
-     "qs": [
-      "Who besides residents may RSVP to a community event?"
-     ],
-     "rec": "Keep it as built.",
-     "videos": []
-    },
-    {
-     "id": "A46-5",
-     "qs": [
-      "In the neighbor directory, does showing a household's unit also show its street?"
-     ],
-     "rec": "Keep it as built.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A47",
-   "group": "ops",
-   "title": "Support's reply promise and recording a home's change of hands",
-   "why": "A person who asks for help knows when to expect an answer, and a former owner's access ends on the day the home changes hands.",
-   "rows": [
-    {
-     "id": "A47-1",
-     "qs": [
-      "When someone sends a problem with the app to HOAhx support from the Help screen, the screen says support usually reads it within one business day. Is one business day the promise you want to make?"
-     ],
-     "rec": "Keep one business day for launch; shorten it later once you see how many reports arrive.",
-     "videos": []
-    },
-    {
-     "id": "A47-2",
-     "qs": [
-      "When staff transfer a home after someone joined it without an invitation, may the date the home changed hands be in the future?"
-     ],
-     "rec": "Keep it as built.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A48",
-   "group": "records",
-   "title": "Asking tenants and adults in a home to sign",
-   "why": "Everyone the community asks to sign is asked fairly, and the board sees who cannot be reached and why.",
-   "rows": [
-    {
-     "id": "A48-1",
-     "qs": [
-      "May a tenant be asked to sign only while their tenancy is active and the owner shares documents with them, and an adult in the home only once they have their own account?"
-     ],
-     "rec": "Keep it as built.",
-     "videos": []
-    },
-    {
-     "id": "A48-2",
-     "qs": [
-      "When the board sends a document for signature, should the list read Owners, Tenants and Adults in each home, with anyone who cannot be asked shown greyed out with the reason?"
-     ],
-     "rec": "Keep it as built.",
-     "videos": []
-    },
-    {
-     "id": "A48-3",
-     "qs": [
-      "If an owner stops sharing the community's documents with their tenant after the tenant was asked to sign one, should that request stay open for the tenant to answer?"
      ],
      "rec": "Keep it as built.",
      "videos": []
@@ -715,30 +454,6 @@
    ]
   },
   {
-   "id": "A51",
-   "group": "ops",
-   "title": "Who may use the HOAhx Assistant and what it may cite",
-   "why": "Everyone who lives in the community can ask, and each answer cites only what that person may already see.",
-   "rows": [
-    {
-     "id": "A51-1",
-     "qs": [
-      "Who may use the HOAhx Assistant once it is turned on?"
-     ],
-     "rec": "Let tenants use it too, reading only what the owner shares with them (their own requests and violations, community documents and announcements, never the owner's payments); keep staff without a home out until you ask for a staff version.",
-     "videos": []
-    },
-    {
-     "id": "A51-2",
-     "qs": [
-      "When a homeowner asks the HOAhx Assistant, may its answer cite a maintenance request or a violation that their tenant filed or received on that home?"
-     ],
-     "rec": "Keep it as built.",
-     "videos": []
-    }
-   ]
-  },
-  {
    "id": "A52",
    "group": "community",
    "title": "Selling a home, and board roles that end",
@@ -779,38 +494,6 @@
    ]
   },
   {
-   "id": "A53",
-   "group": "records",
-   "title": "Access for an outside auditor",
-   "why": "An auditor sees exactly the months and kinds of records the board chose, and access ends on its own.",
-   "rows": [
-    {
-     "id": "A53-1",
-     "qs": [
-      "When the President or Treasurer gives an outside auditor access, what range of records may one grant cover?"
-     ],
-     "rec": "Keep it as built.",
-     "videos": []
-    },
-    {
-     "id": "A53-2",
-     "qs": [
-      "May an auditor keep access longer than a year, or with no end date?"
-     ],
-     "rec": "Keep it as built.",
-     "videos": []
-    },
-    {
-     "id": "A53-3",
-     "qs": [
-      "When the board gives an auditor access, should the documents already published in the chosen kinds and months, board-only ones included, open to the auditor at once?"
-     ],
-     "rec": "Keep it as built.",
-     "videos": []
-    }
-   ]
-  },
-  {
    "id": "A54",
    "group": "community",
    "title": "A tenant's bookings when the owner turns reservations off",
@@ -843,53 +526,17 @@
    ]
   },
   {
-   "id": "A56",
-   "group": "ops",
-   "title": "How long an invitation lasts",
-   "why": "A homeowner who reads mail slowly should still be able to accept; the roles that carry authority already expire in 72 hours or less.",
-   "rows": [
-    {
-     "id": "A56-1",
-     "qs": [
-      "Should every invitation expire after three days, or should homeowners keep 7 days?"
-     ],
-     "rec": "Keep 7 days for homeowners and three days for board and staff roles, as decided on September 10.",
-     "videos": [
-      "11"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "A57",
-   "group": "money",
-   "title": "Second-factor check when a refund is approved",
-   "why": "A refund moves money out of the community's account, so the step that approves it should be as strong as the risk.",
-   "rows": [
-    {
-     "id": "A57-1",
-     "qs": [
-      "Should approving a refund ask for the second factor again, or is the password re-check on top of a two-factor sign-in enough for the launch?"
-     ],
-     "rec": "Keep what is built for the launch: two-factor at sign-in, two different financial people, and a fresh password check before money moves. Add the second-factor re-check later, with passkeys.",
-     "videos": [
-      "33"
-     ]
-    }
-   ]
-  },
-  {
    "id": "A58",
    "group": "money",
    "title": "Spreadsheet import of actual spending",
    "why": "Budget versus actual is only as good as the actuals; today the treasurer enters them by category beside the uploaded statement.",
    "rows": [
     {
-     "id": "A58-1",
+     "id": "A58-2",
      "qs": [
-      "Should the spreadsheet import of actual spending, with column mapping and duplicate flags, come into the launch ahead of downloadable receipts?"
+      "Should the spreadsheet import of actual spending, with column mapping and duplicate flags, come into the launch, or follow it as recorded on October 1?"
      ],
-     "rec": "Keep it after launch as recorded on October 1, unless you both rank it above downloadable receipts; then the first slice (column mapping and duplicate flags) comes in first.",
+     "rec": "Keep it after launch, as recorded on October 1: in the launch the treasurer uploads the month's statement and enters or confirms the spending by category. The first slice after launch is column mapping and duplicate flags; a review before anything is confirmed, and keeping the source file, follow it.",
      "videos": []
     }
    ]
@@ -917,25 +564,499 @@
      "videos": []
     }
    ]
-  },
-  {
-   "id": "A60",
-   "group": "community",
-   "title": "Who a message can be sent to at launch",
-   "why": "These choices already reach any group of homes; a saved list is a convenience that can follow.",
-   "rows": [
-    {
-     "id": "A60-1",
-     "qs": [
-      "Is sending to everyone, residents only, ticked homes, a building or a type of home enough for launch, with saved named lists after launch?"
-     ],
-     "rec": "Launch with everyone, residents only, ticked homes, a building or a type of home; named lists you keep come after launch.",
-     "videos": []
-    }
-   ]
   }
  ],
  "answered": [
+  {
+   "id": "A41-4",
+   "kind": "question",
+   "card": "Plan changes and pricing for larger communities",
+   "qs": [
+    "The implementation fee for a community of 500 homes or more is $299 for now. Should it stay one flat $299 at every size, or change with size?"
+   ],
+   "answer": "agree",
+   "rec": "Keep one flat $299 for every community of 500 homes or more, so a large community sees its full price and buys in the app like any other. The monthly price is already set by size ($0.50 a home), so the fee does not need to grow too. Revisit once the first large communities are set up.",
+   "build": "Keep one flat $299 for every community of 500 homes or more, so a large community sees its full price and buys in the app like any other. The monthly price is already set by size ($0.50 a home), so the fee does not need to grow too. Revisit once the first large communities are set up.",
+   "answeredOn": "2026-10-13",
+   "acceptedOn": "2026-10-13",
+   "status": "built"
+  },
+  {
+   "id": "A48-1",
+   "kind": "question",
+   "card": "Asking tenants and adults in a home to sign",
+   "qs": [
+    "May a tenant be asked to sign only while their tenancy is active and the owner shares documents with them, and an adult in the home only once they have their own account?"
+   ],
+   "answer": "agree",
+   "rec": "Keep it as built.",
+   "build": "Keep it as built.",
+   "answeredOn": "2026-10-13",
+   "acceptedOn": "2026-10-13",
+   "status": "built"
+  },
+  {
+   "id": "A48-2",
+   "kind": "question",
+   "card": "Asking tenants and adults in a home to sign",
+   "qs": [
+    "When the board sends a document for signature, should the list read Owners, Tenants and Adults in each home, with anyone who cannot be asked shown greyed out with the reason?"
+   ],
+   "answer": "agree",
+   "rec": "Keep it as built.",
+   "build": "Keep it as built.",
+   "answeredOn": "2026-10-13",
+   "acceptedOn": "2026-10-13",
+   "status": "built"
+  },
+  {
+   "id": "A48-3",
+   "kind": "question",
+   "card": "Asking tenants and adults in a home to sign",
+   "qs": [
+    "If an owner stops sharing the community's documents with their tenant after the tenant was asked to sign one, should that request stay open for the tenant to answer?"
+   ],
+   "answer": "agree",
+   "rec": "Keep it as built.",
+   "build": "Keep it as built.",
+   "answeredOn": "2026-10-13",
+   "acceptedOn": "2026-10-13",
+   "status": "built"
+  },
+  {
+   "id": "A51-1",
+   "kind": "question",
+   "card": "Who may use the HOAhx Assistant and what it may cite",
+   "qs": [
+    "Who may use the HOAhx Assistant once it is turned on?"
+   ],
+   "answer": "agree",
+   "rec": "Let tenants use it too, reading only what the owner shares with them (their own requests and violations, community documents and announcements, never the owner's payments); keep staff without a home out until you ask for a staff version.",
+   "build": "Let tenants use it too, reading only what the owner shares with them (their own requests and violations, community documents and announcements, never the owner's payments); keep staff without a home out until you ask for a staff version.",
+   "answeredOn": "2026-10-13",
+   "acceptedOn": "2026-10-13",
+   "status": "planned"
+  },
+  {
+   "id": "A51-2",
+   "kind": "question",
+   "card": "Who may use the HOAhx Assistant and what it may cite",
+   "qs": [
+    "When a homeowner asks the HOAhx Assistant, may its answer cite a maintenance request or a violation that their tenant filed or received on that home?"
+   ],
+   "answer": "agree",
+   "rec": "Keep it as built.",
+   "build": "Keep it as built.",
+   "answeredOn": "2026-10-13",
+   "acceptedOn": "2026-10-13",
+   "status": "built"
+  },
+  {
+   "id": "A53-1",
+   "kind": "question",
+   "card": "Access for an outside auditor",
+   "qs": [
+    "When the President or Treasurer gives an outside auditor access, what range of records may one grant cover?"
+   ],
+   "answer": "agree",
+   "rec": "Keep it as built.",
+   "build": "Keep it as built.",
+   "answeredOn": "2026-10-13",
+   "acceptedOn": "2026-10-13",
+   "status": "built"
+  },
+  {
+   "id": "A53-2",
+   "kind": "question",
+   "card": "Access for an outside auditor",
+   "qs": [
+    "May an auditor keep access longer than a year, or with no end date?"
+   ],
+   "answer": "agree",
+   "rec": "Keep it as built.",
+   "build": "Keep it as built.",
+   "answeredOn": "2026-10-13",
+   "acceptedOn": "2026-10-13",
+   "status": "built"
+  },
+  {
+   "id": "A53-3",
+   "kind": "question",
+   "card": "Access for an outside auditor",
+   "qs": [
+    "When the board gives an auditor access, should the documents already published in the chosen kinds and months, board-only ones included, open to the auditor at once?"
+   ],
+   "answer": "agree",
+   "rec": "Keep it as built.",
+   "build": "Keep it as built.",
+   "answeredOn": "2026-10-13",
+   "acceptedOn": "2026-10-13",
+   "status": "built"
+  },
+  {
+   "id": "A56-1",
+   "kind": "question",
+   "card": "How long an invitation lasts",
+   "qs": [
+    "Should every invitation expire after three days, or should homeowners keep 7 days?"
+   ],
+   "answer": "agree",
+   "rec": "Keep 7 days for homeowners and three days for board and staff roles, as decided on September 10.",
+   "build": "Keep 7 days for homeowners and three days for board and staff roles, as decided on September 10.",
+   "answeredOn": "2026-10-13",
+   "acceptedOn": "2026-10-13",
+   "status": "built"
+  },
+  {
+   "id": "A57-1",
+   "kind": "question",
+   "card": "Second-factor check when a refund is approved",
+   "qs": [
+    "Should approving a refund ask for the second factor again, or is the password re-check on top of a two-factor sign-in enough for the launch?"
+   ],
+   "answer": "agree",
+   "rec": "Keep what is built for the launch: two-factor at sign-in, two different financial people, and a fresh password check before money moves. Add the second-factor re-check later, with passkeys.",
+   "build": "Keep what is built for the launch: two-factor at sign-in, two different financial people, and a fresh password check before money moves. Add the second-factor re-check later, with passkeys.",
+   "answeredOn": "2026-10-13",
+   "acceptedOn": "2026-10-13",
+   "status": "built"
+  },
+  {
+   "id": "A60-1",
+   "kind": "question",
+   "card": "Who a message can be sent to at launch",
+   "qs": [
+    "Is sending to everyone, residents only, ticked homes, a building or a type of home enough for launch, with saved named lists after launch?"
+   ],
+   "answer": "agree",
+   "rec": "Launch with everyone, residents only, ticked homes, a building or a type of home; named lists you keep come after launch.",
+   "build": "Launch with everyone, residents only, ticked homes, a building or a type of home; named lists you keep come after launch.",
+   "answeredOn": "2026-10-13",
+   "acceptedOn": "2026-10-13",
+   "status": "built"
+  },
+  {
+   "id": "A41-1",
+   "kind": "question",
+   "card": "Plan changes and pricing for larger communities",
+   "qs": [
+    "When a community changes its HOAhx plan during the free trial, what happens?"
+   ],
+   "answer": "agree",
+   "rec": "The new plan starts at once and nothing is charged during the trial. The trial keeps its end date, and the first charge at its end is the new plan's price.",
+   "build": "Keep as-is (proceed as planned)",
+   "answeredOn": "2026-10-10",
+   "acceptedOn": "2026-10-12",
+   "status": "planned"
+  },
+  {
+   "id": "A41-2",
+   "kind": "question",
+   "card": "Plan changes and pricing for larger communities",
+   "qs": [
+    "When a community moves to a different plan that costs the same, when does it take effect?"
+   ],
+   "answer": "agree",
+   "rec": "On the next billing date, nothing charged or refunded now, told as \"a plan change at the same price\".",
+   "build": "Keep as-is (proceed as planned)",
+   "answeredOn": "2026-10-10",
+   "acceptedOn": "2026-10-12",
+   "status": "planned"
+  },
+  {
+   "id": "A42-1",
+   "kind": "question",
+   "card": "Tenants and rental managers for a home",
+   "qs": [
+    "May a homeowner invite their own tenant and choose what the tenant may use and until when?"
+   ],
+   "answer": "agree",
+   "rec": "Yes, as built.",
+   "build": "Keep as-is (proceed as planned)",
+   "answeredOn": "2026-10-10",
+   "acceptedOn": "2026-10-12",
+   "status": "planned"
+  },
+  {
+   "id": "A42-2",
+   "kind": "question",
+   "card": "Tenants and rental managers for a home",
+   "qs": [
+    "An owner who rents out a home can name a rental manager (a rental company or a person) for that home, with a start and end date. What may the rental manager do?"
+   ],
+   "answer": "agree",
+   "rec": "Pay the home's dues with their own payment method, receive the home's notices and send maintenance requests for it; never vote, never see the owner's saved payment details or other homes. The owner, or the board at the owner's request, names and removes them, and every change is in the home's history.",
+   "build": "Keep as-is (proceed as planned)",
+   "answeredOn": "2026-10-10",
+   "acceptedOn": "2026-10-12",
+   "status": "planned"
+  },
+  {
+   "id": "A43-2",
+   "kind": "question",
+   "card": "Architectural request types and parking permits",
+   "qs": [
+    "Which documents should a household keep on a vehicle before the community gives it an active parking permit?"
+   ],
+   "answer": "agree",
+   "rec": "Keep it as built.",
+   "build": "Keep as-is (proceed as planned)",
+   "answeredOn": "2026-10-10",
+   "acceptedOn": "2026-10-12",
+   "status": "planned"
+  },
+  {
+   "id": "A43-3",
+   "kind": "question",
+   "card": "Architectural request types and parking permits",
+   "qs": [
+    "When a household changes the license plate on a vehicle that has an active parking permit, what should happen to the permit?"
+   ],
+   "answer": "agree",
+   "rec": "Keep it as built.",
+   "build": "Keep as-is (proceed as planned)",
+   "answeredOn": "2026-10-10",
+   "acceptedOn": "2026-10-12",
+   "status": "planned"
+  },
+  {
+   "id": "A44-1",
+   "kind": "question",
+   "card": "Account-status letters, the card fee and refund requests",
+   "qs": [
+    "For how long should a lender or a buyer be able to check a homeowner's account-status letter online?"
+   ],
+   "answer": "agree",
+   "rec": "Keep it as built: 30 days.",
+   "build": "Keep as-is (proceed as planned)",
+   "answeredOn": "2026-10-10",
+   "acceptedOn": "2026-10-12",
+   "status": "planned"
+  },
+  {
+   "id": "A44-2",
+   "kind": "question",
+   "card": "Account-status letters, the card fee and refund requests",
+   "qs": [
+    "Should the account-status letter say plainly that it is not a resale or estoppel certificate?"
+   ],
+   "answer": "agree",
+   "rec": "Keep it as built.",
+   "build": "Keep as-is (proceed as planned)",
+   "answeredOn": "2026-10-10",
+   "acceptedOn": "2026-10-12",
+   "status": "planned"
+  },
+  {
+   "id": "A44-3",
+   "kind": "question",
+   "card": "Account-status letters, the card fee and refund requests",
+   "qs": [
+    "Who may create an account-status letter for a home?"
+   ],
+   "answer": "agree",
+   "rec": "Keep it as built.",
+   "build": "Keep as-is (proceed as planned)",
+   "answeredOn": "2026-10-10",
+   "acceptedOn": "2026-10-12",
+   "status": "planned"
+  },
+  {
+   "id": "A44-4",
+   "kind": "question",
+   "card": "Account-status letters, the card fee and refund requests",
+   "qs": [
+    "When a card payment that carried the convenience fee is refunded, should the fee be returned too?"
+   ],
+   "answer": "agree",
+   "rec": "Keep it as built.",
+   "build": "Keep as-is (proceed as planned)",
+   "answeredOn": "2026-10-10",
+   "acceptedOn": "2026-10-12",
+   "status": "planned"
+  },
+  {
+   "id": "A44-5",
+   "kind": "question",
+   "card": "Account-status letters, the card fee and refund requests",
+   "qs": [
+    "Should AutoPay by card add the convenience fee to each automatic payment?"
+   ],
+   "answer": "agree",
+   "rec": "Keep it as built: no fee on AutoPay at launch.",
+   "build": "Keep as-is (proceed as planned)",
+   "answeredOn": "2026-10-10",
+   "acceptedOn": "2026-10-12",
+   "status": "planned"
+  },
+  {
+   "id": "A44-6",
+   "kind": "question",
+   "card": "Account-status letters, the card fee and refund requests",
+   "qs": [
+    "After the treasurer declines a refund request, may the homeowner ask again in the same month?"
+   ],
+   "answer": "agree",
+   "rec": "Keep it as built.",
+   "build": "Keep as-is (proceed as planned)",
+   "answeredOn": "2026-10-10",
+   "acceptedOn": "2026-10-12",
+   "status": "planned"
+  },
+  {
+   "id": "A44-7",
+   "kind": "question",
+   "card": "Account-status letters, the card fee and refund requests",
+   "qs": [
+    "Who may answer a homeowner's refund request (refund it, decline it, or keep the credit)?"
+   ],
+   "answer": "agree",
+   "rec": "Keep it as built.",
+   "build": "Keep as-is (proceed as planned)",
+   "answeredOn": "2026-10-10",
+   "acceptedOn": "2026-10-12",
+   "status": "planned"
+  },
+  {
+   "id": "A45-2",
+   "kind": "question",
+   "card": "Account credits, refund requests from tenants, and opening balances",
+   "qs": [
+    "Which tenants may ask for a refund of their own payment?"
+   ],
+   "answer": "agree",
+   "rec": "Keep it as built.",
+   "build": "Keep as-is (proceed as planned)",
+   "answeredOn": "2026-10-10",
+   "acceptedOn": "2026-10-12",
+   "status": "planned"
+  },
+  {
+   "id": "A45-4",
+   "kind": "question",
+   "card": "Account credits, refund requests from tenants, and opening balances",
+   "qs": [
+    "Does a tenant's refund request use the home's one request a month?"
+   ],
+   "answer": "agree",
+   "rec": "Keep it as built.",
+   "build": "Keep as-is (proceed as planned)",
+   "answeredOn": "2026-10-10",
+   "acceptedOn": "2026-10-12",
+   "status": "planned"
+  },
+  {
+   "id": "A45-5",
+   "kind": "question",
+   "card": "Account credits, refund requests from tenants, and opening balances",
+   "qs": [
+    "When the treasurer approves opening balances, which balances should be flagged for a second look besides the very large ones the import already warns about?"
+   ],
+   "answer": "agree",
+   "rec": "Keep it as built.",
+   "build": "Keep as-is (proceed as planned)",
+   "answeredOn": "2026-10-10",
+   "acceptedOn": "2026-10-12",
+   "status": "planned"
+  },
+  {
+   "id": "A46-1",
+   "kind": "question",
+   "card": "Clubhouse bookings, event replies and the neighbor directory",
+   "qs": [
+    "Which amenity's rules govern a clubhouse booking when a community has more than one clubhouse-type amenity?"
+   ],
+   "answer": "agree",
+   "rec": "Keep it as built.",
+   "build": "Keep as-is (proceed as planned)",
+   "answeredOn": "2026-10-10",
+   "acceptedOn": "2026-10-12",
+   "status": "planned"
+  },
+  {
+   "id": "A46-2",
+   "kind": "question",
+   "card": "Clubhouse bookings, event replies and the neighbor directory",
+   "qs": [
+    "Should the rest of the household see a member's clubhouse booking in the home's history?"
+   ],
+   "answer": "agree",
+   "rec": "Keep it as built.",
+   "build": "Keep as-is (proceed as planned)",
+   "answeredOn": "2026-10-10",
+   "acceptedOn": "2026-10-12",
+   "status": "planned"
+  },
+  {
+   "id": "A46-3",
+   "kind": "question",
+   "card": "Clubhouse bookings, event replies and the neighbor directory",
+   "qs": [
+    "When the community has not set a guest limit on an event, may residents bring guests?"
+   ],
+   "answer": "agree",
+   "rec": "Keep it as built.",
+   "build": "Keep as-is (proceed as planned)",
+   "answeredOn": "2026-10-10",
+   "acceptedOn": "2026-10-12",
+   "status": "planned"
+  },
+  {
+   "id": "A46-4",
+   "kind": "question",
+   "card": "Clubhouse bookings, event replies and the neighbor directory",
+   "qs": [
+    "Who besides residents may RSVP to a community event?"
+   ],
+   "answer": "agree",
+   "rec": "Keep it as built.",
+   "build": "Keep as-is (proceed as planned)",
+   "answeredOn": "2026-10-10",
+   "acceptedOn": "2026-10-12",
+   "status": "planned"
+  },
+  {
+   "id": "A46-5",
+   "kind": "question",
+   "card": "Clubhouse bookings, event replies and the neighbor directory",
+   "qs": [
+    "In the neighbor directory, does showing a household's unit also show its street?"
+   ],
+   "answer": "agree",
+   "rec": "Keep it as built.",
+   "build": "Keep as-is (proceed as planned)",
+   "answeredOn": "2026-10-10",
+   "acceptedOn": "2026-10-12",
+   "status": "planned"
+  },
+  {
+   "id": "A47-1",
+   "kind": "question",
+   "card": "Support's reply promise and recording a home's change of hands",
+   "qs": [
+    "When someone sends a problem with the app to HOAhx support from the Help screen, the screen says support usually reads it within one business day. Is one business day the promise you want to make?"
+   ],
+   "answer": "agree",
+   "rec": "Keep one business day for launch; shorten it later once you see how many reports arrive.",
+   "build": "Keep as-is (proceed as planned)",
+   "answeredOn": "2026-10-10",
+   "acceptedOn": "2026-10-12",
+   "status": "planned"
+  },
+  {
+   "id": "A47-2",
+   "kind": "question",
+   "card": "Support's reply promise and recording a home's change of hands",
+   "qs": [
+    "When staff transfer a home after someone joined it without an invitation, may the date the home changed hands be in the future?"
+   ],
+   "answer": "agree",
+   "rec": "Keep it as built.",
+   "build": "Keep as-is (proceed as planned)",
+   "answeredOn": "2026-10-10",
+   "acceptedOn": "2026-10-12",
+   "status": "planned"
+  },
   {
    "id": "A23-2",
    "kind": "question",
