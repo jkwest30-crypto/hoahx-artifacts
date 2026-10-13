@@ -78,7 +78,7 @@
      ],
      "rec": "Meetings ship as they are: agenda, location, and minutes, plus the board roster, role dates, and decision records. Meeting notices, RSVPs, and attendance tracking are not in the launch.",
      "videos": [],
-     "why": "Boards can schedule meetings and post agendas and minutes now. Notices, RSVPs and attendance would add building time before launch, and the board roster and decision records matter more to homeowners on day one.",
+     "why": "Boards can schedule meetings and post agendas and minutes now. Notices, RSVPs and attendance would add building time before launch, and the board roster and decision records matter more to homeowners on day one. Events on the community calendar take RSVPs, as your Core list asks, so a meeting the board wants residents to respond to can be posted as an event.",
      "reply": "Meetings: at launch HOAhx would carry agendas, attachments, approved minutes, the decision record, and the notice sent with its delivery record. Can attendance, quorum status and motions follow after launch? We recommend yes.\n\nEverything else we will build as you wrote it."
     }
    ]
@@ -140,7 +140,7 @@
      "qs": [
       "Should managers, the President, and the Secretary be able to read every conversation in the community?"
      ],
-     "rec": "Managers, the President, and the Secretary can read every conversation with the office, as now, and the message screen says so plainly, so nobody mistakes a thread with the office for a private one.",
+     "rec": "Managers, the President, the Secretary and the HOA Administrator can read every conversation with the office, as now, and the message screen says so plainly, so nobody mistakes a thread with the office for a private one.",
      "videos": [],
      "why": "Officers reading every conversation helps with disputes and with covering an absent colleague, but it would surprise a resident who thought a thread with the office was private. Keeping it, and saying so on the screen, gives the board what it needs and tells residents the truth.",
      "reply": "Messages to the office: at launch each community chooses which roles read them, the resident sees exactly who can read before sending, and every access is recorded. Can restricting sensitive conversations to designated people follow after launch? We recommend yes.\n\nEverything else we will build as you wrote it."
@@ -177,7 +177,7 @@
      ],
      "rec": "When two people claim ownership, an administrator verifies the deed or the closing record before the primary-owner designation changes. One primary owner per property is enforced, and the outcome is recorded with its evidence. Until it is verified, the owner on record stays primary and the bills keep going to them.",
      "videos": [],
-     "why": "A home can have several owners, but one is marked primary for contact and billing, and nothing settles who that is when owners disagree. Checking the deed before the designation changes, and keeping the evidence, is what your Core list asks for, and the bills keep going to the right person meanwhile.",
+     "why": "A home can have several owners, but one is marked primary for contact and billing, and nothing settles who that is when owners disagree. Checking the deed before the designation changes, and keeping the evidence, is what your Core list asks for, and the bills keep going to the right person meanwhile. Co-owners keep their rights while the primary designation is checked, as your Core list says.",
      "reply": "Thank you, we agree with all of it. An administrator verifies the deed or closing record before anything changes, the record shows what was reviewed and who approved it, and a claim alone never removes an owner, changes a vote or redirects a notice. We will keep owners and the primary contact as separate things, allow more than one verified owner on a home, and let the community name one primary contact. Bills and payment history stay with the home."
     }
    ]
@@ -196,7 +196,7 @@
      ],
      "rec": "On an annual plan the home count is checked at renewal only: no mid-term charge when homes are added, no mid-term refund when they leave. The new tier applies from the renewal and is shown at checkout.",
      "videos": [],
-     "why": "Checking the home count only at renewal keeps an annual plan simple: one price for the year, no surprise charges or refunds mid-term, and the new tier shown before anyone commits to it.",
+     "why": "Your requirements document kept counting homes on an annual plan and suggested a prorated adjustment on a material increase, with a note to clarify. We recommend the simpler rule because the year is paid up front and the difference inside it is small: one price for the year, no surprise charges or refunds mid-term, and the new tier shown at renewal before anyone commits. If you want the proration, say what counts as a material increase.",
      "reply": "Thank you. We agree: no mid-term charge or refund within the paid tier, the home count is checked at renewal, and the renewal price is shown in advance. We will add your point: if a community grows beyond its tier's maximum, the administrator is notified and must approve before the plan changes or anything more is billed."
     }
    ]
@@ -354,9 +354,9 @@
      "qs": [
       "When an amended budget is published, who should be told, and how?"
      ],
-     "rec": "Keep it as built: one in-app notice each to the board and to residents, no e-mail.",
+     "rec": "Both: one in-app notice and one e-mail to each board role and each resident, sent only after the approved amendment is published, with a short summary of what changed and a link to the budget; the history records when it was published and when the notices went out.",
      "videos": [],
-     "why": "Both the board and residents should learn when an amended budget is published, and one notice each avoids duplicates for a board member who also lives in the community. An e-mail on top can be added if you want it."
+     "why": "Your Core list asks for an in-app notification center and e-mail, and you asked for both on October 10. One notice each avoids duplicates for a board member who also lives in the community, and the summary and link let a resident see what changed without hunting for it."
     },
     {
      "id": "A40-3",
@@ -408,9 +408,9 @@
      "qs": [
       "When a home has a credit on its account, which kinds of entries should count as explained, so the treasurer is not asked to look at them?"
      ],
-     "rec": "A payment, a credit or adjustment a second financial user approved, and the opening balance brought over at launch count as explained; any other credit is flagged for the treasurer.",
+     "rec": "An entry counts as explained only when HOAhx made it and linked it to its source: a settled overpayment or duplicate payment credited to the home, a credit applied to a charge, a refund or credit completed through the approval path, and the opening balance the Treasurer reconciled and approved at import. A credit entered by hand, a write-off, a fee waiver, a reversal, a chargeback and an unmatched payment stay in the treasurer's review queue. Every entry stays visible in the ledger and the history.",
      "videos": [],
-     "why": "The treasurer is asked to look only at a credit nobody can explain. Counting a payment, an approved adjustment and the opening balance as explained keeps that list short and real."
+     "why": "The review queue is for credits a person still has to look at, and your October 10 note draws that line where we would: HOAhx's own linked entries need no second look, hand-entered ones do. The opening balance counts because the import already makes the Treasurer reconcile it and approve it before it lands; a hand-entered adjustment goes to the queue even when a second financial user approved it."
     },
     {
      "id": "A45-3",
@@ -471,7 +471,7 @@
      ],
      "rec": "Yes: the treasurer puts homes in a named group with its own amount, and every other home pays the schedule amount. A home is in one group at a time, and a change applies from the next due date; amounts already charged stay as they are.",
      "videos": [],
-     "why": "A named group of homes with its own amount covers townhomes and houses on one schedule without a second schedule, so one figure is used for the balance, AutoPay and the overdue list. Applying a change from the next due date leaves amounts already charged alone."
+     "why": "Your Core list asks for charges by property or assessment group. A named group of homes with its own amount covers townhomes and houses on one schedule without a second schedule, so one figure is used for the balance, AutoPay and the overdue list. Applying a change from the next due date leaves amounts already charged alone."
     },
     {
      "id": "A50-3",
@@ -480,7 +480,7 @@
      ],
      "rec": "The import stops that home until the person importing picks the right balance or leaves one row out. Two rows that agree are brought in once.",
      "videos": [],
-     "why": "A home brought in twice with two balances would start the community with a wrong amount owed, which the homeowner would see on day one. Stopping that home until someone picks the right row is safer than guessing."
+     "why": "Your Core list asks the import for duplicate detection and a review before anything is committed. A home brought in twice with two balances would start the community with a wrong amount owed, which the homeowner would see on day one. Stopping that home until someone picks the right row is safer than guessing."
     }
    ]
   },
@@ -506,7 +506,7 @@
      ],
      "rec": "Not for the launch: the handoff is confirmed on or after the closing day, the same rule as approving a buyer who asks to join. Scheduling a handoff ahead can follow after launch.",
      "videos": [],
-     "why": "Ending someone's access on a future day needs a daily step that is not built; confirming on or after the closing day is simple and safe, and it is the same rule as approving a buyer who asks to join."
+     "why": "Ending someone's access on a future day needs a daily step that is not built; confirming on or after the closing day is simple and safe, and it is the same rule as approving a buyer who asks to join. The expected and final closing dates are still recorded on the sale, as your Core list asks."
     },
     {
      "id": "A52-3",
