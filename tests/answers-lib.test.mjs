@@ -525,3 +525,14 @@ test('critical: the published file allows a plain reason and nothing else, and t
   const leak = clone(screens); leak.features[0].screens[0].critical.why = 'Needed by Oct 2: see D-049.';
   assert.throws(() => guardPublished('screens.json', JSON.stringify(leak)), /D-049/);
 });
+
+test('questions: a line may say why we recommend it, and the page reads it', () => {
+  const src = source();
+  src.cards[0].rec[0].why = 'The community is the one buying the service.';
+  const q = buildQuestions(src, { pending: pendingAll(), answeredButOpen: ['D-059'] });
+  assert.deepEqual(Object.keys(q.cards[0].rows[0]), ['id', 'qs', 'rec', 'videos', 'why']);
+  assert.equal(q.cards[0].rows[0].why, 'The community is the one buying the service.');
+  assert.equal('why' in q.cards[0].rows[1], false);
+  const blank = source(); blank.cards[0].rec[0].why = ' ';
+  assert.throws(() => checkSource(blank), /"why" must be a plain sentence, or left out/);
+});

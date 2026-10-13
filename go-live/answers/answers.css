@@ -214,6 +214,10 @@ footer b{color:var(--ink-2)}
 .group-critical>.group-h h3{color:var(--ink)}
 
 /* Our reply on an open question or screen, and the Answered Questions tab */
+.why{font-size:13.5px;border-left:2px solid var(--accent);padding:6px 10px;color:var(--ink-2);overflow-wrap:anywhere;margin-top:6px}
+.why b{display:block;font-size:12px;font-weight:600;color:var(--accent)}
+.why span{white-space:pre-line}
+.rec-btn[aria-expanded="false"]+.why{display:none}
 .reply{font-size:13.5px;border-left:2px solid var(--accent-2);background:var(--accent-wash);padding:8px 10px;color:var(--ink-2);overflow-wrap:anywhere}
 .reply b{display:block;font-size:12px;font-weight:600;color:var(--accent)}
 .reply span{white-space:pre-line}

@@ -252,7 +252,7 @@
     return '<div class="q is-' + s + (r.critical ? ' is-critical' : '') + '" data-row="' + esc(r.id) + '" data-state="' + s + '"' + (r.critical ? ' data-critical="true"' : '') + '><div class="q-main">' + critHtml(r.critical) +
       r.qs.map((q) => '<p class="q-text">' + esc(q) + '</p>').join('') +
       '<button type="button" class="rec-btn" data-toggle aria-expanded="' + exp + '"><span class="k">Our recommendation</span><span class="t">' + esc(r.rec) + '</span></button>' +
-      vids(r.videos) + replyHtml(r.reply) +
+      whyHtml(r.why) + vids(r.videos) + replyHtml(r.reply) +
       (boxHere ? inlineBox(r, s) : '') +
       (!boxHere && NOTE[s] ? '<div class="q-note c-' + s + '"><b>' + (note ? NOTE[s].shown : NOTE[s].none) + '</b>' + (note ? '<span>' + esc(note) + '</span>' : '') + '<button type="button" class="link-btn" data-edit>' + (note ? 'Edit' : 'Add a note') + '</button></div>' : '') +
       '</div><div class="q-act"><div class="btns">' +
@@ -288,6 +288,8 @@
   const A_STATUS = { planned: 'Planned', built: 'Built', live: 'Live' };
   const A_STATUS_HINT = { planned: 'On the plan; not built yet', built: 'Built and on the test site', live: 'Live for everyone' };
   function replyHtml(text) { return text ? '<div class="reply"><b>Our reply</b><span>' + esc(text) + '</span></div>' : ''; }
+  // Why we recommend it: shown once the recommendation is opened, so the list stays scannable.
+  function whyHtml(text) { return text ? '<div class="why"><b>Why we recommend it</b><span>' + esc(text) + '</span></div>' : ''; }
   function answeredHtml(a) {
     const isScreen = a.kind === 'screen';
     const note = String(state.notes[a.id] || '').trim();

@@ -99,6 +99,7 @@ export function checkSource(src) {
       if (r.q != null && !questionsOf(r.q).length) throw new Error(`${r.id}: "q" is empty`);
       if (!Array.isArray(r.videos)) throw new Error(`${r.id}: "videos" must be a list (empty when no video shows it built)`);
       for (const n of r.videos) if (!VIDEO_NO.test(n)) throw new Error(`${r.id}: video "${n}" is not a two-digit number`);
+      if ('why' in r && (typeof r.why !== 'string' || !r.why.trim())) throw new Error(`${r.id}: "why" must be a plain sentence, or left out`);
       const key = r.d.slice().sort().join('+');
       sameEntries.set(key, (sameEntries.get(key) || []).concat(r));
       lines += 1;
@@ -134,6 +135,7 @@ export function buildQuestions(src, { pending, answeredButOpen = [], criticalOf 
       if (!open.length) { dropped.push({ id: r.id, why: `${r.d.join(', ')} no longer pending` }); continue; }
       const qs = r.q != null ? questionsOf(r.q) : open.map((id) => questionOf.get(id));
       const row = { id: r.id, qs, rec: r.text, videos: r.videos.slice() };
+      if (r.why) row.why = r.why.trim();   // why we recommend it, in the owners' words; shown under the recommendation
       const crit = criticalOf && criticalOf(open);
       if (crit) row.critical = crit;
       rows.push(row);
@@ -519,7 +521,7 @@ export function checkPublished(data, screens) {
   const groups = new Set(data.groups.map((g) => g.id));
   const ids = new Set();
   const allowedCard = new Set(['id', 'group', 'title', 'note', 'why', 'rows']);
-  const allowedRow = new Set(['id', 'qs', 'rec', 'videos', 'critical', 'reply']);
+  const allowedRow = new Set(['id', 'qs', 'rec', 'why', 'videos', 'critical', 'reply']);
   let rows = 0;
   for (const c of data.cards) {
     for (const k of Object.keys(c)) if (!allowedCard.has(k)) throw new Error(`data.json: card ${c.id} carries "${k}", which the page does not read`);
@@ -534,6 +536,7 @@ export function checkPublished(data, screens) {
       if (!r.rec) throw new Error(`data.json: ${r.id} has no recommendation`);
       if ('critical' in r) checkCritical(`data.json: ${r.id}`, r.critical);
       if ('reply' in r && !String(r.reply || '').trim()) throw new Error(`data.json: ${r.id} has an empty reply`);
+      if ('why' in r && !String(r.why || '').trim()) throw new Error(`data.json: ${r.id} has an empty why`);
       for (const n of r.videos) if (!data.videos[n]) throw new Error(`data.json: ${r.id} names video ${n}, which has no link`);
       rows += 1;
     }
@@ -596,6 +599,7 @@ export function describeChange(before, after) {
     else {
       if (JSON.stringify(was.qs) !== JSON.stringify(r.qs)) out.push(`~ question ${id}: the question reads differently`);
       if (was.rec !== r.rec) out.push(`~ question ${id}: the recommendation reads differently`);
+      if ((was.why || '') !== (r.why || '')) out.push(`~ question ${id}: ${r.why ? 'the why reads differently' : 'the why is gone'}`);
       if (JSON.stringify(was.videos) !== JSON.stringify(r.videos)) out.push(`~ question ${id}: videos ${was.videos.join(', ') || 'none'} -> ${r.videos.join(', ') || 'none'}`);
       if (JSON.stringify(was.critical || null) !== JSON.stringify(r.critical || null)) out.push(`~ question ${id}: ${r.critical ? 'critical, ' + r.critical.why : 'no longer critical'}`);
     }
