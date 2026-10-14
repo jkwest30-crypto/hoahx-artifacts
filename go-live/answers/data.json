@@ -1,7 +1,69 @@
 {
- "updated": "2026-10-13",
- "groups": [],
- "cards": [],
+ "updated": "2026-10-14",
+ "groups": [
+  {
+   "id": "money",
+   "title": "Money: dues, the ledger, and the books"
+  },
+  {
+   "id": "community",
+   "title": "Community life"
+  },
+  {
+   "id": "pricing",
+   "title": "Pricing"
+  }
+ ],
+ "cards": [
+  {
+   "id": "A61",
+   "group": "money",
+   "title": "Homes already behind when the first community starts",
+   "why": "If a home starts behind, those screens must be right on day one; if none does, they are proven over the first dues cycle instead. Nothing is left out of the build either way.",
+   "rows": [
+    {
+     "id": "A61-1",
+     "qs": [
+      "Will any home in the first community start behind, with an amount owed carried into its opening balance?"
+     ],
+     "rec": "Tell us whether any home starts behind. Until you do, we build and check as if one does, so the delinquency list, the aging and the first notices are proven on that community's real balances before launch.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A62",
+   "group": "community",
+   "title": "A vote or election in the first community's first month",
+   "why": "Eligibility and quorum come from the roster. A vote in the first weeks runs on records that were just imported; a month later it runs on records the board has confirmed.",
+   "rows": [
+    {
+     "id": "A62-1",
+     "qs": [
+      "Will the first community hold a formal vote or an election in its first month on HOAhx?"
+     ],
+     "rec": "Hold the first formal vote in the second month, once the board has confirmed the roster and the co-owner records; if a vote must run in month one, tell us now and we validate that community's voting rules before launch.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A63",
+   "group": "pricing",
+   "title": "Sales tax on the community subscription: which states",
+   "why": "You answered yes to a tax line on the subscription screens. Tax can only be charged where HOAhx is set up with the state to collect it, so the states decide what the first invoices show; nothing else waits on this.",
+   "rows": [
+    {
+     "id": "A63-1",
+     "qs": [
+      "In which states must HOAhx collect sales tax on the community subscription, and will HOAhx be set up with those states to collect it before launch?"
+     ],
+     "rec": "Have your accountant name the states where the subscription is taxable and where HOAhx will be set up to collect it. Until then the rate is zero and no tax line shows; a state can be added later without changing anything a community has already paid.",
+     "videos": []
+    }
+   ]
+  }
+ ],
  "answered": [
   {
    "id": "A09-2",
@@ -560,6 +622,21 @@
    "rec": "A home counts as behind once the grace period has passed, the same day the late fee is added and the invoice reads Past Due.",
    "build": "A home counts as behind once the grace period has passed, the same day the late fee is added and the invoice reads Past Due.",
    "answeredOn": "2026-10-13",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "S-A2",
+   "kind": "screen",
+   "code": "A2",
+   "card": "The community's HOAhx subscription",
+   "qs": [
+    "The free trial, and starting the subscription"
+   ],
+   "answer": "change",
+   "build": "Built with the changes you asked for, in your words above.",
+   "url": "https://hoahx-staging.web.app/preview/A2",
+   "answeredOn": "2026-09-30",
    "acceptedOn": "2026-10-14",
    "status": "planned"
   },

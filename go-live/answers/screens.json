@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-13",
+ "updated": "2026-10-14",
  "previewUrl": "https://hoahx-staging.web.app/preview",
  "features": [
   {
@@ -20,8 +20,7 @@
      "title": "The free trial, and starting the subscription",
      "what": "How many days of the free trial are left and what happens when it ends, then the steps to start: accept the terms, add a bank account or card, confirm. It ends with a receipt and the next renewal date.",
      "url": "https://hoahx-staging.web.app/preview/A2",
-     "videos": [],
-     "reply": "Thank you. We have your notes on this screen. We are checking each one against what is built and what is planned, and we will send you a screen-by-screen answer."
+     "videos": []
     },
     {
      "id": "S-A3",
@@ -143,7 +142,7 @@
      "what": "Every home with an overdue balance: the amount, how long it has been overdue, where the case stands, who is following up and the last thing sent. A notice can go to several homes at once, with a confirmation naming how many.",
      "url": "https://hoahx-staging.web.app/preview/C1",
      "videos": [],
-     "reply": "Thank you. We have your notes on this screen. We are checking each one against what is built and what is planned, and we will send you a screen-by-screen answer."
+     "reply": "Rustin, we will make every change you listed: \"Under 30 days overdue\" with past-due accounts only; one \"Notice history\" control; the two homes needing the board decision matched to their rows; the unassigned alert kept, with an owner and a next follow-up date; and stage-aware bulk notices that leave out a home with a payment plan, a pending payment, a later notice already sent, a dispute or hold the board has set, or an account passed to collections, with a preview for each home before anything goes out and sent or failed recorded.\n\nOne thing to settle: the Day 1, 16, 30, 60 and 90 stages. Those are the schedule for a community's own HOAhx subscription when it is past due, not for homeowner dues. For homeowners we recommend each community follows its own collection policy: HOAhx shows where a home stands from the notices actually sent and suggests the next one, and never moves a home to the next stage by date on its own. Agree, or tell us the schedule you want applied to homeowners."
     },
     {
      "id": "S-C2",
@@ -169,7 +168,7 @@
      "what": "The treasurer proposes a schedule: how many payments, how much, which dates, and whether late fees pause while the plan is kept. A second person approves it, then the homeowner accepts.",
      "url": "https://hoahx-staging.web.app/preview/C4",
      "videos": [],
-     "reply": "Thank you. We have your notes on this screen. We are checking each one against what is built and what is planned, and we will send you a screen-by-screen answer."
+     "reply": "Point 2: When does a missed installment end a payment plan? We recommend two missed installments, as the app does today. The homeowner is told the day after the first miss, and once the plan ends the community's normal late-fee rule applies to what is left.\n\nEverything else we will build as you wrote it."
     },
     {
      "id": "S-C5",
