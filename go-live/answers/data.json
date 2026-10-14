@@ -62,6 +62,22 @@
      "videos": []
     }
    ]
+  },
+  {
+   "id": "A64",
+   "group": "money",
+   "title": "A credit left on the account when a home is sold",
+   "why": "Daniel asked that a credit never be stranded or go to the wrong owner. The credit is money the seller paid, so it goes back to them unless the sale itself says otherwise.",
+   "rows": [
+    {
+     "id": "A64-1",
+     "qs": [
+      "When a home is sold with a credit still on its account, should the credit go back to the former owner, with a refund task for the Treasurer, unless the closing papers say it transfers to the buyer?"
+     ],
+     "rec": "Give it back to the former owner. On the day the sale is confirmed, the credit stops counting toward the home's dues, the Treasurer gets a refund to the original payment method to start (approved by a second person, like every refund), and the former owner is told. It moves to the buyer only when the board records that the closing papers say so.",
+     "videos": []
+    }
+   ]
   }
  ],
  "answered": [
@@ -633,10 +649,130 @@
    "qs": [
     "The free trial, and starting the subscription"
    ],
-   "answer": "change",
-   "build": "Built with the changes you asked for, in your words above.",
+   "answer": "yes",
+   "build": "Built as shown on the screen.",
    "url": "https://hoahx-staging.web.app/preview/A2",
-   "answeredOn": "2026-09-30",
+   "answeredOn": "2026-10-14",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "S-B1",
+   "kind": "screen",
+   "code": "B1",
+   "card": "Approvals and sensitive actions",
+   "qs": [
+    "Asking for a refund"
+   ],
+   "answer": "yes",
+   "build": "Built as shown on the screen.",
+   "url": "https://hoahx-staging.web.app/preview/B1",
+   "answeredOn": "2026-10-14",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "S-B2",
+   "kind": "screen",
+   "code": "B2",
+   "card": "Approvals and sensitive actions",
+   "qs": [
+    "Approvals waiting for me"
+   ],
+   "answer": "yes",
+   "build": "Built as shown on the screen.",
+   "url": "https://hoahx-staging.web.app/preview/B2",
+   "answeredOn": "2026-10-14",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "S-B4",
+   "kind": "screen",
+   "code": "B4",
+   "card": "Approvals and sensitive actions",
+   "qs": [
+    "Who may do what"
+   ],
+   "answer": "yes",
+   "build": "Built as shown on the screen.",
+   "url": "https://hoahx-staging.web.app/preview/B4",
+   "answeredOn": "2026-10-14",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "S-B5",
+   "kind": "screen",
+   "code": "B5",
+   "card": "Approvals and sensitive actions",
+   "qs": [
+    "Exporting a list safely"
+   ],
+   "answer": "yes",
+   "build": "Built as shown on the screen.",
+   "url": "https://hoahx-staging.web.app/preview/B5",
+   "answeredOn": "2026-10-14",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "S-C1",
+   "kind": "screen",
+   "code": "C1",
+   "card": "Falling behind, payment plans, the ledger and statements",
+   "qs": [
+    "Who is behind"
+   ],
+   "answer": "yes",
+   "build": "Built as shown on the screen.",
+   "url": "https://hoahx-staging.web.app/preview/C1",
+   "answeredOn": "2026-10-14",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "S-C2",
+   "kind": "screen",
+   "code": "C2",
+   "card": "Falling behind, payment plans, the ledger and statements",
+   "qs": [
+    "One household's case"
+   ],
+   "answer": "yes",
+   "build": "Built as shown on the screen.",
+   "url": "https://hoahx-staging.web.app/preview/C2",
+   "answeredOn": "2026-10-14",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "S-C4",
+   "kind": "screen",
+   "code": "C4",
+   "card": "Falling behind, payment plans, the ledger and statements",
+   "qs": [
+    "Setting up a payment plan"
+   ],
+   "answer": "yes",
+   "build": "Built as shown on the screen.",
+   "url": "https://hoahx-staging.web.app/preview/C4",
+   "answeredOn": "2026-10-14",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "S-C5",
+   "kind": "screen",
+   "code": "C5",
+   "card": "Falling behind, payment plans, the ledger and statements",
+   "qs": [
+    "A payment plan in progress"
+   ],
+   "answer": "yes",
+   "build": "Built as shown on the screen.",
+   "url": "https://hoahx-staging.web.app/preview/C5",
+   "answeredOn": "2026-10-14",
    "acceptedOn": "2026-10-14",
    "status": "planned"
   },
@@ -649,7 +785,7 @@
    ],
    "answer": "agree",
    "rec": "Keep one flat $299 for every community of 500 homes or more, so a large community sees its full price and buys in the app like any other. The monthly price is already set by size ($0.50 a home), so the fee does not need to grow too. Revisit once the first large communities are set up.",
-   "build": "Keep one flat $299 for every community of 500 homes or more, so a large community sees its full price and buys in the app like any other. The monthly price is already set by size ($0.50 a home), so the fee does not need to grow too. Revisit once the first large communities are set up.",
+   "build": "Keep one flat fee for every community of 500 homes or more, so a large community sees its full price and buys in the app like any other. The monthly price is already set by size (per home), so the fee does not need to grow too. Revisit once the first large communities are set up.",
    "answeredOn": "2026-10-13",
    "acceptedOn": "2026-10-13",
    "status": "built"
@@ -1128,6 +1264,156 @@
    "build": "Keep as-is (proceed as planned)",
    "answeredOn": "2026-10-10",
    "acceptedOn": "2026-10-12",
+   "status": "planned"
+  },
+  {
+   "id": "S-A1",
+   "kind": "screen",
+   "code": "A1",
+   "card": "The community's HOAhx subscription",
+   "qs": [
+    "Plans and prices"
+   ],
+   "answer": "yes",
+   "build": "Built as shown on the screen.",
+   "url": "https://hoahx-staging.web.app/preview/A1",
+   "answeredOn": "2026-10-14",
+   "acceptedOn": "2026-10-10",
+   "status": "planned"
+  },
+  {
+   "id": "S-A3",
+   "kind": "screen",
+   "code": "A3",
+   "card": "The community's HOAhx subscription",
+   "qs": [
+    "Billing home: plan, next charge, invoices"
+   ],
+   "answer": "yes",
+   "build": "Built as shown on the screen.",
+   "url": "https://hoahx-staging.web.app/preview/A3",
+   "answeredOn": "2026-10-14",
+   "acceptedOn": "2026-10-10",
+   "status": "planned"
+  },
+  {
+   "id": "S-A5",
+   "kind": "screen",
+   "code": "A5",
+   "card": "The community's HOAhx subscription",
+   "qs": [
+    "When a payment hasn't gone through"
+   ],
+   "answer": "yes",
+   "build": "Built as shown on the screen.",
+   "url": "https://hoahx-staging.web.app/preview/A5",
+   "answeredOn": "2026-10-14",
+   "acceptedOn": "2026-10-10",
+   "status": "planned"
+  },
+  {
+   "id": "S-A7",
+   "kind": "screen",
+   "code": "A7",
+   "card": "The community's HOAhx subscription",
+   "qs": [
+    "The HOA HX staff side"
+   ],
+   "answer": "yes",
+   "build": "Built as shown on the screen.",
+   "url": "https://hoahx-staging.web.app/preview/A7",
+   "answeredOn": "2026-10-14",
+   "acceptedOn": "2026-10-10",
+   "status": "planned"
+  },
+  {
+   "id": "S-D1",
+   "kind": "screen",
+   "code": "D1",
+   "card": "Bringing a community in",
+   "qs": [
+    "Upload the spreadsheet and match the columns"
+   ],
+   "answer": "yes",
+   "build": "Built as shown on the screen.",
+   "url": "https://hoahx-staging.web.app/preview/D1",
+   "answeredOn": "2026-10-14",
+   "acceptedOn": "2026-10-10",
+   "status": "planned"
+  },
+  {
+   "id": "S-D2",
+   "kind": "screen",
+   "code": "D2",
+   "card": "Bringing a community in",
+   "qs": [
+    "Check it before it goes in"
+   ],
+   "answer": "yes",
+   "build": "Built as shown on the screen.",
+   "url": "https://hoahx-staging.web.app/preview/D2",
+   "answeredOn": "2026-10-14",
+   "acceptedOn": "2026-10-10",
+   "status": "planned"
+  },
+  {
+   "id": "S-D3",
+   "kind": "screen",
+   "code": "D3",
+   "card": "Bringing a community in",
+   "qs": [
+    "Opening balances: the treasurer signs off"
+   ],
+   "answer": "yes",
+   "build": "Built as shown on the screen.",
+   "url": "https://hoahx-staging.web.app/preview/D3",
+   "answeredOn": "2026-10-14",
+   "acceptedOn": "2026-10-10",
+   "status": "planned"
+  },
+  {
+   "id": "S-D4",
+   "kind": "screen",
+   "code": "D4",
+   "card": "Bringing a community in",
+   "qs": [
+    "What past imports did, and fixing one"
+   ],
+   "answer": "yes",
+   "build": "Built as shown on the screen.",
+   "url": "https://hoahx-staging.web.app/preview/D4",
+   "answeredOn": "2026-10-14",
+   "acceptedOn": "2026-10-10",
+   "status": "planned"
+  },
+  {
+   "id": "S-D5",
+   "kind": "screen",
+   "code": "D5",
+   "card": "Bringing a community in",
+   "qs": [
+    "Who has joined"
+   ],
+   "answer": "yes",
+   "build": "Built as shown on the screen.",
+   "url": "https://hoahx-staging.web.app/preview/D5",
+   "answeredOn": "2026-10-14",
+   "acceptedOn": "2026-10-10",
+   "status": "planned"
+  },
+  {
+   "id": "S-D6",
+   "kind": "screen",
+   "code": "D6",
+   "card": "Bringing a community in",
+   "qs": [
+    "Someone joined without an invitation"
+   ],
+   "answer": "yes",
+   "build": "Built as shown on the screen.",
+   "url": "https://hoahx-staging.web.app/preview/D6",
+   "answeredOn": "2026-10-14",
+   "acceptedOn": "2026-10-10",
    "status": "planned"
   },
   {
@@ -1811,10 +2097,10 @@
    "qs": [
     "Billing contacts, and handing over the account"
    ],
-   "answer": "change",
-   "build": "Built with the changes you asked for, in your words above.",
+   "answer": "yes",
+   "build": "Built as shown on the screen.",
    "url": "https://hoahx-staging.web.app/preview/A4",
-   "answeredOn": "2026-09-30",
+   "answeredOn": "2026-10-14",
    "acceptedOn": "2026-10-05",
    "status": "planned"
   },
@@ -1826,10 +2112,10 @@
    "qs": [
     "Cancelling, and taking the records along"
    ],
-   "answer": "change",
-   "build": "Built with the changes you asked for, in your words above.",
+   "answer": "yes",
+   "build": "Built as shown on the screen.",
    "url": "https://hoahx-staging.web.app/preview/A6",
-   "answeredOn": "2026-09-30",
+   "answeredOn": "2026-10-14",
    "acceptedOn": "2026-10-05",
    "status": "planned"
   },
@@ -1841,10 +2127,10 @@
    "qs": [
     "The approval record"
    ],
-   "answer": "change",
-   "build": "Built with the changes you asked for, in your words above.",
+   "answer": "yes",
+   "build": "Built as shown on the screen.",
    "url": "https://hoahx-staging.web.app/preview/B3",
-   "answeredOn": "2026-09-30",
+   "answeredOn": "2026-10-14",
    "acceptedOn": "2026-10-05",
    "status": "planned"
   },
@@ -1856,10 +2142,10 @@
    "qs": [
     "Naming the two Financial Approvers"
    ],
-   "answer": "change",
-   "build": "Built with the changes you asked for, in your words above.",
+   "answer": "yes",
+   "build": "Built as shown on the screen.",
    "url": "https://hoahx-staging.web.app/preview/B6",
-   "answeredOn": "2026-09-30",
+   "answeredOn": "2026-10-14",
    "acceptedOn": "2026-10-05",
    "status": "planned"
   },
@@ -1871,10 +2157,10 @@
    "qs": [
     "\"I am behind\": the homeowner's view"
    ],
-   "answer": "change",
-   "build": "Built with the changes you asked for, in your words above.",
+   "answer": "yes",
+   "build": "Built as shown on the screen.",
    "url": "https://hoahx-staging.web.app/preview/C3",
-   "answeredOn": "2026-09-30",
+   "answeredOn": "2026-10-14",
    "acceptedOn": "2026-10-05",
    "status": "planned"
   },
@@ -1886,10 +2172,10 @@
    "qs": [
     "Waiving a fee or correcting a charge"
    ],
-   "answer": "change",
-   "build": "Built with the changes you asked for, in your words above.",
+   "answer": "yes",
+   "build": "Built as shown on the screen.",
    "url": "https://hoahx-staging.web.app/preview/C6",
-   "answeredOn": "2026-09-30",
+   "answeredOn": "2026-10-14",
    "acceptedOn": "2026-10-05",
    "status": "planned"
   },
@@ -1901,10 +2187,10 @@
    "qs": [
     "A ledger you can follow"
    ],
-   "answer": "change",
-   "build": "Built with the changes you asked for, in your words above.",
+   "answer": "yes",
+   "build": "Built as shown on the screen.",
    "url": "https://hoahx-staging.web.app/preview/C7",
-   "answeredOn": "2026-09-30",
+   "answeredOn": "2026-10-14",
    "acceptedOn": "2026-10-05",
    "status": "planned"
   },
@@ -1916,10 +2202,10 @@
    "qs": [
     "Statements, exports, and matching deposits"
    ],
-   "answer": "change",
-   "build": "Built with the changes you asked for, in your words above.",
+   "answer": "yes",
+   "build": "Built as shown on the screen.",
    "url": "https://hoahx-staging.web.app/preview/C8",
-   "answeredOn": "2026-09-30",
+   "answeredOn": "2026-10-14",
    "acceptedOn": "2026-10-05",
    "status": "planned"
   },

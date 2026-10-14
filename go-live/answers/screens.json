@@ -77,8 +77,7 @@
      "videos": [
       "08",
       "30"
-     ],
-     "reply": "Point 3: When a home is sold or the owner moves out with a credit on the account, should the credit go back to the person who paid it? We recommend yes: it is never carried to the next owner, and the treasurer gets a task to refund it to the original payment method, with a second approver.\n\nPoint 4: we recommend a change. The ledger records only money that moved: the payment, the credit it left, the refund, the return, each linked to the original. Requests and approvals live in the approval record, which opens from the ledger line and keeps the full history.\n\nEverything else we will build as you wrote it."
+     ]
     },
     {
      "id": "S-B2",
@@ -89,8 +88,7 @@
      "videos": [
       "08",
       "30"
-     ],
-     "reply": "Point 5: A refund request nobody approves within 48 hours: should it lapse, as you decided on September 10, or stay waiting and be flagged? We recommend it lapses, with a reminder at 24 hours and a notice to everyone involved when it does.\n\nEverything else we will build as you wrote it."
+     ]
     },
     {
      "id": "S-B3",
@@ -109,8 +107,7 @@
      "title": "Who may do what",
      "what": "Each role down the side and the eight kinds of action across the top. A permission can be taken away from one person, with a reason; nobody can change their own.",
      "url": "https://hoahx-staging.web.app/preview/B4",
-     "videos": [],
-     "reply": "Thank you. Most of this is already how the platform works: a refund is requested by one financial user and approved by a different Financial Approver, and nobody can approve their own request or change their own access. We will bring the role grid into line with that rule so the Treasurer's and the approvers' columns match the refund workflow, make sure the last active administrator or Financial Approver can never be removed, explain what the Yes counts mean, and let an authorized user restore a single permission without resetting the whole role. We will report back on each point screen by screen."
+     "videos": []
     },
     {
      "id": "S-B5",
@@ -118,8 +115,7 @@
      "title": "Exporting a list safely",
      "what": "Before a list is downloaded: what the file will contain, what is left out and why, and how many records. The person gives a reason first, and some roles may not export at all.",
      "url": "https://hoahx-staging.web.app/preview/B5",
-     "videos": [],
-     "reply": "Thank you. We agree with all four points. The reason will clear whenever the export changes and a fresh reason will be required for each file. Ballot participation (which homes voted, for quorum) will stay separate from vote results, and results will be aggregated with no link from a household to its choice. 'Member since' comes off the default roster export. The permission and the field filtering are enforced on the server, and the download notice will say the file holds community data to share only with authorized people. We will confirm each point when it is built."
+     "videos": []
     },
     {
      "id": "S-B6",
@@ -141,8 +137,7 @@
      "title": "Who is behind",
      "what": "Every home with an overdue balance: the amount, how long it has been overdue, where the case stands, who is following up and the last thing sent. A notice can go to several homes at once, with a confirmation naming how many.",
      "url": "https://hoahx-staging.web.app/preview/C1",
-     "videos": [],
-     "reply": "Rustin, we will make every change you listed: \"Under 30 days overdue\" with past-due accounts only; one \"Notice history\" control; the two homes needing the board decision matched to their rows; the unassigned alert kept, with an owner and a next follow-up date; and stage-aware bulk notices that leave out a home with a payment plan, a pending payment, a later notice already sent, a dispute or hold the board has set, or an account passed to collections, with a preview for each home before anything goes out and sent or failed recorded.\n\nOne thing to settle: the Day 1, 16, 30, 60 and 90 stages. Those are the schedule for a community's own HOAhx subscription when it is past due, not for homeowner dues. For homeowners we recommend each community follows its own collection policy: HOAhx shows where a home stands from the notices actually sent and suggests the next one, and never moves a home to the next stage by date on its own. Agree, or tell us the schedule you want applied to homeowners."
+     "videos": []
     },
     {
      "id": "S-C2",
@@ -150,8 +145,7 @@
      "title": "One household's case",
      "what": "One home's case from the start: how the balance built up, every notice with its date and whether it arrived, the person who owns the case, and the next step with its date. A payment plan or a waived fee is offered from here.",
      "url": "https://hoahx-staging.web.app/preview/C2",
-     "videos": [],
-     "reply": "Point 5: we recommend a change. Show only 'Delivered' or 'Failed' from the email service, with the exact notice, recipient, method and time. A duplicate second reminder is refused.\n\nEverything else we will build as you wrote it."
+     "videos": []
     },
     {
      "id": "S-C3",
@@ -167,8 +161,7 @@
      "title": "Setting up a payment plan",
      "what": "The treasurer proposes a schedule: how many payments, how much, which dates, and whether late fees pause while the plan is kept. A second person approves it, then the homeowner accepts.",
      "url": "https://hoahx-staging.web.app/preview/C4",
-     "videos": [],
-     "reply": "Point 2: When does a missed installment end a payment plan? We recommend two missed installments, as the app does today. The homeowner is told the day after the first miss, and once the plan ends the community's normal late-fee rule applies to what is left.\n\nEverything else we will build as you wrote it."
+     "videos": []
     },
     {
      "id": "S-C5",
@@ -176,8 +169,7 @@
      "title": "A payment plan in progress",
      "what": "A plan under way, read as a plan: four of nine paid, the next payment and its date, what remains. The homeowner and the board see the same, including what happens after a missed installment.",
      "url": "https://hoahx-staging.web.app/preview/C5",
-     "videos": [],
-     "reply": "Thank you. We have your notes on this screen. We are checking each one against what is built and what is planned, and we will send you a screen-by-screen answer."
+     "videos": []
     },
     {
      "id": "S-C6",
