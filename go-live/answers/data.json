@@ -1,612 +1,568 @@
 {
  "updated": "2026-10-13",
- "groups": [
-  {
-   "id": "money",
-   "title": "Money: dues, the ledger, and the books"
-  },
-  {
-   "id": "enforce",
-   "title": "Enforcement and requests"
-  },
-  {
-   "id": "community",
-   "title": "Community life"
-  },
-  {
-   "id": "records",
-   "title": "Documents, messages, and records"
-  },
-  {
-   "id": "ops",
-   "title": "Running HOAhx"
-  },
-  {
-   "id": "pricing",
-   "title": "Pricing"
-  }
- ],
- "cards": [
-  {
-   "id": "A09",
-   "group": "enforce",
-   "title": "From a notice to a fee to a lien",
-   "why": "A published schedule and a guaranteed hearing are what make enforcement accepted by the people it touches. Owners stay in the loop on their own property.",
-   "rows": [
-    {
-     "id": "A09-2",
-     "qs": [
-      "Should the resident be guaranteed a hearing before a lien?"
-     ],
-     "rec": "A homeowner can ask for a hearing at every stage, up to and including the escalation to a lien. A lien is never recorded while a hearing request is open.",
-     "videos": [],
-     "why": "An appeal exists only while a notice is open; once a fee is assessed there is no formal way to be heard before a lien. A hearing at every stage keeps a lien from landing on someone who never had the chance to object.",
-     "reply": "Has counsel reviewed any state's rules for HOAhx yet? We recommend that the launch automate none: each community enters its own notice, cure, hearing and lien deadlines from its documents, and any community without them is flagged for manual review. The rest of your answer we will build as you wrote it.\n\nEverything else we will build as you wrote it."
-    },
-    {
-     "id": "A09-4",
-     "qs": [
-      "Should tenants be able to appeal violations, given the owner is ultimately liable?"
-     ],
-     "rec": "A tenant who is the subject of a notice can respond to it and dispute it, with photos, and the owner is told of every notice and every response on their property.",
-     "videos": [],
-     "why": "A tenant can be the person named on a notice and can appeal it, but the fee lands on the owner's account, so an owner could find a fee on their ledger without ever seeing the notice. Letting the tenant respond fully, and telling the owner every time, keeps nobody in the dark.",
-     "reply": "we recommend a change. One community setting: who may file an appeal, owner only (the default) or owner or tenant. The tenant can always respond with evidence; the owner is copied on every notice, response, deadline and decision; everything is logged. The rest of their answer as written.\n\nEverything else we will build as you wrote it."
-    }
-   ]
-  },
-  {
-   "id": "A12",
-   "group": "community",
-   "title": "Votes, elections, and meetings",
-   "why": "A single ballot meeting quorum is the kind of default that embarrasses a board later. Not certifying your own election is basic fairness.",
-   "rows": [
-    {
-     "id": "A12-2",
-     "qs": [
-      "What is the quorum default, and who sets it?"
-     ],
-     "rec": "Every formal vote requires a quorum entered as a percentage of entitled properties, taken from the community's rules when the vote is created. There is no default of one, and a vote that closes short of quorum is recorded as failed for want of a quorum.",
-     "videos": [],
-     "why": "Quorum is entered as a number of ballots and defaults to one, so a vote could be certified on a single ballot unless the board remembers to raise it. A percentage from the community's rules, with no default, makes a thin turnout fail the way it should.",
-     "reply": "Proxy voting: can it come after launch? We recommend yes. At launch each vote shows that proxies are not counted in HOAhx, and everything else you asked for quorum is built.\n\nEverything else we will build as you wrote it."
-    },
-    {
-     "id": "A12-3",
-     "qs": [
-      "Are meetings complete enough: agendas and minutes exist, but no notices, RSVPs, or attendance?"
-     ],
-     "rec": "Meetings ship as they are: agenda, location, and minutes, plus the board roster, role dates, and decision records. Meeting notices, RSVPs, and attendance tracking are not in the launch.",
-     "videos": [],
-     "why": "Boards can schedule meetings and post agendas and minutes now. Notices, RSVPs and attendance would add building time before launch, and the board roster and decision records matter more to homeowners on day one. Events on the community calendar take RSVPs, as your Core list asks, so a meeting the board wants residents to respond to can be posted as an event.",
-     "reply": "Meetings: at launch HOAhx would carry agendas, attachments, approved minutes, the decision record, and the notice sent with its delivery record. Can attendance, quorum status and motions follow after launch? We recommend yes.\n\nEverything else we will build as you wrote it."
-    }
-   ]
-  },
-  {
-   "id": "A13",
-   "group": "community",
-   "title": "The community feed and events",
-   "why": "Approval before posting kills a community feed. Comment moderation with a reason is enough for the rare problem.",
-   "rows": [
-    {
-     "id": "A13-1",
-     "qs": [
-      "Should the community feed be moderated before or after posting?"
-     ],
-     "rec": "The feed stays moderated after posting: a post or a comment can be hidden or removed with a reason. Nothing waits for approval before it appears.",
-     "videos": [],
-     "why": "Holding every post for approval would slow the feed to the pace of whoever reviews it. Only the board and management start posts, so moderating after the fact, with a reason on record, is enough; adding comment moderation closes the one gap (only posts can be hidden now).",
-     "reply": "The community feed: at launch it would carry post-moderation, and moderators hiding or removing a post or a comment with a reason kept in the history. Can reporting a post, the rules shown on the feed, spam filters, automatic holds, appeals and approval for member events follow after launch? We recommend yes.\n\nEverything else we will build as you wrote it."
-    },
-    {
-     "id": "A13-2",
-     "qs": [
-      "Who can post to the community feed, and can posting rights be withdrawn from an individual?"
-     ],
-     "rec": "Board and management roles post; residents comment and react. Taking one person's commenting rights away for a set period comes after launch, if a community needs it.",
-     "videos": [],
-     "why": "Posting is limited to the board and management, and a comment that causes trouble can be hidden or removed with a reason. Taking one person's commenting rights away for a period is useful but rare, so it can wait until a community asks for it.",
-     "reply": "Residents starting their own posts is a change from the launch plan. We recommend it at launch, together with a moderator's restriction of one person (a reason, a notice to them, an end date), where the person answers the notice to appeal. Is that all right?\n\nEverything else we will build as you wrote it."
-    }
-   ]
-  },
-  {
-   "id": "A14",
-   "group": "community",
-   "title": "Architectural reviews",
-   "why": "For a homeowner with a contractor waiting, the deadline on the application is the answer to \"what happens next\".",
-   "rows": [
-    {
-     "id": "A14-1",
-     "qs": [
-      "Should architectural decisions have a required response time?"
-     ],
-     "rec": "Each application type the community sets up carries a decision deadline, thirty days by default, shown to the homeowner and the reviewers. An application past its deadline appears as overdue on the board dashboard. Nothing is approved automatically.",
-     "videos": [],
-     "why": "An improvement request with no deadline can hold up a homeowner's contractor indefinitely. A deadline per request type, shown to both sides and flagged on the board dashboard when passed, keeps the board accountable without approving anything by itself.",
-     "reply": "we recommend a change. When a community's documents say an application is approved once the deadline passes, HOAhx tells the board and the homeowner that the deadline passed, and the board records the approval. Nothing is ever approved automatically. Everything else as they wrote it.\n\nEverything else we will build as you wrote it."
-    }
-   ]
-  },
-  {
-   "id": "A17",
-   "group": "records",
-   "title": "Messages and announcements",
-   "why": "Officers covering for each other need to read the thread; the fix is to say so on the screen. A policy pasted into an announcement belongs in the library anyway.",
-   "rows": [
-    {
-     "id": "A17-1",
-     "qs": [
-      "Should managers, the President, and the Secretary be able to read every conversation in the community?"
-     ],
-     "rec": "Managers, the President, the Secretary and the HOA Administrator can read every conversation with the office, as now, and the message screen says so plainly, so nobody mistakes a thread with the office for a private one.",
-     "videos": [],
-     "why": "Officers reading every conversation helps with disputes and with covering an absent colleague, but it would surprise a resident who thought a thread with the office was private. Keeping it, and saying so on the screen, gives the board what it needs and tells residents the truth.",
-     "reply": "Messages to the office: at launch each community chooses which roles read them, the resident sees exactly who can read before sending, and every access is recorded. Can restricting sensitive conversations to designated people follow after launch? We recommend yes.\n\nEverything else we will build as you wrote it."
-    }
-   ]
-  },
-  {
-   "id": "A20",
-   "group": "ops",
-   "title": "the HOAhx Assistant: the provider and its monthly cost",
-   "why": "At launch scale the cost is tens of dollars a month, and the cap keeps it there. Your decision is the cap, not the vendor. Answers are written in plain words with the next step and a button to reach a person; no list of sources is shown on the screen.",
-   "rows": [
-    {
-     "id": "A20-1",
-     "qs": [
-      "Which provider should power the HOAhx Assistant, at what monthly cost, and should it be in the launch or follow it?"
-     ],
-     "rec": "The Assistant ships in the launch, as on your Core list. Jacob selects and connects the provider, a hosted language-model service billed per question (about two cents a question), on an account in HOAhx's name, with a monthly cap of $50 and a warning at $35. You approve the cap and the card it goes on; the provider can be swapped later without changing what homeowners see.",
-     "videos": [],
-     "why": "Your Core list asks for an Assistant that answers from the community's own documents, shows its sources and never decides anything. It needs an outside provider and carries a monthly cost, which is your money to approve; a cap and a warning keep that cost bounded."
-    }
-   ]
-  },
-  {
-   "id": "A21",
-   "group": "ops",
-   "title": "Two people claiming the same home",
-   "why": "Rare, but today the bill goes to whoever was recorded first. A checked record is the only fair tie-breaker.",
-   "rows": [
-    {
-     "id": "A21-1",
-     "qs": [
-      "Who is authoritative when a property has two people claiming ownership?"
-     ],
-     "rec": "When two people claim ownership, an administrator verifies the deed or the closing record before the primary-owner designation changes. One primary owner per property is enforced, and the outcome is recorded with its evidence. Until it is verified, the owner on record stays primary and the bills keep going to them.",
-     "videos": [],
-     "why": "A home can have several owners, but one is marked primary for contact and billing, and nothing settles who that is when owners disagree. Checking the deed before the designation changes, and keeping the evidence, is what your Core list asks for, and the bills keep going to the right person meanwhile. Co-owners keep their rights while the primary designation is checked, as your Core list says.",
-     "reply": "Thank you, we agree with all of it. An administrator verifies the deed or closing record before anything changes, the record shows what was reviewed and who approved it, and a claim alone never removes an owner, changes a vote or redirects a notice. We will keep owners and the primary contact as separate things, allow more than one verified owner on a home, and let the community name one primary contact. Bills and payment history stay with the home."
-    }
-   ]
-  },
-  {
-   "id": "A23",
-   "group": "pricing",
-   "title": "Pricing: the three loose ends",
-   "note": "Your plans, prices, tiers and trial terms are recorded. These three points were left open in your requirements document.",
-   "why": "Each of these has an answer that is simple to say at checkout. A founding rate rewards the communities that take the first step without a discount that never ends.",
-   "rows": [
-    {
-     "id": "A23-3",
-     "qs": [
-      "On an annual plan, what happens when the number of homes changes mid-term?"
-     ],
-     "rec": "On an annual plan the home count is checked at renewal only: no mid-term charge when homes are added, no mid-term refund when they leave. The new tier applies from the renewal and is shown at checkout.",
-     "videos": [],
-     "why": "Your requirements document kept counting homes on an annual plan and suggested a prorated adjustment on a material increase, with a note to clarify. We recommend the simpler rule because the year is paid up front and the difference inside it is small: one price for the year, no surprise charges or refunds mid-term, and the new tier shown at renewal before anyone commits. If you want the proration, say what counts as a material increase.",
-     "reply": "Thank you. We agree: no mid-term charge or refund within the paid tier, the home count is checked at renewal, and the renewal price is shown in advance. We will add your point: if a community grows beyond its tier's maximum, the administrator is notified and must approve before the plan changes or anything more is billed."
-    }
-   ]
-  },
-  {
-   "id": "A26",
-   "group": "ops",
-   "title": "Who may appoint an HOA Administrator",
-   "why": "The HOA Administrator runs a community day to day. Keeping the appointment with the board, or with the management company only by agreement, keeps the keys to a community's administration with the people it answers to.",
-   "rows": [
-    {
-     "id": "A26-1",
-     "qs": [
-      "May a Property Manager or a Management Company Administrator appoint an HOA Administrator?"
-     ],
-     "rec": "The President appoints an HOA Administrator. A Management Company Administrator can only where the management agreement says so, and a Property Manager cannot. An HOA Administrator cannot appoint another one. (Rustin asked for this on October 8; the earlier recommendation let all three appoint.)",
-     "videos": [
-      "11",
-      "33",
-      "37"
-     ],
-     "why": "The HOA Administrator runs a community day to day, so whoever appoints one holds the keys to its administration. Rustin asked on October 8 that a Property Manager not grant board or administrator roles, so this keeps the appointment with the President, and with a management company only where the agreement says so.",
-     "reply": "Agreed. Appointing an HOA Administrator becomes its own permission, separate from inviting residents. An HOA Administrator cannot appoint another by default, management roles can appoint only in communities they manage, and a community can limit appointment to its board. The invite stays expiring and revocable, and who granted or revoked the role, and when, is recorded."
-    }
-   ]
-  },
-  {
-   "id": "A31",
-   "group": "records",
-   "title": "A board-only document sent for signature",
-   "why": "A rule with one exception hidden in the download path is a rule that will be misread, and nothing the communities do today needs it.",
-   "rows": [
-    {
-     "id": "A31-1",
-     "qs": [
-      "May the office send a board-only document to a homeowner for signature, so that homeowner can open that one document to sign it?"
-     ],
-     "rec": "No: a document a homeowner is asked to sign is one they may read, so the office publishes it to residents before asking for a signature, and a request to sign a board-only document is refused. If the exception should stay, it becomes the rule: a homeowner asked to sign a board-only document may read that version, before and after declining.",
-     "videos": [],
-     "why": "A rule with one hidden exception (a board-only document that one homeowner can read because they were asked to sign it) is a rule that will be misread. Publishing the document before asking for a signature keeps the simple rule: a homeowner can read what they are asked to sign.",
-     "reply": "Agreed, with one clarification: a homeowner asked to sign gets that one document only and never the board-only folder. When the document holds confidential board information, the office sends a redacted or resident-facing version for signature instead. Delivery, opening and signature are recorded, and the signer keeps a copy of the completed document."
-    }
-   ]
-  },
-  {
-   "id": "A32",
-   "group": "ops",
-   "title": "A community always keeps a President",
-   "why": "The President is the only community role that appoints and removes board roles, so a community without one can appoint nobody and stays stuck until someone outside it acts. Closing one's own account is a right the app stores require of every app.",
-   "rows": [
-    {
-     "id": "A32-1",
-     "qs": [
-      "Must a community always have a President, so that nobody in the community can remove, deactivate or archive its only one?"
-     ],
-     "rec": "Keep it: a community keeps a President. The role is handed on before its holder is removed, and HOAhx can step in when a President is gone. If the rule should hold HOAhx staff too, it is one condition and one test.",
-     "videos": [],
-     "why": "The President is the only community role that appoints and removes board roles. A community without one can appoint nobody and stays stuck until someone outside it acts, so the role is handed on before its holder goes.",
-     "reply": "Agreed. A community may record the President seat as vacant, which is separate from account access: the last authorized account administrator cannot be removed or deactivated until the access is handed to another authorized person, or a verified recovery through HOAhx support is recorded. Any President change follows the community's own rules."
-    },
-    {
-     "id": "A32-2",
-     "qs": [
-      "Should the only President of a community be asked to hand the role to someone else before they close their own account?"
-     ],
-     "rec": "Leave it for the launch: the right to close one's own account stands, and HOAhx appoints the next President when it happens. A hand-over step on the account-closing screen (\"give the President role to someone first\") is a candidate for after the launch.",
-     "videos": [],
-     "why": "Closing one's own account is a right the app stores require of every app, and a community role should not hold a person's account hostage. HOAhx appointing the next President when it happens covers the rare case without blocking anyone.",
-     "reply": "Agreed, and this replaces our earlier suggestion. When the only President closes their account, HOAhx appoints no one: the seat is recorded as vacant until the community appoints a successor in its own way. If that person is also the last authorized account administrator, they hand that access to someone else first, or it goes through verified recovery. Both changes are recorded."
-    }
-   ]
-  },
-  {
-   "id": "A33",
-   "group": "ops",
-   "title": "When a homeowner's membership ends, the home goes with it",
-   "why": "\"Removed\" should mean removed: a person the board has ended should not keep reading the home's codes, ledger and household through a record the board cannot see.",
-   "rows": [
-    {
-     "id": "A33-1",
-     "qs": [
-      "When the board deactivates, archives, or marks a homeowner as moved out, should that person lose access to their home in the app as well as to the community?"
-     ],
-     "rec": "Keep it: ending a person's membership ends their access to the community and to the home, the records stay, and restoring the account brings the access back. If an owner who has moved out should keep signing in to a home they rent out, the office keeps their membership active and records the move-out on the tenant instead.",
-     "videos": [],
-     "why": "\"Removed\" should mean removed: a person the board has ended should not keep reading the home's codes, ledger and household through a record the board cannot see. The records stay, and restoring the account brings the access back, so nothing is lost.",
-     "reply": "Agreed. Marking someone as moved out ends their occupant access but never a verified owner's access, including when they rent the home out. Tenants have their own accounts, which end when their occupancy ends. When a home is sold, access changes after the new ownership is verified, and the home's history and audit trail stay."
-    }
-   ]
-  },
-  {
-   "id": "A36",
-   "group": "money",
-   "title": "When a homeowner pays twice",
-   "why": "An alert should mean someone probably made a mistake, not that someone paid early. A credit someone asked to have back should not be spent by AutoPay while the treasurer decides, and a request nobody answers should not lock it away for good.",
-   "rows": [
-    {
-     "id": "A36-2",
-     "qs": [
-      "A homeowner with a credit asks for the money back. Until the treasurer decides, should AutoPay leave that credit alone, and for how long? And how often may a homeowner ask?"
-     ],
-     "rec": "Keep thirty days and one request a month: once a homeowner asks for a credit back, AutoPay leaves it alone until the treasurer decides or thirty days pass. Add two buttons before launch: the treasurer can decline with a short note to the homeowner, and the homeowner can change their mind and keep the credit.",
-     "videos": [],
-     "why": "Without the hold, AutoPay could spend a credit the treasurer is about to return; without a limit, an unanswered request would lock the credit away for good. The two buttons let the treasurer decline and the homeowner withdraw, so nothing sits open for the full thirty days by accident.",
-     "reply": "Thank you. We will reserve only the requested amount while a request is open, so AutoPay can still apply any remaining credit; the request goes to the treasurer, a second authorized approver issues any refund, and the homeowner can withdraw it and keep the credit. We will add a reminder to the treasurer when a request is still open after five business days. One open request per account at a time works for us, and we recommend keeping the thirty-day limit as an outer bound rather than releasing the credit sooner. If you would rather have no time limit, tell us and we will keep the credit reserved until the treasurer decides."
-    }
-   ]
-  },
-  {
-   "id": "A38",
-   "group": "money",
-   "title": "Opening balances brought in from your spreadsheet",
-   "why": "A balance belongs to the home, not to a person; the figure should be the same for every owner and should not look overdue before the community starts.",
-   "rows": [
-    {
-     "id": "A38-1",
-     "qs": [
-      "When a home has more than one owner, whose account does the opening balance from your spreadsheet go on?"
-     ],
-     "rec": "The first active owner of the home; the balance stays on the home's ledger, so every owner of the home sees the same figure.",
-     "videos": [],
-     "why": "A home with more than one owner has one balance on its ledger, and the import has to pick an account to show it against. Putting it on the first active owner, on the home's ledger, means every owner sees the same figure.",
-     "reply": "Thank you. The balance goes on the home's ledger, so every owner of the home sees the same figure, and it is attached to the first active owner. We will add your safeguards: a preview with the homes matched, the credits and amounts owed and totals that can be checked against your spreadsheet, a block on importing the same file twice, the import date and source in the account history, and an authorized administrator's confirmation before any balance affects resident notices, AutoPay or collections."
-    },
-    {
-     "id": "A38-2",
-     "qs": [
-      "What date should an opening balance from your spreadsheet carry on a home's ledger?"
-     ],
-     "rec": "The approval day, so nothing looks overdue before anyone could see it.",
-     "videos": [],
-     "why": "The date decides whether a home looks overdue the day the community starts. Dating it the day the Treasurer approved it means nobody is shown as late for a period before they could have seen the balance.",
-     "reply": "Thank you. We recommend the approval day as the date the balance carries on the ledger, so nothing looks overdue before anyone could see it, and we will keep your cutover date and any original due dates and aging from the spreadsheet on the record. A balance that arrives as one total is marked as imported and held for administrator review before any overdue notice, fee or collection. If you would rather the ledger carry the cutover date, tell us and we will do that, with the same hold on notices and fees until the administrator approves."
-    }
-   ]
-  },
-  {
-   "id": "A40",
-   "group": "community",
-   "title": "Amending a published budget",
-   "why": "Preparing figures is already their job, and nothing reaches residents without the board's recorded approval.",
-   "rows": [
-    {
-     "id": "A40-1",
-     "qs": [
-      "Who may start an amendment to a budget the board has already published?"
-     ],
-     "rec": "Keep it as built: whoever may prepare the budget may start an amendment; only the President records the board's approval and publishes it.",
-     "videos": [],
-     "why": "Preparing the figures is already the Treasurer's and management's job, and nothing reaches residents without the board's recorded approval, so letting those same people start an amendment adds no risk. Limiting it to the board alone would make the Treasurer wait on a meeting to fix a figure.",
-     "reply": "Thank you. Your change is clear and we agree it fits communities better than tying it to one role. For launch we recommend: a Treasurer or authorized board member starts the draft, the original budget is always kept, and the approval details, the publisher and the date go in the history. Before we add a separate publisher role, we would like to confirm: for launch, may the President record the board's approval and publish, with the community able to designate its administrator to publish after launch?"
-    },
-    {
-     "id": "A40-2",
-     "qs": [
-      "When an amended budget is published, who should be told, and how?"
-     ],
-     "rec": "Both: one in-app notice and one e-mail to each board role and each resident, sent only after the approved amendment is published, with a short summary of what changed and a link to the budget; the history records when it was published and when the notices went out.",
-     "videos": [],
-     "why": "Your Core list asks for an in-app notification center and e-mail, and you asked for both on October 10. One notice each avoids duplicates for a board member who also lives in the community, and the summary and link let a resident see what changed without hunting for it."
-    },
-    {
-     "id": "A40-3",
-     "qs": [
-      "What should residents see of the board's approval of a published budget?"
-     ],
-     "rec": "Keep the minutes on the board's screen; residents read the minutes in Documents when the board shares them there.",
-     "videos": [],
-     "why": "Minutes can hold private matters, and Documents already controls who sees what. Residents still see which body approved the budget, when, and the vote outcome, so the approval is visible without exposing the minutes themselves.",
-     "reply": "Thank you. Agreed: residents see that the board approved the budget and the date, and board-only records are never exposed automatically. We recommend the approved minutes or resolution appear as a link only when the board has shared that document in Documents. Full minutes stay in Documents under the community's control. Does that match what you want?"
-    },
-    {
-     "id": "A40-4",
-     "qs": [
-      "Which documents may the board attach as the record of a budget approval?"
-     ],
-     "rec": "Keep it: the approval is backed by the meeting minutes, and the board files the minutes first.",
-     "videos": [],
-     "why": "Backing an approval only with a document filed as meeting minutes ties it to an actual record of the meeting. Anything else goes in the text box, so the record stays clean.",
-     "reply": "Thank you. Agreed that minutes should not be the only accepted evidence. We recommend the board attaches approved minutes, a signed resolution or written consent, with the approval date and the vote recorded and kept with the published amendment. Publication stays blocked until one of these is on record. Please confirm this list is complete for launch."
-    }
-   ]
-  },
-  {
-   "id": "A43",
-   "group": "enforce",
-   "title": "Architectural request types and parking permits",
-   "why": "The days to decide are the board's commitment to homeowners, so the person who decides should set them; adding the Administrator later is a small change.",
-   "rows": [
-    {
-     "id": "A43-1",
-     "qs": [
-      "Who sets up a community's architectural request types: the kinds of request, what each must include, and the days to decide?"
-     ],
-     "rec": "Keep it with the President, the person who decides architectural requests, for launch; let the HOA Administrator do it too only if a community asks.",
-     "videos": [],
-     "why": "The days to decide an architectural request are the board's commitment to homeowners, so the person who decides those requests should set them. Adding the HOA Administrator later is a small change if a community wants it."
-    }
-   ]
-  },
-  {
-   "id": "A45",
-   "group": "money",
-   "title": "Account credits, refund requests from tenants, and opening balances",
-   "why": "The treasurer is asked to look only at money nobody has checked, and a refund request is answered once for each home each month.",
-   "rows": [
-    {
-     "id": "A45-1",
-     "qs": [
-      "When a home has a credit on its account, which kinds of entries should count as explained, so the treasurer is not asked to look at them?"
-     ],
-     "rec": "An entry counts as explained only when HOAhx made it and linked it to its source: a settled overpayment or duplicate payment credited to the home, a credit applied to a charge, a refund or credit completed through the approval path, and the opening balance the Treasurer reconciled and approved at import. A credit entered by hand, a write-off, a fee waiver, a reversal, a chargeback and an unmatched payment stay in the treasurer's review queue. Every entry stays visible in the ledger and the history.",
-     "videos": [],
-     "why": "The review queue is for credits a person still has to look at, and your October 10 note draws that line where we would: HOAhx's own linked entries need no second look, hand-entered ones do. The opening balance counts because the import already makes the Treasurer reconcile it and approve it before it lands; a hand-entered adjustment goes to the queue even when a second financial user approved it."
-    },
-    {
-     "id": "A45-3",
-     "qs": [
-      "When the owner asks for a refund of a credit that partly came from their tenant's payment, should the owner's request cover the whole credit?"
-     ],
-     "rec": "Yes: the owner may ask for the whole credit, the tenant's part included, and the treasurer decides where each part goes back.",
-     "videos": [],
-     "why": "The owner is responsible for the account, and a refund only ever goes back to the card or bank account that paid, so the treasurer can return the tenant's part to the tenant. Limiting the owner to their own share would leave the tenant's part sitting with nobody able to ask for it."
-    }
-   ]
-  },
-  {
-   "id": "A49",
-   "group": "community",
-   "title": "Checking and certifying a board vote",
-   "why": "A vote can always be certified by someone who is not standing, and the record says who did.",
-   "rows": [
-    {
-     "id": "A49-1",
-     "qs": [
-      "When the community names an inspector to check a board vote's totals, may any member who is not standing and has no conflict be the inspector, or only a board officer?"
-     ],
-     "rec": "Any member of the community who is not standing and has no conflict may be named inspector on one vote; they see only that vote's totals once voting closes, and may certify it.",
-     "videos": [],
-     "why": "You decided an assigned inspector may certify a vote when the President stands. Letting any member who is not standing and has no conflict be the inspector gives a small community someone to name; they see only that vote's totals, and only once voting closes."
-    },
-    {
-     "id": "A49-2",
-     "qs": [
-      "When the community names both officers to certify a board vote and an inspector to check it, may the inspector certify the results too, or only the officers?"
-     ],
-     "rec": "When the community names officers to certify and an inspector to check, either may certify, and the record says whether an officer or the inspector did.",
-     "videos": [],
-     "why": "When the community names both officers and an inspector, refusing the inspector would leave them only checking. Either may certify, and the record says which one did."
-    }
-   ]
-  },
-  {
-   "id": "A50",
-   "group": "money",
-   "title": "Late fees, dues for a group of homes, and imported balances",
-   "why": "Each home is charged the right amount from the first day, and a late fee matches what is actually unpaid.",
-   "rows": [
-    {
-     "id": "A50-1",
-     "qs": [
-      "When a community's late fee is a percentage, is it a percentage of the full dues for that period, or of the part still unpaid after the grace period?"
-     ],
-     "rec": "A percentage late fee is taken on the part of the dues still unpaid after the grace period, so a homeowner who paid most of their dues on time pays a smaller fee. Late fees post only once the community's switch is on.",
-     "videos": [],
-     "why": "A homeowner who paid most of their dues on time should not pay the same fee as one who paid nothing. Taking the percentage on the unpaid part is the fairer reading, and the simpler one to explain."
-    },
-    {
-     "id": "A50-2",
-     "qs": [
-      "Some homes pay different dues on the same schedule (townhomes and houses, for example). Is a named group of homes with its own amount, applied from the next due date, how your community charges?"
-     ],
-     "rec": "Yes: the treasurer puts homes in a named group with its own amount, and every other home pays the schedule amount. A home is in one group at a time, and a change applies from the next due date; amounts already charged stay as they are.",
-     "videos": [],
-     "why": "Your Core list asks for charges by property or assessment group. A named group of homes with its own amount covers townhomes and houses on one schedule without a second schedule, so one figure is used for the balance, AutoPay and the overdue list. Applying a change from the next due date leaves amounts already charged alone."
-    },
-    {
-     "id": "A50-3",
-     "qs": [
-      "When a community's spreadsheet lists the same home twice with two different opening balances, what should the import do?"
-     ],
-     "rec": "The import stops that home until the person importing picks the right balance or leaves one row out. Two rows that agree are brought in once.",
-     "videos": [],
-     "why": "Your Core list asks the import for duplicate detection and a review before anything is committed. A home brought in twice with two balances would start the community with a wrong amount owed, which the homeowner would see on day one. Stopping that home until someone picks the right row is safer than guessing."
-    }
-   ]
-  },
-  {
-   "id": "A52",
-   "group": "community",
-   "title": "Selling a home, and board roles that end",
-   "why": "A home is handed only to a confirmed buyer, and the community always keeps a President.",
-   "rows": [
-    {
-     "id": "A52-1",
-     "qs": [
-      "When a home is sold, should the buyer have to create their HOAhx account and be added to the home before the community confirms the handoff?"
-     ],
-     "rec": "Yes: the community confirms the handoff once the buyer has an account with a confirmed e-mail and is listed on the home. The seller's access ends that day, and their own history stays with them.",
-     "videos": [],
-     "why": "It never hands a home to an unconfirmed e-mail address, and it uses the steps the board already has for adding an owner. The seller's own history stays with them."
-    },
-    {
-     "id": "A52-2",
-     "qs": [
-      "Can a sale's handoff be confirmed ahead of the closing day, to take effect on that day?"
-     ],
-     "rec": "Not for the launch: the handoff is confirmed on or after the closing day, the same rule as approving a buyer who asks to join. Scheduling a handoff ahead can follow after launch.",
-     "videos": [],
-     "why": "Ending someone's access on a future day needs a daily step that is not built; confirming on or after the closing day is simple and safe, and it is the same rule as approving a buyer who asks to join. The expected and final closing dates are still recorded on the sale, as your Core list asks."
-    },
-    {
-     "id": "A52-3",
-     "qs": [
-      "When a home is sold, should a board role the seller held through that home end with the sale, except the President's, which stays until the board names another?"
-     ],
-     "rec": "Yes: a board role the seller held through that home ends with the sale. If the seller is the community's only President, the handoff waits until the board names another President.",
-     "videos": [],
-     "why": "A buyer should not inherit board authority with the house, and a community must always keep a President, so the only President's handoff waits until the board names another."
-    },
-    {
-     "id": "A52-4",
-     "qs": [
-      "A board role can carry a term with an end date. Should it end by itself on that day, except the only President's, which stays until another is named?"
-     ],
-     "rec": "Yes: a board role with an end date ends by itself the first morning on or after that date; the person is told and the community's history records it. The only President's role stays, and the President and HOAhx support are told to name another first.",
-     "videos": [],
-     "why": "A role that ends by itself on its end date keeps the roster true without the President removing each role by hand. The only President's role stays, because a community must always have one, and both the President and HOAhx support are told to name another first."
-    }
-   ]
-  },
-  {
-   "id": "A54",
-   "group": "community",
-   "title": "A tenant's bookings when the owner turns reservations off",
-   "why": "A tenant always knows whether a booking they made still stands.",
-   "rows": [
-    {
-     "id": "A54-1",
-     "qs": [
-      "When the owner of a home switches a tenant's amenity reservations off, should the tenant still see the bookings they made while it was on?"
-     ],
-     "rec": "Yes: the tenant keeps seeing their own past and upcoming bookings but cannot make new ones, and staff can still cancel any booking.",
-     "videos": [],
-     "why": "A tenant who booked a party should know whether it still stands. Keeping their past and upcoming bookings visible, with no new ones, answers that; staff can still cancel any booking."
-    }
-   ]
-  },
-  {
-   "id": "A55",
-   "group": "money",
-   "title": "\"HOA dues\" or \"assessments\" in what homeowners read",
-   "why": "Homeowners read one plain word for what they pay, without changing a label you have already approved; an answer by October 13 lets it ship with the launch.",
-   "rows": [
-    {
-     "id": "A55-1",
-     "qs": [
-      "Should homeowners read \"HOA dues\" in the text of their payment screens, with the menu label kept as \"Assessments\"?"
-     ],
-     "rec": "Yes: \"HOA dues\" in the homeowner text, the menu label \"Assessments\" kept as you signed it off, and \"assessment\" kept on the board's screens. If you would rather the menu read \"HOA dues\" too, say so.",
-     "videos": [],
-     "why": "Your designer's voice guide says homeowners read \"HOA dues\" and the board keeps \"assessment\". The homeowner menu says \"Assessments\" on the screens you signed off on October 2, so we ask before changing wording you have already seen."
-    }
-   ]
-  },
-  {
-   "id": "A58",
-   "group": "money",
-   "title": "Spreadsheet import of actual spending",
-   "why": "Budget versus actual is only as good as the actuals; today the treasurer enters them by category beside the uploaded statement.",
-   "rows": [
-    {
-     "id": "A58-2",
-     "qs": [
-      "Should the spreadsheet import of actual spending, with column mapping and duplicate flags, come into the launch, or follow it as recorded on October 1?"
-     ],
-     "rec": "Keep it after launch, as recorded on October 1: in the launch the treasurer uploads the month's statement and enters or confirms the spending by category. The first slice after launch is column mapping and duplicate flags; a review before anything is confirmed, and keeping the source file, follow it.",
-     "videos": [],
-     "why": "In the launch the treasurer uploads the month's statement and confirms the spending by category, and the statement is the record. Matching a spreadsheet's lines to categories was recorded as after launch on October 1, and pulling it in now would take time from the launch work; the first slice after launch is the one Rustin asked for on October 8."
-    }
-   ]
-  },
-  {
-   "id": "A59",
-   "group": "money",
-   "title": "Past Due for special assessments and behind on dues",
-   "why": "The balance, the late fee and the board's list of homes behind should all say the same thing on the same day.",
-   "rows": [
-    {
-     "id": "A59-1",
-     "qs": [
-      "Should a special assessment also wait out the dues grace period before it reads Past Due, or is it past due the day after its due date?"
-     ],
-     "rec": "A special assessment is past due the day after its own due date; the grace period belongs to the dues schedule.",
-     "videos": [],
-     "why": "A special assessment carries its own due date, while the grace period belongs to the dues schedule. Giving the assessment its own Past Due day keeps the two from being confused."
-    },
-    {
-     "id": "A59-2",
-     "qs": [
-      "Should a home count as behind on its dues (the board's delinquency list) from the day after the due date, or only once the grace period has passed?"
-     ],
-     "rec": "A home counts as behind once the grace period has passed, the same day the late fee is added and the invoice reads Past Due.",
-     "videos": [],
-     "why": "The board's delinquency list and the late fee should agree on the day a home falls behind. Counting a home as behind the same day the late fee is added and the invoice reads Past Due means one answer everywhere."
-    }
-   ]
-  }
- ],
+ "groups": [],
+ "cards": [],
  "answered": [
+  {
+   "id": "A09-2",
+   "kind": "question",
+   "card": "From a notice to a fee to a lien",
+   "qs": [
+    "Should the resident be guaranteed a hearing before a lien?"
+   ],
+   "answer": "agree",
+   "rec": "A homeowner can ask for a hearing at every stage, up to and including the escalation to a lien. A lien is never recorded while a hearing request is open.",
+   "build": "A homeowner can ask for a hearing at every stage, up to and including the escalation to a lien. A lien is never recorded while a hearing request is open.",
+   "answeredOn": "2026-10-14",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "A09-4",
+   "kind": "question",
+   "card": "From a notice to a fee to a lien",
+   "qs": [
+    "Should tenants be able to appeal violations, given the owner is ultimately liable?"
+   ],
+   "answer": "agree",
+   "rec": "A tenant who is the subject of a notice can respond to it and dispute it, with photos, and the owner is told of every notice and every response on their property.",
+   "build": "A tenant who is the subject of a notice can respond to it and dispute it, with photos, and the owner is told of every notice and every response on their property.",
+   "answeredOn": "2026-10-14",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "A12-2",
+   "kind": "question",
+   "card": "Votes, elections, and meetings",
+   "qs": [
+    "What is the quorum default, and who sets it?"
+   ],
+   "answer": "agree",
+   "rec": "Every formal vote requires a quorum entered as a percentage of entitled properties, taken from the community's rules when the vote is created. There is no default of one, and a vote that closes short of quorum is recorded as failed for want of a quorum.",
+   "build": "Every formal vote requires a quorum entered as a percentage of entitled properties, taken from the community's rules when the vote is created. There is no default of one, and a vote that closes short of quorum is recorded as failed for want of a quorum.",
+   "answeredOn": "2026-10-14",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "A12-3",
+   "kind": "question",
+   "card": "Votes, elections, and meetings",
+   "qs": [
+    "Are meetings complete enough: agendas and minutes exist, but no notices, RSVPs, or attendance?"
+   ],
+   "answer": "agree",
+   "rec": "Meetings ship as they are: agenda, location, and minutes, plus the board roster, role dates, and decision records. Meeting notices, RSVPs, and attendance tracking are not in the launch.",
+   "build": "Meetings ship as they are: agenda, location, and minutes, plus the board roster, role dates, and decision records. Meeting notices, RSVPs, and attendance tracking are not in the launch.",
+   "answeredOn": "2026-10-14",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "A13-1",
+   "kind": "question",
+   "card": "The community feed and events",
+   "qs": [
+    "Should the community feed be moderated before or after posting?"
+   ],
+   "answer": "agree",
+   "rec": "The feed stays moderated after posting: a post or a comment can be hidden or removed with a reason. Nothing waits for approval before it appears.",
+   "build": "The feed stays moderated after posting: a post or a comment can be hidden or removed with a reason. Nothing waits for approval before it appears.",
+   "answeredOn": "2026-10-14",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "A13-2",
+   "kind": "question",
+   "card": "The community feed and events",
+   "qs": [
+    "Who can post to the community feed, and can posting rights be withdrawn from an individual?"
+   ],
+   "answer": "agree",
+   "rec": "Board and management roles post; residents comment and react. Taking one person's commenting rights away for a set period comes after launch, if a community needs it.",
+   "build": "Board and management roles post; residents comment and react. Taking one person's commenting rights away for a set period comes after launch, if a community needs it.",
+   "answeredOn": "2026-10-14",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "A14-1",
+   "kind": "question",
+   "card": "Architectural reviews",
+   "qs": [
+    "Should architectural decisions have a required response time?"
+   ],
+   "answer": "agree",
+   "rec": "Each application type the community sets up carries a decision deadline, thirty days by default, shown to the homeowner and the reviewers. An application past its deadline appears as overdue on the board dashboard. Nothing is approved automatically.",
+   "build": "Each application type the community sets up carries a decision deadline, thirty days by default, shown to the homeowner and the reviewers. An application past its deadline appears as overdue on the board dashboard. Nothing is approved automatically.",
+   "answeredOn": "2026-10-14",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "A17-1",
+   "kind": "question",
+   "card": "Messages and announcements",
+   "qs": [
+    "Should managers, the President, and the Secretary be able to read every conversation in the community?"
+   ],
+   "answer": "agree",
+   "rec": "Managers, the President, the Secretary and the HOA Administrator can read every conversation with the office, as now, and the message screen says so plainly, so nobody mistakes a thread with the office for a private one.",
+   "build": "Managers, the President, the Secretary and the HOA Administrator can read every conversation with the office, as now, and the message screen says so plainly, so nobody mistakes a thread with the office for a private one.",
+   "answeredOn": "2026-10-14",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "A20-1",
+   "kind": "question",
+   "card": "the HOAhx Assistant: the provider and its monthly cost",
+   "qs": [
+    "Which provider should power the HOAhx Assistant, at what monthly cost, and should it be in the launch or follow it?"
+   ],
+   "answer": "change",
+   "rec": "The Assistant ships in the launch, as on your Core list. Jacob selects and connects the provider, a hosted language-model service billed per question (about two cents a question), on an account in HOAhx's name, with a monthly cap of $50 and a warning at $35. You approve the cap and the card it goes on; the provider can be swapped later without changing what homeowners see.",
+   "build": "In the launch: the Assistant answers from the community's approved documents and the records the person may see, cites its sources and hands off to a person when it cannot answer; it takes no action. HOAhx runs the provider, on the test site now and in production before October 21, with short answers and a monthly spending cap per community.",
+   "answeredOn": "2026-10-13",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "A21-1",
+   "kind": "question",
+   "card": "Two people claiming the same home",
+   "qs": [
+    "Who is authoritative when a property has two people claiming ownership?"
+   ],
+   "answer": "agree",
+   "rec": "When two people claim ownership, an administrator verifies the deed or the closing record before the primary-owner designation changes. One primary owner per property is enforced, and the outcome is recorded with its evidence. Until it is verified, the owner on record stays primary and the bills keep going to them.",
+   "build": "When two people claim ownership, an administrator verifies the deed or the closing record before the primary-owner designation changes. One primary owner per property is enforced, and the outcome is recorded with its evidence. Until it is verified, the owner on record stays primary and the bills keep going to them.",
+   "answeredOn": "2026-10-13",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "A23-3",
+   "kind": "question",
+   "card": "Pricing: the three loose ends",
+   "qs": [
+    "On an annual plan, what happens when the number of homes changes mid-term?"
+   ],
+   "answer": "agree",
+   "rec": "On an annual plan the home count is checked at renewal only: no mid-term charge when homes are added, no mid-term refund when they leave. The new tier applies from the renewal and is shown at checkout.",
+   "build": "Owners' \"HOAhx Trial, Billing & Onboarding Requirements\" (Google Doc, Sep 9, read Sep 10) plus the Sep 9 pricing sheet. Tiers (boundary confirmed by Jacob 2026-09-28, recorded 2026-10-01 so Tenyson and Jake build to one structure): $59 (1–50 homes, $1.18 a home at 50), $89 (51–100, $0.89 at 100), $129 (101–200, $0.65 at 200), $179 (201–300, $0.60 at 300), $229 (301–458, down to about $0.50), then from 459 homes $0.50 per active home per month on every home, no further tiers. 459 is the crossover because $229 ÷ $0.50 = 458 homes, so 459 homes = $229.50 and the two halves meet without a step. This replaces the doc's 301–500 and the sheet's \"through 449\". All MVP features included; no Basic/Pro/Premium packages. Trial: 30 days, no card, full product on the community's real data, guided setup from day one; expires to a locked read-only state; data kept 90 days; reactivation by purchasing; advance notice before deletion. Monthly conversion: normal monthly rate + a one-time \"Community Implementation & Launch\" fee, charged through the subscription's payment method; first paid month at 100% by default; HOAhx staff may apply a one-time 50% discount to the first paid month (manual, once, does not change the standard price). Annual: no recurring discount; first year = 11.5 × monthly (50% off the first month equivalent) with the implementation fee waived, collected as one payment; renewals at 12 × the then-current monthly rate, shown clearly at checkout. Implementation fee: $49 (1–50), $99 (51–100), $149 (101–200), $199 (201–300), $249 (301–500), $299 starting point above 500, configurable. Home count: active property/unit records in HOAhx at each billing date (occupied or vacant; future phases don't count); tier changes apply from the next charge, never retroactively, in both directions; notify the administrator before a new amount is charged; annual terms keep counting and should support a prorated adjustment on a material increase (the doc's own note: \"clarify\"). Card fee: \"no idea until NMI\" — pending the NMI agreement. Founding rate: not addressed in either document — still open. The doc also specifies a trial lifecycle beyond the plan catalogue: welcome on day 1 with internal capture of start/expiry/homes/admin; a day 7–10 activation check with an internal alert on low activity; day 14 and day 21 board-approval questions (capturing the next board-meeting date, flagging high-intent or needs-follow-up); a day 28 reminder by status; internal-only trial extensions (7 days, 14 days, custom date) with original/new dates, grantor, and reason recorded and no extension the community can request for itself; twelve internal sales statuses; and an internal activity timeline of trial and conversion events. That lifecycle is outside SB2 and the twelve items — see `changes.md` Proposed 2026-09-10. Addendum 2026-10-13 (the three open points of card A23, each accepted by Jacob: founding communities and the card cost on 2026-10-06, the annual home count on 2026-10-13): (1) Founding communities: the first ten communities that subscribe by January 31, 2027 keep their monthly price for twenty-four months, whatever the list price does; nothing else is discounted. (2) On an annual plan the home count is checked at renewal only: no mid-term charge when homes are added, no mid-term refund when they leave; the new tier applies from the renewal and is shown at checkout; a community that grows past its tier's maximum is told, and its administrator approves before the plan changes or anything more is billed. (3) The HOA pays the published subscription price: HOAhx absorbs the card processing cost, with no surcharge at checkout; bank transfer is offered for annual payments, and the total due is shown before the community confirms.",
+   "answeredOn": "2026-10-13",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "A26-1",
+   "kind": "question",
+   "card": "Who may appoint an HOA Administrator",
+   "qs": [
+    "May a Property Manager or a Management Company Administrator appoint an HOA Administrator?"
+   ],
+   "answer": "agree",
+   "rec": "The President appoints an HOA Administrator. A Management Company Administrator can only where the management agreement says so, and a Property Manager cannot. An HOA Administrator cannot appoint another one. (Rustin asked for this on October 8; the earlier recommendation let all three appoint.)",
+   "build": "The President appoints an HOA Administrator. A Management Company Administrator can only where the management agreement says so, and a Property Manager cannot. An HOA Administrator cannot appoint another one. (Rustin asked for this on October 8; the earlier recommendation let all three appoint.)",
+   "answeredOn": "2026-10-13",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "A31-1",
+   "kind": "question",
+   "card": "A board-only document sent for signature",
+   "qs": [
+    "May the office send a board-only document to a homeowner for signature, so that homeowner can open that one document to sign it?"
+   ],
+   "answer": "agree",
+   "rec": "No: a document a homeowner is asked to sign is one they may read, so the office publishes it to residents before asking for a signature, and a request to sign a board-only document is refused. If the exception should stay, it becomes the rule: a homeowner asked to sign a board-only document may read that version, before and after declining.",
+   "build": "No: a document a homeowner is asked to sign is one they may read, so the office publishes it to residents before asking for a signature, and a request to sign a board-only document is refused. If the exception should stay, it becomes the rule: a homeowner asked to sign a board-only document may read that version, before and after declining.",
+   "answeredOn": "2026-10-13",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "A32-1",
+   "kind": "question",
+   "card": "A community always keeps a President",
+   "qs": [
+    "Must a community always have a President, so that nobody in the community can remove, deactivate or archive its only one?"
+   ],
+   "answer": "agree",
+   "rec": "Keep it: a community keeps a President. The role is handed on before its holder is removed, and HOAhx can step in when a President is gone. If the rule should hold HOAhx staff too, it is one condition and one test.",
+   "build": "Keep it: a community keeps a President. The role is handed on before its holder is removed, and HOAhx can step in when a President is gone. If the rule should hold HOAhx staff too, it is one condition and one test.",
+   "answeredOn": "2026-10-13",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "A32-2",
+   "kind": "question",
+   "card": "A community always keeps a President",
+   "qs": [
+    "Should the only President of a community be asked to hand the role to someone else before they close their own account?"
+   ],
+   "answer": "agree",
+   "rec": "Leave it for the launch: the right to close one's own account stands, and HOAhx appoints the next President when it happens. A hand-over step on the account-closing screen (\"give the President role to someone first\") is a candidate for after the launch.",
+   "build": "Leave it for the launch: the right to close one's own account stands, and HOAhx appoints the next President when it happens. A hand-over step on the account-closing screen (\"give the President role to someone first\") is a candidate for after the launch.",
+   "answeredOn": "2026-10-13",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "A33-1",
+   "kind": "question",
+   "card": "When a homeowner's membership ends, the home goes with it",
+   "qs": [
+    "When the board deactivates, archives, or marks a homeowner as moved out, should that person lose access to their home in the app as well as to the community?"
+   ],
+   "answer": "agree",
+   "rec": "Keep it: ending a person's membership ends their access to the community and to the home, the records stay, and restoring the account brings the access back. If an owner who has moved out should keep signing in to a home they rent out, the office keeps their membership active and records the move-out on the tenant instead.",
+   "build": "Keep it: ending a person's membership ends their access to the community and to the home, the records stay, and restoring the account brings the access back. If an owner who has moved out should keep signing in to a home they rent out, the office keeps their membership active and records the move-out on the tenant instead.",
+   "answeredOn": "2026-10-13",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "A36-2",
+   "kind": "question",
+   "card": "When a homeowner pays twice",
+   "qs": [
+    "A homeowner with a credit asks for the money back. Until the treasurer decides, should AutoPay leave that credit alone, and for how long? And how often may a homeowner ask?"
+   ],
+   "answer": "agree",
+   "rec": "Keep thirty days and one request a month: once a homeowner asks for a credit back, AutoPay leaves it alone until the treasurer decides or thirty days pass. Add two buttons before launch: the treasurer can decline with a short note to the homeowner, and the homeowner can change their mind and keep the credit.",
+   "build": "Keep thirty days and one request a month: once a homeowner asks for a credit back, AutoPay leaves it alone until the treasurer decides or thirty days pass. Add two buttons before launch: the treasurer can decline with a short note to the homeowner, and the homeowner can change their mind and keep the credit.",
+   "answeredOn": "2026-10-13",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "A38-1",
+   "kind": "question",
+   "card": "Opening balances brought in from your spreadsheet",
+   "qs": [
+    "When a home has more than one owner, whose account does the opening balance from your spreadsheet go on?"
+   ],
+   "answer": "agree",
+   "rec": "The first active owner of the home; the balance stays on the home's ledger, so every owner of the home sees the same figure.",
+   "build": "The first active owner of the home; the balance stays on the home's ledger, so every owner of the home sees the same figure.",
+   "answeredOn": "2026-10-13",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "A38-2",
+   "kind": "question",
+   "card": "Opening balances brought in from your spreadsheet",
+   "qs": [
+    "What date should an opening balance from your spreadsheet carry on a home's ledger?"
+   ],
+   "answer": "agree",
+   "rec": "The approval day, so nothing looks overdue before anyone could see it.",
+   "build": "The approval day, so nothing looks overdue before anyone could see it.",
+   "answeredOn": "2026-10-13",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "A40-1",
+   "kind": "question",
+   "card": "Amending a published budget",
+   "qs": [
+    "Who may start an amendment to a budget the board has already published?"
+   ],
+   "answer": "agree",
+   "rec": "Keep it as built: whoever may prepare the budget may start an amendment; only the President records the board's approval and publishes it.",
+   "build": "Keep it as built: whoever may prepare the budget may start an amendment; only the President records the board's approval and publishes it.",
+   "answeredOn": "2026-10-14",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "A40-2",
+   "kind": "question",
+   "card": "Amending a published budget",
+   "qs": [
+    "When an amended budget is published, who should be told, and how?"
+   ],
+   "answer": "agree",
+   "rec": "Both: one in-app notice and one e-mail to each board role and each resident, sent only after the approved amendment is published, with a short summary of what changed and a link to the budget; the history records when it was published and when the notices went out.",
+   "build": "Both: one in-app notice and one e-mail to each board role and each resident, sent only after the approved amendment is published, with a short summary of what changed and a link to the budget; the history records when it was published and when the notices went out.",
+   "answeredOn": "2026-10-14",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "A40-3",
+   "kind": "question",
+   "card": "Amending a published budget",
+   "qs": [
+    "What should residents see of the board's approval of a published budget?"
+   ],
+   "answer": "agree",
+   "rec": "Keep the minutes on the board's screen; residents read the minutes in Documents when the board shares them there.",
+   "build": "Keep the minutes on the board's screen; residents read the minutes in Documents when the board shares them there.",
+   "answeredOn": "2026-10-14",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "A40-4",
+   "kind": "question",
+   "card": "Amending a published budget",
+   "qs": [
+    "Which documents may the board attach as the record of a budget approval?"
+   ],
+   "answer": "agree",
+   "rec": "Keep it: the approval is backed by the meeting minutes, and the board files the minutes first.",
+   "build": "Keep it: the approval is backed by the meeting minutes, and the board files the minutes first.",
+   "answeredOn": "2026-10-14",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "A43-1",
+   "kind": "question",
+   "card": "Architectural request types and parking permits",
+   "qs": [
+    "Who sets up a community's architectural request types: the kinds of request, what each must include, and the days to decide?"
+   ],
+   "answer": "agree",
+   "rec": "Keep it with the President, the person who decides architectural requests, for launch; let the HOA Administrator do it too only if a community asks.",
+   "build": "Keep it with the President, the person who decides architectural requests, for launch; let the HOA Administrator do it too only if a community asks.",
+   "answeredOn": "2026-10-13",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "A45-1",
+   "kind": "question",
+   "card": "Account credits, refund requests from tenants, and opening balances",
+   "qs": [
+    "When a home has a credit on its account, which kinds of entries should count as explained, so the treasurer is not asked to look at them?"
+   ],
+   "answer": "agree",
+   "rec": "An entry counts as explained only when HOAhx made it and linked it to its source: a settled overpayment or duplicate payment credited to the home, a credit applied to a charge, a refund or credit completed through the approval path, and the opening balance the Treasurer reconciled and approved at import. A credit entered by hand, a write-off, a fee waiver, a reversal, a chargeback and an unmatched payment stay in the treasurer's review queue. Every entry stays visible in the ledger and the history.",
+   "build": "An entry counts as explained only when HOAhx made it and linked it to its source: a settled overpayment or duplicate payment credited to the home, a credit applied to a charge, a refund or credit completed through the approval path, and the opening balance the Treasurer reconciled and approved at import. A credit entered by hand, a write-off, a fee waiver, a reversal, a chargeback and an unmatched payment stay in the treasurer's review queue. Every entry stays visible in the ledger and the history.",
+   "answeredOn": "2026-10-13",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "A45-3",
+   "kind": "question",
+   "card": "Account credits, refund requests from tenants, and opening balances",
+   "qs": [
+    "When the owner asks for a refund of a credit that partly came from their tenant's payment, should the owner's request cover the whole credit?"
+   ],
+   "answer": "agree",
+   "rec": "Yes: the owner may ask for the whole credit, the tenant's part included, and the treasurer decides where each part goes back.",
+   "build": "Yes: the owner may ask for the whole credit, the tenant's part included, and the treasurer decides where each part goes back.",
+   "answeredOn": "2026-10-13",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "A49-1",
+   "kind": "question",
+   "card": "Checking and certifying a board vote",
+   "qs": [
+    "When the community names an inspector to check a board vote's totals, may any member who is not standing and has no conflict be the inspector, or only a board officer?"
+   ],
+   "answer": "agree",
+   "rec": "Any member of the community who is not standing and has no conflict may be named inspector on one vote; they see only that vote's totals once voting closes, and may certify it.",
+   "build": "Any member of the community who is not standing and has no conflict may be named inspector on one vote; they see only that vote's totals once voting closes, and may certify it.",
+   "answeredOn": "2026-10-14",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "A49-2",
+   "kind": "question",
+   "card": "Checking and certifying a board vote",
+   "qs": [
+    "When the community names both officers to certify a board vote and an inspector to check it, may the inspector certify the results too, or only the officers?"
+   ],
+   "answer": "agree",
+   "rec": "When the community names officers to certify and an inspector to check, either may certify, and the record says whether an officer or the inspector did.",
+   "build": "When the community names officers to certify and an inspector to check, either may certify, and the record says whether an officer or the inspector did.",
+   "answeredOn": "2026-10-14",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "A50-1",
+   "kind": "question",
+   "card": "Late fees, dues for a group of homes, and imported balances",
+   "qs": [
+    "When a community's late fee is a percentage, is it a percentage of the full dues for that period, or of the part still unpaid after the grace period?"
+   ],
+   "answer": "agree",
+   "rec": "A percentage late fee is taken on the part of the dues still unpaid after the grace period, so a homeowner who paid most of their dues on time pays a smaller fee. Late fees post only once the community's switch is on.",
+   "build": "A percentage late fee is taken on the part of the dues still unpaid after the grace period, so a homeowner who paid most of their dues on time pays a smaller fee. Late fees post only once the community's switch is on.",
+   "answeredOn": "2026-10-13",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "A50-2",
+   "kind": "question",
+   "card": "Late fees, dues for a group of homes, and imported balances",
+   "qs": [
+    "Some homes pay different dues on the same schedule (townhomes and houses, for example). Is a named group of homes with its own amount, applied from the next due date, how your community charges?"
+   ],
+   "answer": "agree",
+   "rec": "Yes: the treasurer puts homes in a named group with its own amount, and every other home pays the schedule amount. A home is in one group at a time, and a change applies from the next due date; amounts already charged stay as they are.",
+   "build": "Yes: the treasurer puts homes in a named group with its own amount, and every other home pays the schedule amount. A home is in one group at a time, and a change applies from the next due date; amounts already charged stay as they are.",
+   "answeredOn": "2026-10-13",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "A50-3",
+   "kind": "question",
+   "card": "Late fees, dues for a group of homes, and imported balances",
+   "qs": [
+    "When a community's spreadsheet lists the same home twice with two different opening balances, what should the import do?"
+   ],
+   "answer": "agree",
+   "rec": "The import stops that home until the person importing picks the right balance or leaves one row out. Two rows that agree are brought in once.",
+   "build": "The import stops that home until the person importing picks the right balance or leaves one row out. Two rows that agree are brought in once.",
+   "answeredOn": "2026-10-13",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "A52-1",
+   "kind": "question",
+   "card": "Selling a home, and board roles that end",
+   "qs": [
+    "When a home is sold, should the buyer have to create their HOAhx account and be added to the home before the community confirms the handoff?"
+   ],
+   "answer": "agree",
+   "rec": "Yes: the community confirms the handoff once the buyer has an account with a confirmed e-mail and is listed on the home. The seller's access ends that day, and their own history stays with them.",
+   "build": "Yes: the community confirms the handoff once the buyer has an account with a confirmed e-mail and is listed on the home. The seller's access ends that day, and their own history stays with them.",
+   "answeredOn": "2026-10-14",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "A52-2",
+   "kind": "question",
+   "card": "Selling a home, and board roles that end",
+   "qs": [
+    "Can a sale's handoff be confirmed ahead of the closing day, to take effect on that day?"
+   ],
+   "answer": "agree",
+   "rec": "Not for the launch: the handoff is confirmed on or after the closing day, the same rule as approving a buyer who asks to join. Scheduling a handoff ahead can follow after launch.",
+   "build": "Not for the launch: the handoff is confirmed on or after the closing day, the same rule as approving a buyer who asks to join. Scheduling a handoff ahead can follow after launch.",
+   "answeredOn": "2026-10-14",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "A52-3",
+   "kind": "question",
+   "card": "Selling a home, and board roles that end",
+   "qs": [
+    "When a home is sold, should a board role the seller held through that home end with the sale, except the President's, which stays until the board names another?"
+   ],
+   "answer": "agree",
+   "rec": "Yes: a board role the seller held through that home ends with the sale. If the seller is the community's only President, the handoff waits until the board names another President.",
+   "build": "Yes: a board role the seller held through that home ends with the sale. If the seller is the community's only President, the handoff waits until the board names another President.",
+   "answeredOn": "2026-10-14",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "A52-4",
+   "kind": "question",
+   "card": "Selling a home, and board roles that end",
+   "qs": [
+    "A board role can carry a term with an end date. Should it end by itself on that day, except the only President's, which stays until another is named?"
+   ],
+   "answer": "agree",
+   "rec": "Yes: a board role with an end date ends by itself the first morning on or after that date; the person is told and the community's history records it. The only President's role stays, and the President and HOAhx support are told to name another first.",
+   "build": "Yes: a board role with an end date ends by itself the first morning on or after that date; the person is told and the community's history records it. The only President's role stays, and the President and HOAhx support are told to name another first.",
+   "answeredOn": "2026-10-14",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "A54-1",
+   "kind": "question",
+   "card": "A tenant's bookings when the owner turns reservations off",
+   "qs": [
+    "When the owner of a home switches a tenant's amenity reservations off, should the tenant still see the bookings they made while it was on?"
+   ],
+   "answer": "agree",
+   "rec": "Yes: the tenant keeps seeing their own past and upcoming bookings but cannot make new ones, and staff can still cancel any booking.",
+   "build": "Yes: the tenant keeps seeing their own past and upcoming bookings but cannot make new ones, and staff can still cancel any booking.",
+   "answeredOn": "2026-10-14",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "A55-1",
+   "kind": "question",
+   "card": "\"HOA dues\" or \"assessments\" in what homeowners read",
+   "qs": [
+    "Should homeowners read \"HOA dues\" in the text of their payment screens, with the menu label kept as \"Assessments\"?"
+   ],
+   "answer": "agree",
+   "rec": "Yes: \"HOA dues\" in the homeowner text, the menu label \"Assessments\" kept as you signed it off, and \"assessment\" kept on the board's screens. If you would rather the menu read \"HOA dues\" too, say so.",
+   "build": "Yes: \"HOA dues\" in the homeowner text, the menu label \"Assessments\" kept as you signed it off, and \"assessment\" kept on the board's screens. If you would rather the menu read \"HOA dues\" too, say so.",
+   "answeredOn": "2026-10-13",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "A58-2",
+   "kind": "question",
+   "card": "Spreadsheet import of actual spending",
+   "qs": [
+    "Should the spreadsheet import of actual spending, with column mapping and duplicate flags, come into the launch, or follow it as recorded on October 1?"
+   ],
+   "answer": "change",
+   "rec": "Keep it after launch, as recorded on October 1: in the launch the treasurer uploads the month's statement and enters or confirms the spending by category. The first slice after launch is column mapping and duplicate flags; a review before anything is confirmed, and keeping the source file, follow it.",
+   "build": "In the launch: the treasurer uploads the month's profit-and-loss spreadsheet; HOAhx matches its lines to the budget categories and flags lines that look doubled; the treasurer reviews and confirms before the figures are published, and the file and who uploaded it are kept.",
+   "answeredOn": "2026-10-13",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "A59-1",
+   "kind": "question",
+   "card": "Past Due for special assessments and behind on dues",
+   "qs": [
+    "Should a special assessment also wait out the dues grace period before it reads Past Due, or is it past due the day after its due date?"
+   ],
+   "answer": "agree",
+   "rec": "A special assessment is past due the day after its own due date; the grace period belongs to the dues schedule.",
+   "build": "A special assessment is past due the day after its own due date; the grace period belongs to the dues schedule.",
+   "answeredOn": "2026-10-13",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
+  {
+   "id": "A59-2",
+   "kind": "question",
+   "card": "Past Due for special assessments and behind on dues",
+   "qs": [
+    "Should a home count as behind on its dues (the board's delinquency list) from the day after the due date, or only once the grace period has passed?"
+   ],
+   "answer": "agree",
+   "rec": "A home counts as behind once the grace period has passed, the same day the late fee is added and the invoice reads Past Due.",
+   "build": "A home counts as behind once the grace period has passed, the same day the late fee is added and the invoice reads Past Due.",
+   "answeredOn": "2026-10-13",
+   "acceptedOn": "2026-10-14",
+   "status": "planned"
+  },
   {
    "id": "A41-4",
    "kind": "question",
@@ -1106,7 +1062,7 @@
    ],
    "answer": "agree",
    "rec": "Founding communities: the first ten communities that subscribe by January 31, 2027 keep their monthly price for twenty-four months, whatever the list price does. Nothing else is discounted.",
-   "build": "Owners' \"HOAhx Trial, Billing & Onboarding Requirements\" (Google Doc, Sep 9, read Sep 10) plus the Sep 9 pricing sheet. Tiers (boundary confirmed by Jacob 2026-09-28, recorded 2026-10-01 so Tenyson and Jake build to one structure): $59 (1–50 homes, $1.18 a home at 50), $89 (51–100, $0.89 at 100), $129 (101–200, $0.65 at 200), $179 (201–300, $0.60 at 300), $229 (301–458, down to about $0.50), then from 459 homes $0.50 per active home per month on every home, no further tiers. 459 is the crossover because $229 ÷ $0.50 = 458 homes, so 459 homes = $229.50 and the two halves meet without a step. This replaces the doc's 301–500 and the sheet's \"through 449\". All MVP features included; no Basic/Pro/Premium packages. Trial: 30 days, no card, full product on the community's real data, guided setup from day one; expires to a locked read-only state; data kept 90 days; reactivation by purchasing; advance notice before deletion. Monthly conversion: normal monthly rate + a one-time \"Community Implementation & Launch\" fee, charged through the subscription's payment method; first paid month at 100% by default; HOAhx staff may apply a one-time 50% discount to the first paid month (manual, once, does not change the standard price). Annual: no recurring discount; first year = 11.5 × monthly (50% off the first month equivalent) with the implementation fee waived, collected as one payment; renewals at 12 × the then-current monthly rate, shown clearly at checkout. Implementation fee: $49 (1–50), $99 (51–100), $149 (101–200), $199 (201–300), $249 (301–500), $299 starting point above 500, configurable. Home count: active property/unit records in HOAhx at each billing date (occupied or vacant; future phases don't count); tier changes apply from the next charge, never retroactively, in both directions; notify the administrator before a new amount is charged; annual terms keep counting and should support a prorated adjustment on a material increase (the doc's own note: \"clarify\"). Card fee: \"no idea until NMI\" — pending the NMI agreement. Founding rate: not addressed in either document — still open. The doc also specifies a trial lifecycle beyond the plan catalogue: welcome on day 1 with internal capture of start/expiry/homes/admin; a day 7–10 activation check with an internal alert on low activity; day 14 and day 21 board-approval questions (capturing the next board-meeting date, flagging high-intent or needs-follow-up); a day 28 reminder by status; internal-only trial extensions (7 days, 14 days, custom date) with original/new dates, grantor, and reason recorded and no extension the community can request for itself; twelve internal sales statuses; and an internal activity timeline of trial and conversion events. That lifecycle is outside SB2 and the twelve items — see `changes.md` Proposed 2026-09-10.",
+   "build": "Owners' \"HOAhx Trial, Billing & Onboarding Requirements\" (Google Doc, Sep 9, read Sep 10) plus the Sep 9 pricing sheet. Tiers (boundary confirmed by Jacob 2026-09-28, recorded 2026-10-01 so Tenyson and Jake build to one structure): $59 (1–50 homes, $1.18 a home at 50), $89 (51–100, $0.89 at 100), $129 (101–200, $0.65 at 200), $179 (201–300, $0.60 at 300), $229 (301–458, down to about $0.50), then from 459 homes $0.50 per active home per month on every home, no further tiers. 459 is the crossover because $229 ÷ $0.50 = 458 homes, so 459 homes = $229.50 and the two halves meet without a step. This replaces the doc's 301–500 and the sheet's \"through 449\". All MVP features included; no Basic/Pro/Premium packages. Trial: 30 days, no card, full product on the community's real data, guided setup from day one; expires to a locked read-only state; data kept 90 days; reactivation by purchasing; advance notice before deletion. Monthly conversion: normal monthly rate + a one-time \"Community Implementation & Launch\" fee, charged through the subscription's payment method; first paid month at 100% by default; HOAhx staff may apply a one-time 50% discount to the first paid month (manual, once, does not change the standard price). Annual: no recurring discount; first year = 11.5 × monthly (50% off the first month equivalent) with the implementation fee waived, collected as one payment; renewals at 12 × the then-current monthly rate, shown clearly at checkout. Implementation fee: $49 (1–50), $99 (51–100), $149 (101–200), $199 (201–300), $249 (301–500), $299 starting point above 500, configurable. Home count: active property/unit records in HOAhx at each billing date (occupied or vacant; future phases don't count); tier changes apply from the next charge, never retroactively, in both directions; notify the administrator before a new amount is charged; annual terms keep counting and should support a prorated adjustment on a material increase (the doc's own note: \"clarify\"). Card fee: \"no idea until NMI\" — pending the NMI agreement. Founding rate: not addressed in either document — still open. The doc also specifies a trial lifecycle beyond the plan catalogue: welcome on day 1 with internal capture of start/expiry/homes/admin; a day 7–10 activation check with an internal alert on low activity; day 14 and day 21 board-approval questions (capturing the next board-meeting date, flagging high-intent or needs-follow-up); a day 28 reminder by status; internal-only trial extensions (7 days, 14 days, custom date) with original/new dates, grantor, and reason recorded and no extension the community can request for itself; twelve internal sales statuses; and an internal activity timeline of trial and conversion events. That lifecycle is outside SB2 and the twelve items — see `changes.md` Proposed 2026-09-10. Addendum 2026-10-13 (the three open points of card A23, each accepted by Jacob: founding communities and the card cost on 2026-10-06, the annual home count on 2026-10-13): (1) Founding communities: the first ten communities that subscribe by January 31, 2027 keep their monthly price for twenty-four months, whatever the list price does; nothing else is discounted. (2) On an annual plan the home count is checked at renewal only: no mid-term charge when homes are added, no mid-term refund when they leave; the new tier applies from the renewal and is shown at checkout; a community that grows past its tier's maximum is told, and its administrator approves before the plan changes or anything more is billed. (3) The HOA pays the published subscription price: HOAhx absorbs the card processing cost, with no surcharge at checkout; bank transfer is offered for annual payments, and the total due is shown before the community confirms.",
    "answeredOn": "2026-10-05",
    "acceptedOn": "2026-10-06",
    "status": "planned"
@@ -1120,7 +1076,7 @@
    ],
    "answer": "discuss",
    "rec": "The subscription price is the price: HOAhx absorbs the card cost on a community's own subscription, and an annual plan can also be paid by bank transfer.",
-   "build": "Owners' \"HOAhx Trial, Billing & Onboarding Requirements\" (Google Doc, Sep 9, read Sep 10) plus the Sep 9 pricing sheet. Tiers (boundary confirmed by Jacob 2026-09-28, recorded 2026-10-01 so Tenyson and Jake build to one structure): $59 (1–50 homes, $1.18 a home at 50), $89 (51–100, $0.89 at 100), $129 (101–200, $0.65 at 200), $179 (201–300, $0.60 at 300), $229 (301–458, down to about $0.50), then from 459 homes $0.50 per active home per month on every home, no further tiers. 459 is the crossover because $229 ÷ $0.50 = 458 homes, so 459 homes = $229.50 and the two halves meet without a step. This replaces the doc's 301–500 and the sheet's \"through 449\". All MVP features included; no Basic/Pro/Premium packages. Trial: 30 days, no card, full product on the community's real data, guided setup from day one; expires to a locked read-only state; data kept 90 days; reactivation by purchasing; advance notice before deletion. Monthly conversion: normal monthly rate + a one-time \"Community Implementation & Launch\" fee, charged through the subscription's payment method; first paid month at 100% by default; HOAhx staff may apply a one-time 50% discount to the first paid month (manual, once, does not change the standard price). Annual: no recurring discount; first year = 11.5 × monthly (50% off the first month equivalent) with the implementation fee waived, collected as one payment; renewals at 12 × the then-current monthly rate, shown clearly at checkout. Implementation fee: $49 (1–50), $99 (51–100), $149 (101–200), $199 (201–300), $249 (301–500), $299 starting point above 500, configurable. Home count: active property/unit records in HOAhx at each billing date (occupied or vacant; future phases don't count); tier changes apply from the next charge, never retroactively, in both directions; notify the administrator before a new amount is charged; annual terms keep counting and should support a prorated adjustment on a material increase (the doc's own note: \"clarify\"). Card fee: \"no idea until NMI\" — pending the NMI agreement. Founding rate: not addressed in either document — still open. The doc also specifies a trial lifecycle beyond the plan catalogue: welcome on day 1 with internal capture of start/expiry/homes/admin; a day 7–10 activation check with an internal alert on low activity; day 14 and day 21 board-approval questions (capturing the next board-meeting date, flagging high-intent or needs-follow-up); a day 28 reminder by status; internal-only trial extensions (7 days, 14 days, custom date) with original/new dates, grantor, and reason recorded and no extension the community can request for itself; twelve internal sales statuses; and an internal activity timeline of trial and conversion events. That lifecycle is outside SB2 and the twelve items — see `changes.md` Proposed 2026-09-10.",
+   "build": "Owners' \"HOAhx Trial, Billing & Onboarding Requirements\" (Google Doc, Sep 9, read Sep 10) plus the Sep 9 pricing sheet. Tiers (boundary confirmed by Jacob 2026-09-28, recorded 2026-10-01 so Tenyson and Jake build to one structure): $59 (1–50 homes, $1.18 a home at 50), $89 (51–100, $0.89 at 100), $129 (101–200, $0.65 at 200), $179 (201–300, $0.60 at 300), $229 (301–458, down to about $0.50), then from 459 homes $0.50 per active home per month on every home, no further tiers. 459 is the crossover because $229 ÷ $0.50 = 458 homes, so 459 homes = $229.50 and the two halves meet without a step. This replaces the doc's 301–500 and the sheet's \"through 449\". All MVP features included; no Basic/Pro/Premium packages. Trial: 30 days, no card, full product on the community's real data, guided setup from day one; expires to a locked read-only state; data kept 90 days; reactivation by purchasing; advance notice before deletion. Monthly conversion: normal monthly rate + a one-time \"Community Implementation & Launch\" fee, charged through the subscription's payment method; first paid month at 100% by default; HOAhx staff may apply a one-time 50% discount to the first paid month (manual, once, does not change the standard price). Annual: no recurring discount; first year = 11.5 × monthly (50% off the first month equivalent) with the implementation fee waived, collected as one payment; renewals at 12 × the then-current monthly rate, shown clearly at checkout. Implementation fee: $49 (1–50), $99 (51–100), $149 (101–200), $199 (201–300), $249 (301–500), $299 starting point above 500, configurable. Home count: active property/unit records in HOAhx at each billing date (occupied or vacant; future phases don't count); tier changes apply from the next charge, never retroactively, in both directions; notify the administrator before a new amount is charged; annual terms keep counting and should support a prorated adjustment on a material increase (the doc's own note: \"clarify\"). Card fee: \"no idea until NMI\" — pending the NMI agreement. Founding rate: not addressed in either document — still open. The doc also specifies a trial lifecycle beyond the plan catalogue: welcome on day 1 with internal capture of start/expiry/homes/admin; a day 7–10 activation check with an internal alert on low activity; day 14 and day 21 board-approval questions (capturing the next board-meeting date, flagging high-intent or needs-follow-up); a day 28 reminder by status; internal-only trial extensions (7 days, 14 days, custom date) with original/new dates, grantor, and reason recorded and no extension the community can request for itself; twelve internal sales statuses; and an internal activity timeline of trial and conversion events. That lifecycle is outside SB2 and the twelve items — see `changes.md` Proposed 2026-09-10. Addendum 2026-10-13 (the three open points of card A23, each accepted by Jacob: founding communities and the card cost on 2026-10-06, the annual home count on 2026-10-13): (1) Founding communities: the first ten communities that subscribe by January 31, 2027 keep their monthly price for twenty-four months, whatever the list price does; nothing else is discounted. (2) On an annual plan the home count is checked at renewal only: no mid-term charge when homes are added, no mid-term refund when they leave; the new tier applies from the renewal and is shown at checkout; a community that grows past its tier's maximum is told, and its administrator approves before the plan changes or anything more is billed. (3) The HOA pays the published subscription price: HOAhx absorbs the card processing cost, with no surcharge at checkout; bank transfer is offered for annual payments, and the total due is shown before the community confirms.",
    "answeredOn": "2026-10-05",
    "acceptedOn": "2026-10-06",
    "status": "planned"
@@ -2074,25 +2030,10 @@
   }
  ],
  "videos": {
-  "11": {
-   "title": "Appointing an HOA Administrator",
-   "seconds": 60,
-   "url": "https://drive.google.com/file/d/10XKkTnTmQEylr8lu78cRaVGaE1t093ow/view"
-  },
   "30": {
    "title": "A refund takes two people: what else can happen",
    "seconds": 252,
    "url": "https://drive.google.com/file/d/1KX9oqoijBjVnfJ1aKlhCsCqJORLhWqE1/view"
-  },
-  "33": {
-   "title": "Appointing an HOA Administrator: what else can happen",
-   "seconds": 131,
-   "url": "https://drive.google.com/file/d/1ouAseefAABXMZNYYqDNcra-ju7lmLISi/view"
-  },
-  "37": {
-   "title": "What an HOA Administrator can and can't do: what else can happen",
-   "seconds": 121,
-   "url": "https://drive.google.com/file/d/11v_eq6qSjwxg5NeoySL3dw5I_AtJ9aAF/view"
   },
   "08": {
    "title": "A refund takes two people",
