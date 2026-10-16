@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-15",
+ "updated": "2026-10-16",
  "groups": [
   {
    "id": "money",
@@ -31,23 +31,8 @@
       "Will any home in the first community start behind, with an amount owed carried into its opening balance?"
      ],
      "rec": "Tell us whether any home starts behind. Until you do, we build and check as if one does, so the delinquency list, the aging and the first notices are proven on that community's real balances before launch.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A62",
-   "group": "community",
-   "title": "A vote or election in the first community's first month",
-   "why": "Eligibility and quorum come from the roster. A vote in the first weeks runs on records that were just imported; a month later it runs on records the board has confirmed.",
-   "rows": [
-    {
-     "id": "A62-1",
-     "qs": [
-      "Will the first community hold a formal vote or an election in its first month on HOAhx?"
-     ],
-     "rec": "Hold the first formal vote in the second month, once the board has confirmed the roster and the co-owner records; if a vote must run in month one, tell us now and we validate that community's voting rules before launch.",
-     "videos": []
+     "videos": [],
+     "reply": "Thank you. We will build the opening-balance import to those five points. One thing is still open: does any home in the first community actually start behind? Until you tell us, we build and check as if one does, so the delinquency list, the aging and the first notices are proven on real balances before launch."
     }
    ]
   },
@@ -79,7 +64,8 @@
       "When a home is sold with a credit still on its account, should the credit go back to the former owner, with a refund task for the Treasurer, unless the closing papers say it transfers to the buyer?"
      ],
      "rec": "Give it back to the former owner. On the day the sale is confirmed, the credit stops counting toward the home's dues, the Treasurer gets a refund to the original payment method to start (approved by a second person, like every refund), and the former owner is told. It moves to the buyer only when the board records that the closing papers say so.",
-     "videos": []
+     "videos": [],
+     "reply": "Thank you. Most of this is already how we would build it: the credit stops counting toward the home's dues the day the sale is confirmed, the refund is a Treasurer task approved by a second person who is not the approver of their own home, and a move to the buyer happens only when the board records what the closing papers say, with the amount, approval and date. We will add two things from your note: the task shows where the credit came from, and a refund that cannot go back to the original payment method becomes an open task for the Treasurer to settle another way, with a reason on record. Is that right?"
     }
    ]
   },
@@ -95,7 +81,8 @@
       "Is 14 days for a one-time visitor pass, set up at most a year ahead, right for launch?"
      ],
      "rec": "Keep 14 days for a one-time pass, set up at most a year ahead, for every community at launch. If a board asks for something else, a setting per community can come later.",
-     "videos": []
+     "videos": [],
+     "reply": "Thank you. For launch: 14 days is the most any visitor pass may run, a pass starts as a same-day visit, and a resident confirms the start and end times. A one-time pass is called 'Single-entry pass' and ends after one admission; a repeat-entry 'Temporary visitor pass' lasts the selected period. Passes can be set up to a year ahead, stay inactive until they start, end on time, can be cancelled by the resident or revoked by staff, and are checked at every use. A community's own limit is a setting we can add after launch if a board asks; we recommend the single 14-day limit for every community at launch."
     }
    ]
   },
@@ -143,7 +130,8 @@
       "If a tenant is named the home's voting representative, may they ask for the hearing before a lien on the home's behalf?"
      ],
      "rec": "Yes. The voting representative speaks for the home, as your earlier answer says. The owners choose the representative and can change it at any time.",
-     "videos": []
+     "videos": [],
+     "reply": "Thank you. We will keep voting separate from speaking for the home at a hearing: a representative needs written authorization for the matter, a missing or unclear one is marked 'Authorization pending' with the original time kept, the owner is told, and a reviewer decides before any lien step. Notices are never replaced by app messages. Until HOA counsel validates a community's rules, these requests go to manual review. Our recommendation stands: the owners choose the representative and can change it at any time."
     }
    ]
   },
@@ -159,55 +147,8 @@
       "Who may take back a first approval of an escalation while it waits for the second approval?"
      ],
      "rec": "Only the person who gave the first approval, or the President, can take it back. Nobody else can.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A70",
-   "group": "enforce",
-   "title": "Another hearing after a case moves back a stage",
-   "why": "It stops a refuse-and-ask-again loop from reopening a stage that was already heard.",
-   "rows": [
-    {
-     "id": "A70-1",
-     "qs": [
-      "Once a hearing is held at one stage, may the homeowner ask for another at an earlier stage if the case is moved back?"
-     ],
-     "rec": "No. One hearing per stage. A stage already heard is not heard again, even if the case moves back; a later stage can still be heard.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A71",
-   "group": "enforce",
-   "title": "Telling the homeowner about lien and hearing steps",
-   "why": "Homeowners should never be surprised by a lien. Each notice says what happened and where to see it.",
-   "rows": [
-    {
-     "id": "A71-1",
-     "qs": [
-      "Should the homeowner be told when the board approves a lien, recorded notice, referral or foreclosure on their violation, and when their hearing is recorded as held?"
-     ],
-     "rec": "Yes. One notice for each step, naming the step and opening the violation. The board's own notes are never in it.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A72",
-   "group": "community",
-   "title": "What the HOAhx assistant is called",
-   "why": "Both names appear in the owners' own list. One name on every screen avoids two words for the same feature.",
-   "rows": [
-    {
-     "id": "A72-1",
-     "qs": [
-      "Should the app keep calling it the \"HOAhx Assistant\" rather than \"Copilot\"?"
-     ],
-     "rec": "Keep \"Assistant\". It is the name the app already uses, and it describes what it does: it answers from the community's own records and hands off to a person.",
-     "videos": []
+     "videos": [],
+     "reply": "Thank you. We will build two separate actions. Only the person who gave the first approval can withdraw it, and that blocks the second approval and starts over with a new first approval. The President can hold or cancel the escalation, but cannot withdraw someone else's approval. Each action needs a reason, notifies the requester and approvers, and keeps the full history. Please confirm this replaces our earlier recommendation."
     }
    ]
   },
@@ -228,23 +169,93 @@
    ]
   },
   {
-   "id": "A74",
+   "id": "A75",
    "group": "community",
-   "title": "How the name is written on screens",
-   "why": "Three spellings are in use today. The store name is already \"HOA HX\", so screens follow it.",
+   "title": "The Assistant for staff with no home in the community",
+   "why": "Your answer to an earlier question kept staff with no home out. Jacob asked to keep them in, so we are asking once more before the Assistant is turned on.",
    "rows": [
     {
-     "id": "A74-1",
+     "id": "A75-1",
      "qs": [
-      "Which spelling should the app show people: \"HOA HX\", \"HOAhx\" or \"HOAHX\"?"
+      "Should board members, the HOA Administrator and managers with no home in the community be able to use the HOAhx Assistant, reading only what their role already lets them see?"
      ],
-     "rec": "Use \"HOA HX\" on screens and in the store listing. It matches the store name already created, and one spelling everywhere reads as one company.",
+     "rec": "Yes. Let staff with no home in the community use it, reading only what their role already lets them see. It answers the questions they get from residents, and it shows them nothing new.",
      "videos": []
     }
    ]
   }
  ],
  "answered": [
+  {
+   "id": "A62-1",
+   "kind": "question",
+   "card": "A vote or election in the first community's first month",
+   "qs": [
+    "Will the first community hold a formal vote or an election in its first month on HOAhx?"
+   ],
+   "answer": "agree",
+   "rec": "Hold the first formal vote in the second month, once the board has confirmed the roster and the co-owner records; if a vote must run in month one, tell us now and we validate that community's voting rules before launch.",
+   "build": "the first formal vote is held in the second month, once the board has confirmed the roster and the co-owner records. If a vote must run in month one, the owners tell us now.",
+   "answeredOn": "2026-10-15",
+   "acceptedOn": "2026-10-16",
+   "status": "planned"
+  },
+  {
+   "id": "A70-1",
+   "kind": "question",
+   "card": "Another hearing after a case moves back a stage",
+   "qs": [
+    "Once a hearing is held at one stage, may the homeowner ask for another at an earlier stage if the case is moved back?"
+   ],
+   "answer": "agree",
+   "rec": "No. One hearing per stage. A stage already heard is not heard again, even if the case moves back; a later stage can still be heard.",
+   "build": "No. One hearing per stage. A stage already heard is not heard again, even if the case moves back; a later stage can still be heard.",
+   "answeredOn": "2026-10-16",
+   "acceptedOn": "2026-10-16",
+   "status": "planned"
+  },
+  {
+   "id": "A71-1",
+   "kind": "question",
+   "card": "Telling the homeowner about lien and hearing steps",
+   "qs": [
+    "Should the homeowner be told when the board approves a lien, recorded notice, referral or foreclosure on their violation, and when their hearing is recorded as held?"
+   ],
+   "answer": "agree",
+   "rec": "Yes. One notice for each step, naming the step and opening the violation. The board's own notes are never in it.",
+   "build": "Yes. One notice for each step, naming the step and opening the violation. The board's own notes are never in it.",
+   "answeredOn": "2026-10-16",
+   "acceptedOn": "2026-10-16",
+   "status": "planned"
+  },
+  {
+   "id": "A72-1",
+   "kind": "question",
+   "card": "What the HOAhx assistant is called",
+   "qs": [
+    "Should the app keep calling it the \"HOAhx Assistant\" rather than \"Copilot\"?"
+   ],
+   "answer": "change",
+   "rec": "Keep \"Assistant\". It is the name the app already uses, and it describes what it does: it answers from the community's own records and hands off to a person.",
+   "build": "Keep \"HOAhx Assistant\" (confirmed by Rustin in chat).",
+   "answeredOn": "2026-10-16",
+   "acceptedOn": "2026-10-16",
+   "status": "planned"
+  },
+  {
+   "id": "A74-1",
+   "kind": "question",
+   "card": "How the name is written on screens",
+   "qs": [
+    "Which spelling should the app show people: \"HOA HX\", \"HOAhx\" or \"HOAHX\"?"
+   ],
+   "answer": "change",
+   "rec": "Use \"HOA HX\" on screens and in the store listing. It matches the store name already created, and one spelling everywhere reads as one company.",
+   "build": "\"HOA HX\" everywhere.",
+   "answeredOn": "2026-10-16",
+   "acceptedOn": "2026-10-16",
+   "status": "planned"
+  },
   {
    "id": "A09-2",
    "kind": "question",
@@ -2041,7 +2052,7 @@
    "build": "They agree with my recommendation. Emergencies, legal and enforcement notices, dues and payment notices, and account security cannot be switched off and stay in the in-app history; optional messages can be. A push alone never counts as formal delivery of a legal notice.",
    "answeredOn": "2026-10-02",
    "acceptedOn": "2026-10-05",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A16-2",
@@ -2083,7 +2094,7 @@
    "build": "Keep the 10,000-character limit, show a counter and a clear message, link longer notices to library documents everyone receiving it may open, and show a short preview in email and push.",
    "answeredOn": "2026-10-02",
    "acceptedOn": "2026-10-05",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A18-1",
@@ -2139,7 +2150,7 @@
    "build": "Closing an account is separate from export and deletion; for launch a support-assisted request (identity checked, tracked, an export of only that person's data, official records referred to the community); 30 days is our own target, not a legal deadline; self-service export after launch.",
    "answeredOn": "2026-10-02",
    "acceptedOn": "2026-10-05",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A19-2",
