@@ -1,0 +1,60 @@
+/* HOAhx · App Store listing review. Light only, like /answers and /videos. */
+:root{color-scheme:light}
+.arpage{--ground:#E9EDF3;--surface:#FFFFFF;--surface-2:#EFF2F7;--ink:#151A23;--ink-2:#39424F;--muted:#4A5362;--rule:#DBE1EA;--rule-strong:#C2CAD6;--accent:#14497F;--accent-2:#2E6EB4;--accent-cyan:#0D8CA6;--accent-wash:#E7EFFA;--on-accent:#FFFFFF;--keep:#1F6B41;--keep-wash:#E2F0E8;--change:#7E5410;--change-wash:#F6EEDC;--flag:#8E2A22;--shadow:0 1px 2px rgba(18,24,38,.05),0 4px 14px rgba(18,24,38,.06);--serif:"Newsreader",Georgia,serif;--mono:"IBM Plex Mono",ui-monospace,monospace}
+.arpage *{box-sizing:border-box}
+body.arpage{margin:0;background:var(--ground);color:var(--ink);font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.arpage .wrap{max-width:920px;margin:0 auto;padding-left:16px;padding-right:16px}
+@media (min-width:640px){.arpage .wrap{padding-left:24px;padding-right:24px}}
+.arpage a{color:var(--accent)}
+.arpage button,.arpage textarea{font-family:inherit}
+.arpage :focus-visible{outline:2px solid var(--accent-2);outline-offset:2px}
+.arpage h1{font-family:var(--serif);font-weight:500;font-size:clamp(30px,4.2vw,44px);line-height:1.06;letter-spacing:-.015em;margin:0;text-wrap:balance}
+.arpage h2{font-family:var(--serif);font-weight:500;font-size:26px;margin:34px 0 6px}
+.arpage h3{font-family:var(--serif);font-weight:500;font-size:20px;line-height:1.3;margin:0}
+.arpage .nav{background:var(--surface);border-bottom:1px solid var(--rule);position:sticky;top:0;z-index:30;box-shadow:var(--shadow)}
+.arpage .nav-in{display:flex;align-items:center;gap:6px;padding-top:10px;padding-bottom:10px;flex-wrap:wrap}
+.arpage .nav-brand{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-right:10px;text-decoration:none}
+.arpage .tab{font-size:13.5px;color:var(--ink-2);text-decoration:none;padding:6px 10px;border-radius:2px;border:1px solid transparent}
+.arpage .tab[aria-current="page"]{color:var(--accent);background:var(--accent-wash)}
+@media (max-width:640px){.arpage .nav{position:static}}
+.arpage .mast{background:linear-gradient(180deg,#F2F7FD 0%,var(--surface) 62%);border-bottom:1px solid var(--rule)}
+.arpage .mast-in{padding-top:32px;padding-bottom:24px}
+.arpage .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 12px}
+.arpage .lede{margin:14px 0 0;max-width:66ch;color:var(--ink-2);font-size:16.5px;line-height:1.6}
+.arpage .lede.small{font-size:14.5px;color:var(--muted)}
+.arpage .who{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin-top:20px}
+.arpage .who-l{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+#who-btns{display:flex;gap:8px;flex-wrap:wrap}
+.arpage main.wrap{padding-top:10px;padding-bottom:90px}
+.arpage .sub{margin:0 0 14px;color:var(--muted);max-width:68ch}
+.arpage .card{background:var(--surface);border:1px solid var(--rule);border-left:3px solid var(--rule-strong);border-radius:2px;margin-bottom:14px;box-shadow:var(--shadow);padding:14px 18px}
+.arpage .card-n{font-family:var(--mono);font-size:12px;color:var(--accent);letter-spacing:.04em}
+.arpage .rec{margin:8px 0 0;padding:10px 12px;background:var(--accent-wash);border-radius:2px}
+.arpage .rec b{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);display:block}
+.arpage .why{margin:8px 0 0;color:var(--ink-2)}
+.arpage details{margin-top:10px}
+.arpage summary{cursor:pointer;color:var(--accent);font-size:14px;min-height:36px;display:flex;align-items:center}
+.arpage pre.show{white-space:pre-wrap;word-wrap:break-word;font-family:inherit;font-size:14px;background:var(--surface-2);border:1px solid var(--rule);padding:12px 14px;margin:6px 0 0;max-height:420px;overflow:auto}
+.arpage .answers{margin-top:14px;border-top:1px solid var(--rule);padding-top:12px;display:grid;gap:10px}
+.arpage .ans{display:grid;grid-template-columns:90px 1fr;gap:6px 12px;align-items:start}
+.arpage .ans-who{font-weight:600}
+.arpage .state{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.arpage .state.agree{color:var(--keep)}.arpage .state.change{color:var(--change)}.arpage .state.none{color:var(--muted)}
+.arpage .note{margin:4px 0 0;white-space:pre-wrap;background:var(--change-wash);padding:8px 10px;border-radius:2px}
+.arpage .act{display:flex;flex-wrap:wrap;gap:8px}
+.arpage .btn{appearance:none;cursor:pointer;font-size:14px;font-weight:500;padding:8px 15px;min-height:40px;border-radius:2px;border:1px solid var(--accent);background:var(--accent);color:var(--on-accent)}
+.arpage .btn.quiet{background:transparent;color:var(--accent)}
+.arpage .btn.quiet:hover{background:var(--accent-wash)}
+.arpage .btn[aria-pressed="true"]{background:var(--keep);border-color:var(--keep);color:#fff}
+.arpage .btn.change[aria-pressed="true"]{background:var(--change);border-color:var(--change)}
+.arpage .btn:disabled{cursor:default;background:var(--surface-2);border-color:var(--rule-strong);color:var(--muted)}
+.arpage textarea{width:100%;min-height:84px;margin-top:8px;padding:8px 10px;border:1px solid var(--rule-strong);border-radius:2px;font-size:15px}
+.arpage .msg{font-size:13.5px;color:var(--muted);min-height:1.2em;margin-top:6px}
+.arpage .msg.err{color:var(--flag)}
+.arpage .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px}
+.arpage .grid .card{margin:0}
+.arpage .thumbs{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.arpage .thumbs span{font-size:12.5px;background:var(--surface-2);border:1px solid var(--rule);padding:2px 8px;border-radius:2px}
+.arpage .empty{color:var(--muted)}
+.arpage footer{border-top:1px solid var(--rule);background:var(--surface);padding:18px 0;color:var(--ink-2);font-size:14px}
+.arpage input[type=file]{font-size:14px;max-width:100%}

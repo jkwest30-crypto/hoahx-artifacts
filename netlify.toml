@@ -87,3 +87,16 @@
   from = "/videos/review"
   to = "/videos/review/index.html"
   status = 200
+
+# HOAhx · App Store listing: the listing choices with Jacob's recommendation, each owner's Agree or
+# Change, and the screenshots they upload or ask Jacob to provide. Store at /api/app-review.
+[[redirects]]
+  from = "/api/app-review"
+  to = "/.netlify/functions/appreview"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/app-review"
+  to = "/app-review/index.html"
+  status = 200

@@ -20,6 +20,7 @@
     "publish:answers": "node scripts/publish-answers.mjs",
     "check:answers": "node scripts/publish-answers.mjs --check",
     "pull:answers": "node scripts/pull-answers.mjs",
+    "pull:app-review": "node scripts/pull-app-review.mjs",
     "publish:hub": "node scripts/publish-hub.mjs",
     "check:hub": "node scripts/publish-hub.mjs --check",
     "dev": "node scripts/dev-register.mjs",
