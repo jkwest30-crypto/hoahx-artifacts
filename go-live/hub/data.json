@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-28",
+ "updated": "2026-10-17",
  "drive": "https://drive.google.com/drive/folders/1yrLpnPhmn8mZ3bE-DEwZ5RO2fRRCWaxe",
  "waiting": [
   {
@@ -77,6 +77,13 @@
        "t": "Demo compared with the app",
        "d": "Each demo section beside what the app does.",
        "href": "https://hoahx-requirements.netlify.app/demo/"
+      },
+      {
+       "k": "page",
+       "t": "App Store listing",
+       "d": "The listing choices with a recommendation each: agree or change them, and add screenshots.",
+       "href": "https://hoahx-requirements.netlify.app/app-review",
+       "date": "2026-10-17"
       }
      ]
     },
