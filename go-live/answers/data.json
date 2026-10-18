@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-16",
+ "updated": "2026-10-17",
  "groups": [
   {
    "id": "money",
@@ -103,22 +103,6 @@
    ]
   },
   {
-   "id": "A67",
-   "group": "community",
-   "title": "Entry instructions sent with a shared guest code",
-   "why": "Gates differ from one community to the next, so one fixed sentence will be wrong for some.",
-   "rows": [
-    {
-     "id": "A67-1",
-     "qs": [
-      "Should each community be able to write its own entry instructions that go out with a shared guest code?"
-     ],
-     "rec": "Yes. Give each community an \"Entry instructions\" text on Parking rules, and send it with every shared guest code. Until it is set, the message says \"Enter it at the gate keypad.\"",
-     "videos": []
-    }
-   ]
-  },
-  {
    "id": "A68",
    "group": "enforce",
    "title": "A tenant named voting representative asking for a hearing",
@@ -153,22 +137,6 @@
    ]
   },
   {
-   "id": "A73",
-   "group": "community",
-   "title": "What a board title grants",
-   "why": "The owners' list wants no unrestricted access by title. The report shows exactly what each title holds, so any of them can be narrowed.",
-   "rows": [
-    {
-     "id": "A73-1",
-     "qs": [
-      "Is it right that each board title gets only the permissions listed for it (the Roles report), and nothing more by being on the board?"
-     ],
-     "rec": "Keep it as it is. A title gives only the permissions the Roles report lists for it. The report is the one place to check what a Board Member, Treasurer or President can do.",
-     "videos": []
-    }
-   ]
-  },
-  {
    "id": "A75",
    "group": "community",
    "title": "The Assistant for staff with no home in the community",
@@ -183,9 +151,69 @@
      "videos": []
     }
    ]
+  },
+  {
+   "id": "A76",
+   "group": "community",
+   "title": "One vote per home",
+   "why": "Today each owner, co-owner and tenant of a home can cast a ballot that counts, while quorum already counts the home once. If your bylaws say every owner votes separately, tell us and nothing changes.",
+   "rows": [
+    {
+     "id": "A76-1",
+     "qs": [
+      "When more than one person of the same home votes, should the home count once in the result?"
+     ],
+     "rec": "Yes. Count one result per home: the home's voting representative's ballot, or the first one cast if there is none. A home with three people living in it should not count three times.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A77",
+   "group": "community",
+   "title": "Deleting an account versus moving out",
+   "why": "The delete button has to stay for both app stores, and the community keeps its payments, ballots, requests and history whatever the person does. Most homeowners leave because they move, so pointing them to the move-out step first gives the board the sale and the new owner, and the notice means no account closes without the board knowing.",
+   "rows": [
+    {
+     "id": "A77-1",
+     "qs": [
+      "A homeowner can delete their account and personal data from the app, as Apple and Google require. Should we keep it and add a \"Moving or selling? Tell your HOA\" step before it, plus a notice to the board when someone closes their account?"
+     ],
+     "rec": "Yes, keep deletion and add both pieces. A homeowner who still owns a home is first offered \"Moving or selling? Tell your HOA\", with deletion still one tap away. When someone closes their account, the board and managers get one notice naming the home. The community's records stay either way.",
+     "videos": []
+    }
+   ]
   }
  ],
  "answered": [
+  {
+   "id": "A67-1",
+   "kind": "question",
+   "card": "Entry instructions sent with a shared guest code",
+   "qs": [
+    "Should each community be able to write its own entry instructions that go out with a shared guest code?"
+   ],
+   "answer": "agree",
+   "rec": "Yes. Give each community an \"Entry instructions\" text on Parking rules, and send it with every shared guest code. Until it is set, the message says \"Enter it at the gate keypad.\"",
+   "build": "Yes. Each community gets an \"Entry instructions\" text on Parking rules, sent with every shared guest code.",
+   "answeredOn": "2026-10-16",
+   "acceptedOn": "2026-10-17",
+   "status": "planned"
+  },
+  {
+   "id": "A73-1",
+   "kind": "question",
+   "card": "What a board title grants",
+   "qs": [
+    "Is it right that each board title gets only the permissions listed for it (the Roles report), and nothing more by being on the board?"
+   ],
+   "answer": "agree",
+   "rec": "Keep it as it is. A title gives only the permissions the Roles report lists for it. The report is the one place to check what a Board Member, Treasurer or President can do.",
+   "build": "Keep it as it is: each board title carries only the permissions the roles report lists.",
+   "answeredOn": "2026-10-16",
+   "acceptedOn": "2026-10-17",
+   "status": "planned"
+  },
   {
    "id": "A62-1",
    "kind": "question",
