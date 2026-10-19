@@ -9,7 +9,7 @@
 //     answer      { q: "Q01".."Q10", who, v: "" | "agree" | "change", n }
 //     shot        { slot: "iphone-1" | "ipad-3" | "extra", who, v: "" | "jacob" }
 //     file-chunk  { id, i, data }                one chunk (up to 2.5 MB of the file, base64)
-//     file-done   { id, who, slot, name, type, size, chunks }   finishes an upload
+//     file-done   { id, who, slot, name, type, size, chunks }   finishes an upload (who: an owner, or Jacob)
 //
 // If DECISION_EDIT_KEY is set on the Netlify site, every request must carry it, like the other stores.
 
@@ -18,6 +18,8 @@ const { getStore } = require('@netlify/blobs');
 const EDIT_KEY = process.env.DECISION_EDIT_KEY || '';
 const STORE_NAME = 'hoahx-app-review';
 const OWNERS = ['Tenyson', 'Rustin', 'Dan'];
+// Jacob uploads the screenshots he provides; the listing answers and choices stay the owners' own.
+const UPLOADERS = OWNERS.concat(['Jacob']);
 const Q_RE = /^Q(0[1-9]|10)$/;
 const SLOT_RE = /^(iphone-[1-9]|ipad-(1|2|3|5|9)|extra)$/;
 const ID_RE = /^[0-9a-f]{16,32}$/;
@@ -61,7 +63,7 @@ function validateChunk(p) {
 /** The end of an upload. Pure. */
 function validateDone(p) {
   if (!ID_RE.test(String(p.id || ''))) return { error: 'invalid id' };
-  if (!OWNERS.includes(p.who)) return { error: 'invalid name' };
+  if (!UPLOADERS.includes(p.who)) return { error: 'invalid name' };
   if (!SLOT_RE.test(String(p.slot || ''))) return { error: 'invalid slot' };
   if (!TYPES.includes(p.type)) return { error: 'only PNG or JPEG images' };
   const chunks = Number(p.chunks);

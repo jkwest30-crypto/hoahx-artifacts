@@ -67,6 +67,16 @@ test('an upload round-trips in chunks', async () => {
   assert.equal(Buffer.from(c1.body.data, 'base64').toString(), 'PNGDATA-TWO');
 });
 
+test('Jacob may upload, but never answers or chooses for an owner', async () => {
+  const call = open();
+  await call('POST', { body: { action: 'file-chunk', id: ID, i: 0, data: 'QQ==' } });
+  assert.equal((await call('POST', { body: { action: 'file-done', id: ID, who: 'Jacob', slot: 'iphone-1', name: 'a.png', type: 'image/png', size: 1, chunks: 1 } })).status, 200);
+  assert.equal((await call('GET')).body.files[0].who, 'Jacob');
+  assert.equal((await call('POST', { body: { action: 'answer', q: 'Q01', who: 'Jacob', v: 'agree' } })).status, 400);
+  assert.equal((await call('POST', { body: { action: 'shot', slot: 'iphone-1', who: 'Jacob', v: 'jacob' } })).status, 400);
+  assert.equal((await call('POST', { body: { action: 'file-done', id: ID, who: 'Eve', slot: 'extra', name: 'a.png', type: 'image/png', size: 1, chunks: 1 } })).status, 400);
+});
+
 test('only PNG or JPEG, and a real slot', async () => {
   const call = open();
   await call('POST', { body: { action: 'file-chunk', id: ID, i: 0, data: 'QQ==' } });
