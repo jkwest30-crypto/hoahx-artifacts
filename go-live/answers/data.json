@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-17",
+ "updated": "2026-10-18",
  "groups": [
   {
    "id": "money",
@@ -98,7 +98,8 @@
       "Should the number of parking spaces differ by home type in your community, and is there a community total?"
      ],
      "rec": "Start with two spaces per home for every home type and no community total. The board can change both on Parking rules whenever it wants.",
-     "videos": []
+     "videos": [],
+     "reply": "Thank you. Parking will be set per community: the board sets a default number of spaces per home, can add a different number for a type of home, and can make an exception for one home with a reason. An exception wins over the home type, and the home type wins over the default. Every change is recorded in the history and the homes affected are told; if a limit is lowered, existing assignments are flagged for review and not cancelled. A permit does not promise a physical space. We recommend launching with two spaces per home for every home type and no community total, which the board can change on Parking rules at any time. Separate capacity for each parking area and reservations for shared parking are larger than the launch plan, so we propose them as a later step. Does that work for you? Or if we want to do it before launch we can price it out, let me know!"
     }
    ]
   },
@@ -180,6 +181,22 @@
       "A homeowner can delete their account and personal data from the app, as Apple and Google require. Should we keep it and add a \"Moving or selling? Tell your HOA\" step before it, plus a notice to the board when someone closes their account?"
      ],
      "rec": "Yes, keep deletion and add both pieces. A homeowner who still owns a home is first offered \"Moving or selling? Tell your HOA\", with deletion still one tap away. When someone closes their account, the board and managers get one notice naming the home. The community's records stay either way.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A78",
+   "group": "money",
+   "title": "An officer's own home in a dues group",
+   "why": "Today an officer who owns a home can move it into a dues group and set the amount; the change is recorded in the community's history, but nothing stops it. The same rule already keeps board members from deciding refunds, violations and architectural requests on their own home.",
+   "rows": [
+    {
+     "id": "A78-1",
+     "qs": [
+      "Should a Treasurer or President be stopped from placing their own home in a dues group or setting that group's amount?"
+     ],
+     "rec": "Yes. Refuse a dues-group or dues-schedule change that names a home the person making it owns. Another officer with the same access makes that change instead.",
      "videos": []
     }
    ]
