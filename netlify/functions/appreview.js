@@ -21,7 +21,7 @@ const OWNERS = ['Tenyson', 'Rustin', 'Dan'];
 // Jacob uploads the screenshots he provides; the listing answers and choices stay the owners' own.
 const UPLOADERS = OWNERS.concat(['Jacob']);
 const Q_RE = /^Q(0[1-9]|10)$/;
-const SLOT_RE = /^(iphone-[1-9]|ipad-(1|2|3|5|9)|extra)$/;
+const SLOT_RE = /^(iphone-[1-9]|ipad-(1|2|3|6|7)|extra)$/;
 const ID_RE = /^[0-9a-f]{16,32}$/;
 const TYPES = ['image/png', 'image/jpeg'];
 const NOTE_MAX = 4000;

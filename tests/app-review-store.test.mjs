@@ -51,6 +51,16 @@ test('"Jacob provides this one" is saved per owner and can be cleared', async ()
   assert.equal((await call('GET')).body.shots['iphone-3.Rustin'].v, '');
 });
 
+test('the iPad slots follow the shot list (1, 2, 3, 6, 7)', async () => {
+  const call = open();
+  for (const slot of ['ipad-1', 'ipad-2', 'ipad-3', 'ipad-6', 'ipad-7']) {
+    assert.equal((await call('POST', { body: { action: 'shot', slot, who: 'Dan', v: 'jacob' } })).status, 200);
+  }
+  for (const slot of ['ipad-5', 'ipad-9']) {
+    assert.equal((await call('POST', { body: { action: 'shot', slot, who: 'Dan', v: 'jacob' } })).status, 400);
+  }
+});
+
 test('an upload round-trips in chunks', async () => {
   const call = open();
   const a = Buffer.from('PNGDATA-ONE').toString('base64');

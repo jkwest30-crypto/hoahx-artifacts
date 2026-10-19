@@ -92,7 +92,11 @@
     return card;
   }
 
-  function filesFor(slot) { return S.store.files.filter(function (f) { return f.slot === slot; }); }
+  // Uploads from before the current shot list (data.json's filesSince) belong to an earlier set and are not shown.
+  function filesFor(slot) {
+    var since = S.data.filesSince || '';
+    return S.store.files.filter(function (f) { return f.slot === slot && String(f.at || '') >= since; });
+  }
 
   // Uploaded images, assembled once from the store's chunks and kept as object URLs by file id,
   // so a re-render never fetches them again.
