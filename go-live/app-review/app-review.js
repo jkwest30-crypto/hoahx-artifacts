@@ -94,6 +94,54 @@
 
   function filesFor(slot) { return S.store.files.filter(function (f) { return f.slot === slot; }); }
 
+  // Uploaded images, assembled once from the store's chunks and kept as object URLs by file id,
+  // so a re-render never fetches them again.
+  var IMG = {};
+  function imageUrl(f) {
+    if (IMG[f.id]) return IMG[f.id];
+    var parts = [];
+    var i = 0;
+    IMG[f.id] = (function next() {
+      if (i >= f.chunks) {
+        var bytes = parts.map(function (d) { var s = atob(d), a = new Uint8Array(s.length); for (var k = 0; k < s.length; k++) a[k] = s.charCodeAt(k); return a; });
+        return URL.createObjectURL(new Blob(bytes, { type: f.type }));
+      }
+      return call('GET', API + '?file=' + encodeURIComponent(f.id) + '&chunk=' + i).then(function (j) { parts.push(j.data); i++; return next(); });
+    })();
+    IMG[f.id].catch(function () { delete IMG[f.id]; });
+    return IMG[f.id];
+  }
+  function when(at) {
+    var d = new Date(at);
+    return isNaN(d) ? '' : d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+  }
+  function thumb(f, title) {
+    var img = el('img', { alt: f.name, loading: 'lazy', decoding: 'async' });
+    var btn = el('button', { class: 'thumb', type: 'button', 'aria-label': 'View full size: ' + f.name, title: 'View full size',
+      onclick: function () { openViewer(f, title); } }, [img]);
+    imageUrl(f).then(function (u) { img.src = u; btn.classList.add('ready'); }, function () { btn.classList.add('failed'); img.alt = 'Could not load ' + f.name; });
+    return el('figure', { class: 'shot' }, [btn, el('figcaption', {}, [el('b', { text: f.who }), ' · ' + f.name + (when(f.at) ? ' · ' + when(f.at) : '')])]);
+  }
+
+  // Full-size viewer: a native dialog (Esc closes it), the image at its full width, scrollable.
+  var viewer = null;
+  function openViewer(f, title) {
+    if (!viewer) {
+      viewer = el('dialog', { class: 'viewer', 'aria-label': 'Screenshot' });
+      viewer.addEventListener('click', function (e) { if (e.target === viewer) viewer.close(); });
+      document.body.appendChild(viewer);
+    }
+    viewer.textContent = '';
+    var img = el('img', { alt: f.name });
+    viewer.appendChild(el('div', { class: 'viewer-bar' }, [
+      el('div', {}, [el('b', { text: title }), el('div', { class: 'viewer-sub', text: f.who + ' uploaded ' + f.name + (when(f.at) ? ' on ' + when(f.at) : '') })]),
+      el('button', { class: 'btn quiet', type: 'button', text: 'Close', onclick: function () { viewer.close(); } })
+    ]));
+    viewer.appendChild(el('div', { class: 'viewer-img' }, [img]));
+    imageUrl(f).then(function (u) { img.src = u; }, function (e) { img.alt = 'Could not load the image: ' + e.message; });
+    if (viewer.showModal) viewer.showModal(); else viewer.setAttribute('open', '');
+  }
+
   function slotCard(slot, title, cap, size) {
     var key = 'shot-' + slot;
     var mine = S.store.shots[slot + '.' + S.who] || {};
@@ -114,8 +162,13 @@
       var s = S.store.shots[slot + '.' + o];
       if (s && s.v === 'jacob') seen.appendChild(el('span', { text: o + ': Jacob provides' }));
     });
-    filesFor(slot).forEach(function (f) { seen.appendChild(el('span', { text: f.who + ' uploaded ' + f.name })); });
     card.appendChild(seen);
+    var mineFiles = filesFor(slot);
+    if (mineFiles.length) {
+      var gallery = el('div', { class: 'gallery' });
+      mineFiles.forEach(function (f) { gallery.appendChild(thumb(f, title)); });
+      card.insertBefore(gallery, card.children[1] || null);
+    }
     return card;
   }
 

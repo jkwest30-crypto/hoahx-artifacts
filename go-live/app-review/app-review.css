@@ -55,6 +55,22 @@ body.arpage{margin:0;background:var(--ground);color:var(--ink);font-family:"IBM 
 .arpage .grid .card{margin:0}
 .arpage .thumbs{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
 .arpage .thumbs span{font-size:12.5px;background:var(--surface-2);border:1px solid var(--rule);padding:2px 8px;border-radius:2px}
+.arpage .thumbs:empty{display:none}
+.arpage .gallery{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 4px}
+.arpage .shot{margin:0;width:132px}
+.arpage .thumb{display:block;width:132px;aspect-ratio:1320/2868;padding:0;border:1px solid var(--rule-strong);border-radius:4px;background:var(--surface-2);cursor:zoom-in;overflow:hidden}
+.arpage .thumb img{display:block;width:100%;height:100%;object-fit:cover;object-position:top;opacity:0;transition:opacity .2s}
+.arpage .thumb.ready{aspect-ratio:auto}
+.arpage .thumb.ready img{opacity:1;height:auto}
+.arpage .thumb.failed{cursor:default}
+.arpage .thumb:hover{border-color:var(--accent-2)}
+.arpage .shot figcaption{font-size:12px;line-height:1.35;color:var(--muted);margin-top:4px;word-break:break-word}
+.arpage .shot figcaption b{color:var(--ink-2);font-weight:600}
+.arpage .viewer{border:0;padding:0;width:min(96vw,760px);max-height:94vh;background:var(--surface);border-radius:4px;box-shadow:0 10px 40px rgba(0,0,0,.35)}
+.arpage .viewer::backdrop{background:rgba(15,20,30,.72)}
+.arpage .viewer-bar{position:sticky;top:0;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 14px;background:var(--surface);border-bottom:1px solid var(--rule)}
+.arpage .viewer-sub{font-size:13px;color:var(--muted)}
+.arpage .viewer-img img{display:block;width:100%;height:auto}
 .arpage .empty{color:var(--muted)}
 .arpage footer{border-top:1px solid var(--rule);background:var(--surface);padding:18px 0;color:var(--ink-2);font-size:14px}
 .arpage input[type=file]{font-size:14px;max-width:100%}
