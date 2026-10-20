@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-18",
+ "updated": "2026-10-20",
  "groups": [
   {
    "id": "money",
@@ -12,6 +12,10 @@
   {
    "id": "community",
    "title": "Community life"
+  },
+  {
+   "id": "records",
+   "title": "Documents, messages, and records"
   },
   {
    "id": "pricing",
@@ -197,6 +201,38 @@
       "Should a Treasurer or President be stopped from placing their own home in a dues group or setting that group's amount?"
      ],
      "rec": "Yes. Refuse a dues-group or dues-schedule change that names a home the person making it owns. Another officer with the same access makes that change instead.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A79",
+   "group": "money",
+   "title": "The fee for a home's transfer package",
+   "why": "Nothing changes for a community until its board chooses a fee; the ceiling keeps a mistyped amount from reaching a seller, and the package is prepared only once it is paid for.",
+   "rows": [
+    {
+     "id": "A79-1",
+     "qs": [
+      "A community can charge the seller a fee for the transfer package. Should the President or the management company set it, starting at no charge and capped at $1,000, with the seller paying by card or bank account when they request the package?"
+     ],
+     "rec": "Yes. The President or the management company sets the fee, with a reason. It starts at no charge and can be at most $1,000. The seller pays it by card or bank account when they request the package, with no saved payment method and no card fee added. If the payment is declined, the package is not requested.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A80",
+   "group": "records",
+   "title": "What a title company sees in a transfer package",
+   "why": "The account review is the home's private financial picture; showing it only after the board has prepared the package keeps the board in control of what leaves the community.",
+   "rows": [
+    {
+     "id": "A80-1",
+     "qs": [
+      "When the seller or the board shares a home's transfer package with the title company, what may the title company see, and for how long?"
+     ],
+     "rec": "The home, the community, the expected and final closing dates, the package status and the board's note, and the home's account review (balance and open items) only once the board has marked the package prepared. Never anyone's email, the seller's note or how anyone paid. Access lasts until a last day at most 30 days away and ends at the handoff or if the sale is cancelled.",
      "videos": []
     }
    ]
