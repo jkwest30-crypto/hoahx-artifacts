@@ -12,16 +12,16 @@ const require = createRequire(import.meta.url);
 const FN = path.join(here, '..', 'netlify', 'functions', 'videos.js');
 const stub = require('@netlify/blobs');
 
-function open({ jacobKey = 'jk', ownerKey = '' } = {}) {
+function open({ ownerKey = '' } = {}) {
   stub.__stores.clear();
-  process.env.VIDEO_REVIEW_KEY = jacobKey; process.env.DECISION_EDIT_KEY = ownerKey;
+  process.env.DECISION_EDIT_KEY = ownerKey;
   delete require.cache[require.resolve(FN)];
   const { handler } = require(FN);
   const call = async (method, { query = {}, body, headers = {} } = {}) => {
     const res = await handler({ httpMethod: method, headers, queryStringParameters: query, body: body ? JSON.stringify(body) : undefined });
     return { status: res.statusCode, body: JSON.parse(res.body) };
   };
-  return { call, J: { 'x-review-key': jacobKey } };
+  return { call, J: {} };
 }
 const PREVIEW = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQ==';
 const FULL = '/9j/4AAQSkZJRgABAQAAAQABAAD';
@@ -43,21 +43,18 @@ test('owners can answer and leave a note; they never see Jacob\'s side', async (
   assert.equal(mine.jacob['02'].status, 'fix');
 });
 
-test('Jacob\'s side needs his passphrase, and is closed when none is set', async () => {
-  let { call } = open();
-  assert.equal((await call('GET', { query: { side: 'jacob' } })).status, 401);
-  assert.equal((await call('POST', { body: { action: 'status', side: 'jacob', vid: '01', status: 'approved', commit: 'aaaaaaa' } })).status, 401);
-  ({ call } = open({ jacobKey: '' }));
-  const r = await call('GET', { query: { side: 'jacob' }, headers: { 'x-review-key': '' } });
-  assert.equal(r.status, 401);
-  assert.match(r.body.error, /VIDEO_REVIEW_KEY/);
+test('Jacob\'s side needs no passphrase (Jacob, 2026-10-21)', async () => {
+  const { call } = open();
+  assert.equal((await call('GET', { query: { side: 'jacob' } })).status, 200);
+  assert.equal((await call('POST', { body: { action: 'status', side: 'jacob', vid: '01', status: 'approved', commit: 'aaaaaaa' } })).status, 200);
 });
 
 test('the owners\' passphrase gates their side when it is set', async () => {
-  const { call, J } = open({ ownerKey: 'ok' });
+  const { call } = open({ ownerKey: 'ok' });
   assert.equal((await call('GET')).status, 401);
   assert.equal((await call('GET', { headers: { 'x-edit-key': 'ok' } })).status, 200);
-  assert.equal((await call('GET', { headers: J })).status, 200);
+  assert.equal((await call('GET', { query: { side: 'jacob' } })).status, 401, 'Jacob\'s page reads the owners\' side too, so it carries the owners\' passphrase when one is set');
+  assert.equal((await call('GET', { query: { side: 'jacob' }, headers: { 'x-edit-key': 'ok' } })).status, 200);
 });
 
 test('validation: side, status, commit, name, screenshots', async () => {
@@ -79,10 +76,8 @@ test('a full-size screenshot: uploaded by its side, fetched by Jacob, dropped on
   assert.equal((await call('POST', { body: { action: 'image', ref: n.ref, i: 1, data: 'not-a-jpeg' } })).status, 400);
   const up = await call('POST', { body: { action: 'image', ref: n.ref, i: 1, data: FULL } });
   assert.equal(up.body.images[0].full, true);
-  assert.equal((await call('GET', { query: { side: 'jacob', image: `${n.ref}-1` } })).status, 401);
   const got = await call('GET', { query: { side: 'jacob', image: `${n.ref}-1` }, headers: J });
   assert.equal(got.body.data, FULL);
-  assert.equal((await call('POST', { body: { action: 'moved', ref: n.ref, i: 1, drive: { id: '1abcdefghijk', name: 'x.jpg' } } })).status, 401);
   const mv = await call('POST', { headers: J, body: { action: 'moved', ref: n.ref, i: 1, drive: { id: '1abcdefghijk', name: 'V05-N001-1.jpg' } } });
   assert.equal(mv.body.images[0].drive.id, '1abcdefghijk');
   assert.equal(mv.body.images[0].full, false);

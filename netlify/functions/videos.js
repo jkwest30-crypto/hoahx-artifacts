@@ -2,11 +2,12 @@
 // and the owners' page (/videos, and the "Videos to review" section on /answers).
 // Backed by Netlify Blobs (site-wide store "hoahx-video-review"). History kept on every status;
 // notes are never deleted. The one thing that is deleted is a full-size screenshot, and only after
-// the pull has copied it to Drive and checked the copy (action "moved", Jacob's passphrase).
+// the pull has copied it to Drive and checked the copy (action "moved", Jacob's side).
 //
-// Two sides, two gates:
+// Two sides:
 //   owners  DECISION_EDIT_KEY, if it is set, like every other store on this site
-//   jacob   VIDEO_REVIEW_KEY, always required. Unset means Jacob's side is closed.
+//   jacob   no passphrase (Jacob, 2026-10-21: "I don't need one"). The page is linked from nowhere
+//           and carries noindex; the owners' gate, when set, still guards the owners' side.
 //
 //   GET  /api/videos                          owners' statuses and the owners' notes (previews only)
 //   GET  /api/videos?side=jacob               + Jacob's sign-offs and notes, where each full-size copy is
@@ -26,7 +27,6 @@
 const { getStore } = require('@netlify/blobs');
 
 const OWNER_KEY = process.env.DECISION_EDIT_KEY || '';
-const JACOB_KEY = process.env.VIDEO_REVIEW_KEY || '';
 const STORE_NAME = 'hoahx-video-review';
 const VID_RE = /^\d{2}$/;
 const REF_RE = /^V(\d{2})-N(\d{3})$/;
@@ -56,17 +56,14 @@ function keysFrom(event, payload) {
   const h = event.headers || {};
   const q = event.queryStringParameters || {};
   const pick = (name, body) => h[name] || h[name.replace(/(^|-)([a-z])/g, (m, d, c) => d + c.toUpperCase())] || (payload && typeof payload[body] === 'string' ? payload[body] : '') || q[body] || '';
-  return { owner: pick('x-edit-key', 'key'), jacob: pick('x-review-key', 'reviewKey') };
+  return { owner: pick('x-edit-key', 'key') };
 }
 
 /** Which side a request may act as. Pure. */
 function allowedSides(keys, env) {
   const ownerKey = env.ownerKey || '';
-  const jacobKey = env.jacobKey || '';
-  const sides = new Set();
-  const jacob = !!jacobKey && keys.jacob === jacobKey;
-  if (jacob) sides.add('jacob');
-  if (!ownerKey || keys.owner === ownerKey || jacob) sides.add('owners');
+  const sides = new Set(['jacob']);
+  if (!ownerKey || keys.owner === ownerKey) sides.add('owners');
   return sides;
 }
 
@@ -145,13 +142,12 @@ async function handle(event) {
     try { payload = JSON.parse(event.body || '{}'); } catch (e) { return json({ error: 'invalid json body' }, 400); }
     if (!payload || typeof payload !== 'object' || Array.isArray(payload)) return json({ error: 'invalid json body' }, 400);
   }
-  const sides = allowedSides(keysFrom(event, payload), { ownerKey: OWNER_KEY, jacobKey: JACOB_KEY });
+  const sides = allowedSides(keysFrom(event, payload), { ownerKey: OWNER_KEY });
   const q = event.queryStringParameters || {};
   const store = openStore();
 
   if (event.httpMethod === 'GET') {
     const wantJacob = q.side === 'jacob';
-    if (wantJacob && !sides.has('jacob')) return json({ error: JACOB_KEY ? 'unauthorized' : 'VIDEO_REVIEW_KEY is not set on the site' }, 401);
     if (!sides.has('owners')) return json({ error: 'unauthorized' }, 401);
     if (wantJacob && q.image) {
       const m = /^(V\d{2}-N\d{3})-(\d)$/.exec(q.image);
@@ -186,7 +182,7 @@ async function handle(event) {
   if (event.httpMethod !== 'POST') return json({ error: 'method not allowed' }, 405);
   const action = payload.action;
   const now = new Date().toISOString();
-  const need = (side) => (sides.has(side) ? null : json({ error: side === 'jacob' && !JACOB_KEY ? 'VIDEO_REVIEW_KEY is not set on the site' : 'unauthorized' }, 401));
+  const need = (side) => (sides.has(side) ? null : json({ error: 'unauthorized' }, 401));
 
   if (action === 'status') {
     const a = validateStatus(payload);

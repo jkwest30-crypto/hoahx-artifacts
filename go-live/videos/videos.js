@@ -24,7 +24,6 @@
     owners: {}, jacob: {}, notes: [],
     filter: store.get('videos-filter-' + MODE) || 'all',
     name: store.get('videos-name'),
-    reviewKey: store.get('videos-review-key'),
     editKey: store.get('decision-edit-key'),
     open: {},          // vid -> note form open
     pending: {},       // vid -> [{ full, preview, w, h, ow, oh, results, ok, zoom }]
@@ -36,7 +35,6 @@
   function headers() {
     const h = { 'Content-Type': 'application/json' };
     if (S.editKey) h['x-edit-key'] = S.editKey;
-    if (MODE === 'jacob' && S.reviewKey) h['x-review-key'] = S.reviewKey;
     return h;
   }
   async function call(body) {
@@ -328,7 +326,6 @@
 
   function explain(e) {
     if (e.status === 401) {
-      if (MODE === 'jacob') { S.reviewKey = ''; store.set('videos-review-key', ''); showKeyPrompt(e.message); return 'The passphrase was not accepted.'; }
       return 'This page needs the passphrase you were given. Reload the page and enter it.';
     }
     if (e.status === 413) return 'A screenshot was too large to send. Try a smaller one.';
@@ -362,20 +359,6 @@
   app.addEventListener('drop', (ev) => { const d = ev.target.closest('.drop'); if (d) { ev.preventDefault(); d.classList.remove('over'); addFiles(d.dataset.drop, ev.dataTransfer.files); } });
   window.addEventListener('beforeunload', (ev) => { if (Object.values(S.pending).some((l) => l.length) || Object.keys(S.unsent).length) { ev.preventDefault(); ev.returnValue = ''; } });
 
-  // ---- passphrase (Jacob's page) ---------------------------------------------------------------
-  function showKeyPrompt(msg) {
-    const box = $('#key-box'); if (!box) return;
-    box.hidden = false;
-    $('#key-msg').textContent = msg && msg !== 'unauthorized' ? msg : '';
-    $('#key-in').focus();
-  }
-  const keyForm = $('#key-form');
-  if (keyForm) keyForm.addEventListener('submit', (ev) => {
-    ev.preventDefault();
-    S.reviewKey = $('#key-in').value.trim(); store.set('videos-review-key', S.reviewKey);
-    $('#key-box').hidden = true; load();
-  });
-
   // ---- load ------------------------------------------------------------------------------------
   async function load() {
     try {
@@ -385,7 +368,6 @@
     } catch (e) {
       S.error = 'The list of videos could not be loaded. Reload the page to try again.';
     }
-    if (MODE === 'jacob' && !S.reviewKey) { render(); showKeyPrompt(); return; }
     try {
       const data = await call(null);
       S.owners = data.owners || {}; S.jacob = data.jacob || {}; S.notes = data.notes || [];

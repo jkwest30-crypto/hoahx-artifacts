@@ -114,7 +114,7 @@ body.vpage{margin:0;background:var(--ground);color:var(--ink);font-family:"IBM P
 .vpage .err-line{font-size:13px;color:var(--flag)}
 .vpage .note-form{display:grid;gap:7px;margin-top:4px}
 .vpage .note-form label{font-size:13.5px;font-weight:500}
-.vpage .note-form textarea,.vpage .note-form input[type=text],.vpage .key-form input{width:100%;font:inherit;font-size:14px;color:var(--ink);background:var(--surface);border:1px solid var(--rule-strong);border-radius:2px;padding:8px 10px}
+.vpage .note-form textarea,.vpage .note-form input[type=text]{width:100%;font:inherit;font-size:14px;color:var(--ink);background:var(--surface);border:1px solid var(--rule-strong);border-radius:2px;padding:8px 10px}
 .vpage .note-form textarea{min-height:76px;resize:vertical}
 .vpage .drop{display:flex;flex-wrap:wrap;align-items:center;gap:10px;border:1px dashed var(--rule-strong);border-radius:2px;padding:10px;background:var(--surface)}
 .vpage .drop.over{border-color:var(--accent-2);background:var(--accent-wash)}
@@ -137,9 +137,6 @@ body.vpage{margin:0;background:var(--ground);color:var(--ink);font-family:"IBM P
 .vpage .confirm{display:flex;gap:8px;align-items:center;font-size:13.5px;font-weight:500;margin-top:4px}
 .vpage .check .link-btn{justify-self:start;font-size:12.5px}
 .vpage .form-row{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
-.vpage .key-form{max-width:520px;margin:22px 0 0}
-.vpage .key-form label{display:block;font-size:14px;font-weight:500;margin:10px 0 6px}
-.vpage .key-form .cta{margin-top:12px}
 .vpage code{font-family:"IBM Plex Mono",monospace;font-size:.92em}
 
 /* the "Videos to review" section on /answers: .vreview, with v- classes so it borrows nothing from that page */

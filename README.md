@@ -378,7 +378,7 @@ repository, a message, or a terminal.
 
 Short feature videos recorded from the product, reviewed in two passes:
 
-1. **Jacob, at `/videos/review`** (linked from nowhere, gated by `VIDEO_REVIEW_KEY`). Every recording
+1. **Jacob, at `/videos/review`** (linked from nowhere, no passphrase: Jacob, 2026-10-21). Every recording
    the recorder lists in the HOAhx repo's `docs/launch/videos/videos.json` appears here. The takes sit
    in `HOAhx/video-review/pending-recordings/` in Drive, which the owners cannot open. He approves a
    recording, or flags it with a note and screenshots. An approval is of one recording (its `commit`):
@@ -396,20 +396,11 @@ never commits or pushes. `npm run pull:videos` writes every note to
 expected size), and only then drops the full size from the store; the small preview stays on the
 page. `npm run find:videos -- V05-N004` prints everything about one note, with Drive links.
 
-**The passphrase comes from Netlify.** The commands read `VIDEO_REVIEW_KEY` from the site's own
-environment with the Netlify CLI (`netlify env:get`, production context, functions scope), so nothing
-needs to be set in the shell. The CLI must be installed and logged in (`netlify login`); a checkout that
-is not linked to the site is linked on first use (`netlify link --id`, which writes only the gitignored
-`.netlify/state.json`). `--key <value>` and `VIDEO_REVIEW_KEY` in the shell still win, in that order.
-When Netlify cannot give the key, the command stops with a plain message. The value is never printed
-or written to a file.
-
 **Run `sync` from a checkout at `origin/main`.** It writes `go-live/videos/` files to be committed, so it
 refuses a checkout on another branch that is not at `origin/main` (another session's work may be
 there); `--any-branch` overrides. `pull`, `find`, `check` and `--dry-run` work on any branch.
 
 Store: `netlify/functions/videos.js` (Netlify Blobs, "hoahx-video-review"). The owners' side follows
-`DECISION_EDIT_KEY` like every other store here; Jacob's side needs `VIDEO_REVIEW_KEY` and is closed
-while it is unset. Every note gets a permanent reference (`V05-N004`), and screenshot files in Drive
+`DECISION_EDIT_KEY` like every other store here; Jacob's side needs no passphrase of its own. Every note gets a permanent reference (`V05-N004`), and screenshot files in Drive
 start with it. Drive is reached through the `hoahx-drive` rclone remote, which can only see folders
 rclone created.

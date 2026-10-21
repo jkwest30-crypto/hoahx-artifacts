@@ -7,8 +7,7 @@
 //                                                            full-size screenshots -> Drive, checked, then dropped
 //   node scripts/videos.mjs find  V05-N004                   everything about one note
 //
-// Options: --key <VIDEO_REVIEW_KEY> (or the env var; with neither, the key is read from the Netlify site's
-//          environment through the Netlify CLI), --edit-key <DECISION_EDIT_KEY> if set on the site,
+// Options: --edit-key <DECISION_EDIT_KEY> if set on the site (Jacob's side needs no passphrase),
 //          --site <url> (default the live site), --hoahx <path to the hoahx checkout>,
 //          --any-branch (let sync write into a checkout that is not on main).
 //
@@ -22,7 +21,7 @@ import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import {
   REVIEW_ROOT, SHARED_DIR, SHARED_ROOT, REF_RE, buildJacobData, findForbidden, buildOwnersData, describeNote, driveView, guardOwnersData,
-  planPublish, readManifest, resolveReviewKey, screenshotName, verifyCopy,
+  planPublish, readManifest, screenshotName, verifyCopy,
 } from './videos-lib.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -49,48 +48,9 @@ function fail(msg) { console.error(`\n✗ ${msg}`); process.exit(1); }
 const readJson = (f, dflt) => { try { return JSON.parse(fs.readFileSync(f, 'utf8')); } catch (e) { return dflt; } };
 const writeJson = (f, v) => { fs.mkdirSync(path.dirname(f), { recursive: true }); fs.writeFileSync(f, JSON.stringify(v, null, 2) + '\n'); };
 
-// Reads VIDEO_REVIEW_KEY from the site's environment with the Netlify CLI, in this checkout's folder.
-// Links the folder to the site first when it is not linked (that writes only the gitignored
-// .netlify/state.json; no site setting changes). The CLI's own --site flag hangs, so the link is used.
-// stdout is captured and parsed, never echoed; errors carry the CLI's stderr only.
-function netlifyReviewKey() {
-  const cli = (args) => {
-    try {
-      return execFileSync('netlify', args, { cwd: root, encoding: 'utf8', timeout: 90_000, stdio: ['ignore', 'pipe', 'pipe'] });
-    } catch (e) {
-      if (e.code === 'ENOENT') throw new Error('the Netlify CLI is not installed (npm install -g netlify-cli, then netlify login)');
-      const why = (e.stderr || '').toString().replace(/\u001b\[[0-9;]*m/g, '').trim().split('\n').slice(-3).join(' ');
-      throw new Error(`netlify ${args[0]} failed${e.signal ? ` (${e.signal}, timed out?)` : ''}${why ? `: ${why}` : ''}. Is the CLI logged in (netlify login)?`);
-    }
-  };
-  const statePath = path.join(root, '.netlify/state.json');
-  const linked = readJson(statePath, {}).siteId;
-  if (linked && linked !== NETLIFY_SITE_ID) throw new Error(`this folder is linked to another Netlify site (${linked}), not ${NETLIFY_SITE_ID}`);
-  if (!linked) {
-    console.log(`Linking ${root} to the Netlify site ${NETLIFY_SITE_ID} (local .netlify/state.json only).`);
-    cli(['link', '--id', NETLIFY_SITE_ID]);
-    if (readJson(statePath, {}).siteId !== NETLIFY_SITE_ID) throw new Error('netlify link did not link this folder');
-  }
-  const out = cli(['env:get', 'VIDEO_REVIEW_KEY', '--json', '--context', 'production', '--scope', 'functions']);
-  let parsed; try { parsed = JSON.parse(out); } catch (e) { throw new Error('netlify env:get did not answer JSON'); }
-  return (parsed && typeof parsed.VIDEO_REVIEW_KEY === 'string') ? parsed.VIDEO_REVIEW_KEY : '';
-}
-
-let KEY = '';
-async function reviewKey() {
-  if (KEY) return KEY;
-  try {
-    const got = await resolveReviewKey({ flag: opt('key', ''), env: process.env.VIDEO_REVIEW_KEY || '', netlify: netlifyReviewKey });
-    console.log(`Jacob's passphrase: from ${got.source}.`);
-    KEY = got.key;
-  } catch (e) { fail(e.message); }
-  return KEY;
-}
-
 async function api(query, body) {
-  const key = await reviewKey();
   const url = `${SITE}/api/videos${query || ''}`;
-  const headers = { 'Content-Type': 'application/json', 'x-review-key': key };
+  const headers = { 'Content-Type': 'application/json' };
   if (EDIT_KEY) headers['x-edit-key'] = EDIT_KEY;
   const res = await fetch(url, body ? { method: 'POST', headers, body: JSON.stringify(body) } : { headers });
   const text = await res.text();
