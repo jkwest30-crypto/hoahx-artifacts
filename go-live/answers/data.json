@@ -30,13 +30,26 @@
    "why": "If a home starts behind, those screens must be right on day one; if none does, they are proven over the first dues cycle instead. Nothing is left out of the build either way.",
    "rows": [
     {
-     "id": "A61-1",
+     "id": "A61-2",
      "qs": [
-      "Will any home in the first community start behind, with an amount owed carried into its opening balance?"
+      "Will any home in the first community actually start behind, with an amount owed carried into its opening balance?"
      ],
-     "rec": "Tell us whether any home starts behind. Until you do, we build and check as if one does, so the delinquency list, the aging and the first notices are proven on that community's real balances before launch.",
+     "rec": "Tell us when you know. Until then we build and check as if one does, so the list of who is behind, the aging and the first notices are proven on that community's real balances before launch.",
      "videos": [],
-     "reply": "Thank you. We will build the opening-balance import to those five points. One thing is still open: does any home in the first community actually start behind? Until you tell us, we build and check as if one does, so the delinquency list, the aging and the first notices are proven on real balances before launch."
+     "why": "The import itself is agreed. If a home starts behind, those screens must be right on day one; nothing is left out of the build either way.",
+     "earlier": {
+      "id": "A61-1",
+      "qs": [
+       "Will any home in the first community start behind, with an amount owed carried into its opening balance?"
+      ],
+      "agreed": "The opening-balance import keeps the detail behind each balance: unpaid charges, fees, credits, what is left on each and its original due date, so the aging is right. Balances are checked home by home and in total against your earlier records, and approved by an authorized board member or manager before they count. An import never creates a charge again or adds a past late fee; collection notices wait until the balances are approved; disputes, payment plans and collection holds come across with them. It is tested on current, overdue, partly paid, in-credit and disputed accounts, on test data until your records are in.",
+      "replies": [
+       {
+        "at": "2026-10-16T08:37:57.000Z",
+        "text": "Thank you. We will build the opening-balance import to those five points. One thing is still open: does any home in the first community actually start behind? Until you tell us, we build and check as if one does, so the delinquency list, the aging and the first notices are proven on real balances before launch."
+       }
+      ]
+     }
     }
    ]
   },
@@ -63,13 +76,26 @@
    "why": "Daniel asked that a credit never be stranded or go to the wrong owner. The credit is money the seller paid, so it goes back to them unless the sale itself says otherwise.",
    "rows": [
     {
-     "id": "A64-1",
+     "id": "A64-2",
      "qs": [
-      "When a home is sold with a credit still on its account, should the credit go back to the former owner, with a refund task for the Treasurer, unless the closing papers say it transfers to the buyer?"
+      "Before that refund is approved, should the Treasurer's task also ask who actually paid the credit, and confirm the closing did not already settle it?"
      ],
-     "rec": "Give it back to the former owner. On the day the sale is confirmed, the credit stops counting toward the home's dues, the Treasurer gets a refund to the original payment method to start (approved by a second person, like every refund), and the former owner is told. It moves to the buyer only when the board records that the closing papers say so.",
+     "rec": "Yes. The task asks both, and the refund cannot be approved until they are answered.",
      "videos": [],
-     "reply": "Thank you. Most of this is already how we would build it: the credit stops counting toward the home's dues the day the sale is confirmed, the refund is a Treasurer task approved by a second person who is not the approver of their own home, and a move to the buyer happens only when the board records what the closing papers say, with the amount, approval and date. We will add two things from your note: the task shows where the credit came from, and a refund that cannot go back to the original payment method becomes an open task for the Treasurer to settle another way, with a reason on record. Is that right?"
+     "why": "Your note asked for both. They keep a credit from being refunded twice, or to the wrong person.",
+     "earlier": {
+      "id": "A64-1",
+      "qs": [
+       "When a home is sold with a credit still on its account, should the credit go back to the former owner, with a refund task for the Treasurer, unless the closing papers say it transfers to the buyer?"
+      ],
+      "agreed": "When the sale is confirmed, the credit stops counting toward the home's dues and goes back to the former owner: a refund task for the Treasurer that shows where the credit came from, approved by a second person who is not deciding on their own home. It moves to the buyer only when the board records what the closing papers say, with the amount, the approval and the date. A refund that cannot go back to the original payment method becomes an open task for the Treasurer to settle another way, with a reason on record.",
+      "replies": [
+       {
+        "at": "2026-10-16T08:37:57.000Z",
+        "text": "Thank you. Most of this is already how we would build it: the credit stops counting toward the home's dues the day the sale is confirmed, the refund is a Treasurer task approved by a second person who is not the approver of their own home, and a move to the buyer happens only when the board records what the closing papers say, with the amount, approval and date. We will add two things from your note: the task shows where the credit came from, and a refund that cannot go back to the original payment method becomes an open task for the Treasurer to settle another way, with a reason on record. Is that right?"
+       }
+      ]
+     }
     }
    ]
   },
@@ -80,13 +106,26 @@
    "why": "One rule keeps the guard's view and the homeowner's view of a pass the same, and nobody has asked for another length.",
    "rows": [
     {
-     "id": "A65-1",
+     "id": "A65-2",
      "qs": [
-      "Is 14 days for a one-time visitor pass, set up at most a year ahead, right for launch?"
+      "Can the one 14-day limit apply to every community at launch, with a community's own limit added later if a board asks?"
      ],
-     "rec": "Keep 14 days for a one-time pass, set up at most a year ahead, for every community at launch. If a board asks for something else, a setting per community can come later.",
+     "rec": "Yes. One limit keeps the guard's view and the homeowner's view of a pass the same. A setting per community comes after launch, when a board asks for one.",
      "videos": [],
-     "reply": "Thank you. For launch: 14 days is the most any visitor pass may run, a pass starts as a same-day visit, and a resident confirms the start and end times. A one-time pass is called 'Single-entry pass' and ends after one admission; a repeat-entry 'Temporary visitor pass' lasts the selected period. Passes can be set up to a year ahead, stay inactive until they start, end on time, can be cancelled by the resident or revoked by staff, and are checked at every use. A community's own limit is a setting we can add after launch if a board asks; we recommend the single 14-day limit for every community at launch."
+     "why": "Everything else in your note is agreed. This is the one part we propose to keep simpler at launch.",
+     "earlier": {
+      "id": "A65-1",
+      "qs": [
+       "Is 14 days for a one-time visitor pass, set up at most a year ahead, right for launch?"
+      ],
+      "agreed": "Every visitor pass runs at most 14 days and starts as a same-day visit; the resident confirms the start and end times. A 'Single-entry pass' ends after one admission; a 'Temporary visitor pass' allows repeat entry for the selected period. Passes can be set up to a year ahead, stay inactive until they start, end on time, can be cancelled by the resident or revoked by staff, and are checked at every use.",
+      "replies": [
+       {
+        "at": "2026-10-16T08:37:57.000Z",
+        "text": "Thank you. For launch: 14 days is the most any visitor pass may run, a pass starts as a same-day visit, and a resident confirms the start and end times. A one-time pass is called 'Single-entry pass' and ends after one admission; a repeat-entry 'Temporary visitor pass' lasts the selected period. Passes can be set up to a year ahead, stay inactive until they start, end on time, can be cancelled by the resident or revoked by staff, and are checked at every use. A community's own limit is a setting we can add after launch if a board asks; we recommend the single 14-day limit for every community at launch."
+       }
+      ]
+     }
     }
    ]
   },
@@ -97,13 +136,26 @@
    "why": "Your earlier answer said two by default and rules by home type if needed. The setting is there; the numbers are the board's.",
    "rows": [
     {
-     "id": "A66-1",
+     "id": "A66-2",
      "qs": [
-      "Should the number of parking spaces differ by home type in your community, and is there a community total?"
+      "Can capacity for each parking area, and reservations for shared parking, come after launch?"
      ],
-     "rec": "Start with two spaces per home for every home type and no community total. The board can change both on Parking rules whenever it wants.",
+     "rec": "Yes. They are larger than the launch plan, so we propose them as the next step after launch. If you need them before launch, tell us and we will come back with what it would take.",
      "videos": [],
-     "reply": "Thank you. Parking will be set per community: the board sets a default number of spaces per home, can add a different number for a type of home, and can make an exception for one home with a reason. An exception wins over the home type, and the home type wins over the default. Every change is recorded in the history and the homes affected are told; if a limit is lowered, existing assignments are flagged for review and not cancelled. A permit does not promise a physical space. We recommend launching with two spaces per home for every home type and no community total, which the board can change on Parking rules at any time. Separate capacity for each parking area and reservations for shared parking are larger than the launch plan, so we propose them as a later step. Does that work for you? Or if we want to do it before launch we can price it out, let me know!"
+     "why": "The rules per community, per home type and per home are agreed. These two are the parts of your note that go beyond the launch plan.",
+     "earlier": {
+      "id": "A66-1",
+      "qs": [
+       "Should the number of parking spaces differ by home type in your community, and is there a community total?"
+      ],
+      "agreed": "Parking is set per community: the board sets a default number of spaces per home, can set a different number for a type of home, and can make an exception for one home with a reason. An exception wins over the home type, and the home type wins over the default. Every change is in the history and the homes affected are told; when a limit is lowered, existing assignments are flagged for review, never cancelled. A permit does not promise a physical space. Launch starts at two spaces per home for every home type and no community total, which the board can change on Parking rules at any time.",
+      "replies": [
+       {
+        "at": "2026-10-17T07:14:53.974Z",
+        "text": "Thank you. Parking will be set per community: the board sets a default number of spaces per home, can add a different number for a type of home, and can make an exception for one home with a reason. An exception wins over the home type, and the home type wins over the default. Every change is recorded in the history and the homes affected are told; if a limit is lowered, existing assignments are flagged for review and not cancelled. A permit does not promise a physical space. We recommend launching with two spaces per home for every home type and no community total, which the board can change on Parking rules at any time. Separate capacity for each parking area and reservations for shared parking are larger than the launch plan, so we propose them as a later step. Does that work for you? Or if we want to do it before launch we can price it out, let me know!"
+       }
+      ]
+     }
     }
    ]
   },
@@ -114,13 +166,26 @@
    "why": "It matches what you answered before. Limiting it to owners would need a separate rule for the representative.",
    "rows": [
     {
-     "id": "A68-1",
+     "id": "A68-2",
      "qs": [
-      "If a tenant is named the home's voting representative, may they ask for the hearing before a lien on the home's behalf?"
+      "Should a representative's authorization say what it covers, so asking for a hearing never also lets them settle the debt, accept a payment plan or waive a right for the owner?"
      ],
-     "rec": "Yes. The voting representative speaks for the home, as your earlier answer says. The owners choose the representative and can change it at any time.",
+     "rec": "Yes. The authorization names the matter and what the representative may do. Anything beyond asking for and attending the hearing stays with the owner.",
      "videos": [],
-     "reply": "Thank you. We will keep voting separate from speaking for the home at a hearing: a representative needs written authorization for the matter, a missing or unclear one is marked 'Authorization pending' with the original time kept, the owner is told, and a reviewer decides before any lien step. Notices are never replaced by app messages. Until HOA counsel validates a community's rules, these requests go to manual review. Our recommendation stands: the owners choose the representative and can change it at any time."
+     "why": "Your note asked that a hearing request never carry financial authority. Naming what the authorization covers is how that is kept.",
+     "earlier": {
+      "id": "A68-1",
+      "qs": [
+       "If a tenant is named the home's voting representative, may they ask for the hearing before a lien on the home's behalf?"
+      ],
+      "agreed": "Voting and speaking for the home at a hearing are separate permissions, checked on the screen and on the server. A representative needs written authorization for the matter; a missing or unclear one is marked 'Authorization pending' with the original time kept, the owner is told, and a reviewer decides before any lien step. Required notices are never replaced by app messages. Until HOA counsel validates a community's rules, these requests go to manual review. The owners choose the representative and can change it at any time.",
+      "replies": [
+       {
+        "at": "2026-10-16T08:37:57.000Z",
+        "text": "Thank you. We will keep voting separate from speaking for the home at a hearing: a representative needs written authorization for the matter, a missing or unclear one is marked 'Authorization pending' with the original time kept, the owner is told, and a reviewer decides before any lien step. Notices are never replaced by app messages. Until HOA counsel validates a community's rules, these requests go to manual review. Our recommendation stands: the owners choose the representative and can change it at any time."
+       }
+      ]
+     }
     }
    ]
   },
@@ -131,13 +196,26 @@
    "why": "The President owns escalation decisions. Letting any board member undo a colleague's approval invites back-and-forth.",
    "rows": [
     {
-     "id": "A69-1",
+     "id": "A69-2",
      "qs": [
-      "Who may take back a first approval of an escalation while it waits for the second approval?"
+      "When a hold is released, should the approvals be checked again before the escalation goes on, with fresh approvals if the escalation changed in a material way?"
      ],
-     "rec": "Only the person who gave the first approval, or the President, can take it back. Nobody else can.",
+     "rec": "Yes. Releasing a hold needs a reason, the approvals are checked again, and a material change needs fresh approvals. A cancelled escalation never comes back on its own.",
      "videos": [],
-     "reply": "Thank you. We will build two separate actions. Only the person who gave the first approval can withdraw it, and that blocks the second approval and starts over with a new first approval. The President can hold or cancel the escalation, but cannot withdraw someone else's approval. Each action needs a reason, notifies the requester and approvers, and keeps the full history. Please confirm this replaces our earlier recommendation."
+     "why": "Your note asked for this. It keeps a held escalation from going on with approvals that no longer fit it.",
+     "earlier": {
+      "id": "A69-1",
+      "qs": [
+       "Who may take back a first approval of an escalation while it waits for the second approval?"
+      ],
+      "agreed": "Withdrawing an approval and stopping an escalation are separate actions. Only the person who gave the first approval can withdraw it; that blocks the second approval and starts over with a new first approval. The President can hold or cancel the escalation but cannot withdraw someone else's approval. Each action needs a reason, tells the requester and the approvers, and keeps the full history.",
+      "replies": [
+       {
+        "at": "2026-10-16T08:37:57.000Z",
+        "text": "Thank you. We will build two separate actions. Only the person who gave the first approval can withdraw it, and that blocks the second approval and starts over with a new first approval. The President can hold or cancel the escalation, but cannot withdraw someone else's approval. Each action needs a reason, notifies the requester and approvers, and keeps the full history. Please confirm this replaces our earlier recommendation."
+       }
+      ]
+     }
     }
    ]
   },
@@ -240,6 +318,104 @@
  ],
  "answered": [
   {
+   "id": "A61-1",
+   "kind": "question",
+   "card": "Homes already behind when the first community starts",
+   "qs": [
+    "Will any home in the first community start behind, with an amount owed carried into its opening balance?"
+   ],
+   "answer": "discuss",
+   "rec": "Tell us whether any home starts behind. Until you do, we build and check as if one does, so the delinquency list, the aging and the first notices are proven on that community's real balances before launch.",
+   "build": "The opening-balance import keeps the detail behind each balance: unpaid charges, fees, credits, what is left on each and its original due date, so the aging is right. Balances are checked home by home and in total against your earlier records, and approved by an authorized board member or manager before they count. An import never creates a charge again or adds a past late fee; collection notices wait until the balances are approved; disputes, payment plans and collection holds come across with them. It is tested on current, overdue, partly paid, in-credit and disputed accounts, on test data until your records are in.",
+   "answeredOn": "2026-10-15",
+   "acceptedOn": "2026-10-20",
+   "status": "planned"
+  },
+  {
+   "id": "A64-1",
+   "kind": "question",
+   "card": "A credit left on the account when a home is sold",
+   "qs": [
+    "When a home is sold with a credit still on its account, should the credit go back to the former owner, with a refund task for the Treasurer, unless the closing papers say it transfers to the buyer?"
+   ],
+   "answer": "discuss",
+   "rec": "Give it back to the former owner. On the day the sale is confirmed, the credit stops counting toward the home's dues, the Treasurer gets a refund to the original payment method to start (approved by a second person, like every refund), and the former owner is told. It moves to the buyer only when the board records that the closing papers say so.",
+   "build": "When the sale is confirmed, the credit stops counting toward the home's dues and goes back to the former owner: a refund task for the Treasurer that shows where the credit came from, approved by a second person who is not deciding on their own home. It moves to the buyer only when the board records what the closing papers say, with the amount, the approval and the date. A refund that cannot go back to the original payment method becomes an open task for the Treasurer to settle another way, with a reason on record.",
+   "answeredOn": "2026-10-15",
+   "acceptedOn": "2026-10-20",
+   "status": "planned"
+  },
+  {
+   "id": "A65-1",
+   "kind": "question",
+   "card": "How long a homeowner's visitor pass may run",
+   "qs": [
+    "Is 14 days for a one-time visitor pass, set up at most a year ahead, right for launch?"
+   ],
+   "answer": "change",
+   "rec": "Keep 14 days for a one-time pass, set up at most a year ahead, for every community at launch. If a board asks for something else, a setting per community can come later.",
+   "build": "Every visitor pass runs at most 14 days and starts as a same-day visit; the resident confirms the start and end times. A 'Single-entry pass' ends after one admission; a 'Temporary visitor pass' allows repeat entry for the selected period. Passes can be set up to a year ahead, stay inactive until they start, end on time, can be cancelled by the resident or revoked by staff, and are checked at every use.",
+   "answeredOn": "2026-10-16",
+   "acceptedOn": "2026-10-20",
+   "status": "planned"
+  },
+  {
+   "id": "A66-1",
+   "kind": "question",
+   "card": "Parking spaces by home type, and a community total",
+   "qs": [
+    "Should the number of parking spaces differ by home type in your community, and is there a community total?"
+   ],
+   "answer": "change",
+   "rec": "Start with two spaces per home for every home type and no community total. The board can change both on Parking rules whenever it wants.",
+   "build": "Parking is set per community: the board sets a default number of spaces per home, can set a different number for a type of home, and can make an exception for one home with a reason. An exception wins over the home type, and the home type wins over the default. Every change is in the history and the homes affected are told; when a limit is lowered, existing assignments are flagged for review, never cancelled. A permit does not promise a physical space. Launch starts at two spaces per home for every home type and no community total, which the board can change on Parking rules at any time.",
+   "answeredOn": "2026-10-16",
+   "acceptedOn": "2026-10-20",
+   "status": "planned"
+  },
+  {
+   "id": "A68-1",
+   "kind": "question",
+   "card": "A tenant named voting representative asking for a hearing",
+   "qs": [
+    "If a tenant is named the home's voting representative, may they ask for the hearing before a lien on the home's behalf?"
+   ],
+   "answer": "change",
+   "rec": "Yes. The voting representative speaks for the home, as your earlier answer says. The owners choose the representative and can change it at any time.",
+   "build": "Voting and speaking for the home at a hearing are separate permissions, checked on the screen and on the server. A representative needs written authorization for the matter; a missing or unclear one is marked 'Authorization pending' with the original time kept, the owner is told, and a reviewer decides before any lien step. Required notices are never replaced by app messages. Until HOA counsel validates a community's rules, these requests go to manual review. The owners choose the representative and can change it at any time.",
+   "answeredOn": "2026-10-16",
+   "acceptedOn": "2026-10-20",
+   "status": "planned"
+  },
+  {
+   "id": "A69-1",
+   "kind": "question",
+   "card": "Taking back a first approval of an escalation",
+   "qs": [
+    "Who may take back a first approval of an escalation while it waits for the second approval?"
+   ],
+   "answer": "change",
+   "rec": "Only the person who gave the first approval, or the President, can take it back. Nobody else can.",
+   "build": "Withdrawing an approval and stopping an escalation are separate actions. Only the person who gave the first approval can withdraw it; that blocks the second approval and starts over with a new first approval. The President can hold or cancel the escalation but cannot withdraw someone else's approval. Each action needs a reason, tells the requester and the approvers, and keeps the full history.",
+   "answeredOn": "2026-10-16",
+   "acceptedOn": "2026-10-20",
+   "status": "planned"
+  },
+  {
+   "id": "A62-1",
+   "kind": "question",
+   "card": "A vote or election in the first community's first month",
+   "qs": [
+    "Will the first community hold a formal vote or an election in its first month on HOAhx?"
+   ],
+   "answer": "agree",
+   "rec": "Hold the first formal vote in the second month, once the board has confirmed the roster and the co-owner records; if a vote must run in month one, tell us now and we validate that community's voting rules before launch.",
+   "build": "the first formal vote is held in the second month, once the board has confirmed the roster and the co-owner records. If a vote must run in month one, the owners tell us now.",
+   "answeredOn": "2026-10-15",
+   "acceptedOn": "2026-10-17",
+   "status": "planned"
+  },
+  {
    "id": "A67-1",
    "kind": "question",
    "card": "Entry instructions sent with a shared guest code",
@@ -265,20 +441,6 @@
    "build": "Keep it as it is: each board title carries only the permissions the roles report lists.",
    "answeredOn": "2026-10-16",
    "acceptedOn": "2026-10-17",
-   "status": "planned"
-  },
-  {
-   "id": "A62-1",
-   "kind": "question",
-   "card": "A vote or election in the first community's first month",
-   "qs": [
-    "Will the first community hold a formal vote or an election in its first month on HOAhx?"
-   ],
-   "answer": "agree",
-   "rec": "Hold the first formal vote in the second month, once the board has confirmed the roster and the co-owner records; if a vote must run in month one, tell us now and we validate that community's voting rules before launch.",
-   "build": "the first formal vote is held in the second month, once the board has confirmed the roster and the co-owner records. If a vote must run in month one, the owners tell us now.",
-   "answeredOn": "2026-10-15",
-   "acceptedOn": "2026-10-16",
    "status": "planned"
   },
   {

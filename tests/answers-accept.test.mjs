@@ -6,7 +6,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
   applyAcceptance, buildAcceptRows, buildPublished, buildQuestions, buildScreens, checkAccepted, checkAnsweredStatus,
-  checkPublished, describeChange, findForbidden, parseAnswers, parseRegister, parseScreensSpec, sortAnswer,
+  checkPublished, checkSource, describeChange, findForbidden, parseAnswers, parseRegister, parseScreensSpec, sortAnswer,
 } from '../scripts/answers-lib.mjs';
 
 const clone = (x) => JSON.parse(JSON.stringify(x));
@@ -120,7 +120,7 @@ test('accept: a Change in their words moves, with the planned wording when the s
 test('reply: the question stays open and carries our reply', () => {
   const r = sync({ accepted: { 'A01-2': { decision: 'reply', at: '2026-10-02T20:00:00Z', reply: 'Yes: never more than what is owed.' } } });
   const row = r.questions.cards[0].rows.find((x) => x.id === 'A01-2');
-  assert.equal(row.reply, 'Yes: never more than what is owed.');
+  assert.deepEqual(row.replies, [{ at: '2026-10-02T20:00:00Z', text: 'Yes: never more than what is owed.' }]);
   assert.equal(r.replied, 1);
   assert.deepEqual(r.answered, []);
 });
@@ -145,7 +145,7 @@ test('published: answered and replies pass the check, carry no internal numberin
   const lines = describeChange(before, p);
   assert.ok(lines.includes('+ answered A02-1: Are late fees applied automatically? (planned)'));
   assert.ok(lines.includes('- question A02-1: Are late fees applied automatically?'));
-  assert.ok(lines.includes('~ question A01-2: our reply shown'));
+  assert.ok(lines.includes('~ question A01-2: 1 new reply from us (1 in all)'));
   const moved = clone(p); moved.data.answered[0].status = 'live';
   assert.ok(describeChange(p, moved).some((l) => / -> live$/.test(l)));
 });
@@ -199,4 +199,43 @@ test('sort: the accept file lists only what Jacob has not decided, and keeps a d
   const store = STORE(); store['A01-2'].n = 'Something new?'; store['A01-2'].updatedAt = '2026-10-03T00:00:00Z';
   const changed = buildAcceptRows({ source: source(), screens: screenSource(), store, previous: drafted }).find((r) => r.id === 'A01-2');
   assert.equal(changed.draftReply, '', 'a changed answer is sorted again');
+});
+
+// ── conversations ──────────────────────────────────────────────────────────
+test('conversation: every reply we gave is kept, oldest first, from the decisions kept under previous', () => {
+  const entry = { decision: 'reply', at: '2026-10-18T10:00:00Z', reply: 'Second answer.', previous: { decision: 'reply', at: '2026-10-16T08:00:00Z', reply: 'First answer.' } };
+  const r = sync({ accepted: { 'A01-2': entry } });
+  const row = r.questions.cards[0].rows.find((x) => x.id === 'A01-2');
+  assert.deepEqual(row.replies.map((x) => x.text), ['First answer.', 'Second answer.']);
+  const p = buildPublished({ questions: r.questions, screens: r.screens, videos: {}, today: '2026-10-18', previous: null, answered: r.answered });
+  checkPublished(p.data, p.screens);
+  const bad = clone(p); bad.data.cards[0].rows.find((x) => x.id === 'A01-2').replies.reverse();
+  assert.throws(() => checkPublished(bad.data, bad.screens), /oldest first/);
+});
+
+test('conversation: an owner who writes back after our reply is put in front of Jacob again; before that, not', () => {
+  const accepted = { 'A01-2': { decision: 'reply', at: '2026-10-02T20:00:00.000Z', reply: 'Yes.' } };
+  assert.equal(buildAcceptRows({ source: source(), screens: screenSource(), store: STORE(), accepted }).find((r) => r.id === 'A01-2'), undefined);
+  const store = STORE(); store['A01-2'] = { v: 'change', n: 'Thanks, and what about refunds?', updatedAt: '2026-10-03T09:00:00.000Z' };
+  const row = buildAcceptRows({ source: source(), screens: screenSource(), store, accepted }).find((r) => r.id === 'A01-2');
+  assert.equal(row.note, 'Thanks, and what about refunds?');
+  assert.deepEqual(row.after, { reply: 'Yes.', at: '2026-10-02T20:00:00.000Z' });
+  const taken = { 'A01-2': { decision: 'accept', at: '2026-10-02T20:00:00.000Z' } };
+  assert.equal(buildAcceptRows({ source: source(), screens: screenSource(), store, accepted: taken }).find((r) => r.id === 'A01-2'), undefined, 'an accepted answer is never asked again');
+});
+
+test('conversation: the agreed part moves to Answered and a new line takes over, with that exchange folded', () => {
+  const src = source();
+  src.cards[0].rec[0].planned = 'The community pays the card cost, shown on the receipt.';
+  src.cards[0].rec.push({ id: 'A01-3', d: ['D-049'], q: 'Should the receipt also show the fee?', text: 'Yes.', videos: [], follows: 'A01-1' });
+  const accepted = { 'A01-1': { decision: 'accept', at: '2026-10-20T10:00:00.000Z', previous: { decision: 'reply', at: '2026-10-16T08:00:00.000Z', reply: 'We will show it on the receipt.' } } };
+  const r = sync({ src, accepted });
+  assert.deepEqual(openIds(r), ['A01-2', 'A01-3', 'A02-1', 'A23-1'], 'a Discuss with planned wording is taken in: planned is the recorded outcome');
+  assert.deepEqual(r.answered.map((a) => [a.id, a.answer, a.build]), [['A01-1', 'discuss', 'The community pays the card cost, shown on the receipt.']]);
+  const row = r.questions.cards[0].rows.find((x) => x.id === 'A01-3');
+  assert.deepEqual(row.earlier, { id: 'A01-1', qs: ['Who pays the card cost?'], agreed: 'The community pays the card cost, shown on the receipt.', replies: [{ at: '2026-10-16T08:00:00.000Z', text: 'We will show it on the receipt.' }] });
+  const p = buildPublished({ questions: r.questions, screens: r.screens, videos: {}, today: '2026-10-20', previous: null, answered: r.answered });
+  checkPublished(p.data, p.screens);
+  const stray = clone(src); stray.cards[0].rec[2].follows = 'A02-1';
+  assert.throws(() => checkSource(stray), /follows/);
 });

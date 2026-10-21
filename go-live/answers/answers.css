@@ -238,3 +238,30 @@ footer b{color:var(--ink-2)}
 .pill.st-live{background:var(--keep);color:var(--on-keep)}
 @media (max-width:480px){.ans{padding:14px 16px}}
 @media print{.ans{box-shadow:none;break-inside:avoid}}
+/* A conversation on one question: the owners' latest message and our latest reply open, anything
+   earlier folded; a question that takes over from an agreed one shows that exchange folded above it. */
+.thread{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.msg{font-size:13.5px;border-left:2px solid var(--c,var(--rule-strong));padding:8px 10px;color:var(--ink-2);overflow-wrap:anywhere}
+.msg b{display:flex;gap:8px;align-items:baseline;font-size:12px;font-weight:600;color:var(--muted)}
+.msg b i{font-style:normal;font-weight:400}
+.msg span{display:block;white-space:pre-line}
+.msg.from-you{--c:var(--change);background:var(--surface)}
+.msg.from-us{--c:var(--accent-2);background:var(--accent-wash)}
+.msg.from-us b{color:var(--accent)}
+.msg.agreed{--c:var(--keep);background:var(--keep-wash)}
+.msg.agreed b{color:var(--keep)}
+.thread-f{display:flex;gap:6px 12px;align-items:center;flex-wrap:wrap}
+.thread-f span{font-size:12.5px;color:var(--muted)}
+.btn.reply-btn{border-color:var(--accent-2);color:var(--accent)}
+.c-reply{--c:var(--accent-2)}
+.thread-earlier,.earlier{border:1px solid var(--rule);background:var(--surface-2);padding:0 10px}
+.thread-earlier[open],.earlier[open]{padding-bottom:10px}
+.thread-earlier>.msg+.msg,.earlier>.msg+.msg{margin-top:8px}
+.thread-earlier summary,.earlier summary{cursor:pointer;font-size:13px;font-weight:500;color:var(--accent);min-height:36px;display:flex;align-items:center;gap:8px;list-style:none}
+.thread-earlier summary::-webkit-details-marker,.earlier summary::-webkit-details-marker{display:none}
+.thread-earlier summary::before,.earlier summary::before{content:"";width:6px;height:6px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(-45deg);flex:none;transition:transform .15s}
+.thread-earlier[open] summary::before,.earlier[open] summary::before{transform:rotate(45deg)}
+.earlier{margin-bottom:6px}
+.earlier .pill{font-size:12px}
+.earlier-q{margin:2px 0 8px;font-size:13.5px;color:var(--ink);font-weight:500}
+.earlier-f{margin:8px 0 0;font-size:12.5px;color:var(--muted)}

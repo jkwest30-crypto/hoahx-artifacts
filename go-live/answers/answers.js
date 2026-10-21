@@ -38,7 +38,10 @@
     try { localStorage.setItem(LS_KEY, JSON.stringify({ marks: state.marks, notes: state.notes, when: state.when, by: state.by, submittedAt: state.submittedAt, pending: state.pending })); } catch (e) { /* ignore */ }
   }
 
-  const ui = { open: {}, editing: null, qFilter: 'all', sFilter: 'all', aFilter: 'all' };
+  // every earlier version of each note, as the store keeps it: an owner's earlier messages in a
+  // conversation are read from here (held in memory only)
+  let history = {};
+  const ui = { open: {}, editing: null, replying: null, qFilter: 'all', sFilter: 'all', aFilter: 'all' };
   let DATA = null, SCREENS = null, rows = [], screens = [], answered = [], answeredIds = new Set();
 
   // ── shared store ─────────────────────────────────────────────────────────
@@ -91,7 +94,7 @@
   }
   async function pullServer() {
     try {
-      const url = state.editKey ? API + '?key=' + encodeURIComponent(state.editKey) : API;
+      const url = API + '?full=1' + (state.editKey ? '&key=' + encodeURIComponent(state.editKey) : '');
       const res = await fetch(url, { headers: state.editKey ? { 'x-edit-key': state.editKey } : {}, cache: 'no-store' });
       if (res.status === 401) { if (askKey()) return pullServer(); return false; }
       if (!res.ok) return false;
@@ -100,14 +103,19 @@
       const waiting = new Set(pending.map((r) => r.id));
       const keep = (map) => Object.fromEntries(Object.entries(map).filter(([id]) => waiting.has(id)));
       const marks = keep(state.marks), notes = keep(state.notes), when = keep(state.when), by = keep(state.by);
+      const past = {};
       Object.entries(live).forEach(([id, rec]) => {
+        if (!rec || typeof rec !== 'object') return;
         if (id === '_submission') { state.submittedAt = rec.updatedAt || ''; return; }
-        if (waiting.has(id) || !(isScreenId(id) || isQuestionId(id))) return;   // an answer given per card, on the earlier page, is not read
+        if (!(isScreenId(id) || isQuestionId(id))) return;   // an answer given per card, on the earlier page, is not read
+        if (Array.isArray(rec.history)) past[id] = rec.history.filter((h) => h && h.at).map((h) => ({ at: h.at, n: String(h.n || '').trim() }));
+        if (waiting.has(id)) return;
         const v = validMark(id, rec.v);
         if (!v) return;
         marks[id] = v; notes[id] = rec.n || ''; when[id] = rec.updatedAt || ''; by[id] = rec.by || '';
       });
       Object.assign(state, { marks, notes, when, by });
+      history = past;
       persist();
       return true;
     } catch (e) { return false; /* offline: what this browser holds stands */ }
@@ -244,17 +252,81 @@
       '<textarea id="' + id + '" data-note="' + esc(r.id) + '">' + esc(state.notes[r.id] || '') + '</textarea>' +
       '<div class="box-f"><button type="button" class="btn primary" data-done>Done</button><span>' + n.hint + '</span></div></div>';
   }
+  // ── a conversation on one question ───────────────────────────────────────
+  // Our replies come with the page (dated); the owners' messages are the versions of their note
+  // the store kept: the last one written before each of our replies, and the one after the last.
+  function ownerVersions(id) {
+    const list = (history[id] || []).slice();
+    const now = String(state.notes[id] || '').trim();
+    if (now) list.push({ at: state.when[id] || new Date().toISOString(), n: now });
+    return list.filter((x) => x.n).sort((a, b) => a.at.localeCompare(b.at));
+  }
+  function conversation(id, replies) {
+    const owner = ownerVersions(id), msgs = [];
+    let from = '';
+    (replies || []).forEach((rep) => {
+      const theirs = owner.filter((x) => x.at > from && x.at <= rep.at);
+      if (theirs.length) msgs.push({ who: 'you', text: theirs[theirs.length - 1].n, at: theirs[theirs.length - 1].at });
+      msgs.push({ who: 'us', text: rep.text, at: rep.at });
+      from = rep.at;
+    });
+    const after = owner.filter((x) => x.at > from);
+    if (after.length) msgs.push({ who: 'you', text: after[after.length - 1].n, at: after[after.length - 1].at, last: true });
+    return msgs;
+  }
+  function msgHtml(m, i, mark) {
+    const label = m.who === 'us' ? 'Our reply' : i === 0 ? (mark === 'discuss' ? 'Your note for the call' : 'What you want changed') : 'Your reply';
+    const day = fmtDay(m.at);
+    return '<div class="msg ' + (m.who === 'us' ? 'from-us' : 'from-you') + '"><b>' + label + (day ? ' <i>' + esc(day) + '</i>' : '') + '</b><span>' + esc(m.text) + '</span></div>';
+  }
+  // The two messages that matter now stay open (the owners' latest and our latest reply); anything
+  // before them is folded under "Earlier messages".
+  function threadHtml(r, s) {
+    const msgs = conversation(r.id, r.replies);
+    const replying = ui.replying === r.id;
+    const shown = replying ? msgs.filter((m) => !m.last) : msgs;
+    const lastUs = shown.map((m) => m.who).lastIndexOf('us');
+    const start = lastUs < 0 ? Math.max(0, shown.length - 2) : shown[shown.length - 1].who === 'you' ? lastUs : Math.max(0, lastUs - 1);
+    const older = shown.slice(0, start), top = shown.slice(start);
+    const mark = stateOf(r.id);
+    const idx = (m) => msgs.indexOf(m);
+    const fold = older.length ? '<details class="thread-earlier"' + (ui.open['thread-' + r.id] ? ' open' : '') + ' data-thread="' + esc(r.id) + '"><summary>Earlier messages (' + older.length + ')</summary>' + older.map((m) => msgHtml(m, idx(m), mark)).join('') + '</details>' : '';
+    const theirsLast = !replying && msgs.length && msgs[msgs.length - 1].who === 'you' && msgs[msgs.length - 1].last;
+    const foot = replying ? replyBox(r)
+      : '<div class="thread-f">' + (theirsLast ? '<span>Sent. We will answer here.</span><button type="button" class="link-btn" data-reply>Edit your reply</button>' : '<button type="button" class="btn reply-btn" data-reply>Reply</button><span>Or press Agree if our reply settles it.</span>') + '</div>';
+    return '<div class="thread" data-state="' + s + '">' + fold + top.map((m) => msgHtml(m, idx(m), mark)).join('') + foot + '</div>';
+  }
+  function replyBox(r) {
+    const id = 'note-' + r.id;
+    const last = conversation(r.id, r.replies).filter((m) => m.last)[0];
+    return '<div class="box c-reply"><p class="box-k">Your reply</p><label for="' + id + '">Write back to us</label>' +
+      '<textarea id="' + id + '" data-note="' + esc(r.id) + '">' + esc(last ? last.text : '') + '</textarea>' +
+      '<div class="box-f"><button type="button" class="btn primary" data-done>Done</button><span>Saved as you type. We read every reply and answer it here.</span></div></div>';
+  }
+  // A question that takes over from an earlier one: what was agreed there, and that exchange, folded.
+  function earlierHtml(r) {
+    const e = r.earlier;
+    if (!e) return '';
+    const msgs = conversation(e.id, e.replies);
+    return '<details class="earlier"' + (ui.open['earlier-' + r.id] ? ' open' : '') + ' data-earlier="' + esc(r.id) + '"><summary><span class="pill keep">Agreed</span> Earlier on this question</summary>' +
+      e.qs.map((q) => '<p class="earlier-q">' + esc(q) + '</p>').join('') + msgs.map((m, i) => msgHtml(m, i, stateOf(e.id))).join('') +
+      '<div class="msg agreed"><b>What we agreed</b><span>' + esc(e.agreed) + '</span></div>' +
+      '<p class="earlier-f">Taken in: it is under Answered Questions. Only the question above is still open.</p></details>';
+  }
+
   function rowHtml(r) {
     const s = stateOf(r.id), exp = !!ui.open[r.id];
     const note = String(state.notes[r.id] || '').trim();
-    const boxHere = ui.editing === r.id && (s === 'change' || s === 'discuss');
+    const threaded = !!(r.replies && r.replies.length);
+    const boxHere = !threaded && ui.editing === r.id && (s === 'change' || s === 'discuss');
     const day = s === 'open' ? '' : fmtDay(state.when[r.id]);
-    return '<div class="q is-' + s + (r.critical ? ' is-critical' : '') + '" data-row="' + esc(r.id) + '" data-state="' + s + '"' + (r.critical ? ' data-critical="true"' : '') + '><div class="q-main">' + critHtml(r.critical) +
+    return '<div class="q is-' + s + (r.critical ? ' is-critical' : '') + (threaded ? ' has-thread' : '') + '" data-row="' + esc(r.id) + '" data-state="' + s + '"' + (r.critical ? ' data-critical="true"' : '') + '><div class="q-main">' + critHtml(r.critical) + earlierHtml(r) +
       r.qs.map((q) => '<p class="q-text">' + esc(q) + '</p>').join('') +
       '<button type="button" class="rec-btn" data-toggle aria-expanded="' + exp + '"><span class="k">Our recommendation</span><span class="t">' + esc(r.rec) + '</span></button>' +
-      whyHtml(r.why) + vids(r.videos) + replyHtml(r.reply) +
+      whyHtml(r.why) + vids(r.videos) +
+      (threaded ? threadHtml(r, s) : '') +
       (boxHere ? inlineBox(r, s) : '') +
-      (!boxHere && NOTE[s] ? '<div class="q-note c-' + s + '"><b>' + (note ? NOTE[s].shown : NOTE[s].none) + '</b>' + (note ? '<span>' + esc(note) + '</span>' : '') + '<button type="button" class="link-btn" data-edit>' + (note ? 'Edit' : 'Add a note') + '</button></div>' : '') +
+      (!threaded && !boxHere && NOTE[s] ? '<div class="q-note c-' + s + '"><b>' + (note ? NOTE[s].shown : NOTE[s].none) + '</b>' + (note ? '<span>' + esc(note) + '</span>' : '') + '<button type="button" class="link-btn" data-edit>' + (note ? 'Edit' : 'Add a note') + '</button></div>' : '') +
       '</div><div class="q-act"><div class="btns">' +
       '<button type="button" class="btn agree" data-mark="agree" aria-pressed="' + (s === 'agree') + '">Agree</button>' +
       '<button type="button" class="btn change" data-mark="change" aria-pressed="' + (s === 'change') + '">Change</button>' +
@@ -330,12 +402,17 @@
     const ta = noteField(id);
     if (ta) { ta.focus({ preventScroll: true }); ta.setSelectionRange(ta.value.length, ta.value.length); ta.closest('.q').scrollIntoView({ block: 'nearest' }); }
   }
+  function startReply(id) {
+    ui.replying = id;
+    edit(id);
+  }
   function done() {
     const id = ui.editing;
     ui.editing = null;
+    ui.replying = null;
     if (id && noteTimers[id]) sendNow(id);
     renderAll();
-    const back = id && document.querySelector('[data-row="' + id + '"] [data-edit]');
+    const back = id && document.querySelector('[data-row="' + id + '"] [data-edit], [data-row="' + id + '"] [data-reply]');
     if (back) back.focus({ preventScroll: true });
   }
 
@@ -401,12 +478,24 @@
         return;
       }
       if (ev.target.closest('[data-edit]')) { edit(id); return; }
+      if (ev.target.closest('[data-reply]')) {
+        // a reply is a new message on the same answer: their mark stays, and an unanswered one becomes "To discuss"
+        if (!state.marks[id]) { state.marks[id] = 'discuss'; state.when[id] = new Date().toISOString(); persist(); }
+        startReply(id);
+        return;
+      }
+      if (ev.target.closest('summary')) return;
       const b = ev.target.closest('[data-mark]');
       if (!b) return;
       const before = ui.editing;
       if (before && before !== id && noteTimers[before]) sendNow(before);
+      if (ui.replying && ui.replying !== id) ui.replying = null;
+      const threaded = !!document.querySelector('[data-row="' + id + '"].has-thread');
       const next = setMark(id, b.dataset.mark);
+      // on a conversation, Change or Discuss opens the reply box (the earlier messages stay as they were)
+      if ((next === 'change' || next === 'discuss') && threaded) { ui.open[id] = true; startReply(id); return; }
       if (next === 'change' || next === 'discuss') { ui.open[id] = true; edit(id); return; }
+      if (ui.replying === id) ui.replying = null;
       if (next === 'agree') ui.open[id] = true;
       if (ui.editing === id) ui.editing = null;
       renderAll();
@@ -414,7 +503,14 @@
       if (again) again.focus({ preventScroll: true });
     });
     $('q-groups').addEventListener('input', (ev) => { const ta = ev.target.closest('[data-note]'); if (ta) setNote(ta.dataset.note, ta.value); });
-    $('q-groups').addEventListener('toggle', (ev) => { const d = ev.target.closest && ev.target.closest('[data-why]'); if (d) ui.open['why-' + d.dataset.why] = d.open; }, true);
+    $('q-groups').addEventListener('toggle', (ev) => {
+      const t = ev.target;
+      if (!t.closest) return;
+      const d = t.closest('[data-why]'), th = t.closest('[data-thread]'), ea = t.closest('[data-earlier]');
+      if (d) ui.open['why-' + d.dataset.why] = d.open;
+      if (th && t === th) ui.open['thread-' + th.dataset.thread] = th.open;
+      if (ea && t === ea) ui.open['earlier-' + ea.dataset.earlier] = ea.open;
+    }, true);
     $('q-chips').addEventListener('click', (ev) => { const c = ev.target.closest('[data-qf]'); if (!c) return; if (ui.editing) done(); ui.qFilter = c.dataset.qf; renderQuestions(); const again = document.querySelector('[data-qf="' + ui.qFilter + '"]'); if (again) again.focus({ preventScroll: true }); });
     $('a-chips').addEventListener('click', (ev) => { const c = ev.target.closest('[data-af]'); if (!c) return; ui.aFilter = c.dataset.af; renderAnswered(); const again = document.querySelector('[data-af="' + ui.aFilter + '"]'); if (again) again.focus({ preventScroll: true }); });
     $('screen-chips').addEventListener('click', (ev) => { const c = ev.target.closest('[data-sf]'); if (!c) return; ui.sFilter = c.dataset.sf; renderScreens(); const again = document.querySelector('[data-sf="' + ui.sFilter + '"]'); if (again) again.focus({ preventScroll: true }); });

@@ -100,13 +100,19 @@ export function checkSource(src) {
       if (!Array.isArray(r.videos)) throw new Error(`${r.id}: "videos" must be a list (empty when no video shows it built)`);
       for (const n of r.videos) if (!VIDEO_NO.test(n)) throw new Error(`${r.id}: video "${n}" is not a two-digit number`);
       if ('why' in r && (typeof r.why !== 'string' || !r.why.trim())) throw new Error(`${r.id}: "why" must be a plain sentence, or left out`);
+      // follows: the line this one takes over from, once the agreed part of that one was taken in
+      // (the page shows the earlier exchange, folded, above the new question)
+      if ('follows' in r && !(LINE_ID.test(r.follows || '') && r.follows !== r.id && lineIds.has(r.follows) && r.follows.startsWith(c.id + '-'))) throw new Error(`${r.id}: "follows" must name an earlier line of card ${c.id}`);
+      if ('follows' in r && r.q == null) throw new Error(`${r.id} follows ${r.follows} and needs its own question ("q")`);
       const key = r.d.slice().sort().join('+');
       sameEntries.set(key, (sameEntries.get(key) || []).concat(r));
       lines += 1;
     }
     // Two lines on the same entry would show the same question twice: each needs its own.
     for (const group of sameEntries.values()) {
-      if (group.length > 1) for (const r of group) if (r.q == null) throw new Error(`${r.id} shares its entry with ${group.length - 1} other line(s) and has no question of its own ("q")`);
+      // (a line another one follows has been taken in, so its question is not shown again)
+      const followed = new Set(group.map((r) => r.follows).filter(Boolean));
+      if (group.length > 1) for (const r of group) if (r.q == null && !followed.has(r.id)) throw new Error(`${r.id} shares its entry with ${group.length - 1} other line(s) and has no question of its own ("q")`);
     }
     const covered = new Set(c.rec.flatMap((r) => r.d));
     for (const id of own.keys()) if (!covered.has(id)) throw new Error(`card ${c.id}: ${id} has no recommendation line`);
@@ -513,6 +519,18 @@ function checkCritical(where, c) {
   if (!/^Needed by [A-Z][a-z]{2} \d{1,2}: .+\.$/.test(c.why || '')) throw new Error(`${where}: critical must say why in one plain line ("Needed by <date>: <what>.")`);
 }
 
+function checkReplies(where, list) {
+  if (!Array.isArray(list) || !list.length) throw new Error(`${where}: "replies" must be a non-empty list`);
+  let last = '';
+  for (const x of list) {
+    for (const k of Object.keys(x || {})) if (k !== 'at' && k !== 'text') throw new Error(`${where}: a reply carries "${k}", which the page does not read`);
+    if (!x || !String(x.text || '').trim()) throw new Error(`${where} has an empty reply`);
+    if (!/^\d{4}-\d{2}-\d{2}/.test(x.at || '')) throw new Error(`${where}: a reply has no date`);
+    if (x.at < last) throw new Error(`${where}: replies are not oldest first`);
+    last = x.at;
+  }
+}
+
 /** Checks a published pair as the page will read it. Returns counts; throws on anything wrong. */
 export function checkPublished(data, screens) {
   for (const k of ['updated', 'groups', 'cards', 'videos']) if (!(k in data)) throw new Error(`data.json has no "${k}"`);
@@ -521,7 +539,7 @@ export function checkPublished(data, screens) {
   const groups = new Set(data.groups.map((g) => g.id));
   const ids = new Set();
   const allowedCard = new Set(['id', 'group', 'title', 'note', 'why', 'rows']);
-  const allowedRow = new Set(['id', 'qs', 'rec', 'why', 'videos', 'critical', 'reply']);
+  const allowedRow = new Set(['id', 'qs', 'rec', 'why', 'videos', 'critical', 'replies', 'earlier']);
   let rows = 0;
   for (const c of data.cards) {
     for (const k of Object.keys(c)) if (!allowedCard.has(k)) throw new Error(`data.json: card ${c.id} carries "${k}", which the page does not read`);
@@ -535,7 +553,14 @@ export function checkPublished(data, screens) {
       if (!Array.isArray(r.qs) || !r.qs.length || r.qs.some((q) => !q)) throw new Error(`data.json: ${r.id} has no question`);
       if (!r.rec) throw new Error(`data.json: ${r.id} has no recommendation`);
       if ('critical' in r) checkCritical(`data.json: ${r.id}`, r.critical);
-      if ('reply' in r && !String(r.reply || '').trim()) throw new Error(`data.json: ${r.id} has an empty reply`);
+      if ('replies' in r) checkReplies(`data.json: ${r.id}`, r.replies);
+      if ('earlier' in r) {
+        const e = r.earlier;
+        for (const k of Object.keys(e || {})) if (!['id', 'qs', 'agreed', 'replies'].includes(k)) throw new Error(`data.json: ${r.id}'s earlier carries "${k}", which the page does not read`);
+        if (!e || !LINE_ID.test(e.id || '') || !e.id.startsWith(c.id + '-') || e.id === r.id) throw new Error(`data.json: ${r.id}'s earlier names no earlier question of card ${c.id}`);
+        if (!Array.isArray(e.qs) || !e.qs.length || !String(e.agreed || '').trim()) throw new Error(`data.json: ${r.id}'s earlier needs its question and what was agreed`);
+        if ('replies' in e) checkReplies(`data.json: ${r.id}'s earlier`, e.replies);
+      }
       if ('why' in r && !String(r.why || '').trim()) throw new Error(`data.json: ${r.id} has an empty why`);
       for (const n of r.videos) if (!data.videos[n]) throw new Error(`data.json: ${r.id} names video ${n}, which has no link`);
       rows += 1;
@@ -620,7 +645,14 @@ export function describeChange(before, after) {
     }
   }
   for (const [code, s] of sa) if (!sb.has(code)) out.push(`- screen ${code}: ${s.title}`);
-  for (const [id, r] of b) { const was = a.get(id); if (was && (was.reply || '') !== (r.reply || '')) out.push(r.reply ? `~ question ${id}: our reply shown` : `~ question ${id}: our reply removed`); }
+  const nReplies = (r) => (r.replies || []).length + (r.reply ? 1 : 0);
+  for (const [id, r] of b) {
+    const was = a.get(id);
+    if (!was) continue;
+    const before = nReplies(was), now = nReplies(r);
+    if (before !== now) out.push(now > before ? `~ question ${id}: ${now - before} new repl${now - before === 1 ? 'y' : 'ies'} from us (${now} in all)` : `~ question ${id}: our replies ${before} -> ${now}`);
+    if (JSON.stringify(was.earlier || null) !== JSON.stringify(r.earlier || null)) out.push(r.earlier ? `~ question ${id}: follows ${r.earlier.id}, agreed part shown folded` : `~ question ${id}: no longer shows the earlier exchange`);
+  }
   for (const [code, s] of sb) { const was = sa.get(code); if (was && (was.reply || '') !== (s.reply || '')) out.push(s.reply ? `~ screen ${code}: our reply shown` : `~ screen ${code}: our reply removed`); }
   const ansOf = (d) => new Map(((d && d.answered) || []).map((x) => [x.id, x]));
   const aa = ansOf(before && before.data), ab = ansOf(after.data);
@@ -777,6 +809,24 @@ const SCREEN_ID = /^S-[A-Z]\d{1,2}$/;
 const isAnswerId = (id) => LINE_ID.test(id) || SCREEN_ID.test(id) || /^A\d{2}-\d{1,2}b$/.test(id);
 const ymd = (iso) => (/^\d{4}-\d{2}-\d{2}/.test(String(iso || '')) ? String(iso).slice(0, 10) : '');
 
+/**
+ * Every reply we gave on one id, oldest first: the current entry when it is a reply, and each
+ * earlier decision kept under `previous` (an object, or a list, nested as /for-jacob keeps them).
+ */
+export function repliesOf(entry) {
+  const out = [];
+  const walk = (e) => {
+    if (!e || typeof e !== 'object') return;
+    if (Array.isArray(e)) { e.forEach(walk); return; }
+    if (e.decision === 'reply' && String(e.reply || '').trim() && ymd(e.at)) out.push({ at: String(e.at), text: String(e.reply).trim() });
+    if (Array.isArray(e.replies)) e.replies.forEach((x) => { if (x && String(x.text || '').trim() && ymd(x.at)) out.push({ at: String(x.at), text: String(x.text).trim() }); });
+    walk(e.previous);
+  };
+  walk(entry);
+  const seen = new Set();
+  return out.filter((x) => { const k = x.at + '|' + x.text; if (seen.has(k)) return false; seen.add(k); return true; }).sort((x, y) => x.at.localeCompare(y.at));
+}
+
 /** Checks accepted.json. Returns it; throws on the first thing wrong. */
 export function checkAccepted(accepted) {
   if (!accepted || typeof accepted !== 'object' || Array.isArray(accepted)) throw new Error('accepted.json must be an object keyed by answer id');
@@ -836,7 +886,10 @@ export function buildAcceptRows({ source, screens, store, accepted = {}, previou
   const prev = new Map((previous || []).map((r) => [r.id, r]));
   const out = [];
   const push = (row, rec) => {
-    if (accepted[row.id]) return;
+    const a = accepted[row.id];
+    // taken in: never asked again. Replied to: asked again only once the owners write back after our reply.
+    if (a && !(a.decision === 'reply' && rec.updatedAt && rec.updatedAt > a.at)) return;
+    if (a) row.after = { reply: String(a.reply || '').trim(), at: a.at };
     const note = String(rec.n || '').trim();
     const base = Object.assign(row, { answer: rec.v, note, who: rec.by || '', at: rec.updatedAt || '' }, sortAnswer(rec), { draftReply: '' });
     const was = prev.get(row.id);
@@ -887,14 +940,14 @@ export function applyAcceptance({ source, questions, screenSource, screens, stor
     for (const r of c.rec) {
       const a = accepted[r.id];
       if (!a) continue;
-      if (a.decision === 'reply') { replies.rows[r.id] = String(a.reply).trim(); continue; }
+      if (a.decision === 'reply') { replies.rows[r.id] = repliesOf(a); continue; }
       const rec = live(store[r.id]);
       const note = rec ? String(rec.n || '').trim() : '';
       if (!rec) { held.push({ id: r.id, why: 'accepted, but the owners\' answer is no longer in the store' }); continue; }
       const talked = rec.v === 'discuss' || (rec.v === 'change' && !note);
       // a Discuss (or a Change with nothing written) is a conversation: it moves only once its
       // outcome is recorded on every entry behind the line
-      if (talked && !r.d.every((d) => answers.has(d))) { held.push({ id: r.id, why: `accepted, but the owners' mark is ${rec.v === 'change' ? 'Change with nothing written' : rec.v} and the outcome is not recorded yet: it stays open` }); continue; }
+      if (talked && !r.planned && !r.d.every((d) => answers.has(d))) { held.push({ id: r.id, why: `accepted, but the owners' mark is ${rec.v === 'change' ? 'Change with nothing written' : rec.v} and the outcome is not recorded yet: it stays open` }); continue; }
       if (!['agree', 'change', 'discuss'].includes(rec.v)) { held.push({ id: r.id, why: `accepted, but the owners' mark is "${rec.v}": it stays open` }); continue; }
       moved.add(r.id);
       const outcome = r.planned ? '' : recorded(r.d, r.id);
@@ -929,10 +982,27 @@ export function applyAcceptance({ source, questions, screenSource, screens, stor
   for (const [id] of Object.entries(accepted)) {
     if (LINE_ID.test(id) && !source.cards.some((c) => c.rec.some((r) => r.id === id))) held.push({ id, why: 'in accepted.json, but no question has this id' });
   }
-  // the open list without the moved lines, with our replies
+  // the open list without the moved lines, with our replies, and a new line that takes over from
+  // a moved one carries that one's exchange, folded on the page
+  const lineOf = new Map(source.cards.flatMap((c) => c.rec.map((r) => [r.id, r])));
+  const earlierOf = (id) => {
+    const r = lineOf.get(id), was = r && r.follows && lineOf.get(r.follows);
+    if (!was || !moved.has(was.id)) return null;
+    const qOf = new Map((source.cards.find((c) => c.rec.includes(was)) || { decisions: [] }).decisions.map((d) => [d.id, d.q]));
+    const e = { id: was.id, qs: was.q != null ? questionsOf(was.q) : was.d.map((d) => qOf.get(d)), agreed: String(was.planned || was.text).trim() };
+    const said = repliesOf(accepted[was.id]);
+    if (said.length) e.replies = said;
+    return e;
+  };
   const cards = [];
   for (const c of questions.cards) {
-    const rows = c.rows.filter((r) => !moved.has(r.id)).map((r) => (replies.rows[r.id] ? Object.assign({}, r, { reply: replies.rows[r.id] }) : r));
+    const rows = c.rows.filter((r) => !moved.has(r.id)).map((r) => {
+      const add = {};
+      if (replies.rows[r.id] && replies.rows[r.id].length) add.replies = replies.rows[r.id];
+      const e = earlierOf(r.id);
+      if (e) add.earlier = e;
+      return Object.keys(add).length ? Object.assign({}, r, add) : r;
+    });
     if (rows.length) cards.push(Object.assign({}, c, { rows }));
   }
   const used = new Set(cards.map((c) => c.group));

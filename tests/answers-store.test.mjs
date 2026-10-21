@@ -95,13 +95,13 @@ test('store: saving the same answer twice adds no history', async () => {
   assert.deepEqual((await s.get({ query: { full: '1' } })).json['A02-2'].history, []);
 });
 
-test('store: history is capped at forty', async () => {
+test('store: history is capped at two hundred (the page reads an owner\'s earlier messages from it)', async () => {
   const s = open();
-  for (let i = 0; i < 45; i += 1) await s.post({ id: 'A03-1', v: 'change', n: 'draft ' + i });
+  for (let i = 0; i < 205; i += 1) await s.post({ id: 'A03-1', v: 'change', n: 'draft ' + i });
   const full = (await s.get({ query: { full: '1' } })).json['A03-1'];
-  assert.equal(full.history.length, 40);
-  assert.equal(full.n, 'draft 44');
-  assert.equal(full.history[39].n, 'draft 43');
+  assert.equal(full.history.length, 200);
+  assert.equal(full.n, 'draft 204');
+  assert.equal(full.history[199].n, 'draft 203');
 });
 
 test('passphrase: with none set, no request is refused', async () => {
