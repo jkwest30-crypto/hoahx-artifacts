@@ -1,13 +1,9 @@
 {
- "updated": "2026-10-20",
+ "updated": "2026-10-21",
  "groups": [
   {
    "id": "money",
    "title": "Money: dues, the ledger, and the books"
-  },
-  {
-   "id": "enforce",
-   "title": "Enforcement and requests"
   },
   {
    "id": "community",
@@ -23,36 +19,6 @@
   }
  ],
  "cards": [
-  {
-   "id": "A61",
-   "group": "money",
-   "title": "Homes already behind when the first community starts",
-   "why": "If a home starts behind, those screens must be right on day one; if none does, they are proven over the first dues cycle instead. Nothing is left out of the build either way.",
-   "rows": [
-    {
-     "id": "A61-2",
-     "qs": [
-      "Will any home in the first community actually start behind, with an amount owed carried into its opening balance?"
-     ],
-     "rec": "Tell us when you know. Until then we build and check as if one does, so the list of who is behind, the aging and the first notices are proven on that community's real balances before launch.",
-     "videos": [],
-     "why": "The import itself is agreed. If a home starts behind, those screens must be right on day one; nothing is left out of the build either way.",
-     "earlier": {
-      "id": "A61-1",
-      "qs": [
-       "Will any home in the first community start behind, with an amount owed carried into its opening balance?"
-      ],
-      "agreed": "The opening-balance import keeps the detail behind each balance: unpaid charges, fees, credits, what is left on each and its original due date, so the aging is right. Balances are checked home by home and in total against your earlier records, and approved by an authorized board member or manager before they count. An import never creates a charge again or adds a past late fee; collection notices wait until the balances are approved; disputes, payment plans and collection holds come across with them. It is tested on current, overdue, partly paid, in-credit and disputed accounts, on test data until your records are in.",
-      "replies": [
-       {
-        "at": "2026-10-16T08:37:57.000Z",
-        "text": "Thank you. We will build the opening-balance import to those five points. One thing is still open: does any home in the first community actually start behind? Until you tell us, we build and check as if one does, so the delinquency list, the aging and the first notices are proven on real balances before launch."
-       }
-      ]
-     }
-    }
-   ]
-  },
   {
    "id": "A63",
    "group": "pricing",
@@ -70,36 +36,6 @@
    ]
   },
   {
-   "id": "A64",
-   "group": "money",
-   "title": "A credit left on the account when a home is sold",
-   "why": "Daniel asked that a credit never be stranded or go to the wrong owner. The credit is money the seller paid, so it goes back to them unless the sale itself says otherwise.",
-   "rows": [
-    {
-     "id": "A64-2",
-     "qs": [
-      "Before that refund is approved, should the Treasurer's task also ask who actually paid the credit, and confirm the closing did not already settle it?"
-     ],
-     "rec": "Yes. The task asks both, and the refund cannot be approved until they are answered.",
-     "videos": [],
-     "why": "Your note asked for both. They keep a credit from being refunded twice, or to the wrong person.",
-     "earlier": {
-      "id": "A64-1",
-      "qs": [
-       "When a home is sold with a credit still on its account, should the credit go back to the former owner, with a refund task for the Treasurer, unless the closing papers say it transfers to the buyer?"
-      ],
-      "agreed": "When the sale is confirmed, the credit stops counting toward the home's dues and goes back to the former owner: a refund task for the Treasurer that shows where the credit came from, approved by a second person who is not deciding on their own home. It moves to the buyer only when the board records what the closing papers say, with the amount, the approval and the date. A refund that cannot go back to the original payment method becomes an open task for the Treasurer to settle another way, with a reason on record.",
-      "replies": [
-       {
-        "at": "2026-10-16T08:37:57.000Z",
-        "text": "Thank you. Most of this is already how we would build it: the credit stops counting toward the home's dues the day the sale is confirmed, the refund is a Treasurer task approved by a second person who is not the approver of their own home, and a move to the buyer happens only when the board records what the closing papers say, with the amount, approval and date. We will add two things from your note: the task shows where the credit came from, and a refund that cannot go back to the original payment method becomes an open task for the Treasurer to settle another way, with a reason on record. Is that right?"
-       }
-      ]
-     }
-    }
-   ]
-  },
-  {
    "id": "A65",
    "group": "community",
    "title": "How long a homeowner's visitor pass may run",
@@ -113,6 +49,12 @@
      "rec": "Yes. One limit keeps the guard's view and the homeowner's view of a pass the same. A setting per community comes after launch, when a board asks for one.",
      "videos": [],
      "why": "Everything else in your note is agreed. This is the one part we propose to keep simpler at launch.",
+     "replies": [
+      {
+       "at": "2026-10-21T19:45:00.000Z",
+       "text": "Thank you. Yes: a one-time pass lasts up to 14 days from when it starts, so the homeowner does not renew it inside that time, and it can be set up to a year ahead. Every community uses the same 14 days at launch so the guard's view and the homeowner's view of a pass match. A limit each board sets for its own community can come after launch, once a board asks for it. Does that work for you?"
+      }
+     ],
      "earlier": {
       "id": "A65-1",
       "qs": [
@@ -126,160 +68,6 @@
        }
       ]
      }
-    }
-   ]
-  },
-  {
-   "id": "A66",
-   "group": "community",
-   "title": "Parking spaces by home type, and a community total",
-   "why": "Your earlier answer said two by default and rules by home type if needed. The setting is there; the numbers are the board's.",
-   "rows": [
-    {
-     "id": "A66-2",
-     "qs": [
-      "Can capacity for each parking area, and reservations for shared parking, come after launch?"
-     ],
-     "rec": "Yes. They are larger than the launch plan, so we propose them as the next step after launch. If you need them before launch, tell us and we will come back with what it would take.",
-     "videos": [],
-     "why": "The rules per community, per home type and per home are agreed. These two are the parts of your note that go beyond the launch plan.",
-     "earlier": {
-      "id": "A66-1",
-      "qs": [
-       "Should the number of parking spaces differ by home type in your community, and is there a community total?"
-      ],
-      "agreed": "Parking is set per community: the board sets a default number of spaces per home, can set a different number for a type of home, and can make an exception for one home with a reason. An exception wins over the home type, and the home type wins over the default. Every change is in the history and the homes affected are told; when a limit is lowered, existing assignments are flagged for review, never cancelled. A permit does not promise a physical space. Launch starts at two spaces per home for every home type and no community total, which the board can change on Parking rules at any time.",
-      "replies": [
-       {
-        "at": "2026-10-17T07:14:53.974Z",
-        "text": "Thank you. Parking will be set per community: the board sets a default number of spaces per home, can add a different number for a type of home, and can make an exception for one home with a reason. An exception wins over the home type, and the home type wins over the default. Every change is recorded in the history and the homes affected are told; if a limit is lowered, existing assignments are flagged for review and not cancelled. A permit does not promise a physical space. We recommend launching with two spaces per home for every home type and no community total, which the board can change on Parking rules at any time. Separate capacity for each parking area and reservations for shared parking are larger than the launch plan, so we propose them as a later step. Does that work for you? Or if we want to do it before launch we can price it out, let me know!"
-       }
-      ]
-     }
-    }
-   ]
-  },
-  {
-   "id": "A68",
-   "group": "enforce",
-   "title": "A tenant named voting representative asking for a hearing",
-   "why": "It matches what you answered before. Limiting it to owners would need a separate rule for the representative.",
-   "rows": [
-    {
-     "id": "A68-2",
-     "qs": [
-      "Should a representative's authorization say what it covers, so asking for a hearing never also lets them settle the debt, accept a payment plan or waive a right for the owner?"
-     ],
-     "rec": "Yes. The authorization names the matter and what the representative may do. Anything beyond asking for and attending the hearing stays with the owner.",
-     "videos": [],
-     "why": "Your note asked that a hearing request never carry financial authority. Naming what the authorization covers is how that is kept.",
-     "earlier": {
-      "id": "A68-1",
-      "qs": [
-       "If a tenant is named the home's voting representative, may they ask for the hearing before a lien on the home's behalf?"
-      ],
-      "agreed": "Voting and speaking for the home at a hearing are separate permissions, checked on the screen and on the server. A representative needs written authorization for the matter; a missing or unclear one is marked 'Authorization pending' with the original time kept, the owner is told, and a reviewer decides before any lien step. Required notices are never replaced by app messages. Until HOA counsel validates a community's rules, these requests go to manual review. The owners choose the representative and can change it at any time.",
-      "replies": [
-       {
-        "at": "2026-10-16T08:37:57.000Z",
-        "text": "Thank you. We will keep voting separate from speaking for the home at a hearing: a representative needs written authorization for the matter, a missing or unclear one is marked 'Authorization pending' with the original time kept, the owner is told, and a reviewer decides before any lien step. Notices are never replaced by app messages. Until HOA counsel validates a community's rules, these requests go to manual review. Our recommendation stands: the owners choose the representative and can change it at any time."
-       }
-      ]
-     }
-    }
-   ]
-  },
-  {
-   "id": "A69",
-   "group": "enforce",
-   "title": "Taking back a first approval of an escalation",
-   "why": "The President owns escalation decisions. Letting any board member undo a colleague's approval invites back-and-forth.",
-   "rows": [
-    {
-     "id": "A69-2",
-     "qs": [
-      "When a hold is released, should the approvals be checked again before the escalation goes on, with fresh approvals if the escalation changed in a material way?"
-     ],
-     "rec": "Yes. Releasing a hold needs a reason, the approvals are checked again, and a material change needs fresh approvals. A cancelled escalation never comes back on its own.",
-     "videos": [],
-     "why": "Your note asked for this. It keeps a held escalation from going on with approvals that no longer fit it.",
-     "earlier": {
-      "id": "A69-1",
-      "qs": [
-       "Who may take back a first approval of an escalation while it waits for the second approval?"
-      ],
-      "agreed": "Withdrawing an approval and stopping an escalation are separate actions. Only the person who gave the first approval can withdraw it; that blocks the second approval and starts over with a new first approval. The President can hold or cancel the escalation but cannot withdraw someone else's approval. Each action needs a reason, tells the requester and the approvers, and keeps the full history.",
-      "replies": [
-       {
-        "at": "2026-10-16T08:37:57.000Z",
-        "text": "Thank you. We will build two separate actions. Only the person who gave the first approval can withdraw it, and that blocks the second approval and starts over with a new first approval. The President can hold or cancel the escalation, but cannot withdraw someone else's approval. Each action needs a reason, notifies the requester and approvers, and keeps the full history. Please confirm this replaces our earlier recommendation."
-       }
-      ]
-     }
-    }
-   ]
-  },
-  {
-   "id": "A75",
-   "group": "community",
-   "title": "The Assistant for staff with no home in the community",
-   "why": "Your answer to an earlier question kept staff with no home out. Jacob asked to keep them in, so we are asking once more before the Assistant is turned on.",
-   "rows": [
-    {
-     "id": "A75-1",
-     "qs": [
-      "Should board members, the HOA Administrator and managers with no home in the community be able to use the HOAhx Assistant, reading only what their role already lets them see?"
-     ],
-     "rec": "Yes. Let staff with no home in the community use it, reading only what their role already lets them see. It answers the questions they get from residents, and it shows them nothing new.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A76",
-   "group": "community",
-   "title": "One vote per home",
-   "why": "Today each owner, co-owner and tenant of a home can cast a ballot that counts, while quorum already counts the home once. If your bylaws say every owner votes separately, tell us and nothing changes.",
-   "rows": [
-    {
-     "id": "A76-1",
-     "qs": [
-      "When more than one person of the same home votes, should the home count once in the result?"
-     ],
-     "rec": "Yes. Count one result per home: the home's voting representative's ballot, or the first one cast if there is none. A home with three people living in it should not count three times.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A77",
-   "group": "community",
-   "title": "Deleting an account versus moving out",
-   "why": "The delete button has to stay for both app stores, and the community keeps its payments, ballots, requests and history whatever the person does. Most homeowners leave because they move, so pointing them to the move-out step first gives the board the sale and the new owner, and the notice means no account closes without the board knowing.",
-   "rows": [
-    {
-     "id": "A77-1",
-     "qs": [
-      "A homeowner can delete their account and personal data from the app, as Apple and Google require. Should we keep it and add a \"Moving or selling? Tell your HOA\" step before it, plus a notice to the board when someone closes their account?"
-     ],
-     "rec": "Yes, keep deletion and add both pieces. A homeowner who still owns a home is first offered \"Moving or selling? Tell your HOA\", with deletion still one tap away. When someone closes their account, the board and managers get one notice naming the home. The community's records stay either way.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A78",
-   "group": "money",
-   "title": "An officer's own home in a dues group",
-   "why": "Today an officer who owns a home can move it into a dues group and set the amount; the change is recorded in the community's history, but nothing stops it. The same rule already keeps board members from deciding refunds, violations and architectural requests on their own home.",
-   "rows": [
-    {
-     "id": "A78-1",
-     "qs": [
-      "Should a Treasurer or President be stopped from placing their own home in a dues group or setting that group's amount?"
-     ],
-     "rec": "Yes. Refuse a dues-group or dues-schedule change that names a home the person making it owns. Another officer with the same access makes that change instead.",
-     "videos": []
     }
    ]
   },
@@ -300,23 +88,227 @@
    ]
   },
   {
-   "id": "A80",
-   "group": "records",
-   "title": "What a title company sees in a transfer package",
-   "why": "The account review is the home's private financial picture; showing it only after the board has prepared the package keeps the board in control of what leaves the community.",
+   "id": "A81",
+   "group": "money",
+   "title": "How a past-due community gets access back",
+   "why": "\"Yes\" → nothing; \"always wait\" → one constant and its test (0.1 est-h); \"always restore\" → remove the condition and its test (0.1 est-h).",
    "rows": [
     {
-     "id": "A80-1",
+     "id": "A81-1",
      "qs": [
-      "When the seller or the board shares a home's transfer package with the title company, what may the title company see, and for how long?"
+      "When a past-due community pays its HOA HX balance, should access come back at once on approval, except that a bank payment after two returned bank payments waits until it clears?"
      ],
-     "rec": "The home, the community, the expected and final closing dates, the package status and the board's note, and the home's account review (balance and open items) only once the board has marked the package prepared. Never anyone's email, the seller's note or how anyone paid. Access lasts until a last day at most 30 days away and ends at the handoff or if the sale is cancelled.",
+     "rec": "Access comes back at once when the balance payment is approved, card or bank account alike. After two returned bank payments, a bank payment restores access only when it clears (3 to 5 business days). A returned payment puts the community back where it was, with the same dates.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A82",
+   "group": "money",
+   "title": "How long staff may hold a past-due community",
+   "why": "\"Yes\" → nothing; a different limit → one constant and its test (0.1 est-h).",
+   "rows": [
+    {
+     "id": "A82-1",
+     "qs": [
+      "How long may HOA HX staff hold a past-due community before the past-due steps resume: up to 30 days for an extension of the grace period and up to 90 days for an exception?"
+     ],
+     "rec": "HOA HX staff can extend the grace period up to 30 days, or grant an exception up to 90 days (a dispute, a payment arranged with HOA HX), each with a reason. Every hold ends on its own and the day count resumes.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A83",
+   "group": "records",
+   "title": "A one-file export of a community's records",
+   "why": "\"Yes, after launch\" → a candidate row (about 6 est-h); \"before launch\" → the same row pulled into the launch; \"No\" → nothing.",
+   "rows": [
+    {
+     "id": "A83-1",
+     "qs": [
+      "Should HOA HX build a 'Download all records' export (one file with a community's documents, ledger, residents and history) so that a community leaving, or lapsing, can take everything in one step?"
+     ],
+     "rec": "Build a 'Download all records' export (documents, ledger, residents and history in one file) after launch. Until then the notices tell the billing contacts which exports exist and to keep a copy first.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A84",
+   "group": "records",
+   "title": "Who reads membership changes on the activity log",
+   "why": "\"Yes\" → nothing; \"as before\" → one staff-only category and its tests (0.5 est-h).",
+   "rows": [
+    {
+     "id": "A84-1",
+     "qs": [
+      "Should the Secretary, Treasurer, Property Manager and management admin be able to read membership changes on the community activity log, as the shared history's category rules already allow for retirements and access-request decisions?"
+     ],
+     "rec": "Keep it: the Secretary, Treasurer, Property Manager and management admin can read membership changes on the community activity log. Homeowners never see these rows.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A85",
+   "group": "community",
+   "title": "Get started when you are already logged in",
+   "why": "\"Stay open\" → nothing; \"dashboard\" → a redirect and its test (0.3 est-h).",
+   "rows": [
+    {
+     "id": "A85-1",
+     "qs": [
+      "When someone who is already logged in opens Get started, should the page stay open and name the account they are using, or send them to their own dashboard?"
+     ],
+     "rec": "Keep the page open and say which account is in use: \"You're logged in as <email>. Anything you start or accept here uses this account; to use another email, log out first.\"",
      "videos": []
     }
    ]
   }
  ],
  "answered": [
+  {
+   "id": "A61-2",
+   "kind": "question",
+   "card": "Homes already behind when the first community starts",
+   "qs": [
+    "Will any home in the first community actually start behind, with an amount owed carried into its opening balance?"
+   ],
+   "answer": "agree",
+   "rec": "Tell us when you know. Until then we build and check as if one does, so the list of who is behind, the aging and the first notices are proven on that community's real balances before launch.",
+   "build": "Change: The opening-balance import keeps the detail behind each balance: unpaid charges, fees, credits, what is left on each and its original due date, so the aging is right. Balances are checked home by home and in total against your earlier records, and approved by an authorized board member or manager before they count. An import never creates a charge again or adds a past late fee; collection notices wait until the balances are approved; disputes, payment plans and collection holds come across with them. It is tested on current, overdue, partly paid, in-credit and disputed accounts, on test data until your records are in.",
+   "answeredOn": "2026-10-21",
+   "acceptedOn": "2026-10-21",
+   "status": "planned"
+  },
+  {
+   "id": "A64-2",
+   "kind": "question",
+   "card": "A credit left on the account when a home is sold",
+   "qs": [
+    "Before that refund is approved, should the Treasurer's task also ask who actually paid the credit, and confirm the closing did not already settle it?"
+   ],
+   "answer": "agree",
+   "rec": "Yes. The task asks both, and the refund cannot be approved until they are answered.",
+   "build": "Change: When the sale is confirmed, the credit stops counting toward the home's dues and goes back to the former owner: a refund task for the Treasurer that shows where the credit came from, approved by a second person who is not deciding on their own home. It moves to the buyer only when the board records what the closing papers say, with the amount, the approval and the date. A refund that cannot go back to the original payment method becomes an open task for the Treasurer to settle another way, with a reason on record.",
+   "answeredOn": "2026-10-21",
+   "acceptedOn": "2026-10-21",
+   "status": "planned"
+  },
+  {
+   "id": "A66-2",
+   "kind": "question",
+   "card": "Parking spaces by home type, and a community total",
+   "qs": [
+    "Can capacity for each parking area, and reservations for shared parking, come after launch?"
+   ],
+   "answer": "agree",
+   "rec": "Yes. They are larger than the launch plan, so we propose them as the next step after launch. If you need them before launch, tell us and we will come back with what it would take.",
+   "build": "Change: Parking is set per community: the board sets a default number of spaces per home, can set a different number for a type of home, and can make an exception for one home with a reason. An exception wins over the home type, and the home type wins over the default. Every change is in the history and the homes affected are told; when a limit is lowered, existing assignments are flagged for review, never cancelled. A permit does not promise a physical space. Launch starts at two spaces per home for every home type and no community total, which the board can change on Parking rules at any time.",
+   "answeredOn": "2026-10-21",
+   "acceptedOn": "2026-10-21",
+   "status": "planned"
+  },
+  {
+   "id": "A68-2",
+   "kind": "question",
+   "card": "A tenant named voting representative asking for a hearing",
+   "qs": [
+    "Should a representative's authorization say what it covers, so asking for a hearing never also lets them settle the debt, accept a payment plan or waive a right for the owner?"
+   ],
+   "answer": "agree",
+   "rec": "Yes. The authorization names the matter and what the representative may do. Anything beyond asking for and attending the hearing stays with the owner.",
+   "build": "Change: Voting and speaking for the home at a hearing are separate permissions, checked on the screen and on the server. A representative needs written authorization for the matter; a missing or unclear one is marked 'Authorization pending' with the original time kept, the owner is told, and a reviewer decides before any lien step. Required notices are never replaced by app messages. Until HOA counsel validates a community's rules, these requests go to manual review. The owners choose the representative and can change it at any time.",
+   "answeredOn": "2026-10-21",
+   "acceptedOn": "2026-10-21",
+   "status": "planned"
+  },
+  {
+   "id": "A69-2",
+   "kind": "question",
+   "card": "Taking back a first approval of an escalation",
+   "qs": [
+    "When a hold is released, should the approvals be checked again before the escalation goes on, with fresh approvals if the escalation changed in a material way?"
+   ],
+   "answer": "agree",
+   "rec": "Yes. Releasing a hold needs a reason, the approvals are checked again, and a material change needs fresh approvals. A cancelled escalation never comes back on its own.",
+   "build": "Change: Withdrawing an approval and stopping an escalation are separate actions. Only the person who gave the first approval can withdraw it; that blocks the second approval and starts over with a new first approval. The President can hold or cancel the escalation but cannot withdraw someone else's approval. Each action needs a reason, tells the requester and the approvers, and keeps the full history.",
+   "answeredOn": "2026-10-21",
+   "acceptedOn": "2026-10-21",
+   "status": "built"
+  },
+  {
+   "id": "A75-1",
+   "kind": "question",
+   "card": "The Assistant for staff with no home in the community",
+   "qs": [
+    "Should board members, the HOA Administrator and managers with no home in the community be able to use the HOAhx Assistant, reading only what their role already lets them see?"
+   ],
+   "answer": "discuss",
+   "rec": "Yes. Let staff with no home in the community use it, reading only what their role already lets them see. It answers the questions they get from residents, and it shows them nothing new.",
+   "build": "Yes: board members, the HOA Administrator and managers with no home in the community use the HOAhx Assistant, reading only what their role already lets them see.",
+   "answeredOn": "2026-10-21",
+   "acceptedOn": "2026-10-21",
+   "status": "planned"
+  },
+  {
+   "id": "A76-1",
+   "kind": "question",
+   "card": "One vote per home",
+   "qs": [
+    "When more than one person of the same home votes, should the home count once in the result?"
+   ],
+   "answer": "discuss",
+   "rec": "Yes. Count one result per home: the home's voting representative's ballot, or the first one cast if there is none. A home with three people living in it should not count three times.",
+   "build": "Yes: the home counts once in the result. Each house gets one vote, as originally set up.",
+   "answeredOn": "2026-10-21",
+   "acceptedOn": "2026-10-21",
+   "status": "planned"
+  },
+  {
+   "id": "A77-1",
+   "kind": "question",
+   "card": "Deleting an account versus moving out",
+   "qs": [
+    "A homeowner can delete their account and personal data from the app, as Apple and Google require. Should we keep it and add a \"Moving or selling? Tell your HOA\" step before it, plus a notice to the board when someone closes their account?"
+   ],
+   "answer": "agree",
+   "rec": "Yes, keep deletion and add both pieces. A homeowner who still owns a home is first offered \"Moving or selling? Tell your HOA\", with deletion still one tap away. When someone closes their account, the board and managers get one notice naming the home. The community's records stay either way.",
+   "build": "Yes: keep account deletion, add the \"Moving or selling? Tell your HOA\" step before it, and send the board a notice when someone closes their account (as recommended 2026-10-02).",
+   "answeredOn": "2026-10-21",
+   "acceptedOn": "2026-10-21",
+   "status": "planned"
+  },
+  {
+   "id": "A78-1",
+   "kind": "question",
+   "card": "An officer's own home in a dues group",
+   "qs": [
+    "Should a Treasurer or President be stopped from placing their own home in a dues group or setting that group's amount?"
+   ],
+   "answer": "discuss",
+   "rec": "Yes. Refuse a dues-group or dues-schedule change that names a home the person making it owns. Another officer with the same access makes that change instead.",
+   "build": "Yes (\"for now\"): an officer is stopped from placing their own home in a dues group; the owners' check is fine if it does not slow things down.",
+   "answeredOn": "2026-10-21",
+   "acceptedOn": "2026-10-21",
+   "status": "planned"
+  },
+  {
+   "id": "A80-1",
+   "kind": "question",
+   "card": "What a title company sees in a transfer package",
+   "qs": [
+    "When the seller or the board shares a home's transfer package with the title company, what may the title company see, and for how long?"
+   ],
+   "answer": "discuss",
+   "rec": "The home, the community, the expected and final closing dates, the package status and the board's note, and the home's account review (balance and open items) only once the board has marked the package prepared. Never anyone's email, the seller's note or how anyone paid. Access lasts until a last day at most 30 days away and ends at the handoff or if the sale is cancelled.",
+   "build": "Yes: the title company sees the home, the community, the closing dates, the package status and the account review only once the board has prepared the package, for 30 days (60 would be acceptable if needed).",
+   "answeredOn": "2026-10-21",
+   "acceptedOn": "2026-10-21",
+   "status": "planned"
+  },
   {
    "id": "A61-1",
    "kind": "question",
