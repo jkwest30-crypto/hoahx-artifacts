@@ -675,7 +675,9 @@
     <p class="intro">The same constraints as this page, compressed to one page of imperative text. Attach <a href="tokens.json" download>tokens.json</a> alongside it.</p>
     <div class="pre-wrap">
       <div class="bar"><span>prompt-preamble.md · Markdown, ready to paste</span><span class="bar-r"><a class="btn-a" href="prompt-preamble.md" download><svg class="dl-ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v8m0 0 3-3M8 10 5 7M3 12.5h10"/></svg> Download</a><button type="button" class="copy" data-for="preamble">Copy to clipboard</button></span></div>
-      <pre class="preamble" id="preamble"># HOAhx design constraints — paste this at the top of any design or code-generation prompt
+      <pre class="preamble" id="preamble">&gt; **Canonical:** the design constraints to paste at the top of any design or code-generation prompt. `docs/prototype/prompt-preamble.md` is a different file (the ChatGPT demo project&#x27;s instructions) and points here for design rules.
+
+# HOAhx design constraints — paste this at the top of any design or code-generation prompt
 
 You are helping design screens and components for HOAhx, a community-management web app for homeowners, HOA boards, and property managers, wrapped as iOS and Android apps. Design for THIS codebase, not for a generic product. When a rule below conflicts with your default, the rule wins. The full reference is `docs/design/DESIGN_BRIEF.md`; exact token values are in `docs/design/tokens.json`.
 
@@ -717,7 +719,7 @@ You are helping design screens and components for HOAhx, a community-management 
   <section id="reg">
     <div class="sec-h"><span class="k">Routes</span><h2>Navigation labels, sections, and page widths</h2></div>
     <p class="intro">Generated from the route registry. "Phone tab" is the bottom-tab priority (lowest four shown for the person's role). "Module" is the community feature flag that hides the route when off. Routes not in nav are detail pages reached from a parent. Access is enforced in code and on the server; "Who" is the intended audience.</p>
-    <div class="filter"><input type="search" id="reg-filter" placeholder="Filter routes, labels, sections, audiences…" aria-label="Filter routes"><span class="cnt" id="reg-count">110 routes</span></div>
+    <div class="filter"><input type="search" id="reg-filter" placeholder="Filter routes, labels, sections, audiences…" aria-label="Filter routes"><span class="cnt" id="reg-count">137 routes</span></div>
     <div class="tbl"><table id="reg-table">
       <thead><tr><th>Route</th><th>Label</th><th>Section</th><th>Who</th><th>Module</th><th>Width</th><th>Phone tab</th><th>In nav</th></tr></thead>
       <tbody><tr><td><code>/</code></td><td>Dashboard</td><td>Overview</td><td>Every role with a dashboard</td><td>—</td><td>wide</td><td>1</td><td>yes</td></tr>
@@ -739,46 +741,58 @@ You are helping design screens and components for HOAhx, a community-management 
 <tr><td><code>/platform/notification-settings</code></td><td>Notification Settings</td><td>Account</td><td>HOAhx staff</td><td>—</td><td>narrow</td><td>—</td><td>no</td></tr>
 <tr><td><code>/platform/recovery</code></td><td>Recovery</td><td>Access</td><td>HOAhx staff</td><td>—</td><td>narrow</td><td>—</td><td>no</td></tr>
 <tr><td><code>/demo</code></td><td>Demo Communities</td><td>Platform</td><td>HOAhx staff</td><td>—</td><td>wide</td><td>—</td><td>no</td></tr>
-<tr><td><code>/my-household</code></td><td>My Household</td><td>My Community</td><td>Residents</td><td>—</td><td>standard</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/my-household</code></td><td>My Home</td><td>My Community</td><td>Residents</td><td>—</td><td>wide</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/my-activity</code></td><td>Activity</td><td>My Community</td><td>Residents</td><td>—</td><td>standard</td><td>—</td><td>no</td></tr>
 <tr><td><code>/residents</code></td><td>Member Management</td><td>Administration</td><td>Board / management</td><td>—</td><td>full</td><td>2</td><td>yes</td></tr>
 <tr><td><code>/properties</code></td><td>Properties</td><td>Administration</td><td>Board / management</td><td>—</td><td>full</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/properties/import</code></td><td>Import a Spreadsheet</td><td>Administration</td><td>Everyone in the community</td><td>—</td><td>full</td><td>—</td><td>yes</td></tr>
 <tr><td><code>/maintenance</code></td><td>Requests</td><td>Operations</td><td>Board / management</td><td>—</td><td>full</td><td>3</td><td>yes</td></tr>
-<tr><td><code>/my-maintenance</code></td><td>My Requests</td><td>My Community</td><td>Residents</td><td>—</td><td>narrow</td><td>2</td><td>yes</td></tr>
+<tr><td><code>/my-requests</code></td><td>My Requests</td><td>My Community</td><td>Residents</td><td>—</td><td>standard</td><td>2</td><td>yes</td></tr>
+<tr><td><code>/my-requests/:id</code></td><td>Request</td><td>My Community</td><td>Residents</td><td>—</td><td>wide</td><td>—</td><td>no</td></tr>
+<tr><td><code>/my-maintenance</code></td><td>My Requests</td><td>My Community</td><td>Residents</td><td>—</td><td>narrow</td><td>—</td><td>no</td></tr>
 <tr><td><code>/assigned-work</code></td><td>Assigned Maintenance</td><td>Assigned Work</td><td>Vendor / auditor / attorney</td><td>—</td><td>standard</td><td>1</td><td>yes</td></tr>
 <tr><td><code>/vendors</code></td><td>Vendor Directory</td><td>Operations</td><td>Board / management</td><td>—</td><td>wide</td><td>—</td><td>yes</td></tr>
 <tr><td><code>/violations</code></td><td>Violations</td><td>Operations</td><td>Board / management</td><td>—</td><td>full</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/violations/fee-schedule</code></td><td>Fee schedule</td><td>Operations</td><td>Board / management</td><td>—</td><td>standard</td><td>—</td><td>no</td></tr>
 <tr><td><code>/violations/issue</code></td><td>Issue Violation</td><td>Operations</td><td>Board / management</td><td>—</td><td>full</td><td>—</td><td>no</td></tr>
 <tr><td><code>/violations/review</code></td><td>Review Violation</td><td>Operations</td><td>Board / management</td><td>—</td><td>full</td><td>—</td><td>no</td></tr>
 <tr><td><code>/violations/fees</code></td><td>Violation Fees</td><td>Operations</td><td>Board / management</td><td>—</td><td>full</td><td>—</td><td>no</td></tr>
+<tr><td><code>/board/queue</code></td><td>Work Queue</td><td>Operations</td><td>COMMUNITY_MODERATORS</td><td>—</td><td>wide</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/board/controls</code></td><td>Board Controls</td><td>Operations</td><td>Everyone in the community</td><td>—</td><td>wide</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/board/summary</code></td><td>Board Summary</td><td>Operations</td><td>Everyone in the community</td><td>—</td><td>wide</td><td>—</td><td>yes</td></tr>
 <tr><td><code>/violations/delinquency</code></td><td>Delinquency</td><td>Operations</td><td>Board / management</td><td>—</td><td>full</td><td>—</td><td>no</td></tr>
 <tr><td><code>/violations/escalation</code></td><td>Escalation Queue</td><td>Operations</td><td>Board / management</td><td>—</td><td>full</td><td>—</td><td>no</td></tr>
-<tr><td><code>/my-violations</code></td><td>My Violations</td><td>My Community</td><td>Residents</td><td>—</td><td>narrow</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/my-violations</code></td><td>My Violations</td><td>My Community</td><td>Residents</td><td>—</td><td>narrow</td><td>—</td><td>no</td></tr>
 <tr><td><code>/documents/admin</code></td><td>Documents</td><td>Community</td><td>Board / management</td><td>—</td><td>full</td><td>—</td><td>yes</td></tr>
 <tr><td><code>/documents</code></td><td>Documents</td><td>My Community</td><td>Everyone signed in</td><td>—</td><td>standard</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/documents/:id</code></td><td>Documents</td><td>My Community</td><td>Everyone signed in</td><td>—</td><td>standard</td><td>—</td><td>no</td></tr>
 <tr><td><code>/messages</code></td><td>Messages</td><td>Community</td><td>Everyone signed in</td><td>—</td><td>full</td><td>3</td><td>yes</td></tr>
-<tr><td><code>/community-feed</code></td><td>Community Feed</td><td>Community</td><td>Everyone in the community</td><td>community_feed</td><td>standard</td><td>—</td><td>yes</td></tr>
-<tr><td><code>/events</code></td><td>Events</td><td>Community</td><td>Everyone in the community</td><td>—</td><td>wide</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/community</code></td><td>Community</td><td>Community</td><td>Everyone in the community</td><td>—</td><td>wide</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/community-feed</code></td><td>Community Feed</td><td>Community</td><td>Everyone in the community</td><td>community_feed</td><td>standard</td><td>—</td><td>no</td></tr>
+<tr><td><code>/events</code></td><td>Events</td><td>Community</td><td>Everyone in the community</td><td>—</td><td>wide</td><td>—</td><td>no</td></tr>
 <tr><td><code>/community-calendar</code></td><td>Legacy Calendar Redirect</td><td>Community</td><td>Everyone in the community</td><td>—</td><td>wide</td><td>—</td><td>no</td></tr>
 <tr><td><code>/voting</code></td><td>Voting &amp; Meetings</td><td>Governance</td><td>Vote managers</td><td>voting</td><td>standard</td><td>—</td><td>yes</td></tr>
 <tr><td><code>/my-voting</code></td><td>My Voting</td><td>Governance</td><td>Residents</td><td>voting</td><td>standard</td><td>—</td><td>yes</td></tr>
 <tr><td><code>/governance</code></td><td>Governance</td><td>Governance</td><td>Board and management</td><td>voting</td><td>wide</td><td>—</td><td>yes</td></tr>
-<tr><td><code>/surveys</code></td><td>Surveys</td><td>Community</td><td>Board / management</td><td>surveys</td><td>standard</td><td>—</td><td>yes</td></tr>
-<tr><td><code>/my-surveys</code></td><td>Surveys</td><td>My Community</td><td>Residents</td><td>surveys</td><td>standard</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/surveys</code></td><td>Surveys</td><td>Community</td><td>Board / management</td><td>surveys</td><td>standard</td><td>—</td><td>no</td></tr>
+<tr><td><code>/my-surveys</code></td><td>Surveys</td><td>My Community</td><td>Residents</td><td>surveys</td><td>standard</td><td>—</td><td>no</td></tr>
 <tr><td><code>/my-signatures</code></td><td>Signatures</td><td>My Community</td><td>Residents</td><td>signatures</td><td>narrow</td><td>—</td><td>yes</td></tr>
 <tr><td><code>/announcements</code></td><td>Announcements</td><td>Communications</td><td>Board / management</td><td>—</td><td>full</td><td>—</td><td>yes</td></tr>
 <tr><td><code>/mass-communications</code></td><td>Mass Communications</td><td>Communications</td><td>Board / management</td><td>mass_communications</td><td>wide</td><td>—</td><td>yes</td></tr>
 <tr><td><code>/my-communications</code></td><td>HOA Directory</td><td>My Community</td><td>Residents</td><td>—</td><td>full</td><td>—</td><td>yes</td></tr>
-<tr><td><code>/ai-assistant</code></td><td>AI Assistant</td><td>My Community</td><td>Residents</td><td>ai_assistant</td><td>standard</td><td>—</td><td>no</td></tr>
+<tr><td><code>/my-updates</code></td><td>Community Updates</td><td>My Community</td><td>Residents</td><td>—</td><td>standard</td><td>—</td><td>no</td></tr>
+<tr><td><code>/ai-assistant</code></td><td>AI Assistant</td><td>My Community</td><td>Everyone signed in</td><td>ai_assistant</td><td>standard</td><td>—</td><td>no</td></tr>
 <tr><td><code>/parking</code></td><td>Parking</td><td>Property</td><td>Board / management</td><td>parking</td><td>full</td><td>—</td><td>yes</td></tr>
-<tr><td><code>/my-parking</code></td><td>My Parking</td><td>Property</td><td>Residents</td><td>parking</td><td>standard</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/my-parking</code></td><td>My Parking</td><td>Property</td><td>Residents</td><td>parking</td><td>standard</td><td>—</td><td>no</td></tr>
 <tr><td><code>/clubhouse</code></td><td>Clubhouse Reservations</td><td>Property</td><td>Everyone in the community</td><td>clubhouse</td><td>wide</td><td>—</td><td>yes</td></tr>
 <tr><td><code>/my-clubhouse</code></td><td>My Amenities</td><td>Property</td><td>Residents</td><td>clubhouse</td><td>standard</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/my-reservations</code></td><td>My Reservations</td><td>Property</td><td>Residents</td><td>clubhouse</td><td>standard</td><td>—</td><td>no</td></tr>
 <tr><td><code>/dog-park</code></td><td>Dog Park</td><td>Property</td><td>Directory managers</td><td>dog_park</td><td>wide</td><td>—</td><td>yes</td></tr>
 <tr><td><code>/my-dog-park</code></td><td>Dog Park</td><td>Property</td><td>Residents</td><td>dog_park</td><td>standard</td><td>—</td><td>yes</td></tr>
 <tr><td><code>/visitor-access</code></td><td>Visitor Access</td><td>Property</td><td>Directory managers</td><td>visitor_access</td><td>standard</td><td>—</td><td>yes</td></tr>
-<tr><td><code>/my-visitors</code></td><td>Visitor Access</td><td>Property</td><td>Residents</td><td>visitor_access</td><td>standard</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/my-visitors</code></td><td>Visitors</td><td>Property</td><td>Residents</td><td>visitor_access</td><td>wide</td><td>—</td><td>yes</td></tr>
 <tr><td><code>/architectural-review</code></td><td>Architectural Review</td><td>Property</td><td>Architectural reviewers</td><td>architectural_review</td><td>standard</td><td>—</td><td>yes</td></tr>
-<tr><td><code>/my-architectural</code></td><td>Architectural Requests</td><td>Property</td><td>Residents</td><td>architectural_review</td><td>standard</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/my-architectural</code></td><td>Architectural Requests</td><td>Property</td><td>Residents</td><td>architectural_review</td><td>standard</td><td>—</td><td>no</td></tr>
 <tr><td><code>/directory</code></td><td>HOA Directory</td><td>Directory</td><td>Board and management</td><td>—</td><td>wide</td><td>—</td><td>yes</td></tr>
 <tr><td><code>/resident-directory</code></td><td>Neighbors</td><td>Directory</td><td>Everyone signed in</td><td>—</td><td>wide</td><td>—</td><td>yes</td></tr>
 <tr><td><code>/directory/residents</code></td><td>Neighbor Directory</td><td>Directory</td><td>Everyone signed in</td><td>—</td><td>wide</td><td>—</td><td>no</td></tr>
@@ -793,15 +807,24 @@ You are helping design screens and components for HOAhx, a community-management 
 <tr><td><code>/dues-schedule</code></td><td>Dues Schedule</td><td>Financial</td><td>Board / management</td><td>—</td><td>standard</td><td>—</td><td>yes</td></tr>
 <tr><td><code>/payments/manual</code></td><td>Record Manual Payment</td><td>Financial</td><td>Board / management</td><td>—</td><td>standard</td><td>—</td><td>no</td></tr>
 <tr><td><code>/payments/reconciliation</code></td><td>Payment Reconciliation</td><td>Financial</td><td>Board / management</td><td>—</td><td>full</td><td>—</td><td>no</td></tr>
+<tr><td><code>/ledger/adjustments</code></td><td>Adjustment approvals</td><td>Financial</td><td>Board / management</td><td>—</td><td>wide</td><td>—</td><td>no</td></tr>
+<tr><td><code>/ledger/payment-plans</code></td><td>Payment plans</td><td>Financial</td><td>Board / management</td><td>—</td><td>wide</td><td>—</td><td>no</td></tr>
+<tr><td><code>/ledger/invoices</code></td><td>Invoices</td><td>Financial</td><td>Board / management</td><td>—</td><td>full</td><td>—</td><td>no</td></tr>
+<tr><td><code>/ledger/reports</code></td><td>Reports and reconciliation</td><td>Financial</td><td>Board / management</td><td>—</td><td>full</td><td>—</td><td>no</td></tr>
 <tr><td><code>/financial-reports/audit</code></td><td>Audit Reports</td><td>Financial</td><td>Vendor / auditor / attorney</td><td>—</td><td>full</td><td>—</td><td>yes</td></tr>
-<tr><td><code>/payments</code></td><td>Payments</td><td>Financial</td><td>Community admins</td><td>—</td><td>full</td><td>—</td><td>no</td></tr>
 <tr><td><code>/subscriptions</code></td><td>Subscriptions</td><td>Financial</td><td>Community admins</td><td>—</td><td>full</td><td>—</td><td>no</td></tr>
+<tr><td><code>/billing-contacts</code></td><td>Billing Contacts</td><td>Financial</td><td>Board and management</td><td>—</td><td>standard</td><td>—</td><td>no</td></tr>
+<tr><td><code>/financial-approvers</code></td><td>Financial Approvers</td><td>Financial</td><td>Board and management</td><td>—</td><td>standard</td><td>—</td><td>no</td></tr>
+<tr><td><code>/legal-holds</code></td><td>Legal Holds</td><td>Administration</td><td>Everyone in the community</td><td>—</td><td>standard</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/auditor-access</code></td><td>Auditor Access</td><td>Administration</td><td>Board / management</td><td>—</td><td>standard</td><td>—</td><td>yes</td></tr>
 <tr><td><code>/my-subscription</code></td><td>My Subscription</td><td>Account</td><td>Residents</td><td>—</td><td>standard</td><td>—</td><td>no</td></tr>
 <tr><td><code>/analytics</code></td><td>Analytics</td><td>Administration</td><td>Board / management</td><td>analytics</td><td>full</td><td>—</td><td>yes</td></tr>
 <tr><td><code>/hoa-settings</code></td><td>HOA Settings</td><td>Administration</td><td>Settings viewers</td><td>—</td><td>standard</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/community-launch</code></td><td>Launch readiness</td><td>Administration</td><td>Settings viewers</td><td>—</td><td>standard</td><td>—</td><td>no</td></tr>
 <tr><td><code>/re-engagement</code></td><td>Resident Re-engagement</td><td>Administration</td><td>Board / management</td><td>—</td><td>standard</td><td>—</td><td>yes</td></tr>
 <tr><td><code>/hoa-settings/permissions</code></td><td>Permissions</td><td>Administration</td><td>Board / management</td><td>—</td><td>wide</td><td>—</td><td>yes</td></tr>
 <tr><td><code>/activity-log</code></td><td>Audit Log</td><td>Administration</td><td>Board / management</td><td>—</td><td>full</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/audit-records</code></td><td>Audit Records</td><td>Administration</td><td>Everyone signed in</td><td>—</td><td>full</td><td>—</td><td>yes</td></tr>
 <tr><td><code>/ai-insights</code></td><td>AI Insights</td><td>Administration</td><td>Community admins</td><td>analytics</td><td>full</td><td>—</td><td>no</td></tr>
 <tr><td><code>/notifications</code></td><td>Notifications</td><td>Administration</td><td>Board / management</td><td>—</td><td>standard</td><td>—</td><td>no</td></tr>
 <tr><td><code>/notification-settings</code></td><td>Notification Templates</td><td>Administration</td><td>Board / management</td><td>—</td><td>narrow</td><td>—</td><td>no</td></tr>
@@ -810,8 +833,12 @@ You are helping design screens and components for HOAhx, a community-management 
 <tr><td><code>/my-profile</code></td><td>My Profile</td><td>Account</td><td>Residents</td><td>—</td><td>narrow</td><td>—</td><td>yes</td></tr>
 <tr><td><code>/my-notifications</code></td><td>Notifications</td><td>Account</td><td>Residents</td><td>—</td><td>standard</td><td>—</td><td>yes</td></tr>
 <tr><td><code>/my-notification-settings</code></td><td>Notification Settings</td><td>Account</td><td>Residents</td><td>—</td><td>narrow</td><td>—</td><td>yes</td></tr>
+<tr><td><code>/more</code></td><td>More</td><td>Account</td><td>Everyone signed in</td><td>—</td><td>narrow</td><td>—</td><td>no</td></tr>
+<tr><td><code>/help</code></td><td>Help</td><td>Account</td><td>Everyone signed in</td><td>—</td><td>narrow</td><td>—</td><td>yes</td></tr>
 <tr><td><code>/my-account</code></td><td>My Account</td><td>Account</td><td>Residents</td><td>—</td><td>narrow</td><td>4</td><td>yes</td></tr>
 <tr><td><code>/privacy-security</code></td><td>Privacy &amp; Security</td><td>Account</td><td>Everyone signed in</td><td>—</td><td>narrow</td><td>—</td><td>no</td></tr>
+<tr><td><code>/platform/hoas/:hoaId/launch-stage</code></td><td>Launch stage</td><td>Platform</td><td>HOAhx staff</td><td>—</td><td>standard</td><td>—</td><td>no</td></tr>
+<tr><td><code>/platform/hoas/:hoaId/legal-holds</code></td><td>Legal Holds</td><td>Platform</td><td>HOAhx staff</td><td>—</td><td>standard</td><td>—</td><td>no</td></tr>
 <tr><td><code>/platform/hoas/:id</code></td><td>HOA Client</td><td>Platform</td><td>HOAhx staff</td><td>—</td><td>full</td><td>—</td><td>no</td></tr>
 <tr><td><code>/platform/hoas/onboard</code></td><td>Create HOA</td><td>Platform</td><td>HOAhx staff</td><td>—</td><td>standard</td><td>—</td><td>no</td></tr>
 <tr><td><code>/platform/billing/accounts</code></td><td>Billing Accounts</td><td>Business</td><td>HOAhx staff</td><td>—</td><td>full</td><td>—</td><td>no</td></tr>
@@ -819,7 +846,9 @@ You are helping design screens and components for HOAhx, a community-management 
 <tr><td><code>/platform/billing/renewals</code></td><td>Renewals</td><td>Business</td><td>HOAhx staff</td><td>—</td><td>full</td><td>—</td><td>no</td></tr>
 <tr><td><code>/platform/billing/invoices</code></td><td>Invoices</td><td>Business</td><td>HOAhx staff</td><td>—</td><td>full</td><td>—</td><td>no</td></tr>
 <tr><td><code>/platform/billing/audit</code></td><td>Billing Audit</td><td>Business</td><td>HOAhx staff</td><td>—</td><td>full</td><td>—</td><td>no</td></tr>
+<tr><td><code>/platform/billing/history</code></td><td>Billing History</td><td>Business</td><td>HOAhx staff</td><td>—</td><td>wide</td><td>—</td><td>no</td></tr>
 <tr><td><code>/platform/billing/plans</code></td><td>Billing Plans</td><td>Business</td><td>HOAhx staff</td><td>—</td><td>wide</td><td>—</td><td>no</td></tr>
+<tr><td><code>/platform/store-review</code></td><td>Store Review</td><td>Platform</td><td>HOAhx staff</td><td>—</td><td>standard</td><td>—</td><td>no</td></tr>
 <tr><td><code>/management/portfolio</code></td><td>Portfolio</td><td>Management Company</td><td>Management company</td><td>—</td><td>full</td><td>—</td><td>yes</td></tr>
 <tr><td><code>/management/portfolio/financials</code></td><td>Portfolio Financials</td><td>Management Company</td><td>Management company</td><td>—</td><td>full</td><td>—</td><td>no</td></tr>
 <tr><td><code>/management/portfolio/audit</code></td><td>Portfolio Audit</td><td>Management Company</td><td>Management company</td><td>—</td><td>full</td><td>—</td><td>no</td></tr>

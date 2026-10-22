@@ -1,3 +1,5 @@
+> **Canonical:** the design constraints to paste at the top of any design or code-generation prompt. `docs/prototype/prompt-preamble.md` is a different file (the ChatGPT demo project's instructions) and points here for design rules.
+
 # HOAhx design constraints — paste this at the top of any design or code-generation prompt
 
 You are helping design screens and components for HOAhx, a community-management web app for homeowners, HOA boards, and property managers, wrapped as iOS and Android apps. Design for THIS codebase, not for a generic product. When a rule below conflicts with your default, the rule wins. The full reference is `docs/design/DESIGN_BRIEF.md`; exact token values are in `docs/design/tokens.json`.

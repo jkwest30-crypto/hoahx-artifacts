@@ -1,6 +1,6 @@
-# HOAhx Design Brief
+# HOA HX Design Brief
 
-For Tenyson Patridge, for Figma and for any design or code-generation tool you use. Prepared by Jacob West on September 11, 2026 from the `dev` branch at commit 5e44adb. This document supersedes the four design-system documents in `docs/` dated July 7 (`DESIGN_SYSTEM.md`, `HOA_HX_DESIGN_SYSTEM.md`, `DESIGN_SYSTEM_QUICK_REFERENCE.md`, `DESIGN_SYSTEM_REFERENCE.md`, `DESIGN_SYSTEM_IMPLEMENTATION.md`), which disagree with each other and with the code. Where this document and the code disagree, the code wins and this document gets fixed.
+For Tenyson Patridge, for Figma and for any design or code-generation tool you use. Prepared by Jacob West on September 11, 2026 from the `dev` branch at commit 5e44adb. This document supersedes the five design-system documents dated July 7 (retired; they remain in git history), which disagree with each other and with the code. Where this document and the code disagree, the code wins and this document gets fixed.
 
 Companion files in this folder:
 
@@ -59,15 +59,15 @@ The automated test suite (1,230 browser tests) finds elements by **role and visi
 
 - **Both themes.** Light and dark are both live. The theme toggle (Light / Dark / System) is in the app header, the platform header, and My Account. The default theme is being settled by the owners (the code currently disagrees with itself); design both and do not assume one.
 - **Phones are a shell around the web app.** The iOS and Android apps are the same React app inside a native shell. Your phone designs are the app designs. Safe areas, 44px targets, bottom navigation, bottom sheets, and no hover-dependence are requirements, not polish.
-- **Who gets phone designs.** Homeowners (and tenants) and board members. Management companies and HOAhx staff use desktop.
-- **Homeowners never pay HOAhx.** They pay their community. The community pays its HOAhx subscription on the web, and that purchase is hidden inside the native apps.
-- **Brand name spelling is pending.** The code says "HOA HX" in the browser title and the logo, the owners' documents say "HOAhx". Use "HOAhx" in designs until the owners confirm; do not draw a new logo until they do.
+- **Who gets phone designs.** Homeowners (and tenants) and board members. Management companies and HOA HX staff use desktop.
+- **Homeowners never pay HOA HX.** They pay their community. The community pays its HOA HX subscription on the web, and that purchase is hidden inside the native apps.
+- **Brand name spelling is pending.** The code says "HOA HX" in the browser title and the logo, the owners' documents say "HOA HX". Use "HOA HX" in designs until the owners confirm; do not draw a new logo until they do.
 
 ---
 
 ## 3. Product context
 
-**What it is.** A trust layer for community living: homeowners pay dues, submit requests, read documents, reserve amenities, vote, and stay informed; boards and property managers run the community; HOAhx staff run the platform. The guiding question for every screen: *does this make the resident experience clearer, simpler, and more trustworthy?*
+**What it is.** A trust layer for community living: homeowners pay dues, submit requests, read documents, reserve amenities, vote, and stay informed; boards and property managers run the community; HOA HX staff run the platform. The guiding question for every screen: *does this make the resident experience clearer, simpler, and more trustworthy?*
 
 **Roles.** Platform: owner, support, viewer. Management: company admin, property manager. Board: president, secretary, treasurer, board member. Resident: homeowner, tenant. Scoped: vendor, auditor, attorney. One person can hold several of these across several communities and properties. The header carries a context switcher; switching never requires signing out. A first sign-in with more than one context shows an **account selector** screen.
 
@@ -272,7 +272,7 @@ A dedicated phone layout in `src/components/layout/homeowner/` (root file `Homeo
 - **Page container:** 16px side padding (12px compact), top padding 56px plus safe area, bottom padding 80px plus safe area (24px when the nav is hidden), content max width 672px centered, momentum scroll, pull-to-refresh, per-tab scroll position memory.
 - **Content pieces:** MobileContentSection (title, subtitle, optional card styling, right-side action), MobileListItem (icon, label, subtitle, chevron, active and disabled states, press feedback), MobileActionCard (40px tinted icon tile, centered label).
 
-### 6.4 The platform layout (HOAhx staff)
+### 6.4 The platform layout (HOA HX staff)
 
 Separate sidebar and header family in `src/components/layout/superadmin/` with violet accents for platform-only signals and amber counters. Desktop only. Not in scope for redesign.
 
@@ -324,12 +324,12 @@ The board uses the application shell (6.2) in phone mode. Screens: `/announcemen
 
 ### 7.3 The payment flow
 
-The card, bank-account, Apple Pay, and Google Pay fields are **NMI's embedded Payment Component**, rendered inline on `/my-payments` (no redirect, no popup). It accepts a theme (Inter, primary #0074AD, radius 10px, light and dark palettes) and nothing else about its internals can change. HOAhx draws everything around it. Design these states:
+The card, bank-account, Apple Pay, and Google Pay fields are **NMI's embedded Payment Component**, rendered inline on `/my-payments` (no redirect, no popup). It accepts a theme (Inter, primary #0074AD, radius 10px, light and dark palettes) and nothing else about its internals can change. HOA HX draws everything around it. Design these states:
 
 1. **Balance and schedule:** amount due, due date, grace period and late fee from the published dues schedule, **Pay Now**. Community not yet set up for payments: *"Online payments are not yet available for this community. Contact your community administrator for payment instructions."*
 2. **Amount:** full balance or another amount; summary line.
 3. **Method:** saved methods (cards as brand and last four with expiry, banks as "Bank •••3815"), or new card / bank; Apple Pay and Google Pay buttons appear only where the device supports them.
-4. **Fields:** the embedded component; HOAhx shows the Pay button, amount, and errors below it.
+4. **Fields:** the embedded component; HOA HX shows the Pay button, amount, and errors below it.
 5. **Result:** *Payment received* with a confirmation number (the transaction id), balance updated, a history row; **or** a decline with a plain message and a retry path, balance unchanged; **or** for bank payments *Bank payment submitted*, pending until the bank settles, then Paid. Returned bank payments reverse with a notice and a return fee line.
 6. **AutoPay:** save this method, AutoPay on or off, schedule (monthly on the community's due date, including special assessments and late fees), next charge date, pause and resume, a failed-charge alert, and a card-expiry notice three months ahead.
 7. **Receipts and history:** each payment with status, method, and a receipt.
@@ -340,7 +340,7 @@ Light and dark, phone and desktop, all seven. The owners walk through this on Se
 
 Your September 8 requirements are the spec for the build on September 16–17:
 
-- **Setup, one step at a time:** choose a method → verify it → save backup codes. Methods: authenticator app; text-message codes for residents who opt in. Roles that move money and HOAhx staff are required to enroll; residents are optional. (Whether required roles may also choose text codes is being discussed on September 14.)
+- **Setup, one step at a time:** choose a method → verify it → save backup codes. Methods: authenticator app; text-message codes for residents who opt in. Roles that move money and HOA HX staff are required to enroll; residents are optional. (Whether required roles may also choose text codes is being discussed on September 14.)
 - **Code entry:** InputOTP, accepts autofill and paste; *"Can't access your device?"* clearly visible on the challenge screen.
 - **Recovery:** backup codes; a staff-assisted recovery process that verifies identity.
 - **Changing methods:** requires verification; the new method is confirmed before the old one is removed.
@@ -354,7 +354,7 @@ Your recommendation, adopted by the owners on September 8, builds October 5–8.
 
 - A persistent banner for the responsible administrators showing the **amount owed, the exact deadline, and what happens next**, with **Pay balance** and an update-payment-method option; advance notice before each access change.
 - The **read-only** state explains that records remain available but changes are restricted; billing and support stay reachable during suspension.
-- Notices are labeled as the community's HOAhx subscription, separate from homeowner dues.
+- Notices are labeled as the community's HOA HX subscription, separate from homeowner dues.
 - Access is restored automatically once payment is confirmed.
 - Also: an "update payment information" alert and a card-expiry notice three months out.
 
@@ -380,9 +380,9 @@ The app name, privacy-policy page, and support email are the owners' to provide 
 - Plain, resident-first, transparent. Say what happened and what happens next.
 - Money with cents ($250.00). Dates absolute (Oct 1, 2026); relative time only as a secondary line.
 - Status words match the StatusBadge presets (paid, pending, overdue, open, in progress, resolved…).
-- Community subscription notices say "your community's HOAhx subscription"; homeowner dues never mention HOAhx as the payee.
+- Community subscription notices say "your community's HOA HX subscription"; homeowner dues never mention HOA HX as the payee.
 - No exclamation marks, no "Oops", no jargon (tokenization, webhook, gateway). Errors say what to do.
-- Do not describe the product as already running or as having customers; HOAhx has not launched.
+- Do not describe the product as already running or as having customers; HOA HX has not launched.
 
 ---
 
@@ -429,20 +429,20 @@ Generated from `src/lib/appRouteRegistry.ts`. "Phone tab" is the priority the bo
 | `/account-suspended` | Account Suspended | Account | Everyone signed in | — | narrow | — | no |
 | `/session-expired` | Session Expired | Account | Everyone signed in | — | narrow | — | no |
 | `/tenant-error` | Tenant Context Error | Account | Everyone signed in | — | narrow | — | no |
-| `/platform/dashboard` | Dashboard | Platform | HOAhx staff | — | full | 1 | yes |
-| `/platform/hoas` | HOA Clients | Platform | HOAhx staff | — | full | 2 | yes |
-| `/platform/users` | Platform Users | Platform | HOAhx staff | — | full | — | yes |
-| `/platform/analytics` | Analytics | Platform | HOAhx staff | — | full | 3 | yes |
-| `/platform/activity-log` | Activity Log | Oversight | HOAhx staff | — | full | — | yes |
-| `/platform/feedback` | Feedback | Oversight | HOAhx staff | — | full | — | yes |
-| `/platform/impersonation-log` | Impersonation Log | Oversight | HOAhx staff | — | full | — | yes |
-| `/platform/access-requests` | Access Requests | Access | HOAhx staff | — | full | — | yes |
-| `/platform/manage-access` | Manage Access | Access | HOAhx staff | — | full | — | yes |
-| `/platform/billing` | Billing | Business | HOAhx staff | — | full | — | yes |
-| `/platform/notifications` | Notifications | Account | HOAhx staff | — | standard | — | no |
-| `/platform/notification-settings` | Notification Settings | Account | HOAhx staff | — | narrow | — | no |
-| `/platform/recovery` | Recovery | Access | HOAhx staff | — | narrow | — | no |
-| `/demo` | Demo Communities | Platform | HOAhx staff | — | wide | — | no |
+| `/platform/dashboard` | Dashboard | Platform | HOA HX staff | — | full | 1 | yes |
+| `/platform/hoas` | HOA Clients | Platform | HOA HX staff | — | full | 2 | yes |
+| `/platform/users` | Platform Users | Platform | HOA HX staff | — | full | — | yes |
+| `/platform/analytics` | Analytics | Platform | HOA HX staff | — | full | 3 | yes |
+| `/platform/activity-log` | Activity Log | Oversight | HOA HX staff | — | full | — | yes |
+| `/platform/feedback` | Feedback | Oversight | HOA HX staff | — | full | — | yes |
+| `/platform/impersonation-log` | Impersonation Log | Oversight | HOA HX staff | — | full | — | yes |
+| `/platform/access-requests` | Access Requests | Access | HOA HX staff | — | full | — | yes |
+| `/platform/manage-access` | Manage Access | Access | HOA HX staff | — | full | — | yes |
+| `/platform/billing` | Billing | Business | HOA HX staff | — | full | — | yes |
+| `/platform/notifications` | Notifications | Account | HOA HX staff | — | standard | — | no |
+| `/platform/notification-settings` | Notification Settings | Account | HOA HX staff | — | narrow | — | no |
+| `/platform/recovery` | Recovery | Access | HOA HX staff | — | narrow | — | no |
+| `/demo` | Demo Communities | Platform | HOA HX staff | — | wide | — | no |
 | `/my-household` | My Household | My Community | Residents | — | standard | — | yes |
 | `/residents` | Member Management | Administration | Board / management | — | full | 2 | yes |
 | `/properties` | Properties | Administration | Board / management | — | full | — | yes |
@@ -515,14 +515,14 @@ Generated from `src/lib/appRouteRegistry.ts`. "Phone tab" is the priority the bo
 | `/my-notification-settings` | Notification Settings | Account | Residents | — | narrow | — | yes |
 | `/my-account` | My Account | Account | Residents | — | narrow | 4 | yes |
 | `/privacy-security` | Privacy & Security | Account | Everyone signed in | — | narrow | — | no |
-| `/platform/hoas/:id` | HOA Client | Platform | HOAhx staff | — | full | — | no |
-| `/platform/hoas/onboard` | Create HOA | Platform | HOAhx staff | — | standard | — | no |
-| `/platform/billing/accounts` | Billing Accounts | Business | HOAhx staff | — | full | — | no |
-| `/platform/billing/profile/:id` | Billing Profile | Business | HOAhx staff | — | wide | — | no |
-| `/platform/billing/renewals` | Renewals | Business | HOAhx staff | — | full | — | no |
-| `/platform/billing/invoices` | Invoices | Business | HOAhx staff | — | full | — | no |
-| `/platform/billing/audit` | Billing Audit | Business | HOAhx staff | — | full | — | no |
-| `/platform/billing/plans` | Billing Plans | Business | HOAhx staff | — | wide | — | no |
+| `/platform/hoas/:id` | HOA Client | Platform | HOA HX staff | — | full | — | no |
+| `/platform/hoas/onboard` | Create HOA | Platform | HOA HX staff | — | standard | — | no |
+| `/platform/billing/accounts` | Billing Accounts | Business | HOA HX staff | — | full | — | no |
+| `/platform/billing/profile/:id` | Billing Profile | Business | HOA HX staff | — | wide | — | no |
+| `/platform/billing/renewals` | Renewals | Business | HOA HX staff | — | full | — | no |
+| `/platform/billing/invoices` | Invoices | Business | HOA HX staff | — | full | — | no |
+| `/platform/billing/audit` | Billing Audit | Business | HOA HX staff | — | full | — | no |
+| `/platform/billing/plans` | Billing Plans | Business | HOA HX staff | — | wide | — | no |
 | `/management/portfolio` | Portfolio | Management Company | Management company | — | full | — | yes |
 | `/management/portfolio/financials` | Portfolio Financials | Management Company | Management company | — | full | — | no |
 | `/management/portfolio/audit` | Portfolio Audit | Management Company | Management company | — | full | — | no |
