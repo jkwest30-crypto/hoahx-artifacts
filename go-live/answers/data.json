@@ -365,6 +365,22 @@
      "videos": []
     }
    ]
+  },
+  {
+   "id": "A99",
+   "group": "records",
+   "title": "Text messages to residents",
+   "why": "\"After launch\" → texts are ranked with the other after-launch candidates; \"Add to the launch\" → the texting provider and the carriers' registration start at once, and the launch date is checked against the registration.",
+   "rows": [
+    {
+     "id": "A99-1",
+     "qs": [
+      "Should HOA HX send text messages to residents at launch (announcements, request updates, payment reminders), or keep texts for after launch?"
+     ],
+     "rec": "Consider doing after launch. Why: US carriers must approve a business's texting registration before its messages are delivered, which usually takes one to three weeks, and each community and resident must agree to receive texts; at launch residents get the same notices in the app, by push and by email.",
+     "videos": []
+    }
+   ]
   }
  ],
  "answered": [
