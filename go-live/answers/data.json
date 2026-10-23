@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-22",
+ "updated": "2026-10-23",
  "groups": [
   {
    "id": "money",
@@ -27,51 +27,15 @@
    "id": "A63",
    "group": "pricing",
    "title": "Sales tax on the community subscription: which states",
-   "why": "You answered yes to a tax line on the subscription screens. Tax can only be charged where HOAhx is set up with the state to collect it, so the states decide what the first invoices show; nothing else waits on this.",
+   "why": "You answered yes to a tax line on the subscription screens. Tax can only be charged where HOA HX is set up with the state to collect it, so the states decide what the first invoices show; nothing else waits on this.",
    "rows": [
     {
      "id": "A63-1",
      "qs": [
-      "In which states must HOAhx collect sales tax on the community subscription, and will HOAhx be set up with those states to collect it before launch?"
+      "In which states must HOA HX collect sales tax on the community subscription, and will HOA HX be set up with those states to collect it before launch?"
      ],
-     "rec": "Have your accountant name the states where the subscription is taxable and where HOAhx will be set up to collect it. Until then the rate is zero and no tax line shows; a state can be added later without changing anything a community has already paid.",
+     "rec": "Have your accountant name the states where the subscription is taxable and where HOA HX will be set up to collect it. Until then the rate is zero and no tax line shows; a state can be added later without changing anything a community has already paid.",
      "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A65",
-   "group": "community",
-   "title": "How long a homeowner's visitor pass may run",
-   "why": "One rule keeps the guard's view and the homeowner's view of a pass the same, and nobody has asked for another length.",
-   "rows": [
-    {
-     "id": "A65-2",
-     "qs": [
-      "Can the one 14-day limit apply to every community at launch, with a community's own limit added later if a board asks?"
-     ],
-     "rec": "Yes. One limit keeps the guard's view and the homeowner's view of a pass the same. A setting per community comes after launch, when a board asks for one.",
-     "videos": [],
-     "why": "Everything else in your note is agreed. This is the one part we propose to keep simpler at launch.",
-     "replies": [
-      {
-       "at": "2026-10-21T19:45:00.000Z",
-       "text": "Thank you. Yes: a one-time pass lasts up to 14 days from when it starts, so the homeowner does not renew it inside that time, and it can be set up to a year ahead. Every community uses the same 14 days at launch so the guard's view and the homeowner's view of a pass match. A limit each board sets for its own community can come after launch, once a board asks for it. Does that work for you?"
-      }
-     ],
-     "earlier": {
-      "id": "A65-1",
-      "qs": [
-       "Is 14 days for a one-time visitor pass, set up at most a year ahead, right for launch?"
-      ],
-      "agreed": "Every visitor pass runs at most 14 days and starts as a same-day visit; the resident confirms the start and end times. A 'Single-entry pass' ends after one admission; a 'Temporary visitor pass' allows repeat entry for the selected period. Passes can be set up to a year ahead, stay inactive until they start, end on time, can be cancelled by the resident or revoked by staff, and are checked at every use.",
-      "replies": [
-       {
-        "at": "2026-10-16T08:37:57.000Z",
-        "text": "Thank you. For launch: 14 days is the most any visitor pass may run, a pass starts as a same-day visit, and a resident confirms the start and end times. A one-time pass is called 'Single-entry pass' and ends after one admission; a repeat-entry 'Temporary visitor pass' lasts the selected period. Passes can be set up to a year ahead, stay inactive until they start, end on time, can be cancelled by the resident or revoked by staff, and are checked at every use. A community's own limit is a setting we can add after launch if a board asks; we recommend the single 14-day limit for every community at launch."
-       }
-      ]
-     }
     }
    ]
   },
@@ -85,7 +49,7 @@
     {
      "id": "A79-1",
      "qs": [
-      "A community can charge the seller a fee for the transfer package. Should the President or the management company set it, starting at no charge and capped at $1,000, with the seller paying by card or bank account when they request the package?"
+      "Your launch already includes a paid transfer package, charged through the community's own payment account, with a receipt. The one open point: should the President or the management company set the fee, starting at no charge and capped at $1,000?"
      ],
      "rec": "Yes. The President or the management company sets the fee, with a reason. It starts at no charge and can be at most $1,000. The seller pays it by card or bank account when they request the package, with no saved payment method and no card fee added. If the payment is declined, the package is not requested.",
      "videos": [],
@@ -106,12 +70,12 @@
    "id": "A81",
    "group": "money",
    "title": "How a past-due community gets access back",
-   "why": "\"Yes\" → nothing; \"always wait\" → one constant and its test (0.1 est-h); \"always restore\" → remove the condition and its test (0.1 est-h).",
+   "why": "\"Yes\" → nothing changes; \"Always wait\" → every bank payment waits until it clears; \"Always restore\" → every approved payment restores access at once.",
    "rows": [
     {
      "id": "A81-1",
      "qs": [
-      "When a past-due community pays its HOA HX balance, should access come back at once on approval, except that a bank payment after two returned bank payments waits until it clears?"
+      "You agreed on September 8 that access comes back automatically once a payment is confirmed. The one open point: after two returned bank payments, should the next bank payment wait until it clears (3 to 5 business days) before access comes back?"
      ],
      "rec": "Access comes back at once when the balance payment is approved, card or bank account alike. After two returned bank payments, a bank payment restores access only when it clears (3 to 5 business days). A returned payment puts the community back where it was, with the same dates.",
      "videos": [],
@@ -128,12 +92,12 @@
    "id": "A82",
    "group": "money",
    "title": "How long staff may hold a past-due community",
-   "why": "\"Yes\" → nothing; a different limit → one constant and its test (0.1 est-h).",
+   "why": "\"Yes\" → nothing changes; a different limit → we set the limit you name.",
    "rows": [
     {
      "id": "A82-1",
      "qs": [
-      "How long may HOA HX staff hold a past-due community before the past-due steps resume: up to 30 days for an extension of the grace period and up to 90 days for an exception?"
+      "You agreed on September 8 that HOA HX staff can extend the grace period or make an exception. The one open point: are 30 days for an extension and 90 days for an exception the right limits?"
      ],
      "rec": "HOA HX staff can extend the grace period up to 30 days, or grant an exception up to 90 days (a dispute, a payment arranged with HOA HX), each with a reason. Every hold ends on its own and the day count resumes.",
      "videos": [],
@@ -147,26 +111,10 @@
    ]
   },
   {
-   "id": "A83",
-   "group": "records",
-   "title": "A one-file export of a community's records",
-   "why": "\"Yes, after launch\" → a candidate row (about 6 est-h); \"before launch\" → the same row pulled into the launch; \"No\" → nothing.",
-   "rows": [
-    {
-     "id": "A83-1",
-     "qs": [
-      "Should HOA HX build a 'Download all records' export (one file with a community's documents, ledger, residents and history) so that a community leaving, or lapsing, can take everything in one step?"
-     ],
-     "rec": "Build a 'Download all records' export (documents, ledger, residents and history in one file) after launch. Until then the notices tell the billing contacts which exports exist and to keep a copy first.",
-     "videos": []
-    }
-   ]
-  },
-  {
    "id": "A84",
    "group": "records",
    "title": "Who reads membership changes on the activity log",
-   "why": "\"Yes\" → nothing; \"as before\" → one staff-only category and its tests (0.5 est-h).",
+   "why": "\"Yes\" → nothing changes; \"As before\" → only the Owner, the President, the HOA Administrator and Board Members read these changes.",
    "rows": [
     {
      "id": "A84-1",
@@ -188,7 +136,7 @@
    "id": "A85",
    "group": "community",
    "title": "Get started when you are already logged in",
-   "why": "\"Stay open\" → nothing; \"dashboard\" → a redirect and its test (0.3 est-h).",
+   "why": "\"Stay open\" → nothing changes; \"Dashboard\" → a logged-in person is sent to their dashboard.",
    "rows": [
     {
      "id": "A85-1",
@@ -210,7 +158,7 @@
    "id": "A86",
    "group": "money",
    "title": "How the processor takes its fees",
-   "why": "\"In full\" → nothing more to build; \"out of each deposit\" → a fee line on every deposit in the treasurer's matching view (about 1.0 est-h).",
+   "why": "\"In full\" → nothing changes; \"out of each deposit\" → each deposit shows the fee taken out, beside the payments inside it, in the treasurer's matching view.",
    "rows": [
     {
      "id": "A86-1",
@@ -226,14 +174,14 @@
    "id": "A88",
    "group": "money",
    "title": "A Property Manager's money tasks: on with the role, or switched on by the board",
-   "why": "\"After launch\" → nothing changes now; it is ranked with the other candidates. \"Off\" → the President switches money tasks on per manager (3 to 4 est-h); \"Keep\" → nothing changes.",
+   "why": "\"Agree\" → built for the launch as described; \"Keep as it is\" → a Property Manager keeps the money tasks with the role.",
    "rows": [
     {
      "id": "A88-1",
      "qs": [
-      "Should a Property Manager's money tasks stay off until the board switches them on for that manager?"
+      "Your Core list puts delegated money tasks for a Property Manager in the launch, so it is being built. Please confirm the design: a Property Manager starts with no money tasks, and the President switches them on for each manager."
      ],
-     "rec": "Consider doing after launch. Why: it is not how the app works today, the launch keeps what is built, and after launch it is ranked with the other candidates.",
+     "rec": "Build it for the launch, as your list says (\"explicitly delegated financial tasks\"). A Property Manager starts with no money tasks, and the President switches them on for each manager. Each change is recorded.",
      "videos": []
     }
    ]
@@ -242,30 +190,14 @@
    "id": "A89",
    "group": "ops",
    "title": "What the Household Administrator may do",
-   "why": "\"After launch\" → nothing changes now; it is ranked with the other candidates. \"Recommended\" → about 3 est-h; \"Keep it a label\" → nothing changes.",
+   "why": "\"Agree\" → built for the launch as described; \"Keep it a label\" → the designation grants nothing more.",
    "rows": [
     {
      "id": "A89-1",
      "qs": [
-      "What should the Household Administrator be able to do that the home's other owners cannot?"
+      "Your Core list puts a Household Administrator who manages household details and membership in the launch, so it is being built. Please confirm the design: the Household Administrator invites and removes household members and edits the household's details, and the home's other owners keep every right they have today."
      ],
-     "rec": "Consider doing after launch. Why: it is not how the app works today, the launch keeps what is built, and after launch it is ranked with the other candidates.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A90",
-   "group": "ops",
-   "title": "How an import matches a spreadsheet's columns",
-   "why": "\"Enough\" → nothing changes; \"Smarter matching now\" → new work to be sized, which could move the launch.",
-   "rows": [
-    {
-     "id": "A90-1",
-     "qs": [
-      "Is matching columns from the file's headings, confirmed by the administrator, enough for the launch?"
-     ],
-     "rec": "Keep heading-based matching, with the administrator confirming every column, for the launch. Why: exports from other HOA systems carry recognizable headings, nothing is written until a person approves it, and smarter matching can follow as a candidate.",
+     "rec": "Build it for the launch, as your list says (\"manages permitted household details and membership\"). The Household Administrator can invite and remove household members and edit the household's details. The home's other owners keep every right they have today.",
      "videos": []
     }
    ]
@@ -274,12 +206,12 @@
    "id": "A91",
    "group": "community",
    "title": "Secret ballots on every vote, or only where required",
-   "why": "\"Secret only\" → nothing changes; \"Open option\" → about 2 est-h.",
+   "why": "\"Secret only\" → nothing changes; \"Open option\" → added for the launch.",
    "rows": [
     {
      "id": "A91-1",
      "qs": [
-      "Do any of your votes need to be open, with each person's choice visible to the board?"
+      "Your Core list asks for secret ballots where required, and every vote is secret today. The one open point: do any of your votes need to be open, with each person's choice visible to the board?"
      ],
      "rec": "Keep every vote secret for the launch. Why: a secret ballot is never the wrong choice for a homeowner vote, and an open-vote option can follow once you name a vote that needs it.",
      "videos": []
@@ -290,14 +222,14 @@
    "id": "A92",
    "group": "community",
    "title": "A vote's opening date",
-   "why": "\"After launch\" → nothing changes now; it is ranked with the other candidates. \"Add\" → about 1.5 est-h; \"Keep\" → nothing changes.",
+   "why": "\"Agree\" → built for the launch as described; \"Keep\" → a vote opens when the board starts it.",
    "rows": [
     {
      "id": "A92-1",
      "qs": [
-      "Should a vote be able to open by itself on a set date?"
+      "Your Core list puts opening and closing dates for votes in the launch, so it is being built. Please confirm the design: the board sets an opening date and a deadline, and the vote opens by itself on its opening date."
      ],
-     "rec": "Consider doing after launch. Why: it is not how the app works today, the launch keeps what is built, and after launch it is ranked with the other candidates.",
+     "rec": "Build it for the launch, as your list says (\"opening and closing dates\"). The board sets an opening date and a deadline. The vote opens by itself on the opening date, and homeowners can see when it will open.",
      "videos": []
     }
    ]
@@ -306,12 +238,12 @@
    "id": "A93",
    "group": "money",
    "title": "Who approves a payment plan",
-   "why": "\"Keep\" → nothing changes; \"Board vote\" → about 3 est-h.",
+   "why": "\"Keep\" → nothing changes; \"Board vote\" → added for the launch.",
    "rows": [
     {
      "id": "A93-1",
      "qs": [
-      "Is a payment plan approved by a second financial person what you meant by \"board-approved\"?"
+      "Your Core list asks for board-approved payment plans, and your rule for money already needs two people. The one open point: does a second financial person approving each plan meet \"board-approved\", or should the board vote on each plan?"
      ],
      "rec": "Keep it: a second financial person approves each plan. Why: it is the same two-person check you chose for refunds on September 10, and every plan records who set it up and who approved it.",
      "videos": []
@@ -322,14 +254,14 @@
    "id": "A94",
    "group": "community",
    "title": "How many service schedules a community can add",
-   "why": "\"After launch\" → nothing changes now; it is ranked with the other candidates. \"Up to five\" → about 1.5 est-h; \"Keep\" → nothing changes.",
+   "why": "\"Up to five\" → built for the launch; \"Keep three\" → trash, recycling and one other service stay as they are.",
    "rows": [
     {
      "id": "A94-1",
      "qs": [
-      "Should a community be able to add more services than trash, recycling and one other?"
+      "Your Core list puts trash and community-service schedules in the launch. The one open point: is up to five services, each with its own day, the right number?"
      ],
-     "rec": "Consider doing after launch. Why: it is not how the app works today, the launch keeps what is built, and after launch it is ranked with the other candidates.",
+     "rec": "Allow up to five services for the launch (for example trash, recycling, yard waste, bulk pickup, street sweeping), each with its own day. Why: your list asks for trash and community-service schedules, and three fixed slots do not fit every community.",
      "videos": []
     }
    ]
@@ -338,46 +270,14 @@
    "id": "A95",
    "group": "ops",
    "title": "Checking the deed when the first primary owner is named",
-   "why": "\"After launch\" → nothing changes now; it is ranked with the other candidates. \"Same check\" → about 1 est-h; \"Reason is enough\" → nothing changes.",
+   "why": "\"Agree\" → built for the launch as described; \"Reason is enough\" → naming the first owner keeps asking for a reason only.",
    "rows": [
     {
      "id": "A95-1",
      "qs": [
-      "Should naming a home's first primary owner also require the deed or closing record?"
+      "Your Core list asks for a verified property contact, so it is being built. Please confirm the design: naming a home's first owner asks for the deed or closing record that was checked, the same way changing the owner already does."
      ],
-     "rec": "Consider doing after launch. Why: it is not how the app works today, the launch keeps what is built, and after launch it is ranked with the other candidates.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A98",
-   "group": "records",
-   "title": "An attorney's access to one legal matter",
-   "why": "\"Keep\" → nothing changes; \"Take it out\" → the grant is hidden until after launch (about 1 est-h).",
-   "rows": [
-    {
-     "id": "A98-1",
-     "qs": [
-      "Should an attorney's access to one legal matter be part of the launch, even though your Core list does not name it?"
-     ],
-     "rec": "Keep it. Why: it is built and tested, only the President can grant it, it reaches one matter's documents and nothing else, and it ends on its own on the last day.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A99",
-   "group": "records",
-   "title": "Text messages to residents",
-   "why": "\"After launch\" → texts are ranked with the other after-launch candidates; \"Add to the launch\" → the texting provider and the carriers' registration start at once, and the launch date is checked against the registration.",
-   "rows": [
-    {
-     "id": "A99-1",
-     "qs": [
-      "Should HOA HX send text messages to residents at launch (announcements, request updates, payment reminders), or keep texts for after launch?"
-     ],
-     "rec": "Consider doing after launch. Why: US carriers must approve a business's texting registration before its messages are delivered, which usually takes one to three weeks, and each community and resident must agree to receive texts; at launch residents get the same notices in the app, by push and by email.",
+     "rec": "Build it for the launch, as your list says (\"verified property contact\"). Naming a home's first owner asks for the deed or closing record that was checked, the same way changing the owner already does.",
      "videos": []
     }
    ]
