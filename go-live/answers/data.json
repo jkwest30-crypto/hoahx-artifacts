@@ -14,6 +14,10 @@
    "title": "Documents, messages, and records"
   },
   {
+   "id": "ops",
+   "title": "Running HOAhx"
+  },
+  {
    "id": "pricing",
    "title": "Pricing"
   }
@@ -219,17 +223,145 @@
    ]
   },
   {
-   "id": "A87",
+   "id": "A88",
    "group": "money",
-   "title": "Connecting a bank account through Plaid",
-   "why": "\"After launch\" → nothing changes now; \"before launch\" → a new bank path on three payment screens and both phone apps (16 to 24 est-h), which would move the launch by about two build days.",
+   "title": "A Property Manager's money tasks: on with the role, or switched on by the board",
+   "why": "\"After launch\" → nothing changes now; it is ranked with the other candidates. \"Off\" → the President switches money tasks on per manager (3 to 4 est-h); \"Keep\" → nothing changes.",
    "rows": [
     {
-     "id": "A87-1",
+     "id": "A88-1",
      "qs": [
-      "Should HOA HX add \"Connect your bank\" through Plaid, beside the bank form homeowners and the account owner use today, for dues, AutoPay and the community's HOA HX plan?"
+      "Should a Property Manager's money tasks stay off until the board switches them on for that manager?"
      ],
-     "rec": "Not before launch. Keep the payment processor's own bank form at launch, and decide on Plaid after launch, once the first live bank payments have run and the processor confirms it accepts an account Plaid has checked, so HOA HX never holds a bank number.",
+     "rec": "Consider doing after launch. Why: it is not how the app works today, the launch keeps what is built, and after launch it is ranked with the other candidates.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A89",
+   "group": "ops",
+   "title": "What the Household Administrator may do",
+   "why": "\"After launch\" → nothing changes now; it is ranked with the other candidates. \"Recommended\" → about 3 est-h; \"Keep it a label\" → nothing changes.",
+   "rows": [
+    {
+     "id": "A89-1",
+     "qs": [
+      "What should the Household Administrator be able to do that the home's other owners cannot?"
+     ],
+     "rec": "Consider doing after launch. Why: it is not how the app works today, the launch keeps what is built, and after launch it is ranked with the other candidates.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A90",
+   "group": "ops",
+   "title": "How an import matches a spreadsheet's columns",
+   "why": "\"Enough\" → nothing changes; \"Smarter matching now\" → new work to be sized, which could move the launch.",
+   "rows": [
+    {
+     "id": "A90-1",
+     "qs": [
+      "Is matching columns from the file's headings, confirmed by the administrator, enough for the launch?"
+     ],
+     "rec": "Keep heading-based matching, with the administrator confirming every column, for the launch. Why: exports from other HOA systems carry recognizable headings, nothing is written until a person approves it, and smarter matching can follow as a candidate.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A91",
+   "group": "community",
+   "title": "Secret ballots on every vote, or only where required",
+   "why": "\"Secret only\" → nothing changes; \"Open option\" → about 2 est-h.",
+   "rows": [
+    {
+     "id": "A91-1",
+     "qs": [
+      "Do any of your votes need to be open, with each person's choice visible to the board?"
+     ],
+     "rec": "Keep every vote secret for the launch. Why: a secret ballot is never the wrong choice for a homeowner vote, and an open-vote option can follow once you name a vote that needs it.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A92",
+   "group": "community",
+   "title": "A vote's opening date",
+   "why": "\"After launch\" → nothing changes now; it is ranked with the other candidates. \"Add\" → about 1.5 est-h; \"Keep\" → nothing changes.",
+   "rows": [
+    {
+     "id": "A92-1",
+     "qs": [
+      "Should a vote be able to open by itself on a set date?"
+     ],
+     "rec": "Consider doing after launch. Why: it is not how the app works today, the launch keeps what is built, and after launch it is ranked with the other candidates.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A93",
+   "group": "money",
+   "title": "Who approves a payment plan",
+   "why": "\"Keep\" → nothing changes; \"Board vote\" → about 3 est-h.",
+   "rows": [
+    {
+     "id": "A93-1",
+     "qs": [
+      "Is a payment plan approved by a second financial person what you meant by \"board-approved\"?"
+     ],
+     "rec": "Keep it: a second financial person approves each plan. Why: it is the same two-person check you chose for refunds on September 10, and every plan records who set it up and who approved it.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A94",
+   "group": "community",
+   "title": "How many service schedules a community can add",
+   "why": "\"After launch\" → nothing changes now; it is ranked with the other candidates. \"Up to five\" → about 1.5 est-h; \"Keep\" → nothing changes.",
+   "rows": [
+    {
+     "id": "A94-1",
+     "qs": [
+      "Should a community be able to add more services than trash, recycling and one other?"
+     ],
+     "rec": "Consider doing after launch. Why: it is not how the app works today, the launch keeps what is built, and after launch it is ranked with the other candidates.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A95",
+   "group": "ops",
+   "title": "Checking the deed when the first primary owner is named",
+   "why": "\"After launch\" → nothing changes now; it is ranked with the other candidates. \"Same check\" → about 1 est-h; \"Reason is enough\" → nothing changes.",
+   "rows": [
+    {
+     "id": "A95-1",
+     "qs": [
+      "Should naming a home's first primary owner also require the deed or closing record?"
+     ],
+     "rec": "Consider doing after launch. Why: it is not how the app works today, the launch keeps what is built, and after launch it is ranked with the other candidates.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A98",
+   "group": "records",
+   "title": "An attorney's access to one legal matter",
+   "why": "\"Keep\" → nothing changes; \"Take it out\" → the grant is hidden until after launch (about 1 est-h).",
+   "rows": [
+    {
+     "id": "A98-1",
+     "qs": [
+      "Should an attorney's access to one legal matter be part of the launch, even though your Core list does not name it?"
+     ],
+     "rec": "Keep it. Why: it is built and tested, only the President can grant it, it reaches one matter's documents and nothing else, and it ends on its own on the last day.",
      "videos": []
     }
    ]
