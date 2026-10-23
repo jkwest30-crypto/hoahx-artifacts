@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-21",
+ "updated": "2026-10-22",
  "groups": [
   {
    "id": "money",
@@ -75,6 +75,7 @@
    "id": "A79",
    "group": "money",
    "title": "The fee for a home's transfer package",
+   "note": "How the transfer package works, step by step: the seller reports the sale on \"Selling your home\" and asks for the package with one button. If the community has set a fee, the seller pays it on the spot through the community's own payment account and gets a receipt; the package is only requested once the payment is approved. The board prepares the package, the seller can share it with one title company for up to 30 days, and the board confirms the handoff after closing, when the buyer becomes the owner. The buyer pays nothing.",
    "why": "Nothing changes for a community until its board chooses a fee; the ceiling keeps a mistyped amount from reaching a seller, and the package is prepared only once it is paid for.",
    "rows": [
     {
@@ -83,7 +84,17 @@
       "A community can charge the seller a fee for the transfer package. Should the President or the management company set it, starting at no charge and capped at $1,000, with the seller paying by card or bank account when they request the package?"
      ],
      "rec": "Yes. The President or the management company sets the fee, with a reason. It starts at no charge and can be at most $1,000. The seller pays it by card or bank account when they request the package, with no saved payment method and no card fee added. If the payment is declined, the package is not requested.",
-     "videos": []
+     "videos": [],
+     "replies": [
+      {
+       "at": "2026-10-22T05:10:00.000Z",
+       "text": "So the work was not held up, we built this the way we recommended: the President or the management company sets the community's transfer package fee, it starts at no charge and has a ceiling, and the seller pays it by card or bank account at the moment they ask for the package, so the package is prepared only once it is paid for. The community keeps the fee, and the buyer and the title company pay nothing. Would you like to change it? If so, tell us how in a reply here and we will change it; if not, no answer is needed."
+      },
+      {
+       "at": "2026-10-22T18:00:00.000Z",
+       "text": "Here is the walk-through you asked for. Nothing here needs a yes or no; the earlier reply above (how we built the fee) still stands.\n\nThe short version\n\nWhen a home is sold, the seller asks the community for a \"transfer package\": the papers and account standing a buyer's side needs. The community can charge the seller a fee for it (it starts at no charge). The seller can also let one title company read the package for a short time. The buyer pays nothing for any of this and becomes the home's owner when the board confirms the handoff.\n\nStep by step\n\n**1. The seller reports the sale.** On \"Selling your home\" in My household, an owner of the home enters the expected closing date, the final closing date if known, the buyer's e-mail and a note for the office. The screen shows \"What happens next\" and who is responsible. The seller can cancel (\"Cancel this sale?\") and nothing changes on the home; the cancellation stays in its history.\n\n**2. The seller asks for the transfer package.** One button: \"Ask for the transfer package\".\n- *Community charges no fee (the starting setting):* the request is recorded and the board is told.\n- *Community has set a fee:* the seller sees the amount, enters a card or bank account on the spot, and pays through the community's own payment account, the same way dues are paid. The package is only requested once the payment is approved. If the payment is declined, the screen says \"No money was taken and the package was not requested\" and nothing is recorded. If the payment cannot be confirmed, the seller is told to check payment history before trying again, so nobody is charged twice.\n- The fee shows on the home's account as its own line, the payment pays that line, and the seller gets a receipt (a receipt number, the amount, the date and the last four digits only, never the full card or bank number).\n- If the community cannot take online payments yet, the screen says so and tells the seller to ask the community.\n\n**3. The board prepares the package.** The staff who handle ownership changes mark it prepared and can leave a note for the seller (for example where to collect it). The seller is told. Staff never act on their own home's sale.\n\n**4. The seller (or the board) shares it with the title company.** On the sale, \"Share with a title company\": the title company's e-mail, the last day they can open it (at most 30 days out) and a reason. The title company gets an e-mailed link. There is one title company per sale; sharing again replaces the first.\n\n**5. The title company reads it.** It signs in with the e-mail it was shared with (that e-mail must be verified). It has no role in the community and sees no workspace: one page for this one sale. It sees the home, the community, the expected and final closing dates and the package status. Once the board has prepared the package it also sees the board's note and the home's account review (balance and open items). It never sees anyone's e-mail, the seller's own note, or how anyone paid. Access ends on the last day, when the handoff is confirmed, or if the sale is cancelled; the seller or board can also end it earlier, with a reason.\n\n**6. The board confirms the handoff.** After the closing day, the board confirms the day the home changed hands, with the deed or closing record they checked. In one step the former owners' access to the home ends (their records are kept, never deleted), the buyer becomes the primary owner, everyone is told, and the whole thing is written to the community's history. The buyer must already be named on the home with a verified account matching the e-mail the seller gave. A credit left on the account is held for the former owner and becomes a refund task for the treasurer (a question still open with you).\n\nWhat each person sees and pays\n\n| | Sees | Pays |\n|---|---|---|\n| **Seller** | The sale, what happens next and who is responsible; the fee before paying; the receipt; the home's account review; who has title access and until when | The community's package fee, if the board set one, at the moment of the request |\n| **Buyer** | Nothing of the package. Becomes the owner at the confirmed handoff and is told | Nothing for the package |\n| **Title company** | The one-package page described in step 5, until the last day | Nothing |\n| **Board / staff** | The request, the preparation note, the account review, every grant and its history | Nothing. The President or management sets the fee, with a reason and a fresh sign-in; the community keeps the fee |\n\nThe three layers\n\n- **At launch (built, checked by automated tests):** reporting and cancelling a sale; the request with the fee paid at the time; the receipt; the board's preparation; one title company's time-limited read access limited to what is listed in step 5; the confirmed handoff; the history row for every change.\n- **Coming soon (needs a step outside the code):** charging a real fee needs the community's live payment account, which waits on PlatPay's approval of the first community. Until then a community's fee stays at no charge, and the paid path has been run only against NMI's test site. The seller's and title company's screens have browser tests but have not been walked by an owner on staging with a real phone or e-mail.\n- **Vision (not promised):** HOA HX is not a closing or escrow platform (Core list item 7); the package is the community's side of a sale, not the sale. Nothing beyond the launch list above is planned or priced."
+      }
+     ]
     }
    ]
   },
@@ -99,7 +110,13 @@
       "When a past-due community pays its HOA HX balance, should access come back at once on approval, except that a bank payment after two returned bank payments waits until it clears?"
      ],
      "rec": "Access comes back at once when the balance payment is approved, card or bank account alike. After two returned bank payments, a bank payment restores access only when it clears (3 to 5 business days). A returned payment puts the community back where it was, with the same dates.",
-     "videos": []
+     "videos": [],
+     "replies": [
+      {
+       "at": "2026-10-22T05:00:00.000Z",
+       "text": "So the work was not held up, we built this the way we recommended: access comes back as soon as the balance payment is approved, and only after two returned bank payments does a bank payment wait until it clears. Would you like to change it? If so, tell us how in a reply here and we will change it; if not, no answer is needed."
+      }
+     ]
     }
    ]
   },
@@ -115,7 +132,13 @@
       "How long may HOA HX staff hold a past-due community before the past-due steps resume: up to 30 days for an extension of the grace period and up to 90 days for an exception?"
      ],
      "rec": "HOA HX staff can extend the grace period up to 30 days, or grant an exception up to 90 days (a dispute, a payment arranged with HOA HX), each with a reason. Every hold ends on its own and the day count resumes.",
-     "videos": []
+     "videos": [],
+     "replies": [
+      {
+       "at": "2026-10-22T05:00:00.000Z",
+       "text": "So the work was not held up, we built this the way we recommended: staff can extend the grace period up to 30 days, or grant an exception up to 90 days, each with a reason, and every hold ends on its own. Would you like to change it? If so, tell us how in a reply here and we will change it; if not, no answer is needed."
+      }
+     ]
     }
    ]
   },
@@ -147,7 +170,13 @@
       "Should the Secretary, Treasurer, Property Manager and management admin be able to read membership changes on the community activity log, as the shared history's category rules already allow for retirements and access-request decisions?"
      ],
      "rec": "Keep it: the Secretary, Treasurer, Property Manager and management admin can read membership changes on the community activity log. Homeowners never see these rows.",
-     "videos": []
+     "videos": [],
+     "replies": [
+      {
+       "at": "2026-10-22T05:00:00.000Z",
+       "text": "So the work was not held up, we built this the way we recommended: the Secretary, Treasurer, Property Manager and management admin can read membership changes on the activity log, and homeowners never see them. Would you like to change it? If so, tell us how in a reply here and we will change it; if not, no answer is needed."
+      }
+     ]
     }
    ]
   },
@@ -163,6 +192,44 @@
       "When someone who is already logged in opens Get started, should the page stay open and name the account they are using, or send them to their own dashboard?"
      ],
      "rec": "Keep the page open and say which account is in use: \"You're logged in as <email>. Anything you start or accept here uses this account; to use another email, log out first.\"",
+     "videos": [],
+     "replies": [
+      {
+       "at": "2026-10-22T05:00:00.000Z",
+       "text": "So the work was not held up, we built this the way we recommended: Get started stays open for someone already logged in and shows which account they are using, so a board member can start a second community without logging out. Would you like to change it? If so, tell us how in a reply here and we will change it; if not, no answer is needed."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "A86",
+   "group": "money",
+   "title": "How the processor takes its fees",
+   "why": "\"In full\" → nothing more to build; \"out of each deposit\" → a fee line on every deposit in the treasurer's matching view (about 1.0 est-h).",
+   "rows": [
+    {
+     "id": "A86-1",
+     "qs": [
+      "Should each community's bank deposits arrive in full, with the processor's fees billed once at the end of the month, or should the fees be taken out of each deposit?"
+     ],
+     "rec": "Deposits arrive in full and the processor bills its fees once a month. Each deposit then matches the homeowner payments inside it to the cent, so the treasurer can check the bank statement without working out fees.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A87",
+   "group": "money",
+   "title": "Connecting a bank account through Plaid",
+   "why": "\"After launch\" → nothing changes now; \"before launch\" → a new bank path on three payment screens and both phone apps (16 to 24 est-h), which would move the launch by about two build days.",
+   "rows": [
+    {
+     "id": "A87-1",
+     "qs": [
+      "Should HOA HX add \"Connect your bank\" through Plaid, beside the bank form homeowners and the account owner use today, for dues, AutoPay and the community's HOA HX plan?"
+     ],
+     "rec": "Not before launch. Keep the payment processor's own bank form at launch, and decide on Plaid after launch, once the first live bank payments have run and the processor confirms it accepts an account Plaid has checked, so HOA HX never holds a bank number.",
      "videos": []
     }
    ]
