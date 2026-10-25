@@ -57,6 +57,18 @@ test('source: a sound source passes and is counted', () => {
   assert.deepEqual(checkSource(source()), { cards: 3, lines: 5, entries: 5 });
 });
 
+test('source: a three-digit card number (A101) and its lines are accepted, a bad id is not', () => {
+  const s = source();
+  s.cards.push({ id: 'A101', group: 'money', title: 'After a sale', why: 'Because.',
+    decisions: [{ id: 'D-361', code: 'Q-X-1', q: 'What ends at the handoff?' }],
+    rec: [{ id: 'A101-1', d: ['D-361'], text: 'The tenant record ends.', videos: [] }] });
+  assert.doesNotThrow(() => checkSource(s));
+  const bad = clone(s); bad.cards[3].id = 'A1';
+  assert.throws(() => checkSource(bad), /is not A##/);
+  const bad2 = clone(s); bad2.cards[3].id = 'A1011';
+  assert.throws(() => checkSource(bad2), /is not A##/);
+});
+
 test('source: every line needs its own permanent id', () => {
   const noId = source(); delete noId.cards[0].rec[0].id;
   assert.throws(() => checkSource(noId), /no permanent id/);

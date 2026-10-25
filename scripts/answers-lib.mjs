@@ -61,7 +61,7 @@ export function parseAnswers(markdown) {
 }
 
 // ── the wording source ───────────────────────────────────────────────────────
-const LINE_ID = /^A\d{2}-\d{1,2}$/;
+const LINE_ID = /^A\d{2,3}-\d{1,2}$/;
 const VIDEO_NO = /^\d{2}$/;
 
 /** Checks recommendations.json. Returns counts; throws on the first thing wrong. */
@@ -74,7 +74,7 @@ export function checkSource(src) {
   let lines = 0;
   for (const c of src.cards) {
     for (const k of ['id', 'group', 'title', 'decisions', 'rec', 'why']) if (!(k in c)) throw new Error(`card ${c.id || '?'} has no "${k}"`);
-    if (!/^A\d{2}$/.test(c.id)) throw new Error(`card id "${c.id}" is not A##`);
+    if (!/^A\d{2,3}$/.test(c.id)) throw new Error(`card id "${c.id}" is not A##`);
     if (cardIds.has(c.id)) throw new Error(`card ${c.id} appears twice`);
     cardIds.add(c.id);
     if (!groupIds.has(c.group)) throw new Error(`card ${c.id} names group "${c.group}", which does not exist`);
@@ -777,7 +777,7 @@ export function buildPull({ source, screens, store, site, now, answeredButOpen =
 
   // what the page saved before it asked per question
   const lineIds = new Set(source.cards.flatMap((c) => c.rec.map((r) => r.id)));
-  const old = Object.keys(store).filter((id) => /^A\d{2}$/.test(id) && live(store[id])).sort();
+  const old = Object.keys(store).filter((id) => /^A\d{2,3}$/.test(id) && live(store[id])).sort();
   if (old.length) {
     out.push('## Card-level answers from the earlier page (not applied)', '', 'Given when the page asked one answer per card. The page no longer reads them and nothing below is an answer to record: ask the owners to answer the questions on that card.', '');
     for (const id of old) {
@@ -806,7 +806,7 @@ export function buildPull({ source, screens, store, site, now, answeredButOpen =
 export const ANSWER_STATUSES = ['planned', 'built', 'live'];
 const SCREEN_ID = /^S-[A-Z]\d{1,2}$/;
 // A09-1b: the second half of a split line, recorded by /decide
-const isAnswerId = (id) => LINE_ID.test(id) || SCREEN_ID.test(id) || /^A\d{2}-\d{1,2}b$/.test(id);
+const isAnswerId = (id) => LINE_ID.test(id) || SCREEN_ID.test(id) || /^A\d{2,3}-\d{1,2}b$/.test(id);
 const ymd = (iso) => (/^\d{4}-\d{2}-\d{2}/.test(String(iso || '')) ? String(iso).slice(0, 10) : '');
 
 /**
