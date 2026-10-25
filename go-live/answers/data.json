@@ -1,9 +1,13 @@
 {
- "updated": "2026-10-23",
+ "updated": "2026-10-24",
  "groups": [
   {
    "id": "money",
    "title": "Money: dues, the ledger, and the books"
+  },
+  {
+   "id": "enforce",
+   "title": "Enforcement and requests"
   },
   {
    "id": "community",
@@ -12,10 +16,6 @@
   {
    "id": "records",
    "title": "Documents, messages, and records"
-  },
-  {
-   "id": "ops",
-   "title": "Running HOAhx"
   },
   {
    "id": "pricing",
@@ -171,38 +171,6 @@
    ]
   },
   {
-   "id": "A88",
-   "group": "money",
-   "title": "A Property Manager's money tasks: on with the role, or switched on by the board",
-   "why": "\"Agree\" → built for the launch as described; \"Keep as it is\" → a Property Manager keeps the money tasks with the role.",
-   "rows": [
-    {
-     "id": "A88-1",
-     "qs": [
-      "Your Core list puts delegated money tasks for a Property Manager in the launch, so it is being built. Please confirm the design: a Property Manager starts with no money tasks, and the President switches them on for each manager."
-     ],
-     "rec": "Build it for the launch, as your list says (\"explicitly delegated financial tasks\"). A Property Manager starts with no money tasks, and the President switches them on for each manager. Each change is recorded.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A89",
-   "group": "ops",
-   "title": "What the Household Administrator may do",
-   "why": "\"Agree\" → built for the launch as described; \"Keep it a label\" → the designation grants nothing more.",
-   "rows": [
-    {
-     "id": "A89-1",
-     "qs": [
-      "Your Core list puts a Household Administrator who manages household details and membership in the launch, so it is being built. Please confirm the design: the Household Administrator invites and removes household members and edits the household's details, and the home's other owners keep every right they have today."
-     ],
-     "rec": "Build it for the launch, as your list says (\"manages permitted household details and membership\"). The Household Administrator can invite and remove household members and edit the household's details. The home's other owners keep every right they have today.",
-     "videos": []
-    }
-   ]
-  },
-  {
    "id": "A91",
    "group": "community",
    "title": "Secret ballots on every vote, or only where required",
@@ -214,23 +182,13 @@
       "Your Core list asks for secret ballots where required, and every vote is secret today. The one open point: do any of your votes need to be open, with each person's choice visible to the board?"
      ],
      "rec": "Keep every vote secret for the launch. Why: a secret ballot is never the wrong choice for a homeowner vote, and an open-vote option can follow once you name a vote that needs it.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A92",
-   "group": "community",
-   "title": "A vote's opening date",
-   "why": "\"Agree\" → built for the launch as described; \"Keep\" → a vote opens when the board starts it.",
-   "rows": [
-    {
-     "id": "A92-1",
-     "qs": [
-      "Your Core list puts opening and closing dates for votes in the launch, so it is being built. Please confirm the design: the board sets an opening date and a deadline, and the vote opens by itself on its opening date."
-     ],
-     "rec": "Build it for the launch, as your list says (\"opening and closing dates\"). The board sets an opening date and a deadline. The vote opens by itself on the opening date, and homeowners can see when it will open.",
-     "videos": []
+     "videos": [],
+     "replies": [
+      {
+       "at": "2026-10-24T08:28:45.000Z",
+       "text": "Thank you. We have recorded your list. For launch, every vote stays secret by default: the app keeps who voted apart from what they chose, shows turnout while voting is open, and shows totals only when the board releases them. Rules that depend on a state's law or a community's governing documents (who may vote, proxies, paper ballots, election inspectors, notice periods) are for your counsel to set per community, and we will not claim the vote tool satisfies them on its own. We will fold the rest of your list into the voting work after launch. If you would like any item moved earlier, tell us which."
+      }
+     ]
     }
    ]
   },
@@ -246,44 +204,198 @@
       "Your Core list asks for board-approved payment plans, and your rule for money already needs two people. The one open point: does a second financial person approving each plan meet \"board-approved\", or should the board vote on each plan?"
      ],
      "rec": "Keep it: a second financial person approves each plan. Why: it is the same two-person check you chose for refunds on September 10, and every plan records who set it up and who approved it.",
-     "videos": []
+     "videos": [],
+     "replies": [
+      {
+       "at": "2026-10-24T08:28:45.000Z",
+       "text": "Thank you, this is clearer than what we proposed. We will build it as you describe: a payment plan goes to the board by default; a community can switch on delegation to a second authorized financial person, only with the delegation policy recorded and a limit set by the board; plans outside the limit go to the board; and the person who creates a plan can never approve it. Each approval is written to the history. Tell us if you want anything different."
+      }
+     ]
     }
    ]
   },
   {
-   "id": "A94",
-   "group": "community",
-   "title": "How many service schedules a community can add",
-   "why": "\"Up to five\" → built for the launch; \"Keep three\" → trash, recycling and one other service stay as they are.",
+   "id": "A96",
+   "group": "enforce",
+   "title": "Whether a second person must review every violation notice",
+   "why": "\"Keep as a choice\" → nothing more; \"Always require\" or \"Add the switch\" → one small change.",
    "rows": [
     {
-     "id": "A94-1",
+     "id": "A96-1",
      "qs": [
-      "Your Core list puts trash and community-service schedules in the launch. The one open point: is up to five services, each with its own day, the right number?"
+      "We built it as a choice, with review available. Is a choice right, or should review always be required?"
      ],
-     "rec": "Allow up to five services for the launch (for example trash, recycling, yard waste, bulk pickup, street sweeping), each with its own day. Why: your list asks for trash and community-service schedules, and three fixed slots do not fit every community.",
-     "videos": []
+     "rec": "Keep both for the launch: \"Send for review\" sits beside \"Issue violation\". If a community wants review always required, we add a community switch for it (a small change). A small board may have only two people who can review, and a hard rule could hold up a safety notice.",
+     "videos": [],
+     "replies": [
+      {
+       "at": "2026-10-24T01:30:00.000Z",
+       "text": "So the work was not held up, we built this the way we recommended: the violation notice review is a choice: staff can send a notice for review to a second person or issue it directly, and the reviewer is never the person who drafted it. Would you like to change it? If so, tell us how in a reply here and we will change it; if not, no answer is needed."
+      }
+     ]
     }
    ]
   },
   {
-   "id": "A95",
-   "group": "ops",
-   "title": "Checking the deed when the first primary owner is named",
-   "why": "\"Agree\" → built for the launch as described; \"Reason is enough\" → naming the first owner keeps asking for a reason only.",
+   "id": "A97",
+   "group": "pricing",
+   "title": "The final text of the subscription terms",
+   "why": "\"Send the text\" → we replace the draft and the step shows the final version; otherwise the draft stays.",
    "rows": [
     {
-     "id": "A95-1",
+     "id": "A97-1",
      "qs": [
-      "Your Core list asks for a verified property contact, so it is being built. Please confirm the design: naming a home's first owner asks for the deed or closing record that was checked, the same way changing the owner already does."
+      "A community accepts a short draft of the subscription terms before it is billed. Please send the final text."
      ],
-     "rec": "Build it for the launch, as your list says (\"verified property contact\"). Naming a home's first owner asks for the deed or closing record that was checked, the same way changing the owner already does.",
-     "videos": []
+     "rec": "Please send us the final text and its version label. The step already works with a short draft; we replace the draft with your text, link the full document from that step, and every community that accepted the draft is asked to accept the new version.",
+     "videos": [],
+     "replies": [
+      {
+       "at": "2026-10-24T01:30:00.000Z",
+       "text": "So the work was not held up, we built this the way we recommended: before it is billed, a community's Account Owner accepts a four-line draft of the subscription terms, and nothing bills until the current version is accepted. Would you like to change it? If so, tell us how in a reply here and we will change it; if not, no answer is needed."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "A98",
+   "group": "pricing",
+   "title": "The late fee on a past-due community subscription",
+   "why": "\"Flat amount\" → we set the amount and turn it on after the terms are final; \"Percentage\" or \"No late fee\" → a small change or nothing.",
+   "rows": [
+    {
+     "id": "A98-1",
+     "qs": [
+      "The late fee is built but switched off. Should it be a flat amount once per past-due period, and what amount?"
+     ],
+     "rec": "Keep it off until the terms name the fee. When they do, use one flat fee once per past-due period, never a percentage, with the existing cap. A flat fee is easy to explain to a volunteer board.",
+     "videos": [],
+     "replies": [
+      {
+       "at": "2026-10-24T01:30:00.000Z",
+       "text": "So the work was not held up, we built this the way we recommended: the late fee on a past-due community subscription is built but switched off, as a flat amount owed once per past-due period from day 16 with a $100 cap; nothing is charged until the terms name it. Would you like to change it? If so, tell us how in a reply here and we will change it; if not, no answer is needed."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "A101",
+   "group": "records",
+   "title": "What ends when a home is sold",
+   "why": "\"Yes\" → nothing changes; \"Owner only\" → a small code change.",
+   "rows": [
+    {
+     "id": "A101-1",
+     "qs": [
+      "When a home is sold, should the seller's tenants' access and any AutoPay on the home end at the handoff, as well as the former owner's?"
+     ],
+     "rec": "Yes. A tenant's lease is with the seller; leaving their access or AutoPay running would charge or admit people the new owner never agreed to.",
+     "videos": [],
+     "replies": [
+      {
+       "at": "2026-10-25T02:10:00.000Z",
+       "text": "So the work was not held up, we built this the way we recommended: at the confirmed handoff of a sale, every tenancy of the seller ends (moved out, access ended, one history entry each, the tenant told) and every AutoPay on the home other than the buyer's is turned off; the buyer's own tenants start fresh. Would you like to change it? If so, tell us how in a reply here and we will change it; if not, no answer is needed."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "A102",
+   "group": "records",
+   "title": "Who reads a home's money history after a sale",
+   "why": "\"One line\" → nothing changes; \"Full history\" → a small code change.",
+   "rows": [
+    {
+     "id": "A102-1",
+     "qs": [
+      "After a sale, should the new owner see one line for the balance carried over, or the full history from before the sale?"
+     ],
+     "rec": "One line for everything before the handoff. It hides who paid what and how, never what the home owes.",
+     "videos": [],
+     "replies": [
+      {
+       "at": "2026-10-25T02:10:00.000Z",
+       "text": "So the work was not held up, we built this the way we recommended: after a sale the new owner reads payments and ledger lines from the handoff day, with one \"Balance when the home changed hands\" line for everything before; what the home owes stays visible. Would you like to change it? If so, tell us how in a reply here and we will change it; if not, no answer is needed."
+      }
+     ]
     }
    ]
   }
  ],
  "answered": [
+  {
+   "id": "A88-1",
+   "kind": "question",
+   "card": "A Property Manager's money tasks: on with the role, or switched on by the board",
+   "qs": [
+    "Your Core list puts delegated money tasks for a Property Manager in the launch, so it is being built. Please confirm the design: a Property Manager starts with no money tasks, and the President switches them on for each manager."
+   ],
+   "answer": "agree",
+   "rec": "Build it for the launch, as your list says (\"explicitly delegated financial tasks\"). A Property Manager starts with no money tasks, and the President switches them on for each manager. Each change is recorded.",
+   "build": "Build it for the launch as your list says: a Property Manager starts with no money tasks, the President switches them on for each manager, and each change is recorded.",
+   "answeredOn": "2026-10-23",
+   "acceptedOn": "2026-10-24",
+   "status": "planned"
+  },
+  {
+   "id": "A89-1",
+   "kind": "question",
+   "card": "What the Household Administrator may do",
+   "qs": [
+    "Your Core list puts a Household Administrator who manages household details and membership in the launch, so it is being built. Please confirm the design: the Household Administrator invites and removes household members and edits the household's details, and the home's other owners keep every right they have today."
+   ],
+   "answer": "agree",
+   "rec": "Build it for the launch, as your list says (\"manages permitted household details and membership\"). The Household Administrator can invite and remove household members and edit the household's details. The home's other owners keep every right they have today.",
+   "build": "Build it for the launch as your list says: the Household Administrator invites and removes household members and edits the household's details, and the home's other owners keep every right they have today.",
+   "answeredOn": "2026-10-23",
+   "acceptedOn": "2026-10-24",
+   "status": "planned"
+  },
+  {
+   "id": "A92-1",
+   "kind": "question",
+   "card": "A vote's opening date",
+   "qs": [
+    "Your Core list puts opening and closing dates for votes in the launch, so it is being built. Please confirm the design: the board sets an opening date and a deadline, and the vote opens by itself on its opening date."
+   ],
+   "answer": "agree",
+   "rec": "Build it for the launch, as your list says (\"opening and closing dates\"). The board sets an opening date and a deadline. The vote opens by itself on the opening date, and homeowners can see when it will open.",
+   "build": "Build it for the launch as your list says: the board sets an opening date and a deadline, the vote opens by itself on its opening date, and homeowners see when it will open.",
+   "answeredOn": "2026-10-23",
+   "acceptedOn": "2026-10-24",
+   "status": "planned"
+  },
+  {
+   "id": "A94-1",
+   "kind": "question",
+   "card": "How many service schedules a community can add",
+   "qs": [
+    "Your Core list puts trash and community-service schedules in the launch. The one open point: is up to five services, each with its own day, the right number?"
+   ],
+   "answer": "agree",
+   "rec": "Allow up to five services for the launch (for example trash, recycling, yard waste, bulk pickup, street sweeping), each with its own day. Why: your list asks for trash and community-service schedules, and three fixed slots do not fit every community.",
+   "build": "Up to five services for the launch (for example trash, recycling, yard waste, bulk pickup, street sweeping), each with its own day.",
+   "answeredOn": "2026-10-23",
+   "acceptedOn": "2026-10-24",
+   "status": "planned"
+  },
+  {
+   "id": "A95-1",
+   "kind": "question",
+   "card": "Checking the deed when the first primary owner is named",
+   "qs": [
+    "Your Core list asks for a verified property contact, so it is being built. Please confirm the design: naming a home's first owner asks for the deed or closing record that was checked, the same way changing the owner already does."
+   ],
+   "answer": "agree",
+   "rec": "Build it for the launch, as your list says (\"verified property contact\"). Naming a home's first owner asks for the deed or closing record that was checked, the same way changing the owner already does.",
+   "build": "Build it for the launch as your list says: naming a home's first owner asks for the deed or closing record that was checked, the same way changing the owner already does.",
+   "answeredOn": "2026-10-23",
+   "acceptedOn": "2026-10-24",
+   "status": "planned"
+  },
   {
    "id": "A61-2",
    "kind": "question",
