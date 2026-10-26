@@ -1,6 +1,67 @@
 {
   "schema": 1,
   "updated": "2026-10-26",
-  "videos": [],
-  "waiting": 5
+  "videos": [
+    {
+      "id": "45",
+      "title": "Dashboard and financial transparency",
+      "role": "homeowner",
+      "companionOf": null,
+      "length": "3:47",
+      "about": "The homeowner dashboard as one video: the balance and due date, what needs attention, requests and notices, what is coming up, quick actions, where the dues go against what was spent, and one dashboard for two homes.",
+      "commit": "cb243d7d",
+      "recordedAt": "2026-10-26T00:18:55.884Z",
+      "driveUrl": "https://drive.google.com/file/d/1swI-hc8Q5_O2Ukd_djeeQ7zZRChI3dd0/view",
+      "updateComing": false
+    },
+    {
+      "id": "46",
+      "title": "Resident, household and property profiles",
+      "role": "homeowner",
+      "companionOf": null,
+      "length": "5:48",
+      "about": "Profiles from the homeowner's side and the office's: names and contact details, the owner profile, directory privacy, who lives at the home, a tenant invitation, the home's contacts, two homes on one account, the home timeline, and a removal that keeps the history.",
+      "commit": "cb243d7d",
+      "recordedAt": "2026-10-26T00:19:11.520Z",
+      "driveUrl": "https://drive.google.com/file/d/1Q-6GDfxSzvjo3ZBAcfOz75k4jtPbBcE0/view",
+      "updateComing": false
+    },
+    {
+      "id": "47",
+      "title": "Selling a home and handing it over",
+      "role": "homeowner",
+      "companionOf": null,
+      "length": "5:02",
+      "about": "The whole ownership transfer in one video: a sale reported, the account reviewed, the package prepared, the buyer invited, the handoff confirmed, the history kept, and a second claim on a home decided by the board.",
+      "commit": "cb243d7d",
+      "recordedAt": "2026-10-26T00:19:26.092Z",
+      "driveUrl": "https://drive.google.com/file/d/10gIAIYr1hha3w1SkQdjQW2dqgzzIBzQ4/view",
+      "updateComing": false
+    },
+    {
+      "id": "48",
+      "title": "Violations, from notice to resolution",
+      "role": "board",
+      "companionOf": null,
+      "length": "6:14",
+      "about": "The whole violations feature in one video: the community's own types, a notice drafted with a photo and approved by a second person, the homeowner's acknowledgment and correction, a hearing, the fix verified, and the complete history.",
+      "commit": "cb243d7d",
+      "recordedAt": "2026-10-26T00:19:44.600Z",
+      "driveUrl": "https://drive.google.com/file/d/1B9eU0Lj7w2Qhn9Ak_COhOemmzY4_jJQg/view",
+      "updateComing": false
+    },
+    {
+      "id": "49",
+      "title": "Board and community administration",
+      "role": "board",
+      "companionOf": null,
+      "length": "4:28",
+      "about": "The whole board and community administration feature in one video: the work queue in priority order, assigning a request, residents and properties, money for the roles allowed, the board's summary and controls, a confirmed bulk close and a message template, the board roster with terms, committees and decisions, and a management company's several communities.",
+      "commit": "a8cc9de5",
+      "recordedAt": "2026-10-26T01:46:33.230Z",
+      "driveUrl": "https://drive.google.com/file/d/1bZODOx8QM-mn6JDOkHSdEbeJ6pQIagCS/view",
+      "updateComing": false
+    }
+  ],
+  "waiting": 0
 }
