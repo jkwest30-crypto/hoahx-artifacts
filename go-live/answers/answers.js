@@ -12,7 +12,7 @@
   const LS_EDIT_KEY = 'hoahx-edit-key';
   const API = '/api/answers';
   const isScreenId = (id) => /^S-[A-Z]\d{1,2}$/.test(id);
-  const isQuestionId = (id) => /^A\d{2}-\d{1,2}$/.test(id);
+  const isQuestionId = (id) => /^A\d{2,3}-\d{1,2}$/.test(id);
   const QUESTION_MARKS = ['agree', 'change', 'discuss'];
   const SCREEN_MARKS = ['yes', 'change', 'discuss'];
 

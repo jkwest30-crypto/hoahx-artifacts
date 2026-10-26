@@ -31,6 +31,8 @@ test('validation: a question takes Agree, Change or Discuss, or nothing', () => 
   for (const v of ['agree', 'change', 'discuss', '']) assert.equal(fn.validate({ id: 'A01-1', v }).v, v);
   for (const v of ['yes', 'keep', 'Agree', 'no']) assert.deepEqual(fn.validate({ id: 'A01-1', v }), { error: 'invalid v' });
   assert.equal(fn.validate({ id: 'A28-12', v: 'discuss' }).id, 'A28-12');
+  // three-digit card numbers (A101 and up) take every question answer too
+  for (const v of ['agree', 'change', 'discuss', '']) assert.equal(fn.validate({ id: 'A101-1', v }).v, v);
 });
 
 test('validation: a screen takes Signed off, Change or Discuss; Agree is not a screen answer', () => {
