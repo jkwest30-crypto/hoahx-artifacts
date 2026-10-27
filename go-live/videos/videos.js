@@ -226,7 +226,8 @@
         ['With the owners', n((v) => !!v.owners)], ['Owners signed off', n((v) => ownersState(v).state === 'approved')], ['Owners flagged', n((v) => ownersState(v).state === 'wrong')]];
     }
     const n = (st) => S.videos.filter((v) => ownersState(v).state === st).length;
-    return [['Ready for you', S.videos.length], ['Signed off', n('approved')], ['With notes', n('wrong')], ['Still being checked', S.waiting]];
+    // "Ready for you" counts what is still to review: a signed-off video is done.
+    return [['Ready for you', S.videos.length - n('approved')], ['Signed off', n('approved')], ['With notes', n('wrong')], ['Still being checked', S.waiting]];
   }
 
   function render() {
