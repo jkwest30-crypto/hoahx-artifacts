@@ -239,3 +239,17 @@ test('conversation: the agreed part moves to Answered and a new line takes over,
   const stray = clone(src); stray.cards[0].rec[2].follows = 'A02-1';
   assert.throws(() => checkSource(stray), /follows/);
 });
+
+test('later: a line set aside leaves the open list and the Answered Questions tab, and comes back when the field is taken out', () => {
+  const src = source();
+  src.cards[1].rec[0].later = 'Meetings come after launch';
+  src.cards[0].rec[0].later = 'Meetings come after launch';
+  assert.doesNotThrow(() => checkSource(src));
+  const r = sync({ accepted: { 'A02-1': ok() }, src });
+  assert.deepEqual(openIds(r), ['A01-2', 'A23-1']);
+  assert.deepEqual(r.answered, []);
+  const back = sync({ accepted: { 'A02-1': ok() } });
+  assert.deepEqual(back.answered.map((a) => a.id), ['A02-1']);
+  const bad = source(); bad.cards[1].rec[0].later = '  ';
+  assert.throws(() => checkSource(bad), /"later" must say why/);
+});

@@ -100,6 +100,9 @@ export function checkSource(src) {
       if (!Array.isArray(r.videos)) throw new Error(`${r.id}: "videos" must be a list (empty when no video shows it built)`);
       for (const n of r.videos) if (!VIDEO_NO.test(n)) throw new Error(`${r.id}: video "${n}" is not a two-digit number`);
       if ('why' in r && (typeof r.why !== 'string' || !r.why.trim())) throw new Error(`${r.id}: "why" must be a plain sentence, or left out`);
+      // later: a line set aside for now (its feature moved after launch). Off the open list and the
+      // Answered Questions tab until the field is taken out; the store keeps its answer meanwhile.
+      if ('later' in r && (typeof r.later !== 'string' || !r.later.trim())) throw new Error(`${r.id}: "later" must say why the line is set aside, or be left out`);
       // follows: the line this one takes over from, once the agreed part of that one was taken in
       // (the page shows the earlier exchange, folded, above the new question)
       if ('follows' in r && !(LINE_ID.test(r.follows || '') && r.follows !== r.id && lineIds.has(r.follows) && r.follows.startsWith(c.id + '-'))) throw new Error(`${r.id}: "follows" must name an earlier line of card ${c.id}`);
@@ -127,7 +130,7 @@ function questionsOf(q) { return (Array.isArray(q) ? q : [q]).map((x) => String(
  * A line's entry that is no longer pending is dropped from it; a line with none left is
  * dropped; a card with no lines left is dropped. `answeredButOpen` names the entries that carry
  * a recorded answer and still have open points on the page; their lines stay until the source
- * gives them `closed`.
+ * gives them `closed`. A line with `later` is set aside: it leaves the page until the field is taken out.
  */
 export function buildQuestions(src, { pending, answeredButOpen = [], criticalOf = null }) {
   const stay = new Set(answeredButOpen);
@@ -137,6 +140,7 @@ export function buildQuestions(src, { pending, answeredButOpen = [], criticalOf 
     const rows = [];
     for (const r of c.rec) {
       if (r.closed) { dropped.push({ id: r.id, why: `closed ${r.closed}` }); continue; }
+      if (r.later) { dropped.push({ id: r.id, why: `set aside: ${r.later}` }); continue; }
       const open = r.d.filter((id) => pending.has(id) || stay.has(id));
       if (!open.length) { dropped.push({ id: r.id, why: `${r.d.join(', ')} no longer pending` }); continue; }
       const qs = r.q != null ? questionsOf(r.q) : open.map((id) => questionOf.get(id));
@@ -727,7 +731,7 @@ export function buildPull({ source, screens, store, site, now, answeredButOpen =
   for (const card of source.cards) {
     const blocks = [];
     for (const d of card.decisions) {
-      const lines = card.rec.filter((r) => r.d.includes(d.id) && !r.closed);
+      const lines = card.rec.filter((r) => r.d.includes(d.id) && !r.closed && !r.later);
       if (!lines.length) continue;
       const answers = lines.map((r) => ({ r, rec: live(store[r.id]) }));
       const given = answers.filter((a) => a.rec);
@@ -907,7 +911,7 @@ export function buildAcceptRows({ source, screens, store, accepted = {}, previou
   for (const c of source.cards) {
     const qOf = new Map(c.decisions.map((d) => [d.id, d.q]));
     for (const r of c.rec) {
-      if (r.closed) continue;
+      if (r.closed || r.later) continue;
       const rec = live(store[r.id]);
       if (rec) push({ id: r.id, card: c.id, question: r.q != null ? questionsOf(r.q).join(' ') : r.d.map((id) => qOf.get(id)).join(' ') }, rec);
     }
@@ -939,7 +943,7 @@ export function applyAcceptance({ source, questions, screenSource, screens, stor
     const qOf = new Map(c.decisions.map((d) => [d.id, d.q]));
     for (const r of c.rec) {
       const a = accepted[r.id];
-      if (!a) continue;
+      if (!a || r.later) continue;   // a line set aside stays off the Answered Questions tab too
       if (a.decision === 'reply') { replies.rows[r.id] = repliesOf(a); continue; }
       const rec = live(store[r.id]);
       const note = rec ? String(rec.n || '').trim() : '';
