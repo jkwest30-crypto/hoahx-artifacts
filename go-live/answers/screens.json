@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-24",
+ "updated": "2026-10-27",
  "previewUrl": "https://hoahx-staging.web.app/preview",
  "features": [
   {
@@ -74,10 +74,7 @@
      "title": "Asking for a refund",
      "what": "A board member asks to refund a payment: the amount, the reason, and signing in again before it is sent. It shows the most that can be refunded, and refuses a request on the asker's own home or a second request for the same payment.",
      "url": "https://hoahx-staging.web.app/preview/B1",
-     "videos": [
-      "08",
-      "30"
-     ]
+     "videos": []
     },
     {
      "id": "S-B2",
@@ -85,10 +82,7 @@
      "title": "Approvals waiting for me",
      "what": "Every request waiting on this person: who asked, how much, why, and the time left to decide. They sign in again to approve or decline, and cannot act on a request they made or one for their own home.",
      "url": "https://hoahx-staging.web.app/preview/B2",
-     "videos": [
-      "08",
-      "30"
-     ]
+     "videos": []
     },
     {
      "id": "S-B3",
@@ -96,10 +90,7 @@
      "title": "The approval record",
      "what": "The permanent record of one refund: who asked and why, who approved, that both signed in again, the amount and where the money went back to. Nothing on it can be edited, and the homeowner gets a receipt.",
      "url": "https://hoahx-staging.web.app/preview/B3",
-     "videos": [
-      "08",
-      "30"
-     ]
+     "videos": []
     },
     {
      "id": "S-B4",
