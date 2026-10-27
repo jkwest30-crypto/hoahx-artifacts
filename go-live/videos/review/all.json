@@ -14,7 +14,10 @@
       "commit": "c71bb567",
       "driveId": "11pFCAfqTd_N8AI8IwwFiTxjGemrPZvvt",
       "driveUrl": "https://drive.google.com/file/d/11pFCAfqTd_N8AI8IwwFiTxjGemrPZvvt/view",
-      "owners": null
+      "owners": {
+        "commit": "c71bb567",
+        "updateComing": false
+      }
     },
     {
       "id": "51",
@@ -28,7 +31,10 @@
       "commit": "c71bb567",
       "driveId": "1Cm9M9uy624DlYsMox6xeP0zXFGQ2pM1O",
       "driveUrl": "https://drive.google.com/file/d/1Cm9M9uy624DlYsMox6xeP0zXFGQ2pM1O/view",
-      "owners": null
+      "owners": {
+        "commit": "c71bb567",
+        "updateComing": false
+      }
     },
     {
       "id": "52",
@@ -42,7 +48,10 @@
       "commit": "c71bb567",
       "driveId": "1_CLq3iNFtL4KiLry_5KmBvpdHpeUF_O9",
       "driveUrl": "https://drive.google.com/file/d/1_CLq3iNFtL4KiLry_5KmBvpdHpeUF_O9/view",
-      "owners": null
+      "owners": {
+        "commit": "c71bb567",
+        "updateComing": false
+      }
     },
     {
       "id": "53",
@@ -56,7 +65,10 @@
       "commit": "c71bb567",
       "driveId": "1z3yCo_KBWMGaCb0JaTi0jINoBRv0Xid5",
       "driveUrl": "https://drive.google.com/file/d/1z3yCo_KBWMGaCb0JaTi0jINoBRv0Xid5/view",
-      "owners": null
+      "owners": {
+        "commit": "c71bb567",
+        "updateComing": false
+      }
     }
   ]
 }
