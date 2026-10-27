@@ -23,7 +23,7 @@
   const S = {
     videos: [], updated: '', waiting: 0,
     owners: {}, jacob: {}, notes: [],
-    filter: store.get('videos-filter-' + MODE) || 'all',
+    filter: (() => { const f = store.get('videos-filter-' + MODE) || 'all'; return MODE === 'owners' && f === 'approved' ? 'all' : f; })(),
     name: store.get('videos-name'),
     editKey: store.get('decision-edit-key'),
     open: {},          // vid -> note form open
@@ -208,7 +208,7 @@
 
   const FILTERS = MODE === 'jacob'
     ? [['all', 'All'], ['open', 'Not reviewed'], ['ready', 'Approved, not sent'], ['fix', 'Needs a fix'], ['sent', 'With the owners'], ['owner-notes', 'Owners flagged']]
-    : [['all', 'All'], ['open', 'Not reviewed'], ['approved', 'Signed off'], ['wrong', 'Something looks wrong']];
+    : [['all', 'All'], ['open', 'Not reviewed'], ['wrong', 'Something looks wrong']];
   function passes(v) {
     const f = S.filter;
     if (f === 'all') return true;
@@ -244,8 +244,6 @@
     body += `<div class="chips" role="group" aria-label="Show">${FILTERS.map(([k, label]) => `<button type="button" class="chip" data-filter="${k}" aria-pressed="${S.filter === k}">${label}</button>`).join('')}</div>`;
     if (!S.videos.length) {
       body += `<p class="empty">${MODE === 'owners' ? 'No videos are ready yet. They appear here once they have been checked.' : 'No recordings listed yet. The publish step writes this list from the recorder.'}</p>`;
-    } else if (!list.length) {
-      body += '<p class="empty">Nothing here with this filter.</p>';
     } else if (MODE === 'owners') {
       // Two groups: the videos still to review, then the ones the owners signed off.
       // A "what else can happen" video sits under its main video when both are in the same group.
@@ -259,10 +257,14 @@
         }
         return out;
       };
-      const signed = list.filter((v) => ownersState(v).state === 'approved');
+      // The chips narrow the To review group only; Signed Off always shows, whatever the filter.
+      const signed = S.videos.filter((v) => ownersState(v).state === 'approved');
       const toReview = list.filter((v) => ownersState(v).state !== 'approved');
       if (toReview.length) body += `<section class="vgroup" aria-labelledby="g-review"><h2 class="group-h" id="g-review">To review <span class="group-n">${toReview.length}</span></h2>${cards(toReview)}</section>`;
+      else body += `<p class="empty">${S.filter === 'all' ? 'Nothing left to review. Thank you.' : 'Nothing here with this filter.'}</p>`;
       if (signed.length) body += `<section class="vgroup signed" aria-labelledby="g-signed"><h2 class="group-h" id="g-signed">Signed Off <span class="group-n">${signed.length}</span></h2>${cards(signed)}</section>`;
+    } else if (!list.length) {
+      body += '<p class="empty">Nothing here with this filter.</p>';
     } else {
       body += list.map(jacobCard).join('');
     }
