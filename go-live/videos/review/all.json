@@ -1,91 +1,62 @@
 {
   "schema": 1,
-  "updated": "2026-10-26",
+  "updated": "2026-10-27",
   "videos": [
     {
-      "id": "45",
-      "title": "Dashboard and financial transparency",
-      "file": "45-dashboard-and-financial-transparency--homeowner-two-homes--desktop.mp4",
-      "role": "homeowner",
+      "id": "50",
+      "title": "Activity log and protected history",
+      "file": "50-activity-log-and-protected-history--homeowner-treasurer-president--desktop.mp4",
+      "role": "everyone",
       "companionOf": null,
-      "length": "3:47",
-      "about": "The homeowner dashboard as one video: the balance and due date, what needs attention, requests and notices, what is coming up, quick actions, where the dues go against what was spent, and one dashboard for two homes.",
-      "recordedAt": "2026-10-26T00:18:55.884Z",
-      "commit": "cb243d7d",
-      "driveId": "1it3EiqLTvUjSlRGDoc6sxXWFtGEzQlr_",
-      "driveUrl": "https://drive.google.com/file/d/1it3EiqLTvUjSlRGDoc6sxXWFtGEzQlr_/view",
-      "owners": {
-        "commit": "cb243d7d",
-        "updateComing": false
-      }
+      "length": "3:27",
+      "about": "The whole activity log and protected history feature in one video: a homeowner's own activity and the home's timeline, the history inside a payment and a request, the protected record with who, when, what changed and why, its filters and an export that is itself recorded, records nobody can edit and that never keep card numbers, and a legal hold placed with a reason.",
+      "recordedAt": "2026-10-27T04:26:03.783Z",
+      "commit": "c71bb567",
+      "driveId": "11pFCAfqTd_N8AI8IwwFiTxjGemrPZvvt",
+      "driveUrl": "https://drive.google.com/file/d/11pFCAfqTd_N8AI8IwwFiTxjGemrPZvvt/view",
+      "owners": null
     },
     {
-      "id": "46",
-      "title": "Resident, household and property profiles",
-      "file": "46-resident-household-and-property-profiles--homeowner-administrator-two-homes--desktop.mp4",
-      "role": "homeowner",
-      "companionOf": null,
-      "length": "5:48",
-      "about": "Profiles from the homeowner's side and the office's: names and contact details, the owner profile, directory privacy, who lives at the home, a tenant invitation, the home's contacts, two homes on one account, the home timeline, and a removal that keeps the history.",
-      "recordedAt": "2026-10-26T00:19:11.520Z",
-      "commit": "cb243d7d",
-      "driveId": "1A0j0hZZouUhJ38v5oJy6UzmZi9nAwqTn",
-      "driveUrl": "https://drive.google.com/file/d/1A0j0hZZouUhJ38v5oJy6UzmZi9nAwqTn/view",
-      "owners": {
-        "commit": "cb243d7d",
-        "updateComing": false
-      }
-    },
-    {
-      "id": "47",
-      "title": "Selling a home and handing it over",
-      "file": "47-basic-ownership-transfer--homeowner-president--desktop.mp4",
-      "role": "homeowner",
-      "companionOf": null,
-      "length": "5:02",
-      "about": "The whole ownership transfer in one video: a sale reported, the account reviewed, the package prepared, the buyer invited, the handoff confirmed, the history kept, and a second claim on a home decided by the board.",
-      "recordedAt": "2026-10-26T00:19:26.092Z",
-      "commit": "cb243d7d",
-      "driveId": "1z3mh9Ws8Wj4Tr2Y2jPZU28gbPzSf0AaW",
-      "driveUrl": "https://drive.google.com/file/d/1z3mh9Ws8Wj4Tr2Y2jPZU28gbPzSf0AaW/view",
-      "owners": {
-        "commit": "cb243d7d",
-        "updateComing": false
-      }
-    },
-    {
-      "id": "48",
-      "title": "Violations, from notice to resolution",
-      "file": "48-violations-and-resolution--president-board-member-homeowner-property-manager--desktop.mp4",
+      "id": "51",
+      "title": "HOA HX support access",
+      "file": "51-authorized-hoa-hx-support-access--president-platform-support--desktop.mp4",
       "role": "board",
       "companionOf": null,
-      "length": "6:14",
-      "about": "The whole violations feature in one video: the community's own types, a notice drafted with a photo and approved by a second person, the homeowner's acknowledgment and correction, a hearing, the fix verified, and the complete history.",
-      "recordedAt": "2026-10-26T00:19:44.600Z",
-      "commit": "cb243d7d",
-      "driveId": "1Taj5B1D38R3VuG-KcaZh0DntJuNW_HzR",
-      "driveUrl": "https://drive.google.com/file/d/1Taj5B1D38R3VuG-KcaZh0DntJuNW_HzR/view",
-      "owners": {
-        "commit": "cb243d7d",
-        "updateComing": false
-      }
+      "length": "3:56",
+      "about": "The whole HOA HX support access feature in one video: the community authorizes support for one case with a reason, a read-only scope and a length, after its password again; HOA HX support sees the authorization and who approved it, with no way to change it; while support looks, the community sees it by role and time, and a revoke ends the look at once; afterwards support has no standing access; on HOA HX's account list there is no Impersonate without the community's authorization, and resetting a person's two-factor sign-in needs a recorded check of who they are.",
+      "recordedAt": "2026-10-27T04:08:07.904Z",
+      "commit": "c71bb567",
+      "driveId": "1Cm9M9uy624DlYsMox6xeP0zXFGQ2pM1O",
+      "driveUrl": "https://drive.google.com/file/d/1Cm9M9uy624DlYsMox6xeP0zXFGQ2pM1O/view",
+      "owners": null
     },
     {
-      "id": "49",
-      "title": "Board and community administration",
-      "file": "49-board-and-community-administration--president-administrator-treasurer-management-admin--desktop.mp4",
+      "id": "52",
+      "title": "The right person for each job",
+      "file": "52-assignable-designations--president-secretary-administrator-homeowner--desktop.mp4",
       "role": "board",
       "companionOf": null,
-      "length": "4:28",
-      "about": "The whole board and community administration feature in one video: the work queue in priority order, assigning a request, residents and properties, money for the roles allowed, the board's summary and controls, a confirmed bulk close and a message template, the board roster with terms, committees and decisions, and a management company's several communities.",
-      "recordedAt": "2026-10-26T01:46:33.230Z",
-      "commit": "a8cc9de5",
-      "driveId": "1EzQrTSAnbrbv6WR7Q7kcY_mRgfB2IDiV",
-      "driveUrl": "https://drive.google.com/file/d/1EzQrTSAnbrbv6WR7Q7kcY_mRgfB2IDiV/view",
-      "owners": {
-        "commit": "a8cc9de5",
-        "updateComing": false
-      }
+      "length": "6:10",
+      "about": "The whole assignable designations feature in one video: the community's Account Owner, a Billing Administrator, a handover and a backup contact, a home's primary owner changed with the deed while the co-owner keeps every right, a home's communication contact and household administrator, an owner's rental manager for a range of dates, and a committee member who reviews a request while the decision stays with the President.",
+      "recordedAt": "2026-10-27T04:15:32.217Z",
+      "commit": "c71bb567",
+      "driveId": "1_CLq3iNFtL4KiLry_5KmBvpdHpeUF_O9",
+      "driveUrl": "https://drive.google.com/file/d/1_CLq3iNFtL4KiLry_5KmBvpdHpeUF_O9/view",
+      "owners": null
+    },
+    {
+      "id": "53",
+      "title": "The monthly numbers: budget against actual",
+      "file": "53-monthly-statements-budget-against-actual--treasurer-homeowner-president--desktop.mp4",
+      "role": "board",
+      "companionOf": null,
+      "length": "4:55",
+      "about": "How the board shows where the money actually went, and how a community's homes come in from its own spreadsheet: the Treasurer reads the month's profit and loss into the budget's categories and records the statement, a homeowner compares the budget with what was actually spent and can open the statement itself, and the board's Budget vs. Actual report shows the same figures. Then the President brings the homes in from the community's spreadsheet, answers the rows that need a person, and the Treasurer approves the opening balances only when the total agrees with hers.",
+      "recordedAt": "2026-10-27T04:21:34.986Z",
+      "commit": "c71bb567",
+      "driveId": "1z3yCo_KBWMGaCb0JaTi0jINoBRv0Xid5",
+      "driveUrl": "https://drive.google.com/file/d/1z3yCo_KBWMGaCb0JaTi0jINoBRv0Xid5/view",
+      "owners": null
     }
   ]
 }
