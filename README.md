@@ -385,7 +385,11 @@ Short feature videos recorded from the product, reviewed in two passes:
    a new recording of the same video waits for a new approval.
 2. **The owners, at `/videos`**, and one card per video in the "Videos to review" section of
    `/answers` (`go-live/videos/answers-section.js`, mounted into `#videos-to-review`). They choose
-   Looks right, or Something looks wrong with a note and screenshots.
+   Sign off, or Something looks wrong with a note and screenshots. A signed-off video shows
+   "Signed off" and moves to its own **Signed Off** group of cards, below **To review** (both on
+   `/videos` and in the section; Jacob, 2026-10-27). It stays signed off when it is recorded again
+   (a banner says watching it again is optional); a note's flag goes back to To review instead.
+   `/videos/review` shows "signed off" on each card's owners line and counts them.
 
 `npm run sync:videos` (run by the `update-documentation` skill) reads Jacob's approvals, copies each
 newly approved take into `HOAhx/Videos for the owners/` over the file of the same name (so the owners'

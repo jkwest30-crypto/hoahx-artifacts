@@ -160,3 +160,10 @@ body.vpage{margin:0;background:var(--ground);color:var(--ink);font-family:"IBM P
 .vreview .v-hint{font-size:12.5px;color:var(--muted)}
 .vreview .v-go{display:inline-flex;align-items:center;min-height:36px;padding:7px 13px;border:1px solid var(--accent);border-radius:2px;color:var(--accent);text-decoration:none;font-size:13.5px;font-weight:500}
 .vreview .v-go:hover{background:var(--accent-wash)}
+
+/* The two groups on /videos and in "Videos to review": still to review, then signed off. */
+.group-h { font-size: 1.05rem; margin: 28px 0 10px; display: flex; align-items: center; gap: 8px; }
+.group-h:first-of-type { margin-top: 8px; }
+.group-n, .v-group-n { font-size: .8rem; font-weight: 600; padding: 1px 8px; border-radius: 999px; background: var(--chip-bg, rgba(127,127,127,.15)); }
+.vgroup.signed .vcard { opacity: .92; }
+.v-group { font-size: 1rem; margin: 20px 0 8px; display: flex; align-items: center; gap: 8px; }

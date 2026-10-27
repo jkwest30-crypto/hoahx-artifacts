@@ -1,5 +1,6 @@
 /* HOAhx · Videos to review. One script for two pages:
- *   /videos          the owners: Looks right / Something looks wrong, a note with screenshots
+ *   /videos          the owners: Sign off / Something looks wrong, a note with screenshots; signed-off
+ *                    videos sit in their own "Signed Off" group below the ones still to review
  *   /videos/review   Jacob (not linked from anywhere): Approve for the owners / Needs a fix
  * The page's <body data-mode="owners|jacob"> says which. Store: /api/videos (netlify/functions/videos.js).
  * The list comes from a file the publish step writes: /videos/data.json (owners), /videos/review/all.json (Jacob).
@@ -158,10 +159,10 @@
   function ownersCard(v, companion) {
     const o = ownersState(v), notes = notesFor(v.id, 'owners');
     const cls = o.state === 'approved' ? ' is-yes' : o.state === 'wrong' ? ' is-wrong' : '';
-    const pill = o.state === 'approved' ? '<span class="pill yes">Looks right</span>' : o.state === 'wrong' ? '<span class="pill wrong">Something looks wrong</span>' : '<span class="pill open">Not reviewed</span>';
+    const pill = o.state === 'approved' ? '<span class="pill yes">Signed off</span>' : o.state === 'wrong' ? '<span class="pill wrong">Something looks wrong</span>' : '<span class="pill open">Not reviewed</span>';
     const banner = v.updateComing ? '<p class="banner">A new version of this video is being checked. It will replace this one here, on the same link.</p>'
       : o.recheck ? '<p class="banner">This video was recorded again after your note. Please watch it once more and say whether it is fixed.</p>'
-      : o.updated ? '<p class="banner quiet">Recorded again since you said it looks right. Watching it again is optional.</p>' : '';
+      : o.updated ? '<p class="banner quiet">Recorded again since you signed it off. Watching it again is optional.</p>' : '';
     const showForm = S.open[v.id] || (o.state === 'wrong' && !notes.length);
     return `<article class="card vcard${cls}${companion ? ' companion' : ''}" id="v-${v.id}">
       <div class="card-h"><span class="card-n">${v.id}${v.length ? ' · ' + esc(v.length) : ''}</span>${companion ? '<span class="sub">What else can happen</span>' : ''}<span class="state">${pill}</span></div>
@@ -169,7 +170,7 @@
       <div class="card-b"><p class="about">${esc(v.about)}</p>${banner}</div>
       <div class="card-f"><div class="act">
         <a class="btn quiet watch" href="${esc(v.driveUrl)}" target="_blank" rel="noopener">${driveIcon}Watch the video</a>
-        <button type="button" class="btn yes" data-status="approved" data-vid="${v.id}" aria-pressed="${o.state === 'approved'}">Looks right</button>
+        <button type="button" class="btn yes" data-status="approved" data-vid="${v.id}" aria-pressed="${o.state === 'approved'}">${o.state === 'approved' ? 'Signed off' : 'Sign off'}</button>
         <button type="button" class="btn wrong" data-status="wrong" data-vid="${v.id}" aria-pressed="${o.state === 'wrong' || !!S.open[v.id]}">Something looks wrong</button>
         ${notes.length && !showForm ? `<button type="button" class="link-btn" data-add="${v.id}">Add a note</button>` : ''}
       </div>
@@ -185,7 +186,7 @@
     if (j === 'fix') pill = '<span class="pill wrong">Needs a fix</span>';
     const r = S.jacob[v.id];
     const reset = r && r.status && r.commit !== v.commit ? `<p class="banner">Recorded again (${esc(v.commit)}). You ${r.status === 'approved' ? 'approved' : 'flagged'} ${esc(r.commit)}; this recording needs your look.</p>` : '';
-    const ownersLine = onPage ? `Owners have ${esc(onPage.commit)}${onPage.updateComing ? ' (update waiting on you)' : ''}: ${o.state === 'approved' ? 'looks right' : o.state === 'wrong' ? 'something looks wrong' : o.recheck ? 'asked to check again' : 'not answered'}` : 'Not on the owners\' page';
+    const ownersLine = onPage ? `Owners have ${esc(onPage.commit)}${onPage.updateComing ? ' (update waiting on you)' : ''}: ${o.state === 'approved' ? 'signed off' : o.state === 'wrong' ? 'something looks wrong' : o.recheck ? 'asked to check again' : 'not answered'}` : 'Not on the owners\' page';
     const ownerNotes = notesFor(v.id, 'owners'), myNotes = notesFor(v.id, 'jacob');
     const showForm = S.open[v.id] || (j === 'fix' && !myNotes.length);
     return `<article class="card vcard${j === 'approved' ? ' is-yes' : j === 'fix' ? ' is-wrong' : ''}" id="v-${v.id}">
@@ -207,7 +208,7 @@
 
   const FILTERS = MODE === 'jacob'
     ? [['all', 'All'], ['open', 'Not reviewed'], ['ready', 'Approved, not sent'], ['fix', 'Needs a fix'], ['sent', 'With the owners'], ['owner-notes', 'Owners flagged']]
-    : [['all', 'All'], ['open', 'Not reviewed'], ['approved', 'Looks right'], ['wrong', 'Something looks wrong']];
+    : [['all', 'All'], ['open', 'Not reviewed'], ['approved', 'Signed off'], ['wrong', 'Something looks wrong']];
   function passes(v) {
     const f = S.filter;
     if (f === 'all') return true;
@@ -222,10 +223,10 @@
     if (MODE === 'jacob') {
       const n = (fn) => S.videos.filter(fn).length;
       return [['Recorded', S.videos.length], ['Not reviewed', n((v) => jacobState(v) === 'open')], ['Approved, not sent', n((v) => jacobState(v) === 'approved' && !(v.owners && v.owners.commit === v.commit))],
-        ['With the owners', n((v) => !!v.owners)], ['Owners flagged', n((v) => ownersState(v).state === 'wrong')]];
+        ['With the owners', n((v) => !!v.owners)], ['Owners signed off', n((v) => ownersState(v).state === 'approved')], ['Owners flagged', n((v) => ownersState(v).state === 'wrong')]];
     }
     const n = (st) => S.videos.filter((v) => ownersState(v).state === st).length;
-    return [['Ready for you', S.videos.length], ['Looks right', n('approved')], ['With notes', n('wrong')], ['Still being checked', S.waiting]];
+    return [['Ready for you', S.videos.length], ['Signed off', n('approved')], ['With notes', n('wrong')], ['Still being checked', S.waiting]];
   }
 
   function render() {
@@ -245,13 +246,22 @@
     } else if (!list.length) {
       body += '<p class="empty">Nothing here with this filter.</p>';
     } else if (MODE === 'owners') {
-      // A "what else can happen" video sits under its main video when both are here.
-      const ids = new Set(list.map((v) => v.id));
-      for (const v of list) {
-        if (v.companionOf && ids.has(v.companionOf)) continue;
-        body += ownersCard(v, false);
-        for (const c of list.filter((x) => x.companionOf === v.id)) body += ownersCard(c, true);
-      }
+      // Two groups: the videos still to review, then the ones the owners signed off.
+      // A "what else can happen" video sits under its main video when both are in the same group.
+      const cards = (group) => {
+        const ids = new Set(group.map((v) => v.id));
+        let out = '';
+        for (const v of group) {
+          if (v.companionOf && ids.has(v.companionOf)) continue;
+          out += ownersCard(v, false);
+          for (const c of group.filter((x) => x.companionOf === v.id)) out += ownersCard(c, true);
+        }
+        return out;
+      };
+      const signed = list.filter((v) => ownersState(v).state === 'approved');
+      const toReview = list.filter((v) => ownersState(v).state !== 'approved');
+      if (toReview.length) body += `<section class="vgroup" aria-labelledby="g-review"><h2 class="group-h" id="g-review">To review <span class="group-n">${toReview.length}</span></h2>${cards(toReview)}</section>`;
+      if (signed.length) body += `<section class="vgroup signed" aria-labelledby="g-signed"><h2 class="group-h" id="g-signed">Signed Off <span class="group-n">${signed.length}</span></h2>${cards(signed)}</section>`;
     } else {
       body += list.map(jacobCard).join('');
     }

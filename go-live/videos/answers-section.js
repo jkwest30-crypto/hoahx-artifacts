@@ -36,8 +36,14 @@
       const r = await fetch('/api/videos', { headers: h, cache: 'no-store' });
       if (r.ok) answers = (await r.json()).owners || {};
     } catch (e) { /* the cards still show, without answers */ }
-    const done = videos.filter((v) => state(v, answers) !== 'open').length;
-    const pill = (s) => s === 'approved' ? '<span class="v-pill yes">Looks right</span>' : s === 'wrong' ? '<span class="v-pill wrong">Something looks wrong</span>' : '<span class="v-pill">Not reviewed</span>';
+    const signedN = videos.filter((v) => state(v, answers) === 'approved').length;
+    const pill = (s) => s === 'approved' ? '<span class="v-pill yes">Signed off</span>' : s === 'wrong' ? '<span class="v-pill wrong">Something looks wrong</span>' : '<span class="v-pill">Not reviewed</span>';
+    const tile = (v) => { const s = state(v, answers); return `<div class="v-tile${s === 'approved' ? ' is-yes' : s === 'wrong' ? ' is-wrong' : ''}">
+        <div class="v-row"><span class="v-num">${esc(v.id)}${v.length ? ' · ' + esc(v.length) : ''}</span>${pill(s)}</div>
+        <h3>${esc(v.title)}</h3><p>${esc(v.about)}</p>
+        <div class="v-row">${v.updateComing ? '<span class="v-hint">A new version is coming</span>' : '<span></span>'}<a class="v-go" href="/videos#v-${esc(v.id)}">Review this video →</a></div></div>`; };
+    // Two groups, as on /videos: the videos still to review, then the ones signed off.
+    const grid = (label, group) => group.length ? `<h3 class="v-group">${label} <span class="v-group-n">${group.length}</span></h3><div class="v-grid">${group.map(tile).join('')}</div>` : '';
     style();
     el.hidden = false;
     const tab = document.querySelector('a[href="#videos-to-review"]'); if (tab) tab.hidden = false;
@@ -45,12 +51,9 @@
     el.setAttribute('aria-labelledby', 'videos-to-review-h');
     el.innerHTML = `<div class="v-head"><p class="v-eyebrow">Recorded from the product · sample community · HOAhx has not launched</p>
       <h2 id="videos-to-review-h">Videos to review</h2>
-      <p>Short recordings of what was built, one feature each. Open one to watch it, then say whether it looks right, or what looks wrong, with a screenshot if that helps. New videos appear here as they are ready.</p>
-      <p class="v-due">${done} of ${videos.length} reviewed${list.waiting ? ` · ${list.waiting} more being checked` : ''}</p></div>
-      <div class="v-grid">${videos.map((v) => { const s = state(v, answers); return `<div class="v-tile${s === 'approved' ? ' is-yes' : s === 'wrong' ? ' is-wrong' : ''}">
-        <div class="v-row"><span class="v-num">${esc(v.id)}${v.length ? ' · ' + esc(v.length) : ''}</span>${pill(s)}</div>
-        <h3>${esc(v.title)}</h3><p>${esc(v.about)}</p>
-        <div class="v-row">${v.updateComing ? '<span class="v-hint">A new version is coming</span>' : '<span></span>'}<a class="v-go" href="/videos#v-${esc(v.id)}">Review this video →</a></div></div>`; }).join('')}</div>`;
+      <p>Short recordings of what was built, one feature each. Open one to watch it, then sign it off, or say what looks wrong, with a screenshot if that helps. New videos appear here as they are ready.</p>
+      <p class="v-due">${signedN} of ${videos.length} signed off${list.waiting ? ` · ${list.waiting} more being checked` : ''}</p></div>
+      ${grid('To review', videos.filter((v) => state(v, answers) !== 'approved'))}${grid('Signed Off', videos.filter((v) => state(v, answers) === 'approved'))}`;
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
 })();
