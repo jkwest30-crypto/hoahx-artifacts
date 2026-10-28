@@ -92,6 +92,20 @@ if (has('--check')) {
   process.exit(0);
 }
 
+// A sync writes the owners' files with this checkout's scripts. A checkout behind origin/main builds
+// them with older rules (one without the Answered Questions tab, or without "later", would put
+// set-aside questions back on the page), so a write needs origin/main inside HEAD. --dry-run and
+// --check work anywhere; --any-checkout skips this when the older build is intended.
+if (!has('--dry-run') && !has('--any-checkout')) {
+  const rgit = (...a) => execFileSync('git', ['-C', root, ...a], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim();
+  try { execFileSync('git', ['-C', root, 'fetch', '-q', 'origin', 'main'], { stdio: 'ignore', timeout: 30000 }); } catch (e) { /* offline: judge against the last fetch */ }
+  let behind = 0;
+  try { behind = Number(rgit('rev-list', '--count', 'HEAD..origin/main')); } catch (e) { behind = 0; }
+  if (behind > 0) fail(`this checkout (${root}) is ${behind} commit(s) behind origin/main: its scripts would build the page with older rules.\n` +
+    `  Run the sync from a checkout at origin/main (git -C ${root} worktree add --detach ../hoahx-artifacts-answers origin/main),\n` +
+    '  or bring this branch up to date first. --dry-run and --check work on any checkout.');
+}
+
 const hoahx = resolve(root, opt('--hoahx', '../hoahx'));
 if (!existsSync(join(hoahx, 'docs/launch'))) fail(`no launch program at ${hoahx}/docs/launch (pass --hoahx <path to the HOAhx checkout>)`);
 const config = readJson(join(hoahx, 'docs/launch/owners-questions/sync.json'), 'the sync settings');
