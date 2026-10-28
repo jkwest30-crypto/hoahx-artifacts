@@ -6,20 +6,8 @@
    "title": "Money: dues, the ledger, and the books"
   },
   {
-   "id": "enforce",
-   "title": "Enforcement and requests"
-  },
-  {
-   "id": "community",
-   "title": "Community life"
-  },
-  {
    "id": "records",
    "title": "Documents, messages, and records"
-  },
-  {
-   "id": "pricing",
-   "title": "Pricing"
   }
  ],
  "cards": [
@@ -61,94 +49,6 @@
      ]
     }
    ]
-  },
-  {
-   "id": "A91",
-   "group": "community",
-   "title": "Secret ballots on every vote, or only where required",
-   "why": "\"Secret only\" → nothing changes; \"Open option\" → added for the launch.",
-   "rows": [
-    {
-     "id": "A91-1",
-     "qs": [
-      "Your Core list asks for secret ballots where required, and every vote is secret today. The one open point: do any of your votes need to be open, with each person's choice visible to the board?"
-     ],
-     "rec": "Keep every vote secret for the launch. Why: a secret ballot is never the wrong choice for a homeowner vote, and an open-vote option can follow once you name a vote that needs it.",
-     "videos": [],
-     "replies": [
-      {
-       "at": "2026-10-24T08:28:45.000Z",
-       "text": "Thank you. We have recorded your list. For launch, every vote stays secret by default: the app keeps who voted apart from what they chose, shows turnout while voting is open, and shows totals only when the board releases them. Rules that depend on a state's law or a community's governing documents (who may vote, proxies, paper ballots, election inspectors, notice periods) are for your counsel to set per community, and we will not claim the vote tool satisfies them on its own. We will fold the rest of your list into the voting work after launch. If you would like any item moved earlier, tell us which."
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "A96",
-   "group": "enforce",
-   "title": "Whether a second person must review every violation notice",
-   "why": "\"Keep as a choice\" → nothing more; \"Always require\" or \"Add the switch\" → one small change.",
-   "rows": [
-    {
-     "id": "A96-1",
-     "qs": [
-      "We built it as a choice, with review available. Is a choice right, or should review always be required?"
-     ],
-     "rec": "Keep both for the launch: \"Send for review\" sits beside \"Issue violation\". If a community wants review always required, we add a community switch for it (a small change). A small board may have only two people who can review, and a hard rule could hold up a safety notice.",
-     "videos": [],
-     "replies": [
-      {
-       "at": "2026-10-24T01:30:00.000Z",
-       "text": "So the work was not held up, we built this the way we recommended: the violation notice review is a choice: staff can send a notice for review to a second person or issue it directly, and the reviewer is never the person who drafted it. Would you like to change it? If so, tell us how in a reply here and we will change it; if not, no answer is needed."
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "A97",
-   "group": "pricing",
-   "title": "The final text of the subscription terms",
-   "why": "\"Send the text\" → we replace the draft and the step shows the final version; otherwise the draft stays.",
-   "rows": [
-    {
-     "id": "A97-1",
-     "qs": [
-      "A community accepts a short draft of the subscription terms before it is billed. Please send the final text."
-     ],
-     "rec": "Please send us the final text and its version label. The step already works with a short draft; we replace the draft with your text, link the full document from that step, and every community that accepted the draft is asked to accept the new version.",
-     "videos": [],
-     "replies": [
-      {
-       "at": "2026-10-24T01:30:00.000Z",
-       "text": "So the work was not held up, we built this the way we recommended: before it is billed, a community's Account Owner accepts a four-line draft of the subscription terms, and nothing bills until the current version is accepted. Would you like to change it? If so, tell us how in a reply here and we will change it; if not, no answer is needed."
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "A102",
-   "group": "records",
-   "title": "Who reads a home's money history after a sale",
-   "why": "\"One line\" → nothing changes; \"Full history\" → a small code change.",
-   "rows": [
-    {
-     "id": "A102-1",
-     "qs": [
-      "After a sale, should the new owner see one line for the balance carried over, or the full history from before the sale?"
-     ],
-     "rec": "One line for everything before the handoff. It hides who paid what and how, never what the home owes.",
-     "videos": [],
-     "replies": [
-      {
-       "at": "2026-10-25T02:10:00.000Z",
-       "text": "So the work was not held up, we built this the way we recommended: after a sale the new owner reads payments and ledger lines from the handoff day, with one \"Balance when the home changed hands\" line for everything before; what the home owes stays visible. Would you like to change it? If so, tell us how in a reply here and we will change it; if not, no answer is needed."
-      }
-     ]
-    }
-   ]
   }
  ],
  "answered": [
@@ -162,6 +62,20 @@
    "answer": "change",
    "rec": "Yes. A tenant's lease is with the seller; leaving their access or AutoPay running would charge or admit people the new owner never agreed to.",
    "build": "Ownership transfer, tenant move-out and AutoPay are handled separately, and only after an authorized person verifies the completed transfer (a scheduled sale alone changes nothing). At the confirmed transfer: the seller's owner permissions for that home end and their future AutoPay for it stops, keeping their other homes and their own statements and receipts. Tenancies are not ended automatically: a step confirms whether each tenant is staying or leaving; a staying tenant keeps residency history and resident access, the owner relationship is updated and permissions the seller delegated are removed; unclear occupancy is flagged for an authorized administrator. The buyer sets up and authorizes their own AutoPay; the seller's payment methods and authorization are never transferred. Tenant AutoPay is reviewed separately: it continues only if payer, recipient, obligation and authorization are unchanged, otherwise it is paused until confirmed or reauthorized. Payment history, balances, credits and pending transactions are kept and reconciled through the transfer without moving personal credits or assigning all prior balances to the buyer, and without duplicate charges. Who confirmed, the effective date and every access and AutoPay change are logged and the people affected are told. Ending owner permissions never removes separately verified resident access.",
+   "answeredOn": "2026-10-26",
+   "acceptedOn": "2026-10-28",
+   "status": "planned"
+  },
+  {
+   "id": "A102-1",
+   "kind": "question",
+   "card": "Who reads a home's money history after a sale",
+   "qs": [
+    "After a sale, should the new owner see one line for the balance carried over, or the full history from before the sale?"
+   ],
+   "answer": "agree",
+   "rec": "One line for everything before the handoff. It hides who paid what and how, never what the home owes.",
+   "build": "One line for everything before the handoff. It hides who paid what and how, never what the home owes (the owners agreed with the recommendation, Oct 26).",
    "answeredOn": "2026-10-26",
    "acceptedOn": "2026-10-28",
    "status": "planned"
@@ -209,6 +123,20 @@
    "status": "planned"
   },
   {
+   "id": "A91-1",
+   "kind": "question",
+   "card": "Secret ballots on every vote, or only where required",
+   "qs": [
+    "Your Core list asks for secret ballots where required, and every vote is secret today. The one open point: do any of your votes need to be open, with each person's choice visible to the board?"
+   ],
+   "answer": "change",
+   "rec": "Keep every vote secret for the launch. Why: a secret ballot is never the wrong choice for a homeowner vote, and an open-vote option can follow once you name a vote that needs it.",
+   "build": "Every vote stays secret. Before HOA HX launches: nobody, HOA HX staff included, sees a choice's total until the vote closes; while it is open, turnout and quorum only (this corrects our October 24 reply, which was true for homeowners only). Choices are stored so their timing cannot point to a voter. On a vote of the owners, an owner, a co-owner or the representative the owners named casts the home's ballot, and an owner of two homes casts one ballot for each. A vote is locked once it opens, an unused older ballot path is removed, and surveys say \"Not a binding vote\" and, when not anonymous, \"Responses are identified\". Board decisions stay in the meeting minutes. After launch, in the order a community first needs them: approval thresholds and abstentions, voting weight per home, cancelling or extending a vote with a reason, a voter's receipt, and an inspector's recount; the association type and each vote's type follow your counsel's list. Proxies, paper ballots, consent to electronic voting, nominations and electing several seats at once come only when a community needs them, as its counsel or governing documents say.",
+   "answeredOn": "2026-10-23",
+   "acceptedOn": "2026-10-28",
+   "status": "planned"
+  },
+  {
    "id": "A93-1",
    "kind": "question",
    "card": "Who approves a payment plan",
@@ -219,6 +147,34 @@
    "rec": "Keep it: a second financial person approves each plan. Why: it is the same two-person check you chose for refunds on September 10, and every plan records who set it up and who approved it.",
    "build": "Payment plans default to board approval unless the community has a documented, legally permitted delegation policy. Where delegation is allowed, a second authorized financial person may approve plans within the board's approved limits (financial permissions alone do not establish that authority); plans outside those limits, or needing board action under state law or governing documents, go to the board. The person who creates a plan can never approve it. The plan terms, creator, approver, date and the supporting board approval or delegation are recorded, and a change to approved terms needs reapproval. For MVP 1 the board approval is recorded with a meeting date and a supporting reference before the plan is activated; no separate board-voting feature. Counsel confirms the delegation rules for the launch states before delegated approval is enabled.",
    "answeredOn": "2026-10-23",
+   "acceptedOn": "2026-10-28",
+   "status": "planned"
+  },
+  {
+   "id": "A96-1",
+   "kind": "question",
+   "card": "Whether a second person must review every violation notice",
+   "qs": [
+    "We built it as a choice, with review available. Is a choice right, or should review always be required?"
+   ],
+   "answer": "agree",
+   "rec": "Keep both for the launch: \"Send for review\" sits beside \"Issue violation\". If a community wants review always required, we add a community switch for it (a small change). A small board may have only two people who can review, and a hard rule could hold up a safety notice.",
+   "build": "Keep review as a choice for the launch: \"Send for review\" sits beside \"Issue violation\"; if a community wants review always required, a community switch is added then (the owners agreed with the recommendation, Oct 26).",
+   "answeredOn": "2026-10-26",
+   "acceptedOn": "2026-10-28",
+   "status": "planned"
+  },
+  {
+   "id": "A97-1",
+   "kind": "question",
+   "card": "The final text of the subscription terms",
+   "qs": [
+    "A community accepts a short draft of the subscription terms before it is billed. Please send the final text."
+   ],
+   "answer": "agree",
+   "rec": "Please send us the final text and its version label. The step already works with a short draft; we replace the draft with your text, link the full document from that step, and every community that accepted the draft is asked to accept the new version.",
+   "build": "The owners send the final text and its version label; the draft is replaced, the full text linked from the acceptance step, and every community that accepted the draft is asked to accept the new version (the owners agreed with the recommendation, Oct 26).",
+   "answeredOn": "2026-10-26",
    "acceptedOn": "2026-10-28",
    "status": "planned"
   },
