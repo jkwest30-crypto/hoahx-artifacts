@@ -57,6 +57,10 @@
       {
        "at": "2026-10-22T05:00:00.000Z",
        "text": "So the work was not held up, we built this the way we recommended: access comes back as soon as the balance payment is approved, and only after two returned bank payments does a bank payment wait until it clears. Would you like to change it? If so, tell us how in a reply here and we will change it; if not, no answer is needed."
+      },
+      {
+       "at": "2026-10-28T02:17:47.000Z",
+       "text": "**Confirmed: 5 of your 7 points are built. 2 need about 1.8 hours.**\n\n**Built as you describe:**\n1. A card payment that covers the whole past-due balance brings board and management access back at once.\n2. After two returned bank payments, the next bank payment waits until it clears; a card still restores at once.\n3. A returned payment puts the community back on its original past-due dates and tells the Account Owner and the other billing contacts.\n4. Homeowners are never affected, and the billing page stays open throughout.\n5. Returns are counted on the community's own HOA HX subscription, never on homeowner dues.\n\n**Differs, with the work to close it:**\n1. **The 12-month window: 0.8 hours.** Today the two returns are counted over the life of the subscription, not the last 12 months. We would count a rolling 12 months.\n2. **\"Processing\" versus \"completed\": 1.0 hour.** When a bank payment brings access back before it clears, the page says \"Full access is restored\" without saying the payment is still processing, and one help line describes the older rule. We would show \"Bank payment processing\" until it clears, then \"Payment completed\", and fix that line.\n\n**What we need from you:**\n1. **Make both changes before HOA HX launches?** Our recommendation: yes (about 1.8 hours together), with no other change to how access comes back."
       }
      ]
     }
@@ -79,6 +83,10 @@
       {
        "at": "2026-10-22T05:00:00.000Z",
        "text": "So the work was not held up, we built this the way we recommended: staff can extend the grace period up to 30 days, or grant an exception up to 90 days, each with a reason, and every hold ends on its own. Would you like to change it? If so, tell us how in a reply here and we will change it; if not, no answer is needed."
+      },
+      {
+       "at": "2026-10-28T02:17:47.000Z",
+       "text": "**Confirmed: 4 of your 8 points are built. 4 need about 5.5 hours.**\n\n**Built as you describe:**\n1. Every hold needs a reason and an end date, and each one is recorded with who granted it.\n2. During a hold no fees start, nothing further is restricted and nothing goes to collections; billing continues and the balance stays owed.\n3. When a hold ends, the community picks up its original past-due dates, with no reset and no automatic renewal.\n4. Homeowners and the billing page are never affected.\n\n**Differs, with the work to close it:**\n1. **Approval over 30 days: 2.5 hours.** Today any HOA HX staff member with billing access can grant up to 90 days alone. We would make anything over 30 days wait for your or Dan's approval, with 90 days as the total for the hold.\n2. **No stacking: 0.7 hours** (built with item 1). Today a new hold replaces the last one, so 30-day holds could be repeated. We would count every hold in the same past-due period toward the 30 and 90 days.\n3. **Access during the hold: 1.5 hours.** Today a hold puts the community back to full access even if it was already read-only. We would keep the access level it had, unless staff explicitly choose to restore it; that choice is recorded and named in the notice.\n4. **Notice before the hold ends: 0.8 hours.** Today the billing contacts are told when a hold starts, not before it ends. We would add a reminder 7 days and 1 day before.\n\n**What we need from you:**\n1. **Build all four before HOA HX launches?** Our recommendation: yes (about 5.5 hours together). Until then holds stay with HOA HX staff only, and none has been used, since HOA HX has not launched."
       }
      ]
     }
@@ -123,6 +131,10 @@
       {
        "at": "2026-10-22T05:00:00.000Z",
        "text": "So the work was not held up, we built this the way we recommended: Get started stays open for someone already logged in and shows which account they are using, so a board member can start a second community without logging out. Would you like to change it? If so, tell us how in a reply here and we will change it; if not, no answer is needed."
+      },
+      {
+       "at": "2026-10-28T02:17:47.000Z",
+       "text": "**Confirmed: 3 of your 7 points are built. 4 need about 1.9 hours.**\n\n**Built as you describe:**\n1. Get started stays open for someone already logged in and names the account in use.\n2. Starting another community adds it to their account without changing their other communities or permissions.\n3. Being logged in never opens an existing community: joining one still goes through an invitation or the board's approval.\n\n**Differs, with the work to close it:**\n1. **\"Set up a new community\" as the main button: 0.5 hours.** Today the page shows the three \"which describes you\" choices with equal weight.\n2. **\"Go to dashboard\": 0.1 hours.** The way back is labelled \"Go to HOA HX\" today.\n3. **\"Use a different account\": 0.3 hours.** Today it says \"log out first\" but has no button.\n4. **\"Resume setting up <community>\": 1.0 hour.** Resuming covers only the email step today. We would offer it when the person already started a community whose setup isn't finished, so no duplicate gets created.\n\n**What we need from you:**\n1. **Make all four before HOA HX launches?** Our recommendation: yes (about 1.9 hours together).\n2. **Wording:** \"You're logged in as [email]\", matching the rest of HOA HX. Our recommendation: yes."
       }
      ]
     }
