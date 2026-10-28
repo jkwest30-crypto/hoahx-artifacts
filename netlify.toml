@@ -100,3 +100,16 @@
   from = "/app-review"
   to = "/app-review/index.html"
   status = 200
+
+# HOAhx · Hands-on checks: the cards a person runs by hand on the test site, at /qa, with their
+# shared store (runs, results, screenshots) at /api/qa. Open: no passphrase (Jacob, 2026-10-27).
+[[redirects]]
+  from = "/api/qa"
+  to = "/.netlify/functions/qa"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/qa"
+  to = "/qa/index.html"
+  status = 200

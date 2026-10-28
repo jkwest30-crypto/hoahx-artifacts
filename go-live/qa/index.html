@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HOAhx · Hands-on checks</title>
+<meta name="description" content="The checks a person makes by hand on the HOAhx test site, with a place to record each result, its notes and screenshots.">
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/qa/qa.css">
+</head>
+<body>
+<nav class="nav" aria-label="This page"><div class="wrap nav-in">
+  <a class="nav-brand" href="/qa">HOAhx · Hands-on checks</a>
+  <a class="tab" href="#accounts">Accounts</a>
+  <a class="tab" href="#run">The run</a>
+  <a class="tab" href="#cards">Checks</a>
+  <a class="tab" href="#summary">Summary</a>
+  <div class="sel" id="nav-progress"></div>
+</div></nav>
+
+<header class="mast"><div class="wrap mast-in">
+  <p class="eyebrow">HOAhx · the test site · checks made by hand</p>
+  <h1 id="title">Hands-on checks</h1>
+  <p class="lede" id="lede"></p>
+  <dl class="meta" id="meta"></dl>
+</div></header>
+
+<main class="wrap">
+  <div class="banner" id="banner" role="status">Open to anyone with the link: no passphrase. Results save as you go. The password for the test accounts is not on this page; you get it with your packet.</div>
+
+  <section class="panel" id="accounts" aria-labelledby="accounts-h">
+    <h2 id="accounts-h">The account panel</h2>
+    <p class="panel-p">Every test account uses the same password, sent to you separately with your packet. When an account asks for a text code, enter the code you were given: no text is sent.</p>
+    <dl class="kv" id="sandbox">
+      <dt>Test card</dt><dd class="mono">4111 1111 1111 1111 · expires 10/29 · security code 999 · ZIP 77777</dd>
+      <dt>Test bank account</dt><dd class="mono">Account 24413815 · routing 490000018</dd>
+      <dt>A payment that declines</dt><dd>Any charge under $1.00 declines.</dd>
+    </dl>
+    <details class="cast-box"><summary>The test accounts (<span id="cast-count">0</span>)</summary><div id="cast"></div></details>
+  </section>
+
+  <section class="panel" id="run" aria-labelledby="run-h">
+    <h2 id="run-h">The run</h2>
+    <p class="panel-p">A run is one sitting on one version of the test site. Fill this in once before your first result; every result you record belongs to the run.</p>
+    <div class="field wide">
+      <label for="run-pick">Run</label>
+      <select class="input" id="run-pick"><option value="">Start a new run</option></select>
+    </div>
+    <form class="run-form" id="run-form" novalidate>
+      <div class="field" id="f-date">
+        <label for="run-date">Date</label>
+        <input class="input" id="run-date" type="date" required>
+      </div>
+      <div class="field" id="f-slug">
+        <label for="run-slug">Short name</label>
+        <input class="input" id="run-slug" type="text" maxlength="40" placeholder="payments" autocapitalize="none" spellcheck="false">
+        <span class="hint">Letters, numbers and dashes. The run is called <b id="run-id-preview">…</b></span>
+      </div>
+      <div class="field" id="f-fixed" hidden>
+        <span class="label">Run</span>
+        <span class="fixed" id="run-id-fixed"></span>
+      </div>
+      <div class="field">
+        <label for="run-env">Where you are testing</label>
+        <select class="input" id="run-env"></select>
+      </div>
+      <div class="field">
+        <label for="run-build">Version of the test site</label>
+        <input class="input" id="run-build" type="text" maxlength="40" spellcheck="false" autocapitalize="none">
+        <span class="hint">Filled in for you; correct it if you were told a different one.</span>
+      </div>
+      <div class="field">
+        <label for="run-reset">Test accounts reset</label>
+        <input class="input" id="run-reset" type="text" maxlength="200" placeholder="Today at 9:00, or Not reset">
+        <span class="hint">When the test accounts were last reset, or "Not reset".</span>
+      </div>
+      <div class="field">
+        <label for="run-tester">Your name</label>
+        <input class="input" id="run-tester" type="text" maxlength="200" autocomplete="name" required>
+      </div>
+      <div class="field">
+        <label for="run-device">Device and browser</label>
+        <input class="input" id="run-device" type="text" maxlength="200" placeholder="iPhone 15, Safari">
+      </div>
+      <div class="field">
+        <label for="run-scope">Which checks</label>
+        <select class="input" id="run-scope"></select>
+      </div>
+      <div class="field wide act">
+        <button class="btn" type="submit" id="run-save">Start this run</button>
+        <span class="line" id="run-status" role="status" aria-live="polite"></span>
+      </div>
+    </form>
+  </section>
+
+  <section id="cards" aria-labelledby="cards-h">
+    <div class="sec-top">
+      <h2 id="cards-h">The checks</h2>
+      <p class="line" id="save-status" data-status role="status" aria-live="polite"></p>
+    </div>
+    <div class="filters" role="group" aria-label="Show only">
+      <div class="field"><label for="flt-feature">Area</label><select class="input" id="flt-feature" data-filter="feature"></select></div>
+      <div class="field"><label for="flt-role">Who</label><select class="input" id="flt-role" data-filter="role"></select></div>
+      <div class="field"><label for="flt-device">Device</label><select class="input" id="flt-device" data-filter="device"></select></div>
+      <div class="field"><label for="flt-milestone">Milestone</label><select class="input" id="flt-milestone" data-filter="milestone"></select></div>
+      <div class="field"><label for="flt-result">Result in this run</label><select class="input" id="flt-result" data-filter="result"></select></div>
+    </div>
+    <p class="count" id="count"></p>
+    <div id="groups"><p class="empty">Loading the checks…</p></div>
+  </section>
+
+  <section class="panel" id="summary" aria-labelledby="summary-h">
+    <h2 id="summary-h">Run summary</h2>
+    <div id="summary-body"><p class="panel-p">Start or pick a run to see its summary.</p></div>
+    <div class="cta">
+      <button class="btn big" type="button" id="send" disabled>Send the run</button>
+      <span class="hint" id="send-hint">Sending records a summary of every result in this run with today's date. You can keep recording and send again.</span>
+    </div>
+    <div id="sent"></div>
+  </section>
+</main>
+
+<footer><div class="wrap">
+  <p><b>Pass</b> means every step's "You should see" happened and nothing under "Look for" or "On every check" went wrong. <b>Fail</b> means anything did not happen as written, or looked or read wrong: say what you did, what you saw and what you expected. <b>Blocked</b> means you could not start or finish for a reason outside the check. <b>Not provable</b> means the test site cannot produce the event; it is never counted as a pass.</p>
+  <p>Results are saved as you go, on every device that opens this page. Nothing is deleted; every earlier version of a result is kept.</p>
+</div></footer>
+
+<dialog class="viewer" id="viewer" aria-label="Screenshot">
+  <img id="viewer-img" alt="">
+  <form method="dialog"><button class="btn" type="submit">Close</button></form>
+</dialog>
+
+<script src="/qa/qa.js"></script>
+</body>
+</html>

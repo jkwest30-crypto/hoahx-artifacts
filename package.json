@@ -28,7 +28,10 @@
     "sync:videos": "node scripts/videos.mjs sync",
     "check:videos": "node scripts/videos.mjs check",
     "pull:videos": "node scripts/videos.mjs pull",
-    "find:videos": "node scripts/videos.mjs find"
+    "find:videos": "node scripts/videos.mjs find",
+    "publish:qa": "node scripts/publish-qa.mjs",
+    "check:qa": "node scripts/publish-qa.mjs --check",
+    "pull:qa": "node scripts/pull-qa.mjs"
   },
   "dependencies": {
     "@netlify/blobs": "^8.1.0"

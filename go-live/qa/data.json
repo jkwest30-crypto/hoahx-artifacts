@@ -1,0 +1,2738 @@
+{
+ "title": "HOAhx · Hands-on checks",
+ "lede": "These are the checks a person has to make by hand: the real card form, a real phone, an email arriving, two people approving one refund, and whether a screen looks and reads right. Pick a card, sign in as the person it names, follow the steps, and record what happened. A Fail is as useful as a Pass: say what you saw and add a screenshot.",
+ "environments": {
+  "staging": {
+   "url": "https://hoahx-staging.web.app",
+   "label": "The test site"
+  },
+  "preview": {
+   "url": "https://hoahx-staging.web.app",
+   "label": "The new screens on the test site"
+  },
+  "production": {
+   "url": "",
+   "label": "The live site (set at go / no-go)"
+  }
+ },
+ "features": [
+  {
+   "id": "payments",
+   "title": "Paying dues",
+   "blurb": "A homeowner pays by card or bank, saves a method, and turns on AutoPay, on the payment sandbox."
+  },
+  {
+   "id": "refunds",
+   "title": "Refunds and voids",
+   "blurb": "Money goes back only when two different board members agree, each after signing in again."
+  },
+  {
+   "id": "sign-in",
+   "title": "Signing in",
+   "blurb": "Two-step sign-in for the board, management and HOAhx staff, backup codes, and the ways back in."
+  },
+  {
+   "id": "invitations",
+   "title": "Invitations and emails",
+   "blurb": "An invitation arrives, opens on a phone, and expires on time."
+  },
+  {
+   "id": "phone",
+   "title": "On a phone",
+   "blurb": "The homeowner and board screens on a real iPhone and a real Android phone."
+  },
+  {
+   "id": "screens",
+   "title": "The new screens",
+   "blurb": "The 27 new screens on real phones, in every state."
+  },
+  {
+   "id": "portfolio",
+   "title": "Management companies",
+   "blurb": "A management company sees its communities and assigns its managers."
+  },
+  {
+   "id": "platform",
+   "title": "HOAhx staff",
+   "blurb": "What HOAhx's own staff can and cannot see and do."
+  },
+  {
+   "id": "household",
+   "title": "Homes, tenants and rental managers",
+   "blurb": "An owner names a rental manager, shares announcements with a tenant, and sells the home."
+  },
+  {
+   "id": "help",
+   "title": "Help and the Assistant",
+   "blurb": "A homeowner reaches HOAhx support or the community, and asks the Assistant a question."
+  },
+  {
+   "id": "violations",
+   "title": "Violations and fines",
+   "blurb": "A homeowner asks to be heard before a lien, and the president reads and publishes the fee schedule."
+  },
+  {
+   "id": "communications",
+   "title": "Messages to homes",
+   "blurb": "The president sends a message to some homes and only those homes receive it."
+  }
+ ],
+ "always": [
+  "No error message, blank screen or spinner that never stops, at any step.",
+  "Nothing cut off, overlapping, or too small to read or tap.",
+  "Every button says what it does, and the words are plain and calm.",
+  "You always knew what to do next."
+ ],
+ "categories": {
+  "third-party": "Real outside services",
+  "real-device": "A real phone or device",
+  "time": "Time passing",
+  "two-people": "Two people, or two devices",
+  "judgment": "A person’s judgment",
+  "production-config": "Only on the live site"
+ },
+ "cast": [
+  {
+   "handle": "platform-owner",
+   "name": "Elena Voss",
+   "roleLabel": "Platform Owner",
+   "where": "HOAhx staff",
+   "opening": "",
+   "twoStep": true
+  },
+  {
+   "handle": "platform-support",
+   "name": "Marcus Bell",
+   "roleLabel": "Platform Support",
+   "where": "HOAhx staff",
+   "opening": "",
+   "twoStep": true
+  },
+  {
+   "handle": "platform-viewer",
+   "name": "Priya Natarajan",
+   "roleLabel": "Platform Viewer",
+   "where": "HOAhx staff",
+   "opening": "",
+   "twoStep": true
+  },
+  {
+   "handle": "mgmt-admin",
+   "name": "Owen Castillo",
+   "roleLabel": "Management Company Admin",
+   "where": "Northgate Community Management, managing Juniper Ridge",
+   "opening": "",
+   "twoStep": true
+  },
+  {
+   "handle": "property-manager",
+   "name": "Hannah Lindqvist",
+   "roleLabel": "Property Manager",
+   "where": "Northgate Community Management, assigned to Juniper Ridge",
+   "opening": "",
+   "twoStep": true
+  },
+  {
+   "handle": "president",
+   "name": "Dana Whitfield",
+   "roleLabel": "President",
+   "where": "Cedar Hollow",
+   "opening": "The second approver on refunds, voids and fines",
+   "twoStep": true
+  },
+  {
+   "handle": "treasurer",
+   "name": "Nadia Adeyemi",
+   "roleLabel": "Treasurer",
+   "where": "Cedar Hollow",
+   "opening": "Asks for refunds and voids; sends dues reminders",
+   "twoStep": true
+  },
+  {
+   "handle": "secretary",
+   "name": "Corinne Baptiste",
+   "roleLabel": "Secretary",
+   "where": "Cedar Hollow",
+   "opening": "",
+   "twoStep": true
+  },
+  {
+   "handle": "board-member",
+   "name": "Theo Marsh",
+   "roleLabel": "Board Member",
+   "where": "Cedar Hollow",
+   "opening": "Proposes fines on violations",
+   "twoStep": true
+  },
+  {
+   "handle": "administrator",
+   "name": "Farah Qureshi",
+   "roleLabel": "HOA Administrator",
+   "where": "Cedar Hollow",
+   "opening": "Runs day-to-day operations; no board authority, no money",
+   "twoStep": true
+  },
+  {
+   "handle": "homeowner-owes",
+   "name": "Jordan Pryce",
+   "roleLabel": "Homeowner",
+   "where": "Cedar Hollow, 14 Cedar Hollow Lane",
+   "opening": "Owes $250.00, the current quarter",
+   "twoStep": false
+  },
+  {
+   "handle": "homeowner-late",
+   "name": "Rosa Delgado",
+   "roleLabel": "Homeowner",
+   "where": "Cedar Hollow, 22 Cedar Hollow Lane",
+   "opening": "Owes $525.00: two quarters and a $25.00 late fee",
+   "twoStep": false
+  },
+  {
+   "handle": "homeowner-autopay",
+   "name": "Ben Okafor",
+   "roleLabel": "Homeowner",
+   "where": "Cedar Hollow, 9 Birch Court",
+   "opening": "Owes $250.00; AutoPay off, no saved method",
+   "twoStep": false
+  },
+  {
+   "handle": "homeowner-paid-up",
+   "name": "Mei Tanaka",
+   "roleLabel": "Homeowner",
+   "where": "Cedar Hollow, 31 Birch Court",
+   "opening": "Owes nothing; one settled payment of $250.00 in the history",
+   "twoStep": false
+  },
+  {
+   "handle": "homeowner-two-communities",
+   "name": "Sam Ellison",
+   "roleLabel": "Homeowner",
+   "where": "Cedar Hollow, 5 Aspen Way, and Juniper Ridge, 118 Ridge Road",
+   "opening": "Owes $250.00 in each; sees the account selector",
+   "twoStep": false
+  },
+  {
+   "handle": "tenant",
+   "name": "Luis Moreno",
+   "roleLabel": "Tenant",
+   "where": "Cedar Hollow, renting 31 Birch Court from Mei Tanaka",
+   "opening": "",
+   "twoStep": false
+  },
+  {
+   "handle": "vendor",
+   "name": "Cam Foster",
+   "roleLabel": "Vendor (Greenline Landscaping)",
+   "where": "Cedar Hollow",
+   "opening": "Greenline Landscaping",
+   "twoStep": false
+  },
+  {
+   "handle": "auditor",
+   "name": "Ingrid Solberg",
+   "roleLabel": "Auditor",
+   "where": "Cedar Hollow",
+   "opening": "",
+   "twoStep": false
+  },
+  {
+   "handle": "attorney",
+   "name": "Victor Adebayo",
+   "roleLabel": "Attorney",
+   "where": "Cedar Hollow",
+   "opening": "",
+   "twoStep": false
+  },
+  {
+   "handle": "president-totp",
+   "name": "Avery Lindgren",
+   "roleLabel": "President",
+   "where": "Cedar Hollow",
+   "opening": "President with an authenticator app (secret in totp-secrets.json)",
+   "twoStep": true
+  },
+  {
+   "handle": "treasurer-totp",
+   "name": "Noor Haddad",
+   "roleLabel": "Treasurer",
+   "where": "Cedar Hollow",
+   "opening": "Treasurer with an authenticator app (secret in totp-secrets.json)",
+   "twoStep": true
+  },
+  {
+   "handle": "s1-fresh",
+   "name": "Kira Novak",
+   "roleLabel": "Board Member",
+   "where": "Cedar Hollow",
+   "opening": "No second factor yet",
+   "twoStep": false
+  }
+ ],
+ "cards": [
+  {
+   "id": "QA-001",
+   "title": "A homeowner pays the balance by card",
+   "feature": "payments",
+   "milestone": "M8",
+   "task": "N8",
+   "decisions": [],
+   "whyManual": "third-party",
+   "whyManualNote": "The card form is NMI's own secure form. The everyday automated tests use a stand-in, and the one test that loads the real form runs on a developer's computer, never on the test site.",
+   "env": "staging",
+   "start": "/my-payments",
+   "accounts": [
+    "homeowner-owes"
+   ],
+   "device": "any",
+   "minutes": 6,
+   "precondition": "The test accounts were reset after anyone last paid as Jordan Pryce, so his balance is $250.00. If the balance is not $250.00, or the page says \"Online payments not yet available\", record Blocked. If the card fields never appear inside the payment window, the payment sandbox is down: record Blocked, not Fail. If the window reads \"Payment not processed\" after you press \"Pay $250.00\", someone may have paid the same amount with the same test card in the last 20 minutes, which the payment sandbox refuses: wait 20 minutes, press \"Try again\", and record Blocked if it happens a second time.",
+   "steps": [
+    {
+     "do": "Sign in as Jordan Pryce and choose \"Payments\" in the menu (on a phone, tap \"More\" first).",
+     "see": "Under \"Outstanding Balance\" it reads $250.00, marked \"Payment due\"."
+    },
+    {
+     "do": "Press \"Make a Payment\" at the top of the page.",
+     "see": "A window titled \"Make a payment\" opens with \"Pay full balance ($250.00)\" selected and 250.00 in \"Amount to pay\"."
+    },
+    {
+     "do": "Press \"Continue · $250.00\" and check that \"Card\" is chosen under \"Pay with\".",
+     "see": "\"Total\" reads $250.00, and a card form appears inside the window with fields for the card number, the expiration date and the security code."
+    },
+    {
+     "do": "Enter the sandbox test card from the account panel (and its ZIP code if the form asks), leave \"Save this card for AutoPay\" unticked, and press \"Pay $250.00\".",
+     "see": "The window reads \"Payment received\", with \"Amount paid\" $250.00, a \"Confirmation\" number, \"Date\" showing today's date and time, and \"Remaining due\" $0.00."
+    },
+    {
+     "do": "Press \"Done\".",
+     "see": "\"Outstanding Balance\" reads $0.00, marked \"All clear\". On the tab \"Account history\", the top row of \"Payment History\" shows today's date, $250.00, \"Payment received\" and the same confirmation number."
+    }
+   ],
+   "lookFor": [
+    "Did the card form look like part of HOAhx, not a different website?",
+    "Was it clear, before you confirmed, exactly how much you were paying?",
+    "Was the amount you owe easy to find as soon as the page opened?"
+   ],
+   "reset": "The payment stays, and Jordan Pryce's balance reads $0.00, until the next reset of the test accounts. The card \"Two board members void a homeowner's card payment, on two phones\" uses this payment and cancels it.",
+   "complements": [
+    "tests/ui/homeowner/homeowner-payments.spec.ts",
+    "tests/ui/homeowner/nmi-sandbox-acceptance.spec.ts"
+   ],
+   "added": "2026-09-25",
+   "reviewed": "2026-10-14"
+  },
+  {
+   "id": "QA-002",
+   "title": "Two board members void a homeowner's card payment, on two phones",
+   "feature": "refunds",
+   "milestone": "M8",
+   "task": "N8",
+   "decisions": [
+    "D-010"
+   ],
+   "whyManual": "two-people",
+   "whyManualNote": "Two people on two phones, each confirming with their own password and two-step code on the test site; the automated tests run both people in one browser and never ask for the code.",
+   "env": "staging",
+   "start": "/ledger",
+   "accounts": [
+    "treasurer",
+    "president"
+   ],
+   "device": "two-devices",
+   "minutes": 12,
+   "precondition": "The card \"A homeowner pays the balance by card\" passed after the last reset of the test accounts, and this card has not been run since then, so Jordan Pryce has a $250.00 card payment that has not settled yet. Have two phones (or two computers) ready, one for each person.",
+   "steps": [
+    {
+     "do": "As the treasurer, on the first phone: sign in as Nadia Adeyemi (password, then the two-step code) and choose \"Financials\" in the menu (on a phone it is under \"More\").",
+     "see": "The page \"Financial Ledger\" opens, with a \"Refund\" button at the top."
+    },
+    {
+     "do": "As the treasurer: press \"Refund\", then under \"Payment\" choose Jordan Pryce's $250.00 payment.",
+     "see": "The window \"Refund a payment\" shows \"Not yet settled\" under \"Settled\", $250.00 under \"Can be voided\", and the sentence \"This payment hasn't settled, so it will be voided: the whole amount is cancelled and nothing is taken.\""
+    },
+    {
+     "do": "As the treasurer: in \"Reason\" type \"Hands-on check: paid by mistake\", press \"Void payment\", enter your password and press \"Continue\", then enter the two-step code in \"Six-digit code\" and press \"Confirm\" (it may go on by itself once the sixth digit is in).",
+     "see": "The window closes. Under \"Approvals waiting for you\", in \"Waiting for someone else (1)\", the row \"Void $250.00 to Jordan Pryce\" reads \"Waiting for approval\" and \"Requested by you\", with the time left to decide."
+    },
+    {
+     "do": "As the treasurer: look on that row for a way to approve it.",
+     "see": "There is no \"Approve\" button; the row says \"You requested this, so another financial user must approve it.\""
+    },
+    {
+     "do": "As the president, on the second phone: sign in as Dana Whitfield (password, then the two-step code) and choose \"Financials\" in the menu (on a phone it is under \"More\").",
+     "see": "Under \"Approvals waiting for you\", \"Waiting for you (1)\" lists \"Void $250.00 to Jordan Pryce\" with \"Reason for the approver: Hands-on check: paid by mistake\", \"Requested by Nadia Adeyemi\" and the time, and the buttons \"Reject\" and \"Approve\"."
+    },
+    {
+     "do": "As the president: press \"Approve\"; in the window \"Approve this void\", enter your password and press \"Continue\", then enter the two-step code and press \"Confirm\" (it may go on by itself once the sixth digit is in).",
+     "see": "The row moves under \"Approved, with the processor\", reads \"Sent to the processor\", and says \"approved by Dana Whitfield\" with the time. (If the processor has already confirmed, it reads \"Voided\" instead and is listed under \"Show recent decisions\"; that is also a pass.)"
+    },
+    {
+     "do": "As the treasurer, on the first phone: reload the page.",
+     "see": "The same row reads \"Requested by you\" and \"approved by Dana Whitfield\", and either \"Sent to the processor\" under \"Approved, with the processor\", or, once the processor has confirmed, \"Voided\" with \"The payment was cancelled before it settled; nothing was taken.\" (press \"Show recent decisions\" to see it)."
+    }
+   ],
+   "lookFor": [
+    "At every step, could you tell who had done what and what happened next?",
+    "As the president, was the waiting void easy to spot on the Financials page without scrolling or searching?"
+   ],
+   "reset": "Jordan Pryce's card payment is cancelled at the payment sandbox, and the void stays listed under \"Approvals waiting for you\" until the next reset of the test accounts. Before this card can be run again, reset the test accounts and pass \"A homeowner pays the balance by card\" again.",
+   "complements": [
+    "tests/ui/treasurer/treasurer-workflows.spec.ts",
+    "tests/ui/treasurer/treasurer-refund-approval.spec.ts",
+    "tests/ui/homeowner/nmi-sandbox-acceptance.spec.ts"
+   ],
+   "added": "2026-09-25",
+   "reviewed": "2026-10-14"
+  },
+  {
+   "id": "QA-003",
+   "title": "A homeowner sees the card fee and the total, then pays by card",
+   "feature": "payments",
+   "milestone": "M8",
+   "task": "CB26",
+   "decisions": [],
+   "whyManual": "third-party",
+   "whyManualNote": "The fee lines are tested with a stand-in; the card form is NMI's own secure form, and a real sandbox charge for the dues plus the fee is something only the real form can take.",
+   "env": "staging",
+   "start": "/my-payments",
+   "accounts": [
+    "homeowner-autopay"
+   ],
+   "device": "any",
+   "minutes": 8,
+   "precondition": "The test accounts were reset, so Ben Okafor owes $250.00 and has no saved card. The card convenience fee has been switched on for Cedar Hollow by HOAhx staff (there is no screen for it, so Jacob asks for it). If no \"Card convenience fee\" line shows at step 3, record Blocked. If the card fields never appear inside the payment window, the payment sandbox is down: record Blocked, not Fail.",
+   "steps": [
+    {
+     "do": "Sign in as Ben Okafor and choose \"Payments\" in the menu (on a phone, tap \"More\" first).",
+     "see": "Under \"Outstanding Balance\" it reads $250.00, marked \"Payment due\"."
+    },
+    {
+     "do": "Press \"Make a Payment\", then press \"Continue · $250.00\".",
+     "see": "The window \"Make a payment\" moves on to the payment details, with \"Pay with\" showing \"Card\" and \"Bank account\"."
+    },
+    {
+     "do": "Choose \"Card\" and read the lines at the top of the window.",
+     "see": "Three lines: \"Dues payment\" $250.00, \"Card convenience fee\" with its rate and an amount in dollars and cents, and \"Total\", which is $250.00 plus that fee. Below the fields it reads \"Your community adds a convenience fee to card payments to cover the card processing cost. Bank payments have no fee.\""
+    },
+    {
+     "do": "Choose \"Bank account\", read the top of the window, then choose \"Card\" again.",
+     "see": "With \"Bank account\" chosen there is no fee line, \"Total\" reads $250.00 and the note reads \"Bank payments have no fee.\" With \"Card\" chosen the fee line and the larger total are back."
+    },
+    {
+     "do": "Enter the sandbox test card (it is on the account panel) in the card fields, leave \"Save this card for AutoPay\" unticked, and read the pay button.",
+     "see": "The card form shows fields for the card number, the expiration date and the security code, and the button reads \"Pay\" followed by the same total as the \"Total\" line."
+    },
+    {
+     "do": "Press the pay button.",
+     "see": "The window reads \"Payment received\", with \"Amount paid\" $250.00, \"Card convenience fee\" the same amount as before, \"Total charged\" the same as the \"Total\" line, a \"Confirmation\" number, and \"Remaining due\" $0.00."
+    },
+    {
+     "do": "Press \"Done\", then on the tab \"Account history\", in \"Payment History\", press \"Receipt\" on the top row.",
+     "see": "\"Outstanding Balance\" reads $0.00 (the fee is not dues). The \"Payment receipt\" window shows \"Amount\" $250.00, \"Card convenience fee\" and \"Total charged\" with the same figures as the payment window."
+    }
+   ],
+   "lookFor": [
+    "Was the fee shown, in its own line, before you pressed the pay button?",
+    "Was it clear that a bank payment has no fee?",
+    "Did the card form look like part of HOAhx, not a different website?"
+   ],
+   "reset": "Ben Okafor's balance reads $0.00 and the payment stays until the next reset of the test accounts. The fee stays switched on until HOAhx staff switch it off.",
+   "complements": [
+    "tests/ui/homeowner/homeowner-convenience-fee.spec.ts",
+    "tests/ui/homeowner/nmi-sandbox-acceptance.spec.ts"
+   ],
+   "added": "2026-10-07",
+   "reviewed": "2026-10-14"
+  },
+  {
+   "id": "QA-004",
+   "title": "A homeowner creates an account-status letter and a lender checks it from the paper",
+   "feature": "payments",
+   "milestone": "M8",
+   "task": "CB26",
+   "decisions": [],
+   "whyManual": "judgment",
+   "whyManualNote": "The letter is a file a lender opens and prints outside HOAhx; the tests prove the figures and the check page, but only a person can say whether the paper reads clearly and its printed address and code work from the paper.",
+   "env": "staging",
+   "start": "/my-payments",
+   "accounts": [
+    "homeowner-owes"
+   ],
+   "device": "desktop",
+   "minutes": 10,
+   "precondition": "Run this before \"A homeowner pays the balance by card\", so Jordan Pryce owes $250.00. (If it is run after, the balance reads $0.00 and the standing \"Paid in full\"; compare with what the page shows.) Use a PDF viewer on this computer and a second browser, or a private window, where nobody is signed in.",
+   "steps": [
+    {
+     "do": "Sign in as Jordan Pryce and choose \"Payments\" in the menu. Note the figure under \"Outstanding Balance\".",
+     "see": "It reads $250.00, marked \"Payment due\"."
+    },
+    {
+     "do": "Open the tab \"Statements & letters\" and press \"Account-status letter\".",
+     "see": "A window titled \"Account-status letter\" opens with a \"Create letter\" button and no figures yet."
+    },
+    {
+     "do": "Press \"Create letter\".",
+     "see": "The window shows Cedar Hollow, 14 Cedar Hollow Lane, \"Balance\" $250.00, \"Standing\" \"Balance due\", a \"Check code\" of sixteen letters and numbers in four groups, and the sentence \"Anyone can check this letter until\" a date 30 days from today \"at\" the test site's address ending \"/verify-letter\" \"with the code above.\""
+    },
+    {
+     "do": "Press \"Download letter\", then open the saved file (its name starts \"Account status letter\") in a PDF viewer.",
+     "see": "One page titled \"Account-status letter\" with the community, the home, \"Balance\", \"Standing\", \"Check code:\" with the same code, the same \"Anyone can check this letter until\" sentence, and the line \"This letter is not a resale or estoppel certificate.\" Nothing is cut off at the edges."
+    },
+    {
+     "do": "In the second browser, where nobody is signed in, type the address printed on the paper.",
+     "see": "A page titled \"Check an account-status letter\" opens with a box for the code."
+    },
+    {
+     "do": "Type the code as printed on the paper and press \"Check\".",
+     "see": "The page reads \"Valid\", with \"Balance\" $250.00 and \"Standing\" \"Balance due\", the same as the paper."
+    },
+    {
+     "do": "Change one character of the code and press \"Check\".",
+     "see": "The page reads \"We couldn't find a letter with that code. Check the code printed on the letter and try again.\" and shows no figures."
+    }
+   ],
+   "lookFor": [
+    "Would a lender understand this letter with no help from you?",
+    "Is the balance the first figure you read on the paper?",
+    "Is it clear the letter is not a resale or estoppel certificate?",
+    "Was the address on the paper easy to type, and the code easy to copy?"
+   ],
+   "reset": "The letter stays valid for 30 days and stays on record for the home. The next reset of the test accounts clears it.",
+   "complements": [
+    "tests/ui/homeowner/homeowner-account-letter.spec.ts"
+   ],
+   "added": "2026-10-07",
+   "reviewed": "2026-10-14"
+  },
+  {
+   "id": "QA-005",
+   "title": "HOAhx staff with an old tab open: the tab reloads once after a new release of the test site",
+   "feature": "platform",
+   "milestone": "M4",
+   "task": "B1c",
+   "decisions": [],
+   "whyManual": "time",
+   "whyManualNote": "A tab left open from before a release only goes stale when a real release lands on the test site while it is open: wait for the next release (a test cannot publish one); the tests prove the reload with a stand-in.",
+   "env": "staging",
+   "start": "/auth/login",
+   "accounts": [
+    "platform-owner"
+   ],
+   "device": "desktop",
+   "minutes": 6,
+   "precondition": "The time is produced by waiting: step 1 is done before the next release of the test site (Jacob knows when it lands) and steps 2 to 4 after it. Keep the tab open the whole time and do not reload it.",
+   "steps": [
+    {
+     "do": "Sign in as Elena Voss (password, then the two-step code) and leave the tab open on \"Dashboard\" in the menu. Do not open any other menu item.",
+     "see": "The \"Dashboard\" screen is showing."
+    },
+    {
+     "do": "Wait until a new release has gone out to the test site, then, in the same tab without reloading, choose \"Activity Log\" in the menu.",
+     "see": "The page goes blank for a moment and loads again once by itself, with no message."
+    },
+    {
+     "do": "Wait for the page to finish loading.",
+     "see": "A normal HOAhx screen is showing, signed in or on the sign-in page, with no error screen and no blank page."
+    },
+    {
+     "do": "If you are asked to sign in, sign in again as Elena Voss. Then choose \"Activity Log\" in the menu.",
+     "see": "The \"Activity Log\" screen opens and the page does not reload again."
+    }
+   ],
+   "lookFor": [
+    "Did the tab reload only once, never in a loop?",
+    "Did the page come back by itself, with no error message and no blank page left behind?"
+   ],
+   "reset": "Nothing is left behind.",
+   "complements": [
+    "tests/unit/preload-recovery.test.ts"
+   ],
+   "added": "2026-10-07",
+   "reviewed": "2026-10-14"
+  },
+  {
+   "id": "QA-006",
+   "title": "The HOAhx team: one error in a browser opens an incident in live monitoring",
+   "feature": "platform",
+   "milestone": "M4",
+   "task": "B1b",
+   "decisions": [],
+   "whyManual": "third-party",
+   "whyManualNote": "The incident opens in Google Cloud Monitoring itself; the tests only prove the browser sends the report. If Google Cloud is down, record Blocked, not Fail.",
+   "env": "staging",
+   "start": "/auth/login",
+   "accounts": [],
+   "device": "desktop",
+   "minutes": 12,
+   "precondition": "The alert \"HOAhx — a Cloud Function logged an error\" has been put on the test project (hoahx-staging), and you can open Monitoring there. The people named for alerts get a notice when it opens, so tell them first. Do this once an hour at most: the site limits how many reports one address can send.",
+   "steps": [
+    {
+     "do": "On the sign-in page of the test site, open the browser's console (in Chrome: View, then Developer, then JavaScript Console).",
+     "see": "A console opens with a place to type, and the sign-in page is still showing."
+    },
+    {
+     "do": "Type setTimeout(function () { throw new Error(\"Hands-on check: monitoring\"); }, 0) and press Enter.",
+     "see": "The console shows a red \"Uncaught Error: Hands-on check: monitoring\". The sign-in page stays as it was, with no error screen."
+    },
+    {
+     "do": "In Google Cloud, open the test project's Monitoring, then Alerting, then Incidents. Wait up to ten minutes and reload the list.",
+     "see": "An open incident named \"HOAhx — a Cloud Function logged an error\" appears, started after the time of step 2."
+    },
+    {
+     "do": "Open the incident and press its link to the logs.",
+     "see": "A log line starting \"[client-error]\" carries the message \"Hands-on check: monitoring\" and the page \"/auth/login\", with no name, email address or account number in it."
+    }
+   ],
+   "reset": "The incident stays open until Monitoring closes it or someone closes it by hand; close it, so it does not hide a real one.",
+   "complements": [
+    "tests/unit/client-error-reporting.test.tsx"
+   ],
+   "added": "2026-10-07",
+   "reviewed": "2026-10-14"
+  },
+  {
+   "id": "QA-007",
+   "title": "A homeowner saves a card while paying, pays with it later, and replaces it",
+   "feature": "payments",
+   "task": "CB26",
+   "decisions": [],
+   "whyManual": "third-party",
+   "whyManualNote": "Saving, paying with and replacing a card all go through NMI's own secure form and the card kept at NMI; the automated tests use a stand-in for both.",
+   "env": "staging",
+   "start": "/my-payments",
+   "accounts": [
+    "homeowner-late"
+   ],
+   "device": "any",
+   "minutes": 12,
+   "precondition": "The test accounts were reset, so Rosa Delgado owes $525.00 and has no saved card (on the tab \"Payment methods\", the box \"Saved payment methods\" says \"No card or bank account is saved yet.\"). Run this before the cards that pay as Rosa Delgado. If the card fields never appear inside the payment window, the payment sandbox is down: record Blocked, not Fail. If a window reads \"Payment not processed\", the sandbox may be refusing a repeat of the same amount on the same test card: wait 20 minutes and press \"Try again\".",
+   "steps": [
+    {
+     "do": "Sign in as Rosa Delgado and choose \"Payments\" in the menu (on a phone, tap \"More\" first). Note the figure under \"Outstanding Balance\", then open the tab \"Payment methods\".",
+     "see": "It reads $525.00, marked \"Payment due\", and the box \"Saved payment methods\" says \"No card or bank account is saved yet.\""
+    },
+    {
+     "do": "Press \"Make a Payment\", then \"Another amount\", type 100.00 in \"Amount to pay\" and press \"Continue · $100.00\".",
+     "see": "The window \"Make a payment\" moves on to the payment details and \"Total\" reads $100.00 (if the community charges a card fee, \"Total\" is the amount plus that fee)."
+    },
+    {
+     "do": "Under \"Pay with\" choose \"Card\", enter the sandbox test card from the account panel, tick \"Save this card for AutoPay\" and press \"Pay $100.00\".",
+     "see": "The window reads \"Payment received\" with \"Amount paid\" $100.00, a \"Confirmation\" number and \"Remaining due\" $425.00, and a line starting \"Saved for AutoPay:\" names the card you used."
+    },
+    {
+     "do": "Press \"Not now\" (or \"Done\", if that is the only button), then open the tab \"Payment methods\".",
+     "see": "Under the balance a box \"Saved payment methods\" lists one card with the buttons \"Nickname\", \"Replace\" and \"Remove\", and says it is \"Kept with the payment provider, never in HOA HX.\""
+    },
+    {
+     "do": "Press \"Nickname\", type \"Hands-on card\" and press \"Save\".",
+     "see": "A message reads \"Nickname saved.\" and the list shows \"Hands-on card\" with the card's own name under it."
+    },
+    {
+     "do": "Press \"Make a Payment\", then \"Another amount\", type 50.00 and press \"Continue · $50.00\". If a notice \"You paid a few days ago\" appears, press \"Pay anyway\".",
+     "see": "Under \"Pay with\" the choices are \"Hands-on card\" (already chosen) and \"A new card or bank account\", and no card fields are shown."
+    },
+    {
+     "do": "Press \"Pay $50.00\".",
+     "see": "The window reads \"Payment received\" with \"Amount paid\" $50.00 and \"Remaining due\" $375.00, charged to the saved card without typing any card details."
+    },
+    {
+     "do": "Press \"Done\". On the tab \"Payment methods\", under \"Saved payment methods\" press \"Replace\", check that the window is titled \"Replace Hands-on card\", enter the sandbox test card again and press \"Save new method\".",
+     "see": "A message starting \"Saved\" names the new method, and \"Saved payment methods\" still lists exactly one card."
+    }
+   ],
+   "lookFor": [
+    "Did the card form look like part of HOAhx, not a different website?",
+    "Was it clear, before you paid, that the card would be kept?",
+    "Was it clear which saved card the second payment would use?"
+   ],
+   "reset": "Rosa Delgado's balance is $375.00 and one saved card stays, with two payments in her history, until the next reset of the test accounts. The card \"A homeowner removes a saved card, and the stored copy is deleted\" uses this saved card and removes it.",
+   "complements": [
+    "tests/ui/homeowner/homeowner-saved-methods.spec.ts",
+    "tests/ui/homeowner/nmi-sandbox-acceptance.spec.ts"
+   ],
+   "added": "2026-10-09",
+   "reviewed": "2026-10-09"
+  },
+  {
+   "id": "QA-008",
+   "title": "A homeowner removes a saved card, and the stored copy is deleted at the payment provider",
+   "feature": "payments",
+   "task": "F240",
+   "decisions": [],
+   "whyManual": "third-party",
+   "whyManualNote": "The card kept at NMI is deleted by a call to NMI itself; only someone who can open NMI's sandbox merchant portal can see the stored copy go. The tests use a stand-in for NMI.",
+   "env": "staging",
+   "start": "/my-payments",
+   "accounts": [
+    "homeowner-late"
+   ],
+   "device": "desktop",
+   "minutes": 8,
+   "precondition": "The card \"A homeowner saves a card while paying, pays with it later, and replaces it\" passed, so Rosa Delgado has one saved card. You can sign in to NMI's sandbox merchant portal (the person running the launch gives you the login) and open the list of stored cards in its vault. If the portal cannot be opened, or NMI is down, record Blocked, not Fail.",
+   "steps": [
+    {
+     "do": "In NMI's sandbox merchant portal, open the vault's list of stored cards and find the newest entry for the sandbox test card. Note it.",
+     "see": "One saved entry for the test card, with today's date as when it was added."
+    },
+    {
+     "do": "Sign in as Rosa Delgado and choose \"Payments\" in the menu (on a phone, tap \"More\" first), then open the tab \"Payment methods\".",
+     "see": "The box \"Saved payment methods\" lists one card, named \"Hands-on card\" if you ran the earlier card."
+    },
+    {
+     "do": "Press \"Remove\" beside the card.",
+     "see": "A question titled \"Remove Hands-on card?\" (or the card's own name, if you gave it no nickname) says \"It will no longer be offered when you pay. Payments already made with it are not changed.\" The buttons are \"Keep it\" and \"Remove\"."
+    },
+    {
+     "do": "Press \"Remove\" in the question.",
+     "see": "A message names the card by its own label (not the nickname) and says it \"was removed.\", and the box \"Saved payment methods\" now reads \"No card or bank account is saved yet.\""
+    },
+    {
+     "do": "In NMI's sandbox portal, reload the vault's list of stored cards.",
+     "see": "The entry you noted in step 1 is no longer there."
+    },
+    {
+     "do": "Go to the tab \"Account history\", press \"Make a Payment\", then \"Another amount\", type 20.00 and press \"Continue · $20.00\" (if \"You paid a few days ago\" appears, press \"Pay anyway\"), and look under \"Pay with\".",
+     "see": "No saved card is offered, and the card fields are empty."
+    }
+   ],
+   "lookFor": [
+    "Was it clear that removing the card does not change payments already made?"
+   ],
+   "reset": "The saved card is gone from Rosa Delgado's account and from NMI's vault. The two payments stay in her history until the next reset of the test accounts. The nightly retry for a delete that failed is not part of this card: the sandbox cannot be made to refuse a delete, so that retry is covered only by tests with a stand-in.",
+   "complements": [
+    "tests/ui/homeowner/homeowner-saved-methods.spec.ts",
+    "tests/unit/vault-delete-sweep.test.js"
+   ],
+   "added": "2026-10-09",
+   "reviewed": "2026-10-14"
+  },
+  {
+   "id": "QA-009",
+   "title": "A homeowner names a rental manager, and the manager's invitation e-mail arrives and works",
+   "feature": "household",
+   "task": "P5e",
+   "decisions": [],
+   "whyManual": "third-party",
+   "whyManualNote": "The invitation is a real e-mail sent by HOAhx's e-mail service to an inbox you read, and the sign-up and address check that follow go through the sign-in service; the tests only prove the e-mail is handed over.",
+   "env": "staging",
+   "start": "/my-household",
+   "accounts": [
+    "homeowner-late"
+   ],
+   "device": "desktop",
+   "minutes": 14,
+   "precondition": "Use an e-mail address you can read that has no HOAhx account on the test site yet, and a second browser or a private window for the manager. The test accounts were reset, so 22 Cedar Hollow Lane has no rental manager. If the e-mail has not arrived after ten minutes (look in spam too), record Fail with the time you pressed the button; if the e-mail service itself is down, record Blocked.",
+   "steps": [
+    {
+     "do": "Sign in as Rosa Delgado, choose \"My Home\" in the menu and open the tab \"Rental manager\".",
+     "see": "The heading \"Rental manager\" shows \"No rental manager for this home\" and a button \"Name a rental manager\"."
+    },
+    {
+     "do": "Press \"Name a rental manager\". In \"Their e-mail\" type your own address, in \"Person's name\" type your name, set \"Start date\" to today and \"End date (last day)\" to a day about a month away, then press \"Name rental manager\".",
+     "see": "A message reads \"Rental manager named. An invitation was sent to their e-mail.\" The record shows your name, the dates, the badge \"Active\" and the line \"Invitation sent; waiting for them to create or verify their account\" with a date three days away."
+    },
+    {
+     "do": "Open your inbox.",
+     "see": "Within ten minutes an e-mail arrives in the inbox, not spam, with a subject starting \"You were named rental manager of\". It says you were named the rental manager of 22 Cedar Hollow Lane, gives the dates, says \"This invitation expires in 72 hours\", and has a button \"Create your account\"."
+    },
+    {
+     "do": "As the rental manager: in the second browser, press the button \"Create your account\".",
+     "see": "A page titled \"Create your account\" opens on the test site."
+    },
+    {
+     "do": "As the rental manager: type your name in \"Full name\", the invited address in \"Email address\" and a password of at least 15 characters, then press \"Create account\". Keep the password: the next card uses it.",
+     "see": "The account is created and you are signed in, with no error."
+    },
+    {
+     "do": "As the rental manager: open your inbox again and follow the link in the e-mail that asks you to confirm your address. Then sign out and sign in again with your address and password. If you are asked which account to use, choose the Rental Manager entry for Cedar Hollow.",
+     "see": "You are signed in to Cedar Hollow for 22 Cedar Hollow Lane only, and \"Payments\" is in the menu with the home's balance under \"Outstanding Balance\"."
+    },
+    {
+     "do": "As the homeowner, in the first browser: reload the page and open the tab \"Rental manager\".",
+     "see": "The line now reads \"Account linked: they can sign in for this home.\""
+    }
+   ],
+   "lookFor": [
+    "Did the e-mail make clear who invited you, for which home and for how long?",
+    "Did the e-mail come from a sender you would trust, and not look like spam?",
+    "Were you ever unsure what to do next after pressing \"Create your account\"?"
+   ],
+   "reset": "Your address is named the rental manager of 22 Cedar Hollow Lane until the date you gave, and the account you made stays. The card \"A rental manager pays the home's balance with their own card\" uses it. The next reset of the test accounts ends the record; the account stays.",
+   "complements": [
+    "tests/ui/homeowner/homeowner-rental-manager.spec.ts",
+    "tests/ui/rental-manager/rental-manager-acts.spec.ts"
+   ],
+   "added": "2026-10-09",
+   "reviewed": "2026-10-09"
+  },
+  {
+   "id": "QA-010",
+   "title": "A rental manager pays the home's balance with their own card",
+   "feature": "household",
+   "task": "P5e",
+   "decisions": [],
+   "whyManual": "third-party",
+   "whyManualNote": "The manager's own card goes through NMI's secure form with a real account created from the e-mail invitation; the tests use a stand-in for the form and a made-up manager account.",
+   "env": "staging",
+   "start": "/my-payments",
+   "accounts": [
+    "homeowner-late"
+   ],
+   "device": "any",
+   "minutes": 8,
+   "precondition": "The card \"A homeowner names a rental manager, and the manager's invitation e-mail arrives and works\" passed, and the dates you gave are still running. Rosa Delgado still owes more than $75.00. The rental manager is the person from that card (not one of the test accounts); sign in with the e-mail address and password you chose there. If the card fields never appear inside the payment window, the payment sandbox is down: record Blocked, not Fail.",
+   "steps": [
+    {
+     "do": "As the rental manager: sign in with the e-mail address and the password you chose in the earlier card, and choose \"Payments\" in the menu (on a phone, tap \"More\" first). Note the figure under \"Outstanding Balance\".",
+     "see": "It shows the balance of 22 Cedar Hollow Lane, marked \"Payment due\"."
+    },
+    {
+     "do": "As the rental manager: press \"Make a Payment\", then \"Another amount\", type 75.00 in \"Amount to pay\" and press \"Continue · $75.00\".",
+     "see": "The window \"Make a payment\" moves on to the payment details and \"Total\" reads $75.00."
+    },
+    {
+     "do": "As the rental manager: choose \"Card\", enter the sandbox test card from the account panel and press \"Pay $75.00\".",
+     "see": "The window reads \"Payment received\" with \"Amount paid\" $75.00 and a \"Confirmation\" number, and \"Remaining due\" is $75.00 lower than the figure you noted."
+    },
+    {
+     "do": "As the rental manager: press \"Done\".",
+     "see": "The top row of \"Payment History\" shows today's date, $75.00, \"Payment received\" and the same Confirmation number."
+    },
+    {
+     "do": "As the homeowner: sign in as Rosa Delgado and choose \"Payments\".",
+     "see": "\"Outstanding Balance\" is $75.00 lower than before, and the top row of \"Payment History\" is the $75.00 payment with the same Confirmation number."
+    }
+   ],
+   "lookFor": [
+    "Was nothing offered to the manager to save the card or turn on AutoPay?"
+   ],
+   "reset": "Rosa Delgado's balance stays $75.00 lower and the payment stays in her history until the next reset of the test accounts.",
+   "complements": [
+    "tests/ui/rental-manager/rental-manager-acts.spec.ts"
+   ],
+   "added": "2026-10-09",
+   "reviewed": "2026-10-09"
+  },
+  {
+   "id": "QA-011",
+   "title": "The president issues a violation, and the homeowner's e-mail arrives in the HOAhx layout",
+   "feature": "invitations",
+   "task": "F238",
+   "decisions": [],
+   "whyManual": "third-party",
+   "whyManualNote": "The notice is a real e-mail sent by HOAhx's e-mail service; only a person reading a real inbox can tell that it arrives, lands in the inbox, and looks like the other HOAhx e-mails. The tests only prove the e-mail is handed over.",
+   "env": "staging",
+   "start": "/violations",
+   "accounts": [
+    "president",
+    "homeowner-paid-up"
+   ],
+   "device": "desktop",
+   "minutes": 10,
+   "precondition": "Jacob has put an inbox you can read on Mei Tanaka's account as her address on the test site, and her violation e-mails are on (they are by default). If the e-mail has not arrived after ten minutes (look in spam too), record Fail with the time you pressed the button; if the e-mail service itself is down, record Blocked.",
+   "steps": [
+    {
+     "do": "As the president: sign in as Dana Whitfield (password, then the two-step code) and choose \"Violations\" in the menu.",
+     "see": "The page \"Violations\" opens with a button \"Issue violation\"."
+    },
+    {
+     "do": "As the president: press \"Issue violation\". In the window \"Create Violation\" choose Mei Tanaka under \"Resident\" (and her home under \"Property\" if it asks), type \"Hands-on check: notice e-mail\" in \"Title\" and \"This is a test notice for a hands-on check. No action is needed.\" in \"Description\", then press \"Create Violation\".",
+     "see": "A message reads \"Violation created successfully.\" and \"Hands-on check: notice e-mail\" is in the list."
+    },
+    {
+     "do": "Open the inbox you set up for Mei Tanaka.",
+     "see": "Within ten minutes an e-mail arrives in the inbox, not spam, with the subject \"Violation notice: Hands-on check: notice e-mail\"."
+    },
+    {
+     "do": "Open the e-mail and read it.",
+     "see": "It has a thin blue bar at the top, the heading \"Violation notice\", the sentence \"A violation notice has been issued:\" with the title in bold, the description, a button \"View violation details\", and under it \"If the button does not work, copy and paste this link:\" with the link written out."
+    },
+    {
+     "do": "Press \"View violation details\".",
+     "see": "The test site opens (sign in as Mei Tanaka if it asks) on her violations page, headed \"Violations\", and \"Hands-on check: notice e-mail\" is listed."
+    }
+   ],
+   "lookFor": [
+    "Does the e-mail look like the other HOAhx e-mails (the invitation, for example), and not like a plain note?",
+    "Is the tone calm and clear, with no blaming words?",
+    "Is it clear from the e-mail alone what happened and what to do next?"
+   ],
+   "reset": "The violation stays on Mei Tanaka's record until the next reset of the test accounts, or until the president resolves it from \"Violations\".",
+   "complements": [
+    "tests/ui/homeowner/homeowner-violation-notice-opens.spec.ts",
+    "tests/unit/violation-transition-service.test.js"
+   ],
+   "added": "2026-10-09",
+   "reviewed": "2026-10-09"
+  },
+  {
+   "id": "QA-012",
+   "title": "A homeowner sends a problem report from Help, and HOAhx support receives the e-mail",
+   "feature": "help",
+   "task": "P18a",
+   "decisions": [],
+   "whyManual": "third-party",
+   "whyManualNote": "The report reaches HOAhx support as a real e-mail sent by HOAhx's e-mail service to the support mailbox; the tests only prove the report is saved and the e-mail is handed over.",
+   "env": "staging",
+   "start": "/help",
+   "accounts": [
+    "homeowner-paid-up",
+    "platform-owner"
+   ],
+   "device": "any",
+   "minutes": 8,
+   "precondition": "Someone who can read the HOAhx support mailbox is with you (Jacob). At most 10 reports can be sent in a day, so do not repeat this card more than that. If the e-mail has not arrived after ten minutes (look in spam too), record Fail with the time you pressed the button; if the e-mail service itself is down, record Blocked.",
+   "steps": [
+    {
+     "do": "Sign in as Mei Tanaka and choose \"Help\" in the menu (on a phone, tap \"More\" first).",
+     "see": "The page \"Help\" shows \"Contact my HOA\", \"Contact HOA HX technical support\" and \"Your reports\"."
+    },
+    {
+     "do": "Read the box \"Contact HOA HX technical support\" and look at the button \"Send to HOA HX support\" while \"What went wrong?\" is empty.",
+     "see": "The box says HOA HX support reads every report \"usually within one business day\", and the button cannot be pressed."
+    },
+    {
+     "do": "Type \"Hands-on check: please ignore this test report.\" in \"What went wrong?\" and press \"Send to HOA HX support\".",
+     "see": "A message reads \"Sent to HOA HX support. You can follow it under Your reports.\" and the box is empty again."
+    },
+    {
+     "do": "Look under \"Your reports\".",
+     "see": "A new row is marked \"New\", shows your text and today's date, and reads \"Owner: HOA HX support\" followed by \"HOA HX support has it and will read it within one business day.\""
+    },
+    {
+     "do": "In the HOAhx support mailbox, look for the e-mail.",
+     "see": "Within ten minutes an e-mail arrives with a subject starting \"New support report:\" and the community's name. It says a written support report came in from Cedar Hollow, quotes the start of your text, and has a link \"Open the review queue\". It does not give Mei Tanaka's name, address, e-mail address or phone number."
+    },
+    {
+     "do": "As the platform owner: press the link and sign in as Elena Voss (password, then the two-step code).",
+     "see": "The page \"Feedback\" opens and your report is in the list, newest first."
+    }
+   ],
+   "lookFor": [
+    "Was it clear, before you sent it, who reads the report and when to expect an answer?",
+    "Did the two doors (\"Contact my HOA\" and \"Contact HOA HX technical support\") make it obvious which one to use?"
+   ],
+   "reset": "The report stays in Mei Tanaka's list as \"New\" and in the Feedback list until the next reset of the test accounts, or until HOAhx staff close it.",
+   "complements": [
+    "tests/ui/homeowner/homeowner-contact-help.spec.ts"
+   ],
+   "added": "2026-10-09",
+   "reviewed": "2026-10-09"
+  },
+  {
+   "id": "QA-013",
+   "title": "A homeowner reads what the balance is made of and can tell what each part is for",
+   "feature": "payments",
+   "task": "CB26",
+   "decisions": [],
+   "whyManual": "judgment",
+   "whyManualNote": "The tests check that each line and amount is present and adds up; only a person can say whether a homeowner who has never seen the screen understands what each part of the balance is.",
+   "env": "staging",
+   "start": "/my-payments",
+   "accounts": [
+    "homeowner-late"
+   ],
+   "device": "any",
+   "minutes": 6,
+   "precondition": "Run this before the cards that pay as Rosa Delgado, so the balance reads $525.00 (two quarters and a $25.00 late fee). If it was run after them, the figures are lower: check that the lines still add up to the balance.",
+   "steps": [
+    {
+     "do": "Sign in as Rosa Delgado and choose \"Payments\" in the menu (on a phone, tap \"More\" first). Note the figure under \"Outstanding Balance\".",
+     "see": "It reads $525.00, marked \"Payment due\"."
+    },
+    {
+     "do": "Open the tab \"Balance details\" and read the box \"What makes up your balance\".",
+     "see": "It lists one line for each kind of charge: \"Regular assessment\" $500.00 with when it was due, and \"Late fee\" $25.00 as its own line. \"Current balance\" below them reads $525.00, the same as \"Outstanding Balance\"."
+    },
+    {
+     "do": "Choose \"Assessments\" in the menu.",
+     "see": "\"Current amount due\" shows the same figure, and the table lists each charge by name with \"Assessment\" or \"Late fee\" underneath, including a row for the $25.00 late fee."
+    },
+    {
+     "do": "Compare the rows on \"Assessments\" with the lines on \"Balance details\".",
+     "see": "The quarterly charges on \"Assessments\" add up to the \"Regular assessment\" line, and the $25.00 late fee appears on both pages."
+    }
+   ],
+   "lookFor": [
+    "Can you tell, without help, what each part of the amount is for?",
+    "Is the oldest charge easy to spot?",
+    "Is the late fee shown plainly, with no blaming words?",
+    "Is the amount you owe the first thing you read on each page?"
+   ],
+   "reset": "Nothing is left behind.",
+   "complements": [
+    "tests/ui/homeowner/homeowner-balance-by-kind.spec.ts",
+    "tests/ui/homeowner/homeowner-invoices.spec.ts"
+   ],
+   "added": "2026-10-09",
+   "reviewed": "2026-10-14"
+  },
+  {
+   "id": "QA-014",
+   "title": "A tenant sees the community's updates only while the owner shares them",
+   "feature": "household",
+   "task": "P6",
+   "decisions": [],
+   "whyManual": "two-people",
+   "whyManualNote": "Two people on the live test site: the owner switches the sharing and the tenant sees the result, which depends on the live site copying the owner's choice to the tenant's access; the tests run both people on a local copy.",
+   "env": "staging",
+   "start": "/my-updates",
+   "accounts": [
+    "tenant",
+    "homeowner-paid-up"
+   ],
+   "device": "two-devices",
+   "minutes": 10,
+   "precondition": "The release with the tenant announcements fix is on the test site, and Jacob has run the one-time catch-up for tenancies that existed before it. At least one announcement is published to Cedar Hollow's homeowners. Use two browsers or a private window. If a tenant's page already reads \"not shared\" at step 1 while the owner's switch is on, record Fail: the catch-up was not applied.",
+   "steps": [
+    {
+     "do": "As the tenant: sign in as Luis Moreno and choose \"Community Updates\" in the menu.",
+     "see": "The page \"Community Updates\" shows \"News and notices from your community.\" and the community's announcements, and does not say \"not shared\"."
+    },
+    {
+     "do": "As the homeowner: in the second browser sign in as Mei Tanaka, choose \"My Home\" and open the tab \"Tenants\". Press \"Edit permissions\" on Luis Moreno's entry.",
+     "see": "A window titled \"Edit Permissions — Luis Moreno\" opens, with \"View Announcements\" switched on."
+    },
+    {
+     "do": "As the homeowner: switch \"View Announcements\" off and press \"Save Permissions\".",
+     "see": "A message reads \"Luis Moreno's permissions saved\"."
+    },
+    {
+     "do": "As the tenant: wait one minute, then reload \"Community Updates\".",
+     "see": "The page reads \"Community updates are not shared with you\" and \"The owner of this home decides whether you see the community's updates. Ask them to turn on View Announcements for you.\" No announcement is listed."
+    },
+    {
+     "do": "As the homeowner: open \"Edit permissions\" on Luis Moreno again, switch \"View Announcements\" back on and press \"Save Permissions\".",
+     "see": "A message reads \"Luis Moreno's permissions saved\"."
+    },
+    {
+     "do": "As the tenant: wait one minute, then reload \"Community Updates\".",
+     "see": "The community's announcements are listed again, as at step 1."
+    }
+   ],
+   "lookFor": [
+    "When the updates were hidden, did the page tell the tenant plainly why and who to ask?"
+   ],
+   "reset": "\"View Announcements\" is on again for Luis Moreno, as it was before the card.",
+   "complements": [
+    "tests/ui/tenant/tenant-announcements.spec.ts",
+    "tests/rules/announcements-tenant-rules.test.js"
+   ],
+   "added": "2026-10-09",
+   "reviewed": "2026-10-09"
+  },
+  {
+   "id": "QA-015",
+   "title": "An owner reports the sale of a home and asks for the transfer package, and the president marks it ready",
+   "feature": "household",
+   "task": "P6a",
+   "decisions": [],
+   "whyManual": "two-people",
+   "whyManualNote": "Two people take turns on the live test site, the seller and the president, and each must see the other's step arrive; the tests use made-up accounts on a local copy and play both parts from one script.",
+   "env": "staging",
+   "start": "/my-household",
+   "accounts": [
+    "homeowner-paid-up",
+    "president"
+   ],
+   "device": "two-devices",
+   "minutes": 12,
+   "precondition": "Run this after the other cards that use Mei Tanaka; the next card (the president names the buyer and confirms the handoff) ends her ownership of 31 Birch Court and needs this one first. The buyer named here is your own address; the next card needs it to be an HOAhx account with a confirmed address. Use two browsers or a private window.",
+   "steps": [
+    {
+     "do": "As the seller: sign in as Mei Tanaka, choose \"My Home\" and open the tab \"Ownership transfer\" (its heading is \"Selling your home\"). Set \"Expected closing date\" to today, type your name in \"Buyer's name\" and your address in \"Buyer's e-mail\", then press \"Report a sale\".",
+     "see": "A message reads \"Sale reported. The community's office will confirm the handoff on the closing day.\" The page shows \"Buyer:\" with your name, the status \"Sale reported\", and \"What happens next:\" and \"Responsible:\" lines."
+    },
+    {
+     "do": "As the seller: read the box \"Before closing\".",
+     "see": "It shows \"Balance:\" with the home's balance, and either \"Nothing is due and nothing is open on this home.\" or a list of open items, each saying who acts next."
+    },
+    {
+     "do": "As the seller: press \"Ask for the transfer package\".",
+     "see": "A message reads \"Transfer package requested. The board will tell you when it is ready.\" and the page says \"Transfer package requested\" with \"Asked on\" today's date."
+    },
+    {
+     "do": "As the president: sign in as Dana Whitfield (password, then the two-step code), choose \"Properties\" in the menu and open 31 Birch Court.",
+     "see": "The home's panel shows \"A sale is reported for this home\", the buyer, \"Before closing\" with the same balance as the seller saw, and \"Transfer package requested\"."
+    },
+    {
+     "do": "As the president: press \"Mark package ready\", type \"Ready to collect at the office\" in \"Note for the seller\" and press \"Mark package ready\" again.",
+     "see": "A message reads \"Transfer package marked ready. The seller was told.\""
+    },
+    {
+     "do": "As the seller: reload the tab \"Ownership transfer\", then open \"Notifications\".",
+     "see": "The page says \"Transfer package ready\" and \"Prepared on\" today's date with the president's note. A notice titled \"Transfer package ready\" is waiting under \"Notifications\"."
+    }
+   ],
+   "lookFor": [
+    "At each step, did the seller and the president know who had to act next?",
+    "Did the notice to the seller say clearly what happened and where to go?"
+   ],
+   "reset": "The sale of 31 Birch Court stays reported, with the package marked ready, until the next card (the handoff) completes it or the next reset of the test accounts puts the cast back.",
+   "complements": [
+    "tests/ui/homeowner/homeowner-report-sale.spec.ts"
+   ],
+   "added": "2026-10-09",
+   "reviewed": "2026-10-14"
+  },
+  {
+   "id": "QA-016",
+   "title": "A homeowner's late fee is added the day after the grace period, once, and the treasurer sees it",
+   "feature": "payments",
+   "task": "CB27",
+   "decisions": [],
+   "whyManual": "time",
+   "whyManualNote": "The fee comes from the morning dues job on the test site, which runs once a day. Time is seeded: Jacob prepares the dates and runs the job by hand at the steps below, because the tests can only run the job on a local copy.",
+   "env": "staging",
+   "start": "/ledger",
+   "accounts": [
+    "treasurer",
+    "homeowner-paid-up"
+   ],
+   "device": "any",
+   "minutes": 12,
+   "precondition": "Jacob has prepared Cedar Hollow for the day: the dues schedule has a flat late fee of $25.00 and a 10-day grace period that ended yesterday, automatic dues posting is on, 31 Birch Court has one unpaid dues charge due on the 1st of this month for the schedule's exact amount, and late fees are not switched on yet. Jacob runs the morning dues job when the card says so and puts everything back after step 7. Run this on the 12th of a month, so the 10-day grace period from the 1st (to the 11th) ended yesterday.",
+   "steps": [
+    {
+     "do": "As the treasurer: sign in as Nadia Adeyemi (password, then the two-step code), choose \"Financials\" in the menu and press \"Invoices\".",
+     "see": "A card reads \"Late fees are set up, not live yet\" and says it is after \"the 10-day grace period\" and that HOAhx adds none \"until HOA HX turns late fees on\"."
+    },
+    {
+     "do": "Keep the treasurer's browser open. As the homeowner: in a second browser or a private window sign in as Mei Tanaka, choose \"Payments\" and note the \"Outstanding Balance\" figure, then choose \"Assessments\" in the menu.",
+     "see": "The unpaid dues are listed, and there is no row for a late fee."
+    },
+    {
+     "do": "As the homeowner: ask Jacob to run the morning dues job now, with late fees still off. Then reload \"Assessments\".",
+     "see": "Still no row for a late fee, and \"Payments\" shows the same balance as before."
+    },
+    {
+     "do": "As the treasurer: ask Jacob to switch late fees on and run the morning dues job again, then reload \"Invoices\".",
+     "see": "The card now reads \"Late fees are automatic\" and says a late fee of $25.00 is added the day after the grace period."
+    },
+    {
+     "do": "As the homeowner: reload \"Assessments\".",
+     "see": "A new row reads \"Late fee: dues for\" the month \"unpaid after\" yesterday's date, marked \"Late fee\", $25.00, \"Open\". The unpaid dues row now reads \"Past due\"."
+    },
+    {
+     "do": "As the homeowner: choose \"Notifications\" in the menu.",
+     "see": "A notice titled \"A late fee was added to your balance — Cedar Hollow\" says the dues were not paid by the last day of the grace period, that $25.00 was added to your balance on today's date, and that \"A payment counts on the day you submit it.\""
+    },
+    {
+     "do": "As the homeowner: choose \"Payments\" in the menu.",
+     "see": "\"Outstanding Balance\" is $25.00 more than the figure you noted before the job ran."
+    }
+   ],
+   "lookFor": [
+    "Does the notice say plainly why the fee was added, when, and what a payment still counts for?",
+    "Is the late fee easy to tell apart from the dues on the Assessments page?"
+   ],
+   "reset": "Jacob switches late fees off, puts back the schedule and the posting setting, and removes the test dues charge, the $25.00 fee and its notice from Mei Tanaka's account. The history of the changes stays, by design. Until then Mei Tanaka owes more than the opening state.",
+   "complements": [
+    "tests/unit/late-fees.test.js",
+    "tests/ui/treasurer/treasurer-invoices.spec.ts",
+    "tests/ui/homeowner/homeowner-invoices.spec.ts"
+   ],
+   "added": "2026-10-09",
+   "reviewed": "2026-10-14"
+  },
+  {
+   "id": "QA-017",
+   "title": "A homeowner asks the Assistant two questions and is sent to a person when it cannot answer",
+   "feature": "help",
+   "task": "CB18",
+   "decisions": [],
+   "whyManual": "third-party",
+   "whyManualNote": "The answer is written by an outside answering service that HOAhx connects to the test site; the tests use a stand-in with fixed text, so only a person can judge a real answer. If that service is down, record Blocked, not Fail.",
+   "env": "staging",
+   "start": "/help",
+   "accounts": [
+    "homeowner-late"
+   ],
+   "device": "any",
+   "minutes": 8,
+   "precondition": "Jacob has switched the Assistant on for the test site and connected its answering service. If the page \"Help\" has no box \"Ask HOAhx Assistant\", or the Assistant says it is \"not available right now\", record Blocked.",
+   "steps": [
+    {
+     "do": "Sign in as Rosa Delgado and choose \"Help\" in the menu (on a phone, tap \"More\" first).",
+     "see": "Besides \"Contact my HOA\" and \"Contact HOA HX technical support\" there is a box \"Ask HOAhx Assistant\" with a button \"Ask a question\"."
+    },
+    {
+     "do": "Press \"Ask a question\".",
+     "see": "A panel titled \"HOAhx Assistant\" opens under \"Try asking\" with the question \"What do I owe, and when is it due?\" and a box \"Your question\" that starts \"For example: when is the pool open?\""
+    },
+    {
+     "do": "Press \"What do I owe, and when is it due?\".",
+     "see": "\"Looking through your community's records…\" shows, then an answer appears within about a minute."
+    },
+    {
+     "do": "Read the answer, then close the panel, choose \"Payments\" in the menu and compare the amount with the answer.",
+     "see": "The answer gives $525.00, the same as the \"Outstanding Balance\", and a due date that matches the \"Oldest due\" date shown under the balance, in plain sentences."
+    },
+    {
+     "do": "In the box \"Your question\" type \"What colour is the clubhouse door?\" and press \"Ask\".",
+     "see": "The answer does not make up a colour. It says it cannot find that, and offers the buttons \"Message my HOA\" and \"Go to Help\"."
+    },
+    {
+     "do": "Press \"Message my HOA\".",
+     "see": "A page headed \"Messages\" opens."
+    }
+   ],
+   "lookFor": [
+    "Is the first answer correct, and in words a homeowner would use?",
+    "When it could not answer, was it clear a person can help, and how to reach one?",
+    "Did the Assistant do anything on your behalf, such as change a record or send a message?"
+   ],
+   "reset": "The two questions stay in the Assistant's panel for this sign-in only.",
+   "complements": [
+    "tests/ui/homeowner/homeowner-assistant.spec.ts"
+   ],
+   "added": "2026-10-09",
+   "reviewed": "2026-10-14"
+  },
+  {
+   "id": "QA-018",
+   "title": "The president names the buyer of a home and confirms the handoff, and the buyer signs in as the new owner",
+   "feature": "household",
+   "task": "P6a",
+   "decisions": [],
+   "whyManual": "two-people",
+   "whyManualNote": "Two people take turns on the live test site, the president and a buyer with a real account and a confirmed e-mail address; the tests use made-up accounts on a local copy and play both parts from one script.",
+   "env": "staging",
+   "start": "/properties",
+   "accounts": [
+    "president"
+   ],
+   "device": "two-devices",
+   "minutes": 15,
+   "precondition": "Run this right after the card \"An owner reports the sale of a home and asks for the transfer package, and the president marks it ready\", and after every other card that uses Mei Tanaka, because it ends her ownership. The buyer is your own address, the one you gave as the buyer's e-mail in that card, already an HOAhx account on the test site with a confirmed address (the account made in the card \"A homeowner names a rental manager, and the manager's invitation e-mail arrives and works\" will do). When the account selector appears, choose its entry for 31 Birch Court, not the Rental Manager entry for 22 Cedar Hollow Lane. Use two browsers or a private window.",
+   "steps": [
+    {
+     "do": "As the president: sign in as Dana Whitfield (password, then the two-step code), choose \"Properties\" in the menu, open 31 Birch Court and press \"Name an Owner\".",
+     "see": "A form asks for \"Email Address\" and \"Reason (required)\"."
+    },
+    {
+     "do": "As the president: type the buyer's address in \"Email Address\" and \"The sale is closing; checked for a hands-on check\" in \"Reason (required)\", then press \"Name Owner\".",
+     "see": "A message reads \"Owner named\" and the buyer appears among the owners in the home's panel."
+    },
+    {
+     "do": "As the president: in the home's panel press \"Confirm handoff\". Leave \"Day the home changed hands\" on its default date (today), choose \"Closing record\" under \"Record you verified\" (it starts on Deed), type \"Hands-on check\" in \"Reference (recording or file number)\" and \"The sale closed; checked for a hands-on check\" in \"Reason (required)\", then press \"Confirm handoff\".",
+     "see": "A message reads \"Handoff confirmed\"."
+    },
+    {
+     "do": "As the buyer: sign in with your own address and choose the entry for 31 Birch Court if the account selector appears. Then choose \"My Home\" and open the tab \"Ownership transfer\".",
+     "see": "It reads \"This home became yours on\" today's date, and \"Payments\" in the menu opens with \"Outstanding Balance\" for 31 Birch Court ($0.00, unless another card has charged this home)."
+    },
+    {
+     "do": "As the buyer: look through \"My Home\".",
+     "see": "It shows the buyer's own household only: it does not list Mei Tanaka or anyone else from her household."
+    }
+   ],
+   "lookFor": [
+    "Did the buyer's \"My Home\" show anyone the buyer does not know, such as the seller's household members?",
+    "Was it clear to the president which step comes first, naming the owner or confirming the handoff?"
+   ],
+   "reset": "31 Birch Court belongs to the buyer and Mei Tanaka has no home until the next reset of the test accounts, which puts the cast back.",
+   "complements": [
+    "tests/ui/president/president-confirm-sale-handoff.spec.ts"
+   ],
+   "added": "2026-10-09",
+   "reviewed": "2026-10-14"
+  },
+  {
+   "id": "QA-019",
+   "title": "A homeowner on a phone asks the board for a hearing about a fine, and reads what happens next",
+   "feature": "violations",
+   "task": "P7",
+   "decisions": [
+    "D-063"
+   ],
+   "whyManual": "judgment",
+   "whyManualNote": "only a person on a real phone can say whether the keyboard hides the box or the button, and whether a homeowner who has just been fined is told plainly",
+   "env": "staging",
+   "start": "/my-violations",
+   "accounts": [
+    "homeowner-owes"
+   ],
+   "device": "phone",
+   "minutes": 8,
+   "precondition": "Jacob has prepared one violation for Jordan Pryce with a fine of $75.00 already charged and not yet paid, titled \"Hands-on check: trailer on the street\", and no hearing request on it. If it is missing from the list at step 2, record Blocked. The violation is at a stage where a fine has been charged (the page shows the $75.00 fine).",
+   "steps": [
+    {
+     "do": "Sign in as Jordan Pryce on your phone and choose \"My Requests\" in the menu (tap \"More\" first).",
+     "see": "The page opens with tabs including \"Violations\"."
+    },
+    {
+     "do": "Tap the tab \"Violations\", then tap \"Hands-on check: trailer on the street\".",
+     "see": "The case opens. Further down is a box headed \"Ask to be heard\" with the sentence \"You can ask the board for a hearing before any lien. While your request is open, no lien goes ahead.\""
+    },
+    {
+     "do": "Look at the button \"Request a hearing\" before you type anything.",
+     "see": "It is greyed out and cannot be pressed."
+    },
+    {
+     "do": "Tap the box \"What you want the board to hear\" and type \"I paid this fine by check on the 2nd.\"",
+     "see": "The phone's keyboard opens. You can still see what you are typing, and \"Request a hearing\" can be reached by scrolling."
+    },
+    {
+     "do": "Tap \"Request a hearing\".",
+     "see": "A message reads \"Violation workflow updated.\""
+    },
+    {
+     "do": "Read the box that now shows at the same place.",
+     "see": "It reads \"You asked for a hearing on\" and today's date, then \"No lien goes ahead until the hearing is held. The board will contact you with a date.\" The box \"Ask to be heard\" and the button \"Request a hearing\" are gone."
+    },
+    {
+     "do": "Close the case, reload the page and open the same case again.",
+     "see": "The same two sentences show. \"Ask to be heard\" does not come back."
+    }
+   ],
+   "lookFor": [
+    "Is it clear, before you ask, that asking does not cancel the fine?",
+    "Is it clear what \"no lien goes ahead\" means for a homeowner who has never heard the word lien?",
+    "After you ask, do you know who will contact you and roughly when?",
+    "Could you type with the keyboard open without losing sight of the box or the button?",
+    "Is the tone calm, with nothing that sounds like blame?"
+   ],
+   "reset": "The hearing request stays open on the violation until the board records it as held, or until the next reset of the test accounts. The card cannot be run twice on the same violation.",
+   "complements": [
+    "tests/ui/cross-role/violation-hearing-second-approval.spec.ts",
+    "tests/unit/violation-hearing-panels.test.tsx"
+   ],
+   "added": "2026-10-14",
+   "reviewed": "2026-10-14"
+  },
+  {
+   "id": "QA-020",
+   "title": "The president reads the violation fee schedule, tries a response time that is too short, and publishes a new version",
+   "feature": "violations",
+   "task": "P7",
+   "decisions": [
+    "D-062",
+    "D-064",
+    "D-066"
+   ],
+   "whyManual": "judgment",
+   "whyManualNote": "The tests prove the fee, the response time and the refusal; only a person can say whether a volunteer president can tell what each column means, and whether the refusal sentence reads right.",
+   "env": "staging",
+   "start": "/violations/fee-schedule",
+   "accounts": [
+    "president"
+   ],
+   "device": "desktop",
+   "minutes": 8,
+   "precondition": "Jacob has published a fee schedule for Cedar Hollow with a fee for \"Parking Violation\". If the page says \"No fee schedule is published yet\", record Blocked.",
+   "steps": [
+    {
+     "do": "Sign in as Dana Whitfield (password, then the two-step code), choose \"Violations\" in the menu and press the link \"Fee schedule\".",
+     "see": "The page \"Violation fee schedule\" opens. Under it a line begins \"Published schedule: version\" and a number, and ends \"A category without a fee is not on the schedule; no fee can be charged for it.\""
+    },
+    {
+     "do": "Read the heading row of the table.",
+     "see": "The columns are \"Category\", \"Fee (at most)\", \"Response time (days)\", \"Dispute window (days)\", \"Hearing request pauses late fees\" and \"Rule named in the notice\"."
+    },
+    {
+     "do": "Scroll down to the box \"Collections policy\" and read it.",
+     "see": "It explains who approves a routine escalation and when a second board member must approve, and has the boxes \"The policy, in the community's words\" and \"Second approval from a balance of ($)\"."
+    },
+    {
+     "do": "In the row \"Parking Violation\", write down the number in \"Parking Violation response time in days\". Then type 1 in that box.",
+     "see": "A red line appears naming \"Parking Violation\" and saying that 1 days is less than the minimum cure time of 48 hours. The button \"Publish schedule\" is greyed out."
+    },
+    {
+     "do": "Type the number you wrote down back into the box.",
+     "see": "The red line goes away and \"Publish schedule\" can be pressed."
+    },
+    {
+     "do": "Press \"Publish schedule\".",
+     "see": "A message reads \"Fee schedule published.\" and the line at the top now reads one version higher than at step 1."
+    }
+   ],
+   "lookFor": [
+    "Could someone who has never seen this page tell what \"Response time\" and \"Dispute window\" are for?",
+    "Does the red line read as a sentence a volunteer would understand, or does \"1 days\" look like a mistake?",
+    "Is it clear that publishing replaces the schedule for every member, and that older versions are kept?",
+    "Does the table fit your screen, and if you make the window narrow, is it still usable without losing the first column?"
+   ],
+   "reset": "The schedule is one version higher with the same fees and times as before. Nothing is undone: the history keeps every version.",
+   "complements": [
+    "tests/ui/president/president-violation-fee-schedule.spec.ts"
+   ],
+   "added": "2026-10-14",
+   "reviewed": "2026-10-14"
+  },
+  {
+   "id": "QA-021",
+   "title": "The president authorizes HOAhx support for one case, and HOAhx support sees it and nothing more",
+   "feature": "platform",
+   "task": "CB4",
+   "decisions": [
+    "D-025",
+    "D-187"
+   ],
+   "whyManual": "two-people",
+   "whyManualNote": "Two people on the live test site: the president gives the permission and HOAhx support sees it on its own screens, after the president signs in again to confirm. The tests put the permission straight into the records; they never press the button.",
+   "env": "staging",
+   "start": "/audit-records?tab=access",
+   "accounts": [
+    "president",
+    "platform-support"
+   ],
+   "device": "two-devices",
+   "minutes": 12,
+   "precondition": "Jacob has named the billing contacts for Cedar Hollow so that Dana Whitfield is its Account Owner (if the page says \"You stand in as Account Owner\", or the button \"Authorize support\" is missing, record Blocked). No support access is authorized for Cedar Hollow now. Use two browsers or a private window.",
+   "steps": [
+    {
+     "do": "As the president: sign in as Dana Whitfield (password, then the two-step code), choose \"Audit Records\" in the menu and open the tab \"Access authorizations\".",
+     "see": "A box \"Access authorizations\" shows the sentence \"No support access has been authorized\" and a button \"Authorize support\"."
+    },
+    {
+     "do": "As the president: press \"Authorize support\".",
+     "see": "A window \"Authorize HOAhx support\" opens with \"Support case\", \"What support may read\", \"For how long\" and \"Why support needs access\"."
+    },
+    {
+     "do": "As the president: type \"Hands-on check: support access\" under \"Support case\" and \"A hands-on check of support access.\" under \"Why support needs access\". Leave the other two as they are, then press \"Authorize access\".",
+     "see": "A window \"Confirm it is you\" asks for your password again."
+    },
+    {
+     "do": "As the president: enter the password (the account panel has it), press \"Continue\", then enter the two-step code and confirm.",
+     "see": "A message reads \"HOAhx support access authorized.\" The list shows \"Hands-on check: support access\", \"Read community settings\", \"Read only\", \"1 hour\", \"Authorized\" with today's time \"by Dana Whitfield (Account Owner)\", and the badge \"Active\". The button \"Authorize support\" is greyed out."
+    },
+    {
+     "do": "As HOAhx support: in the other browser sign in as Marcus Bell (password, then the two-step code), choose \"HOA Clients\" in the menu and open Cedar Hollow.",
+     "see": "A notice \"Support access authorized by the community\" reads: Case \"Hands-on check: support access\", Read community settings, read only, until a time an hour from now, \"Approved by Dana W.\" (first name and last initial only)"
+    },
+    {
+     "do": "As HOAhx support: look for any button that authorizes or revokes access.",
+     "see": "There is none on this page: no \"Authorize support\" and no \"Revoke\"."
+    },
+    {
+     "do": "As HOAhx support: choose \"Platform Users\" in the menu and pick Cedar Hollow in the community filter beside the search box (it reads \"HOA\" until you pick).",
+     "see": "A notice \"Cedar Hollow has authorized support access\" reads: Case \"Hands-on check: support access\": read only, until the same time, and that \"Impersonate\" opens a read-only view of a resident of this community. A button \"Impersonate\" shows beside the people."
+    }
+   ],
+   "lookFor": [
+    "Does the president's page say plainly that support sees nothing unless she allows it, and that she can take it back at any time?",
+    "Is it clear to HOAhx support what it may read, and for how long?",
+    "Is the approver named plainly for the support person, so it is clear who gave the permission?"
+   ],
+   "reset": "The permission stays active for one hour. Leave it for \"The president takes back the permission while HOAhx support is looking\", or end it by pressing \"Revoke\" on the president's page. The history of both stays by design.",
+   "complements": [
+    "tests/ui/platform-support/support-authorization-visible.spec.ts",
+    "tests/ui/platform-support/support-view-as-gate.spec.ts",
+    "tests/ui/president/president-billing-contacts.spec.ts"
+   ],
+   "added": "2026-10-14",
+   "reviewed": "2026-10-14"
+  },
+  {
+   "id": "QA-022",
+   "title": "The president takes back the permission while HOAhx support is looking, and the view ends",
+   "feature": "platform",
+   "task": "CB4",
+   "decisions": [
+    "D-025",
+    "D-187"
+   ],
+   "whyManual": "two-people",
+   "whyManualNote": "Two people at once on two devices: HOAhx support is inside a homeowner's read-only view while the president revokes on the community's own screen. What the support person's browser does at that moment cannot be seen by a test that drives one browser at a time.",
+   "env": "staging",
+   "start": "/platform/users",
+   "accounts": [
+    "platform-support",
+    "president"
+   ],
+   "device": "two-devices",
+   "minutes": 12,
+   "precondition": "Run right after \"The president authorizes HOAhx support for one case, and HOAhx support sees it and nothing more\", within the hour it gave, so that one permission is active for Cedar Hollow. If none is active, repeat the president's steps 2 to 4 of that card first. Use two browsers or a private window.",
+   "steps": [
+    {
+     "do": "As HOAhx support: sign in as Marcus Bell (password, then the two-step code), choose \"Platform Users\" in the menu, pick Cedar Hollow in the community filter beside the search box (it reads \"HOA\" until you pick), type Jordan in \"Search by name or email…\" and press \"Impersonate\".",
+     "see": "A window \"Impersonate User\" says \"You are opening a read-only support view.\""
+    },
+    {
+     "do": "As HOAhx support: press \"Start Impersonation\".",
+     "see": "An orange bar shows \"IMPERSONATION MODE\" and \"READ-ONLY SUPPORT VIEW\", with Jordan Pryce's name, a countdown, and \"Authorized by the community for\" the case \"Hands-on check: support access\"."
+    },
+    {
+     "do": "As HOAhx support: choose \"Payments\" in the menu and leave the page open.",
+     "see": "Jordan Pryce's payments page opens, and nothing on it can be changed."
+    },
+    {
+     "do": "As the president: in the other browser sign in as Dana Whitfield (password, then the two-step code), choose \"Audit Records\" in the menu and open the tab \"Access authorizations\".",
+     "see": "Above the list: \"HOAhx support is looking at your community now, under this authorization. It is read-only, and it ends the moment the authorization ends or you revoke it.\" The row shows a line starting \"HOAhx support is looking now, as\"."
+    },
+    {
+     "do": "As the president: press \"Revoke\" on the row.",
+     "see": "A window \"Revoke support access\" says \"HOAhx support loses access at once.\" with the box \"Why you are revoking it\"."
+    },
+    {
+     "do": "As the president: type \"Hands-on check: revoked while support was in.\" and press \"Revoke access\", enter the password, press \"Continue\", then enter the two-step code.",
+     "see": "A message reads \"HOAhx support access revoked.\" The row shows the badge \"Revoked\" and \"Revoked\" with the time \"by Dana Whitfield: Hands-on check: revoked while support was in.\" The sentence \"HOAhx support is looking at your community now\" is gone, and the button \"Authorize support\" can be pressed again."
+    },
+    {
+     "do": "As the president: read the session line under the row.",
+     "see": "It reads \"HOAhx support looked as\" a role, the times, and \"Ended by the revocation.\""
+    },
+    {
+     "do": "As HOAhx support: within a minute of the revoke, press a menu item such as \"Dashboard\" or reload the page.",
+     "see": "The view of Jordan Pryce ends: the orange bar \"IMPERSONATION MODE\" is gone and no page of Cedar Hollow shows Jordan Pryce's information."
+    },
+    {
+     "do": "As HOAhx support: choose \"Platform Users\" and pick Cedar Hollow in the community filter beside the search box (it reads \"HOA\" until you pick).",
+     "see": "A notice says \"Cedar Hollow has not authorized HOAhx support access for a case, so no read-only view can open.\" and no \"Impersonate\" button shows."
+    }
+   ],
+   "lookFor": [
+    "Did the support person end up somewhere sensible, with a clear sign that access ended, and not on a blank or broken screen?",
+    "Does the president's row tell the full story: who revoked, when, why, and that support was inside at the time?"
+   ],
+   "reset": "No permission is active any more. The revoke and the support session stay in the history by design.",
+   "complements": [
+    "tests/ui/platform-support/support-view-as-gate.spec.ts",
+    "tests/ui/platform-support/support-authorization-visible.spec.ts"
+   ],
+   "added": "2026-10-14",
+   "reviewed": "2026-10-14"
+  },
+  {
+   "id": "QA-023",
+   "title": "A homeowner turns on AutoPay with a new card on the real payment form, and sees the next automatic payment",
+   "feature": "payments",
+   "task": "CB26",
+   "decisions": [
+    "D-118"
+   ],
+   "whyManual": "third-party",
+   "whyManualNote": "The card is typed into NMI's own secure form and kept at NMI so AutoPay can use it later; the automated tests use a stand-in for the form and the stored card. If the sandbox is down, record Blocked, not Fail.",
+   "env": "staging",
+   "start": "/my-payments",
+   "accounts": [
+    "homeowner-autopay"
+   ],
+   "device": "any",
+   "minutes": 10,
+   "precondition": "The test accounts were reset, so Ben Okafor owes $250.00, AutoPay is off and he has no saved method. If the box \"AutoPay\" says anything but \"Not set up\", or the page says \"Online payments not yet available\", record Blocked. If the card fields never appear in the window \"Turn on AutoPay\", the payment sandbox is down: record Blocked. This card does not prove the automatic charge itself on the due date: the payment sandbox cannot run it on demand.",
+   "steps": [
+    {
+     "do": "Sign in as Ben Okafor, choose \"Payments\" in the menu (on a phone, tap \"More\" first) and open the tab \"Payment methods\".",
+     "see": "A box \"AutoPay\" shows the word \"Not set up\" and a switch \"Toggle AutoPay\" that is off."
+    },
+    {
+     "do": "Turn the switch on.",
+     "see": "A window \"Turn on AutoPay\" opens. It says $250.00, how often, \"charged to your saved method on each due date of the community's published schedule\", and offers \"Add a bank account or card\" as the only choice."
+    },
+    {
+     "do": "Choose \"Add a bank account or card\", then \"Card\".",
+     "see": "The card fields of the payment provider appear inside the window."
+    },
+    {
+     "do": "Enter the sandbox test card from the account panel and press \"Turn on AutoPay\".",
+     "see": "A message reads \"AutoPay is on. Next charge\" with a date. The box \"AutoPay\" now says \"Active\", and a line under it names the card, \"$250.00\" and the frequency, and \"Next charge\" with the same date. The date is a due date of the community's published schedule."
+    },
+    {
+     "do": "Choose \"Dashboard\" in the menu.",
+     "see": "A card reads \"Next automatic payment: $250.00 on\" the same day (it may be written differently, for example \"Nov 1, 2026\" here and \"2026-11-01\" in the message), and under it \"From\" followed by the card's name and the last four digits of the sandbox test card."
+    },
+    {
+     "do": "Go back to \"Payments\", tab \"Payment methods\", press \"Cancel\" in the box \"AutoPay\", then press \"Cancel AutoPay\" in the question \"Cancel AutoPay?\".",
+     "see": "A message reads \"AutoPay canceled. You can set it up again at any time.\" and the box says \"Canceled\"."
+    }
+   ],
+   "lookFor": [
+    "Did the card form look like part of HOAhx, not a different website?",
+    "Before pressing \"Turn on AutoPay\", was it clear what would be charged, when, and that it can be stopped?",
+    "On the dashboard, is the next automatic payment easy to find, and does it say which card pays?"
+   ],
+   "reset": "AutoPay is canceled and the card stays saved to Ben Okafor, with no payment made, until the next reset of the test accounts.",
+   "complements": [
+    "tests/ui/homeowner/homeowner-autopay-change.spec.ts",
+    "tests/ui/homeowner/nmi-sandbox-acceptance.spec.ts"
+   ],
+   "added": "2026-10-14",
+   "reviewed": "2026-10-14"
+  },
+  {
+   "id": "QA-024",
+   "title": "The president uploads a PDF, and the Assistant answers a homeowner from a sentence in the body of the file",
+   "feature": "help",
+   "task": "CB18",
+   "decisions": [
+    "D-178"
+   ],
+   "whyManual": "third-party",
+   "whyManualNote": "The words are read out of a real PDF kept in HOAhx's file storage, and the answer is written by an outside answering service; the tests use a stand-in for both. If either is down, record Blocked, not Fail.",
+   "env": "staging",
+   "start": "/documents/admin",
+   "accounts": [
+    "president",
+    "homeowner-paid-up"
+   ],
+   "device": "desktop",
+   "minutes": 12,
+   "precondition": "Jacob has switched the Assistant on for the test site and connected its answering service (if the page \"Help\" has no box \"Ask HOAhx Assistant\" for Mei Tanaka, record Blocked). Use two browsers or a private window. Before you start, make a one-page PDF with a word processor: the only text on it is the sentence \"The mailroom key is kept in the blue box at the clubhouse office.\" Save it as a PDF (not a photo or a scan of paper). This card checks only a PDF made from typed text; a scanned PDF or a Word file cannot be read by the Assistant, by design.",
+   "steps": [
+    {
+     "do": "As the president: sign in as Dana Whitfield (password, then the two-step code) and choose \"Documents\" in the menu.",
+     "see": "The page \"Documents & Files\" opens with the buttons \"New Folder\" and \"Upload Document\"."
+    },
+    {
+     "do": "As the president: press \"Upload Document\". Type \"Hands-on check: house notes\" under \"Title\", choose a \"Category\" (it is required), choose \"Published — visible to residents\" under \"Status\", leave \"Visibility\" on \"All homeowners\", and choose your PDF under \"File *\" (\"Click to select a file\").",
+     "see": "The file name shows in the window."
+    },
+    {
+     "do": "As the president: press \"Upload Document\".",
+     "see": "A message reads \"Document uploaded.\" and \"Hands-on check: house notes\" is in the list."
+    },
+    {
+     "do": "As the homeowner: in the other browser sign in as Mei Tanaka, choose \"Help\" in the menu and press \"Ask a question\".",
+     "see": "The panel \"HOAhx Assistant\" opens with a box \"Your question\"."
+    },
+    {
+     "do": "As the homeowner: type \"Where is the mailroom key kept?\" and press \"Ask\".",
+     "see": "Within about a minute the answer says the key is kept in the blue box at the clubhouse office. It does not name a different place."
+    },
+    {
+     "do": "As the homeowner: type \"Who has the spare mailroom key?\" and press \"Ask\".",
+     "see": "The answer does not make up a name. It says it cannot find that, and offers the buttons \"Message my HOA\" and \"Go to Help\"."
+    }
+   ],
+   "lookFor": [
+    "Is the first answer correct, and in words a homeowner would use?",
+    "Does the answer rely on the sentence inside the file, since the title says nothing about a key?",
+    "When it could not answer the second question, was it clear how to reach a person?"
+   ],
+   "reset": "The document \"Hands-on check: house notes\" stays in the Documents list, visible to every Cedar Hollow homeowner, until the next reset of the test accounts. The president can take it down from the list.",
+   "complements": [
+    "tests/ui/homeowner/homeowner-assistant.spec.ts",
+    "tests/unit/document-text.test.js"
+   ],
+   "added": "2026-10-14",
+   "reviewed": "2026-10-14"
+  },
+  {
+   "id": "QA-025",
+   "title": "The president sends a message to one home, and only that home's owner receives it",
+   "feature": "communications",
+   "task": "CB13",
+   "decisions": [
+    "D-148",
+    "D-150"
+   ],
+   "whyManual": "two-people",
+   "whyManualNote": "Two homeowners on two devices on the live test site: one must receive the message and the other must not. The tests count recipients from a local copy; they never sign in as the people who are left out.",
+   "env": "staging",
+   "start": "/mass-communications",
+   "accounts": [
+    "president",
+    "homeowner-owes",
+    "homeowner-late"
+   ],
+   "device": "two-devices",
+   "minutes": 12,
+   "precondition": "The test accounts were reset. Jordan Pryce is the only person linked to 14 Cedar Hollow Lane. Use two browsers or a private window. \"In-App Notification\" is the only channel offered and is ticked already; if it is not offered, record Blocked. This card proves the in-app notice only: e-mail and text are not offered on this page.",
+   "steps": [
+    {
+     "do": "As the president: sign in as Dana Whitfield (password, then the two-step code) and choose \"Mass Communications\" in the menu.",
+     "see": "The page \"Mass Communications\" opens with the boxes \"Subject\", \"Delivery Channels\" and \"Recipients\"."
+    },
+    {
+     "do": "As the president: type \"Hands-on check: one home\" under \"Subject\" and \"This message is for one home only.\" under \"Body\". Leave \"In-App Notification\" ticked. Under \"Recipient Group\" choose \"Specific homes\".",
+     "see": "A list of homes appears with a box reading \"Search by address\" and the line \"0 of\" the number of homes \"chosen\"."
+    },
+    {
+     "do": "As the president: type 14 Cedar in \"Search by address\" and tick \"14 Cedar Hollow Lane\".",
+     "see": "The line reads \"1 of\" the number of homes \"chosen\"."
+    },
+    {
+     "do": "As the president: press \"Preview Recipient Count\".",
+     "see": "The count reads 1 \"recipient\"."
+    },
+    {
+     "do": "As the president: press \"Review & Send\", read the window \"Confirm Mass Communication\", and press \"Send to 1\".",
+     "see": "The window shows the subject, \"In-App Notification\" and 1 member. Then a message reads \"Message sent\" with \"Delivered to 1 recipient.\""
+    },
+    {
+     "do": "As the first homeowner: in the other browser sign in as Jordan Pryce and choose \"Notifications\" in the menu.",
+     "see": "A notice with the subject \"Hands-on check: one home\" is there, and reading it shows \"This message is for one home only.\""
+    },
+    {
+     "do": "As the second homeowner: sign in as Rosa Delgado in a third browser window (or after signing Jordan out) and choose \"Notifications\".",
+     "see": "There is no notice \"Hands-on check: one home\"."
+    },
+    {
+     "do": "As the president: press \"History\" at the top of \"Mass Communications\", then open the top row.",
+     "see": "The top row reads \"Hands-on check: one home\" with \"1 recipients\", and once opened says \"Sent by Dana Whitfield\"."
+    }
+   ],
+   "lookFor": [
+    "Was it easy to find the right home and be sure of the choice before sending?",
+    "Does the confirmation window make clear, before it is too late, how many people will get it?",
+    "Is the notice as Jordan Pryce reads it plain, with nothing that suggests it went to others?"
+   ],
+   "reset": "The notice stays in Jordan Pryce's notifications and the send stays in the history, permanently by design, until the next reset of the test accounts.",
+   "complements": [
+    "tests/ui/president/president-mass-targeting.spec.ts",
+    "tests/unit/mass-comm-audience.test.js"
+   ],
+   "added": "2026-10-14",
+   "reviewed": "2026-10-14"
+  },
+  {
+   "id": "QA-026",
+   "title": "A homeowner adds HOA HX to an iPhone home screen, and it opens from the icon and stays signed in",
+   "feature": "phone",
+   "decisions": [],
+   "whyManual": "real-device",
+   "whyManualNote": "The icon, its name and the full-screen start are drawn by the iPhone itself from what the site declares; a desktop browser in a test cannot show how iPhone Safari frames the icon or whether the app keeps the person signed in.",
+   "env": "staging",
+   "start": "/auth/login",
+   "accounts": [
+    "homeowner-paid-up"
+   ],
+   "device": "iphone",
+   "minutes": 8,
+   "precondition": "An iPhone with Safari. No icon named \"HOA HX\" is on its home screen already (press and hold it and remove it first if there is one).",
+   "steps": [
+    {
+     "do": "In Safari on the iPhone open the address of the test site (it is shown at the top of this page).",
+     "see": "The HOAhx sign-in page opens."
+    },
+    {
+     "do": "Tap the Share button at the bottom of Safari and choose \"Add to Home Screen\".",
+     "see": "A sheet shows the name \"HOA HX\" already filled in, and an icon with the HX mark on a full square, with no white frame around it and no corners cut off."
+    },
+    {
+     "do": "Tap \"Add\".",
+     "see": "An icon named \"HOA HX\" is on the home screen, with the HX mark crisp, not blurry, and centred."
+    },
+    {
+     "do": "Tap the new icon.",
+     "see": "HOA HX opens full screen, with no Safari address bar or buttons at the bottom. The sign-in page opens."
+    },
+    {
+     "do": "Sign in as Mei Tanaka.",
+     "see": "The dashboard opens."
+    },
+    {
+     "do": "Swipe up to close HOA HX, then tap the icon again.",
+     "see": "It opens on the dashboard again without asking for the password."
+    }
+   ],
+   "lookFor": [
+    "Does the icon look like the HOAhx brand and like the other apps on the phone, with nothing cut off, stretched or on a white background?",
+    "Does the name under the icon read \"HOA HX\" in full?",
+    "Does anything at the top or bottom of the screen sit under the phone's clock, notch or home bar?",
+    "Does a branded loading screen show, not a blank white page, while it opens?"
+   ],
+   "reset": "Press and hold the \"HOA HX\" icon and remove it from the home screen.",
+   "complements": [],
+   "added": "2026-10-14",
+   "reviewed": "2026-10-14"
+  },
+  {
+   "id": "QA-027",
+   "title": "Running the morning dues job a second time does not add a second late fee",
+   "feature": "payments",
+   "task": "CB27",
+   "decisions": [],
+   "whyManual": "time",
+   "whyManualNote": "The fee comes from the morning dues job on the test site, which runs once a day. Time is seeded: Jacob runs the job by hand a second time, because the tests can only run the job on a local copy.",
+   "env": "staging",
+   "start": "/my-payments",
+   "accounts": [
+    "homeowner-paid-up"
+   ],
+   "device": "any",
+   "minutes": 6,
+   "precondition": "The card \"A homeowner's late fee is added the day after the grace period, once, and the treasurer sees it\" has just passed in the same sitting: Mei Tanaka has exactly one late fee of $25.00 on her account, and Jacob has not yet put things back.",
+   "steps": [
+    {
+     "do": "As the homeowner: sign in as Mei Tanaka, choose \"Payments\" in the menu and note the \"Outstanding Balance\" figure, then choose \"Assessments\" and count the rows marked \"Late fee\".",
+     "see": "There is exactly one row marked \"Late fee\", $25.00, \"Open\"."
+    },
+    {
+     "do": "As the homeowner: ask Jacob to run the morning dues job again. Then reload \"Assessments\".",
+     "see": "There is still exactly one row marked \"Late fee\", $25.00, the same date as before."
+    },
+    {
+     "do": "As the homeowner: choose \"Payments\" in the menu.",
+     "see": "\"Outstanding Balance\" is the same figure you noted at step 1."
+    },
+    {
+     "do": "As the homeowner: choose \"Notifications\" in the menu.",
+     "see": "There is one notice titled \"A late fee was added to your balance — Cedar Hollow\", not two."
+    }
+   ],
+   "lookFor": [],
+   "reset": "Jacob puts everything back as the reset of the late fee card says.",
+   "complements": [
+    "tests/unit/late-fees.test.js"
+   ],
+   "added": "2026-10-14",
+   "reviewed": "2026-10-14"
+  },
+  {
+   "id": "QA-028",
+   "title": "A homeowner makes a guest parking pass, and a real phone camera reads its code at the gate",
+   "feature": "phone",
+   "task": "F40",
+   "decisions": [
+    "D-162"
+   ],
+   "whyManual": "real-device",
+   "whyManualNote": "The code is a picture drawn on the screen and read by a phone camera; the tests only prove that the picture holds the right link, never that a real camera reads it and opens the right page.",
+   "env": "staging",
+   "start": "/my-visitors",
+   "accounts": [
+    "homeowner-paid-up"
+   ],
+   "device": "two-devices",
+   "minutes": 8,
+   "precondition": "A computer for Mei Tanaka and a phone (iPhone or Android) whose camera app reads codes of this kind and which is not signed in to HOA HX. Run this before the cards that sell Mei Tanaka's home. The first time the tab \"Parking & gate info\" opens it sets up the home's spaces (two by default). If it reads \"No parking spots assigned\" instead, record Blocked. If \"Visitors\" is not in the menu, record Blocked.",
+   "steps": [
+    {
+     "do": "On the computer, sign in as Mei Tanaka, choose \"Visitors\" in the menu and open the tab \"Parking & gate info\".",
+     "see": "\"My Parking\" lists the home's spaces (named \"Spot ...\"), each with the button \"Generate Guest Pass\"."
+    },
+    {
+     "do": "Press \"Generate Guest Pass\" on the first space.",
+     "see": "A window titled \"Generate Guest Pass\" opens with \"Duration\" set to \"4 Hours\", and boxes \"Guest Name\" and \"Vehicle Info\"."
+    },
+    {
+     "do": "Type \"Hands-on guest\" in \"Guest Name\" and \"Blue test car\" in \"Vehicle Info\", leave \"Duration\" as it is, and press \"Generate\".",
+     "see": "The window reads \"Guest Pass Created\" and shows a square code with the sentence \"The guest shows this code at the gate. Anyone with it can use the pass until it ends.\" Under \"Pass Details\", \"Expires\" is about four hours from now, \"Guest\" is Hands-on guest and \"Vehicle\" is Blue test car."
+    },
+    {
+     "do": "On the phone, open the camera app and hold it about 20 cm from the computer screen, with the whole code in view, until a link appears. Tap the link.",
+     "see": "The camera picks the code up within a few seconds and offers a link to the test site. Tapping it opens a page with the HOA HX logo at the top, with no sign-in asked."
+    },
+    {
+     "do": "On the phone, read the top of the page.",
+     "see": "The heading reads \"Valid\" and the line under it reads \"Valid now, until\" followed by a time about four hours from now."
+    },
+    {
+     "do": "On the phone, read the rest of the page.",
+     "see": "It shows the space name in large type, with the two labels \"Guest parking pass\" and \"Active\", then \"From\" and \"Until\" with times. Neither \"Hands-on guest\" nor \"Blue test car\" appears. The foot of the page reads \"Checked by HOA HX. Each check of a pass is recorded in the community's visitor log.\""
+    },
+    {
+     "do": "On the computer, press \"Done\".",
+     "see": "Under \"Guest passes in use\" the row \"Hands-on guest\" shows the space and \"until\" the same time, with a \"Revoke\" button."
+    }
+   ],
+   "lookFor": [
+    "Did the camera read the code at a normal reading distance, without moving the phone around?",
+    "Is \"Valid\" the first thing you read on the phone, big enough to read at a glance?",
+    "Would a gate guard who has never seen HOA HX know what the page means?"
+   ],
+   "reset": "The pass stays valid for its four hours, listed under \"Guest passes in use\" on Mei Tanaka's \"Parking & gate info\" tab, until it ends or someone presses \"Revoke\". It ends by itself after four hours, or press \"Revoke\".",
+   "complements": [
+    "tests/ui/homeowner/homeowner-pass-gate-check.spec.ts",
+    "tests/ui/president/president-parking-rules.spec.ts",
+    "tests/unit/pass-check-code.test.tsx"
+   ],
+   "added": "2026-10-14",
+   "reviewed": "2026-10-14"
+  },
+  {
+   "id": "QA-029",
+   "title": "A homeowner sends a guest parking pass through the phone's share sheet, then revokes it, and the guest's link stops working",
+   "feature": "phone",
+   "task": "P11b",
+   "decisions": [
+    "D-162",
+    "D-163"
+   ],
+   "whyManual": "real-device",
+   "whyManualNote": "The share sheet is the phone's own menu of apps and only a real iPhone or Android phone opens it, and only a phone shows whether the link a guest receives opens the right page and then reads Revoked; the tests cannot open a share sheet or receive a message.",
+   "env": "staging",
+   "start": "/my-visitors",
+   "accounts": [
+    "homeowner-paid-up"
+   ],
+   "device": "phone",
+   "minutes": 10,
+   "precondition": "A phone (iPhone with Safari, or Android with Chrome) and an app on it where you can keep a link you share to yourself, such as Notes or a message to yourself. Run this before the cards that sell Mei Tanaka's home. The first time the tab \"Parking & gate info\" opens it sets up the home's spaces (two by default). If it reads \"No parking spots assigned\" instead, record Blocked. If \"Visitors\" is not in the menu, record Blocked. If the card \"A homeowner makes a guest parking pass, and a real phone camera reads its code at the gate\" was run first, its pass also shows under \"Guest passes in use\"; leave it alone.",
+   "steps": [
+    {
+     "do": "On the phone, sign in as Mei Tanaka, tap \"More\", choose \"Visitors\" and open the tab \"Parking & gate info\".",
+     "see": "\"My Parking\" lists the home's spaces (named \"Spot ...\"), each with the button \"Generate Guest Pass\"."
+    },
+    {
+     "do": "Tap \"Generate Guest Pass\" on the first space, type \"Hands-on guest 2\" in \"Guest Name\" and tap \"Generate\".",
+     "see": "The window reads \"Guest Pass Created\" with the code, and under it two buttons: \"Copy link\" and \"Share\". (If there is no \"Share\" button, record Fail and name the phone and browser.)"
+    },
+    {
+     "do": "Tap \"Share\".",
+     "see": "The phone's own share sheet opens, listing apps such as Messages or Notes."
+    },
+    {
+     "do": "Choose the app where you keep a link for yourself and save or send it.",
+     "see": "The saved item is a link to the test site with \"parking/validate\" in it, and HOA HX still shows the window \"Guest Pass Created\"."
+    },
+    {
+     "do": "Tap \"Done\".",
+     "see": "Under \"Guest passes in use\" the row \"Hands-on guest 2\" shows the space and \"until\" a time about four hours away, with a \"Revoke\" button."
+    },
+    {
+     "do": "As the guest would, open the saved link from the app where you kept it.",
+     "see": "A page opens with the heading \"Valid\" and the line \"Valid now, until\" followed by a time about four hours away."
+    },
+    {
+     "do": "Go back to HOA HX and tap \"Revoke\" on the row \"Hands-on guest 2\".",
+     "see": "A window titled \"Revoke this guest pass?\" reads \"Hands-on guest 2's pass stops working at the gate right away. The change is kept in the home's history.\" It has a \"Reason\" box and the buttons \"Keep the pass\" and \"Revoke pass\"."
+    },
+    {
+     "do": "Type \"My guest left early\" in \"Reason\" and tap \"Revoke pass\".",
+     "see": "A message reads \"Guest pass revoked. It no longer opens the gate.\" and the row \"Hands-on guest 2\" is gone from \"Guest passes in use\"."
+    },
+    {
+     "do": "As the guest would, open the saved link again (reload the page if it is still open).",
+     "see": "The heading reads \"Revoked\" and the line under it reads \"This pass was cancelled before it ended. It no longer allows entry.\""
+    }
+   ],
+   "lookFor": [
+    "Was it clear what the guest would receive before you pressed \"Share\"?",
+    "Did the share sheet open at once, and was the link easy to find in the app you chose?",
+    "After revoking, was it clear to you that the guest could no longer get in?"
+   ],
+   "reset": "The pass stays revoked, and the revoke stays in the home's history with your reason, for good. The link you saved is harmless: it now reads \"Revoked\".",
+   "complements": [
+    "tests/ui/homeowner/homeowner-guest-pass-revoke.spec.ts",
+    "tests/ui/homeowner/homeowner-pass-gate-check.spec.ts",
+    "tests/ui/president/president-parking-permits.spec.ts"
+   ],
+   "added": "2026-10-14",
+   "reviewed": "2026-10-14"
+  },
+  {
+   "id": "QA-030",
+   "title": "A tenant answers a violation notice with a photo taken on a phone, and the president opens the same photo",
+   "feature": "violations",
+   "task": "P9",
+   "decisions": [
+    "D-068"
+   ],
+   "whyManual": "third-party",
+   "whyManualNote": "The photo is stored in HOAhx's real file storage (Google's file storage) and opened by a second account; the tests place the photo by hand because the local copy has no real storage and no camera. If Google's storage is down, record Blocked, not Fail.",
+   "env": "staging",
+   "start": "/violations",
+   "accounts": [
+    "president",
+    "tenant"
+   ],
+   "device": "phone",
+   "minutes": 12,
+   "precondition": "A phone with a camera for Luis Moreno. The president can use a computer or the same phone after the tenant signs out. Mei Tanaka has not switched off \"View Fine/Violation Notices\" for Luis Moreno (it is on unless she turns it off). If Luis Moreno is not offered under \"Resident\" at step 1, or his \"Violations\" tab is hidden at step 2, record Blocked. If the photo cannot be sent because the storage service answers with an error, record Blocked.",
+   "steps": [
+    {
+     "do": "As the president: sign in as Dana Whitfield (password, then the two-step code), choose \"Violations\" in the menu and press \"Issue violation\". In the window \"Create Violation\" choose Luis Moreno under \"Resident\" (and his home under \"Property\" if it asks), type \"Hands-on check: photo answer\" in \"Title\" and \"This is a test notice for a hands-on check. No action is needed.\" in \"Description\", then press \"Create Violation\".",
+     "see": "A message reads \"Violation created successfully.\" and \"Hands-on check: photo answer\" is in the list."
+    },
+    {
+     "do": "As the tenant, on the phone: sign in as Luis Moreno, tap \"Requests\" at the bottom of the screen and open the tab \"Violations\".",
+     "see": "\"Hands-on check: photo answer\" is listed."
+    },
+    {
+     "do": "As the tenant: tap \"Hands-on check: photo answer\".",
+     "see": "The notice opens with the heading \"Respond to this notice\", the line \"Send one appeal or report that the issue has been cured.\" and a \"Statement\" box."
+    },
+    {
+     "do": "As the tenant: type \"The test item was moved the same day; the photo shows it.\" in the \"Statement\" box, then tap \"Choose images or PDFs\" under \"Appeal evidence (optional, up to three files)\" and choose \"Take Photo\" or \"Camera\" if the phone offers it, or any photo already on the phone.",
+     "see": "The phone offers its camera (or its photos) and, once you take the picture, the line reads \"1 file selected\"."
+    },
+    {
+     "do": "As the tenant: tap \"Send appeal\".",
+     "see": "A message reads \"Violation workflow updated.\", the notice closes, and in the list \"Hands-on check: photo answer\" now reads \"Appeal Pending\"."
+    },
+    {
+     "do": "As the president, on the computer: sign in again as Dana Whitfield if you signed out, choose \"Violations\" and open \"Hands-on check: photo answer\".",
+     "see": "Under \"Enforcement action\", a box \"The homeowner's appeal\" shows the tenant's words \"The test item was moved the same day; the photo shows it.\" and, under \"Files attached to the appeal\", the line \"Attachment 1 (photo)\"."
+    },
+    {
+     "do": "As the president: press \"Attachment 1 (photo)\".",
+     "see": "The photo the tenant took opens in a new tab: the same picture, not blank, with no error, and the line \"Attachment 1 (photo)\" does not read \"could not be opened\"."
+    }
+   ],
+   "lookFor": [
+    "Was it clear to the tenant that the photo is optional and that up to three files can be sent?",
+    "Was it clear to the tenant, after sending, that the board now has the appeal?"
+   ],
+   "reset": "The notice stays with its appeal pending, and the photo stays in storage, until the president decides the appeal; the reset of the test accounts does not remove it.",
+   "complements": [
+    "tests/ui/tenant/tenant-violation-response.spec.ts",
+    "tests/ui/homeowner/homeowner-home-violation-notices.spec.ts",
+    "tests/rules/storage-rules.test.js"
+   ],
+   "added": "2026-10-14",
+   "reviewed": "2026-10-14"
+  },
+  {
+   "id": "QA-037",
+   "title": "A homeowner who booked the clubhouse gets one reminder the day before, by e-mail and in Notifications, and no second one",
+   "feature": "communications",
+   "milestone": "M16",
+   "task": "AMN-b",
+   "decisions": [],
+   "whyManual": "time",
+   "whyManualNote": "The reminder is sent by the morning job (08:00, Denver time) the day before, as a real e-mail through the e-mail service; the automated tests only write the notice by hand. The time is produced by waiting for the next run: start this card on one day, finish it on the next two mornings.",
+   "env": "staging",
+   "start": "/my-clubhouse",
+   "accounts": [
+    "homeowner-paid-up"
+   ],
+   "device": "any",
+   "minutes": 10,
+   "precondition": "The test accounts were reset. Before the run, the person who looks after the test site has switched reservation reminders on for the test site and has pointed Mei Tanaka's test e-mail at an inbox you can read for these days; if that is not so, record Blocked. The clubhouse confirms bookings right away; if step 3 reads \"Reservation Submitted!\" instead, record Blocked. Do the first part on day one, before the job's next 08:00 (Denver time) run is over; the rest on the two mornings after. If the e-mail service is down, record Blocked, not Fail.",
+   "steps": [
+    {
+     "do": "Day one: sign in as Mei Tanaka and choose \"My Amenities\" in the menu (on a phone, \"More\" first).",
+     "see": "The page \"Book the Clubhouse\" opens, with \"Select Date\" and a calendar."
+    },
+    {
+     "do": "Under \"Select Date\" choose the day after tomorrow, then under \"Select Time\" choose a start and an end time one hour apart, at a time the calendar shows as free.",
+     "see": "The heading \"Select Time\" shows that day's name, and \"Booking Summary\" shows the day and times you chose."
+    },
+    {
+     "do": "Type \"Hands-on check: reminder\" in \"Event Name\", 2 in \"Number of Attendees\", and press \"Confirm reservation\".",
+     "see": "A message reads \"Reservation Confirmed!\"."
+    },
+    {
+     "do": "Look at \"My Bookings\" on the same page.",
+     "see": "Under \"Upcoming\" the booking \"Hands-on check: reminder\" is listed on the day after tomorrow, at the times you chose."
+    },
+    {
+     "do": "Day two, after 8:30 in the morning Denver time: open the inbox for Mei Tanaka's address (look in spam too).",
+     "see": "Exactly one e-mail has arrived, with a subject that starts \"Reminder: your reservation at\" and ends with \"is tomorrow — Cedar Hollow\". It names \"Hands-on check: reminder\", the day and the hours, and has a link \"Open My Reservations\". It is not in spam."
+    },
+    {
+     "do": "Press \"Open My Reservations\" in the e-mail (sign in as Mei Tanaka if asked).",
+     "see": "The test site opens on the page with \"My Bookings\", where the booking is listed."
+    },
+    {
+     "do": "Choose \"Notifications\" in the menu (on a phone, tap \"More\" first).",
+     "see": "One notice with the same title as the e-mail is listed. There is not a second one."
+    },
+    {
+     "do": "Day three, after 8:30 in the morning Denver time (the day of the booking): look at the inbox and at \"Notifications\" again.",
+     "see": "Still exactly one reminder e-mail and one reminder notice. No second reminder arrived."
+    }
+   ],
+   "lookFor": [
+    "Did the e-mail say plainly which booking, which day and which hours?",
+    "Did the link take you where you could see the booking?"
+   ],
+   "reset": "The booking stays on Mei Tanaka's account and the reminder stays in her notices until the next reset of the test accounts. Cancel the booking from \"My Bookings\" if you want to book the same day again.",
+   "complements": [
+    "tests/ui/homeowner/homeowner-reservation-reminders.spec.ts"
+   ],
+   "added": "2026-10-18",
+   "reviewed": "2026-10-21"
+  },
+  {
+   "id": "QA-039",
+   "title": "The president pays the community's past-due HOAhx balance with the card on file, on the real payment processor",
+   "feature": "payments",
+   "milestone": "M15",
+   "task": "SB6",
+   "decisions": [
+    "D-060",
+    "D-061"
+   ],
+   "whyManual": "third-party",
+   "whyManualNote": "The charge goes to the payment processor's sandbox (NMI) and must come back approved; the automated tests answer for the processor with a made-up reply. If the processor's sandbox itself is down, record Blocked, not Fail.",
+   "env": "staging",
+   "start": "/my-subscription",
+   "accounts": [
+    "president"
+   ],
+   "device": "any",
+   "minutes": 8,
+   "precondition": "The person who looks after the test site has put Cedar Hollow's HOAhx plan in an unpaid state, with a card on file, and has switched HOAhx's own payment account on for the test site (the president cannot do this). If no banner about an unpaid balance shows at step 1, or step 2 says there is no payment method on file, record Blocked. Run this once: the balance stays paid until the person who looks after the test site makes it unpaid again.",
+   "steps": [
+    {
+     "do": "Sign in as Dana Whitfield (password, then the two-step code), then go to the test site's address followed by /my-subscription.",
+     "see": "The page \"HOA Platform Subscription\" opens. A banner at the top has a title that starts \"Your community's HOAhx subscription\" and says it has an unpaid balance or is past due. It shows a line \"$… is owed.\" with a dollar amount, and says \"This is your community's own HOAhx subscription. It is separate from homeowner dues.\" The buttons \"Pay balance\" and \"Update payment method\" are in the banner."
+    },
+    {
+     "do": "Write down the amount in the banner, then press \"Pay balance\".",
+     "see": "A section headed \"Pay the balance\" opens. It says \"This pays your community's HOAhx subscription balance. It is separate from homeowner dues.\" and, under it, the same amount you wrote down \"is charged now to the card on file.\" The button reads \"Pay $X now\", where $X is the amount you wrote down."
+    },
+    {
+     "do": "Press the button that reads \"Pay $X now\" once. If the page asks for your password again, enter Dana Whitfield's password and confirm.",
+     "see": "The button shows it is working, then the section changes to \"Payment received, confirming. This can take a few minutes for a card and a few days for a bank account.\" and \"Full access returns once the payment is confirmed. Nothing else is needed from you.\" No message says the payment was declined."
+    },
+    {
+     "do": "Reload the page.",
+     "see": "The banner says \"Payment received, confirming.\" and \"Nothing more is owed while the payment is confirmed.\" The button \"Pay balance\" is gone, so there is no way to pay a second time."
+    }
+   ],
+   "lookFor": [
+    "Is the amount owed the first thing you read in the banner?",
+    "Does the banner say plainly that this is the community's own HOAhx subscription and not homeowner dues?",
+    "After paying, can you tell what happens next and who has to do anything?"
+   ],
+   "expectNotProvable": "Full access coming back once the payment is confirmed is not built yet, so this card stops at \"Payment received, confirming\". It cannot show a bank payment coming back unpaid.",
+   "reset": "The balance shows as paid and confirming until the person who looks after the test site makes it unpaid again; the reset of the test accounts does not do it.",
+   "complements": [
+    "tests/ui/president/president-subscription-pay-balance.spec.ts"
+   ],
+   "added": "2026-10-19",
+   "reviewed": "2026-10-19"
+  },
+  {
+   "id": "QA-040",
+   "title": "A board member asks for a confirmation code on the get-started page, and the e-mail with the code arrives",
+   "feature": "invitations",
+   "milestone": "M16",
+   "task": "CB29",
+   "decisions": [],
+   "whyManual": "third-party",
+   "whyManualNote": "The 6-digit code is sent as a real e-mail through HOAhx's e-mail service; the automated tests read the code from the test's own records and never see an inbox. If the e-mail service is down and no e-mail comes, record Blocked, not Fail.",
+   "env": "staging",
+   "start": "/get-started",
+   "accounts": [],
+   "device": "any",
+   "minutes": 8,
+   "precondition": "Use your own e-mail address that you can read now; the test accounts' addresses receive nothing. You start signed out. Nothing is set up by this card.",
+   "steps": [
+    {
+     "do": "Go to the test site's address followed by /get-started.",
+     "see": "The page says \"Let’s get you started\" and asks \"Which of these describes you?\" with three choices: \"Board member\", \"Property manager\" and \"Homeowner or tenant\". The button \"Continue\" cannot be pressed yet."
+    },
+    {
+     "do": "Choose \"Board member\" and press \"Continue\".",
+     "see": "A page headed \"Enter your email\" opens and says \"We will send a 6-digit code to confirm it. Nothing is set up yet.\""
+    },
+    {
+     "do": "Type your own address in \"Email\" and press \"Send code\".",
+     "see": "The heading becomes \"Enter the 6-digit code\", and the page says it sent the code to your address and that it works for 10 minutes."
+    },
+    {
+     "do": "Open your inbox for that address (look in spam too).",
+     "see": "One e-mail has arrived in your inbox, not in spam, with the subject \"Your HOAhx confirmation code\". It says \"Your HOAhx confirmation code is\" followed by 6 digits, and \"It works for 10 minutes.\""
+    },
+    {
+     "do": "Type 6 digits that are not the code in the e-mail into \"Code\" and press \"Confirm\".",
+     "see": "A red message reads \"That code is not right. You have 4 tries left.\""
+    },
+    {
+     "do": "Press \"Send a new code\", then look at your inbox again.",
+     "see": "A message reads \"A new code is on its way.\" A second e-mail arrives with a different code."
+    },
+    {
+     "do": "Type the code from the newest e-mail into \"Code\" and press \"Confirm\".",
+     "see": "The page says \"Email confirmed\" and \"is confirmed\" after your address, and \"Next: set up your community. Opening soon.\""
+    }
+   ],
+   "lookFor": [
+    "Did the e-mail look like it came from HOAhx, and was its sender what you would expect?",
+    "Did the page make it clear that nothing is set up yet?"
+   ],
+   "reset": "Nothing is created. The code and the confirmation lapse on their own within 30 minutes.",
+   "complements": [
+    "tests/ui/public/get-started.spec.ts"
+   ],
+   "added": "2026-10-19",
+   "reviewed": "2026-10-19"
+  },
+  {
+   "id": "QA-041",
+   "title": "A home seller pays the community's transfer package fee with the real card form, and the president sees the receipt",
+   "feature": "household",
+   "milestone": "M16",
+   "task": "P6b",
+   "decisions": [
+    "D-205"
+   ],
+   "whyManual": "third-party",
+   "whyManualNote": "The fee is a real charge through the payment processor's sandbox (NMI), typed into its own card fields; the automated tests use a made-up payment reply. If the processor's sandbox is down, record Blocked, not Fail.",
+   "env": "staging",
+   "start": "/my-household",
+   "accounts": [
+    "homeowner-paid-up",
+    "president"
+   ],
+   "device": "any",
+   "minutes": 12,
+   "precondition": "The person who looks after the test site has set Cedar Hollow's transfer package fee to $1.00 (the sandbox declines anything under $1.00) and has switched Cedar Hollow's payments on. Use this card in place of the package step of the check \"An owner reports the sale of a home and asks for the transfer package, and the president marks it ready\", never after it: if Mei Tanaka already asked for the package, record Blocked until the test accounts are reset. Use two browsers or a private window. If the payment form never appears, record Blocked.",
+   "steps": [
+    {
+     "do": "As the seller: sign in as Mei Tanaka, choose \"My Home\" and open the tab \"Ownership transfer\". If no sale is open, set \"Expected closing date\" to today, type your own name in \"Buyer's name\" and your own e-mail address in \"Buyer's e-mail\", then press \"Report a sale\".",
+     "see": "The heading \"Selling your home\" shows \"Buyer:\" with your name and the status \"Sale reported\"."
+    },
+    {
+     "do": "As the seller: read the box \"Transfer package\".",
+     "see": "It says \"Your community charges $1.00 for the transfer package.\" and has a button \"Pay $1.00 and ask for the transfer package\". There is no button \"Ask for the transfer package\"."
+    },
+    {
+     "do": "As the seller: press \"Pay $1.00 and ask for the transfer package\".",
+     "see": "It says \"Pay $1.00 for the transfer package. No card fee is added.\" and shows the choices \"Card\" and \"Bank account\" with the payment provider's card fields."
+    },
+    {
+     "do": "As the seller: press \"Pay $1.00\" with the fields empty.",
+     "see": "A red message reads \"Enter your card or bank account details to pay the fee.\" Nothing is charged."
+    },
+    {
+     "do": "As the seller: with \"Card\" chosen, enter the sandbox test card (it is on the account panel) and press \"Pay $1.00\".",
+     "see": "A message reads \"Fee paid and transfer package requested. The board will tell you when it is ready.\" The box now says \"Transfer package requested\" and \"Transfer package fee paid\", with \"$1.00 on\" today's date and a receipt number."
+    },
+    {
+     "do": "As the president: sign in as Dana Whitfield (password, then the two-step code), choose \"Properties\" and click the row for 31 Birch Court.",
+     "see": "The panel shows \"Transfer package requested\", \"The community charges $1.00 for the package. The seller pays it when asking.\" and \"Transfer package fee paid\" with $1.00 and the same receipt number the seller saw."
+    }
+   ],
+   "lookFor": [
+    "Did the seller know before paying what the $1.00 was for and that nothing is saved?",
+    "Was the receipt clear enough to keep as proof of payment?"
+   ],
+   "expectNotProvable": "A bank payment for this fee coming back unpaid cannot be produced on the sandbox, and the page does not handle that case yet.",
+   "reset": "The sale of 31 Birch Court stays reported with the package requested and the $1.00 receipt until the next reset of the test accounts puts the cast back.",
+   "complements": [
+    "tests/ui/homeowner/homeowner-report-sale.spec.ts",
+    "tests/ui/president/president-confirm-sale-handoff.spec.ts"
+   ],
+   "added": "2026-10-19",
+   "reviewed": "2026-10-19"
+  },
+  {
+   "id": "QA-042",
+   "title": "A title company gets the e-mail for a home's transfer package, signs in from its link and opens the package",
+   "feature": "household",
+   "milestone": "M16",
+   "task": "P6b",
+   "decisions": [
+    "D-204"
+   ],
+   "whyManual": "third-party",
+   "whyManualNote": "The link reaches the title company as a real e-mail through HOA HX's e-mail service, and the link in that e-mail must open the package after sign-in; the automated tests never see an inbox and open the link by its address. If the e-mail service is down and no e-mail comes, record Blocked, not Fail.",
+   "env": "staging",
+   "start": "/properties",
+   "accounts": [
+    "president"
+   ],
+   "device": "any",
+   "minutes": 10,
+   "precondition": "Run this after the check \"An owner reports the sale of a home and asks for the transfer package, and the president marks it ready\" (with the note \"Ready to collect at the office\") and before the check where the president names the buyer and confirms the handoff: 31 Birch Court needs a reported sale with its package marked ready. You play the title company with your own e-mail address that you can read now and that already has an account on the test site with a confirmed address (the test accounts' addresses receive nothing). Use two browsers or a private window for the title company. If 31 Birch Court has no reported sale, record Blocked.",
+   "steps": [
+    {
+     "do": "As the president: sign in as Dana Whitfield (password, then the two-step code), choose \"Properties\" in the menu and open 31 Birch Court.",
+     "see": "The panel shows \"A sale is reported for this home\" with \"Expected closing\" and a date (write that date down) and \"Prepared on\" and a date (write that date down), and a box \"Title company access\" that reads \"No title company can open this package.\" with a button \"Share with a title company\"."
+    },
+    {
+     "do": "As the president: press \"Share with a title company\".",
+     "see": "A form opens with the fields \"Title company's e-mail\", \"Company name\", \"Last day they can open it\" and \"Reason\", and the buttons \"Not now\" and \"Share the package\"."
+    },
+    {
+     "do": "As the president: type your own e-mail address in \"Title company's e-mail\", \"Summit Title\" in \"Company name\", a day one week from today in \"Last day they can open it\" and \"The title company asked for the closing papers\" in \"Reason\", then press \"Share the package\". If a box titled \"Confirm it is you\" opens, enter Dana Whitfield's password and press \"Continue\". If a second box titled \"Confirm it’s you\" then asks for a six-digit code, enter the two-step code from the account panel and press \"Confirm\". The share then goes through by itself.",
+     "see": "(The message stays on screen only a few seconds, so look for it right after you press the button.) A message reads \"The title company can now open the package. We e-mailed them the link.\" The box shows \"Summit Title\" with your address, \"Can open this sale's package through\" the day you chose, and \"shared by Dana Whitfield\"."
+    },
+    {
+     "do": "As the title company: open your inbox for that address (look in spam too).",
+     "see": "One e-mail has arrived in your inbox, not in spam, with the subject \"Transfer package for 31 Birch Court\". It says who shared the transfer package for the home in Cedar Hollow with you for its closing, that nobody else can open the link, and the last day you can open it (the day you chose, written out with the month name). It has a button \"Open the transfer package\". It names no seller, buyer or amount."
+    },
+    {
+     "do": "As the title company: in a browser where nobody is signed in to the test site, press \"Open the transfer package\" in the e-mail.",
+     "see": "The test site's log in page opens and asks for your \"Email address\"."
+    },
+    {
+     "do": "As the title company: type your address, press \"Continue\", enter your password and press \"Log in\". If asked for a text or authenticator code, enter the one for your own account.",
+     "see": "You land on the transfer package itself, not on a home screen or a menu. The page shows \"Cedar Hollow\", the address of 31 Birch Court, \"Expected closing\" with the same closing date you wrote down in step 1, and \"Transfer package ready\"."
+    },
+    {
+     "do": "As the title company: read the rest of the page.",
+     "see": "It says \"Prepared on\" with the date you wrote down in step 1 and the note \"Ready to collect at the office\" (typed in the earlier check). Between that and the access lines, the page shows a box headed \"Before closing\" with a \"Balance:\" line for the home (31 Birch Court owes nothing, so it reads \"Nothing due\"), followed by either \"Nothing is due and nothing is open on this home.\" or the list of open items. It does not read \"We couldn't load the account review. Try again in a moment.\" Near the end it says \"You can open this package through\" the last day the president chose, \"Shared by Dana Whitfield\", \"Access also ends when the sale is handed over or cancelled\" and \"Signed in as\" with your address."
+    }
+   ],
+   "lookFor": [
+    "Was it clear from the e-mail alone who sent the package and what to do with it?",
+    "Did the e-mail look like it came from HOA HX, and was its sender what you would expect?",
+    "Did the package page show only the home, the closing date, the package status and the \"Before closing\" box, with nothing about the seller's private notes?"
+   ],
+   "reset": "Your address keeps access to the package until its last day, the handoff of the sale, or a cancellation. To clear it sooner, the president opens 31 Birch Court, presses \"End access\", gives a reason and presses \"End access\" again. The next reset of the test accounts clears it too.",
+   "complements": [
+    "tests/ui/president/president-confirm-sale-handoff.spec.ts"
+   ],
+   "added": "2026-10-21",
+   "reviewed": "2026-10-26"
+  },
+  {
+   "id": "QA-043",
+   "title": "A board member starts a community with their Google account and is never asked for a confirmation code",
+   "feature": "invitations",
+   "milestone": "M16",
+   "task": "CB29-rest",
+   "decisions": [],
+   "whyManual": "third-party",
+   "whyManualNote": "Google's own sign-in window hands HOA HX an address Google has confirmed, and that is what replaces the code; the automated tests stand in for Google with a made-up reply. If Google itself is down or its window cannot open, record Blocked, not Fail.",
+   "env": "staging",
+   "start": "/get-started",
+   "accounts": [],
+   "device": "desktop",
+   "minutes": 10,
+   "precondition": "Use a Google account of your own, with an address that has never been used on the test site (the test accounts' addresses are not Google accounts). Use a computer and allow pop-up windows for the test site. You start signed out. Each Google address can run this card once.",
+   "steps": [
+    {
+     "do": "Go to the test site's address followed by /get-started.",
+     "see": "The page says \"Let’s get you started\" and shows three choices: \"Board member\", \"Property manager\" and \"Homeowner or tenant\". The button \"Continue\" cannot be pressed yet."
+    },
+    {
+     "do": "Choose \"Board member\" and press \"Continue\".",
+     "see": "A page headed \"Enter your email\" opens, with the field \"Email\" and the button \"Send code\". Below the word \"or\" are the buttons \"Use my Google email\" and \"Use my Apple email\", and under them a line that reads \"We still send the code to that address, and your community is added to that account.\""
+    },
+    {
+     "do": "Press \"Use my Google email\".",
+     "see": "The button reads \"Connecting…\" and a Google window opens asking you to choose an account."
+    },
+    {
+     "do": "In the Google window, choose the Google account from the precondition and approve.",
+     "see": "The Google window closes and the page reads \"Set up your community\". It shows your Google address followed by \"is confirmed.\" and says \"When you start, your free 30-day trial begins, with no card needed.\" It never shows \"Enter the 6-digit code\"."
+    },
+    {
+     "do": "Look over the form.",
+     "see": "The fields are \"Community name\" and \"Number of homes\", and a line reads \"The community is added to the account you’re logged in to.\" There is no \"Your full name\" field and no \"Password\" field."
+    },
+    {
+     "do": "Type \"Quiet Pines Test\" followed by your initials in \"Community name\", leave \"Number of homes\" empty and press \"Start free trial\".",
+     "see": "The button reads \"Setting up…\" and the page then leaves Get started and opens the community's setup, with a box \"Welcome to HOA HX\" that names your community and says \"you’re its President.\" It says the free trial runs until a date 30 days away."
+    },
+    {
+     "do": "Open the inbox of your Google address (look in spam too).",
+     "see": "No e-mail with the subject \"Your HOA HX confirmation code\" has arrived."
+    }
+   ],
+   "lookFor": [
+    "At any point did you wonder whether you still had to type a code?",
+    "Does the line under the two buttons (\"We still send the code to that address, and your community is added to that account.\") match what happened?",
+    "Was it clear which account the community was added to?"
+   ],
+   "reset": "A community with the name you typed now exists on the test site, with your Google address as its President, and the account stays. The reset of the test accounts does not remove them; the person who looks after the test site archives the community. This Google address cannot run the card again.",
+   "complements": [
+    "tests/ui/public/get-started-providers.spec.ts",
+    "tests/ui/public/get-started.spec.ts"
+   ],
+   "added": "2026-10-22",
+   "reviewed": "2026-10-22"
+  },
+  {
+   "id": "QA-044",
+   "title": "A board member starts a community in the iPhone app with \"Use my Apple email\" and is never asked for a confirmation code",
+   "feature": "phone",
+   "milestone": "M16",
+   "task": "CB29-rest",
+   "decisions": [],
+   "whyManual": "real-device",
+   "whyManualNote": "Inside the app, Apple's sign-in sheet is drawn by the iPhone, not by a web window, and hands a confirmed address back to the app; only a real iPhone with the test build shows whether the sheet opens, returns and lets the page go on without a code. If the build is not on the phone, or the sheet never opens, record Blocked, not Fail.",
+   "env": "staging",
+   "start": "/get-started",
+   "accounts": [],
+   "device": "iphone",
+   "minutes": 10,
+   "precondition": "The latest HOA HX test build is on the iPhone from TestFlight, and you are signed out of it. Use an Apple ID that has never been used with the test site (if it has, remove it under Settings, your name, Sign-In & Security, Sign in with Apple, then HOA HX). Each Apple ID can run this card once.",
+   "steps": [
+    {
+     "do": "Open the HOA HX app on the iPhone and, under \"New to HOA HX?\", tap \"Get started\".",
+     "see": "The page says \"Let’s get you started\" with the choices \"Board member\", \"Property manager\" and \"Homeowner or tenant\"."
+    },
+    {
+     "do": "Choose \"Board member\" and tap \"Continue\".",
+     "see": "A page headed \"Enter your email\" opens. The buttons \"Use my Apple email\" and \"Use my Google email\" are fully visible and can be tapped without anything covering them."
+    },
+    {
+     "do": "Tap \"Use my Apple email\".",
+     "see": "The button reads \"Connecting…\" and Apple's own sheet slides up over the app. No web page opens in Safari."
+    },
+    {
+     "do": "Confirm with Face ID or your passcode and choose to share your email (Apple's own words may differ).",
+     "see": "The sheet closes and the app is back on a page headed \"Set up your community\", showing an address followed by \"is confirmed.\" It never shows \"Enter the 6-digit code\"."
+    },
+    {
+     "do": "Look over the form.",
+     "see": "The fields are \"Community name\" and \"Number of homes\", and a line reads \"The community is added to the account you’re logged in to.\" There is no \"Your full name\" field and no \"Password\" field."
+    },
+    {
+     "do": "Type \"Quiet Pines Phone\" followed by your initials in \"Community name\", leave \"Number of homes\" empty and tap \"Start free trial\".",
+     "see": "The page leaves Get started inside the app (it does not jump to Safari) and opens the community's setup, with a box \"Welcome to HOA HX\" that names your community and says \"you’re its President.\""
+    },
+    {
+     "do": "Open the inbox of the address Apple shared (look in spam too).",
+     "see": "No e-mail with the subject \"Your HOA HX confirmation code\" has arrived."
+    }
+   ],
+   "lookFor": [
+    "Were the two buttons easy to find and tap with a thumb?",
+    "Did the app ever look stuck or blank while Apple's sheet came and went?",
+    "At any point did you wonder whether you still had to type a code?"
+   ],
+   "reset": "A community with the name you typed now exists on the test site, with the Apple ID's account as its President. The reset of the test accounts does not remove them; the person who looks after the test site archives the community. This Apple ID cannot run the card again.",
+   "complements": [
+    "tests/ui/public/get-started-providers.spec.ts"
+   ],
+   "added": "2026-10-22",
+   "reviewed": "2026-10-22"
+  },
+  {
+   "id": "QA-045",
+   "title": "A homeowner resets a forgotten password from the e-mail HOA HX sends",
+   "feature": "sign-in",
+   "milestone": "M16",
+   "task": "F406",
+   "decisions": [
+    "D-004"
+   ],
+   "whyManual": "third-party",
+   "whyManualNote": "The reset link is a real e-mail sent by HOA HX's e-mail service, and its one-time code is made by the sign-in service; the automated tests never see an inbox and make the code themselves. If the e-mail service is down and no e-mail comes, record Blocked, not Fail.",
+   "env": "staging",
+   "start": "/auth/forgot-password",
+   "accounts": [],
+   "device": "any",
+   "minutes": 10,
+   "precondition": "Use an account on the test site made with your own e-mail address that you can read now (for example an account you made earlier on the test site with your own address), with a confirmed address and no two-step sign-in. Do not use a test account: its address receives nothing, and a new password would lock everyone else out of it. You start signed out. The password of your account changes in this check.",
+   "steps": [
+    {
+     "do": "Go to the test site's address followed by /auth/forgot-password.",
+     "see": "The page \"Reset your password\" says \"Enter your email and we'll send you a link to reset your password.\" It has the field \"Email address\" and the button \"Send reset link\"."
+    },
+    {
+     "do": "Type your own address in \"Email address\" and press \"Send reset link\".",
+     "see": "The page \"Check your email\" says \"If an account exists for\" your address \"we sent a password reset link.\" It offers \"Resend reset link\" and \"Back to sign in\"."
+    },
+    {
+     "do": "Open your inbox (look in spam too).",
+     "see": "One e-mail has arrived in your inbox, not in spam, with the subject \"Reset your HOA HX password\". It says \"Someone asked to reset the password of your HOA HX account.\", has a button \"Choose a new password\", and says the link works once, for one hour, and the new password needs at least 15 characters."
+    },
+    {
+     "do": "Press \"Choose a new password\" in the e-mail.",
+     "see": "The test site opens (its address, not another site's) on a page \"Set new password\" with the fields \"New Password\" and \"Confirm Password\" and the button \"Set New Password\"."
+    },
+    {
+     "do": "Type a password of 8 characters in both fields.",
+     "see": "The button \"Set New Password\" cannot be pressed, and a note under \"New Password\" lists what the password still needs (the field's hint reads \"At least 15 characters\")."
+    },
+    {
+     "do": "Replace both with a new password of at least 15 characters that you will remember, then press \"Set New Password\".",
+     "see": "The page \"Password Updated\" says \"Your password has been successfully changed. You can now sign in with your new password.\" and offers the button \"Log in now\"."
+    },
+    {
+     "do": "Press \"Log in now\", then type your address in \"Email address\" and tap \"Continue\", and type the new password in \"Password\" and press \"Log in\".",
+     "see": "The sign-in form is gone and the page shows the homeowner's menu with Payments in it."
+    },
+    {
+     "do": "Press \"Choose a new password\" in the same e-mail a second time.",
+     "see": "The page \"Link Expired\" says \"This password reset link has expired or is invalid. Reset links are only valid for 1 hour.\" and offers \"Request a New Link\"."
+    }
+   ],
+   "lookFor": [
+    "Did the e-mail look like it came from HOA HX, and was its sender what you would expect?",
+    "Was it clear from the e-mail alone what to do and how long you had?",
+    "Did the page tell you plainly what a good new password needs?"
+   ],
+   "reset": "Your account keeps the new password. The reset of the test accounts does not touch it.",
+   "complements": [
+    "tests/ui/public/forgot-password-reset-link.spec.ts"
+   ],
+   "added": "2026-10-22",
+   "reviewed": "2026-10-22"
+  },
+  {
+   "id": "QA-046",
+   "title": "A homeowner's installed iPhone app shows a changed screen after a phone update, with no store update",
+   "feature": "phone",
+   "milestone": "M11",
+   "task": "C8b",
+   "decisions": [],
+   "whyManual": "real-device",
+   "whyManualNote": "The app downloads, checks and switches to its new screens by itself on a real iPhone, on its next launch; no browser test can install the app, close it and open it again. If the update job did not run or is red, or the build on the phone is too old to take the update, record Blocked, not Fail.",
+   "env": "staging",
+   "start": "/",
+   "accounts": [
+    "homeowner-owes"
+   ],
+   "device": "iphone",
+   "minutes": 10,
+   "precondition": "The latest HOA HX test build from TestFlight is on the iPhone and has not been opened since the change was published to the test site's phone updates. The person who looks after the test site has checked that the job \"Publish phone live update (staging)\" for that change is green, and has told you one screen and one word or line on it that is different in the new version (the \"marked line\"), and the name of the version before it. If the marked line already shows on the phone before step 2, record Blocked and ask for a reset of the phone: delete the app and install it again from TestFlight.",
+   "steps": [
+    {
+     "do": "Open the HOA HX app on the iPhone and sign in as Jordan Pryce: type his email (from the account panel) in \"Email address\" and tap \"Continue\", then type the password in \"Password\" and tap \"Log in\".",
+     "see": "The homeowner's home page opens with Jordan Pryce's name on it and no blank white page."
+    },
+    {
+     "do": "Go to the screen named in the run notes and find the marked line.",
+     "see": "The screen shows the old wording, not the marked line."
+    },
+    {
+     "do": "Stay on that screen for one minute and use it as usual.",
+     "see": "The screen does not reload or change by itself while you use it."
+    },
+    {
+     "do": "Close the app completely (swipe up from the bottom and flick the app away), then open it again.",
+     "see": "The app opens within about 12 seconds on the home page, still signed in as Jordan Pryce, with no blank white page."
+    },
+    {
+     "do": "Go to the screen Jacob named again.",
+     "see": "The marked line now shows. The rest of the screen is as before."
+    },
+    {
+     "do": "Close the app completely and open it once more.",
+     "see": "The marked line still shows and the app does not ask for the password."
+    }
+   ],
+   "lookFor": [
+    "Did the app ever show a blank white page or an error while it changed over?",
+    "Was there any sign to a homeowner that the screens had changed, and did it need any action from them?"
+   ],
+   "reset": "The phone stays on the new version. The check \"A homeowner's installed iPhone app goes back to its earlier screens when the update is rolled back\" goes next. Deleting the app and installing it again from TestFlight puts it back on the screens built into it.",
+   "complements": [
+    "tests/unit/live-update.test.ts",
+    "tests/unit/live-update-publish.test.ts"
+   ],
+   "added": "2026-10-22",
+   "reviewed": "2026-10-22"
+  },
+  {
+   "id": "QA-047",
+   "title": "A homeowner's installed iPhone app goes back to its earlier screens when the update is rolled back",
+   "feature": "phone",
+   "milestone": "M11",
+   "task": "C8b",
+   "decisions": [],
+   "whyManual": "real-device",
+   "whyManualNote": "The rollback is started by hand on the project's Actions page, and only a real iPhone, closed and opened again, shows whether the app takes the earlier screens back without a store update. If the rollback run is red, or the phone was not on the new version at the start, record Blocked, not Fail.",
+   "env": "staging",
+   "start": "/",
+   "accounts": [
+    "homeowner-owes"
+   ],
+   "device": "iphone",
+   "minutes": 12,
+   "precondition": "Run this straight after the check \"A homeowner's installed iPhone app shows a changed screen after a phone update, with no store update\", so the phone is on the new version and shows the marked line written in the run notes. The person who looks after the test site has the id of the earlier version (a code like 20261021.812-ab12cd3, from the earlier card's note) and can start the \"Live update control\" run on the project's Actions page.",
+   "steps": [
+    {
+     "do": "On the iPhone open the HOA HX app (signed in as Jordan Pryce) and go to the screen with the marked line.",
+     "see": "The marked line shows (the new version)."
+    },
+    {
+     "do": "As the person who looks after the test site (on a computer, not the phone): on the project's Actions page choose \"Live update control\", press \"Run workflow\", set \"Which phones\" to staging, \"action\" to rollback, type the earlier version's id in \"bundle_id\", and run it.",
+     "see": "The run finishes green."
+    },
+    {
+     "do": "On the iPhone close the app completely and open it again.",
+     "see": "The app opens on the home page, still signed in as Jordan Pryce, with no blank white page. The marked line may still show: the earlier screens are taken on the launch after this one."
+    },
+    {
+     "do": "Close the app completely and open it once more, then go to the screen with the marked line.",
+     "see": "The app opens within about 12 seconds with no blank white page, and the marked line is gone: the earlier wording is back."
+    },
+    {
+     "do": "Choose \"Payments\" in the menu (tap \"More\" first).",
+     "see": "The page opens with \"Outstanding Balance\", and you are still signed in as Jordan Pryce."
+    }
+   ],
+   "lookFor": [
+    "Did the app ever show a blank white page or an error while it changed back?",
+    "Was everything else on the screens you opened the same as before the rollback?"
+   ],
+   "reset": "The phone stays on the earlier version. Deleting the app and installing it again from TestFlight puts it back on the screens built into it. The next push to the test site publishes a new version.",
+   "complements": [
+    "tests/unit/live-update-publish.test.ts",
+    "tests/unit/guards/live-update-workflow.test.js"
+   ],
+   "added": "2026-10-22",
+   "reviewed": "2026-10-22"
+  },
+  {
+   "id": "QA-048",
+   "title": "The president asks for a copy of the community's records on the live site and the download starts",
+   "feature": "platform",
+   "milestone": "M5",
+   "task": "SB6",
+   "decisions": [
+    "D-060",
+    "D-061"
+   ],
+   "whyManual": "production-config",
+   "whyManualNote": "The download link must be made by the live site's own download service, and the page hands out no other kind of link (it says the file cannot be opened right now); the test machines swap in a plain link, and the test site's permissions are not the live site's.",
+   "env": "production",
+   "start": "/my-subscription",
+   "accounts": [
+    "president"
+   ],
+   "device": "desktop",
+   "minutes": 12,
+   "precondition": "Jacob approves this run and does it himself, on the live site, signed in as the President (or Account Owner) of a community that holds only test data. If only a real community exists, record Blocked: its file would hold real residents. Nobody else runs it. The file holds only the lists that person's role may export. The sign-in is the live test community's own President (or Account Owner), held by Jacob; it is not the test-site account.",
+   "steps": [
+    {
+     "do": "Sign in as the President (password, then the two-step code) and open the live site's page \"My Subscription\" (menu \"Financial\", \"My Subscription\").",
+     "see": "The page \"HOA Platform Subscription\" opens and, near the bottom, a box \"A copy of the community's records\" says it is one ZIP file with the residents, the board, maintenance requests and violations, cleaned of private details."
+    },
+    {
+     "do": "Press \"Ask for a copy\" (or \"Ask for a new copy\" if one is listed).",
+     "see": "A box asks \"Why do you need the copy?\" and offers \"Prepare the file\" and \"Not now\"."
+    },
+    {
+     "do": "Type \"Checking that the download works on the live site\" and press \"Prepare the file\". If a box titled \"Confirm it is you\" opens, enter the password and press \"Continue\"; if a second box titled \"Confirm it’s you\" asks for a six-digit code, enter it and press \"Confirm\".",
+     "see": "The page reads \"The file is being prepared. Keep this page open; it takes a minute or two.\" and then shows a file name beginning \"community-records-\" and ending \".zip\", its size, the day it was prepared, and \"You can download it until\" a date 7 days away, with one line for each list and its number of rows."
+    },
+    {
+     "do": "Press \"Download the file\". If \"Confirm it is you\" opens again, confirm as before.",
+     "see": "A ZIP file starts downloading to the computer and the page stays where it is. The page does not say \"The file cannot be opened right now. Try again in a few minutes.\" and does not say \"The download could not start. Try again.\" Under the button it says the link works for 15 minutes."
+    },
+    {
+     "do": "Open the downloaded ZIP file on the computer.",
+     "see": "It holds one spreadsheet (CSV) file for each list named on the page. No file has a column for an e-mail address, a phone number or a birth date."
+    }
+   ],
+   "lookFor": [
+    "Was it clear on the page how long the file and the download link last?",
+    "Did the page say anything about who asked for the file and why (the billing log)?"
+   ],
+   "reset": "The file stays on the live site for 7 days and is then removed; the request and the download are in the billing log with the reason. Delete the downloaded ZIP from the computer. Nothing a homeowner can see is changed.",
+   "complements": [
+    "tests/ui/president/president-community-export.spec.ts",
+    "tests/integration/community-export.test.ts"
+   ],
+   "added": "2026-10-22",
+   "reviewed": "2026-10-22"
+  },
+  {
+   "id": "QA-049",
+   "title": "A homeowner signs in with a passkey in the iPhone app",
+   "feature": "sign-in",
+   "task": "CB22",
+   "decisions": [],
+   "whyManual": "real-device",
+   "whyManualNote": "The passkey is made and used by the iPhone itself (Face ID and the phone's own passkey sheet); a desktop browser in a test has neither.",
+   "env": "staging",
+   "start": "/auth/login",
+   "accounts": [
+    "homeowner-paid-up"
+   ],
+   "device": "iphone",
+   "minutes": 10,
+   "precondition": "The test accounts were reset today. The HOA HX app from the latest test build is installed on the iPhone, and the phone has a screen lock (Face ID or a passcode) and is signed in to iCloud with iCloud Keychain on. HOAhx staff have switched passkeys on for the test site: if \"Log in with a passkey\" never appears on the sign-in page, record Blocked, not Fail. If the test site itself is down, record Blocked. A \"Confirm it’s you\" panel may appear before adding or removing a passkey; if it does, follow it.",
+   "steps": [
+    {
+     "do": "Open the HOA HX app on the iPhone. Sign in as Mei Tanaka: type her email (from the account panel) in \"Email address\" and tap \"Continue\", then type her password in \"Password\" and tap \"Log in\".",
+     "see": "Mei Tanaka's dashboard opens. (If the page asks for a code, type the one from the account panel.)"
+    },
+    {
+     "do": "Tap \"Account\" in the bar at the bottom of the screen.",
+     "see": "The page headed \"My Account\" opens."
+    },
+    {
+     "do": "Scroll down to the card headed \"Privacy & Security\" and find the block named \"Passkeys\". Tap \"Add a passkey\".",
+     "see": "A panel headed \"Add a passkey\" opens with a field \"Passkey name\". It says the device will ask for Face ID, a fingerprint or its PIN."
+    },
+    {
+     "do": "Type \"My iPhone\" in \"Passkey name\" and tap \"Add passkey\".",
+     "see": "The phone shows its own sheet asking you to save a passkey for HOA HX. If a \"Confirm it’s you\" panel comes first, type the password in \"Password\" and tap \"Continue\"."
+    },
+    {
+     "do": "Approve the phone's sheet with Face ID or the passcode.",
+     "see": "The panel closes. Under \"Your passkeys\" a line reads \"My iPhone\" with \"Added\" and today's date, \"not used yet\", and the buttons \"Rename\" and \"Remove\". No red message is shown."
+    },
+    {
+     "do": "Tap \"More\" in the bar at the bottom, then tap \"Log out\" at the foot of the menu, then tap \"Yes, log out\".",
+     "see": "The sign-in page opens."
+    },
+    {
+     "do": "On the first step of the sign-in page, without typing anything, tap \"Log in with a passkey\".",
+     "see": "The button reads \"Waiting for your passkey…\" and the phone shows its own sheet offering the passkey you saved. The page does not say \"This phone has no passkey for HOA HX yet\" or \"Passkey sign-in did not work\"."
+    },
+    {
+     "do": "Approve the phone's sheet with Face ID or the passcode.",
+     "see": "Mei Tanaka's dashboard opens without the password being asked for."
+    },
+    {
+     "do": "Tap \"Account\", scroll to \"Passkeys\" under \"Privacy & Security\".",
+     "see": "\"My iPhone\" now reads \"last used\" with today's date, not \"not used yet\"."
+    },
+    {
+     "do": "On the line \"My iPhone\", tap \"Remove\". A panel headed \"Remove My iPhone?\" opens; tap \"Remove passkey\".",
+     "see": "If a \"Confirm it’s you\" panel appears, type the password in \"Password\" and tap \"Continue\". Then the line \"My iPhone\" is gone from \"Your passkeys\"."
+    }
+   ],
+   "lookFor": [
+    "Did the phone's own passkey sheet appear straight away, with no delay that left you unsure whether anything was happening?",
+    "Did every message on the screen read in plain words a homeowner could follow?"
+   ],
+   "reset": "The passkey is removed in the last step. If the check stopped sooner, tap \"Remove\" on the line \"My iPhone\" under \"Passkeys\" on the \"My Account\" page, then \"Remove passkey\"; the next reset of the test accounts also clears it. The passkey on the phone itself is harmless once HOA HX no longer knows it.",
+   "complements": [
+    "tests/ui/homeowner/homeowner-passkeys.spec.ts"
+   ],
+   "added": "2026-10-24",
+   "reviewed": "2026-10-24"
+  },
+  {
+   "id": "QA-050",
+   "title": "A homeowner signs in with a passkey in the Android app",
+   "feature": "sign-in",
+   "task": "CB22",
+   "decisions": [],
+   "whyManual": "real-device",
+   "whyManualNote": "The passkey is made and used by the Android phone itself (its own passkey sheet and screen lock); a desktop browser in a test has neither.",
+   "env": "staging",
+   "start": "/auth/login",
+   "accounts": [
+    "homeowner-paid-up"
+   ],
+   "device": "android",
+   "minutes": 10,
+   "precondition": "The test accounts were reset today. The HOA HX app from the latest test build is installed on the Android phone, and the phone has a screen lock (a fingerprint, face unlock or a PIN) and is signed in to a Google account. HOAhx staff have switched passkeys on for the test site: if \"Log in with a passkey\" never appears on the sign-in page, record Blocked, not Fail. If the test site itself is down, record Blocked. A \"Confirm it’s you\" panel may appear before adding or removing a passkey; if it does, follow it.",
+   "steps": [
+    {
+     "do": "Open the HOA HX app on the Android phone. Sign in as Mei Tanaka: type her email (from the account panel) in \"Email address\" and tap \"Continue\", then type her password in \"Password\" and tap \"Log in\".",
+     "see": "Mei Tanaka's dashboard opens. (If the page asks for a code, type the one from the account panel.)"
+    },
+    {
+     "do": "Tap \"Account\" in the bar at the bottom of the screen.",
+     "see": "The page headed \"My Account\" opens."
+    },
+    {
+     "do": "Scroll down to the card headed \"Privacy & Security\" and find the block named \"Passkeys\". Tap \"Add a passkey\".",
+     "see": "A panel headed \"Add a passkey\" opens with a field \"Passkey name\". It says the device will ask for Face ID, a fingerprint or its PIN."
+    },
+    {
+     "do": "Type \"My Android phone\" in \"Passkey name\" and tap \"Add passkey\".",
+     "see": "The phone shows its own sheet asking you to save a passkey for HOA HX. If a \"Confirm it’s you\" panel comes first, type the password in \"Password\" and tap \"Continue\"."
+    },
+    {
+     "do": "Approve the phone's sheet with the fingerprint, face unlock or the screen PIN.",
+     "see": "The panel closes. Under \"Your passkeys\" a line reads \"My Android phone\" with \"Added\" and today's date, \"not used yet\", and the buttons \"Rename\" and \"Remove\". No red message is shown."
+    },
+    {
+     "do": "Tap \"More\" in the bar at the bottom, then tap \"Log out\" at the foot of the menu, then tap \"Yes, log out\".",
+     "see": "The sign-in page opens."
+    },
+    {
+     "do": "On the first step of the sign-in page, without typing anything, tap \"Log in with a passkey\".",
+     "see": "The button reads \"Waiting for your passkey…\" and the phone shows its own sheet offering the passkey you saved. The page does not say \"This phone has no passkey for HOA HX yet\" or \"Passkey sign-in did not work\"."
+    },
+    {
+     "do": "Approve the phone's sheet with the fingerprint, face unlock or the screen PIN.",
+     "see": "Mei Tanaka's dashboard opens without the password being asked for."
+    },
+    {
+     "do": "Tap \"Account\", scroll to \"Passkeys\" under \"Privacy & Security\".",
+     "see": "\"My Android phone\" now reads \"last used\" with today's date, not \"not used yet\"."
+    },
+    {
+     "do": "On the line \"My Android phone\", tap \"Remove\". A panel headed \"Remove My Android phone?\" opens; tap \"Remove passkey\".",
+     "see": "If a \"Confirm it’s you\" panel appears, type the password in \"Password\" and tap \"Continue\". Then the line \"My Android phone\" is gone from \"Your passkeys\"."
+    }
+   ],
+   "lookFor": [
+    "Did the phone's own passkey sheet appear straight away, with no delay that left you unsure whether anything was happening?",
+    "Did every message on the screen read in plain words a homeowner could follow?"
+   ],
+   "reset": "The passkey is removed in the last step. If the check stopped sooner, tap \"Remove\" on the line \"My Android phone\" under \"Passkeys\" on the \"My Account\" page, then \"Remove passkey\"; the next reset of the test accounts also clears it. The passkey on the phone itself is harmless once HOA HX no longer knows it.",
+   "complements": [
+    "tests/ui/homeowner/homeowner-passkeys.spec.ts"
+   ],
+   "added": "2026-10-24",
+   "reviewed": "2026-10-24"
+  }
+ ],
+ "build": "e0a273a6",
+ "generated": "2026-10-28T04:07:13.460Z"
+}
