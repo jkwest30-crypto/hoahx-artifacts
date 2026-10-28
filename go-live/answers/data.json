@@ -41,58 +41,6 @@
    ]
   },
   {
-   "id": "A81",
-   "group": "money",
-   "title": "How a past-due community gets access back",
-   "why": "\"Yes\" → nothing changes; \"Always wait\" → every bank payment waits until it clears; \"Always restore\" → every approved payment restores access at once.",
-   "rows": [
-    {
-     "id": "A81-1",
-     "qs": [
-      "You agreed on September 8 that access comes back automatically once a payment is confirmed. The one open point: after two returned bank payments, should the next bank payment wait until it clears (3 to 5 business days) before access comes back?"
-     ],
-     "rec": "Access comes back at once when the balance payment is approved, card or bank account alike. After two returned bank payments, a bank payment restores access only when it clears (3 to 5 business days). A returned payment puts the community back where it was, with the same dates.",
-     "videos": [],
-     "replies": [
-      {
-       "at": "2026-10-22T05:00:00.000Z",
-       "text": "So the work was not held up, we built this the way we recommended: access comes back as soon as the balance payment is approved, and only after two returned bank payments does a bank payment wait until it clears. Would you like to change it? If so, tell us how in a reply here and we will change it; if not, no answer is needed."
-      },
-      {
-       "at": "2026-10-28T02:17:47.000Z",
-       "text": "**Confirmed: 5 of your 7 points are built. 2 need about 1.8 hours.**\n\n**Built as you describe:**\n1. A card payment that covers the whole past-due balance brings board and management access back at once.\n2. After two returned bank payments, the next bank payment waits until it clears; a card still restores at once.\n3. A returned payment puts the community back on its original past-due dates and tells the Account Owner and the other billing contacts.\n4. Homeowners are never affected, and the billing page stays open throughout.\n5. Returns are counted on the community's own HOA HX subscription, never on homeowner dues.\n\n**Differs, with the work to close it:**\n1. **The 12-month window: 0.8 hours.** Today the two returns are counted over the life of the subscription, not the last 12 months. We would count a rolling 12 months.\n2. **\"Processing\" versus \"completed\": 1.0 hour.** When a bank payment brings access back before it clears, the page says \"Full access is restored\" without saying the payment is still processing, and one help line describes the older rule. We would show \"Bank payment processing\" until it clears, then \"Payment completed\", and fix that line.\n\n**What we need from you:**\n1. **Make both changes before HOA HX launches?** Our recommendation: yes (about 1.8 hours together), with no other change to how access comes back."
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "A82",
-   "group": "money",
-   "title": "How long staff may hold a past-due community",
-   "why": "\"Yes\" → nothing changes; a different limit → we set the limit you name.",
-   "rows": [
-    {
-     "id": "A82-1",
-     "qs": [
-      "You agreed on September 8 that HOA HX staff can extend the grace period or make an exception. The one open point: are 30 days for an extension and 90 days for an exception the right limits?"
-     ],
-     "rec": "HOA HX staff can extend the grace period up to 30 days, or grant an exception up to 90 days (a dispute, a payment arranged with HOA HX), each with a reason. Every hold ends on its own and the day count resumes.",
-     "videos": [],
-     "replies": [
-      {
-       "at": "2026-10-22T05:00:00.000Z",
-       "text": "So the work was not held up, we built this the way we recommended: staff can extend the grace period up to 30 days, or grant an exception up to 90 days, each with a reason, and every hold ends on its own. Would you like to change it? If so, tell us how in a reply here and we will change it; if not, no answer is needed."
-      },
-      {
-       "at": "2026-10-28T02:17:47.000Z",
-       "text": "**Confirmed: 4 of your 8 points are built. 4 need about 5.5 hours.**\n\n**Built as you describe:**\n1. Every hold needs a reason and an end date, and each one is recorded with who granted it.\n2. During a hold no fees start, nothing further is restricted and nothing goes to collections; billing continues and the balance stays owed.\n3. When a hold ends, the community picks up its original past-due dates, with no reset and no automatic renewal.\n4. Homeowners and the billing page are never affected.\n\n**Differs, with the work to close it:**\n1. **Approval over 30 days: 2.5 hours.** Today any HOA HX staff member with billing access can grant up to 90 days alone. We would make anything over 30 days wait for your or Dan's approval, with 90 days as the total for the hold.\n2. **No stacking: 0.7 hours** (built with item 1). Today a new hold replaces the last one, so 30-day holds could be repeated. We would count every hold in the same past-due period toward the 30 and 90 days.\n3. **Access during the hold: 1.5 hours.** Today a hold puts the community back to full access even if it was already read-only. We would keep the access level it had, unless staff explicitly choose to restore it; that choice is recorded and named in the notice.\n4. **Notice before the hold ends: 0.8 hours.** Today the billing contacts are told when a hold starts, not before it ends. We would add a reminder 7 days and 1 day before.\n\n**What we need from you:**\n1. **Build all four before HOA HX launches?** Our recommendation: yes (about 5.5 hours together). Until then holds stay with HOA HX staff only, and none has been used, since HOA HX has not launched."
-      }
-     ]
-    }
-   ]
-  },
-  {
    "id": "A84",
    "group": "records",
    "title": "Who reads membership changes on the activity log",
@@ -109,32 +57,6 @@
       {
        "at": "2026-10-22T05:00:00.000Z",
        "text": "So the work was not held up, we built this the way we recommended: the Secretary, Treasurer, Property Manager and management admin can read membership changes on the activity log, and homeowners never see them. Would you like to change it? If so, tell us how in a reply here and we will change it; if not, no answer is needed."
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "A85",
-   "group": "community",
-   "title": "Get started when you are already logged in",
-   "why": "\"Stay open\" → nothing changes; \"Dashboard\" → a logged-in person is sent to their dashboard.",
-   "rows": [
-    {
-     "id": "A85-1",
-     "qs": [
-      "When someone who is already logged in opens Get started, should the page stay open and name the account they are using, or send them to their own dashboard?"
-     ],
-     "rec": "Keep the page open and say which account is in use: \"You're logged in as <email>. Anything you start or accept here uses this account; to use another email, log out first.\"",
-     "videos": [],
-     "replies": [
-      {
-       "at": "2026-10-22T05:00:00.000Z",
-       "text": "So the work was not held up, we built this the way we recommended: Get started stays open for someone already logged in and shows which account they are using, so a board member can start a second community without logging out. Would you like to change it? If so, tell us how in a reply here and we will change it; if not, no answer is needed."
-      },
-      {
-       "at": "2026-10-28T02:17:47.000Z",
-       "text": "**Confirmed: 3 of your 7 points are built. 4 need about 1.9 hours.**\n\n**Built as you describe:**\n1. Get started stays open for someone already logged in and names the account in use.\n2. Starting another community adds it to their account without changing their other communities or permissions.\n3. Being logged in never opens an existing community: joining one still goes through an invitation or the board's approval.\n\n**Differs, with the work to close it:**\n1. **\"Set up a new community\" as the main button: 0.5 hours.** Today the page shows the three \"which describes you\" choices with equal weight.\n2. **\"Go to dashboard\": 0.1 hours.** The way back is labelled \"Go to HOA HX\" today.\n3. **\"Use a different account\": 0.3 hours.** Today it says \"log out first\" but has no button.\n4. **\"Resume setting up <community>\": 1.0 hour.** Resuming covers only the email step today. We would offer it when the person already started a community whose setup isn't finished, so no duplicate gets created.\n\n**What we need from you:**\n1. **Make all four before HOA HX launches?** Our recommendation: yes (about 1.9 hours together).\n2. **Wording:** \"You're logged in as [email]\", matching the rest of HOA HX. Our recommendation: yes."
       }
      ]
     }
@@ -207,28 +129,6 @@
    ]
   },
   {
-   "id": "A98",
-   "group": "pricing",
-   "title": "The late fee on a past-due community subscription",
-   "why": "\"Flat amount\" → we set the amount and turn it on after the terms are final; \"Percentage\" or \"No late fee\" → a small change or nothing.",
-   "rows": [
-    {
-     "id": "A98-1",
-     "qs": [
-      "The late fee is built but switched off. Should it be a flat amount once per past-due period, and what amount?"
-     ],
-     "rec": "Keep it off until the terms name the fee. When they do, use one flat fee once per past-due period, never a percentage, with the existing cap. A flat fee is easy to explain to a volunteer board.",
-     "videos": [],
-     "replies": [
-      {
-       "at": "2026-10-24T01:30:00.000Z",
-       "text": "So the work was not held up, we built this the way we recommended: the late fee on a past-due community subscription is built but switched off, as a flat amount owed once per past-due period from day 16 with a $100 cap; nothing is charged until the terms name it. Would you like to change it? If so, tell us how in a reply here and we will change it; if not, no answer is needed."
-      }
-     ]
-    }
-   ]
-  },
-  {
    "id": "A102",
    "group": "records",
    "title": "Who reads a home's money history after a sale",
@@ -267,6 +167,48 @@
    "status": "planned"
   },
   {
+   "id": "A81-1",
+   "kind": "question",
+   "card": "How a past-due community gets access back",
+   "qs": [
+    "You agreed on September 8 that access comes back automatically once a payment is confirmed. The one open point: after two returned bank payments, should the next bank payment wait until it clears (3 to 5 business days) before access comes back?"
+   ],
+   "answer": "discuss",
+   "rec": "Access comes back at once when the balance payment is approved, card or bank account alike. After two returned bank payments, a bank payment restores access only when it clears (3 to 5 business days). A returned payment puts the community back where it was, with the same dates.",
+   "build": "Yes, with the owners' details (the owners' note of Oct 23): a card payment that covers the whole past-due balance restores board and management access at once; a bank payment restores it provisionally once accepted for processing, unless the community had two returned subscription payments in the last 12 months, when it waits until the payment clears (a card still restores at once); a returned payment notifies the Account Owner and puts the community back on its original past-due dates; homeowners and the billing page are never affected; returns are counted on the community's subscription only, apart from homeowner dues; and the page shows \"Bank payment processing\" apart from \"Payment completed\".",
+   "answeredOn": "2026-10-23",
+   "acceptedOn": "2026-10-28",
+   "status": "planned"
+  },
+  {
+   "id": "A82-1",
+   "kind": "question",
+   "card": "How long staff may hold a past-due community",
+   "qs": [
+    "You agreed on September 8 that HOA HX staff can extend the grace period or make an exception. The one open point: are 30 days for an extension and 90 days for an exception the right limits?"
+   ],
+   "answer": "discuss",
+   "rec": "HOA HX staff can extend the grace period up to 30 days, or grant an exception up to 90 days (a dispute, a payment arranged with HOA HX), each with a reason. Every hold ends on its own and the day count resumes.",
+   "build": "Yes, with the owners' details (the owners' note of Oct 23): HOA HX staff may grant a hold of up to 30 days; anything longer needs Rustin's or Dan's approval, up to 90 days in total for that hold including any first extension; every hold has a reason, an end date and a record of who granted or approved it; a hold pauses the past-due steps and collections while billing continues and the balance stays owed; a hold keeps the access level it found unless staff explicitly restore it; when it ends the community resumes on its original dates, with no reset and no automatic renewal; the Account Owner is told when a hold starts and before it ends; holds cannot be stacked or renewed to get around the approval; homeowners and the billing page are never affected.",
+   "answeredOn": "2026-10-23",
+   "acceptedOn": "2026-10-28",
+   "status": "planned"
+  },
+  {
+   "id": "A85-1",
+   "kind": "question",
+   "card": "Get started when you are already logged in",
+   "qs": [
+    "When someone who is already logged in opens Get started, should the page stay open and name the account they are using, or send them to their own dashboard?"
+   ],
+   "answer": "discuss",
+   "rec": "Keep the page open and say which account is in use: \"You're logged in as <email>. Anything you start or accept here uses this account; to use another email, log out first.\"",
+   "build": "Stay open and name the account, with the owners' details (the owners' note of Oct 23): \"You're logged in as [email]\"; \"Set up a new community\" as the main action, using the existing account; \"Go to dashboard\"; \"Use a different account\"; an option to resume an unfinished community setup so no duplicate is created; starting another community never changes existing memberships or permissions, and being logged in never opens an existing community without an invitation or the board's approval.",
+   "answeredOn": "2026-10-23",
+   "acceptedOn": "2026-10-28",
+   "status": "planned"
+  },
+  {
    "id": "A93-1",
    "kind": "question",
    "card": "Who approves a payment plan",
@@ -277,6 +219,20 @@
    "rec": "Keep it: a second financial person approves each plan. Why: it is the same two-person check you chose for refunds on September 10, and every plan records who set it up and who approved it.",
    "build": "Payment plans default to board approval unless the community has a documented, legally permitted delegation policy. Where delegation is allowed, a second authorized financial person may approve plans within the board's approved limits (financial permissions alone do not establish that authority); plans outside those limits, or needing board action under state law or governing documents, go to the board. The person who creates a plan can never approve it. The plan terms, creator, approver, date and the supporting board approval or delegation are recorded, and a change to approved terms needs reapproval. For MVP 1 the board approval is recorded with a meeting date and a supporting reference before the plan is activated; no separate board-voting feature. Counsel confirms the delegation rules for the launch states before delegated approval is enabled.",
    "answeredOn": "2026-10-23",
+   "acceptedOn": "2026-10-28",
+   "status": "planned"
+  },
+  {
+   "id": "A98-1",
+   "kind": "question",
+   "card": "The late fee on a past-due community subscription",
+   "qs": [
+    "The late fee is built but switched off. Should it be a flat amount once per past-due period, and what amount?"
+   ],
+   "answer": "discuss",
+   "rec": "Keep it off until the terms name the fee. When they do, use one flat fee once per past-due period, never a percentage, with the existing cap. A flat fee is easy to explain to a volunteer board.",
+   "build": "No flat late fee: an overdue-interest policy instead (the owners' note of Oct 26): a 30-day grace period with no fee or interest; from day 31, simple, noncompounding interest at the lesser of 1.5% a month or the legal maximum, never backdated; on unpaid subscription charges only, never interest on interest and no separate flat fee; daily interest on the unpaid amount, stopping on the day a payment is made, with the existing cap as a ceiling on the total interest of one past-due period, never a charge in itself; the due date, grace-end date, rate and interest shown separately on invoices, with reminders before interest starts; HOA HX staff may waive interest, recorded with the user, reason, amount and time; it never creates a homeowner charge or changes homeowner late-fee rules. It stays switched off until the owners' attorney has reviewed it, the final subscription terms disclose it and the acceptance and billing authorization are in place, and it applies only going forward.",
+   "answeredOn": "2026-10-26",
    "acceptedOn": "2026-10-28",
    "status": "planned"
   },
