@@ -4,10 +4,6 @@
   {
    "id": "money",
    "title": "Money: dues, the ledger, and the books"
-  },
-  {
-   "id": "records",
-   "title": "Documents, messages, and records"
   }
  ],
  "cards": [
@@ -25,28 +21,6 @@
      ],
      "rec": "Yes. The President or the management company sets the fee, with a reason. It starts at no charge and can be at most $1,000. The seller pays it by card or bank account when they request the package, with no saved payment method and no card fee added. If the payment is declined, the package is not requested.",
      "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A84",
-   "group": "records",
-   "title": "Who reads membership changes on the activity log",
-   "why": "\"Yes\" → nothing changes; \"As before\" → only the Owner, the President, the HOA Administrator and Board Members read these changes.",
-   "rows": [
-    {
-     "id": "A84-1",
-     "qs": [
-      "Should the Secretary, Treasurer, Property Manager and management admin be able to read membership changes on the community activity log, as the shared history's category rules already allow for retirements and access-request decisions?"
-     ],
-     "rec": "Keep it: the Secretary, Treasurer, Property Manager and management admin can read membership changes on the community activity log. Homeowners never see these rows.",
-     "videos": [],
-     "replies": [
-      {
-       "at": "2026-10-22T05:00:00.000Z",
-       "text": "So the work was not held up, we built this the way we recommended: the Secretary, Treasurer, Property Manager and management admin can read membership changes on the activity log, and homeowners never see them. Would you like to change it? If so, tell us how in a reply here and we will change it; if not, no answer is needed."
-      }
-     ]
     }
    ]
   }
@@ -104,6 +78,20 @@
    "answer": "discuss",
    "rec": "HOA HX staff can extend the grace period up to 30 days, or grant an exception up to 90 days (a dispute, a payment arranged with HOA HX), each with a reason. Every hold ends on its own and the day count resumes.",
    "build": "Yes, with the owners' details (the owners' note of Oct 23): HOA HX staff may grant a hold of up to 30 days; anything longer needs Rustin's or Dan's approval, up to 90 days in total for that hold including any first extension; every hold has a reason, an end date and a record of who granted or approved it; a hold pauses the past-due steps and collections while billing continues and the balance stays owed; a hold keeps the access level it found unless staff explicitly restore it; when it ends the community resumes on its original dates, with no reset and no automatic renewal; the Account Owner is told when a hold starts and before it ends; holds cannot be stacked or renewed to get around the approval; homeowners and the billing page are never affected.",
+   "answeredOn": "2026-10-23",
+   "acceptedOn": "2026-10-28",
+   "status": "planned"
+  },
+  {
+   "id": "A84-1",
+   "kind": "question",
+   "card": "Who reads membership changes on the activity log",
+   "qs": [
+    "Should the Secretary, Treasurer, Property Manager and management admin be able to read membership changes on the community activity log, as the shared history's category rules already allow for retirements and access-request decisions?"
+   ],
+   "answer": "discuss",
+   "rec": "Keep it: the Secretary, Treasurer, Property Manager and management admin can read membership changes on the community activity log. Homeowners never see these rows.",
+   "build": "Yes, as built, with the owners' details (the owners' note of Oct 23): the President and the Account Owner (through their board or management role) see these entries; management users only for the communities assigned to them; viewing the history never grants adding or removing members, approving access or changing roles; ordinary homeowner access never shows community-wide membership changes, while a homeowner who also holds a board role sees them through that role; each entry shows who made the change, whose membership changed, the action or old and new role, and the time, with supporting documents and private notes behind their own permissions; losing the board or management role ends access on every screen, link, interface and export; the entries are system-generated, cannot be edited or deleted, and are kept after a member leaves.",
    "answeredOn": "2026-10-23",
    "acceptedOn": "2026-10-28",
    "status": "planned"
