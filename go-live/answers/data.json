@@ -161,28 +161,6 @@
    ]
   },
   {
-   "id": "A93",
-   "group": "money",
-   "title": "Who approves a payment plan",
-   "why": "\"Keep\" → nothing changes; \"Board vote\" → added for the launch.",
-   "rows": [
-    {
-     "id": "A93-1",
-     "qs": [
-      "Your Core list asks for board-approved payment plans, and your rule for money already needs two people. The one open point: does a second financial person approving each plan meet \"board-approved\", or should the board vote on each plan?"
-     ],
-     "rec": "Keep it: a second financial person approves each plan. Why: it is the same two-person check you chose for refunds on September 10, and every plan records who set it up and who approved it.",
-     "videos": [],
-     "replies": [
-      {
-       "at": "2026-10-24T08:28:45.000Z",
-       "text": "Thank you, this is clearer than what we proposed. We will build it as you describe: a payment plan goes to the board by default; a community can switch on delegation to a second authorized financial person, only with the delegation policy recorded and a limit set by the board; plans outside the limit go to the board; and the person who creates a plan can never approve it. Each approval is written to the history. Tell us if you want anything different."
-      }
-     ]
-    }
-   ]
-  },
-  {
    "id": "A96",
    "group": "enforce",
    "title": "Whether a second person must review every violation notice",
@@ -249,28 +227,6 @@
    ]
   },
   {
-   "id": "A101",
-   "group": "records",
-   "title": "What ends when a home is sold",
-   "why": "\"Yes\" → nothing changes; \"Owner only\" → a small code change.",
-   "rows": [
-    {
-     "id": "A101-1",
-     "qs": [
-      "When a home is sold, should the seller's tenants' access and any AutoPay on the home end at the handoff, as well as the former owner's?"
-     ],
-     "rec": "Yes. A tenant's lease is with the seller; leaving their access or AutoPay running would charge or admit people the new owner never agreed to.",
-     "videos": [],
-     "replies": [
-      {
-       "at": "2026-10-25T02:10:00.000Z",
-       "text": "So the work was not held up, we built this the way we recommended: at the confirmed handoff of a sale, every tenancy of the seller ends (moved out, access ended, one history entry each, the tenant told) and every AutoPay on the home other than the buyer's is turned off; the buyer's own tenants start fresh. Would you like to change it? If so, tell us how in a reply here and we will change it; if not, no answer is needed."
-      }
-     ]
-    }
-   ]
-  },
-  {
    "id": "A102",
    "group": "records",
    "title": "Who reads a home's money history after a sale",
@@ -294,6 +250,34 @@
   }
  ],
  "answered": [
+  {
+   "id": "A101-1",
+   "kind": "question",
+   "card": "What ends when a home is sold",
+   "qs": [
+    "When a home is sold, should the seller's tenants' access and any AutoPay on the home end at the handoff, as well as the former owner's?"
+   ],
+   "answer": "change",
+   "rec": "Yes. A tenant's lease is with the seller; leaving their access or AutoPay running would charge or admit people the new owner never agreed to.",
+   "build": "Ownership transfer, tenant move-out and AutoPay are handled separately, and only after an authorized person verifies the completed transfer (a scheduled sale alone changes nothing). At the confirmed transfer: the seller's owner permissions for that home end and their future AutoPay for it stops, keeping their other homes and their own statements and receipts. Tenancies are not ended automatically: a step confirms whether each tenant is staying or leaving; a staying tenant keeps residency history and resident access, the owner relationship is updated and permissions the seller delegated are removed; unclear occupancy is flagged for an authorized administrator. The buyer sets up and authorizes their own AutoPay; the seller's payment methods and authorization are never transferred. Tenant AutoPay is reviewed separately: it continues only if payer, recipient, obligation and authorization are unchanged, otherwise it is paused until confirmed or reauthorized. Payment history, balances, credits and pending transactions are kept and reconciled through the transfer without moving personal credits or assigning all prior balances to the buyer, and without duplicate charges. Who confirmed, the effective date and every access and AutoPay change are logged and the people affected are told. Ending owner permissions never removes separately verified resident access.",
+   "answeredOn": "2026-10-26",
+   "acceptedOn": "2026-10-28",
+   "status": "planned"
+  },
+  {
+   "id": "A93-1",
+   "kind": "question",
+   "card": "Who approves a payment plan",
+   "qs": [
+    "Your Core list asks for board-approved payment plans, and your rule for money already needs two people. The one open point: does a second financial person approving each plan meet \"board-approved\", or should the board vote on each plan?"
+   ],
+   "answer": "change",
+   "rec": "Keep it: a second financial person approves each plan. Why: it is the same two-person check you chose for refunds on September 10, and every plan records who set it up and who approved it.",
+   "build": "Payment plans default to board approval unless the community has a documented, legally permitted delegation policy. Where delegation is allowed, a second authorized financial person may approve plans within the board's approved limits (financial permissions alone do not establish that authority); plans outside those limits, or needing board action under state law or governing documents, go to the board. The person who creates a plan can never approve it. The plan terms, creator, approver, date and the supporting board approval or delegation are recorded, and a change to approved terms needs reapproval. For MVP 1 the board approval is recorded with a meeting date and a supporting reference before the plan is activated; no separate board-voting feature. Counsel confirms the delegation rules for the launch states before delegated approval is enabled.",
+   "answeredOn": "2026-10-23",
+   "acceptedOn": "2026-10-28",
+   "status": "planned"
+  },
   {
    "id": "A86-1",
    "kind": "question",
