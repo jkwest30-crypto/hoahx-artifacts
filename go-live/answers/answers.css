@@ -245,6 +245,11 @@ footer b{color:var(--ink-2)}
 .msg b{display:flex;gap:8px;align-items:baseline;font-size:12px;font-weight:600;color:var(--muted)}
 .msg b i{font-style:normal;font-weight:400}
 .msg span{display:block;white-space:pre-line}
+.msg span.rich{white-space:normal}
+.msg span.rich p{margin:0 0 8px}
+.msg span.rich ol,.msg span.rich ul{margin:0 0 10px;padding-left:22px}
+.msg span.rich li{margin:0 0 4px}
+.msg span.rich strong{font-weight:600;color:var(--ink)}
 .msg.from-you{--c:var(--change);background:var(--surface)}
 .msg.from-us{--c:var(--accent-2);background:var(--accent-wash)}
 .msg.from-us b{color:var(--accent)}

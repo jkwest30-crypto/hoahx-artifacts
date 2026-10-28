@@ -274,10 +274,31 @@
     if (after.length) msgs.push({ who: 'you', text: after[after.length - 1].n, at: after[after.length - 1].at, last: true });
     return msgs;
   }
+  // Our replies only: **bold**, numbered and "- " lists and paragraphs. The text is escaped first, so
+  // nothing but these tags can come from the store.
+  function richHtml(text) {
+    const inline = (t) => esc(t).replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+    const out = [];
+    let list = null;
+    const close = () => { if (list) { out.push('</' + list + '>'); list = null; } };
+    String(text == null ? '' : text).split('\n').forEach((line) => {
+      const ol = /^\s*\d+[.)]\s+(.*)$/.exec(line), ul = /^\s*[-*]\s+(.*)$/.exec(line);
+      const kind = ol ? 'ol' : ul ? 'ul' : null;
+      if (kind) {
+        if (list !== kind) { close(); out.push('<' + kind + '>'); list = kind; }
+        out.push('<li>' + inline((ol || ul)[1]) + '</li>');
+      } else {
+        close();
+        if (line.trim()) out.push('<p>' + inline(line.trim()) + '</p>');
+      }
+    });
+    close();
+    return out.join('');
+  }
   function msgHtml(m, i, mark) {
     const label = m.who === 'us' ? 'Our reply' : i === 0 ? (mark === 'discuss' ? 'Your note for the call' : 'What you want changed') : 'Your reply';
     const day = fmtDay(m.at);
-    return '<div class="msg ' + (m.who === 'us' ? 'from-us' : 'from-you') + '"><b>' + label + (day ? ' <i>' + esc(day) + '</i>' : '') + '</b><span>' + esc(m.text) + '</span></div>';
+    return '<div class="msg ' + (m.who === 'us' ? 'from-us' : 'from-you') + '"><b>' + label + (day ? ' <i>' + esc(day) + '</i>' : '') + '</b><span' + (m.who === 'us' ? ' class="rich">' + richHtml(m.text) : '>' + esc(m.text)) + '</span></div>';
   }
   // The two messages that matter now stay open (the owners' latest and our latest reply); anything
   // before them is folded under "Earlier messages".
