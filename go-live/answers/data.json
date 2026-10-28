@@ -24,22 +24,6 @@
  ],
  "cards": [
   {
-   "id": "A63",
-   "group": "pricing",
-   "title": "Sales tax on the community subscription: which states",
-   "why": "You answered yes to a tax line on the subscription screens. Tax can only be charged where HOA HX is set up with the state to collect it, so the states decide what the first invoices show; nothing else waits on this.",
-   "rows": [
-    {
-     "id": "A63-1",
-     "qs": [
-      "In which states must HOA HX collect sales tax on the community subscription, and will HOA HX be set up with those states to collect it before launch?"
-     ],
-     "rec": "Have your accountant name the states where the subscription is taxable and where HOA HX will be set up to collect it. Until then the rate is zero and no tax line shows; a state can be added later without changing anything a community has already paid.",
-     "videos": []
-    }
-   ]
-  },
-  {
    "id": "A79",
    "group": "money",
    "title": "The fee for a home's transfer package",
@@ -151,22 +135,6 @@
        "text": "So the work was not held up, we built this the way we recommended: Get started stays open for someone already logged in and shows which account they are using, so a board member can start a second community without logging out. Would you like to change it? If so, tell us how in a reply here and we will change it; if not, no answer is needed."
       }
      ]
-    }
-   ]
-  },
-  {
-   "id": "A86",
-   "group": "money",
-   "title": "How the processor takes its fees",
-   "why": "\"In full\" → nothing changes; \"out of each deposit\" → each deposit shows the fee taken out, beside the payments inside it, in the treasurer's matching view.",
-   "rows": [
-    {
-     "id": "A86-1",
-     "qs": [
-      "Should each community's bank deposits arrive in full, with the processor's fees billed once at the end of the month, or should the fees be taken out of each deposit?"
-     ],
-     "rec": "Deposits arrive in full and the processor bills its fees once a month. Each deposit then matches the homeowner payments inside it to the cent, so the treasurer can check the bank statement without working out fees.",
-     "videos": []
     }
    ]
   },
@@ -327,6 +295,20 @@
  ],
  "answered": [
   {
+   "id": "A86-1",
+   "kind": "question",
+   "card": "How the processor takes its fees",
+   "qs": [
+    "Should each community's bank deposits arrive in full, with the processor's fees billed once at the end of the month, or should the fees be taken out of each deposit?"
+   ],
+   "answer": "discuss",
+   "rec": "Deposits arrive in full and the processor bills its fees once a month. Each deposit then matches the homeowner payments inside it to the cent, so the treasurer can check the bank statement without working out fees.",
+   "build": "Deposits arrive in full and the processor bills its fees once a month (the recommendation), with the owners' conditions: the app keeps the dues payment, any resident-paid fee, any HOA-paid fee and the bank deposit apart; a fee taken from a deposit never leaves a homeowner with an unpaid dues balance; settlement-reporting limits are flagged before automatic reconciliation is promised; a sample card and ACH walk-through with PlatPay, including a refund and a returned payment, comes before sign-off. If PlatPay's standard setup takes fees from deposits, that is acceptable when reporting explains the difference; no custom workaround is needed to force monthly billing.",
+   "answeredOn": "2026-10-23",
+   "acceptedOn": "2026-10-26",
+   "status": "planned"
+  },
+  {
    "id": "A88-1",
    "kind": "question",
    "card": "A Property Manager's money tasks: on with the role, or switched on by the board",
@@ -465,6 +447,62 @@
    "answeredOn": "2026-10-21",
    "acceptedOn": "2026-10-21",
    "status": "built"
+  },
+  {
+   "id": "A70-1",
+   "kind": "question",
+   "card": "Another hearing after a case moves back a stage",
+   "qs": [
+    "Once a hearing is held at one stage, may the homeowner ask for another at an earlier stage if the case is moved back?"
+   ],
+   "answer": "agree",
+   "rec": "No. One hearing per stage. A stage already heard is not heard again, even if the case moves back; a later stage can still be heard.",
+   "build": "No. One hearing per stage. A stage already heard is not heard again, even if the case moves back; a later stage can still be heard.",
+   "answeredOn": "2026-10-16",
+   "acceptedOn": "2026-10-21",
+   "status": "planned"
+  },
+  {
+   "id": "A71-1",
+   "kind": "question",
+   "card": "Telling the homeowner about lien and hearing steps",
+   "qs": [
+    "Should the homeowner be told when the board approves a lien, recorded notice, referral or foreclosure on their violation, and when their hearing is recorded as held?"
+   ],
+   "answer": "agree",
+   "rec": "Yes. One notice for each step, naming the step and opening the violation. The board's own notes are never in it.",
+   "build": "Yes. One notice for each step, naming the step and opening the violation. The board's own notes are never in it.",
+   "answeredOn": "2026-10-16",
+   "acceptedOn": "2026-10-21",
+   "status": "planned"
+  },
+  {
+   "id": "A72-1",
+   "kind": "question",
+   "card": "What the HOAhx assistant is called",
+   "qs": [
+    "Should the app keep calling it the \"HOAhx Assistant\" rather than \"Copilot\"?"
+   ],
+   "answer": "change",
+   "rec": "Keep \"Assistant\". It is the name the app already uses, and it describes what it does: it answers from the community's own records and hands off to a person.",
+   "build": "Keep \"HOAhx Assistant\" (confirmed by Rustin in chat).",
+   "answeredOn": "2026-10-16",
+   "acceptedOn": "2026-10-21",
+   "status": "planned"
+  },
+  {
+   "id": "A74-1",
+   "kind": "question",
+   "card": "How the name is written on screens",
+   "qs": [
+    "Which spelling should the app show people: \"HOA HX\", \"HOAhx\" or \"HOAHX\"?"
+   ],
+   "answer": "change",
+   "rec": "Use \"HOA HX\" on screens and in the store listing. It matches the store name already created, and one spelling everywhere reads as one company.",
+   "build": "\"HOA HX\" everywhere.",
+   "answeredOn": "2026-10-16",
+   "acceptedOn": "2026-10-21",
+   "status": "planned"
   },
   {
    "id": "A75-1",
@@ -635,6 +673,20 @@
    "status": "planned"
   },
   {
+   "id": "A63-1",
+   "kind": "question",
+   "card": "Sales tax on the community subscription: which states",
+   "qs": [
+    "In which states must HOA HX collect sales tax on the community subscription, and will HOA HX be set up with those states to collect it before launch?"
+   ],
+   "answer": "discuss",
+   "rec": "Have your accountant name the states where the subscription is taxable and where HOA HX will be set up to collect it. Until then the rate is zero and no tax line shows; a state can be added later without changing anything a community has already paid.",
+   "build": "Keep as-is (proceed as planned): staff set the rate per community, zero until HOAhx's accountant names the states where it must collect and HOAhx is set up there; no tax line shows until then, and a state can be added later without changing anything a community has already paid. The owners are looking into the states themselves.",
+   "answeredOn": "2026-10-15",
+   "acceptedOn": "2026-10-17",
+   "status": "planned"
+  },
+  {
    "id": "A67-1",
    "kind": "question",
    "card": "Entry instructions sent with a shared guest code",
@@ -660,62 +712,6 @@
    "build": "Keep it as it is: each board title carries only the permissions the roles report lists.",
    "answeredOn": "2026-10-16",
    "acceptedOn": "2026-10-17",
-   "status": "planned"
-  },
-  {
-   "id": "A70-1",
-   "kind": "question",
-   "card": "Another hearing after a case moves back a stage",
-   "qs": [
-    "Once a hearing is held at one stage, may the homeowner ask for another at an earlier stage if the case is moved back?"
-   ],
-   "answer": "agree",
-   "rec": "No. One hearing per stage. A stage already heard is not heard again, even if the case moves back; a later stage can still be heard.",
-   "build": "No. One hearing per stage. A stage already heard is not heard again, even if the case moves back; a later stage can still be heard.",
-   "answeredOn": "2026-10-16",
-   "acceptedOn": "2026-10-16",
-   "status": "planned"
-  },
-  {
-   "id": "A71-1",
-   "kind": "question",
-   "card": "Telling the homeowner about lien and hearing steps",
-   "qs": [
-    "Should the homeowner be told when the board approves a lien, recorded notice, referral or foreclosure on their violation, and when their hearing is recorded as held?"
-   ],
-   "answer": "agree",
-   "rec": "Yes. One notice for each step, naming the step and opening the violation. The board's own notes are never in it.",
-   "build": "Yes. One notice for each step, naming the step and opening the violation. The board's own notes are never in it.",
-   "answeredOn": "2026-10-16",
-   "acceptedOn": "2026-10-16",
-   "status": "planned"
-  },
-  {
-   "id": "A72-1",
-   "kind": "question",
-   "card": "What the HOAhx assistant is called",
-   "qs": [
-    "Should the app keep calling it the \"HOAhx Assistant\" rather than \"Copilot\"?"
-   ],
-   "answer": "change",
-   "rec": "Keep \"Assistant\". It is the name the app already uses, and it describes what it does: it answers from the community's own records and hands off to a person.",
-   "build": "Keep \"HOAhx Assistant\" (confirmed by Rustin in chat).",
-   "answeredOn": "2026-10-16",
-   "acceptedOn": "2026-10-16",
-   "status": "planned"
-  },
-  {
-   "id": "A74-1",
-   "kind": "question",
-   "card": "How the name is written on screens",
-   "qs": [
-    "Which spelling should the app show people: \"HOA HX\", \"HOAhx\" or \"HOAHX\"?"
-   ],
-   "answer": "change",
-   "rec": "Use \"HOA HX\" on screens and in the store listing. It matches the store name already created, and one spelling everywhere reads as one company.",
-   "build": "\"HOA HX\" everywhere.",
-   "answeredOn": "2026-10-16",
-   "acceptedOn": "2026-10-16",
    "status": "planned"
   },
   {
