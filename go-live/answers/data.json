@@ -1,26 +1,109 @@
 {
- "updated": "2026-10-27",
+ "updated": "2026-10-29",
  "groups": [
   {
    "id": "money",
    "title": "Money: dues, the ledger, and the books"
+  },
+  {
+   "id": "community",
+   "title": "Community life"
+  },
+  {
+   "id": "pricing",
+   "title": "Pricing"
   }
  ],
  "cards": [
   {
-   "id": "A79",
+   "id": "A114",
    "group": "money",
-   "title": "The fee for a home's transfer package",
-   "note": "How the transfer package works, step by step: the seller reports the sale on \"Selling your home\" and asks for the package with one button. If the community has set a fee, the seller pays it on the spot through the community's own payment account and gets a receipt; the package is only requested once the payment is approved. The board prepares the package, the seller can share it with one title company for up to 30 days, and the board confirms the handoff after closing, when the buyer becomes the owner. The buyer pays nothing.",
-   "why": "Nothing changes for a community until its board chooses a fee; the ceiling keeps a mistyped amount from reaching a seller, and the package is prepared only once it is paid for.",
+   "title": "Who entered a ledger line, and as which officer",
+   "why": "\"After launch\" → nothing changes for the launch; \"Before launch\" → a small screen change, built only if the schedule has room.",
    "rows": [
     {
-     "id": "A79-1",
+     "id": "A114-1",
      "qs": [
-      "Your launch already includes a paid transfer package, charged through the community's own payment account, with a receipt. The one open point: should the President or the management company set the fee, starting at no charge and capped at $1,000?"
+      "Should a ledger line's history show who entered it and the role they held at that moment, after launch?"
      ],
-     "rec": "Yes. The President or the management company sets the fee, with a reason. It starts at no charge and can be at most $1,000. The seller pays it by card or bank account when they request the package, with no saved payment method and no card fee added. If the payment is declined, the package is not requested.",
+     "rec": "After launch. Every payment, charge, credit, refund or void a person enters is already kept on the community's audit record with their name and the role they held at that moment, and the Treasurer and President can read it there. Showing the same name and role on the ledger line's own history is a small addition we suggest making after launch. Choosing who is Treasurer, and switching between your own roles, work today.",
      "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A115",
+   "group": "community",
+   "title": "Quick access on the homeowner home screen",
+   "why": "\"Keep as built\" → we only fix the wording of the check; \"Always show\" → a fixed set of tiles is added to the home screen.",
+   "rows": [
+    {
+     "id": "A115-1",
+     "qs": [
+      "Quick access, the row of shortcut tiles on a homeowner's home screen, appears only when it adds something: should it always show, or stay hidden when every shortcut is already in the menu?"
+     ],
+     "rec": "Keep it as built and correct our test wording. Quick access lists only the shortcuts the menu does not already reach, so a homeowner never sees the same screen twice. With every feature switched on, every shortcut is already in the menu (the sidebar on a computer, the bottom bar and More on a phone), so the row is empty and does not appear. That is why a tester told to look for it could not find it. We would reword the check to say it appears only when the menu lacks a shortcut. The alternative is to always show a short fixed set of tiles (for example Pay, Request, Documents, Announcements), at the cost of repeating menu items on the home screen.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A116",
+   "group": "community",
+   "title": "Basic Meetings stays in the launch",
+   "why": "\"Stays\" → nothing changes; \"Leaves the launch\" → a change order, then a task to hide the Meetings screens.",
+   "rows": [
+    {
+     "id": "A116-1",
+     "qs": [
+      "Meetings are in MVP 2: does the basic Meetings feature already built (agenda, location, minutes, board roster, role dates, decision records) stay in the launch?"
+     ],
+     "rec": "Yes, it stays. Meetings' larger expansion (votes after a meeting, recordings, transcripts) is MVP 2, after launch. The basic Meetings you agreed on October 13 is built and tested, so it ships as it is: agenda, location and minutes, plus the board roster, role dates and decision records. Hiding working screens before launch would be a scope change with its own change order.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A117",
+   "group": "pricing",
+   "title": "A second notice when a bank payment clears",
+   "why": "\"No second notice\" → nothing changes; \"Send a notice\" → one email when the payment clears.",
+   "rows": [
+    {
+     "id": "A117-1",
+     "qs": [
+      "When a bank payment that brought your community's access back clears a few days later, should the billing contacts get a second notice?"
+     ],
+     "rec": "No second notice. When a past-due community pays by bank, its access comes back at once while the payment is processing. When the payment clears a few days later, the subscription page changes from \"Bank payment processing\" to nothing owed, and the community's history records it. A notice is sent only if the bank returns the payment, because that is the moment someone has to act. The alternative is a short \"Your bank payment has cleared\" email to the billing contacts.",
+     "videos": [],
+     "replies": [
+      {
+       "at": "2026-10-29T11:20:00.000Z",
+       "text": "So the work was not held up, we built this the way we recommended: when a bank payment clears, the subscription page and the community's history change, and no second email is sent. Would you like to change it? If so, tell us how in a reply here and we will change it; if not, no answer is needed."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "A118",
+   "group": "community",
+   "title": "A co-owner approved from a join request",
+   "why": "\"Same rules\" → nothing changes; \"Added at once\" → any reviewer can add a co-owner without a second approval.",
+   "rows": [
+    {
+     "id": "A118-1",
+     "qs": [
+      "When a board approves someone's request to join as a co-owner of a home, should it follow the same rules as naming any owner?"
+     ],
+     "rec": "Yes, the same rules. A co-owner is an owner of the home, so approving a join request as a co-owner now works like naming an owner: it needs the President's permission to name owners, a reason, and a second person to approve it, and nobody approves it for their own home. Staff without that permission see the choice greyed out with \"Ask your President\". Earlier we said a co-owner from a join request would be added at once; without this change, a join request would be a way around the second approval that naming an owner needs.",
+     "videos": [],
+     "replies": [
+      {
+       "at": "2026-10-29T11:20:00.000Z",
+       "text": "So the work was not held up, we built this the way we recommended: approving a join request as a co-owner follows the same rules as naming an owner, with a second person approving it. Would you like to change it? If so, tell us how in a reply here and we will change it; if not, no answer is needed."
+      }
+     ]
     }
    ]
   }
@@ -38,7 +121,7 @@
    "build": "Ownership transfer, tenant move-out and AutoPay are handled separately, and only after an authorized person verifies the completed transfer (a scheduled sale alone changes nothing). At the confirmed transfer: the seller's owner permissions for that home end and their future AutoPay for it stops, keeping their other homes and their own statements and receipts. Tenancies are not ended automatically: a step confirms whether each tenant is staying or leaving; a staying tenant keeps residency history and resident access, the owner relationship is updated and permissions the seller delegated are removed; unclear occupancy is flagged for an authorized administrator. The buyer sets up and authorizes their own AutoPay; the seller's payment methods and authorization are never transferred. Tenant AutoPay is reviewed separately: it continues only if payer, recipient, obligation and authorization are unchanged, otherwise it is paused until confirmed or reauthorized. Payment history, balances, credits and pending transactions are kept and reconciled through the transfer without moving personal credits or assigning all prior balances to the buyer, and without duplicate charges. Who confirmed, the effective date and every access and AutoPay change are logged and the people affected are told. Ending owner permissions never removes separately verified resident access.",
    "answeredOn": "2026-10-26",
    "acceptedOn": "2026-10-28",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A102-1",
@@ -66,7 +149,7 @@
    "build": "Yes, with the owners' details (the owners' note of Oct 23): a card payment that covers the whole past-due balance restores board and management access at once; a bank payment restores it provisionally once accepted for processing, unless the community had two returned subscription payments in the last 12 months, when it waits until the payment clears (a card still restores at once); a returned payment notifies the Account Owner and puts the community back on its original past-due dates; homeowners and the billing page are never affected; returns are counted on the community's subscription only, apart from homeowner dues; and the page shows \"Bank payment processing\" apart from \"Payment completed\".",
    "answeredOn": "2026-10-23",
    "acceptedOn": "2026-10-28",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A82-1",
@@ -78,6 +161,20 @@
    "answer": "discuss",
    "rec": "HOA HX staff can extend the grace period up to 30 days, or grant an exception up to 90 days (a dispute, a payment arranged with HOA HX), each with a reason. Every hold ends on its own and the day count resumes.",
    "build": "Yes, with the owners' details (the owners' note of Oct 23): HOA HX staff may grant a hold of up to 30 days; anything longer needs Rustin's or Dan's approval, up to 90 days in total for that hold including any first extension; every hold has a reason, an end date and a record of who granted or approved it; a hold pauses the past-due steps and collections while billing continues and the balance stays owed; a hold keeps the access level it found unless staff explicitly restore it; when it ends the community resumes on its original dates, with no reset and no automatic renewal; the Account Owner is told when a hold starts and before it ends; holds cannot be stacked or renewed to get around the approval; homeowners and the billing page are never affected.",
+   "answeredOn": "2026-10-23",
+   "acceptedOn": "2026-10-28",
+   "status": "planned"
+  },
+  {
+   "id": "A83-1",
+   "kind": "question",
+   "card": "A copy of the community's records",
+   "qs": [
+    "Should the copy of the community's records also include its documents and its ledger?"
+   ],
+   "answer": "discuss",
+   "rec": "Add the documents and the ledger for the launch. Why: your list asks for a data export, and your past-due steps promise one before day 90; without these two, a community leaving would still download its documents one at a time.",
+   "build": "What we settled when we talked it through.",
    "answeredOn": "2026-10-23",
    "acceptedOn": "2026-10-28",
    "status": "planned"
@@ -108,7 +205,7 @@
    "build": "Stay open and name the account, with the owners' details (the owners' note of Oct 23): \"You're logged in as [email]\"; \"Set up a new community\" as the main action, using the existing account; \"Go to dashboard\"; \"Use a different account\"; an option to resume an unfinished community setup so no duplicate is created; starting another community never changes existing memberships or permissions, and being logged in never opens an existing community without an invitation or the board's approval.",
    "answeredOn": "2026-10-23",
    "acceptedOn": "2026-10-28",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A91-1",
@@ -119,7 +216,7 @@
    ],
    "answer": "change",
    "rec": "Keep every vote secret for the launch. Why: a secret ballot is never the wrong choice for a homeowner vote, and an open-vote option can follow once you name a vote that needs it.",
-   "build": "Every vote stays secret. Before HOA HX launches: nobody, HOA HX staff included, sees a choice's total until the vote closes; while it is open, turnout and quorum only (this corrects our October 24 reply, which was true for homeowners only). Choices are stored so their timing cannot point to a voter. On a vote of the owners, an owner, a co-owner or the representative the owners named casts the home's ballot, and an owner of two homes casts one ballot for each. A vote is locked once it opens, an unused older ballot path is removed, and surveys say \"Not a binding vote\" and, when not anonymous, \"Responses are identified\". Board decisions stay in the meeting minutes. After launch, in the order a community first needs them: approval thresholds and abstentions, voting weight per home, cancelling or extending a vote with a reason, a voter's receipt, and an inspector's recount; the association type and each vote's type follow your counsel's list. Proxies, paper ballots, consent to electronic voting, nominations and electing several seats at once come only when a community needs them, as its counsel or governing documents say.",
+   "build": "Every vote stays secret. Before HOA HX launches: nobody, HOA HX staff included, sees a choice's total until the vote closes; while it is open, turnout and quorum only (this corrects our October 24 reply, which was true for homeowners only). The vote setting once called \"Show results publicly\" is now \"Show turnout while voting is open\": it controls only whether homeowners see how many ballots are in while a vote is open, and the totals stay hidden from everyone until the vote closes. This part is built. Choices are stored so their timing cannot point to a voter. On a vote of the owners, an owner, a co-owner or the representative the owners named casts the home's ballot, and an owner of two homes casts one ballot for each. A vote is locked once it opens, an unused older ballot path is removed, and surveys say \"Not a binding vote\" and, when not anonymous, \"Responses are identified\". Board decisions stay in the meeting minutes. After launch, in the order a community first needs them: approval thresholds and abstentions, voting weight per home, cancelling or extending a vote with a reason, a voter's receipt, and an inspector's recount; the association type and each vote's type follow your counsel's list. Proxies, paper ballots, consent to electronic voting, nominations and electing several seats at once come only when a community needs them, as its counsel or governing documents say.",
    "answeredOn": "2026-10-23",
    "acceptedOn": "2026-10-28",
    "status": "planned"
@@ -443,6 +540,20 @@
    "rec": "Yes. Refuse a dues-group or dues-schedule change that names a home the person making it owns. Another officer with the same access makes that change instead.",
    "build": "Yes (\"for now\"): an officer is stopped from placing their own home in a dues group; the owners' check is fine if it does not slow things down.",
    "answeredOn": "2026-10-21",
+   "acceptedOn": "2026-10-21",
+   "status": "planned"
+  },
+  {
+   "id": "A79-1",
+   "kind": "question",
+   "card": "The fee for a home's transfer package",
+   "qs": [
+    "Your launch already includes a paid transfer package, charged through the community's own payment account, with a receipt. The one open point: should the President or the management company set the fee, starting at no charge and capped at $1,000?"
+   ],
+   "answer": "change",
+   "rec": "Yes. The President or the management company sets the fee, with a reason. It starts at no charge and can be at most $1,000. The seller pays it by card or bank account when they request the package, with no saved payment method and no card fee added. If the payment is declined, the package is not requested.",
+   "build": "Built the way you asked, in your words above.",
+   "answeredOn": "2026-10-28",
    "acceptedOn": "2026-10-21",
    "status": "planned"
   },
