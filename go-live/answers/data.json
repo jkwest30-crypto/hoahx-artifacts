@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-29",
+ "updated": "2026-10-30",
  "groups": [
   {
    "id": "money",
@@ -552,7 +552,7 @@
    ],
    "answer": "change",
    "rec": "Yes. The President or the management company sets the fee, with a reason. It starts at no charge and can be at most $1,000. The seller pays it by card or bank account when they request the package, with no saved payment method and no card fee added. If the payment is declined, the package is not requested.",
-   "build": "Built the way you asked, in your words above.",
+   "build": "Change (your note on card A79): the fee is part of a board-approved fee schedule that the President or management company configures; each charge is shown separately with what it covers and who receives it (HOA HX's service charge apart from the HOA's own fees); no universal $1,000 cap (limits fit the state and type of service); no upfront payment required for every request (Utah payoff requests are fulfilled without payment before closing); sellers and authorized agents or title companies can request, track and receive the package with owner consent; who pays each charge follows the transaction, not a fixed \"buyer pays nothing\"; for launch the request, preparation, delivery and tracking workflow is built and paid services wait for Utah HOA counsel to validate the fee structure, the basic workflow staying in the subscription meanwhile. What is built stays as it is for now: no fee is charged until a board sets one; your changes are recorded and will be sized before anything changes, and paid services wait for the fee structure to be checked with Utah HOA counsel.",
    "answeredOn": "2026-10-28",
    "acceptedOn": "2026-10-21",
    "status": "planned"
