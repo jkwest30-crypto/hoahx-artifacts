@@ -113,3 +113,22 @@
   from = "/qa"
   to = "/qa/index.html"
   status = 200
+
+# What's in the Build: the owners sign off each numbered line and add notes, at /whats-in-the-build,
+# with their shared store at /api/signoffs. Jacob reads every answer at /whats-in-the-build/responses
+# (linked from nowhere).
+[[redirects]]
+  from = "/api/signoffs"
+  to = "/.netlify/functions/signoffs"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/whats-in-the-build"
+  to = "/whats-in-the-build/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/whats-in-the-build/responses"
+  to = "/whats-in-the-build/responses/index.html"
+  status = 200

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Build Sign-offs</title>
+<style>
+/* Layout: one reading column: progress per person, every note, then every line with who signed it */
+:root{--bg:#f8fafc;--surface:#fff;--fg:#1e293b;--muted:#64748b;--line:#e2e8f0;--accent:#0891b2;--accent-soft:#e0f4f8;--font:system-ui,-apple-system,"Segoe UI",sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1115;--surface:#171a21;--fg:#e2e8f0;--muted:#94a3b8;--line:#2a2f3a;--accent:#22b8d6;--accent-soft:#0e2a33;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0f1115;--surface:#171a21;--fg:#e2e8f0;--muted:#94a3b8;--line:#2a2f3a;--accent:#22b8d6;--accent-soft:#0e2a33;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 var(--font)}
+.wrap{max-width:860px;margin:0 auto;padding:32px 16px 64px;display:grid;gap:20px}
+h1,h2,p{margin:0}h1{font-size:28px}h2{font-size:18px}
+.muted{color:var(--muted);font-size:14px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.card b{font-size:24px;font-variant-numeric:tabular-nums;display:block}
+.list{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.row{display:grid;grid-template-columns:52px minmax(0,1fr);gap:12px;padding:12px 16px;border-top:1px solid var(--line)}
+.row:first-child{border-top:0}
+.rid{font-weight:600;color:var(--muted);font-variant-numeric:tabular-nums;font-size:13px;padding-top:1px}
+.note{background:var(--accent-soft);border-radius:8px;padding:8px 12px;margin-top:6px;white-space:pre-wrap;overflow-wrap:anywhere}
+.top{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.btn{font:inherit;font-size:14px;padding:7px 12px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--fg);cursor:pointer}
+.btn:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+select,input{font:inherit;font-size:14px;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--fg)}
+.empty{padding:24px;text-align:center;color:var(--muted)}
+.err{color:#b91c1c}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><div><h1>Build sign-offs</h1><p class="muted">What the owners signed off and noted on <a href="/whats-in-the-build">What's in the Build</a>.</p></div>
+  <button class="btn" id="csv" type="button">Download CSV</button></div>
+  <p id="msg" class="muted" role="status">Loading…</p>
+  <div class="cards" id="people"></div>
+  <section style="display:grid;gap:8px"><h2 id="notes-h">Notes</h2><div class="list" id="notes"></div></section>
+  <section style="display:grid;gap:8px"><div class="top"><h2>Every line</h2>
+    <select id="show" aria-label="Show lines"><option value="">All lines</option><option value="none">Not signed off by anyone</option><option value="some">Signed off by someone</option></select></div>
+    <div class="list" id="lines"></div></section>
+</div>
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const when=at=>{const d=new Date(at);return isNaN(d)?'':d.toLocaleString(undefined,{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'})};
+const store={get(k){try{return localStorage.getItem(k)||''}catch(e){return ''}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+let LINES=[],RECS=[],KEY=store.get('decision-edit-key');
+function askKey(){$('#msg').innerHTML='Passphrase: <input id="k" type="password" aria-label="Passphrase"> <button class="btn" id="go" type="button">Continue</button>';
+  $('#go').addEventListener('click',()=>{KEY=$('#k').value.trim();store.set('decision-edit-key',KEY);load()})}
+async function load(){
+  try{
+    const [l,r]=await Promise.all([fetch('/whats-in-the-build/lines.json'),fetch('/api/signoffs',{headers:KEY?{'x-edit-key':KEY}:{}})]);
+    if(r.status===401){askKey();return}
+    if(!l.ok||!r.ok)throw new Error('load');
+    LINES=await l.json();RECS=(await r.json()).records||[];
+    $('#msg').textContent=`Updated ${when(new Date().toISOString())}.`;render();
+  }catch(e){$('#msg').innerHTML='<span class="err">The sign-offs could not be loaded. Reload the page to try again.</span>'}
+}
+const byLine=l=>RECS.filter(r=>r.line===l);
+function render(){
+  const order=new Map(LINES.map((x,i)=>[x.line,i]));
+  const people=[...new Map(RECS.map(r=>[r.person,r.by])).entries()].sort((x,y)=>x[1].localeCompare(y[1]));
+  $('#people').innerHTML=people.length?people.map(([p,n])=>{const m=RECS.filter(r=>r.person===p),k=m.filter(r=>r.note).length;return `<div class="card"><span class="muted">${esc(n)}</span><b>${m.filter(r=>r.signed).length} of ${LINES.length}</b><span class="muted">signed off · ${k} note${k===1?'':'s'}</span></div>`}).join(''):'<div class="card muted">Nobody has signed off or left a note yet.</div>';
+  const notes=RECS.filter(r=>r.note).sort((a,b)=>order.get(a.line)-order.get(b.line));
+  const text=l=>(LINES.find(x=>x.line===l)||{}).text||'';
+  $('#notes-h').textContent=`Notes (${notes.length})`;
+  $('#notes').innerHTML=notes.map(r=>`<div class="row"><div class="rid">${esc(r.line)}</div><div>${esc(text(r.line))}<div class="note">${esc(r.note)}</div><span class="muted">${esc(r.by)} · ${esc(when(r.noteAt))}</span></div></div>`).join('')||'<div class="empty">No notes yet.</div>';
+  const show=$('#show').value;
+  $('#lines').innerHTML=LINES.filter(x=>{const n=byLine(x.line).filter(r=>r.signed).length;return !show||(show==='none'?!n:!!n)}).map(x=>{const s=byLine(x.line).filter(r=>r.signed);
+    return `<div class="row"><div class="rid">${esc(x.line)}</div><div>${esc(x.text)}<br><span class="muted">${s.length?'✓ '+s.map(r=>`${esc(r.by)}, ${esc(when(r.signedAt))}`).join(' · '):'Not signed off'}</span></div></div>`}).join('')||'<div class="empty">No lines match.</div>';
+}
+$('#show').addEventListener('change',render);
+$('#csv').addEventListener('click',()=>{
+  const cell=v=>{let s=String(v==null?'':v);if(/^[=+\-@\t\r]/.test(s))s="'"+s;return '"'+s.replace(/"/g,'""')+'"'};
+  const rows=[['Line','Area','Text','Person','Signed off','Signed off at','Note','Note at']];
+  for(const x of LINES){const m=byLine(x.line);if(!m.length)rows.push([x.line,x.area,x.text,'','','','','']);else for(const r of m)rows.push([x.line,x.area,x.text,r.by,r.signed?'yes':'no',r.signedAt,r.note,r.noteAt])}
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([rows.map(r=>r.map(cell).join(',')).join('\r\n')],{type:'text/csv'}));a.download='build-signoffs.csv';a.click();URL.revokeObjectURL(a.href)});
+load();
+</script>
+</body>
+</html>
