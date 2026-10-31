@@ -10,6 +10,10 @@
    "title": "Community life"
   },
   {
+   "id": "ops",
+   "title": "Running HOAhx"
+  },
+  {
    "id": "pricing",
    "title": "Pricing"
   }
@@ -104,6 +108,22 @@
        "text": "So the work was not held up, we built this the way we recommended: approving a join request as a co-owner follows the same rules as naming an owner, with a second person approving it. Would you like to change it? If so, tell us how in a reply here and we will change it; if not, no answer is needed."
       }
      ]
+    }
+   ]
+  },
+  {
+   "id": "A119",
+   "group": "ops",
+   "title": "The company's exact legal name",
+   "why": "Your answer is the exact name the footer shows. If \"HOA HX Inc.\" is correct, nothing changes; if not, the app and the website both change to match.",
+   "rows": [
+    {
+     "id": "A119-1",
+     "qs": [
+      "What is the company's exact legal name, as it appears on its state formation record and your NMI merchant application, and is a DBA filed under HOA HX or HOA Home Experience?"
+     ],
+     "rec": "Please send the exact name from the company's formation record. The sign-in footer states a legal name, and what we have does not agree: Dan said the actual entity is HOAHX and that a DBA could be done as HOA Home Experience, Rustin thought it was HOAHX INC, the Apple developer account says HOAHX INC, and the website footer says \"HOA HX Inc.\" with a space. We recommend showing the exact legal name in the footer, in the app and on hoahx.com. If it is HOAHX Inc. and no DBA is filed, the footer reads \"© 2026 HOAHX Inc. All rights reserved.\" and the website changes to match, so it agrees with what Apple and NMI hold.",
+     "videos": []
     }
    ]
   }
