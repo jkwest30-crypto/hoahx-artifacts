@@ -1,9 +1,13 @@
 {
- "updated": "2026-10-31",
+ "updated": "2026-11-03",
  "groups": [
   {
    "id": "money",
    "title": "Money: dues, the ledger, and the books"
+  },
+  {
+   "id": "enforce",
+   "title": "Enforcement and requests"
   },
   {
    "id": "community",
@@ -164,6 +168,86 @@
      "videos": []
     }
    ]
+  },
+  {
+   "id": "A122",
+   "group": "community",
+   "title": "Does a staff property import count as naming a home's owner?",
+   "why": "A property import writes a home's owner name and email, but gives no role, no primary owner and no history row. Naming an owner needs the deed or closing record that was checked.",
+   "rows": [
+    {
+     "id": "A122-1",
+     "qs": [
+      "Should a staff property import stay a way to list a home's owner without making them the owner?"
+     ],
+     "rec": "No: an import does not name an owner. A person becomes the owner only through Name an Owner or a join review, which ask for the deed or closing record.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A123",
+   "group": "enforce",
+   "title": "Who may send a message to the homes behind on dues?",
+   "why": "A mass message can be sent to the homes behind on dues. Today anyone who can send mass messages can choose that group and see how many homes are in it: the Secretary, the HOA Administrator and a Property Manager the President has given no money tasks.",
+   "rows": [
+    {
+     "id": "A123-1",
+     "qs": [
+      "Should choosing the homes behind on dues be limited to the people who already work with overdue accounts?"
+     ],
+     "rec": "Yes, limit it to those people. Anyone else can ask one of them to send the message.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A124",
+   "group": "money",
+   "title": "Should a manager with no money tasks be able to charge a fine?",
+   "why": "A Property Manager the President has given no money tasks can still charge a fine to a home's account and publish the fine schedule, which sets the most any fine can be. Both come with the role, so the President cannot switch them off.",
+   "rows": [
+    {
+     "id": "A124-1",
+     "qs": [
+      "Should charging a fine and publishing the fine schedule stay with the Property Manager role, or move into the Financials task?"
+     ],
+     "rec": "Move both into the Financials task. A manager with no money tasks still runs a violation up to the fine, and the President, the Treasurer, the management company or a manager with Financials charges it.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A125",
+   "group": "ops",
+   "title": "Should a passkey be able to serve as the second step after a password?",
+   "why": "Board members, managers and HOA HX staff log in with a password and then a second step, today a text message or an app code. A passkey on their phone or computer could be that second step instead, so it is one touch and never waits for a text. You already said yes to a passkey in place of the password and code; this is a passkey after them.",
+   "rows": [
+    {
+     "id": "A125-1",
+     "qs": [
+      "May a passkey serve as the second step after a password for the roles that require one, with the text or app code kept as the fallback?"
+     ],
+     "rec": "Yes, after launch. A passkey counts as the second step only once it has been confirmed one time with a text or app code, and the text or app code stays as the way back in if the phone or computer that holds the passkey is lost.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A126",
+   "group": "community",
+   "title": "Signing a proxy: accept the terms, or draw a signature?",
+   "why": "Proxy voting comes after launch, and a proxy has to be signed. Documents in HOA HX are signed today by ticking a statement and tapping Sign & Confirm, with the name, the statement, the time and the exact version kept; there is no finger-drawn signature. Most states accept an electronic signature for a proxy, but HOA laws differ (some require it in writing, dated, or limited to one meeting), so each community's attorney has the last word. A drawn signature on a phone adds little proof beyond the record already kept.",
+   "rows": [
+    {
+     "id": "A126-1",
+     "qs": [
+      "When proxy voting is offered, may a homeowner sign the proxy by accepting its terms in the app, or must they draw a signature with their finger?"
+     ],
+     "rec": "Accepting the terms is enough. The homeowner ticks the proxy statement and taps Sign & Confirm, and HOA HX keeps who gave the proxy, to whom, for which meeting or vote, the date and when it ends. No drawn signature. Each community confirms with its own attorney that this meets its state's law and its governing documents; a community whose attorney requires more can mark proxies as needing an extra step.",
+     "videos": []
+    }
+   ]
   }
  ],
  "answered": [
@@ -235,7 +319,7 @@
    "build": "What we settled when we talked it through.",
    "answeredOn": "2026-10-23",
    "acceptedOn": "2026-10-28",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A84-1",
@@ -361,7 +445,7 @@
    "build": "Build it for the launch as your list says: a Property Manager starts with no money tasks, the President switches them on for each manager, and each change is recorded.",
    "answeredOn": "2026-10-23",
    "acceptedOn": "2026-10-24",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A89-1",
@@ -375,7 +459,7 @@
    "build": "Build it for the launch as your list says: the Household Administrator invites and removes household members and edits the household's details, and the home's other owners keep every right they have today.",
    "answeredOn": "2026-10-23",
    "acceptedOn": "2026-10-24",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A92-1",
@@ -389,7 +473,7 @@
    "build": "Build it for the launch as your list says: the board sets an opening date and a deadline, the vote opens by itself on its opening date, and homeowners see when it will open.",
    "answeredOn": "2026-10-23",
    "acceptedOn": "2026-10-24",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A94-1",
