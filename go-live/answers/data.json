@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-03",
+ "updated": "2026-11-04",
  "groups": [
   {
    "id": "money",
@@ -23,6 +23,22 @@
   }
  ],
  "cards": [
+  {
+   "id": "A90",
+   "group": "ops",
+   "title": "Importing a spreadsheet: headings only, or smarter column matching?",
+   "why": "Exports from other HOA systems carry recognizable headings, and nothing is written until a person approves the match, so heading matching already finishes most imports. The Assistant's provider quota was approved on November 3, so smarter matching can now be built. It would only suggest: the administrator still confirms every column, the file's contents are never used to change a home without that confirmation, and if the Assistant is off or slow the import falls back to headings. Each import would use a small part of the community's monthly Assistant allowance.",
+   "rows": [
+    {
+     "id": "A90-1",
+     "qs": [
+      "Is matching columns from the file's headings, confirmed by the administrator, enough for the launch, or should the import also use the HOA HX Assistant to suggest each column's match?"
+     ],
+     "rec": "Keep matching columns from the file's headings for the launch, with the administrator confirming every column before anything is saved. Smarter matching (the Assistant suggests each column's match and points out rows that look wrong) is sized at about 2.7 hours of building and testing: 2.0 for the column suggestions and 0.7 for the rows that look wrong. It would be added after launch, or before it if you want it.",
+     "videos": []
+    }
+   ]
+  },
   {
    "id": "A114",
    "group": "money",
@@ -51,22 +67,6 @@
       "Quick access, the row of shortcut tiles on a homeowner's home screen, appears only when it adds something: should it always show, or stay hidden when every shortcut is already in the menu?"
      ],
      "rec": "Keep it as built and correct our test wording. Quick access lists only the shortcuts the menu does not already reach, so a homeowner never sees the same screen twice. With every feature switched on, every shortcut is already in the menu (the sidebar on a computer, the bottom bar and More on a phone), so the row is empty and does not appear. That is why a tester told to look for it could not find it. We would reword the check to say it appears only when the menu lacks a shortcut. The alternative is to always show a short fixed set of tiles (for example Pay, Request, Documents, Announcements), at the cost of repeating menu items on the home screen.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A116",
-   "group": "community",
-   "title": "Basic Meetings stays in the launch",
-   "why": "\"Stays\" → nothing changes; \"Leaves the launch\" → a change order, then a task to hide the Meetings screens.",
-   "rows": [
-    {
-     "id": "A116-1",
-     "qs": [
-      "Meetings are in MVP 2: does the basic Meetings feature already built (agenda, location, minutes, board roster, role dates, decision records) stay in the launch?"
-     ],
-     "rec": "Yes, it stays. Meetings' larger expansion (votes after a meeting, recordings, transcripts) is MVP 2, after launch. The basic Meetings you agreed on October 13 is built and tested, so it ships as it is: agenda, location and minutes, plus the board roster, role dates and decision records. Hiding working screens before launch would be a scope change with its own change order.",
      "videos": []
     }
    ]
@@ -112,22 +112,6 @@
        "text": "So the work was not held up, we built this the way we recommended: approving a join request as a co-owner follows the same rules as naming an owner, with a second person approving it. Would you like to change it? If so, tell us how in a reply here and we will change it; if not, no answer is needed."
       }
      ]
-    }
-   ]
-  },
-  {
-   "id": "A119",
-   "group": "ops",
-   "title": "The company's exact legal name",
-   "why": "Your answer is the exact name the footer shows. If \"HOA HX Inc.\" is correct, nothing changes; if not, the app and the website both change to match.",
-   "rows": [
-    {
-     "id": "A119-1",
-     "qs": [
-      "What is the company's exact legal name, as it appears on its state formation record and your NMI merchant application, and is a DBA filed under HOA HX or HOA Home Experience?"
-     ],
-     "rec": "Please send the exact name from the company's formation record. The sign-in footer states a legal name, and what we have does not agree: Dan said the actual entity is HOAHX and that a DBA could be done as HOA Home Experience, Rustin thought it was HOAHX INC, the Apple developer account says HOAHX INC, and the website footer says \"HOA HX Inc.\" with a space. We recommend showing the exact legal name in the footer, in the app and on hoahx.com. If it is HOAHX Inc. and no DBA is filed, the footer reads \"© 2026 HOAHX Inc. All rights reserved.\" and the website changes to match, so it agrees with what Apple and NMI hold.",
-     "videos": []
     }
    ]
   },
@@ -251,6 +235,34 @@
   }
  ],
  "answered": [
+  {
+   "id": "A116-1",
+   "kind": "question",
+   "card": "Basic Meetings stays in the launch",
+   "qs": [
+    "Meetings are in MVP 2: does the basic Meetings feature already built (agenda, location, minutes, board roster, role dates, decision records) stay in the launch?"
+   ],
+   "answer": "agree",
+   "rec": "Yes, it stays. Meetings' larger expansion (votes after a meeting, recordings, transcripts) is MVP 2, after launch. The basic Meetings you agreed on October 13 is built and tested, so it ships as it is: agenda, location and minutes, plus the board roster, role dates and decision records. Hiding working screens before launch would be a scope change with its own change order.",
+   "build": "Built and in the launch, as already agreed. If you choose to take basic Meetings out too, we would write the change order first and then plan hiding the screens as a task of its own.",
+   "answeredOn": "2026-11-03",
+   "acceptedOn": "2026-11-03",
+   "status": "planned"
+  },
+  {
+   "id": "A119-1",
+   "kind": "question",
+   "card": "The company's exact legal name",
+   "qs": [
+    "What is the company's exact legal name, as it appears on its state formation record and your NMI merchant application, and is a DBA filed under HOA HX or HOA Home Experience?"
+   ],
+   "answer": "agree",
+   "rec": "Please send the exact name from the company's formation record. The sign-in footer states a legal name, and what we have does not agree: Dan said the actual entity is HOAHX and that a DBA could be done as HOA Home Experience, Rustin thought it was HOAHX INC, the Apple developer account says HOAHX INC, and the website footer says \"HOA HX Inc.\" with a space. We recommend showing the exact legal name in the footer, in the app and on hoahx.com. If it is HOAHX Inc. and no DBA is filed, the footer reads \"© 2026 HOAHX Inc. All rights reserved.\" and the website changes to match, so it agrees with what Apple and NMI hold.",
+   "build": "The app's footer will use the name you confirm, and we will lock it in so it cannot change by accident. The website's footer is yours to change if it differs. The Terms of Service and Privacy Policy links already work.",
+   "answeredOn": "2026-11-03",
+   "acceptedOn": "2026-11-03",
+   "status": "planned"
+  },
   {
    "id": "A101-1",
    "kind": "question",
