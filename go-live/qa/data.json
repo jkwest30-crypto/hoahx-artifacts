@@ -213,6 +213,22 @@
    "twoStep": false
   },
   {
+   "handle": "committee-reviewer",
+   "name": "Wren Halvorsen",
+   "roleLabel": "Homeowner",
+   "where": "Cedar Hollow, 7 Aspen Way; seat on the Architectural Committee",
+   "opening": "Owes nothing; reviews the architectural request assigned to her",
+   "twoStep": false
+  },
+  {
+   "handle": "homeowner-selling",
+   "name": "Greta Lindahl",
+   "roleLabel": "Homeowner",
+   "where": "Cedar Hollow, 12 Aspen Way",
+   "opening": "Owes nothing; has reported a sale of her home (not yet confirmed)",
+   "twoStep": false
+  },
+  {
    "handle": "tenant",
    "name": "Luis Moreno",
    "roleLabel": "Tenant",
@@ -259,6 +275,70 @@
    "where": "Cedar Hollow",
    "opening": "Treasurer with an authenticator app (secret in totp-secrets.json)",
    "twoStep": true
+  },
+  {
+   "handle": "platform-owner-totp",
+   "name": "Iris Calder",
+   "roleLabel": "Platform Owner",
+   "where": "HOAhx staff",
+   "opening": "Platform Owner with an authenticator app (secret in totp-secrets.json)",
+   "twoStep": true
+  },
+  {
+   "handle": "platform-support-totp",
+   "name": "Jonas Reyes",
+   "roleLabel": "Platform Support",
+   "where": "HOAhx staff",
+   "opening": "Platform Support with an authenticator app (secret in totp-secrets.json)",
+   "twoStep": true
+  },
+  {
+   "handle": "platform-owner-2-totp",
+   "name": "Tomas Ferreira",
+   "roleLabel": "Platform Owner",
+   "where": "HOAhx staff",
+   "opening": "A second Platform Owner with an authenticator app (secret in totp-secrets.json)",
+   "twoStep": true
+  },
+  {
+   "handle": "board-member-totp",
+   "name": "Lena Fairchild",
+   "roleLabel": "Board Member",
+   "where": "Cedar Hollow",
+   "opening": "Board Member with an authenticator app (secret in totp-secrets.json); proposes fines on violations",
+   "twoStep": true
+  },
+  {
+   "handle": "homeowner-bought",
+   "name": "Odette Marchand",
+   "roleLabel": "Homeowner",
+   "where": "Cedar Hollow, 3 Willow Lane (bought Oct 14)",
+   "opening": "Owns the home the President has handed over; its tenant is waiting to be confirmed",
+   "twoStep": false
+  },
+  {
+   "handle": "tenant-staying",
+   "name": "Rafael Quintero",
+   "roleLabel": "Tenant",
+   "where": "Cedar Hollow, renting 3 Willow Lane (the home was sold)",
+   "opening": "Waits for the President to confirm him as staying or leaving",
+   "twoStep": false
+  },
+  {
+   "handle": "president-past-trial-totp",
+   "name": "Marisol Vega",
+   "roleLabel": "President",
+   "where": "Sagebrush Flats",
+   "opening": "President of a community whose trial has ended (secret in totp-secrets.json); sees the banner, her changes are refused until a plan is bought",
+   "twoStep": true
+  },
+  {
+   "handle": "homeowner-past-trial",
+   "name": "Caleb Whitlock",
+   "roleLabel": "Homeowner",
+   "where": "Sagebrush Flats, 8 Sagebrush Way",
+   "opening": "Owes nothing; sees no banner, and can still send a request",
+   "twoStep": false
   },
   {
    "handle": "s1-fresh",
@@ -2450,7 +2530,7 @@
    ],
    "device": "iphone",
    "minutes": 10,
-   "precondition": "The latest HOA HX test build from TestFlight is on the iPhone and has not been opened since the change was published to the test site's phone updates. The person who looks after the test site has checked that the job \"Publish phone live update (staging)\" for that change is green, and has told you one screen and one word or line on it that is different in the new version (the \"marked line\"), and the name of the version before it. If the marked line already shows on the phone before step 2, record Blocked and ask for a reset of the phone: delete the app and install it again from TestFlight.",
+   "precondition": "The latest HOA HX test build from TestFlight is on the iPhone and has not been opened since the change was published to the test site's phone updates. The person who looks after the test site has checked that the job \"Publish phone live update (staging)\" for that change is green, and has told you one screen and one word or line on it that is different in the new version (the \"marked line\"), and the name of the version before it. If the marked line already shows on the phone before step 2, record Blocked and ask for a reset of the phone: delete the app and install it again from TestFlight. The test build on the phone must be one that can take phone updates: TestFlight build 10 and every earlier build cannot, so with one of those record Blocked.",
    "steps": [
     {
      "do": "Open the HOA HX app on the iPhone and sign in as Jordan Pryce: type his email (from the account panel) in \"Email address\" and tap \"Continue\", then type the password in \"Password\" and tap \"Log in\".",
@@ -2505,7 +2585,7 @@
    ],
    "device": "iphone",
    "minutes": 12,
-   "precondition": "Run this straight after the check \"A homeowner's installed iPhone app shows a changed screen after a phone update, with no store update\", so the phone is on the new version and shows the marked line written in the run notes. The person who looks after the test site has the id of the earlier version (a code like 20261021.812-ab12cd3, from the earlier card's note) and can start the \"Live update control\" run on the project's Actions page.",
+   "precondition": "Run this straight after the check \"A homeowner's installed iPhone app shows a changed screen after a phone update, with no store update\", so the phone is on the new version and shows the marked line written in the run notes. The person who looks after the test site has the id of the earlier version (a code like 20261021.812-ab12cd3, from the earlier card's note) and can start the \"Live update control\" run on the project's Actions page. The test build on the phone must be one that can take phone updates: TestFlight build 10 and every earlier build cannot, so with one of those record Blocked.",
    "steps": [
     {
      "do": "On the iPhone open the HOA HX app (signed in as Jordan Pryce) and go to the screen with the marked line.",
@@ -2563,7 +2643,7 @@
    "steps": [
     {
      "do": "Sign in as the President (password, then the two-step code) and open the live site's page \"My Subscription\" (menu \"Financial\", \"My Subscription\").",
-     "see": "The page \"HOA Platform Subscription\" opens and, near the bottom, a box \"A copy of the community's records\" says it is one ZIP file with the residents, the board, maintenance requests and violations, cleaned of private details."
+     "see": "The page \"HOA Platform Subscription\" opens and, near the bottom, a box \"A copy of the community's records\" says it is one ZIP file with the residents, the board, maintenance requests, violations, the documents you can open and a ledger for each home, and that the lists are cleaned of private details."
     },
     {
      "do": "Press \"Ask for a copy\" (or \"Ask for a new copy\" if one is listed).",
@@ -2579,7 +2659,7 @@
     },
     {
      "do": "Open the downloaded ZIP file on the computer.",
-     "see": "It holds one spreadsheet (CSV) file for each list named on the page. No file has a column for an e-mail address, a phone number or a birth date."
+     "see": "It holds an item for each list named on the page: the residents, board, requests and violations lists are spreadsheet (CSV) files, and the documents and the ledger of each home are listed as well. No spreadsheet has a column for an e-mail address, a phone number or a birth date."
     }
    ],
    "lookFor": [
@@ -2592,7 +2672,7 @@
     "tests/integration/community-export.test.ts"
    ],
    "added": "2026-10-22",
-   "reviewed": "2026-10-22"
+   "reviewed": "2026-11-03"
   },
   {
    "id": "QA-049",
@@ -2731,8 +2811,264 @@
    ],
    "added": "2026-10-24",
    "reviewed": "2026-10-24"
+  },
+  {
+   "id": "QA-054",
+   "title": "A homeowner who set quiet hours gets a maintenance e-mail held overnight, and it arrives in the real inbox after the window, once",
+   "feature": "communications",
+   "task": "CB44",
+   "decisions": [
+    "D-149"
+   ],
+   "whyManual": "time",
+   "whyManualNote": "The e-mail is held overnight and sent at 8 AM Denver time through the real e-mail service; the automated tests only check the hold with a made-up clock and a made-up mailbox. The time is produced by waiting for the next run: start this card in the daytime or evening and finish it the next morning. If the e-mail service itself is down, record Blocked, not Fail.",
+   "env": "staging",
+   "start": "/my-account",
+   "accounts": [
+    "homeowner-autopay",
+    "president"
+   ],
+   "device": "any",
+   "minutes": 20,
+   "precondition": "The test accounts were reset today. The person who looks after the test site has pointed Ben Okafor's test e-mail at an inbox you can read for these two days; if that is not so, record Blocked. Do steps 1 to 8 between 9 AM and 11 PM Denver time, and steps 9 to 11 on the next two mornings after 8:30 AM Denver time. Ben Okafor must not have turned off e-mail or maintenance updates; step 3 checks it.",
+   "steps": [
+    {
+     "do": "As the homeowner, on day one: sign in as Ben Okafor and choose \"My Account\" in the menu (on a phone, tap \"Account\" in the bar at the bottom). Scroll to the card headed \"Quiet hours\".",
+     "see": "The page headed \"My Account\" opens. Under \"Quiet hours\" the switch \"Hold emails during quiet hours\" is off."
+    },
+    {
+     "do": "Turn the switch \"Hold emails during quiet hours\" on.",
+     "see": "\"From\" shows 21:00 (or 9:00 PM, depending on the browser) and \"Until\" shows 07:00 (or 7:00 AM). A paragraph says that when this is on, everyday emails wait until your quiet hours end and are sent then, and that urgent safety alerts and required notices, such as payment receipts, always reach you right away. The switch's line says \"Times are on your community's clock.\""
+    },
+    {
+     "do": "Look at the time now in Denver. Change \"From\" to a time about an hour before it (for example 2:00 PM when it is 3:00 PM), leave \"Until\" at 07:00, and press \"Save quiet hours\".",
+     "see": "\"Saved successfully\" shows in the card headed \"Delivery\" above. After you reload the page, the switch is still on, \"From\" and \"Until\" show the times you set, and the paragraph ends \"You agreed on\" followed by today's date."
+    },
+    {
+     "do": "In the card headed \"Delivery\", look at \"Email notifications\", and under \"What you hear about\" look at \"Maintenance request updates\".",
+     "see": "Both switches are on. If either is off, turn it on and press \"Save preferences\" first."
+    },
+    {
+     "do": "As the president: sign in as Dana Whitfield (password, then the two-step code) and choose \"Requests\" in the menu.",
+     "see": "The page headed \"Maintenance Requests\" opens and lists \"Broken sprinkler head by the sidewalk\"."
+    },
+    {
+     "do": "As the president: press the title \"Broken sprinkler head by the sidewalk\", then press the tab \"Manage\".",
+     "see": "The request opens. Under \"Message\" there are three choices, the first reading \"Resident (the assigned vendor also sees it)\"."
+    },
+    {
+     "do": "As the president: choose \"Resident (the assigned vendor also sees it)\", type \"Hands-on check: the crew comes Thursday.\" in \"Message text\", tick \"Also send email notification to resident\" and press \"Send now\".",
+     "see": "A message reads \"Sent to the resident.\""
+    },
+    {
+     "do": "As the homeowner: wait five minutes, then open the inbox for Ben Okafor's address (look in spam too).",
+     "see": "No e-mail with the subject \"Maintenance update: Broken sprinkler head by the sidewalk\" has arrived. Nothing at all arrived from HOA HX for this request."
+    },
+    {
+     "do": "As the homeowner, on day two after 8:30 in the morning Denver time: open the same inbox.",
+     "see": "Exactly one e-mail has arrived, with the subject \"Maintenance update: Broken sprinkler head by the sidewalk\". It says \"Your maintenance request Broken sprinkler head by the sidewalk has an update.\", repeats \"Hands-on check: the crew comes Thursday.\" and has a link \"Open My Requests\". The time it arrived is after 8:00 AM Denver time, not before. It is not in spam."
+    },
+    {
+     "do": "Press \"Open My Requests\" in the e-mail (sign in as Ben Okafor if asked).",
+     "see": "The test site opens on the page headed \"Requests\", where \"Broken sprinkler head by the sidewalk\" is listed."
+    },
+    {
+     "do": "As the homeowner, on day three after 8:30 in the morning Denver time: look at the inbox again.",
+     "see": "Still exactly one e-mail with that subject. No second copy arrived."
+    }
+   ],
+   "lookFor": [
+    "Did \"Quiet hours\" say plainly that everyday emails wait and when they are sent, before you saved it?",
+    "Did the e-mail read like any other maintenance update, with nothing odd about its wording because it came late?"
+   ],
+   "reset": "Ben Okafor's quiet hours stay on and the president's message stays in the request's history until the next reset of the test accounts. To clear the quiet hours sooner, turn the switch \"Hold emails during quiet hours\" off in \"My Account\" and press \"Save quiet hours\".",
+   "complements": [
+    "tests/ui/homeowner/homeowner-account-settings.spec.ts"
+   ],
+   "added": "2026-10-30",
+   "reviewed": "2026-10-30"
+  },
+  {
+   "id": "QA-055",
+   "title": "A community's billing contact gets the \"hold ends in 7 days\" e-mail after HOA HX staff hold the past-due steps, with the balance owed and what happens next",
+   "feature": "platform",
+   "milestone": "M15",
+   "task": "CB56",
+   "decisions": [
+    "D-340"
+   ],
+   "whyManual": "time",
+   "whyManualNote": "The reminder is written and sent automatically at 8 AM Denver time a week before the hold ends, as a real e-mail through the e-mail service; the automated tests only build its words. The time is produced by waiting for the next run: start this card on one day and finish it the next morning. If the e-mail service itself is down, record Blocked, not Fail.",
+   "env": "staging",
+   "start": "/platform/billing",
+   "accounts": [
+    "platform-owner",
+    "president"
+   ],
+   "device": "any",
+   "minutes": 15,
+   "precondition": "The person who looks after the test site has put Cedar Hollow's HOA HX plan in an unpaid state with a card on file, has turned on the automatic past-due checks for the test site, has made Dana Whitfield the community's Account Owner for billing, and has pointed her test e-mail at an inbox you can read for these two days; if any of these is not so, record Blocked. Dana Whitfield must not have quiet hours on. Do steps 1 to 4 on day one, any time during the day, and steps 5 to 10 on day two after 8:30 AM Denver time. If step 4 says the hold was sent for approval, record Blocked: the past-due period already has too many days held.",
+   "steps": [
+    {
+     "do": "As the platform owner, on day one: sign in as Elena Voss (password, then the two-step code) and choose \"Billing\" in the menu.",
+     "see": "The page headed \"Billing & Revenue\" opens."
+    },
+    {
+     "do": "As the platform owner: press \"Accounts\", then press \"View\" on the row for Cedar Hollow.",
+     "see": "The page \"HOA Billing Accounts\" lists Cedar Hollow. After \"View\", a page headed \"Cedar Hollow\" opens with a box labelled \"Past-due access\" that shows a status line ending with \"· day\" and a number, for example \"· day 5\"."
+    },
+    {
+     "do": "As the platform owner: in \"Past-due access\" choose \"Extend the grace period\" under \"What to do\". In \"Hold until\" pick the date 8 days from today (Denver date). Leave \"Restore access during the hold\" unticked. Type \"Hands-on check of the reminder.\" in \"Reason\". Write down the date you picked.",
+     "see": "Under \"Hold until\" it says \"The hold ends at 23:59 UTC on that date (4:59 PM Mountain Standard Time).\" The button \"Extend grace period\" is no longer greyed out."
+    },
+    {
+     "do": "As the platform owner: press \"Extend grace period\". If a panel headed \"Confirm it is you\" opens, type Elena Voss's password and confirm.",
+     "see": "A message starts \"Held until\" and ends \"The billing contacts were told.\" The box shows a line starting \"Grace period extended until\" with the date you picked. Another e-mail about the hold itself may reach Dana Whitfield's inbox at once; it is not the one this card checks."
+    },
+    {
+     "do": "Day two, after 8:30 in the morning Denver time, as the president: open the inbox for Dana Whitfield's address (look in spam too).",
+     "see": "Exactly one e-mail has arrived with the subject \"Your community's HOA HX subscription: the hold ends on\" followed by the date you picked, written as the month's name, the day and the year. It is not in spam."
+    },
+    {
+     "do": "As the president: read the first paragraph of that e-mail.",
+     "see": "It reads \"Your community's HOA HX subscription for Cedar Hollow is on hold until\" followed by the same date, then \": no past-due step is taken until then, and the balance is still owed.\""
+    },
+    {
+     "do": "As the president: read the sentences after the first paragraph, down to the line about the Account Owner. Write down the amount.",
+     "see": "One sentence gives the balance as a dollar amount followed by \"is owed.\" The next sentence is \"When the hold ends, the past-due steps continue on their original dates.\" It can be missing when the next past-due step falls on the day the hold ends. After it comes either a sentence starting \"On\" and a date (the next past-due step), or, if there is no next step, \"Residents are not affected: they keep paying dues and seeing their records.\" At least one of those sentences must be there. If instead the e-mail says the balance \"could not be read just now\", record Fail."
+    },
+    {
+     "do": "As the president: read the rest of the e-mail, down to the last line.",
+     "see": "It says \"The Account Owner or the Billing Administrator can pay the balance or update the payment method on the subscription page.\" and \"This is your community's own HOA HX subscription. It is separate from homeowner dues.\" Two links read \"Pay the balance\" and \"Update payment method\". The last lines are \"You receive this as one of your community's billing contacts.\" and \"HOA HX · HOA living, made simple.\""
+    },
+    {
+     "do": "As the president: press \"Pay the balance\" in the e-mail (sign in as Dana Whitfield, password then the two-step code, if asked). Do not pay.",
+     "see": "The page \"HOA Platform Subscription\" opens. A banner at the top shows a dollar amount followed by \"is owed.\", the same amount as in the e-mail."
+    },
+    {
+     "do": "As the president: leave the page without paying. Look at the inbox once more.",
+     "see": "Still exactly one e-mail with the subject starting \"Your community's HOA HX subscription: the hold ends on\"."
+    }
+   ],
+   "lookFor": [
+    "Is the date the hold ends the first thing you read in the e-mail?",
+    "Can a board member who has never seen this tell what is owed, what happens next and who can pay, without opening the app?",
+    "Does the e-mail say plainly that this is the community's own subscription and not homeowner dues?"
+   ],
+   "reset": "Cedar Hollow stays on hold until the date you picked, and the reminder stays in its history. The person who looks after the test site makes the plan unpaid again or lifts the hold; the reset of the test accounts does not do it. The one-day reminder (the day before the hold ends) is not checked by this card.",
+   "complements": [
+    "tests/ui/platform-owner/platform-subscription-access.spec.ts"
+   ],
+   "added": "2026-10-30",
+   "reviewed": "2026-10-30"
+  },
+  {
+   "id": "QA-060",
+   "title": "A homeowner's installed Android app shows a changed screen after a phone update, with no store update",
+   "feature": "phone",
+   "milestone": "M11",
+   "task": "C8b",
+   "decisions": [],
+   "whyManual": "real-device",
+   "whyManualNote": "The app downloads, checks and switches to its new screens by itself on a real Android phone, on its next launch; no browser test can install the app, close it and open it again. If the update job did not run or is red, or the build on the phone is too old to take the update, record Blocked, not Fail.",
+   "env": "staging",
+   "start": "/",
+   "accounts": [
+    "homeowner-owes"
+   ],
+   "device": "android",
+   "minutes": 10,
+   "precondition": "The latest HOA HX test build from Play internal testing is on the Android phone and has not been opened since the change was published to the test site's phone updates. The person who looks after the test site has checked that the job \"Publish phone live update (staging)\" for that change is green, and has told you one screen and one word or line on it that is different in the new version (the \"marked line\"), and the name of the version before it. If the marked line already shows on the phone before step 2, record Blocked and ask for a reset of the phone: uninstall the app and install it again from Play internal testing. The test build on the phone must be one that can take phone updates: the person who looks after the test site tells you the lowest Android build number that can, and with a lower one you record Blocked.",
+   "steps": [
+    {
+     "do": "Open the HOA HX app on the Android phone and sign in as Jordan Pryce: type his email (from the account panel) in \"Email address\" and tap \"Continue\", then type the password in \"Password\" and tap \"Log in\".",
+     "see": "The homeowner's home page opens with Jordan Pryce's name on it and no blank white page."
+    },
+    {
+     "do": "Go to the screen named in the run notes and find the marked line.",
+     "see": "The screen shows the old wording, not the marked line."
+    },
+    {
+     "do": "Stay on that screen for one minute and use it as usual.",
+     "see": "The screen does not reload or change by itself while you use it."
+    },
+    {
+     "do": "Close the app completely (open the list of recent apps, then flick the HOA HX app away), then open it again.",
+     "see": "The app opens within about 12 seconds on the home page, still signed in as Jordan Pryce, with no blank white page."
+    },
+    {
+     "do": "Go to the screen named in the run notes again.",
+     "see": "The marked line now shows. The rest of the screen is as before."
+    },
+    {
+     "do": "Close the app completely and open it once more.",
+     "see": "The marked line still shows and the app does not ask for the password."
+    }
+   ],
+   "lookFor": [
+    "Did the app ever show a blank white page or an error while it changed over?",
+    "Was there any sign to a homeowner that the screens had changed, and did it need any action from them?"
+   ],
+   "reset": "The phone stays on the new version. The check \"A homeowner's installed Android app goes back to its earlier screens when the update is rolled back\" goes next. Uninstalling the app and installing it again from Play internal testing puts it back on the screens built into it. The iPhone twin of this check is separate.",
+   "complements": [
+    "tests/unit/live-update.test.ts",
+    "tests/unit/live-update-publish.test.ts"
+   ],
+   "added": "2026-11-02",
+   "reviewed": "2026-11-03"
+  },
+  {
+   "id": "QA-061",
+   "title": "A homeowner's installed Android app goes back to its earlier screens when the update is rolled back",
+   "feature": "phone",
+   "milestone": "M11",
+   "task": "C8b",
+   "decisions": [],
+   "whyManual": "real-device",
+   "whyManualNote": "The rollback is started by hand on the project's Actions page, and only a real Android phone, closed and opened again, shows whether the app takes the earlier screens back without a store update. If the rollback run is red, or the phone was not on the new version at the start, record Blocked, not Fail.",
+   "env": "staging",
+   "start": "/",
+   "accounts": [
+    "homeowner-owes"
+   ],
+   "device": "android",
+   "minutes": 12,
+   "precondition": "Run this straight after the check \"A homeowner's installed Android app shows a changed screen after a phone update, with no store update\", so the phone is on the new version and shows the marked line written in the run notes. The person who looks after the test site has the id of the earlier version (a code like 20261021.812-ab12cd3, from the earlier card's note) and can start the \"Live update control\" run on the project's Actions page. The test build on the phone must be one that can take phone updates: the person who looks after the test site tells you the lowest Android build number that can, and with a lower one you record Blocked.",
+   "steps": [
+    {
+     "do": "On the Android phone open the HOA HX app (signed in as Jordan Pryce) and go to the screen with the marked line.",
+     "see": "The marked line shows (the new version)."
+    },
+    {
+     "do": "As the person who looks after the test site (on a computer, not the phone): on the project's Actions page choose \"Live update control\", press \"Run workflow\", set \"Which phones\" to staging, \"action\" to rollback, type the earlier version's id in \"bundle_id\", and run it.",
+     "see": "The run finishes green."
+    },
+    {
+     "do": "On the Android phone close the app completely (open the list of recent apps, then flick the HOA HX app away) and open it again.",
+     "see": "The app opens on the home page, still signed in as Jordan Pryce, with no blank white page. The marked line may still show: the earlier screens are taken on the launch after this one."
+    },
+    {
+     "do": "Close the app completely and open it once more, then go to the screen with the marked line.",
+     "see": "The app opens within about 12 seconds with no blank white page, and the marked line is gone: the earlier wording is back."
+    },
+    {
+     "do": "Choose \"Payments\" in the menu (tap \"More\" first).",
+     "see": "The page opens with \"Outstanding Balance\", and you are still signed in as Jordan Pryce."
+    }
+   ],
+   "lookFor": [
+    "Did the app ever show a blank white page or an error while it changed back?",
+    "Was everything else on the screens you opened the same as before the rollback?"
+   ],
+   "reset": "The phone stays on the earlier version. Uninstalling the app and installing it again from Play internal testing puts it back on the screens built into it. The next push to the test site publishes a new version.",
+   "complements": [
+    "tests/unit/live-update-publish.test.ts",
+    "tests/unit/guards/live-update-workflow.test.js"
+   ],
+   "added": "2026-11-02",
+   "reviewed": "2026-11-03"
   }
  ],
- "build": "e0a273a6",
- "generated": "2026-10-28T04:07:13.460Z"
+ "build": "870a5af",
+ "generated": "2026-11-04T16:01:57.723Z"
 }
