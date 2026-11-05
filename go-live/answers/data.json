@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-04",
+ "updated": "2026-11-05",
  "groups": [
   {
    "id": "money",
@@ -16,10 +16,6 @@
   {
    "id": "ops",
    "title": "Running HOAhx"
-  },
-  {
-   "id": "pricing",
-   "title": "Pricing"
   }
  ],
  "cards": [
@@ -35,120 +31,6 @@
       "Is matching columns from the file's headings, confirmed by the administrator, enough for the launch, or should the import also use the HOA HX Assistant to suggest each column's match?"
      ],
      "rec": "Keep matching columns from the file's headings for the launch, with the administrator confirming every column before anything is saved. Smarter matching (the Assistant suggests each column's match and points out rows that look wrong) is sized at about 2.7 hours of building and testing: 2.0 for the column suggestions and 0.7 for the rows that look wrong. It would be added after launch, or before it if you want it.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A114",
-   "group": "money",
-   "title": "Who entered a ledger line, and as which officer",
-   "why": "\"After launch\" → nothing changes for the launch; \"Before launch\" → a small screen change, built only if the schedule has room.",
-   "rows": [
-    {
-     "id": "A114-1",
-     "qs": [
-      "Should a ledger line's history show who entered it and the role they held at that moment, after launch?"
-     ],
-     "rec": "After launch. Every payment, charge, credit, refund or void a person enters is already kept on the community's audit record with their name and the role they held at that moment, and the Treasurer and President can read it there. Showing the same name and role on the ledger line's own history is a small addition we suggest making after launch. Choosing who is Treasurer, and switching between your own roles, work today.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A115",
-   "group": "community",
-   "title": "Quick access on the homeowner home screen",
-   "why": "\"Keep as built\" → we only fix the wording of the check; \"Always show\" → a fixed set of tiles is added to the home screen.",
-   "rows": [
-    {
-     "id": "A115-1",
-     "qs": [
-      "Quick access, the row of shortcut tiles on a homeowner's home screen, appears only when it adds something: should it always show, or stay hidden when every shortcut is already in the menu?"
-     ],
-     "rec": "Keep it as built and correct our test wording. Quick access lists only the shortcuts the menu does not already reach, so a homeowner never sees the same screen twice. With every feature switched on, every shortcut is already in the menu (the sidebar on a computer, the bottom bar and More on a phone), so the row is empty and does not appear. That is why a tester told to look for it could not find it. We would reword the check to say it appears only when the menu lacks a shortcut. The alternative is to always show a short fixed set of tiles (for example Pay, Request, Documents, Announcements), at the cost of repeating menu items on the home screen.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A117",
-   "group": "pricing",
-   "title": "A second notice when a bank payment clears",
-   "why": "\"No second notice\" → nothing changes; \"Send a notice\" → one email when the payment clears.",
-   "rows": [
-    {
-     "id": "A117-1",
-     "qs": [
-      "When a bank payment that brought your community's access back clears a few days later, should the billing contacts get a second notice?"
-     ],
-     "rec": "No second notice. When a past-due community pays by bank, its access comes back at once while the payment is processing. When the payment clears a few days later, the subscription page changes from \"Bank payment processing\" to nothing owed, and the community's history records it. A notice is sent only if the bank returns the payment, because that is the moment someone has to act. The alternative is a short \"Your bank payment has cleared\" email to the billing contacts.",
-     "videos": [],
-     "replies": [
-      {
-       "at": "2026-10-29T11:20:00.000Z",
-       "text": "So the work was not held up, we built this the way we recommended: when a bank payment clears, the subscription page and the community's history change, and no second email is sent. Would you like to change it? If so, tell us how in a reply here and we will change it; if not, no answer is needed."
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "A118",
-   "group": "community",
-   "title": "A co-owner approved from a join request",
-   "why": "\"Same rules\" → nothing changes; \"Added at once\" → any reviewer can add a co-owner without a second approval.",
-   "rows": [
-    {
-     "id": "A118-1",
-     "qs": [
-      "When a board approves someone's request to join as a co-owner of a home, should it follow the same rules as naming any owner?"
-     ],
-     "rec": "Yes, the same rules. A co-owner is an owner of the home, so approving a join request as a co-owner now works like naming an owner: it needs the President's permission to name owners, a reason, and a second person to approve it, and nobody approves it for their own home. Staff without that permission see the choice greyed out with \"Ask your President\". Earlier we said a co-owner from a join request would be added at once; without this change, a join request would be a way around the second approval that naming an owner needs.",
-     "videos": [],
-     "replies": [
-      {
-       "at": "2026-10-29T11:20:00.000Z",
-       "text": "So the work was not held up, we built this the way we recommended: approving a join request as a co-owner follows the same rules as naming an owner, with a second person approving it. Would you like to change it? If so, tell us how in a reply here and we will change it; if not, no answer is needed."
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "A120",
-   "group": "community",
-   "title": "A recurring visitor pass and the 14-day limit",
-   "why": "You answered separately for regular visitors such as a cleaner; holding them to 14 days would make the host re-issue a pass every two weeks.",
-   "rows": [
-    {
-     "id": "A120-1",
-     "qs": [
-      "Should a recurring pass stay outside the 14-day limit on visitor passes?"
-     ],
-     "rec": "Yes: keep the recurring pass as its own standing access, outside the 14-day limit, as built.",
-     "videos": [],
-     "replies": [
-      {
-       "at": "2026-10-31T19:00:00Z",
-       "text": "So the work was not held up, we built this the way we recommended: a recurring pass stays its own standing access, outside the 14-day limit. Would you like to change it? If so, tell us how in a reply here and we will change it; if not, no answer is needed."
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "A121",
-   "group": "community",
-   "title": "Sharing a gate or parking space on a visitor pass",
-   "why": "A pass has no sharing choice today, and adding one means a new control on the form and a new rule on the server.",
-   "rows": [
-    {
-     "id": "A121-1",
-     "qs": [
-      "Should a host be able to choose to share a gate or a parking space on a visitor pass?"
-     ],
-     "rec": "Not at launch: the view shows the community's entry instructions, and the gate code stays out of every pass.",
      "videos": []
     }
    ]
@@ -235,6 +117,90 @@
   }
  ],
  "answered": [
+  {
+   "id": "A114-1",
+   "kind": "question",
+   "card": "Who entered a ledger line, and as which officer",
+   "qs": [
+    "Should a ledger line's history show who entered it and the role they held at that moment, after launch?"
+   ],
+   "answer": "discuss",
+   "rec": "After launch. Every payment, charge, credit, refund or void a person enters is already kept on the community's audit record with their name and the role they held at that moment, and the Treasurer and President can read it there. Showing the same name and role on the ledger line's own history is a small addition we suggest making after launch. Choosing who is Treasurer, and switching between your own roles, work today.",
+   "build": "In the launch. The owners asked for a simple \"View history\" on each ledger line, with the foundation kept accurate from day one; It is in the launch. Each ledger line's history shows who entered each change and the role they held at that moment, the same name and role the audit record already shows, to the finance readers by their permissions in the community. Filters, exports and management-company reporting stay after launch.",
+   "answeredOn": "2026-11-03",
+   "acceptedOn": "2026-11-04",
+   "status": "planned"
+  },
+  {
+   "id": "A115-1",
+   "kind": "question",
+   "card": "Quick access on the homeowner home screen",
+   "qs": [
+    "Quick access, the row of shortcut tiles on a homeowner's home screen, appears only when it adds something: should it always show, or stay hidden when every shortcut is already in the menu?"
+   ],
+   "answer": "change",
+   "rec": "Keep it as built and correct our test wording. Quick access lists only the shortcuts the menu does not already reach, so a homeowner never sees the same screen twice. With every feature switched on, every shortcut is already in the menu (the sidebar on a computer, the bottom bar and More on a phone), so the row is empty and does not appear. That is why a tester told to look for it could not find it. We would reword the check to say it appears only when the menu lacks a shortcut. The alternative is to always show a short fixed set of tiles (for example Pay, Request, Documents, Announcements), at the cost of repeating menu items on the home screen.",
+   "build": "Built that way today. Dan could not find Quick access on October 16 (item 4 of his review). If you choose the always-show option, it is a small screen change with its own test, built after launch unless the schedule has room.",
+   "answeredOn": "2026-11-03",
+   "acceptedOn": "2026-11-04",
+   "status": "planned"
+  },
+  {
+   "id": "A117-1",
+   "kind": "question",
+   "card": "A second notice when a bank payment clears",
+   "qs": [
+    "When a bank payment that brought your community's access back clears a few days later, should the billing contacts get a second notice?"
+   ],
+   "answer": "discuss",
+   "rec": "No second notice. When a past-due community pays by bank, its access comes back at once while the payment is processing. When the payment clears a few days later, the subscription page changes from \"Bank payment processing\" to nothing owed, and the community's history records it. A notice is sent only if the bank returns the payment, because that is the moment someone has to act. The alternative is a short \"Your bank payment has cleared\" email to the billing contacts.",
+   "build": "Built that way today. If you would like the second notice, it is one email with its own test, built before launch if the schedule has room.",
+   "answeredOn": "2026-11-03",
+   "acceptedOn": "2026-11-04",
+   "status": "planned"
+  },
+  {
+   "id": "A118-1",
+   "kind": "question",
+   "card": "A co-owner approved from a join request",
+   "qs": [
+    "When a board approves someone's request to join as a co-owner of a home, should it follow the same rules as naming any owner?"
+   ],
+   "answer": "change",
+   "rec": "Yes, the same rules. A co-owner is an owner of the home, so approving a join request as a co-owner now works like naming an owner: it needs the President's permission to name owners, a reason, and a second person to approve it, and nobody approves it for their own home. Staff without that permission see the choice greyed out with \"Ask your President\". Earlier we said a co-owner from a join request would be added at once; without this change, a join request would be a way around the second approval that naming an owner needs.",
+   "build": "Built that way today. If you prefer that any reviewer can add a co-owner at once, it is a small change with its own test and a security review.",
+   "answeredOn": "2026-11-03",
+   "acceptedOn": "2026-11-04",
+   "status": "planned"
+  },
+  {
+   "id": "A120-1",
+   "kind": "question",
+   "card": "A recurring visitor pass and the 14-day limit",
+   "qs": [
+    "Should a recurring pass stay outside the 14-day limit on visitor passes?"
+   ],
+   "answer": "discuss",
+   "rec": "Yes: keep the recurring pass as its own standing access, outside the 14-day limit, as built.",
+   "build": "Stays as built unless you change it.",
+   "answeredOn": "2026-11-03",
+   "acceptedOn": "2026-11-04",
+   "status": "built"
+  },
+  {
+   "id": "A121-1",
+   "kind": "question",
+   "card": "Sharing a gate or parking space on a visitor pass",
+   "qs": [
+    "Should a host be able to choose to share a gate or a parking space on a visitor pass?"
+   ],
+   "answer": "discuss",
+   "rec": "Not at launch: the view shows the community's entry instructions, and the gate code stays out of every pass.",
+   "build": "No sharing choice at launch unless you ask for one.",
+   "answeredOn": "2026-11-03",
+   "acceptedOn": "2026-11-04",
+   "status": "planned"
+  },
   {
    "id": "A116-1",
    "kind": "question",
