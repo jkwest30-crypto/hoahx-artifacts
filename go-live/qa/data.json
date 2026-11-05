@@ -237,6 +237,14 @@
    "twoStep": false
   },
   {
+   "handle": "rental-manager",
+   "name": "Paige Holloway",
+   "roleLabel": "Rental Manager",
+   "where": "Cedar Hollow, rental manager of 14 Cedar Hollow Lane for Jordan Pryce",
+   "opening": "Manages 14 Cedar Hollow Lane from Oct 1, 2026 to Sep 30, 2027; the home owes $250.00",
+   "twoStep": false
+  },
+  {
    "handle": "vendor",
    "name": "Cam Foster",
    "roleLabel": "Vendor (Greenline Landscaping)",
@@ -3069,6 +3077,6 @@
    "reviewed": "2026-11-03"
   }
  ],
- "build": "870a5af",
- "generated": "2026-11-04T16:01:57.723Z"
+ "build": "d278a41",
+ "generated": "2026-11-05T16:07:41.837Z"
 }
