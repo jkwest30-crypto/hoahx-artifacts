@@ -111,6 +111,30 @@
       "updateComing": false
     },
     {
+      "id": "72",
+      "title": "A survey, from question to closed",
+      "role": "board",
+      "companionOf": null,
+      "length": "3:10",
+      "about": "The President writes and publishes a survey, a homeowner answers it, the President sees who answered and the results and closes it, and the homeowner finds it under Past surveys with the shared results.",
+      "commit": "870a5af6d",
+      "recordedAt": "2026-11-05T20:16:31.258Z",
+      "driveUrl": "https://drive.google.com/file/d/1hZWa_bv-EbG9Yprfvl0pOWhzC5HsdzZr/view",
+      "updateComing": false
+    },
+    {
+      "id": "74",
+      "title": "An anonymous survey for homeowners",
+      "role": "board",
+      "companionOf": null,
+      "length": "4:26",
+      "about": "The follow-up to video 72: the President builds an anonymous, homeowners-only survey with rating, pick several, ranking and open text questions, a closing date and results kept by the board, saves it as a draft and publishes it; a homeowner answers; the President reminds, downloads and closes it; the homeowner sees the results were kept.",
+      "commit": "870a5af6d",
+      "recordedAt": "2026-11-05T19:54:53.554Z",
+      "driveUrl": "https://drive.google.com/file/d/1MVkQ8iUA1rakPKun2PgEO4Y23_9QJjp5/view",
+      "updateComing": false
+    },
+    {
       "id": "99",
       "title": "Look and feel update: phase 1",
       "role": "homeowner",
@@ -123,5 +147,5 @@
       "updateComing": false
     }
   ],
-  "waiting": 26
+  "waiting": 24
 }

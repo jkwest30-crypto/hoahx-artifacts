@@ -475,7 +475,10 @@
       "commit": "870a5af6d",
       "driveId": "1QT1mtHMtHRmT4EzxhhBUwWmLhgmXus1y",
       "driveUrl": "https://drive.google.com/file/d/1QT1mtHMtHRmT4EzxhhBUwWmLhgmXus1y/view",
-      "owners": null
+      "owners": {
+        "commit": "870a5af6d",
+        "updateComing": false
+      }
     },
     {
       "id": "73",
@@ -503,7 +506,10 @@
       "commit": "870a5af6d",
       "driveId": "1-QYw6qqop_rWjR0ReMZp9ay6B_UlD36s",
       "driveUrl": "https://drive.google.com/file/d/1-QYw6qqop_rWjR0ReMZp9ay6B_UlD36s/view",
-      "owners": null
+      "owners": {
+        "commit": "870a5af6d",
+        "updateComing": false
+      }
     },
     {
       "id": "75",
