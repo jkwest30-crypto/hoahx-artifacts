@@ -3075,8 +3075,490 @@
    ],
    "added": "2026-11-02",
    "reviewed": "2026-11-03"
+  },
+  {
+   "id": "QA-062",
+   "title": "A homeowner links Apple and Google to their account in the iPhone app and logs in with Apple",
+   "feature": "sign-in",
+   "task": "LOGIN-4.5",
+   "decisions": [
+    "D-386"
+   ],
+   "whyManual": "real-device",
+   "whyManualNote": "Inside the iPhone app, the Apple and Google sheets are drawn by the iPhone and the Google and Apple services themselves, and hand a real account back to the app; a test in a desktop browser has neither. If the build is not on the phone, or a sheet never opens because of Apple or Google, record Blocked, not Fail.",
+   "env": "staging",
+   "start": "/my-account",
+   "accounts": [
+    "homeowner-paid-up"
+   ],
+   "device": "iphone",
+   "minutes": 9,
+   "precondition": "The test accounts were reset today. The latest HOA HX test build is on the iPhone from TestFlight (the iPhone's test-app installer), and the test site has the \"Linked log-in methods\" card (if it never appears under \"Privacy & Security\" on the \"My Account\" page, record Blocked, not Fail). Use an Apple ID and a Google account of your own that have never been used to log in to any HOA HX account: if either was, the page says \"That account is already used to log in to another HOA HX account.\" and the card cannot run with it. A \"Confirm it’s you\" panel may open before adding or removing a method; if it does, type the password in \"Password\", tap \"Continue\", and the step goes on by itself. If the \"Confirm it’s you\" panel offers Apple or Google instead of a \"Password\" box, tap \"Use my password instead\" first. The Apple row's \"Add\" button and the Google row's \"Add\" button must both appear in step 2; if either is missing from the iPhone app, record Blocked.",
+   "steps": [
+    {
+     "do": "Open the HOA HX app on the iPhone. Sign in as Mei Tanaka: type her email (from the account panel) in \"Email address\" and tap \"Continue\", then type her password in \"Password\" and tap \"Log in\".",
+     "see": "The dashboard opens and greets Mei (\"Welcome home, Mei\"). (If the page asks for a code, type the one from the account panel.)"
+    },
+    {
+     "do": "Tap the round picture with your initial at the top right of the screen (it is named \"My Account\"), then scroll down to the card headed \"Privacy & Security\" and find the block headed \"Linked log-in methods\".",
+     "see": "The block lists three rows: Password reading \"Set up\", Apple reading \"Not linked\" and Google reading \"Not linked\". Apple and Google each have an \"Add\" button; Password has none. A line reads \"This is your only way into the account, so it cannot be removed. Add another way first.\""
+    },
+    {
+     "do": "On the Apple row, tap \"Add\".",
+     "see": "Apple's own screen slides up over the app (no web page opens in Safari). If a \"Confirm it’s you\" panel came first, the sheet follows once you confirm."
+    },
+    {
+     "do": "Approve with Face ID or your passcode and choose to share your email (Apple's wording may differ).",
+     "see": "The sheet closes and the app is back on the block. The Apple row reads \"Linked\" (followed by an address, unless you hid it) and now has a \"Remove\" button. The line \"This is your only way into the account, so it cannot be removed. Add another way first.\" is gone. No red message is shown."
+    },
+    {
+     "do": "On the Google row, tap \"Add\".",
+     "see": "Google's own screen opens over the app and asks which Google account to use."
+    },
+    {
+     "do": "Choose your own Google account and approve.",
+     "see": "Google's screen closes and the app is back on the block. The Google row reads \"Linked · \" followed by the Google address, and has a \"Remove\" button. Apple still reads \"Linked\". No red message is shown."
+    },
+    {
+     "do": "Tap \"More\" in the bar at the bottom, then tap \"Log out\" at the foot of the menu, then tap \"Yes, log out\".",
+     "see": "The sign-in page opens."
+    },
+    {
+     "do": "Tap \"Continue with Apple\" and approve with Face ID or your passcode, using the same Apple ID as in step 4.",
+     "see": "Apple's screen opens. After you approve, the dashboard opens and greets Mei (\"Welcome home, Mei\"). You were never asked to type a password."
+    }
+   ],
+   "lookFor": [
+    "Did the Apple and Google sheets open straight away, with nothing that left you unsure whether the tap had worked?",
+    "Was it clear which methods were linked and which were not, without reading every word?",
+    "Did the app ever look stuck or blank while a sheet came and went?"
+   ],
+   "reset": "Remove Apple and Google afterwards: open \"Linked log-in methods\" on the \"My Account\" page, tap \"Remove\" on the Apple row and then \"Remove Apple log-in\", then \"Remove\" on the Google row and then \"Remove Google log-in\". Your Apple ID and Google account are free to use again once removed.",
+   "complements": [
+    "tests/ui/homeowner/homeowner-linked-sign-in-methods.spec.ts",
+    "tests/integration/sign-in-methods.test.ts"
+   ],
+   "added": "2026-11-04",
+   "reviewed": "2026-11-06"
+  },
+  {
+   "id": "QA-063",
+   "title": "A homeowner removes Apple and Google from their account in the iPhone app",
+   "feature": "sign-in",
+   "task": "LOGIN-4.5",
+   "decisions": [
+    "D-386"
+   ],
+   "whyManual": "real-device",
+   "whyManualNote": "Removing needs a real Apple ID and Google account linked from the phone first, and the confirmation panel can offer Apple or Google, which only a real phone draws. If the build is not on the phone, or a sheet never opens because of Apple or Google, record Blocked, not Fail.",
+   "env": "staging",
+   "start": "/my-account",
+   "accounts": [
+    "homeowner-paid-up"
+   ],
+   "device": "iphone",
+   "minutes": 10,
+   "precondition": "The test accounts were reset today. The latest HOA HX test build is on the iPhone from TestFlight (the iPhone's test-app installer), and the test site has the \"Linked log-in methods\" card (if it never appears under \"Privacy & Security\" on the \"My Account\" page, record Blocked, not Fail). Use an Apple ID and a Google account of your own that have never been used to log in to any HOA HX account: if either was, the page says \"That account is already used to log in to another HOA HX account.\" and the card cannot run with it. A \"Confirm it’s you\" panel may open before adding or removing a method; if it does, type the password in \"Password\", tap \"Continue\", and the step goes on by itself. If the \"Confirm it’s you\" panel offers Apple or Google instead of a \"Password\" box, tap \"Use my password instead\" first. Steps 1 to 6 repeat QA-062 as setup.",
+   "steps": [
+    {
+     "do": "Open the HOA HX app on the iPhone. Sign in as Mei Tanaka: type her email (from the account panel) in \"Email address\" and tap \"Continue\", then type her password in \"Password\" and tap \"Log in\".",
+     "see": "The dashboard opens and greets Mei (\"Welcome home, Mei\"). (If the page asks for a code, type the one from the account panel.)"
+    },
+    {
+     "do": "Tap the round picture with your initial at the top right of the screen (it is named \"My Account\"), then scroll down to the card headed \"Privacy & Security\" and find the block headed \"Linked log-in methods\".",
+     "see": "The block lists three rows: Password reading \"Set up\", Apple reading \"Not linked\" and Google reading \"Not linked\". Apple and Google each have an \"Add\" button; Password has none. A line reads \"This is your only way into the account, so it cannot be removed. Add another way first.\""
+    },
+    {
+     "do": "On the Apple row, tap \"Add\".",
+     "see": "Apple's own screen slides up over the app (no web page opens in Safari). If a \"Confirm it’s you\" panel came first, the sheet follows once you confirm."
+    },
+    {
+     "do": "Approve with Face ID or your passcode and choose to share your email (Apple's wording may differ).",
+     "see": "The sheet closes and the app is back on the block. The Apple row reads \"Linked\" (followed by an address, unless you hid it) and now has a \"Remove\" button. The line \"This is your only way into the account, so it cannot be removed. Add another way first.\" is gone. No red message is shown."
+    },
+    {
+     "do": "On the Google row, tap \"Add\".",
+     "see": "Google's own screen opens over the app and asks which Google account to use."
+    },
+    {
+     "do": "Choose your own Google account and approve.",
+     "see": "The window closes and the app is back on the block. The Google row reads \"Linked · \" followed by the Google address, and has a \"Remove\" button. Apple still reads \"Linked\". No red message is shown."
+    },
+    {
+     "do": "Tap the round picture with your initial at the top right (\"My Account\"), scroll to \"Linked log-in methods\", and on the Apple row tap \"Remove\".",
+     "see": "A panel headed \"Remove Apple?\" opens and says \"Apple will no longer open this account. Your other log-in methods and two-factor sign-in stay as they are.\" It has the buttons \"Cancel\" and a red \"Remove Apple log-in\"."
+    },
+    {
+     "do": "Tap \"Remove Apple log-in\". If a \"Confirm it’s you\" panel opens, type the password in \"Password\" and tap \"Continue\" (if it offers Apple or Google instead of a \"Password\" box, tap \"Use my password instead\" first).",
+     "see": "The panel closes. The Apple row reads \"Not linked\" and has an \"Add\" button again. The Google row still reads \"Linked · \" followed by the Google address."
+    },
+    {
+     "do": "On the Google row, tap \"Remove\", then tap \"Remove Google log-in\" in the panel headed \"Remove Google?\".",
+     "see": "The Google row reads \"Not linked\" with an \"Add\" button. The Password row still reads \"Set up\". The line \"This is your only way into the account, so it cannot be removed. Add another way first.\" is back."
+    }
+   ],
+   "lookFor": [
+    "Did the \"Remove Apple?\" and \"Remove Google?\" panels say clearly what would happen, before you tapped the red button?",
+    "Was it clear which methods were linked and which were not, without reading every word?",
+    "Did the app ever look stuck or blank while a panel came and went?"
+   ],
+   "reset": "Both methods are removed in the last steps, so the account is back to its password alone. If the check stopped sooner, open \"Linked log-in methods\" on the \"My Account\" page and tap \"Remove\" on each linked row, then the red \"Remove Apple log-in\" or \"Remove Google log-in\" button. The next reset of the test accounts does not unlink them. Your Apple ID and Google account are free to use again once removed.",
+   "complements": [
+    "tests/ui/homeowner/homeowner-linked-sign-in-methods.spec.ts",
+    "tests/integration/sign-in-methods.test.ts"
+   ],
+   "added": "2026-11-04",
+   "reviewed": "2026-11-06"
+  },
+  {
+   "id": "QA-064",
+   "title": "A homeowner sets a quick code on the phone app after signing in",
+   "feature": "sign-in",
+   "milestone": "M11",
+   "task": "F474",
+   "decisions": [
+    "D-002"
+   ],
+   "whyManual": "real-device",
+   "whyManualNote": "Face ID and fingerprint are the phone's own sensors; the tests cannot touch them.",
+   "env": "staging",
+   "start": "/",
+   "accounts": [
+    "homeowner-owes"
+   ],
+   "device": "phone",
+   "minutes": 8,
+   "precondition": "The HOA HX app from the latest test build is installed on the phone (the person who looks after the test site sends it), the phone has Face ID or a fingerprint turned on in its own settings, and Jordan Pryce is signed out of the app. Face ID is named below; on a phone with a fingerprint reader, read \"fingerprint\" wherever it says \"Face ID\". If the test site is down, record Blocked. The app is freshly installed on the phone, or Jordan Pryce logged out of it, so no quick code is set yet.",
+   "steps": [
+    {
+     "do": "Open the HOA HX app and sign in as Jordan Pryce: type his email (from the account panel) in \"Email address\" and tap \"Continue\", then type the password in \"Password\" and tap \"Log in\".",
+     "see": "Jordan Pryce's dashboard opens, and a box headed \"Set a quick code\" appears over it. It says the app locks after 15 minutes without activity and that a 4-digit quick code or Face ID opens it again without a full sign-in."
+    },
+    {
+     "do": "In \"Quick code\" type 1111, in \"Type it again\" type 1111, then tap \"Save quick code\".",
+     "see": "The box stays open and says \"Choose a code that is not one digit repeated.\""
+    },
+    {
+     "do": "Clear both fields. Pick a 4-digit code you will remember (not one digit repeated, and not a run like 1234 or 9876) and type it in \"Quick code\" and again in \"Type it again\". Leave \"Also unlock with Face ID\" switched on and tap \"Save quick code\".",
+     "see": "The phone's own Face ID check opens with the words \"Turn on Face ID for HOA HX\". After you look at the phone, the box closes and the dashboard shows."
+    }
+   ],
+   "lookFor": [
+    "Did the box make clear what the quick code is for and what to do next?"
+   ],
+   "reset": "Leave Jordan Pryce signed in on the phone with the quick code set; the next card (QA-065) starts from there.",
+   "complements": [
+    "tests/unit/app-lock-quick-unlock.test.tsx",
+    "tests/unit/quick-code.test.ts",
+    "tests/unit/native-quick-unlock.test.ts"
+   ],
+   "added": "2026-11-05",
+   "reviewed": "2026-11-06"
+  },
+  {
+   "id": "QA-065",
+   "title": "A homeowner unlocks the phone app with the quick code after 15 idle minutes",
+   "feature": "sign-in",
+   "milestone": "M11",
+   "task": "F474",
+   "decisions": [
+    "D-002"
+   ],
+   "whyManual": "real-device",
+   "whyManualNote": "Face ID and fingerprint are the phone's own sensors, and the lock counts real idle time with the app in the background; the tests can do neither. The tester waits the real 16 minutes; no one changes the phone's clock.",
+   "env": "staging",
+   "start": "/",
+   "accounts": [
+    "homeowner-owes"
+   ],
+   "device": "phone",
+   "minutes": 20,
+   "precondition": "Do QA-064 first: Jordan Pryce is signed in on the phone in the HOA HX app with a quick code set, Face ID or a fingerprint turned on for it, and you remember the code. Face ID is named below; on a phone with a fingerprint reader, read \"fingerprint\" wherever it says \"Face ID\". If the test site is down, record Blocked. Allow about 20 minutes: 16 are waiting for the app to lock. QA-064 is done before you start and is not counted.",
+   "steps": [
+    {
+     "do": "Press the phone's home button or swipe up so the app goes to the background, with the screen on, and write down the time. Leave it for 16 minutes by that clock without opening the app, then open it.",
+     "see": "A full-screen page headed \"HOA HX is locked\" covers the dashboard. It says the app locks after 15 minutes without activity or in the background, and ends \"Unlock it with your quick code or Face ID.\""
+    },
+    {
+     "do": "Look at the phone without touching anything.",
+     "see": "The phone's Face ID check opens by itself with the words \"Unlock HOA HX\" and a choice \"Use quick code\" (on an Android phone: \"Or cancel to type your quick code\" and \"Cancel\")."
+    },
+    {
+     "do": "Choose \"Use quick code\" (Android: \"Cancel\").",
+     "see": "The Face ID check closes. The lock page stays, with a button \"Use Face ID\", a field \"Quick code\", a button \"Unlock\" and a link \"Sign in with your password instead\". The dashboard is not shown."
+    },
+    {
+     "do": "Type four digits that are not your code. (this is your first wrong code)",
+     "see": "The field empties and a red line reads \"That code is not right. 4 tries left.\" The lock page stays."
+    },
+    {
+     "do": "Type your own 4-digit code.",
+     "see": "The lock page goes away and Jordan Pryce's dashboard shows again. No email or password was asked for."
+    }
+   ],
+   "lookFor": [
+    "Did the lock page tell you plainly why the app locked, and what to do next?",
+    "Could you see any of the community's information on the lock page or behind it?",
+    "Did the Face ID check open only once, and only when the app was in front?"
+   ],
+   "reset": "Jordan Pryce stays signed in on the phone with a quick code set for this sign-in. Signing out of the app removes the code, and the next full sign-in offers it again.",
+   "complements": [
+    "tests/unit/app-lock-quick-unlock.test.tsx",
+    "tests/unit/quick-code.test.ts",
+    "tests/unit/native-quick-unlock.test.ts"
+   ],
+   "added": "2026-11-05",
+   "reviewed": "2026-11-06"
+  },
+  {
+   "id": "QA-066",
+   "title": "A homeowner logs in with a password in the iPhone app, and the phone saves a passkey without asking",
+   "feature": "sign-in",
+   "task": "LP-1a",
+   "decisions": [],
+   "whyManual": "real-device",
+   "whyManualNote": "The passkey is made by the iPhone itself, with no sheet, only when its password manager has just filled in the password; a desktop browser in a test has no iCloud Keychain and cannot show whether the phone stayed silent.",
+   "env": "staging",
+   "start": "/auth/login",
+   "accounts": [
+    "homeowner-paid-up"
+   ],
+   "device": "iphone",
+   "minutes": 12,
+   "precondition": "The test accounts were reset today. The HOA HX app from the latest test build is installed on the iPhone (iOS 18 or later), newly installed: if the card \"Log in faster next time\" ever showed in this app on this phone, delete the app and install it again. The phone has a screen lock and iCloud Keychain is on. Mei Tanaka's email and password (both on the account panel) are saved in the iPhone's passwords (Settings, then Passwords, then the plus sign) for the test site (hoahx-staging.web.app), so that the phone can fill them in. Nobody has a passkey for Mei Tanaka on this phone: if the list under \"Passkeys\" on \"My Account\" shows one, remove it first. HOAhx staff have switched passkeys on for the test site: if \"Log in with a passkey\" never appears on the sign-in page, record Blocked, not Fail. If the test site itself is down, record Blocked. If the card \"Log in faster next time\" shows at step 2 although the phone filled in the password, record Fail and say what filled the password in.",
+   "steps": [
+    {
+     "do": "Open the HOA HX app on the iPhone. Sign in as Mei Tanaka without typing: tap \"Email address\", choose the saved sign-in the phone offers, tap \"Continue\", let the phone fill in \"Password\", then tap \"Log in\".",
+     "see": "Mei Tanaka's dashboard opens. The page does not ask for a code."
+    },
+    {
+     "do": "Watch the screen for about ten seconds and touch nothing.",
+     "see": "A short message reads \"Passkey added. Next time, log in with Face ID, Touch ID or your screen lock.\" The phone did not ask for Face ID or the passcode, no phone sheet about saving a passkey appeared, and the card \"Log in faster next time\" did not appear."
+    },
+    {
+     "do": "Tap \"Account\" in the bar at the bottom of the screen, scroll to the card headed \"Privacy & Security\" and find the block named \"Passkeys\".",
+     "see": "Under \"Your passkeys\" one line shows a name you did not type, \"Added\" and today's date, and \"not used yet\", with the buttons \"Rename\" and \"Remove\". No red message is shown."
+    },
+    {
+     "do": "Tap \"More\" in the bar at the bottom, then tap \"Log out\" at the foot of the menu, then tap \"Yes, log out\".",
+     "see": "The sign-in page opens."
+    },
+    {
+     "do": "On the first step of the sign-in page, without typing anything, tap \"Log in with a passkey\".",
+     "see": "The button reads \"Waiting for your passkey…\" and the phone shows its own sheet offering the passkey it saved by itself. The page does not say \"This phone has no passkey for HOA HX yet\"."
+    },
+    {
+     "do": "Approve the phone's sheet with Face ID or the passcode.",
+     "see": "Mei Tanaka's dashboard opens without the password being asked for."
+    },
+    {
+     "do": "Tap \"Account\", scroll to \"Passkeys\" under \"Privacy & Security\".",
+     "see": "The line now reads \"last used\" with today's date, not \"not used yet\"."
+    },
+    {
+     "do": "On that line tap \"Remove\". A panel opens headed with the passkey's name; tap \"Remove passkey\".",
+     "see": "If a \"Confirm it’s you\" panel appears, type the password in \"Password\" (from the account panel) and tap \"Continue\". Then the line is gone from \"Your passkeys\"."
+    }
+   ],
+   "lookFor": [
+    "Did the passkey get saved without the phone asking you anything?",
+    "Was the message at step 2 plain enough that a homeowner would know what happened and what to do next time?"
+   ],
+   "reset": "The passkey is removed in the last step. If the check stopped sooner, tap \"Remove\" on its line under \"Passkeys\" on the \"My Account\" page, then \"Remove passkey\"; the next reset of the test accounts also clears the account's record of it. The passkey on the phone itself is harmless once HOA HX no longer knows it. To run the card again, delete the app and install it again.",
+   "complements": [
+    "tests/ui/public/passkey-offer.spec.ts",
+    "tests/ui/homeowner/homeowner-passkeys.spec.ts",
+    "tests/unit/passkey-offer-boot.test.ts"
+   ],
+   "added": "2026-11-06",
+   "reviewed": "2026-11-06"
+  },
+  {
+   "id": "QA-067",
+   "title": "A homeowner logs in with a password in the Android app, and the phone saves a passkey without asking",
+   "feature": "sign-in",
+   "task": "LP-1b",
+   "decisions": [],
+   "whyManual": "real-device",
+   "whyManualNote": "The passkey is made by the Android phone itself, with no sheet, only when its password manager has just filled in the password; a desktop browser in a test has no Google Password Manager and cannot show whether the phone stayed silent.",
+   "env": "staging",
+   "start": "/auth/login",
+   "accounts": [
+    "homeowner-paid-up"
+   ],
+   "device": "android",
+   "minutes": 12,
+   "precondition": "The test accounts were reset today. The HOA HX app from the latest test build is installed on the Android phone (Android 9 or later), newly installed: if the card \"Log in faster next time\" ever showed in this app on this phone, delete the app and install it again. The phone has a screen lock and is signed in to a Google account. Mei Tanaka's email and password (both on the account panel) are saved in the Android phone's Google Password Manager (Settings, then Passwords) for the test site (hoahx-staging.web.app), so that the phone can fill them in. Nobody has a passkey for Mei Tanaka on this phone: if the list under \"Passkeys\" on \"My Account\" shows one, remove it first. HOAhx staff have switched passkeys on for the test site: if \"Log in with a passkey\" never appears on the sign-in page, record Blocked, not Fail. If the test site itself is down, record Blocked. If the card \"Log in faster next time\" shows at step 2 although the phone filled in the password, record Fail and say what filled the password in.",
+   "steps": [
+    {
+     "do": "Open the HOA HX app on the Android phone. Sign in as Mei Tanaka without typing: tap \"Email address\", choose the saved sign-in the phone offers, tap \"Continue\", let the phone fill in \"Password\", then tap \"Log in\".",
+     "see": "Mei Tanaka's dashboard opens. The page does not ask for a code."
+    },
+    {
+     "do": "Watch the screen for about ten seconds and touch nothing.",
+     "see": "A short message reads \"Passkey added. Next time, log in with Face ID, Touch ID or your screen lock.\" The phone did not ask for the fingerprint, face unlock or the screen PIN, no phone sheet about saving a passkey appeared, and the card \"Log in faster next time\" did not appear."
+    },
+    {
+     "do": "Tap \"Account\" in the bar at the bottom of the screen, scroll to the card headed \"Privacy & Security\" and find the block named \"Passkeys\".",
+     "see": "Under \"Your passkeys\" one line shows a name you did not type, \"Added\" and today's date, and \"not used yet\", with the buttons \"Rename\" and \"Remove\". No red message is shown."
+    },
+    {
+     "do": "Tap \"More\" in the bar at the bottom, then tap \"Log out\" at the foot of the menu, then tap \"Yes, log out\".",
+     "see": "The sign-in page opens."
+    },
+    {
+     "do": "On the first step of the sign-in page, without typing anything, tap \"Log in with a passkey\".",
+     "see": "The button reads \"Waiting for your passkey…\" and the phone shows its own sheet offering the passkey it saved by itself. The page does not say \"This phone has no passkey for HOA HX yet\"."
+    },
+    {
+     "do": "Approve the phone's sheet with the fingerprint, face unlock or the screen PIN.",
+     "see": "Mei Tanaka's dashboard opens without the password being asked for."
+    },
+    {
+     "do": "Tap \"Account\", scroll to \"Passkeys\" under \"Privacy & Security\".",
+     "see": "The line now reads \"last used\" with today's date, not \"not used yet\"."
+    },
+    {
+     "do": "On that line tap \"Remove\". A panel opens headed with the passkey's name; tap \"Remove passkey\".",
+     "see": "If a \"Confirm it’s you\" panel appears, type the password in \"Password\" (from the account panel) and tap \"Continue\". Then the line is gone from \"Your passkeys\"."
+    }
+   ],
+   "lookFor": [
+    "Did the passkey get saved without the phone asking you anything?",
+    "Was the message at step 2 plain enough that a homeowner would know what happened and what to do next time?"
+   ],
+   "reset": "The passkey is removed in the last step. If the check stopped sooner, tap \"Remove\" on its line under \"Passkeys\" on the \"My Account\" page, then \"Remove passkey\"; the next reset of the test accounts also clears the account's record of it. The passkey on the phone itself is harmless once HOA HX no longer knows it. To run the card again, delete the app and install it again.",
+   "complements": [
+    "tests/ui/public/passkey-offer.spec.ts",
+    "tests/ui/homeowner/homeowner-passkeys.spec.ts",
+    "tests/unit/passkey-offer-boot.test.ts"
+   ],
+   "added": "2026-11-06",
+   "reviewed": "2026-11-06"
+  },
+  {
+   "id": "QA-068",
+   "title": "A new board member sets up a passkey as the second step on a phone, then logs in with the password and the passkey",
+   "feature": "sign-in",
+   "task": "LC-4",
+   "decisions": [
+    "D-388"
+   ],
+   "whyManual": "real-device",
+   "whyManualNote": "The passkey is made, confirmed and backed up by the phone itself (its face, fingerprint or screen lock, and iCloud Keychain or Google Password Manager); the browser tests use a pretend passkey device with no phone, no real lock screen and no backup.",
+   "env": "staging",
+   "start": "/auth/login",
+   "accounts": [
+    "s1-fresh"
+   ],
+   "device": "phone",
+   "minutes": 14,
+   "precondition": "Kira Novak has no second step yet: the test accounts were reset today, and nobody has set up a passkey or an authenticator app for her since (the reset does not remove a passkey, so ask HOAhx staff to clear one first). Use the phone's browser on the test site, not the app. The phone has a screen lock, and its passkeys are backed up (iCloud Keychain on an iPhone; a Google account on an Android phone). HOAhx staff have switched passkeys on for the test site: if the set-up page offers no \"Passkey\" choice, record Blocked, not Fail. If the page asks for a backup after the passkey is made (\"Backup for your passkey\"), the phone is not backing up its passkeys: record Blocked. If the test site is down, record Blocked.",
+   "steps": [
+    {
+     "do": "Open the test site in the phone's browser. Sign in as Kira Novak: type her email (from the account panel) in \"Email address\" and tap \"Continue\", then type her password in \"Password\" and tap \"Log in\".",
+     "see": "A page headed \"Set up two-factor sign-in\" opens, with \"Signed in as\" and her address, and a block that starts \"Why you are seeing this.\""
+    },
+    {
+     "do": "Look at the choices, then tap \"Continue\".",
+     "see": "Three choices show: \"Passkey\" (marked \"Recommended\" and already selected), \"Authenticator app\" and \"Text message\". After \"Continue\" the page shows \"Step 2 of 3\" and a button \"Create a passkey\"."
+    },
+    {
+     "do": "Tap \"Create a passkey\". When the phone asks, approve it with your face, fingerprint or screen lock. When it asks a second time to confirm, approve again.",
+     "see": "The button reads \"Waiting for your device…\" while the phone asks. Then a page headed \"Your passkey is set\" shows a button \"Done\". No red message is shown."
+    },
+    {
+     "do": "Tap \"Done\".",
+     "see": "Kira Novak's board dashboard opens (if the account selector appears, choose Cedar Hollow). No code was asked for."
+    },
+    {
+     "do": "Tap \"More\" in the bar at the bottom, then tap \"Log out\" at the foot of the menu, then tap \"Yes, log out\".",
+     "see": "The sign-in page opens."
+    },
+    {
+     "do": "Sign in as Kira Novak again with her email and password, as in step 1.",
+     "see": "A page headed \"Finish logging in\" opens with a button \"Use your passkey\". It does not offer to set up an authenticator app or text messages, and no dashboard shows behind it."
+    },
+    {
+     "do": "Tap \"Use your passkey\" and approve the phone's sheet with your face, fingerprint or screen lock.",
+     "see": "The button reads \"Waiting for your device…\", then Kira Novak's board dashboard opens. You typed no code."
+    },
+    {
+     "do": "Log out the same way. On the first step of the sign-in page, without typing anything, tap \"Log in with a passkey\" and approve the phone's sheet.",
+     "see": "Kira Novak's board dashboard opens without the password and without a code: the passkey alone was both steps."
+    }
+   ],
+   "lookFor": [
+    "Did the page tell you plainly why a board member must set up a second step?",
+    "Did the phone ask for your face, fingerprint or screen lock exactly twice while setting up, once to save and once to confirm?",
+    "At \"Finish logging in\", was it clear what to do next?"
+   ],
+   "reset": "Kira Novak keeps the passkey as her second step. The reset of the test accounts does not remove a passkey yet, so before the card is run again (or the authenticator-app card for the same board member), ask HOAhx staff to clear Kira Novak's passkey. The passkey on the phone itself is harmless once HOA HX no longer knows it.",
+   "complements": [
+    "tests/ui/treasurer/treasurer-passkey-second-step.spec.ts",
+    "tests/ui/cross-role/passkey-second-step-across-roles.spec.ts"
+   ],
+   "added": "2026-11-06",
+   "reviewed": "2026-11-06"
+  },
+  {
+   "id": "QA-069",
+   "title": "A person invited to join Cedar Hollow chooses Apple's \"Hide My Email\", and the invitation page explains why it cannot match",
+   "feature": "invitations",
+   "task": "LOGIN-4",
+   "decisions": [],
+   "whyManual": "third-party",
+   "whyManualNote": "Apple's own sign-in sheet decides what address comes back; the browser tests pretend to be Apple and only hand over a made-up hidden address, so only Apple itself proves the hidden address is what arrives and is refused in plain words.",
+   "env": "staging",
+   "start": "/auth/login",
+   "accounts": [
+    "president"
+   ],
+   "device": "two-devices",
+   "minutes": 12,
+   "precondition": "Use an e-mail address you can read that has no HOA HX account on the test site (not the one tied to your Apple ID). The iPhone is signed in to an Apple ID and has not used \"Sign in with Apple\" for HOA HX before: if it has, Apple will not ask again, so remove HOA HX under Settings, your name, Sign-In & Security, Sign in with Apple first. If \"Continue with Apple\" is missing from the invitation page, record Blocked. If the e-mail has not arrived after ten minutes (look in spam too), record Fail with the time you pressed the button; if the e-mail service or Apple's sign-in is down, record Blocked.",
+   "steps": [
+    {
+     "do": "As the president: on a computer, sign in as Dana Whitfield (password, then the two-step code), choose \"Member Management\" in the menu, then open the \"Residents\" tab if it is not already open and press \"Invite resident\".",
+     "see": "A window headed \"Invite Resident\" opens with the fields \"Resident Name\", \"Email\", \"Phone\", \"Unit / Property\" and \"Community Role\"."
+    },
+    {
+     "do": "As the president: type your own name in \"Resident Name\" and your own address in \"Email\", then press \"Send Invite\".",
+     "see": "The window shows \"Invite created!\" and a line \"Email sent to\" followed by your address."
+    },
+    {
+     "do": "On the iPhone, open your inbox and find the e-mail headed \"Welcome to HOA HX\". Press the button \"Accept Invitation\". If it opens in the Mail app's own viewer, copy the link into Safari.",
+     "see": "A page opens on the test site headed \"Create your account\", with the buttons \"Continue with Google\" and \"Continue with Apple\"."
+    },
+    {
+     "do": "Tap \"Continue with Apple\".",
+     "see": "Apple's own sign-in sheet opens and asks whether to share your email address or hide it."
+    },
+    {
+     "do": "Choose \"Hide My Email\" and continue, approving with Face ID or the passcode.",
+     "see": "The sheet closes and the invitation page shows a red message: \"Apple kept your email address private, so this invite cannot be matched to you. Use the address the invite was sent to: continue with Google, or create a password.\" The page does not say \"Welcome\", and no one is signed in to a community."
+    },
+    {
+     "do": "Look at the page below the message.",
+     "see": "The buttons \"Continue with Google\" and \"Continue with Apple\" are still there, and so are the fields \"Full name\" and \"Email address\" with a button \"Continue\" (the way to create a password), and the message does not show your address or the hidden one."
+    },
+    {
+     "do": "As the president: on the computer, open the tab \"Invites\" on the same page.",
+     "see": "The line for your address still reads \"Pending invite\": the refusal did not use up or cancel the invitation."
+    }
+   ],
+   "lookFor": [
+    "Does the message say, in words a homeowner could follow, why Apple's choice caused the refusal?",
+    "Does the message say what to do next?"
+   ],
+   "reset": "The invitation to your own address stays open: on the computer press \"Revoke\" (the cross) on your line on the \"Invites\" tab. The attempt may leave an empty account for Apple's hidden address; it has no community and is harmless. To run the card again, remove HOA HX from \"Sign in with Apple\" in the iPhone's settings (see the precondition). The invitation stays pending: cancel it from the \"Invites\" tab, or the next reset of the test accounts clears it.",
+   "complements": [
+    "tests/ui/homeowner/homeowner-invite-providers.spec.ts"
+   ],
+   "added": "2026-11-06",
+   "reviewed": "2026-11-06"
   }
  ],
- "build": "d278a41",
- "generated": "2026-11-05T16:07:41.837Z"
+ "build": "1bf2728",
+ "generated": "2026-11-06T21:01:30.693Z"
 }
