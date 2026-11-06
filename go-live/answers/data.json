@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-05",
+ "updated": "2026-11-06",
  "groups": [
   {
    "id": "money",
@@ -12,29 +12,9 @@
   {
    "id": "community",
    "title": "Community life"
-  },
-  {
-   "id": "ops",
-   "title": "Running HOAhx"
   }
  ],
  "cards": [
-  {
-   "id": "A90",
-   "group": "ops",
-   "title": "Importing a spreadsheet: headings only, or smarter column matching?",
-   "why": "Exports from other HOA systems carry recognizable headings, and nothing is written until a person approves the match, so heading matching already finishes most imports. The Assistant's provider quota was approved on November 3, so smarter matching can now be built. It would only suggest: the administrator still confirms every column, the file's contents are never used to change a home without that confirmation, and if the Assistant is off or slow the import falls back to headings. Each import would use a small part of the community's monthly Assistant allowance.",
-   "rows": [
-    {
-     "id": "A90-1",
-     "qs": [
-      "Is matching columns from the file's headings, confirmed by the administrator, enough for the launch, or should the import also use the HOA HX Assistant to suggest each column's match?"
-     ],
-     "rec": "Keep matching columns from the file's headings for the launch, with the administrator confirming every column before anything is saved. Smarter matching (the Assistant suggests each column's match and points out rows that look wrong) is sized at about 2.7 hours of building and testing: 2.0 for the column suggestions and 0.7 for the rows that look wrong. It would be added after launch, or before it if you want it.",
-     "videos": []
-    }
-   ]
-  },
   {
    "id": "A122",
    "group": "community",
@@ -84,22 +64,6 @@
    ]
   },
   {
-   "id": "A125",
-   "group": "ops",
-   "title": "Should a passkey be able to serve as the second step after a password?",
-   "why": "Board members, managers and HOA HX staff log in with a password and then a second step, today a text message or an app code. A passkey on their phone or computer could be that second step instead, so it is one touch and never waits for a text. You already said yes to a passkey in place of the password and code; this is a passkey after them.",
-   "rows": [
-    {
-     "id": "A125-1",
-     "qs": [
-      "May a passkey serve as the second step after a password for the roles that require one, with the text or app code kept as the fallback?"
-     ],
-     "rec": "Yes, after launch. A passkey counts as the second step only once it has been confirmed one time with a text or app code, and the text or app code stays as the way back in if the phone or computer that holds the passkey is lost.",
-     "videos": []
-    }
-   ]
-  },
-  {
    "id": "A126",
    "group": "community",
    "title": "Signing a proxy: accept the terms, or draw a signature?",
@@ -117,6 +81,34 @@
   }
  ],
  "answered": [
+  {
+   "id": "A90-1",
+   "kind": "question",
+   "card": "Importing a spreadsheet: headings only, or smarter column matching?",
+   "qs": [
+    "Is matching columns from the file's headings, confirmed by the administrator, enough for the launch, or should the import also use the HOA HX Assistant to suggest each column's match?"
+   ],
+   "answer": "change",
+   "rec": "Keep matching columns from the file's headings for the launch, with the administrator confirming every column before anything is saved. Smarter matching (the Assistant suggests each column's match and points out rows that look wrong) is sized at about 2.7 hours of building and testing: 2.0 for the column suggestions and 0.7 for the rows that look wrong. It would be added after launch, or before it if you want it.",
+   "build": "The import keeps heading-based matching with the administrator confirming every column, once you answer. If you choose smarter matching, it is built as sized, with heading matching kept as the fallback.",
+   "answeredOn": "2026-11-06",
+   "acceptedOn": "2026-11-06",
+   "status": "planned"
+  },
+  {
+   "id": "A125-1",
+   "kind": "question",
+   "card": "Should a passkey be able to serve as the second step after a password?",
+   "qs": [
+    "May a passkey serve as the second step after a password for the roles that require one, with the text or app code kept as the fallback?"
+   ],
+   "answer": "change",
+   "rec": "Yes, after launch. A passkey counts as the second step only once it has been confirmed one time with a text or app code, and the text or app code stays as the way back in if the phone or computer that holds the passkey is lost.",
+   "build": "A passkey can be the second step after a password for board members, managers and HOA HX staff, confirmed once with a text or app code, which stays as the fallback, once you answer.",
+   "answeredOn": "2026-11-06",
+   "acceptedOn": "2026-11-05",
+   "status": "planned"
+  },
   {
    "id": "A114-1",
    "kind": "question",
