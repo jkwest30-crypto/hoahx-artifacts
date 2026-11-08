@@ -3557,8 +3557,178 @@
    ],
    "added": "2026-11-06",
    "reviewed": "2026-11-06"
+  },
+  {
+   "id": "QA-070",
+   "title": "A board member who logged in with a passkey adds an authenticator app through \"Add a second method\"",
+   "feature": "sign-in",
+   "task": "J-486",
+   "decisions": [],
+   "whyManual": "third-party",
+   "whyManualNote": "The passkey is approved by the phone itself and the six-digit codes come from a real authenticator app; the browser tests use a pretend passkey device and cannot enroll an authenticator app, so only a person with a phone and an app proves the whole hand-off. If passkeys are off on the test site or the test site is down, record Blocked, not Fail.",
+   "env": "staging",
+   "start": "/auth/login",
+   "accounts": [
+    "s1-fresh"
+   ],
+   "device": "phone",
+   "minutes": 18,
+   "precondition": "Kira Novak already has a passkey as her second step and no authenticator app: she got it from QA-068 (\"A new board member sets up a passkey as the second step on a phone, then logs in with the password and the passkey\"), run today on this same phone. If she has no passkey as her second step, run QA-068 first; if she already has an authenticator app, ask HOAhx staff to clear it. Use the phone's browser on the test site, not the app. The phone has a screen lock, an authenticator app is installed (Google Authenticator, Microsoft Authenticator, 1Password or Authy), and HOAhx staff have switched passkeys on for the test site. Finish steps 3 to 5 within 10 minutes.",
+   "steps": [
+    {
+     "do": "Open the test site in the phone's browser. On the first step of the sign-in page, without typing anything, tap \"Log in with a passkey\" and approve the phone's sheet with your face, fingerprint or screen lock.",
+     "see": "Kira Novak's board dashboard opens (if the account selector appears, choose Cedar Hollow). You typed no password and no code."
+    },
+    {
+     "do": "Tap the round picture with her initial at the top right (it is named \"My Account\"), then scroll to the card headed \"Privacy & Security\" and find \"Two-factor sign-in\".",
+     "see": "The badge reads \"On\". A row reads \"Passkey · \" followed by the passkey's name, with \"Your second step\" under it. A line reads \"You logged in with a passkey. To change or turn off a method, or to create backup codes, log in with your password and code.\" A button \"Add a second method\" is shown."
+    },
+    {
+     "do": "Tap \"Add a second method\". When the phone asks, approve with your face, fingerprint or screen lock.",
+     "see": "The sign-in page opens, headed \"Log in or sign up\". A green line reads \"To add your new method, log in with your password within 10 minutes. If your device offers your passkey, close it and use your password.\" Kira is no longer logged in."
+    },
+    {
+     "do": "Type Kira's email (from the account panel) in \"Email address\" and tap \"Continue\". If the phone offers her passkey, close the sheet and tap \"Use your password instead\".",
+     "see": "The page is headed \"Enter your password\". The green line is still there."
+    },
+    {
+     "do": "Type her password in \"Password\" and tap \"Log in\".",
+     "see": "A page headed \"Set up two-factor sign-in\" opens, with \"Signed in as\" and her address. It is not headed \"Finish logging in\", and no dashboard shows behind it."
+    },
+    {
+     "do": "Look at the choices, choose \"Authenticator app\", then tap \"Continue\".",
+     "see": "The choices are \"Authenticator app\" and \"Text message\"; there is no \"Passkey\" choice. After \"Continue\" the page shows \"Step 2 of 3\", the heading \"Verify it\", a square code to scan, and the line \"Can’t scan? Type this key into the app:\" with a key under it."
+    },
+    {
+     "do": "In your authenticator app, add an account: scan the square code with another device, or, on this phone, type the key into the app.",
+     "see": "The app shows a six-digit code for HOA HX that changes every 30 seconds."
+    },
+    {
+     "do": "Type the six digits into \"Six-digit code\" and tap \"Verify\".",
+     "see": "The page shows \"Step 3 of 3\" and the heading \"Save your backup codes\". A green box reads \"Your authenticator app is now set up for two-factor sign-in.\" followed by the line \"We emailed you a note that your sign-in changed.\" A list of backup codes is shown."
+    },
+    {
+     "do": "Tick \"I have saved these codes somewhere safe.\" and tap \"Done\".",
+     "see": "Kira Novak's board dashboard opens (if the account selector appears, choose Cedar Hollow)."
+    },
+    {
+     "do": "Open \"My Account\" again and find \"Two-factor sign-in\" under \"Privacy & Security\".",
+     "see": "The badge reads \"On\". A row reads \"Authenticator app\" with \"Set up\" and today's date under it. The row \"Passkey · \" followed by the passkey's name is still listed. The line \"You logged in with a passkey.\" is gone."
+    },
+    {
+     "do": "Tap \"More\" in the bar at the bottom, then \"Log out\" at the foot of the menu, then \"Yes, log out\". Log in again with her email and password. If the page offers \"Use my authenticator app instead\", tap it.",
+     "see": "A page headed \"Enter your code\" says \"Enter the code from your authenticator app.\" Typing the six digits from the app opens her dashboard."
+    }
+   ],
+   "lookFor": [
+    "After \"Add a second method\", was it clear why you were sent back to the sign-in page and what to do there?",
+    "Did the green line on the sign-in page tell you to use your password and not the passkey, in words you could follow?",
+    "Did the set-up page feel like a continuation of what you asked for, not a new account set-up?"
+   ],
+   "reset": "Kira Novak keeps the passkey and now also has an authenticator app. The reset of the test accounts removes the authenticator app but not the passkey: before this card or the passkey set-up card is run again, ask HOAhx staff to clear her passkey and her authenticator app. Delete the HOA HX entry from your authenticator app. The backup codes shown are Kira's own and stop working at the reset.",
+   "complements": [
+    "tests/unit/second-factor-settings-setup-ticket.test.tsx",
+    "tests/integration/second-step-setup-ticket.test.ts"
+   ],
+   "added": "2026-11-07",
+   "reviewed": "2026-11-07"
+  },
+  {
+   "id": "QA-071",
+   "title": "A new homeowner signs up with Apple in the iPhone app, hides their email, and is shown by name",
+   "feature": "sign-in",
+   "task": "F559",
+   "decisions": [],
+   "whyManual": "real-device",
+   "whyManualNote": "Apple gives a person's name once, on the first sign-in, and inside the iPhone app the iPhone's own Apple sheet hands it back; the browser tests pretend to be Apple and only make up a name. If the test build is not on the phone, or Apple's sheet never opens, record Blocked, not Fail.",
+   "env": "staging",
+   "start": "/auth/login",
+   "accounts": [],
+   "device": "iphone",
+   "minutes": 12,
+   "precondition": "The latest HOA HX test build is on the iPhone from TestFlight, and you are logged out of it. Use an Apple ID that has never been used with the test site and that has a first and last name set (Settings, your name): if it was used, remove HOA HX under Settings, your name, Sign-In & Security, Sign in with Apple, first, because Apple gives the name only the first time. Each Apple ID can run this card once. Step 5 uses the iPhone's Safari with the same Apple ID; if the website's Apple log-in opens an account with an empty name rather than the one from step 3, record Fail and say so.",
+   "steps": [
+    {
+     "do": "Open the HOA HX app on the iPhone, logged out.",
+     "see": "The page is headed \"Log in or sign up\" and has a button \"Continue with Apple\"."
+    },
+    {
+     "do": "Tap \"Continue with Apple\".",
+     "see": "The button reads \"Connecting…\" and Apple's own sheet slides up over the app. No web page opens in Safari."
+    },
+    {
+     "do": "On Apple's sheet, check that your name is shown, choose \"Hide My Email\", and continue with Face ID or your passcode.",
+     "see": "The sheet closes and the app opens a page headed \"Join a community\". At its foot the line \"Signed in as\" is followed by a long made-up address that is not yours. No red message is shown."
+    },
+    {
+     "do": "Say the name you saw on Apple's sheet out loud or write it down. Then open Safari on the same iPhone, go to the test site, and on its sign-in page tap \"Continue with Apple\" and approve.",
+     "see": "Apple's log-in page opens in Safari and then closes by itself, and no red message is shown. The \"Join a community\" page opens, with the same long made-up address after \"Signed in as\"."
+    },
+    {
+     "do": "In Safari, add /my-account to the end of the test site's address and go there. Find the card headed \"Profile\".",
+     "see": "\"Full name\" shows the name you wrote down, spelled the same, and the field is not empty. It does not show a dash, \"a community member\", or the long made-up address. The long made-up address shows next to \"Email\"."
+    }
+   ],
+   "lookFor": [
+    "Did anything on the way ask for your name again, or leave you unsure whether the app knew it?",
+    "Is it clear on the \"Join a community\" page who is signed in and how to leave?"
+   ],
+   "reset": "An account with no community now exists for this Apple ID on the test site; it is harmless and the reset of the test accounts does not remove it. To run the card again with the same Apple ID, ask HOAhx staff to delete the account, and remove HOA HX under Settings, your name, Sign-In & Security, Sign in with Apple.",
+   "complements": [
+    "tests/unit/apple-name-kept.test.ts"
+   ],
+   "added": "2026-11-07",
+   "reviewed": "2026-11-07"
+  },
+  {
+   "id": "QA-072",
+   "title": "A homeowner on the Android app types an Apple hidden-mail address and is told where Apple log-in is",
+   "feature": "sign-in",
+   "task": "LOGIN-5",
+   "decisions": [],
+   "whyManual": "real-device",
+   "whyManualNote": "Only the Android app itself shows which log-in buttons it offers (it has no Apple button); the browser tests make up the list of buttons, so only a real Android phone proves the hint appears there and not on the website. If the test build is not on the phone, record Blocked, not Fail.",
+   "env": "staging",
+   "start": "/auth/login",
+   "accounts": [],
+   "device": "android",
+   "minutes": 6,
+   "precondition": "The latest HOA HX test build is on the Android phone, and you are logged out of it. No account is needed: you type made-up addresses and never get past the password step. The Apple-style address is any made-up name, an at sign, then privaterelay.appleid.com (the kind of address Apple hands out when someone chooses Hide My Email). The other address is any made-up name at a different mail service, but not icloud.com, me.com or mac.com: the hint also appears for those three.",
+   "steps": [
+    {
+     "do": "Open the HOA HX app on the Android phone, logged out.",
+     "see": "The page is headed \"Log in or sign up\". There is a field \"Email address\" and a button \"Continue\". No button reads \"Continue with Apple\"."
+    },
+    {
+     "do": "Type the Apple-style address in \"Email address\" and tap \"Continue\".",
+     "see": "The page is headed \"Enter your password\". A green message reads: \"Signed up with Apple? This app has no Apple log-in. Use Apple on the HOA HX website in your phone’s browser, or tap “Forgot password?” to set a password for this address.\""
+    },
+    {
+     "do": "Tap \"Use a different email\", type the other made-up address in \"Email address\" and tap \"Continue\".",
+     "see": "The page is headed \"Enter your password\" and shows no green message about Apple."
+    },
+    {
+     "do": "Tap \"Use a different email\", type the Apple-style address again, tap \"Continue\", then tap \"Forgot password?\".",
+     "see": "A page headed \"Reset your password\" opens, with the line \"Enter your email and we'll send you a link to reset your password.\" Do not send anything."
+    },
+    {
+     "do": "Open the phone's web browser, go to the test site, and look at its sign-in page.",
+     "see": "The page is headed \"Log in or sign up\" and has a button \"Continue with Apple\". Do not tap it."
+    }
+   ],
+   "lookFor": [
+    "Could a homeowner who signed up with Apple tell from the green message what to do next?",
+    "Did the message appear for the Apple-style address and not for the other address?",
+    "Was the green message fully visible above the password field, with nothing cut off?"
+   ],
+   "reset": "Nothing is left behind: no account is created and no email is sent.",
+   "complements": [
+    "tests/unit/login-android-apple-hint.test.tsx"
+   ],
+   "added": "2026-11-07",
+   "reviewed": "2026-11-07"
   }
  ],
- "build": "1bf2728",
- "generated": "2026-11-06T21:01:30.693Z"
+ "build": "0fa1f63",
+ "generated": "2026-11-08T04:52:50.717Z"
 }
