@@ -1,14 +1,6 @@
 {
- "updated": "2026-11-06",
+ "updated": "2026-11-07",
  "groups": [
-  {
-   "id": "money",
-   "title": "Money: dues, the ledger, and the books"
-  },
-  {
-   "id": "enforce",
-   "title": "Enforcement and requests"
-  },
   {
    "id": "community",
    "title": "Community life"
@@ -16,71 +8,79 @@
  ],
  "cards": [
   {
-   "id": "A122",
+   "id": "A127",
    "group": "community",
-   "title": "Does a staff property import count as naming a home's owner?",
-   "why": "A property import writes a home's owner name and email, but gives no role, no primary owner and no history row. Naming an owner needs the deed or closing record that was checked.",
+   "title": "One page for all of a person's homes, across communities",
+   "why": "Rustin proposed it on November 6. Today a person with homes in more than one community signs in once and switches between them, but no page shows all their homes together, and a home in a community outside HOA HX cannot be added. One page for everything gives people a reason to use HOA HX before their community signs up and a way to introduce it to their other HOAs. It is not part of the launch, which is nine days away; it is ranked with the other candidates.",
    "rows": [
     {
-     "id": "A122-1",
+     "id": "A127-1",
      "qs": [
-      "Should a staff property import stay a way to list a home's owner without making them the owner?"
+      "Should HOA HX add a My Homes page where a person with homes in more than one community sees them all, including homes in communities that do not use HOA HX, and where does it sit among the candidates?"
      ],
-     "rec": "No: an import does not name an owner. A person becomes the owner only through Name an Owner or a join review, which ask for the deed or closing record.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A123",
-   "group": "enforce",
-   "title": "Who may send a message to the homes behind on dues?",
-   "why": "A mass message can be sent to the homes behind on dues. Today anyone who can send mass messages can choose that group and see how many homes are in it: the Secretary, the HOA Administrator and a Property Manager the President has given no money tasks.",
-   "rows": [
-    {
-     "id": "A123-1",
-     "qs": [
-      "Should choosing the homes behind on dues be limited to the people who already work with overdue accounts?"
-     ],
-     "rec": "Yes, limit it to those people. Anyone else can ask one of them to send the message.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A124",
-   "group": "money",
-   "title": "Should a manager with no money tasks be able to charge a fine?",
-   "why": "A Property Manager the President has given no money tasks can still charge a fine to a home's account and publish the fine schedule, which sets the most any fine can be. Both come with the role, so the President cannot switch them off.",
-   "rows": [
-    {
-     "id": "A124-1",
-     "qs": [
-      "Should charging a fine and publishing the fine schedule stay with the Property Manager role, or move into the Financials task?"
-     ],
-     "rec": "Move both into the Financials task. A manager with no money tasks still runs a violation up to the fine, and the President, the Treasurer, the management company or a manager with Financials charges it.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A126",
-   "group": "community",
-   "title": "Signing a proxy: accept the terms, or draw a signature?",
-   "why": "Proxy voting comes after launch, and a proxy has to be signed. Documents in HOA HX are signed today by ticking a statement and tapping Sign & Confirm, with the name, the statement, the time and the exact version kept; there is no finger-drawn signature. Most states accept an electronic signature for a proxy, but HOA laws differ (some require it in writing, dated, or limited to one meeting), so each community's attorney has the last word. A drawn signature on a phone adds little proof beyond the record already kept.",
-   "rows": [
-    {
-     "id": "A126-1",
-     "qs": [
-      "When proxy voting is offered, may a homeowner sign the proxy by accepting its terms in the app, or must they draw a signature with their finger?"
-     ],
-     "rec": "Accepting the terms is enough. The homeowner ticks the proxy statement and taps Sign & Confirm, and HOA HX keeps who gave the proxy, to whom, for which meeting or vote, the date and when it ends. No drawn signature. Each community confirms with its own attorney that this meets its state's law and its governing documents; a community whose attorney requires more can mark proxies as needing an extra step.",
+     "rec": "Yes, after launch, inside HOA HX rather than as a separate app. A My Homes page shows a card per home with its address, its community and a way in: homes in HOA HX communities open here, and a home in another community opens that community's own website from a link the person adds. Later the cards for HOA HX homes show the balance, the next due date, announcements and the next meeting, and a card for an outside community can introduce HOA HX to its board. Your marks set where it comes in the order.",
      "videos": []
     }
    ]
   }
  ],
  "answered": [
+  {
+   "id": "A122-1",
+   "kind": "question",
+   "card": "Does a staff property import count as naming a home's owner?",
+   "qs": [
+    "Should a staff property import stay a way to list a home's owner without making them the owner?"
+   ],
+   "answer": "agree",
+   "rec": "No: an import does not name an owner. A person becomes the owner only through Name an Owner or a join review, which ask for the deed or closing record.",
+   "build": "Stays as built unless the owners change it.",
+   "answeredOn": "2026-11-06",
+   "acceptedOn": "2026-11-07",
+   "status": "planned"
+  },
+  {
+   "id": "A123-1",
+   "kind": "question",
+   "card": "Who may send a message to the homes behind on dues?",
+   "qs": [
+    "Should choosing the homes behind on dues be limited to the people who already work with overdue accounts?"
+   ],
+   "answer": "agree",
+   "rec": "Yes, limit it to those people. Anyone else can ask one of them to send the message.",
+   "build": "Limited to the President, the Treasurer, the management company and a Property Manager with the Financials task, once you answer.",
+   "answeredOn": "2026-11-06",
+   "acceptedOn": "2026-11-07",
+   "status": "planned"
+  },
+  {
+   "id": "A124-1",
+   "kind": "question",
+   "card": "Should a manager with no money tasks be able to charge a fine?",
+   "qs": [
+    "Should charging a fine and publishing the fine schedule stay with the Property Manager role, or move into the Financials task?"
+   ],
+   "answer": "agree",
+   "rec": "Move both into the Financials task. A manager with no money tasks still runs a violation up to the fine, and the President, the Treasurer, the management company or a manager with Financials charges it.",
+   "build": "Both move into the Financials task the President switches on for each manager, once you answer.",
+   "answeredOn": "2026-11-06",
+   "acceptedOn": "2026-11-07",
+   "status": "planned"
+  },
+  {
+   "id": "A126-1",
+   "kind": "question",
+   "card": "Signing a proxy: accept the terms, or draw a signature?",
+   "qs": [
+    "When proxy voting is offered, may a homeowner sign the proxy by accepting its terms in the app, or must they draw a signature with their finger?"
+   ],
+   "answer": "agree",
+   "rec": "Accepting the terms is enough. The homeowner ticks the proxy statement and taps Sign & Confirm, and HOA HX keeps who gave the proxy, to whom, for which meeting or vote, the date and when it ends. No drawn signature. Each community confirms with its own attorney that this meets its state's law and its governing documents; a community whose attorney requires more can mark proxies as needing an extra step.",
+   "build": "When proxy voting is built, a homeowner signs a proxy by accepting its terms in the app, with the full record kept, once you answer.",
+   "answeredOn": "2026-11-06",
+   "acceptedOn": "2026-11-07",
+   "status": "planned"
+  },
   {
    "id": "A90-1",
    "kind": "question",
