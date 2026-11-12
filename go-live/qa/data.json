@@ -321,7 +321,7 @@
    "name": "Odette Marchand",
    "roleLabel": "Homeowner",
    "where": "Cedar Hollow, 3 Willow Lane (bought Oct 14)",
-   "opening": "Owns the home the President has handed over; its tenant is waiting to be confirmed",
+   "opening": "Owns the home the President has handed over; its tenant is waiting to be confirmed. Expired account-status letter code: QAEX-PDLT-RWLN-2345",
    "twoStep": false
   },
   {
@@ -354,6 +354,70 @@
    "roleLabel": "Board Member",
    "where": "Cedar Hollow",
    "opening": "No second factor yet",
+   "twoStep": false
+  },
+  {
+   "handle": "property-manager-cedar",
+   "name": "Quinn Harlow",
+   "roleLabel": "Property Manager",
+   "where": "Cedar Hollow",
+   "opening": "Property Manager of Cedar Hollow; no money tasks (D-346)",
+   "twoStep": true
+  },
+  {
+   "handle": "pm-spare",
+   "name": "Ada Kowalski",
+   "roleLabel": "Member (no role)",
+   "where": "Juniper Ridge, a member with no role",
+   "opening": "Has an account and a membership but no role, so she can be assigned as Property Manager",
+   "twoStep": false
+  },
+  {
+   "handle": "homeowner-primary",
+   "name": "Elise Marlow",
+   "roleLabel": "Homeowner",
+   "where": "Cedar Hollow, 18 Aspen Way (primary owner, with Silas Marlow)",
+   "opening": "Owns the home with a co-owner in one household",
+   "twoStep": false
+  },
+  {
+   "handle": "homeowner-coowner",
+   "name": "Silas Marlow",
+   "roleLabel": "Homeowner",
+   "where": "Cedar Hollow, 18 Aspen Way (co-owner)",
+   "opening": "Co-owner of the home Elise Marlow is primary owner of",
+   "twoStep": false
+  },
+  {
+   "handle": "household-adult",
+   "name": "Casey Pryce",
+   "roleLabel": "Homeowner",
+   "where": "Cedar Hollow, 14 Cedar Hollow Lane (household member)",
+   "opening": "An adult of Jordan Pryce's household: not an owner, not the voting representative",
+   "twoStep": false
+  },
+  {
+   "handle": "homeowner-two-homes",
+   "name": "Harper Quinlan",
+   "roleLabel": "Homeowner",
+   "where": "Cedar Hollow, 24 and 26 Willow Lane",
+   "opening": "Owns two homes; one unread notice of each kind across them",
+   "twoStep": false
+  },
+  {
+   "handle": "homeowner-buying",
+   "name": "Nolan Rhodes",
+   "roleLabel": "Buyer (no home yet)",
+   "where": "Buyer of 12 Aspen Way (sale reported, not confirmed)",
+   "opening": "A verified account with no home yet: the buyer the sale of 12 Aspen Way names",
+   "twoStep": false
+  },
+  {
+   "handle": "broken-membership",
+   "name": "Lars Brennan",
+   "roleLabel": "Homeowner",
+   "where": "Cedar Hollow, 20 Aspen Way (owner record, no membership)",
+   "opening": "Owns 20 Aspen Way on record but has no membership: Repair a community's access fixes it",
    "twoStep": false
   }
  ],
@@ -3727,8 +3791,61 @@
    ],
    "added": "2026-11-07",
    "reviewed": "2026-11-07"
+  },
+  {
+   "id": "QA-077",
+   "title": "A homeowner types a quick code on the iPhone app and the keyboard bar does not cover the box",
+   "feature": "phone",
+   "task": "F587",
+   "decisions": [],
+   "whyManual": "real-device",
+   "whyManualNote": "The iPhone raises its own keyboard and the bar above it; only a real iPhone shows whether the box stays clear of them.",
+   "env": "staging",
+   "start": "/",
+   "accounts": [
+    "homeowner-owes"
+   ],
+   "device": "iphone",
+   "minutes": 7,
+   "precondition": "The HOA HX app from the latest test build is installed on the iPhone, the phone has Face ID turned on in its own settings, and Jordan Pryce is signed out of the app, so that no quick code is set yet (log out of the app first if he was signed in). If the test site is down, record Blocked.",
+   "steps": [
+    {
+     "do": "Open the HOA HX app and sign in as Jordan Pryce: type his email (from the account panel) in \"Email address\" and tap \"Continue\", then type the password in \"Password\" and tap \"Log in\".",
+     "see": "Jordan Pryce's dashboard opens, and a box headed \"Set a quick code\" appears over it. The box also shows a switch \"Also unlock with Face ID\"."
+    },
+    {
+     "do": "Tap the field \"Quick code\" and wait one second.",
+     "see": "The keyboard rises. The field \"Quick code\" and its label are fully in view above the keyboard, and the small bar above the keyboard (the arrows and the check mark) does not cover them."
+    },
+    {
+     "do": "Type four digits that are not one digit repeated and not a run like 1234.",
+     "see": "Four dots show in the field while you type. The field stays in view the whole time."
+    },
+    {
+     "do": "Tap the field \"Type it again\" and wait one second.",
+     "see": "The field \"Type it again\" and its label are fully in view above the keyboard and its bar."
+    },
+    {
+     "do": "Type the same four digits. Make sure the switch \"Also unlock with Face ID\" is on. Then tap the check mark (or \"Done\") on the bar above the keyboard to lower it.",
+     "see": "Four dots show in the field. The keyboard goes down and both fields and the buttons \"Not now\" and \"Save quick code\" can be reached."
+    },
+    {
+     "do": "Tap \"Save quick code\".",
+     "see": "The phone's Face ID check opens with the words \"Turn on Face ID for HOA HX\". After you look at the phone, the box closes and the dashboard shows."
+    }
+   ],
+   "lookFor": [
+    "Could you see what you typed in each field without moving the box yourself?",
+    "Did the box move smoothly, without jumping or leaving a gap above the keyboard?"
+   ],
+   "reset": "Jordan Pryce stays signed in on the iPhone with the quick code set (QA-075 starts from there). Logging out of the app clears it.",
+   "complements": [
+    "tests/unit/app-lock-quick-unlock.test.tsx"
+   ],
+   "added": "2026-11-10",
+   "reviewed": "2026-11-10"
   }
  ],
- "build": "0fa1f63",
- "generated": "2026-11-08T04:52:50.717Z"
+ "build": "3656ac37d",
+ "generated": "2026-11-12T22:44:29.095Z"
 }
