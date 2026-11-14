@@ -75,6 +75,11 @@
    "id": "communications",
    "title": "Messages to homes",
    "blurb": "The president sends a message to some homes and only those homes receive it."
+  },
+  {
+   "id": "import",
+   "title": "Importing a spreadsheet",
+   "blurb": "The board brings its homes, owners and opening balances in from its own spreadsheet. The checks here are the ones a person must make: the e-mail that tells the treasurer an import waits, the steps on a real phone, and a real spreadsheet with odd headings."
   }
  ],
  "always": [
@@ -3844,8 +3849,251 @@
    ],
    "added": "2026-11-10",
    "reviewed": "2026-11-10"
+  },
+  {
+   "id": "QA-079",
+   "title": "The treasurer gets an e-mail when the president sends an import for approval, and its link opens that import on a phone",
+   "feature": "import",
+   "task": "CB68",
+   "decisions": [],
+   "whyManual": "third-party",
+   "whyManualNote": "The notice is a real e-mail sent by HOAhx's e-mail service; only a person reading a real inbox on a phone can tell that it arrives, lands in the inbox, comes from a sender they trust, and that its link opens the right import.",
+   "env": "staging",
+   "start": "/properties/import",
+   "accounts": [
+    "president",
+    "treasurer"
+   ],
+   "device": "two-devices",
+   "minutes": 16,
+   "precondition": "Before the run, Jacob changes Nadia Adeyemi's address on the test site to an inbox you can read. Ask him which inbox it is and which address she signs in with, and her import e-mails are on (they are by default). Have a small spreadsheet ready on the computer: a header row with the three headings \"Address\", \"Owner\" and \"Balance\", and two rows below it with street addresses that start with a house number (such as \"12 Test Lane\" and \"14 Test Lane\") and names you make up (no real people) and balances of 100 and 50. Save it as a .csv or .xlsx file. If the e-mail has not arrived after ten minutes (look in spam too), record Fail with the time you pressed the button; if the e-mail service itself is down, record Blocked. Use a browser window at full screen width. If the page after you choose the file shows a note that starts \"One match was suggested from its heading\" or contains \"matches were suggested from their headings\", the Assistant is switched on and the column matches will differ from this card. Record Blocked.",
+   "steps": [
+    {
+     "do": "As the president, on the computer: sign in as Dana Whitfield (password, then the two-step code) and choose \"Import a Spreadsheet\" in the menu.",
+     "see": "The page \"Import a Spreadsheet\" opens with a button \"Import a spreadsheet\"."
+    },
+    {
+     "do": "As the president: press \"Import a spreadsheet\", then \"Browse files\", and choose your spreadsheet (use a full-size browser window).",
+     "see": "The file name is shown, the step \"Match columns\" is the current step, and the line above the button reads \"3 of 3 columns matched\"."
+    },
+    {
+     "do": "As the president: press \"Continue to check rows\".",
+     "see": "The step \"Check rows\" opens and the count under \"Ready to go in\" reads 2."
+    },
+    {
+     "do": "As the president: press \"Continue to opening balances\".",
+     "see": "The step \"Opening balances\" opens with a total of $150.00. There is no button to approve the balances on this side: the import is waiting on the treasurer."
+    },
+    {
+     "do": "As the treasurer, on the phone: open the inbox Jacob set up for Nadia Adeyemi.",
+     "see": "Within ten minutes an e-mail arrives in the inbox, not spam, with the subject \"An import is waiting for your approval — Cedar Hollow\"."
+    },
+    {
+     "do": "As the treasurer, on the phone: open the e-mail and read it.",
+     "see": "It says that Dana Whitfield sent your file (its name is given) for approval: 2 homes, and asks you to check the opening balances, then approve them or send the import back. It has a link \"Open the import\" and a line saying you get it because you approve opening balances for Cedar Hollow."
+    },
+    {
+     "do": "As the treasurer, on the phone: tap \"Open the import\".",
+     "see": "HOA HX opens. If it asks, sign in as Nadia Adeyemi (password, then the two-step code)."
+    },
+    {
+     "do": "As the treasurer, on the phone: look at the page that opens.",
+     "see": "It is that very import, with your file name and the step \"Opening balances\" and the total $150.00, not the list of all imports. The button \"Approve the opening balances\" is on the page. Do not press it."
+    }
+   ],
+   "lookFor": [
+    "Does the e-mail show a sender name that reads as HOA HX, not a stranger's address or a test name?",
+    "Is it clear from the e-mail alone who sent the import, how many homes it holds and what you are asked to do?",
+    "Did the link open the import in one tap, with no detour through a list or a blank page?"
+   ],
+   "reset": "The import stays on the list \"Imports not finished yet\", waiting on the treasurer, until the next reset of the test accounts. Nothing is approved and no home or balance is created.",
+   "complements": [
+    "tests/ui/president/president-community-import.spec.ts"
+   ],
+   "added": "2026-11-13",
+   "reviewed": "2026-11-14"
+  },
+  {
+   "id": "QA-080",
+   "title": "The president fixes a row of a spreadsheet import on an iPhone, and the keyboard never covers the box or the \"Save this fix\" button",
+   "feature": "import",
+   "task": "CB68",
+   "decisions": [],
+   "whyManual": "real-device",
+   "whyManualNote": "The iPhone keyboard, the bottom panel and the thumb's reach decide whether the box and \"Save this fix\" can be used; a desktop browser narrowed to phone width has no real keyboard.",
+   "env": "staging",
+   "start": "/properties/import",
+   "accounts": [
+    "president"
+   ],
+   "device": "iphone",
+   "minutes": 12,
+   "precondition": "A small spreadsheet saved on the iPhone (in the Files app or iCloud Drive): a header row with \"Address\", \"Owner\", \"Phone\" and \"Balance\", then three rows with made-up names and balances. Row one is complete with a normal phone number. In the second row leave the address empty. In the third row put a phone number of only three digits. Use Safari. If the test site is down, record Blocked.",
+   "steps": [
+    {
+     "do": "As the president: on the iPhone, sign in as Dana Whitfield (password, then the two-step code) and choose \"Import a Spreadsheet\" in the menu.",
+     "see": "The page \"Import a Spreadsheet\" opens with a button \"Import a spreadsheet\"."
+    },
+    {
+     "do": "Tap \"Import a spreadsheet\", then \"Choose a file\", and pick your spreadsheet from Files.",
+     "see": "The step \"Match columns\" opens and the line above the button reads \"4 of 4 columns matched\"."
+    },
+    {
+     "do": "Tap \"Continue to check rows\".",
+     "see": "The step \"Check rows\" opens. Each row is its own card, not a table, and the filter \"Needs a fix\" is chosen. Two rows are listed, one of them with \"No address\" and the person's name."
+    },
+    {
+     "do": "Tap the button \"Fix row\" with the number of the row that has no address.",
+     "see": "A panel slides up from the bottom. It names the problem, shows the line \"In your file\" with the empty field marked \"Empty\", and has a box for that field, the buttons \"Save this fix\" and \"Remove this row\"."
+    },
+    {
+     "do": "Tap inside the box.",
+     "see": "The keyboard opens. The box and its label stay in view above the keyboard, and the page does not zoom in on its own."
+    },
+    {
+     "do": "Type a street address you make up, such as \"12 Test Lane\", and look for \"Save this fix\" with the keyboard still open.",
+     "see": "You can reach \"Save this fix\" with your thumb, either because it stays above the keyboard or by sliding the panel up. Nothing covers it, and the panel does not jump off the screen."
+    },
+    {
+     "do": "Tap \"Save this fix\".",
+     "see": "The panel closes and that row is no longer listed under \"Needs a fix\". The count under \"Ready to go in\" went up by one."
+    },
+    {
+     "do": "Tap the \"Fix row\" button of the row that is left, then tap \"Remove this row\".",
+     "see": "The panel closes and the row is no longer under \"Needs a fix\". Tap the filter \"Removed\": the row is listed there."
+    }
+   ],
+   "lookFor": [
+    "Could you reach \"Save this fix\" and \"Remove this row\" with one thumb, without stretching?",
+    "Is the text in the cards and the panel readable without zooming?",
+    "Did anything flicker, jump or slide behind the keyboard while you typed?"
+   ],
+   "reset": "The import is left unfinished on the list \"Imports not finished yet\"; nothing is sent for approval and no home is created. The next reset of the test accounts clears it. The president stays signed in on the phone.",
+   "complements": [
+    "tests/ui/president/president-community-import.spec.ts"
+   ],
+   "added": "2026-11-13",
+   "reviewed": "2026-11-13"
+  },
+  {
+   "id": "QA-081",
+   "title": "The president fixes a row of a spreadsheet import in the Android app, and the box and the \"Save this fix\" button stay in reach",
+   "feature": "import",
+   "task": "CB68",
+   "decisions": [],
+   "whyManual": "real-device",
+   "whyManualNote": "Android's keyboard resizes the screen in its own way, the app picks the file with the phone's own file picker; none of this is in a desktop browser.",
+   "env": "staging",
+   "start": "/properties/import",
+   "accounts": [
+    "president"
+   ],
+   "device": "android",
+   "minutes": 12,
+   "precondition": "The HOA HX app from the test build Jacob has named for this run is installed on an Android phone. A small spreadsheet is saved on the phone (in Downloads or Google Drive): a header row with \"Address\", \"Owner\", \"Phone\" and \"Balance\", then three rows with made-up names and balances. Row one is complete: an address that starts with a house number (such as \"10 Test Lane\") and a phone number of ten digits. In the second row leave the address empty and give it a ten-digit phone number. In the third row use an address with a house number and a phone number of only three digits. If the test site is down, record Blocked. If the page after you choose the file shows a note that starts \"One match was suggested from its heading\" or contains \"matches were suggested from their headings\", the Assistant is switched on and the column matches will differ from this card. Record Blocked.",
+   "steps": [
+    {
+     "do": "As the president: in the app, sign in as Dana Whitfield (password, then the two-step code) and tap \"More\" at the bottom of the screen, then \"Import a Spreadsheet\".",
+     "see": "The page \"Import a Spreadsheet\" opens with a button \"Import a spreadsheet\"."
+    },
+    {
+     "do": "Tap \"Import a spreadsheet\", then \"Choose a file\", and pick your spreadsheet in the phone's file picker.",
+     "see": "The phone's file picker opens and closes on your choice. The step \"Match columns\" opens and the line above the button reads \"4 of 4 columns matched\"."
+    },
+    {
+     "do": "Tap \"Continue to check rows\".",
+     "see": "The step \"Check rows\" opens with each row as its own card and the filter \"Needs a fix\" chosen. Two rows are listed, one of them with \"No address\". The count under \"Ready to go in\" reads 1, under \"Need a decision\" 1 and under \"Can’t go in\" 1."
+    },
+    {
+     "do": "Tap the button \"Fix row\" with the number of the row that has no address.",
+     "see": "A panel slides up from the bottom with the problem, the line \"In your file\", a box for the empty field and the buttons \"Save this fix\" and \"Remove this row\". None of it is hidden behind the phone's own buttons or swipe line."
+    },
+    {
+     "do": "Tap inside the box and type a street address you make up, such as \"12 Test Lane\".",
+     "see": "The keyboard opens. The box stays in view above it, and \"Save this fix\" can be reached with your thumb, above the keyboard or by sliding the panel up."
+    },
+    {
+     "do": "Close the keyboard with the phone's own button or gesture, then tap \"Save this fix\".",
+     "see": "The panel closes, the row is no longer listed under \"Needs a fix\", and the count under \"Ready to go in\" reads 2 and the count under \"Can’t go in\" reads 0."
+    },
+    {
+     "do": "Tap the \"Fix row\" button of the row that is left, then tap \"Remove this row\".",
+     "see": "The panel closes, the row is no longer listed under \"Needs a fix\", and a count \"Left out\" reads 1."
+    }
+   ],
+   "lookFor": [
+    "Is there an even gap between the panel's buttons and the phone's own buttons, not squeezed or very large?",
+    "Could you tap \"Save this fix\" and \"Remove this row\" without touching a system button by mistake?",
+    "Did the screen resize or flicker in a way that made you lose your place when the keyboard opened or closed?"
+   ],
+   "reset": "The import is left unfinished on the list \"Imports not finished yet\"; nothing is sent for approval and no home is created. The next reset of the test accounts clears it. The president stays signed in on the phone.",
+   "complements": [
+    "tests/ui/president/president-community-import.spec.ts"
+   ],
+   "added": "2026-11-13",
+   "reviewed": "2026-11-14"
+  },
+  {
+   "id": "QA-082",
+   "title": "The president uploads a spreadsheet saved by Excel with its own odd headings, and the columns are matched the way a board member would expect",
+   "feature": "import",
+   "task": "CB68",
+   "decisions": [],
+   "whyManual": "judgment",
+   "whyManualNote": "Whether a guessed match is sensible for a board's own messy file, saved by Excel or Numbers with its own headings, is a judgment; the tests prove the guesses for headings they list, not that a real file reads sensibly.",
+   "env": "staging",
+   "start": "/properties/import",
+   "accounts": [
+    "president"
+   ],
+   "device": "desktop",
+   "minutes": 12,
+   "precondition": "A spreadsheet you made in Excel or Numbers (not a text editor) and saved as .xlsx, with six headings in this order: \"Property Address\", \"Owner\", \"Past Due\", \"PIN\", \"Last Payment Date\" and \"Notes\". Add three rows: made-up street addresses that start with a house number (such as \"12 Test Lane\") and owner names, a dollar amount under \"Past Due\", any four digits you make up under \"PIN\", a date under \"Last Payment Date\" and a short remark under \"Notes\". Use a browser window at full screen width. If the page after you choose the file shows a note that starts \"One match was suggested from its heading\" or contains \"matches were suggested from their headings\", the Assistant is switched on and the column matches will differ from this card. Record Blocked.",
+   "steps": [
+    {
+     "do": "As the president: sign in as Dana Whitfield (password, then the two-step code) and choose \"Import a Spreadsheet\" in the menu.",
+     "see": "The page \"Import a Spreadsheet\" opens with a button \"Import a spreadsheet\"."
+    },
+    {
+     "do": "Press \"Import a spreadsheet\", then \"Browse files\", and choose your spreadsheet.",
+     "see": "The step \"Match columns\" is the current step, your file name is shown and all six headings are listed."
+    },
+    {
+     "do": "Scroll the grid sideways until you see the column \"Past Due\".",
+     "see": "It is shown as \"Matched\" to \"Opening balance\"."
+    },
+    {
+     "do": "Find the column \"PIN\".",
+     "see": "It is shown as \"Matched\" to \"Gate code\", and its values show as dots, never the digits."
+    },
+    {
+     "do": "Find the column \"Last Payment Date\".",
+     "see": "It is listed under the heading \"2 columns need you\" (the other one is \"Notes\") with the chip \"Needs a match\" and the words \"No field fits this heading.\", and it is not matched to \"Opening balance\"."
+    },
+    {
+     "do": "Find \"Property Address\" and \"Owner\".",
+     "see": "\"Property Address\" is shown as \"Matched\" to \"Street address\" and \"Owner\" as \"Matched\" to \"Person's name\"."
+    },
+    {
+     "do": "For each of \"Notes\" and \"Last Payment Date\", press \"Remove\" on its line under \"columns need you\" (or choose \"Don’t bring this in\" in its field list). Both then read \"Removed\". Press \"Continue to check rows\".",
+     "see": "Before you continue, each of the two columns shows the chip \"Removed\" and the page reads \"Every column has a decision\". After you continue, the step \"Check rows\" opens and the count under \"Ready to go in\" reads 3."
+    }
+   ],
+   "lookFor": [
+    "Is the column with the dollar amounts, and not the column with the dates, the one marked as the opening balance?",
+    "Is it clear from the chips (\"Matched\", \"Needs a match\", \"Removed\") which columns were settled by themselves and which needed you?",
+    "Would a board member who has never seen this page agree with each match at a glance?",
+    "Is the way to leave a column out easy to find and clear about what it does?"
+   ],
+   "reset": "The import is left unfinished on the list \"Imports not finished yet\"; nothing is sent for approval and no home is created. The next reset of the test accounts clears it.",
+   "complements": [
+    "tests/ui/president/president-import-column-suggestions.spec.ts",
+    "tests/ui/president/president-community-import.spec.ts"
+   ],
+   "added": "2026-11-13",
+   "reviewed": "2026-11-14"
   }
  ],
- "build": "3656ac37d",
- "generated": "2026-11-12T22:44:29.095Z"
+ "build": "bea2847",
+ "generated": "2026-11-14T17:02:19.506Z"
 }
