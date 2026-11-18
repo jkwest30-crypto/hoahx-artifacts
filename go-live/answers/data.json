@@ -1,9 +1,17 @@
 {
- "updated": "2026-11-07",
+ "updated": "2026-11-18",
  "groups": [
+  {
+   "id": "money",
+   "title": "Money: dues, the ledger, and the books"
+  },
   {
    "id": "community",
    "title": "Community life"
+  },
+  {
+   "id": "ops",
+   "title": "Running HOAhx"
   }
  ],
  "cards": [
@@ -19,6 +27,54 @@
       "Should HOA HX add a My Homes page where a person with homes in more than one community sees them all, including homes in communities that do not use HOA HX, and where does it sit among the candidates?"
      ],
      "rec": "Yes, after launch, inside HOA HX rather than as a separate app. A My Homes page shows a card per home with its address, its community and a way in: homes in HOA HX communities open here, and a home in another community opens that community's own website from a link the person adds. Later the cards for HOA HX homes show the balance, the next due date, announcements and the next meeting, and a card for an outside community can introduce HOA HX to its board. Your marks set where it comes in the order.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A130",
+   "group": "money",
+   "title": "Returning a booking deposit when someone cancels in time",
+   "why": "Booking fees and deposits are part of the launch. Your refund rule puts two people on every refund: one starts it and a different Financial Approver approves it. A deposit returned because someone cancelled in time is a refund too, and you have not said whether it needs the second person. If it does, every cancelled booking waits for a board member before the homeowner gets the deposit back.",
+   "rows": [
+    {
+     "id": "A130-1",
+     "qs": [
+      "Should a deposit go back automatically when a booking is cancelled inside the amenity's published rule, or wait for a second approver like every other refund?"
+     ],
+     "rec": "Automatically, inside the amenity's published rule. When a homeowner cancels before the booking starts and within the amenity's rule, the deposit (and the fee, where the rule gives it back) goes back at once to the card or bank account that paid it, never more than was paid, recorded in the history with a receipt to the homeowner. Every other return, such as a late cancellation, keeping part of a deposit for damage or an exception, needs two people as every refund does now.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A131",
+   "group": "ops",
+   "title": "Who can make someone a resident of a community",
+   "why": "HOA HX staff can give a person a Resident, Owner or Tenant role from their own access page, but that page asks only for a typed unit number and links no home, so the person's payments, requests and records have nothing to attach to. Naming a home's owner normally takes your owner-naming rules, which this page skips.",
+   "rows": [
+    {
+     "id": "A131-1",
+     "qs": [
+      "Should HOA HX staff be able to give someone the Resident, Owner / Homeowner or Tenant role directly, or should those come only through the community's own invitation?"
+     ],
+     "rec": "Only through the community's own invitation. A resident or tenant joins when the board invites them to their home, or approves their request, so every resident has a real home from day one. HOA HX staff no longer give these roles themselves, but can still remove one, so any given before can be cleaned up.",
+     "videos": []
+    }
+   ]
+  },
+  {
+   "id": "A132",
+   "group": "community",
+   "title": "What comes back when staff cancel or reject a paid booking",
+   "why": "Booking fees and deposits are part of the launch. A homeowner's own cancellation has your refund rule, but staff can also cancel a paid booking or reject one after it was paid, and nothing on record says what comes back then. We built it the way we recommend so the work was not held up.",
+   "rows": [
+    {
+     "id": "A132-1",
+     "qs": [
+      "When staff cancel a paid amenity booking, or reject one waiting for approval, what comes back to the homeowner?"
+     ],
+     "rec": "A cancellation by staff follows the amenity's published refund rule, the same as the homeowner's own. A booking that staff reject after it was paid gives back everything paid, because the homeowner never had the booking and the community said no.",
      "videos": []
     }
    ]
