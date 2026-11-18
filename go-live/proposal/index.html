@@ -1,0 +1,835 @@
+<!-- published by scripts/publish-internal.mjs -->
+<!doctype html><html><head>
+<meta name="robots" content="noindex, nofollow"><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>HOAhx Launch Proposal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600&family=Roboto+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap">
+
+<style>
+  :root {
+    --paper:       #F7F8FA;
+    --surface:     #FFFFFF;
+    --well:        #EDF1F6;
+    --ink:         #16202E;
+    --ink-2:       #4C5A6C;
+    --ink-3:       #7F8C9C;
+    --rule:        #DCE2EA;
+    --rule-soft:   #E9EDF3;
+    --accent:      #1F4E79;
+    --accent-wash: #E7EFF7;
+    --brass:       #8A6520;
+    --brass-wash:  #F7F0E2;
+    --good:        #2E6B4F;
+    --good-wash:   #E5F0EA;
+    --lift:        0 1px 2px rgba(22,32,46,.05), 0 8px 24px -16px rgba(22,32,46,.28);
+
+    --display: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    --body:    'Public Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --mono:    'Roboto Mono', ui-monospace, Menlo, Consolas, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:       #0C121A;
+      --surface:     #141C27;
+      --well:        #101821;
+      --ink:         #E4EAF2;
+      --ink-2:       #A6B3C3;
+      --ink-3:       #78869A;
+      --rule:        #22303F;
+      --rule-soft:   #1A2532;
+      --accent:      #74AEE0;
+      --accent-wash: #14293C;
+      --brass:       #D2A759;
+      --brass-wash:  #2A2214;
+      --good:        #6BBF95;
+      --good-wash:   #142720;
+      --lift:        0 1px 2px rgba(0,0,0,.45), 0 8px 24px -16px rgba(0,0,0,.8);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --paper:       #0C121A;
+    --surface:     #141C27;
+    --well:        #101821;
+    --ink:         #E4EAF2;
+    --ink-2:       #A6B3C3;
+    --ink-3:       #78869A;
+    --rule:        #22303F;
+    --rule-soft:   #1A2532;
+    --accent:      #74AEE0;
+    --accent-wash: #14293C;
+    --brass:       #D2A759;
+    --brass-wash:  #2A2214;
+    --good:        #6BBF95;
+    --good-wash:   #142720;
+    --lift:        0 1px 2px rgba(0,0,0,.45), 0 8px 24px -16px rgba(0,0,0,.8);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    padding: 0 1.6rem 5rem;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 16.5px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  .doc { max-width: 940px; margin: 0 auto; }
+
+  h1, h2, h3 { font-family: var(--display); margin: 0; text-wrap: balance; letter-spacing: -0.012em; }
+  p { margin: 0; }
+  a { color: var(--accent); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+  .label {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  /* ─── cover ─── */
+  .cover { padding: 4.5rem 0 0; }
+  .cover .label { color: var(--accent); }
+  .cover h1 {
+    font-size: clamp(2.15rem, 5.2vw, 3.05rem);
+    font-weight: 700;
+    line-height: 1.06;
+    margin: 0;
+    max-width: 20ch;
+  }
+  .cover .lede {
+    font-size: 1.1rem;
+    color: var(--ink-2);
+    max-width: 62ch;
+    margin-top: 1rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px solid var(--ink);
+  }
+  .meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.1rem 1.6rem;
+    margin-top: 0;
+    padding: 1.15rem 0 1.25rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .meta div { display: flex; flex-direction: column; gap: 0.2rem; }
+  .meta .v { font-size: 0.95rem; color: var(--ink); font-weight: 500; }
+
+  /* ─── headline figures ─── */
+  .figures {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 0.75rem;
+    margin-top: 1.75rem;
+  }
+  .fig {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 1.15rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    box-shadow: var(--lift);
+  }
+  .fig.primary { border-color: var(--accent); border-width: 1.5px; background: var(--accent-wash); }
+  .fig .n {
+    font-family: var(--display);
+    font-size: 1.9rem;
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+  }
+  .fig.primary .n { color: var(--accent); }
+  .fig .sub { font-size: 0.85rem; color: var(--ink-2); }
+
+  /* ─── sections ─── */
+  .sec { padding-top: 3.5rem; }
+  .sec-head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.9rem;
+    padding-bottom: 0.85rem;
+    margin-bottom: 1.35rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .sec-head .num {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+    flex: none;
+  }
+  .sec-head h2 {
+    font-size: clamp(1.35rem, 3vw, 1.72rem);
+    font-weight: 700;
+    line-height: 1.15;
+  }
+
+  .prose { display: flex; flex-direction: column; gap: 0.9rem; max-width: 68ch; }
+  .prose p { color: var(--ink-2); }
+  .prose strong { color: var(--ink); font-weight: 600; }
+
+  /* ─── outcome list ─── */
+  .outcomes { display: flex; flex-direction: column; gap: 0; margin-top: 1.5rem;
+    background: var(--surface); border: 1px solid var(--rule); border-radius: 6px;
+    overflow: hidden; box-shadow: var(--lift); }
+  .out {
+    display: grid;
+    grid-template-columns: 1.6rem minmax(0, 1fr);
+    gap: 0.85rem;
+    padding: 0.95rem 1.3rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .out:last-child { border-bottom: 0; }
+  .out .mark { color: var(--good); font-size: 1rem; line-height: 1.6; }
+  .out .txt { font-size: 0.95rem; color: var(--ink-2); }
+  .out .txt b { display: block; color: var(--ink); font-weight: 600; }
+
+  /* ─── fee ledger ─── */
+  .tw {
+    margin-top: 0.4rem;
+    overflow-x: auto;
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    background: var(--surface);
+    box-shadow: var(--lift);
+  }
+  table { border-collapse: collapse; width: 100%; min-width: 660px; }
+  th {
+    font-family: var(--body);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    text-align: left;
+    padding: 0.8rem 1.15rem;
+    border-bottom: 2px solid var(--rule);
+    white-space: nowrap;
+  }
+  th.num, td.num { text-align: right; }
+  td {
+    padding: 0.85rem 1.15rem;
+    border-bottom: 1px solid var(--rule-soft);
+    font-size: 0.93rem;
+    color: var(--ink-2);
+    vertical-align: top;
+  }
+  td.item { color: var(--ink); font-weight: 600; min-width: 17ch; }
+  td.item span { display: block; font-weight: 400; color: var(--ink-2); font-size: 0.88rem; margin-top: 0.15rem; }
+  td.hrs { font-family: var(--mono); font-size: 0.85rem; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  td.amt {
+    font-family: var(--display); font-weight: 600; font-size: 1rem; color: var(--ink);
+    white-space: nowrap; font-variant-numeric: tabular-nums;
+  }
+  tr.free td.amt, tr.free td.hrs { color: var(--good); font-family: var(--body); font-size: 0.88rem; font-weight: 500; }
+  tr.subtotal td, tr.discount td {
+    background: var(--well); border-bottom: 1px solid var(--rule);
+    padding-top: 0.7rem; padding-bottom: 0.7rem;
+  }
+  tr.subtotal td.item { color: var(--ink); }
+  tr.subtotal td.amt { color: var(--ink); }
+  tr.discount td.item, tr.discount td.amt { color: var(--good); }
+  tr.discount td.hrs { color: var(--ink-3); }
+  tr.sum td { background: var(--accent-wash); border-bottom: 0; padding-top: 1rem; padding-bottom: 1rem; }
+  tr.sum td.item { color: var(--accent); font-size: 1rem; }
+  tr.sum td.hrs { color: var(--accent); font-weight: 500; }
+  tr.sum td.amt { color: var(--accent); font-size: 1.3rem; font-weight: 700; }
+
+  .fine { font-size: 0.88rem; color: var(--ink-3); margin-top: 0.85rem; max-width: 68ch; }
+
+  /* ─── exclusions ─── */
+  .excl { display: flex; flex-direction: column; gap: 0; margin-top: 0.4rem;
+    background: var(--surface); border: 1px solid var(--rule); border-radius: 6px;
+    overflow: hidden; box-shadow: var(--lift); }
+  .ex {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 8.5rem;
+    gap: 1rem;
+    align-items: baseline;
+    padding: 0.9rem 1.3rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .ex:last-child { border-bottom: 0; }
+  .ex .what { font-size: 0.93rem; color: var(--ink-2); }
+  .ex .what b { display: block; color: var(--ink); font-weight: 600; }
+  .ex .when {
+    font-family: var(--mono); font-size: 0.78rem; color: var(--brass);
+    text-align: right; white-space: nowrap;
+  }
+
+  /* ─── schedule ─── */
+  .weeks { display: grid; grid-template-columns: repeat(auto-fit, minmax(255px, 1fr)); gap: 0.75rem; }
+  .wk {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-top: 3px solid var(--accent);
+    border-radius: 0 0 6px 6px;
+    padding: 1.15rem 1.3rem;
+    display: flex; flex-direction: column; gap: 0.55rem;
+    box-shadow: var(--lift);
+  }
+  .wk h3 { font-size: 1rem; font-weight: 700; }
+  .wk .days { font-family: var(--mono); font-size: 0.74rem; letter-spacing: 0.09em; text-transform: uppercase; color: var(--ink-3); }
+  .wk ul { margin: 0; padding-left: 1.05rem; display: flex; flex-direction: column; gap: 0.4rem; }
+  .wk li { font-size: 0.9rem; color: var(--ink-2); }
+  .wk li b { color: var(--ink); font-weight: 600; }
+
+  /* ─── requirements from client ─── */
+  .reqs { display: flex; flex-direction: column; gap: 0; margin-top: 0.4rem;
+    background: var(--surface); border: 1px solid var(--rule); border-radius: 6px;
+    overflow: hidden; box-shadow: var(--lift); }
+  .req {
+    display: grid; grid-template-columns: 2.1rem minmax(0, 1fr);
+    gap: 0.9rem; padding: 0.95rem 1.3rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .req:last-child { border-bottom: 0; }
+  .req .i { font-family: var(--mono); font-size: 0.8rem; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+  .req .txt { font-size: 0.94rem; color: var(--ink-2); }
+  .req .txt b { display: block; color: var(--ink); font-weight: 600; }
+
+  /* ─── payment ─── */
+  .pay { display: grid; grid-template-columns: repeat(auto-fit, minmax(215px, 1fr)); gap: 0.75rem; }
+  .inst {
+    background: var(--surface); border: 1px solid var(--rule); border-radius: 6px;
+    padding: 1.15rem 1.25rem; display: flex; flex-direction: column; gap: 0.3rem;
+    box-shadow: var(--lift);
+  }
+  .inst .amt {
+    font-family: var(--display); font-size: 1.55rem; font-weight: 700;
+    letter-spacing: -0.03em; color: var(--accent); font-variant-numeric: tabular-nums;
+  }
+  .inst .when { font-size: 0.89rem; color: var(--ink-2); }
+  .inst.split { border-color: var(--accent); border-width: 1.5px; }
+
+  /* ─── notice ─── */
+  .notice {
+    background: var(--brass-wash);
+    border: 1px solid var(--brass);
+    border-radius: 6px;
+    padding: 1.2rem 1.35rem;
+    display: flex; flex-direction: column; gap: 0.5rem;
+    margin-top: 1.5rem;
+  }
+  .notice h3 { font-size: 1rem; font-weight: 700; color: var(--ink); }
+  .notice p { font-size: 0.93rem; color: var(--ink-2); max-width: 72ch; }
+  .notice strong { color: var(--ink); font-weight: 600; }
+
+  /* ─── acceptance ─── */
+  .accept {
+    margin-top: 1.5rem;
+    background: var(--well);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 1.6rem 1.5rem;
+  }
+  .sign { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1.6rem 2rem; margin-top: 1.9rem; }
+  .sign div { display: flex; flex-direction: column; gap: 0.4rem; }
+  .sign .line { border-bottom: 1px solid var(--ink-3); height: 1.9rem; }
+
+  footer {
+    margin-top: 3.5rem; padding-top: 1.35rem;
+    border-top: 1px solid var(--rule);
+    font-size: 0.85rem; color: var(--ink-3); max-width: 76ch;
+  }
+
+  @media (max-width: 620px) {
+    body { font-size: 15.5px; padding: 0 1.15rem 3.5rem; }
+    .cover { padding-top: 2.75rem; }
+    .ex { grid-template-columns: 1fr; gap: 0.25rem; }
+    .ex .when { text-align: left; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+  @media print {
+    body { background: #FFFFFF; color: #000000; padding: 0; font-size: 11pt; }
+    .fig, .tw, .outcomes, .excl, .wk, .reqs, .inst, .accept { box-shadow: none; }
+    .sec { page-break-inside: avoid; padding-top: 2rem; }
+  }
+</style>
+
+<div class="doc">
+
+<header class="cover">
+  <h1>Taking HOAhx to Production Launch</h1>
+  <p class="lede">
+    A fixed-fee engagement to close the gaps standing between HOAhx as it exists today and
+    real communities paying to use it, build payment processing on NMI, switch on
+    the automated testing that keeps it all working, and put HOAhx in the App Store and Google Play.
+  </p>
+
+  <div class="meta">
+    <div><span class="label">Date</span><span class="v">September 3, 2026</span></div>
+    <div><span class="label">Revised</span><span class="v">November 18, 2026 (schedule and fee)</span></div>
+    <div><span class="label">Day one</span><span class="v">Friday, September 4, 2026</span></div>
+  </div>
+
+  <div class="figures">
+    <div class="fig primary">
+      <span class="label">Fixed fee</span>
+      <span class="n">$10,000</span>
+      <span class="sub">All twelve items: NMI payments and subscription billing, automated testing, and both apps included. Founding-client rate. The Core list is a further fixed $5,000 (change order 2): $15,000 in all.</span>
+    </div>
+    <div class="fig">
+      <span class="label">Time to launch</span>
+      <span class="n">Mon, Nov 30</span>
+      <span class="sub">Day 61 of 61 working days. Web and apps go / no-go Wed, Nov 25. Moved from the signed Nov 2, then Nov 16, then Nov 23, tentative: a contractor runs a week of hands-on QA before launch, and NMI and the stores still have to answer (see the schedule revision below).</span>
+    </div>
+    <div class="fig">
+      <span class="label">Payment</span>
+      <span class="n">6 payments</span>
+      <span class="sub">Five for the twelve items and one for the Core list, each tied to a visible milestone</span>
+    </div>
+  </div>
+</header>
+
+<!-- SCHEDULE REVISION OCT 30 ───────────────────────────── -->
+<section class="sec">
+  <div class="sec-head"><span class="num">Revised</span><h2>Schedule and fee revision, November 18, 2026</h2></div>
+  <div class="prose">
+    <p>
+      The launch is <b>Monday, November 30, 2026</b>, day 61 of 61 working days from day one on
+      Friday, September 4 (Labor Day off; Thanksgiving and the day after are counted as working days). The written go / no-go, for the web product and both apps, is
+      <b>Wednesday, November 25</b>, the last working day before Thanksgiving. Change order 2, which you signed on September 26, carried Monday, November 2 (day 41).
+      The launch moved to November 16 on October 30 because it waits on NMI's boarding answers and on the iPhone and
+      Android store reviews, to November 23 on November 9 so that a contractor can run a week of hands-on QA first, and to November 30 on November 16; the date is tentative until those are in.
+      The go / no-go needs a live payment; if NMI has not produced one by November 25, that date moves with its own record.
+    </p>
+    <p style="margin-top:.8rem">
+      <b>The fee.</b> $10,000 for the twelve items, unchanged. Your Core list, every package you picked on
+      September 17, is a fixed <b>$5,000</b> on top (change order 2), $15,000 in all. The 173 hours stay the budget,
+      and the moves to November 16, November 23 and then November 30 change neither the fee nor the hours.
+    </p>
+    <p style="margin-top:.8rem">
+      <b>The stages.</b> Stage one ($2,500) is paid. Stage two ($2,500) was due on accounts secured and the payment
+      integration built end to end in NMI's test environment. Stage three ($2,500) follows the go / no-go with the seven payment flows
+      verified and a live payment settled, targeted Wednesday, November 25. Stage four-A ($1,250) is tied to the apps' submission.
+      Stage four-B ($1,250) and the Core list stage ($5,000) land by Monday, November 30; the earlier Core list stage dates of October 9 to
+      October 29 were replaced when the launch moved. The live payment test and the community subscription charge have no fixed date: they follow
+      NMI approving the first community's merchant account and HOAhx's own account, and they wait on NMI's boarding, not on a date.
+    </p>
+    <p style="margin-top:.8rem">
+      The web product and both apps open to communities together on November 30, and a store's second round of
+      changes fits before it (a second round stays outside the fixed fee). Everything you picked on September 17 is
+      still in, with the last-listed pieces built last in each stage.
+    </p>
+    <p style="margin-top:.8rem">
+      The week-by-week schedule and the September 3 dates further down are the original record and are not rewritten.
+      This page is the agreement as signed, so it keeps the name "HOAhx"; since October 20 the product's brand is written "HOA HX".
+      HOAhx has not launched; nothing is public before the launch date.
+    </p>
+  </div>
+</section>
+
+<!-- WHAT CHANGED ────────────────────────────────────────── -->
+<section class="sec">
+  <div class="sec-head"><span class="num">Updated</span><h2>What's different in this version</h2></div>
+  <div class="prose">
+    <p>
+      Everything below reflects your review comments from September 4, plus one correction from
+      September 8: billing each community's HOAhx subscription is part of the NMI payment work, not a
+      separate item. The fee and the schedule are unchanged. The hours grow from 133 to 173 to reflect
+      that work. These eight changes clarify what is included, who owes what, and when, in plain terms.
+    </p>
+  </div>
+
+  <div class="outcomes">
+    <div class="out"><span class="mark">✓</span><span class="txt"><b>Billing each community's HOAhx subscription is part of the NMI payment work.</b>Communities pay their subscription inside HOAhx by bank account or card, with recurring charges, named billing contacts, and the past-due schedule you laid out on September 8. It is built in weeks four and five, after the homeowner payment flows are proven. Item 2 grows from 22 to 62 hours; the fee does not change. It needs one more thing from you: HOAhx's own NMI merchant application by September 11 (section 03, item 07).</span></div>
+    <div class="out"><span class="mark">✓</span><span class="txt"><b>The fee still covers all twelve items, no matter how the hours land.</b>If something takes longer than estimated, that's on us, not an extra bill — as long as it's part of the work already described here. A genuinely new feature is the only thing that needs a separate quote and your sign-off.</span></div>
+    <div class="out"><span class="mark">✓</span><span class="txt"><b>If we cause a bug, we fix it free.</b>And it won't eat into the hours already set aside for fixing pre-existing defects.</span></div>
+    <div class="out"><span class="mark">✓</span><span class="txt"><b>Added a 30-day guarantee after both apps are live.</b>If something we built breaks in that window, we fix it at no charge.</span></div>
+    <div class="out"><span class="mark">✓</span><span class="txt"><b>The last payment now splits in two.</b>Half when both apps are submitted, half when they're approved and live — or automatically 30 days later if a store is simply slow, so nothing waits on Apple or Google forever.</span></div>
+    <div class="out"><span class="mark">✓</span><span class="txt"><b>The web go/no-go payment now also requires the defects we found along the way to actually be fixed</b>, not just a written recommendation delivered.</span></div>
+    <div class="out"><span class="mark">✓</span><span class="txt"><b>Spelled out who owns what, and what happens if plans change.</b>Ownership of the code, account access, a plan for ending the engagement early, and what happens if NMI, Apple, or Google says no outright instead of just taking a while — see the new section 05.</span></div>
+    <div class="out"><span class="mark">✓</span><span class="txt"><b>One hourly rate for anything outside the twelve items: $75.</b>That's the founding-client rate, so a change order, a second store-review round, or hours on an unfinished stage if we ever part early are billed at the same discounted rate, never the list rate. The $100 figure in the fee table is only the list rate the discount is taken from — nothing is billed at it.</span></div>
+  </div>
+</section>
+
+<!-- 3 ────────────────────────────────────────── -->
+<section class="sec">
+  <div class="sec-head"><span class="num">01</span><h2>Scope and fee</h2></div>
+  <div class="prose">
+    <p>
+      The work is ordered because each item depends on the one before it. The current build has to
+      be in production before payments can be certified against it, and payments have to be proven
+      before anyone can sign off on the product as a whole. The test suite is corrected and wired into
+      deployment in week one, before the first release, so every deploy after that is checked
+      automatically, and defects are fixed as verification finds them rather than held for the end.
+    </p>
+    <p>
+      The phone apps run as a second track alongside. The web app is made phone-ready in the first two
+      weeks, the shell is built in week three while NMI's live approval is pending, and both apps are
+      submitted in week four against payment flows already verified in NMI's test environment. The
+      schedule assumes five to six hours of build time a day, with independent work running in parallel.
+    </p>
+  </div>
+
+  <div class="tw">
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>What it delivers</th>
+          <th class="num">Hours</th>
+          <th class="num">Fee</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="item">Fix nine broken uploads, check 124 pages for database errors, and put the tested build into production<span>Week 1</span></td>
+          <td>Four items ship together. Repair all nine blocked upload paths and verify each one in a real browser against the live security rules — 6 hours. Capture the missing database indexes by exercising all 124 routes on staging, because an unindexed query surfaces as a broken page rather than a build failure and cannot be found any other way — 5 hours. Replace the older build now running in production, deployed in a fixed four-step order across staging and then production, where 197 backend functions deploy as a single 15-minute unit — 3 hours. Remove internal reports from the public site, patch vulnerable libraries, and pin the function library version — 2 hours.</td>
+          <td class="hrs num">16</td>
+          <td class="amt num">$1,600</td>
+        </tr>
+        <tr>
+          <td class="item">Build the NMI payment integration<span>Weeks 2, 4–5</span></td>
+          <td>Build the payment layer end to end on NMI: the gateway client, NMI's Payment Component for card, bank-account, Apple Pay, and Google Pay entry, each community set up as its own NMI merchant through NMI's merchant sign-up flow with approval and ready-to-process status arriving by webhook, resident autopay on the Customer Vault charged on the community's own dues schedule, refunds, returned bank payments, chargeback handling, the webhook receiver, and the billing reports. Includes the sixteen payment test files and verifying all seven payment flows in a browser. It also covers billing each community's HOAhx subscription through NMI: the plans and prices, purchase by bank account or card inside HOAhx, recurring charges on the monthly or annual date with receipts, the billing contacts, and the past-due and lapse handling you specified. The subscription billing is built in weeks four and five, after the homeowner payment flows are proven.</td>
+          <td class="hrs num">62</td>
+          <td class="amt num">$6,200</td>
+        </tr>
+        <tr>
+          <td class="item">Verify live payments<span>Week 3</span></td>
+          <td>A real payment, automatic payment, refund and chargeback each run end to end through NMI's live system and reconciled against the community ledger. Budgeted with extra time because the integration is new and has no prior test history.</td>
+          <td class="hrs num">12</td>
+          <td class="amt num">$1,200</td>
+        </tr>
+        <tr>
+          <td class="item">Add abuse and cost controls<span>Week 3</span></td>
+          <td>Automated abuse protection switched on and enforcing, a spending cap and budget alert that reach a person, limits on join-code guessing, and standard browser security protections on the website.</td>
+          <td class="hrs num">11</td>
+          <td class="amt num">$1,100</td>
+        </tr>
+        <tr>
+          <td class="item">Secure the accounts that move money<span>Week 2</span></td>
+          <td>Two-factor sign-in required for staff and board roles, a stronger password floor with breach screening, and a fresh password prompt before issuing a refund. Residents stay on an opt-in path so homeowners are not disrupted at launch.</td>
+          <td class="hrs num">9</td>
+          <td class="amt num">$900</td>
+        </tr>
+        <tr>
+          <td class="item">Add monitoring and backups<span>Week 3</span></td>
+          <td>Error alerting that reaches a person within minutes, uptime checks on the site and the payment connection, daily backups, and one restore actually rehearsed and documented.</td>
+          <td class="hrs num">6</td>
+          <td class="amt num">$600</td>
+        </tr>
+        <tr>
+          <td class="item">Correct the unit tests and run them on every deployment<span>Week 1, before the first deploy</span></td>
+          <td>Three things. Correct the 642 unit tests that currently check the shape of the source code rather than what the product actually does, so that a passing test means a working feature. Wire the whole suite — including thirty role tests that are already written and have never been run — into the deployment process, so every release is tested automatically and a failure stops it from shipping. Replace the 23 separate commands needed to run tests today with a single one anybody can use on demand, with the toolchain pinned so it behaves the same on every machine.</td>
+          <td class="hrs num">11</td>
+          <td class="amt num">$1,100</td>
+        </tr>
+        <tr>
+          <td class="item">Fix the defects verification turns up<span>Weeks 1–5, as they surface</span></td>
+          <td>Repairing what verification finds, as it finds it, rather than holding fixes for the end. Budgeted at two days in total, which is the expected amount given what the audit already identified. A defect caused by our own work along the way doesn't count against this budget — that's fixed free, separately.</td>
+          <td class="hrs num">12</td>
+          <td class="amt num">$1,200</td>
+        </tr>
+        <tr>
+          <td class="item">Make the web app phone-ready<span>Weeks 1–2</span></td>
+          <td>Every homeowner screen and the board's day-to-day screens laid out for a phone, using the mobile layout that already exists in the codebase but is applied to one page today. Add the missing install manifest, split the single 3.9 MB script bundle by page so screens load quickly on a cellular connection, and fix touch targets and safe areas. The web app becomes installable from a phone browser as a result.</td>
+          <td class="hrs num">11</td>
+          <td class="amt num">$1,100</td>
+        </tr>
+        <tr>
+          <td class="item">Build the iPhone and Android app shell<span>Week 3</span></td>
+          <td>The existing app inside a native shell, so every feature ships to both stores from one codebase. Sign-in with email, Google, and Apple working natively; community invitation links open the app instead of the browser; the camera for maintenance requests; Face ID and fingerprint sign-in; the NMI payment form verified inside the app; and the app's own web address configured so payments and sign-in behave exactly as they do on the web.</td>
+          <td class="hrs num">9</td>
+          <td class="amt num">$900</td>
+        </tr>
+        <tr>
+          <td class="item">Push notifications<span>Week 3</span></td>
+          <td>Announcements, request updates, and payment reminders delivered as phone notifications through Apple's and Google's services, honoring each resident's notification preferences. Includes device registration and the server-side triggers.</td>
+          <td class="hrs num">5</td>
+          <td class="amt num">$500</td>
+        </tr>
+        <tr>
+          <td class="item">Submit to the App Store and Google Play<span>Weeks 4–5</span></td>
+          <td>Store listings, screenshots, privacy disclosures, a demo community the reviewers can log into and pay in, TestFlight and Play internal test builds for your review, both submissions, and one round of changes if a store asks for them. Afterward the web parts of the app update over the air; only changes to the shell itself need another store release.</td>
+          <td class="hrs num">9</td>
+          <td class="amt num">$900</td>
+        </tr>
+        <tr class="free">
+          <td class="item">Work through the 109 decisions<span>Weeks 1–5, alongside everything else</span></td>
+          <td>Every rule the software currently applies by default, presented in a register that already states what the platform does today for each one, so answering is a yes or no rather than a research project. The 27 covering dues, the ledger, platform billing, and enforcement are answered first, because those are the ones that block taking a real payment. This is your time, not ours.</td>
+          <td class="hrs num">3–4 days</td>
+          <td class="amt num">No charge</td>
+        </tr>
+        <tr class="subtotal">
+          <td class="item">Subtotal</td>
+          <td>All twelve items at the $100 list rate</td>
+          <td class="hrs num">173</td>
+          <td class="amt num">$17,300</td>
+        </tr>
+        <tr class="discount">
+          <td class="item">Founding-client discount</td>
+          <td>About 42% off the list rate, applied to this engagement only. It brings the fee to an even $10,000 with the subscription billing included. Additional work beyond section 1 is at $75 per hour, the founding-client rate; the list rate is never billed.</td>
+          <td class="hrs num">—</td>
+          <td class="amt num">−$7,300</td>
+        </tr>
+        <tr class="sum">
+          <td class="item">Total</td>
+          <td>Fixed fee, all twelve items, nothing reduced</td>
+          <td class="hrs num">173</td>
+          <td class="amt num">$10,000</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="fine">
+    The hours above are our best estimate for planning purposes, not a cap. The $10,000 fee covers
+    everything needed to deliver these twelve items and hit the milestones described in this
+    proposal, whether the actual hours land above or below the estimate. A genuinely new feature, or
+    a change to what's described here, is quoted separately in writing and needs your approval before
+    it starts — at $75 per hour, the founding-client rate.
+  </p>
+</section>
+
+<!-- 5 ────────────────────────────────────────── -->
+<section class="sec">
+  <div class="sec-head"><span class="num">02</span><h2>Schedule</h2></div>
+
+  <div class="prose" style="margin-bottom:1.35rem">
+    <p>
+      Day one is Friday, September 4. Labor Day is off, so week one runs that Friday and then Tuesday
+      through Friday, and every week after it is a full calendar week, ending with both apps live on
+      Friday, October 9. Five weeks assumes five to six hours of build time a day. The two dates outside
+      our control are NMI's approval of the first merchant account, which gates the live payment test in
+      week three, and the store reviews in week five.
+    </p>
+  </div>
+
+  <div class="weeks">
+    <div class="wk">
+      <span class="days">Week 1 · Days 1–5 · Sep 4–11</span>
+      <h3>Fix, test, deploy, and open both tracks</h3>
+      <ul>
+        <li><b>Fix file uploads in 9 places</b> and verify each one in a browser</li>
+        <li><b>Check all 124 pages</b> for the database errors that only surface once a real user hits them</li>
+        <li><b>The unit tests corrected and wired into deployment</b> before the first production deploy, so every release from day one is tested automatically</li>
+        <li>Deploy the tested build to staging, then to production</li>
+        <li>Phone-ready web app begins: the install manifest and the script bundle split by page</li>
+        <li><b>Your 109 decisions begin on day one</b>, starting with money and enforcement</li>
+        <li><b>Your Apple organization account started on Tuesday, September 8</b>, and your Google Play account by the end of the week; the NMI sandbox is already open, so payment work starts the moment the production deploy is out</li>
+        <li>NMI Q&amp;A session with their solution architect as soon as their calendar allows; our questions are ready</li>
+      </ul>
+    </div>
+    <div class="wk">
+      <span class="days">Week 2 · Days 6–10 · Sep 14–18</span>
+      <h3>Payments rebuilt, accounts secured</h3>
+      <ul>
+        <li><b>Build the NMI payment integration</b> end to end</li>
+        <li>Each community set up as its own NMI merchant, with bank-account payments alongside cards</li>
+        <li>Two-factor sign-in and the stronger password policy</li>
+        <li>Every payment flow verified in a browser against NMI's test environment</li>
+        <li>Mobile layout applied across the homeowner and board screens; <b>the web app installable from a phone browser</b></li>
+      </ul>
+    </div>
+    <div class="wk">
+      <span class="days">Week 3 · Days 11–15 · Sep 21–25</span>
+      <h3>Live payments, protection, and the app shell</h3>
+      <ul>
+        <li><b>Live payment testing on NMI</b>, including a real refund and a real chargeback, once the merchant account is approved</li>
+        <li>Abuse protection, spending cap, and budget alerts switched on</li>
+        <li>Join-code protection and website security headers</li>
+        <li>Error alerting, uptime checks, backups, and a rehearsed restore</li>
+        <li><b>The iPhone and Android shell built</b> while NMI's approval is pending: native sign-in, invitation links, camera, Face ID and fingerprint, push notifications</li>
+        <li><b>Test builds on your phone by day 15, September 25</b>, through TestFlight and Play internal testing</li>
+      </ul>
+    </div>
+    <div class="wk">
+      <span class="days">Week 4 · Days 16–20 · Sep 28–Oct 2</span>
+      <h3>Submission, the web go / no-go, and subscription billing</h3>
+      <ul>
+        <li>Fixes from your review of the test builds and anything the live payment test surfaced</li>
+        <li>Store listings, screenshots, privacy disclosures, and the reviewers' demo community</li>
+        <li><b>Both apps submitted by day 18, September 30</b></li>
+        <li><b>Go / no-go recommendation on the web product</b> at the end of day 18, the same day the apps are submitted, with the defects found along the way already fixed</li>
+        <li><b>Community subscription billing through NMI</b>: HOAhx's own merchant account, the plans and prices, purchase by bank account or card, recurring charges with receipts, the billing contacts, and the billing screens</li>
+        <li>Days 19 and 20 (Oct 1–2) carry that build; they are no longer held as slack</li>
+      </ul>
+    </div>
+    <div class="wk">
+      <span class="days">Week 5 · Days 21–25 · Oct 5–9</span>
+      <h3>Review and release</h3>
+      <ul>
+        <li>Apple's and Google's review, on their clock rather than ours; usually days</li>
+        <li>One round of requested changes, if either store asks</li>
+        <li>Past-due and lapse handling for the community subscription, on the schedule you laid out, then verification in NMI's test environment and, if HOAhx's own merchant is approved in time, a live subscription charge</li>
+        <li><b>Both apps live</b>, and the written go / no-go on the apps at the end of day 25, October 9</li>
+        <li>The 30-day guarantee on our work starts the day both apps are live</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="notice">
+    <h3>Concurrent UI updates</h3>
+    <p>
+      Tenyson Patridge will be making minor UI updates alongside this engagement. Those are expected and
+      do not affect the schedule, and coordinating with him day to day is part of this engagement.
+      <strong>Extensive changes</strong>, particularly to screens under active work or arriving in weeks three
+      to five, could move the dates. If that happens, the effect is stated in that week's update rather
+      than absorbed silently, and everything not blocked keeps moving on schedule.
+    </p>
+  </div>
+</section>
+
+<!-- 6 ────────────────────────────────────────── -->
+<section class="sec">
+  <div class="sec-head"><span class="num">03</span><h2>What we need from you</h2></div>
+  <div class="prose">
+    <p>
+      The fixed fee assumes these are available when the work reaches them. Delays here move the
+      date rather than the price.
+    </p>
+  </div>
+
+  <div class="reqs">
+    <div class="req"><span class="i">01</span><span class="txt"><b>The 109 decisions, starting in week one</b>Work through the register as the engagement runs, taking the 27 money and enforcement items first. One is a hard blocker on our side: two-factor sign-in cannot be built until you answer the question about it, and that work sits in week two — so that particular answer is needed in the first few days. Budget three to four days of owner time in total.</span></div>
+    <div class="req"><span class="i">02</span><span class="txt"><b>The NMI merchant account application, submitted on day one</b>Underwriting takes days to weeks and is entirely outside our control. No part of the payment path can be verified without live credentials, so this is the single item most likely to move the date. Start it the day the engagement does. Sandbox access is already in hand, and NMI has confirmed in writing that all development and testing can proceed there before HOAhx commits to the NMI Payments partnership, so the partnership agreement and the merchant application run alongside weeks one and two rather than ahead of them.</span></div>
+    <div class="req"><span class="i">03</span><span class="txt"><b>Administrator access, and a seat in the NMI Q&amp;A</b>Access to the NMI sandbox portal and, once boarded, the merchant and partner portals, and to the Google Cloud and Firebase consoles. Some of this work can only be done from inside those consoles. Add us to the Q&amp;A session you are arranging with NMI's solution architect; the technical questions for it are already written.</span></div>
+    <div class="req"><span class="i">04</span><span class="txt"><b>Apple Developer Program enrollment as an organization, started on Tuesday, September 8</b>The D-U-N-S number is already in hand, so this is a few business days of Apple's verification rather than weeks. Nothing can be submitted to the App Store until it is complete, and the push-notification work in week three needs it as well.</span></div>
+    <div class="req"><span class="i">05</span><span class="txt"><b>Google Play developer account as an organization, by the end of week one</b>Organization accounts skip the 14-day, 12-tester requirement that personal accounts face before a first release.</span></div>
+    <div class="req"><span class="i">06</span><span class="txt"><b>App-store details by the end of week two, and an hour with the test build in week three</b>The app's name as it should appear in the stores, a privacy policy page on your website, and a support email address. Then install the test build on your own phone and tell us what is wrong before we submit.</span></div>
+    <div class="req"><span class="i">07</span><span class="txt"><b>HOAhx's own NMI merchant account application, by the end of week one</b>HOAhx bills each community's subscription through NMI, so HOAhx needs its own merchant account, separate from the communities'. Underwriting takes days to weeks; approval by October 2 allows a live subscription charge before October 9. If it runs late, subscription billing is verified in NMI's test environment and the live charge follows launch.</span></div>
+  </div>
+</section>
+
+<!-- 7 ────────────────────────────────────────── -->
+<section class="sec">
+  <div class="sec-head"><span class="num">04</span><h2>Payment terms</h2></div>
+
+  <div class="pay">
+    <div class="inst">
+      <span class="label">Stage one</span>
+      <span class="amt">$2,500</span>
+      <span class="when">On acceptance of this proposal</span>
+    </div>
+    <div class="inst">
+      <span class="label">Stage two</span>
+      <span class="amt">$2,500</span>
+      <span class="when">When the accounts that move money are secured and the payment integration is built end to end in NMI’s test environment (change order 2)</span>
+    </div>
+    <div class="inst">
+      <span class="label">Stage three</span>
+      <span class="amt">$2,500</span>
+      <span class="when">On delivery of the written go / no-go recommendation, with the seven payment flows verified in NMI’s test environment and a live payment settled correctly (targeted Wednesday, November 25)</span>
+    </div>
+    <div class="inst split">
+      <span class="label">Stage four‑A</span>
+      <span class="amt">$1,250</span>
+      <span class="when">When both apps have been submitted to the App Store and Google Play</span>
+    </div>
+    <div class="inst split">
+      <span class="label">Stage four‑B</span>
+      <span class="amt">$1,250</span>
+      <span class="when">When both apps are approved and live — or automatically 30 days after submission if a store is simply slow (targeted Monday, November 30; its 30-day backstop stays Monday, November 16)</span>
+    </div>
+    <div class="inst">
+      <span class="label">Core list</span>
+      <span class="amt">$5,000</span>
+      <span class="when">When your Core list is built and proven, every item you picked on September 17 (change order 2; targeted Monday, November 30)</span>
+    </div>
+  </div>
+
+  <p class="fine">
+    Invoiced at each stage, net 15 days. Work outside the scope in section 1 is quoted in writing
+    and approved by you before it begins, at $75 per hour, the founding-client rate. The $100 list
+    rate in the fee table is only what the discount is taken from; nothing is billed at it. The
+    discount and the $75 rate apply to this engagement only.
+  </p>
+  <p class="fine">
+    <strong>30-day guarantee.</strong> For 30 days after both apps are live, if something we built
+    breaks, we fix it at no charge. This covers our own work — not new requests, not an outage at NMI,
+    Apple, or Google, and not something broken by a change someone else makes after launch.
+  </p>
+</section>
+
+<!-- 8 ────────────────────────────────────────── -->
+<section class="sec">
+  <div class="sec-head"><span class="num">05</span><h2>Ownership and what happens next</h2></div>
+  <div class="prose">
+    <p>
+      Three things worth spelling out plainly, beyond the day-to-day scope above.
+    </p>
+  </div>
+
+  <div class="reqs">
+    <div class="req"><span class="i">01</span><span class="txt"><b>Who owns the code, and who controls the accounts</b>Everything we build is HOAhx's, committed to your own repositories as we go — nothing sits only on our machines. As each payment stage is paid, the work behind it is fully yours; nothing is held back until the very end. You keep administrator control of every account this touches — Firebase, Google Cloud, NMI, Apple, and Google Play — throughout and after the engagement. At completion, you get the documentation to run, back up, and restore everything without us.</span></div>
+    <div class="req"><span class="i">02</span><span class="txt"><b>If either of us needs to end this early</b>You pay for the work completed, plus the hours already spent on whatever's in progress at $75 per hour. Everything delivered and paid for is handed over within a business week, and account access moves to you at the same time — not before you've paid for the work behind it.</span></div>
+    <div class="req"><span class="i">03</span><span class="txt"><b>If NMI, Apple, or Google says no, rather than just taking a while</b>If one of them rejects an application outright, for reasons that have nothing to do with our work — a business decision on their end, for example — a milestone built correctly and delivered on time still counts as done, and we agree in writing on how the rest of the schedule adjusts. If the rejection instead points to a real mistake in our work, we fix it free, the same as any other defect.</span></div>
+  </div>
+</section>
+
+<!-- 9 ────────────────────────────────────────── -->
+<section class="sec">
+  <div class="sec-head"><span class="num">06</span><h2>Not included</h2></div>
+  <div class="prose">
+    <p>
+      Named here so the boundary is clear rather than discovered later.
+    </p>
+  </div>
+  <div class="excl">
+    <div class="ex"><span class="what"><b>A second round of store-review changes</b>One round is included in the fee. A further round, if a store asks for it, is at $75 per hour, quoted first.</span><span class="when">$75 / hour</span></div>
+    <div class="ex"><span class="what"><b>Management-company screens redesigned for phones</b>Community managers keep the full desktop experience, as agreed. The apps serve homeowners, board members, and self-managed admins.</span><span class="when">Not planned</span></div>
+    <div class="ex"><span class="what"><b>Text-message notifications, card readers, kiosks, and pay-by-text</b>Push notifications on the phone are in scope; these are not.</span><span class="when">Later phase</span></div>
+  </div>
+</section>
+
+<!-- 10 ────────────────────────────────────────── -->
+<section class="sec">
+  <div class="sec-head"><span class="num">07</span><h2>NMI references</h2></div>
+  <div class="prose">
+    <p>
+      The links NMI supplied in its solution proposal of August 21, 2026, grouped by the part of this
+      engagement that uses them. Each was opened and checked on September 3, 2026. The two sandbox pages
+      need the sandbox login HOAhx already holds.
+    </p>
+  </div>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Used for</th><th>NMI page</th><th>Checked</th></tr></thead>
+      <tbody>
+        <tr><td class="item">Sandbox and testing</td><td><a href="https://guide.nmi.com/" target="_blank" rel="noopener">guide.nmi.com</a><span>NMI sandbox portal ("Pathfinder"): create a sandbox account or log in</span></td><td class="hrs">Sandbox login</td></tr>
+        <tr><td class="item"></td><td><a href="https://guide.nmi.com/app/guides/component-checkout" target="_blank" rel="noopener">Component checkout guide</a><span>Sandbox walkthrough for the payment component</span></td><td class="hrs">Sandbox login</td></tr>
+        <tr><td class="item"></td><td><a href="https://docs.nmi.com/reference/testing-methods#card-and-ach" target="_blank" rel="noopener">Testing methods</a><span>Test card and bank-account numbers; how to trigger declines</span></td><td class="hrs">Verified</td></tr>
+        <tr><td class="item"></td><td><a href="https://docs.nmi.com/recipes" target="_blank" rel="noopener">Recipes</a><span>Step-by-step examples: sale plus vault, recurring, refund, merchant API keys</span></td><td class="hrs">Verified</td></tr>
+        <tr><td class="item"></td><td><a href="https://docs.nmi.com/" target="_blank" rel="noopener">docs.nmi.com</a><span>Developer documentation home</span></td><td class="hrs">Verified</td></tr>
+        <tr><td class="item">Community merchant setup</td><td><a href="https://docs.nmi.com/reference/sign-up-api" target="_blank" rel="noopener">Merchant Sign-Up API</a><span>Boarding a community as its own merchant; approval and ready-to-process webhooks</span></td><td class="hrs">Verified</td></tr>
+        <tr><td class="item"></td><td><a href="https://docs.nmi.com/reference/create-merchant" target="_blank" rel="noopener">Create Merchant</a><span>Creates the merchant record in the gateway</span></td><td class="hrs">Verified</td></tr>
+        <tr><td class="item"></td><td><a href="https://docs.nmi.com/reference/add-processor-service" target="_blank" rel="noopener">Add Processor / Service</a><span>Attaches the processor and enables the Customer Vault for a merchant</span></td><td class="hrs">Verified</td></tr>
+        <tr><td class="item">Homeowner payments</td><td><a href="https://docs.nmi.com/docs/payment-component" target="_blank" rel="noopener">Payment Component</a><span>Card, bank account, Apple Pay, and Google Pay entry; card data never touches HOAhx</span></td><td class="hrs">Verified</td></tr>
+        <tr><td class="item"></td><td><a href="https://docs.nmi.com/reference/process" target="_blank" rel="noopener">Payment API</a><span>Sale, refund, void, and vault operations from the server</span></td><td class="hrs">Verified</td></tr>
+        <tr><td class="item"></td><td><a href="https://docs.nmi.com/docs/customer-vault" target="_blank" rel="noopener">Customer Vault</a><span>Saved payment methods for autopay</span></td><td class="hrs">Verified</td></tr>
+        <tr><td class="item"></td><td><a href="https://docs.nmi.com/docs/hosted-checkout" target="_blank" rel="noopener">Hosted Checkout</a><span>No-code alternative to the component; not used</span></td><td class="hrs">Verified</td></tr>
+        <tr><td class="item"></td><td><a href="https://docs.nmi.com/reference/subscriptions" target="_blank" rel="noopener">Subscriptions</a><span>NMI's own recurring billing; not used, HOAhx schedules charges on the dues schedule</span></td><td class="hrs">Verified</td></tr>
+        <tr><td class="item">Webhooks and reporting</td><td><a href="https://docs.nmi.com/reference/overview" target="_blank" rel="noopener">Webhooks</a><span>Signed event notifications for settlement, returns, disputes, and boarding status</span></td><td class="hrs">Verified</td></tr>
+        <tr><td class="item"></td><td><a href="https://docs.nmi.com/reference/query-1" target="_blank" rel="noopener">Query API</a><span>Transaction reports for reconciliation</span></td><td class="hrs">Verified</td></tr>
+        <tr><td class="item"></td><td><a href="https://docs.nmi.com/docs/deposit-summary-component" target="_blank" rel="noopener">Deposit Summary</a><span>Embedded deposit view for treasurers</span></td><td class="hrs">Verified</td></tr>
+        <tr><td class="item"></td><td><a href="https://docs.nmi.com/docs/deposit-reporting-component" target="_blank" rel="noopener">Deposit History</a><span>Embedded payout history for treasurers</span></td><td class="hrs">Verified</td></tr>
+        <tr><td class="item"></td><td><a href="https://docs.nmi.com/docs/transaction-reporting-component" target="_blank" rel="noopener">Transaction History</a><span>Embedded transaction table for treasurers</span></td><td class="hrs">Verified</td></tr>
+        <tr><td class="item"></td><td><a href="https://docs.nmi.com/reference/see-merchant-billing" target="_blank" rel="noopener">Merchant billing report</a><span>Partner-level fee and residual reporting</span></td><td class="hrs">Verified</td></tr>
+        <tr><td class="item"></td><td><a href="https://docs.nmi.com/reference/rate-limiting" target="_blank" rel="noopener">Rate limiting</a><span>API limits the integration has to respect</span></td><td class="hrs">Verified</td></tr>
+        <tr><td class="item">Not used in this engagement</td><td><a href="https://docs.nmi.com/reference/extensions-txt2pay" target="_blank" rel="noopener">TXT2PAY</a><span>Pay by text message</span></td><td class="hrs">Verified</td></tr>
+        <tr><td class="item"></td><td><a href="https://docs.nmi.com/docs/test-card-simulator" target="_blank" rel="noopener">Test Card Simulator</a><span>Android tool for in-person terminals</span></td><td class="hrs">Verified</td></tr>
+        <tr><td class="item"></td><td><a href="https://shop.newboldtech.com/nmi/nmi-solutions/test-devices/" target="_blank" rel="noopener">Test devices</a><span>In-person card readers</span></td><td class="hrs">Verified</td></tr>
+        <tr><td class="item"></td><td><a href="https://b2ps.com/product-category/b2-payment-testing-products/" target="_blank" rel="noopener">Physical test cards</a><span>EMV test cards for in-person terminals</span></td><td class="hrs">Verified</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+</div>
+
+</body></html>

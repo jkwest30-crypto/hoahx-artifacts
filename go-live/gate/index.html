@@ -1,0 +1,603 @@
+<!-- published by scripts/publish-internal.mjs -->
+<!doctype html>
+<html lang="en" data-store-page="gate">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<script src="/_shared/hx-store.js"></script>
+</head>
+<body>
+<title>Gate Answers</title>
+<style>
+/* Layout: one sticky control bar over a plain list of decision rows; each row = question, our recommendation, three ways to answer. */
+:root {
+  --bg: #f3f5f7;
+  --surface: #ffffff;
+  --fg: #16202a;
+  --muted: #5a6875;
+  --line: #d9dfe5;
+  --accent: #1f4fd8;
+  --accent-fg: #ffffff;
+  --rec-bg: #e6f4ee;
+  --rec-fg: #0f4a33;
+  --rec-line: #b5dcc9;
+  --no: #a8321f;
+  --no-bg: #fbe9e5;
+  --own: #8a5a00;
+  --own-bg: #fcf0d4;
+  --ok: #1b7a4f;
+  --focus: #1f4fd8;
+  --font-body: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12171c;
+    --surface: #1a2128;
+    --fg: #e7ecf0;
+    --muted: #9aa8b5;
+    --line: #2d3741;
+    --accent: #6d92ff;
+    --accent-fg: #0c1220;
+    --rec-bg: #14302a;
+    --rec-fg: #bfe8d4;
+    --rec-line: #24503f;
+    --no: #ff9a86;
+    --no-bg: #3a1e19;
+    --own: #f2c76a;
+    --own-bg: #35290e;
+    --ok: #62d3a0;
+    --focus: #8fabff;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #12171c;
+  --surface: #1a2128;
+  --fg: #e7ecf0;
+  --muted: #9aa8b5;
+  --line: #2d3741;
+  --accent: #6d92ff;
+  --accent-fg: #0c1220;
+  --rec-bg: #14302a;
+  --rec-fg: #bfe8d4;
+  --rec-line: #24503f;
+  --no: #ff9a86;
+  --no-bg: #3a1e19;
+  --own: #f2c76a;
+  --own-bg: #35290e;
+  --ok: #62d3a0;
+  --focus: #8fabff;
+  color-scheme: dark;
+}
+body { background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 15px; line-height: 1.5; }
+* { box-sizing: border-box; }
+button, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+.bar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: var(--surface); border-bottom: 1px solid var(--line);
+  padding: 12px 16px;
+}
+.bar-in { max-width: 860px; margin-inline: auto; display: flex; flex-direction: column; gap: 10px; }
+.bar-top { display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: baseline; justify-content: space-between; }
+.bar h1 { font-size: 1.05rem; line-height: 1.3; margin: 0; text-wrap: balance; }
+.runtag { font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); }
+.meter { display: flex; align-items: center; gap: 10px; }
+.track { flex: 1; height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; min-width: 0; }
+.fill { height: 100%; width: 0; background: var(--accent); transition: width 0.15s; }
+.count { font-variant-numeric: tabular-nums; font-weight: 600; white-space: nowrap; }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.btn {
+  border: 1px solid var(--line); background: var(--surface); border-radius: 6px;
+  padding: 8px 14px; cursor: pointer; min-height: 40px;
+}
+.btn:hover { border-color: var(--muted); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-fg); font-weight: 600; }
+.btn.primary:disabled { opacity: 0.5; cursor: default; }
+.status { font-size: 0.85rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 2px 12px; min-width: 0; }
+.status b { color: var(--fg); font-weight: 600; }
+.status .good { color: var(--ok); font-weight: 600; }
+.status .warn { color: var(--own); font-weight: 600; }
+.status .bad { color: var(--no); font-weight: 600; }
+.confirm { border: 1px solid var(--accent); border-radius: 8px; padding: 12px; display: flex; flex-direction: column; gap: 10px; background: var(--bg); }
+.confirm p { margin: 0; }
+
+main { max-width: 860px; margin-inline: auto; padding: 8px 16px 64px; }
+section { margin-top: 28px; }
+h2 {
+  font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.09em; color: var(--muted);
+  margin: 0 0 8px; display: flex; justify-content: space-between; gap: 12px;
+}
+h2 span { font-variant-numeric: tabular-nums; letter-spacing: 0; text-transform: none; }
+.rows { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+.row { padding: 14px; display: grid; grid-template-columns: 2.6rem minmax(0, 1fr); gap: 4px 10px; border-top: 1px solid var(--line); }
+.row:first-child { border-top: 0; }
+.num { font-family: var(--font-mono); font-size: 0.85rem; color: var(--muted); padding-top: 2px; font-variant-numeric: tabular-nums; }
+.body { min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+.head { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; }
+.rid { font-family: var(--font-mono); font-size: 0.78rem; font-weight: 600; background: var(--bg); border: 1px solid var(--line); border-radius: 4px; padding: 1px 6px; }
+.pill { font-size: 0.75rem; font-weight: 600; border-radius: 10px; padding: 1px 9px; margin-left: auto; background: var(--bg); color: var(--muted); border: 1px solid var(--line); }
+.pill.approve { background: var(--rec-bg); color: var(--rec-fg); border-color: var(--rec-line); }
+.pill.no { background: var(--no-bg); color: var(--no); border-color: var(--no); }
+.pill.own { background: var(--own-bg); color: var(--own); border-color: var(--own); }
+.item { margin: 0; overflow-wrap: anywhere; }
+.rec { background: var(--rec-bg); color: var(--rec-fg); border: 1px solid var(--rec-line); border-radius: 6px; padding: 8px 10px; overflow-wrap: anywhere; }
+.rec small { display: block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.85; margin-bottom: 2px; }
+.why { margin: 0; color: var(--muted); font-size: 0.88rem; overflow-wrap: anywhere; }
+.codes { margin: 0; color: var(--muted); font-size: 0.84rem; overflow-wrap: anywhere; }
+.codes code { font-weight: 600; color: var(--fg, inherit); }
+.ctl { display: flex; flex-wrap: wrap; gap: 8px; align-items: stretch; }
+.ctl .btn { flex: 0 0 auto; }
+.btn.on-approve { background: var(--ok); border-color: var(--ok); color: #fff; font-weight: 600; }
+.btn.on-no { background: var(--no); border-color: var(--no); color: #fff; font-weight: 600; }
+:root[data-theme="dark"] .btn.on-approve, :root[data-theme="dark"] .btn.on-no { color: #0c1220; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .btn.on-approve, :root:not([data-theme="light"]) .btn.on-no { color: #0c1220; } }
+.own-box { flex: 1 1 14rem; min-width: 0; min-height: 40px; resize: vertical; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); padding: 8px 10px; }
+.own-box.has { border-color: var(--own); background: var(--own-bg); }
+/* Kind chip: what sort of ask the row is (from the row's `kind`). */
+.kind { font-size: 0.75rem; font-weight: 600; border-radius: 4px; padding: 1px 7px; border: 1px solid var(--line); background: var(--bg); color: var(--fg); }
+.kind.k-decision { border-color: var(--accent); color: var(--accent); }
+.kind.k-owners { background: var(--rec-bg); color: var(--rec-fg); border-color: var(--rec-line); }
+.kind.k-default { background: var(--own-bg); color: var(--own); border-color: var(--own); }
+.kind.k-step { color: var(--fg); }
+.kind.k-publish { color: var(--muted); border-style: dashed; }
+.kind.k-info { color: var(--muted); }
+.note { margin: 0; background: var(--own-bg); color: var(--fg); border-left: 3px solid var(--own); border-radius: 4px; padding: 8px 10px; overflow-wrap: anywhere; }
+.link { margin: 0; font-size: 0.85rem; overflow-wrap: anywhere; }
+.link a { color: inherit; }
+.prev { margin: 0; font-size: 0.85rem; color: var(--muted); overflow-wrap: anywhere; }
+.prev b { color: var(--fg); font-weight: 600; }
+details.more { border: 1px solid var(--line); border-radius: 6px; background: var(--bg); }
+details.more > summary { cursor: pointer; padding: 8px 10px; font-weight: 600; min-height: 40px; display: flex; align-items: center; }
+details.more[open] > summary { border-bottom: 1px solid var(--line); }
+details.more dl { margin: 0; padding: 10px 12px 12px; display: flex; flex-direction: column; gap: 10px; }
+details.more dt { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); font-weight: 600; }
+details.more dd { margin: 2px 0 0; white-space: pre-line; overflow-wrap: anywhere; }
+.row.info .item { color: var(--muted); }
+.empty, .err { padding: 24px 0; color: var(--muted); }
+.err { color: var(--no); }
+@media (max-width: 480px) {
+  .row { grid-template-columns: 1fr; }
+  .num { padding: 0; }
+  .btn { flex: 1 1 auto; }
+}
+@media (prefers-reduced-motion: reduce) { .fill { transition: none; } }
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Public+Sans:wght@400;600&display=swap">
+
+<div class="bar">
+  <div class="bar-in">
+    <div class="bar-top">
+      <h1 id="title">Gate answers</h1>
+      <span class="runtag" id="runtag"></span>
+    </div>
+    <div class="meter">
+      <div class="track"><div class="fill" id="fill"></div></div>
+      <span class="count" id="count">0 of 0 answered</span>
+    </div>
+    <div class="actions">
+      <button class="btn" id="btn-all" type="button">Approve all as recommended</button>
+      <button class="btn primary" id="btn-send" type="button">Send to the orchestrator</button>
+    </div>
+    <div class="confirm" id="confirm" hidden>
+      <p id="confirm-text"></p>
+      <div class="actions">
+        <button class="btn primary" id="btn-confirm" type="button">Yes, send</button>
+        <button class="btn" id="btn-cancel" type="button">Keep editing</button>
+      </div>
+    </div>
+    <div class="status" id="status" aria-live="polite"></div>
+  </div>
+</div>
+
+<main id="main"><p class="empty">Loading the questions.</p></main>
+
+<script>
+(function () {
+  var COLLECTION = "gate_replies";
+  var gate = null;
+  var allRows = [];            // every row shown
+  var ansRows = [];            // rows that take an answer (info rows excluded from counts and Send)
+  var INFO_KIND = "For your information (nothing to answer)";
+  var KIND_CLASS = {
+    "Your decision": "k-decision",
+    "Owners' answer to accept": "k-owners",
+    "Working default, owners to confirm": "k-default",
+    "Your step": "k-step",
+    "Publish": "k-publish"
+  };
+  KIND_CLASS[INFO_KIND] = "k-info";
+  var DETAIL_LABELS = [
+    ["ask", "What is being asked"],
+    ["who", "Who decides, who is affected"],
+    ["background", "What the codes and numbers mean"],
+    ["if_yes", "If you approve"],
+    ["if_no", "If you say no"],
+    ["owners_next", "Does it go to the owners next?"]
+  ];
+  var CHOICE_LABEL = { approve: "Approved", no: "No", own: "My answer" };
+  var answers = {};            // n -> {choice: null|"approve"|"no"|"own", text: ""}
+  var db = null, comments = null;
+  var sent = null;             // last sent doc from the db {sent_at, sent_count, rows}
+  var els = {};
+  var rowEls = {};
+  ["title","runtag","fill","count","btn-all","btn-send","confirm","confirm-text","btn-confirm","btn-cancel","status","main"].forEach(function (id) { els[id] = document.getElementById(id); });
+
+  function draftKey() { return "gate-draft-" + gate.run; }
+  function saveDraft() {
+    try { localStorage.setItem(draftKey(), JSON.stringify(answers)); } catch (e) {}
+  }
+  function loadDraft() {
+    var found = false;
+    try {
+      var raw = localStorage.getItem(draftKey());
+      if (raw) { var d = JSON.parse(raw); if (d && typeof d === "object") { found = true; Object.keys(d).forEach(function (k) { var v = d[k] || {}; answers[k] = { choice: ["approve","no","own"].indexOf(v.choice) >= 0 ? v.choice : null, text: typeof v.text === "string" ? v.text : "" }; }); } }
+    } catch (e) {}
+    return found;
+  }
+  function isInfo(r) { return r.kind === INFO_KIND; }
+  // No local draft yet: start each answerable row from the answer given on the
+  // first page (row.previous), except rows reopened because that answer was a question.
+  function prefillFromPrevious() {
+    gate.sections.forEach(function (sec) {
+      sec.rows.forEach(function (r) {
+        var p = r.previous;
+        if (isInfo(r) || r.reopen || !p || ["approve","no","own"].indexOf(p.choice) < 0) return;
+        answers[r.n] = { choice: p.choice, text: (p.choice === "approve") ? "" : (p.text || "") };
+      });
+    });
+  }
+  function get(n) {
+    if (!answers[n]) answers[n] = { choice: null, text: "" };
+    return answers[n];
+  }
+  function isAnswered(n) { var a = answers[n]; return !!(a && a.choice); }
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  function hhmm(iso) {
+    var d = new Date(iso);
+    if (isNaN(d)) return "";
+    return d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  }
+
+  // The document written to the db on Send.
+  function buildRows() {
+    return ansRows.map(function (r) {
+      var a = get(r.n);
+      var text = (a.choice === "own" || a.choice === "no") ? a.text : "";
+      return { n: r.n, id: r.id, choice: a.choice, text: text };
+    });
+  }
+  function counts() {
+    var c = { approve: 0, no: 0, own: 0, open: 0 };
+    ansRows.forEach(function (r) {
+      var a = get(r.n);
+      if (a.choice) c[a.choice]++; else c.open++;
+    });
+    return c;
+  }
+  function sig(rows) {
+    return JSON.stringify(rows.map(function (r) { return [r.n, r.choice || null, r.text || ""]; }));
+  }
+
+  function renderRow(r) {
+    var a = get(r.n);
+    var re = rowEls[r.n];
+    var pill = re.pill;
+    pill.className = "pill" + (a.choice ? " " + a.choice : "");
+    pill.textContent = a.choice === "approve" ? "Approved" : a.choice === "no" ? "No" : a.choice === "own" ? "My answer" : "Open";
+    re.ok.className = "btn" + (a.choice === "approve" ? " on-approve" : "");
+    re.ok.setAttribute("aria-pressed", a.choice === "approve" ? "true" : "false");
+    re.no.className = "btn" + (a.choice === "no" ? " on-no" : "");
+    re.no.setAttribute("aria-pressed", a.choice === "no" ? "true" : "false");
+    re.box.className = "own-box" + (a.text.trim() ? " has" : "");
+    if (re.box.value !== a.text) re.box.value = a.text;
+  }
+  function renderSummary() {
+    var c = counts();
+    var total = ansRows.length, done = total - c.open;
+    els.count.textContent = done + " of " + total + " answered";
+    els.fill.style.width = (total ? (done / total * 100) : 0) + "%";
+    renderStatus();
+  }
+  function renderStatus() {
+    var s = els.status;
+    s.textContent = "";
+    function add(cls, text) { var sp = el("span", cls, text); s.appendChild(sp); return sp; }
+    if (sent && sent.sent_at) {
+      add("", "Last sent ");
+      s.lastChild.appendChild(el("b", null, hhmm(sent.sent_at)));
+      s.lastChild.appendChild(document.createTextNode(" on " + new Date(sent.sent_at).toLocaleDateString([], { month: "short", day: "numeric" }) + ", send #" + (sent.sent_count || 1)));
+      if (sig(buildRows()) !== sig(sent.rows || [])) add("warn", "Changed since last send");
+      else add("good", "Matches what was sent");
+    } else if (db) {
+      add("", "Nothing sent yet for this run.");
+    } else {
+      add("warn", "Cannot save here (not signed in). Drafts stay in this browser; tell Claude in chat instead.");
+    }
+    if (flash) add(flash.cls, flash.text);
+  }
+  var flash = null;
+
+  function setChoice(n, choice) {
+    var a = get(n);
+    if (a.choice === choice) { a.choice = null; }      // second tap clears it
+    else {
+      a.choice = choice;
+      if (choice === "approve") a.text = "";           // approving drops any own words
+    }
+    afterChange(n);
+  }
+  function setText(n, text) {
+    var a = get(n);
+    a.text = text;
+    if (text.trim()) a.choice = "own";
+    else if (a.choice === "own") a.choice = null;
+    afterChange(n);
+  }
+  function afterChange(n) {
+    flash = null;
+    saveDraft();
+    renderRow(rowByN(n));
+    renderSummary();
+    hideConfirm();
+  }
+  function rowByN(n) { for (var i = 0; i < ansRows.length; i++) if (ansRows[i].n === n) return ansRows[i]; }
+
+  function previousLine(r) {
+    var p = r.previous;
+    if (!p || !p.choice) return null;
+    var line = el("p", "prev");
+    var when = p.at ? " at " + hhmm(p.at) : "";
+    if (r.reopen || isInfo(r)) {
+      line.appendChild(document.createTextNode("On the first page you wrote" + when + ": "));
+      line.appendChild(el("b", null, p.text ? "\u201c" + p.text + "\u201d" : (CHOICE_LABEL[p.choice] || p.choice)));
+    } else {
+      line.appendChild(document.createTextNode("You answered: "));
+      line.appendChild(el("b", null, (CHOICE_LABEL[p.choice] || p.choice) + when));
+      if (p.choice !== "approve" && p.text) line.appendChild(document.createTextNode(" \u2014 \u201c" + p.text + "\u201d"));
+      line.appendChild(document.createTextNode(". Change it below if you like."));
+    }
+    return line;
+  }
+  // Plain ids (Jacob, 2026-11-01): the same id families as .claude/skills/plain-ids/families.json (keep the two in
+  // step); gate.legend ({id: {k, t, s}}) is written by `ids.py gate-legend gate.json` before the page is published.
+  var ID_RE = /(?<![A-Za-z0-9_-])(?:J-\d{3}|D-\d{3}|A\d{2,3}(?:-\d+)?|QA-\d{3}|F\d{2,3}|I-\d{3}|E-\d{3}|HOA-\d+|PT-\d{3}|M\d{1,2}[a-d]?|O\d{1,2}|R-\d+\.\d+|CB\d{1,2}[a-z]?|SB\d{1,2}[a-z]?|ST\d{1,2}[a-z]?|AT\d{1,2}[a-z]?|LV\d{1,2}|GC\d{1,2}|SEC\d{1,2}[a-z]?|CI\d{1,2}[a-z]?|DS\d{1,2}[a-z]?|WP\d{1,2}[a-z]?|SC\d{1,2}[a-z]?|UX-\d{1,2}[a-z]?|FO-[A-Z]\d{2,3}|X\d{1,2}|U\d{1,2}|P\d{1,2}[a-z]?|N\d{1,2}|T\d{1,2}|S\d{1,2}|A\d[a-z]?|B\d[a-z]?|C\d[a-z]?)(?![A-Za-z0-9_-])/g;
+  function codesLine(r) {
+    var legend = (gate && gate.legend) || {};
+    var ids = [], m;
+    [r.item, r.rec, r.why, r.note].forEach(function (t) {
+      if (!t) return;
+      ID_RE.lastIndex = 0;
+      while ((m = ID_RE.exec(String(t)))) { if (legend[m[0]] && ids.indexOf(m[0]) < 0) ids.push(m[0]); }
+    });
+    if (!ids.length) return null;
+    var p = el("p", "codes", "What the codes mean: ");
+    ids.forEach(function (id, i) {
+      var e = legend[id] || {};
+      p.appendChild(el("code", null, id));
+      p.appendChild(document.createTextNode(" · " + (e.k ? e.k + (e.s ? ", " + e.s : "") + ": " : "") + (e.t || "") + (i < ids.length - 1 ? "; " : "")));
+    });
+    return p;
+  }
+  function detailsBox(r) {
+    var d = r.details;
+    if (!d || typeof d !== "object") return null;
+    var box = el("details", "more");
+    if (r.reopen) box.open = true;
+    box.appendChild(el("summary", null, "Details"));
+    var dl = el("dl");
+    DETAIL_LABELS.forEach(function (pair) {
+      var v = d[pair[0]];
+      if (!v) return;
+      var wrap = el("div");
+      wrap.appendChild(el("dt", null, pair[1]));
+      wrap.appendChild(el("dd", null, v));
+      dl.appendChild(wrap);
+    });
+    box.appendChild(dl);
+    return box;
+  }
+
+  function build() {
+    els.title.textContent = gate.title || "Gate answers";
+    els.runtag.textContent = "run " + gate.run;
+    document.title = "Gate Answers";
+    els.main.textContent = "";
+    allRows = [];
+    ansRows = [];
+    gate.sections.forEach(function (sec) {
+      var section = el("section");
+      var h = el("h2", null, sec.name);
+      var span = el("span", null, sec.rows.length + (sec.rows.length === 1 ? " item" : " items"));
+      h.appendChild(span);
+      section.appendChild(h);
+      var list = el("div", "rows");
+      sec.rows.forEach(function (r) {
+        var info = isInfo(r);
+        allRows.push(r);
+        if (!info) ansRows.push(r);
+        var row = el("div", "row" + (info ? " info" : ""));
+        row.appendChild(el("div", "num", "#" + r.n));
+        var body = el("div", "body");
+        var head = el("div", "head");
+        head.appendChild(el("span", "rid", r.id));
+        if (r.kind) head.appendChild(el("span", "kind " + (KIND_CLASS[r.kind] || "k-step"), r.kind));
+        var pill = el("span", "pill", info ? "No answer needed" : "Open");
+        head.appendChild(pill);
+        body.appendChild(head);
+        body.appendChild(el("p", "item", r.item));
+        if (r.note) body.appendChild(el("p", "note", r.note));
+        if (r.link) {                // where to look: a page URL, a PR, an Actions run, or a path
+          var lk = el("p", "link", "Link: ");
+          if (/^https:\/\//.test(r.link)) {
+            var a = el("a", null, r.link); a.href = r.link; a.target = "_blank"; a.rel = "noopener";
+            lk.appendChild(a);
+          } else {
+            lk.appendChild(el("code", null, r.link));
+          }
+          body.appendChild(lk);
+        }
+        var rec = el("div", "rec");
+        rec.appendChild(el("small", null, info ? "Where it stands" : "Our recommendation"));
+        rec.appendChild(document.createTextNode(r.rec));
+        body.appendChild(rec);
+        if (r.why) body.appendChild(el("p", "why", "Why: " + r.why));
+        var codes = codesLine(r);
+        if (codes) body.appendChild(codes);
+        var more = detailsBox(r);
+        if (more) body.appendChild(more);
+        var prevEl = previousLine(r);
+        if (prevEl) body.appendChild(prevEl);
+        row.appendChild(body);
+        list.appendChild(row);
+        if (info) return;           // an info row has no answer controls
+        var ctl = el("div", "ctl");
+        var ok = el("button", "btn", "Approve as recommended"); ok.type = "button"; ok.id = "ok-" + r.n;
+        var no = el("button", "btn", "No"); no.type = "button"; no.id = "no-" + r.n;
+        var box = el("textarea", "own-box"); box.id = "own-" + r.n; box.rows = 1;
+        box.placeholder = "My answer (own words)";
+        box.setAttribute("aria-label", "My answer for #" + r.n + " " + r.id);
+        ok.addEventListener("click", function () { setChoice(r.n, "approve"); });
+        no.addEventListener("click", function () { setChoice(r.n, "no"); });
+        box.addEventListener("input", function () { setText(r.n, box.value); });
+        ctl.appendChild(ok); ctl.appendChild(no); ctl.appendChild(box);
+        body.appendChild(ctl);
+        rowEls[r.n] = { pill: pill, ok: ok, no: no, box: box };
+      });
+      section.appendChild(list);
+      els.main.appendChild(section);
+    });
+    ansRows.forEach(renderRow);
+    renderSummary();
+  }
+
+  function hideConfirm() { els.confirm.hidden = true; }
+  function showConfirm() {
+    var c = counts();
+    var parts = [];
+    parts.push(c.approve + " approved as recommended");
+    parts.push(c.no + " no");
+    parts.push(c.own + " in my own words");
+    var t = "Send " + (ansRows.length - c.open) + " answers (" + parts.join(", ") + ")." +
+      (c.open ? " " + c.open + " still open will be left open." : "") +
+      (sent ? " This replaces what you sent at " + hhmm(sent.sent_at) + "." : "");
+    els["confirm-text"].textContent = t;
+    els.confirm.hidden = false;
+    els["btn-confirm"].focus();
+  }
+
+  async function doSend() {
+    var rows = buildRows();
+    var c = counts();
+    var answered = ansRows.length - c.open;
+    var nowIso = new Date().toISOString();
+    els["btn-confirm"].disabled = true;
+    els["btn-send"].disabled = true;
+    flash = { cls: "", text: "Sending..." };
+    renderStatus();
+    var count = 1;
+    try {
+      if (!db) throw new Error("not signed in");
+      var ref = db.collection(COLLECTION).doc(gate.run);
+      try {
+        var snap = await ref.get();
+        if (snap.exists) count = ((snap.data() || {}).sent_count || 0) + 1;
+      } catch (e) { count = (sent && sent.sent_count || 0) + 1; }
+      var doc = { run: gate.run, sent_at: nowIso, sent_count: count, answered: answered, total: ansRows.length, rows: rows };
+      await ref.set(doc);
+      sent = doc;
+    } catch (e) {
+      flash = { cls: "bad", text: "Not saved: " + (e && e.message ? e.message : "write failed") + ". Your draft is still here. Tell Claude in chat." };
+      els["btn-confirm"].disabled = false;
+      els["btn-send"].disabled = false;
+      hideConfirm();
+      renderStatus();
+      return;
+    }
+    hideConfirm();
+    els["btn-confirm"].disabled = false;
+    els["btn-send"].disabled = false;
+    flash = { cls: "good", text: "Saved at " + hhmm(nowIso) + "." };
+    // Wake the orchestrator session through a comment sent to Claude.
+    var notified = false, why = "";
+    try {
+      if (!comments) why = "comments not available here";
+      else {
+        var state = await comments.canSendToClaude();
+        if (state !== "available") why = state === "no_session" ? "no Claude session is watching this page" : "sending to Claude is " + state;
+        else {
+          var anchor = await comments.anchorFor(els["btn-send"]);
+          await comments.sendToClaude({
+            anchor: anchor,
+            text: "Gate answers sent for run " + gate.run + " (send #" + count + ", " + answered + " of " + ansRows.length + " answered). Read ArtifactData collection " + COLLECTION + ", doc " + gate.run + "."
+          });
+          notified = true;
+        }
+      }
+    } catch (e) {
+      why = (e && e.code) ? e.code : "send failed";
+    }
+    flash = notified
+      ? { cls: "good", text: "Sent at " + hhmm(nowIso) + ". The orchestrator has been told." }
+      : { cls: "warn", text: "Sent at " + hhmm(nowIso) + ". Answers are saved, but the orchestrator was not woken (" + why + "). Type \"sent\" in chat." };
+    renderStatus();
+  }
+
+  els["btn-all"].addEventListener("click", function () {
+    ansRows.forEach(function (r) {
+      var a = get(r.n);
+      if (!a.choice && !a.text.trim()) a.choice = "approve";
+    });
+    flash = null;
+    saveDraft();
+    ansRows.forEach(renderRow);
+    renderSummary();
+    hideConfirm();
+  });
+  els["btn-send"].addEventListener("click", showConfirm);
+  els["btn-cancel"].addEventListener("click", hideConfirm);
+  els["btn-confirm"].addEventListener("click", doSend);
+
+  async function loadSent() {
+    try {
+      db = await claude.use("db");
+    } catch (e) { db = null; }
+    try {
+      comments = await claude.use("comments");
+    } catch (e) { comments = null; }
+    if (db) {
+      try {
+        var snap = await db.collection(COLLECTION).doc(gate.run).get();
+        if (snap.exists) sent = snap.data();
+      } catch (e) {}
+    }
+    renderStatus();
+  }
+
+  async function start() {
+    try {
+      var res = await fetch("gate.json", { cache: "no-store" });
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      gate = await res.json();
+    } catch (e) {
+      els.main.textContent = "";
+      els.main.appendChild(el("p", "err", "The question list (gate.json) did not load. Tell Claude in chat."));
+      return;
+    }
+    if (!loadDraft()) prefillFromPrevious();
+    build();
+    if (window.claude && claude.use) loadSent(); else renderStatus();
+  }
+  start();
+})();
+</script>
+</body>
+</html>

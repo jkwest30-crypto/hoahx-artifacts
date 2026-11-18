@@ -132,3 +132,78 @@
   from = "/whats-in-the-build/responses"
   to = "/whats-in-the-build/responses/index.html"
   status = 200
+
+# Pages moved from claude.ai on 2026-11-17, so a run publishes them whichever account it uses
+# (scripts/publish-internal.mjs). The owners read the Build Log, Weekly Update, Launch Plan and
+# Proposal; the MVP tracker, Launch List, gate page and sign-off book are Jacob's, linked from
+# nowhere the owners see (no passphrase: Jacob, 2026-11-17). The three with a store save to
+# /api/store/<page>/… (netlify/functions/pagestore.js).
+[[redirects]]
+  from = "/api/store/*"
+  to = "/.netlify/functions/pagestore/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/build-log"
+  to = "/build-log/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/weekly"
+  to = "/weekly/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/launch-plan"
+  to = "/launch-plan/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/proposal"
+  to = "/proposal/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/mvp-tracker"
+  to = "/mvp-tracker/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/launch-list"
+  to = "/launch-list/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/gate"
+  to = "/gate/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/signoff"
+  to = "/signoff/index.html"
+  status = 200
+
+[[headers]]
+  for = "/mvp-tracker/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+    Cache-Control = "no-cache"
+
+[[headers]]
+  for = "/launch-list/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+    Cache-Control = "no-cache"
+
+[[headers]]
+  for = "/gate/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+    Cache-Control = "no-cache"
+
+[[headers]]
+  for = "/signoff/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+    Cache-Control = "no-cache"

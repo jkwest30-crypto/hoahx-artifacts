@@ -1,0 +1,1887 @@
+<!-- published by scripts/publish-internal.mjs -->
+<!doctype html><html><head>
+<meta name="robots" content="noindex, nofollow"><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<meta charset="utf-8">
+<!-- day 53, Wednesday Nov 18, run 2026-11-18 -->
+<title>HOA HX Build Log</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --bg:#F7F8FA; --surface:#FFFFFF; --surface-2:#EEF2F6; --border:#E1E6EC; --border-strong:#C9D2DD;
+  --text:#0D1B2A; --text-2:#55606E; --muted:#8792A0;
+  --accent:#0891B2; --accent-ink:#0B7490; --accent-soft:#E3F3F8; --accent-line:#9AD5E3;
+  --mast-bg:#1B2D4F; --mast-text:#FFFFFF; --mast-muted:#AFC0D8; --mast-accent:#4FD1E6;
+  --ok:#0F9D6E; --ok-soft:#DFF5EC; --warn:#B45309; --warn-soft:#FDEFD6; --bad:#C62828; --bad-soft:#FBE3E3; --info:#2563EB; --info-soft:#E4ECFD;
+  --shadow:0 1px 3px rgba(13,27,42,.06);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0B1624; --surface:#122033; --surface-2:#182A40; --border:#25384F; --border-strong:#35507A;
+    --text:#E7EDF4; --text-2:#A9B6C6; --muted:#7A8798;
+    --accent:#2BC4E2; --accent-ink:#6BD8EC; --accent-soft:#0F3442; --accent-line:#1E5A6E;
+    --mast-bg:#122033; --mast-text:#FFFFFF; --mast-muted:#A9B6C6; --mast-accent:#4FD1E6;
+    --ok:#34D399; --ok-soft:#0F3A2C; --warn:#FBBF24; --warn-soft:#3F2E0A; --bad:#F87171; --bad-soft:#4A1A1A; --info:#60A5FA; --info-soft:#12294D;
+    --shadow:none; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0B1624; --surface:#122033; --surface-2:#182A40; --border:#25384F; --border-strong:#35507A;
+  --text:#E7EDF4; --text-2:#A9B6C6; --muted:#7A8798;
+  --accent:#2BC4E2; --accent-ink:#6BD8EC; --accent-soft:#0F3442; --accent-line:#1E5A6E;
+  --mast-bg:#122033; --mast-text:#FFFFFF; --mast-muted:#A9B6C6; --mast-accent:#4FD1E6;
+  --ok:#34D399; --ok-soft:#0F3A2C; --warn:#FBBF24; --warn-soft:#3F2E0A; --bad:#F87171; --bad-soft:#4A1A1A; --info:#60A5FA; --info-soft:#12294D;
+  --shadow:none; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:56px}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent-ink)}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+.prose{max-width:70ch}
+.mast{background:var(--mast-bg);color:var(--mast-text);padding:44px 0 36px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--mast-accent);margin:0 0 12px}
+h1{font-size:36px;line-height:1.12;font-weight:700;letter-spacing:-.015em;margin:0 0 10px;text-wrap:balance}
+.lede{font-size:17px;line-height:1.5;color:var(--mast-muted);max-width:60ch;margin:0 0 20px}
+.meta{display:flex;flex-wrap:wrap;gap:6px 22px;font-size:13px;color:var(--mast-muted)}
+.meta b{color:var(--mast-text);font-weight:600}
+.meta a{color:var(--mast-accent)}
+nav.toc{position:sticky;top:0;z-index:5;background:var(--surface);border-bottom:1px solid var(--border);box-shadow:var(--shadow)}
+nav.toc .wrap{display:flex;gap:4px;overflow-x:auto;padding-top:8px;padding-bottom:8px;scrollbar-width:none}
+nav.toc a{flex:0 0 auto;font-size:13px;font-weight:500;color:var(--text-2);text-decoration:none;padding:6px 10px;border-radius:8px;white-space:nowrap}
+nav.toc a:hover{background:var(--surface-2);color:var(--text)}
+section{padding:36px 0;border-top:1px solid var(--border)}
+section:first-of-type{border-top:0}
+.sec-label{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-ink);margin:0 0 6px}
+h2{font-size:24px;line-height:1.2;font-weight:600;letter-spacing:-.01em;margin:0 0 12px;text-wrap:balance}
+h3{font-size:17px;font-weight:600;margin:26px 0 8px}
+h4{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-2);margin:0 0 8px}
+p{margin:0 0 14px}
+ul,ol{margin:0 0 14px;padding-left:22px}
+li{margin:0 0 6px}
+li::marker{color:var(--muted)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin:8px 0 6px}
+.tile{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px;box-shadow:var(--shadow)}
+.tile .k{font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-2);margin:0 0 8px}
+.tile .v{font-size:18px;font-weight:600;line-height:1.25;margin:0 0 4px}
+.tile .s{font-size:13px;color:var(--text-2);margin:0}
+.tbl{overflow-x:auto;border:1px solid var(--border);border-radius:10px;background:var(--surface);box-shadow:var(--shadow);margin:12px 0 18px}
+table{width:100%;border-collapse:collapse;font-size:14px;line-height:1.45}
+th{text-align:left;font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-2);padding:11px 14px;border-bottom:1px solid var(--border-strong);background:var(--surface-2);white-space:nowrap}
+td{padding:11px 14px;border-bottom:1px solid var(--border);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td.k{font-weight:600}
+td.d{white-space:nowrap;font-variant-numeric:tabular-nums}
+td.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;font-weight:600}
+.pill{display:inline-block;font-size:11.5px;font-weight:600;padding:2px 9px;border-radius:999px;white-space:nowrap;line-height:1.6}
+.pill.ok{background:var(--ok-soft);color:var(--ok)}
+.pill.warn{background:var(--warn-soft);color:var(--warn)}
+.pill.bad{background:var(--bad-soft);color:var(--bad)}
+.pill.info{background:var(--info-soft);color:var(--info)}
+.pill.acc{background:var(--accent-soft);color:var(--accent-ink)}
+.pill.mute{background:var(--surface-2);color:var(--text-2)}
+.log{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;box-shadow:var(--shadow);margin:0 0 14px}
+.log header{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 14px;margin:0 0 12px;padding:0 0 12px;border-bottom:1px solid var(--border)}
+.log .wk{font-size:17px;font-weight:600}
+.log .date{font-size:13px;color:var(--text-2)}
+.log-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px 24px}
+.log-grid ul{margin:0;padding-left:18px}
+.log-grid li{font-size:14px;margin:0 0 5px}
+.log .wide{grid-column:1 / -1}
+.note{background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:10px;padding:14px 18px;font-size:14px;margin:12px 0 18px}
+.note b{color:var(--accent-ink)}
+.days{display:grid;grid-template-columns:repeat(56,1fr);gap:3px;margin:10px 0 6px}
+.days span{height:10px;border-radius:2px;background:var(--surface-2);border:1px solid var(--border)}
+.days span.done{background:var(--accent);border-color:var(--accent)}
+.days span.today{background:var(--ok);border-color:var(--ok)}
+.days-cap{font-size:13px;color:var(--text-2);margin:0 0 14px}
+footer{padding:26px 0 56px;color:var(--text-2);font-size:13px;border-top:1px solid var(--border)}
+@media (max-width:640px){h1{font-size:28px}.mast{padding:32px 0 26px}section{padding:28px 0}}
+</style>
+
+<header class="mast">
+  <div class="wrap">
+    <p class="eyebrow">HOA HX · Day by day</p>
+    <h1>HOA HX Build Log</h1>
+    <p class="lede">A plain record of what I built each working day: what homeowners, boards, managers and vendors can now do. The Launch Plan holds the dates and the Friday summaries. HOA HX has not launched; nothing is public before November 30.</p>
+    <div class="meta">
+      <span>Last updated <b>Wednesday, November 18, 2026</b></span>
+      <span>Updated <b>at the end of each working day</b></span>
+      <span>Maintained by <b>Jacob West</b></span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Sections">
+  <div class="wrap">
+    <a href="#status">Where things stand</a>
+    <a href="#today">Wed Nov 18</a>
+    <a href="#tomorrow">Thu Nov 19</a>
+    <a href="#needs">Waiting on you</a>
+    <a href="#earlier">Earlier days</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<section id="status">
+  <p class="sec-label">Status</p>
+  <h2>Where things stand</h2>
+  <div class="days" aria-label="Sixty-one working days, September 4 to November 30; fifty-two complete, and Wednesday, November 18 is day 53"><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="today"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  <p class="days-cap">53 of 61 working days complete &middot; Wednesday, November 25 is the go or no-go &middot; Monday, November 30 is the launch date, still to be confirmed</p>
+  <div class="tiles">
+    <div class="tile"><p class="k">Days done</p><p class="v">53 of 61 working days</p><p class="s">The go or no-go for the web app and the phone apps is Wednesday, November 25, and the launch date is Monday, November 30, still to be confirmed. HOA HX has not launched, and no community is using the app yet.</p></div>
+    <div class="tile"><p class="k">On the test site</p><p class="v">Wednesday&rsquo;s work is on the main test branch</p><p class="s">Every automatic check passed and an independent review found nothing blocking. The update to the running test site is going through.</p></div>
+    <div class="tile"><p class="k">On the live site</p><p class="v">Everything built through Monday, October 19 that was released</p><p class="s">The rest follows with the next release.</p></div>
+    <div class="tile"><p class="k">Next</p><p class="v">Booking fees and deposits, and the small fixes that carry over</p><p class="s">Payments wait on the payment processor&rsquo;s account-setup answers. The iPhone app is with Apple for review, and the Android release is ready and held until the go or no-go.</p></div>
+    <div class="tile"><p class="k">Waiting on you</p><p class="v">A sitting at the cloud console</p><p class="s">Two settings only you can change there: the database&rsquo;s protection and the email sending plan. The checks on a real phone stand. Each has my recommendation on your page.</p></div>
+  </div>
+</section>
+
+<section id="today">
+  <p class="sec-label">Latest work</p>
+  <h2>Wednesday, November 18 &middot; day 53</h2>
+  <article class="log">
+    <header><span class="wk">The ledger&rsquo;s &ldquo;Waiting for you&rdquo; card is finished, the subscription money checks are in, and booking fees have begun</span><span class="date">Wednesday, November 18, 2026 &middot; day 53</span><span class="pill ok">On the test branch, all checks green</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Treasurers:</strong> the last seven lines of the Financial Ledger&rsquo;s &ldquo;Waiting for you&rdquo; card now read the new way (the intro, the named approvers and the &ldquo;why&rdquo; and &ldquo;who&rdquo; lines), and the old review window is removed, so a refund or a payment problem is decided in one place.</li>
+        <li><strong>The community&rsquo;s HOA HX subscription:</strong> the scheduled daily charge now has the same protection against two claims on one plan payment as a purchase made by hand, a plan payment left processing raises an alert, and the first part of the old payment processor&rsquo;s cleanup is done.</li>
+        <li><strong>Booking fees and deposits (now in the launch):</strong> the first three slices are on the test branch, switched off until the rest is built and the checks pass.</li>
+        <li><strong>Sign-up email:</strong> the verification email now names HOA HX.</li>
+        <li><strong>Staff access:</strong> &ldquo;Assign access&rdquo; offers the three officer roles, and a staff member&rsquo;s window no longer makes an Administrator a President. The server half of the officer setup fix is in.</li>
+        <li><strong>Sign-in:</strong> the line for a person whose only second step is a passkey now reads correctly.</li>
+        <li><strong>Smaller fixes:</strong> the Assistant&rsquo;s replies, a privacy note on Neighbors, three groups of notes from your sign-off book, and a date that carried over wrongly.</li>
+        <li><strong>The dates:</strong> the Launch Plan and the proposal are updated for the new launch date, Monday, November 30, with the go or no-go on Wednesday, November 25.</li>
+        <li><strong>Your requirements list:</strong> 228 of 255 requirements are built, the same as Saturday.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table>
+          <tbody>
+            <tr><td>Bugs fixed</td><td class="n">5</td></tr>
+            <tr><td>Unit checks passed</td><td class="n">21,306</td></tr>
+            <tr><td>Access-rule checks passed</td><td class="n">1,342</td></tr>
+            <tr><td>End-to-end checks passed</td><td class="n">837</td></tr>
+            <tr><td>Requirements built</td><td class="n">228 of 255</td></tr>
+            <tr><td>Working days complete</td><td class="n">53 of 61</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div><h4>Needs you</h4><ul>
+        <li><strong>A sitting at the cloud console</strong> and <strong>the spending alert</strong> stand, each with my recommendation on your page.</li>
+        <li><strong>The checks on a real phone</strong> stand, before the go or no-go on Wednesday, November 25.</li>
+        <li><strong>Three open questions</strong> on your page, each with my recommendation; the app follows each until you answer.</li>
+      </ul></div>
+      <div><h4>Watching</h4><ul>
+        <li><strong>A few pieces carry over:</strong> booking fees have their last slices to build, and the treasurer&rsquo;s dispute response has not started.</li>
+        <li><strong>The update to the test site</strong> is going through; the result is checked at the next build.</li>
+        <li>The payment processor&rsquo;s clock: boarding has not started, so underwriting has not started.</li>
+      </ul></div>
+    </div>
+  </article>
+</section>
+
+<section id="tomorrow">
+  <p class="sec-label">Next build day</p>
+  <h2>Thursday, November 19 &middot; day 54</h2>
+  <article class="log">
+    <header><span class="wk">Nothing is scheduled; the next build continues booking fees and the small fixes</span><span class="date">Thursday, November 19, 2026</span><span class="pill info">Planned</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>The build</h4><ul>
+        <li><strong>Booking fees and deposits:</strong> the remaining slices, with the switch kept off until they pass.</li>
+        <li><strong>Small fixes:</strong> the verification email follow-ups and the staff-access fixes that carry over.</li>
+      </ul></div>
+      <div><h4>Ahead</h4><ul>
+        <li>Wednesday, November 25: go or no-go.</li>
+        <li>Monday, November 30: the launch date, still to be confirmed.</li>
+      </ul></div>
+    </div>
+  </article>
+</section>
+
+
+<section id="needs">
+  <p class="sec-label">Waiting on you</p>
+  <h2>Open items, and what each one unblocks</h2>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>Item</th><th>What it unblocks</th><th>By</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td class="k">A sitting at the cloud console</td><td>The database&rsquo;s protection setting and the email sending plan for large imports. Only you can change them; each has my recommendation on your page.</td><td class="d">This week</td><td><span class="pill warn">New</span></td></tr>
+        <tr><td class="k">Confirm the new launch date</td><td>Monday, November 30, firm or still tentative; the go or no-go is Wednesday, November 25, so the hands-on checks get a full week.</td><td class="d">This week</td><td><span class="pill warn">Open</span></td></tr>
+        <tr><td class="k">Checks on a real phone</td><td>The quick code sheet, survey dates and the Quick code box on an iPhone, and the bottom bar on Android: fixed, and only a real phone can prove them.</td><td class="d">Before Nov 25</td><td><span class="pill warn">Next</span></td></tr>
+        <tr><td class="k">Pricing with NMI and the partnership agreement</td><td>Boarding the first community and HOA HX&rsquo;s own merchant account, and with them the live payment test. No real money moves until the agreement is signed.</td><td class="d">Sep 18</td><td><span class="pill bad">Overdue</span></td></tr>
+        <tr><td class="k">Apple Developer account</td><td>Ready since October 9, with the Google Play account. The iPhone app is with Apple for review since October 20.</td><td class="d">Sep 8</td><td><span class="pill ok">Done Oct 9</span></td></tr>
+        <tr><td class="k">Sign-off of the 27 screens</td><td>All 27 signed off on Wednesday. One note became a new question on your page: a credit left on the account when a home is sold.</td><td class="d">Oct 2</td><td><span class="pill ok">Done Oct 14</span></td></tr>
+        <tr><td class="k">The open questions on your page</td><td>Each one settles a build decision, and each comes with my recommendation. Three are open now; the app follows each recommendation until you answer.</td><td class="d">As they come</td><td><span class="pill warn">Open</span></td></tr>
+        <tr><td class="k">Two questions about the first community</td><td>Will opening balances include overdue money, and is a vote planned in its first month? They decide whether falling behind on dues and formal voting must work on day one. Both are on your page since October 13.</td><td class="d">Sep 30</td><td><span class="pill bad">Overdue</span></td></tr>
+        <tr><td class="k">App-store details</td><td>The iPhone app is in review with Apple. The Android release is approved by Google and held until the go or no-go on Wednesday, November 25.</td><td class="d">Oct 23</td><td><span class="pill warn">In review</span></td></tr>
+        <tr><td class="k">Who is told when something breaks, and how long backups are kept</td><td>The alerts are switched on for the test site and the live site.</td><td class="d">Before switch-on</td><td><span class="pill ok">Done Oct 9</span></td></tr>
+        <tr><td class="k">Working defaults</td><td>A property manager may appoint an HOA Administrator; a balance adjustment is never more than the home owes; a credit or adjustment needs a second financial approver. Each stands until you say otherwise.</td><td class="d">Any time</td><td><span class="pill mute">Standing</span></td></tr>
+        <tr><td class="k">The HOA HX Assistant provider</td><td>The provider was chosen and its capacity approved on November 3. The Assistant stays switched off until it is checked on the test site.</td><td class="d">Before Oct 26</td><td><span class="pill ok">Approved Nov 3</span></td></tr>
+        <tr><td class="k">A phone check of the live site</td><td>Add app.hoahx.com to your home screen, sign in, upload one photo, and open the pay-dues panel on an iPhone. Two minutes; it proves what only a real phone can.</td><td class="d">Any day</td><td><span class="pill warn">Worth doing</span></td></tr>
+        <tr><td class="k">An hour with the test build of the apps</td><td>Your feedback on the first iPhone test build, which is built and runs on a phone; it comes to you before the store submission.</td><td class="d">This week</td><td><span class="pill warn">Next</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="earlier">
+  <p class="sec-label">Earlier days</p>
+  <h2>Newest first</h2>
+
+  <article class="log">
+    <header><span class="wk">The Financial Ledger&rsquo;s &ldquo;Waiting for you&rdquo; card for treasurers, and five faults fixed</span><span class="date">Saturday, November 14, 2026 &middot; an extra working Saturday &middot; day 50</span><span class="pill ok">On the test branch, all checks green</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Treasurers:</strong> the Financial Ledger now has one &ldquo;Waiting for you&rdquo; card in place of three separate panels. It lists what needs a decision (a refund to review, a payment problem to decide, resolve or mark handled), says why each one is waiting and who acts next, and opens the decision in place. The Refunds screen shows the same card.</li>
+        <li><strong>Setting up a community:</strong> an officer partway through setting up a community keeps the setup prompt on every path, now proven by a browser check.</li>
+        <li><strong>Reports:</strong> the Monthly Summary reads its dates the same way everywhere.</li>
+        <li><strong>Get started:</strong> two leftover invitation choices are gone, so the invitation comes first and once.</li>
+        <li><strong>The community&rsquo;s HOA HX subscription:</strong> two buyers can no longer claim the same plan payment at once, and the scheduled daily charge takes the same protection.</li>
+        <li><strong>Passkeys:</strong> when a passkey is removed from an account, the phone app now says that the copy saved on the phone stays there until it is removed on the phone.</li>
+        <li><strong>Your requirements list:</strong> 228 of 255 requirements are built, one more than Friday.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table>
+          <tbody>
+            <tr><td>Bugs fixed</td><td class="n">5</td></tr>
+            <tr><td>Unit checks passed</td><td class="n">21,065</td></tr>
+            <tr><td>Access-rule checks passed</td><td class="n">1,335</td></tr>
+            <tr><td>End-to-end checks passed</td><td class="n">796</td></tr>
+            <tr><td>Requirements built</td><td class="n">228 of 255</td></tr>
+            <tr><td>Working days complete</td><td class="n">50 of 56</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div><h4>Needs you</h4><ul>
+        <li><strong>A sitting at the cloud console</strong> and <strong>the spending alert</strong> stand, each with my recommendation on your page.</li>
+        <li><strong>The launch date</strong> and <strong>the checks on a real phone</strong> stand.</li>
+      </ul></div>
+      <div><h4>Watching</h4><ul>
+        <li><strong>A few pieces carry over:</strong> seven short lines of the new ledger card (the intro, the named approvers and some &ldquo;why&rdquo; and &ldquo;who&rdquo; lines) still read the old way, and three money follow-ups need their end-to-end checks. All are queued for Monday.</li>
+        <li><strong>One small fault was logged:</strong> a phone keeps a passkey that was removed from the account; it is queued.</li>
+        <li><strong>The update to the test site</strong> is going through now; the result is checked at the next build.</li>
+        <li>The payment processor&rsquo;s clock: boarding has not started, so underwriting has not started.</li>
+      </ul></div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">Six faults fixed, the treasurer&rsquo;s import screen reads right, and the designer&rsquo;s look reaches more screens</span><span class="date">Friday, November 13, 2026 &middot; day 50</span><span class="pill ok">On the test branch, all checks green</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Treasurers:</strong> the spreadsheet import page now reads as a review page for a person who can approve an import but not prepare one, so it no longer offers an &ldquo;Import&rdquo; they cannot start.</li>
+        <li><strong>Money:</strong> a homeowner&rsquo;s balance lookup now checks the permission to view their own assessments, and a person who rented a home and later renewed, or who rented and then bought it, is no longer refused their balance.</li>
+        <li><strong>Setting up a community:</strong> an officer partway through setting one community up no longer loses the setup prompt after joining a running one. A message in a stand-in session during an update no longer writes a history row for every call.</li>
+        <li><strong>The ledger:</strong> the table&rsquo;s edge fade now shows when it scrolls sideways.</li>
+        <li><strong>The designer&rsquo;s look:</strong> more of it is in, and the Financial Ledger&rsquo;s &ldquo;Waiting for you&rdquo; design has begun.</li>
+        <li><strong>Financial reports, Get started and the community plan payment:</strong> reports start each home from its opening balance for the dates chosen; the Get started screen takes the invitation first; the plan payment is protected against two buyers claiming at once.</li>
+        <li><strong>Backups and emails:</strong> the backup, payment-error and email-limit work from Thursday was checked again on the test branch.</li>
+        <li><strong>Your requirements list:</strong> 227 of 255 requirements are built, the same as Thursday.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table>
+          <tbody>
+            <tr><td>Bugs fixed</td><td class="n">6</td></tr>
+            <tr><td>Unit checks passed</td><td class="n">20,934</td></tr>
+            <tr><td>Access-rule checks passed</td><td class="n">1,335</td></tr>
+            <tr><td>End-to-end checks passed</td><td class="n">791</td></tr>
+            <tr><td>Requirements built</td><td class="n">227 of 255</td></tr>
+            <tr><td>Working days complete</td><td class="n">50 of 56</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div><h4>Needs you</h4><ul>
+        <li><strong>A sitting at the cloud console</strong> and <strong>the spending alert</strong> stand as on Thursday, each with my recommendation on your page.</li>
+        <li><strong>The launch date</strong> and <strong>the four checks on a real phone</strong> stand.</li>
+      </ul></div>
+      <div><h4>Watching</h4><ul>
+        <li><strong>Four small faults were logged today</strong> and queued: a missing browser check on the officer setup path, two date readings on the Monthly Summary, two leftover choices on Get started, and a rare double claim on a plan payment.</li>
+        <li><strong>A few pieces carry over:</strong> part of the plan that holds a fault fix to its cause, and a share of the import&rsquo;s last pieces did not finish.</li>
+        <li><strong>The update to the test site</strong> is still going through tonight; the result is checked in the morning.</li>
+        <li>The payment processor&rsquo;s clock: boarding has not started, so underwriting has not started.</li>
+      </ul></div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">Safer email sending for large imports, nightly backups that retry, a payment-error record that never guesses, and fixes to joining a home</span><span class="date">Thursday, November 12, 2026 &middot; day 49</span><span class="pill ok">On the test branch, all checks green</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Email for a large import:</strong> invitation emails go out at a pace the email service accepts, and an invitation that timed out is never marked as failed when it may have been sent. Each community has a daily limit on invitation emails, and emails sent with no one signed in, and free-trial starts, have their own daily limits. The two whole-community senders now wait up to five minutes for their answer.</li>
+        <li><strong>Backups:</strong> the nightly copy of the database retries when the first try is refused, and the steps to restore it are written down and ready.</li>
+        <li><strong>Payments:</strong> if the payment processor returns an error on a pay-now sale, the payment is recorded as &ldquo;unknown&rdquo; rather than guessed at, and there is a written procedure for a sale whose answer never came. AutoPay now raises a warning when its list of payments due comes back full.</li>
+        <li><strong>Long lists:</strong> the invitation list shows the newest first, with email search done by the database, and a notice says &ldquo;Showing the newest&hellip;&rdquo; when a list is cut. The board&rsquo;s first screen no longer waits for the roster. Maintenance messages find their recipients with one lookup.</li>
+        <li><strong>Joining a home:</strong> a join review now offers Co-owner and Transfer when a person asks to join a home that another person owns, and its reason box no longer shows &ldquo;is linked to&rdquo; before the server has answered.</li>
+        <li><strong>Homeowners:</strong> a tenant&rsquo;s hidden-balance setting is now respected everywhere, and the old AutoPay setup that opened a checkout with the former payment processor is closed off.</li>
+        <li><strong>The test site:</strong> it no longer sends real email to made-up test addresses.</li>
+        <li><strong>Sign-in:</strong> the move from the sign-in screen to the signed-in app is smoother.</li>
+        <li><strong>The designer&rsquo;s look:</strong> a light and dark switch and more compact My Maintenance cards are in; the rest of that slice comes next.</li>
+        <li><strong>Your requirements list:</strong> 227 of 255 requirements are built, the same as Wednesday.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table>
+          <tbody>
+            <tr><td>Unit checks passed</td><td class="n">20,616</td></tr>
+            <tr><td>Access-rule checks passed</td><td class="n">1,335</td></tr>
+            <tr><td>End-to-end checks passed</td><td class="n">767</td></tr>
+            <tr><td>Requirements built</td><td class="n">227 of 255</td></tr>
+            <tr><td>Working days complete</td><td class="n">49 of 56</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div><h4>Needs you</h4><ul>
+        <li><strong>A spending alert on the cloud account:</strong> the alert is written and waits for you to apply it; it is on your page with my recommendation.</li>
+        <li><strong>The launch date</strong> and <strong>the four checks on a real phone</strong> stand as on Wednesday.</li>
+      </ul></div>
+      <div><h4>Watching</h4><ul>
+        <li><strong>Not done today:</strong> the spreadsheet import&rsquo;s last pieces did not start, because the build machine went to sleep for about five hours. They come next.</li>
+        <li><strong>Two small faults</strong> were logged for follow-up: a balance lookup that does not check one permission, and a rule that may refuse a renewed or former tenant their balance. Both are queued.</li>
+        <li><strong>The update to the test site</strong> is still going through tonight; the result is checked in the morning.</li>
+        <li>The payment processor&rsquo;s clock: boarding has not started, so underwriting has not started.</li>
+      </ul></div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">The spreadsheet import&rsquo;s second part, a clearer invitation link, and billing contacts in a brand-new community</span><span class="date">Wednesday, November 11, 2026 &middot; day 48</span><span class="pill ok">On the test branch, all checks green</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Importing a spreadsheet:</strong> most of the second part of its new design is in: one page with a step bar for Upload, Match columns, Check rows and Opening balances, a preview of the first rows while matching columns, and long lists shown 50 at a time with a search. A row whose email already belongs to another person in the community now stops, instead of joining the two. The last pieces come tomorrow.</li>
+        <li><strong>Invitations:</strong> an invitation link no longer says &ldquo;Step 3 of 4&rdquo; before the person has signed in.</li>
+        <li><strong>Signing out:</strong> the signed-out screen is simpler.</li>
+        <li><strong>Billing contacts:</strong> they work in a brand-new community, before anything else is set up.</li>
+        <li><strong>Joining a home:</strong> approving a person onto a home that already has an owner as its new owner is refused.</li>
+        <li><strong>On a phone:</strong> the Assistant&rsquo;s key facts fit the screen.</li>
+        <li><strong>The community&rsquo;s HOA HX subscription:</strong> the receipt no longer shows the purchase form beneath it.</li>
+        <li><strong>Parking:</strong> peak hours follow the community&rsquo;s own time zone.</li>
+        <li><strong>Speed:</strong> the first screen loads faster after the app has been quiet for a while, and a role that is removed takes effect sooner.</li>
+        <li><strong>Homes behind on dues:</strong> long lists on that screen read in full.</li>
+        <li><strong>Your requirements list:</strong> 227 of 255 requirements are built. One that read as built is now counted as partly built: the import&rsquo;s row check lists only the rows that need a fix, not every row; its last pieces come tomorrow.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table>
+          <tbody>
+            <tr><td>Unit checks passed</td><td class="n">20,448</td></tr>
+            <tr><td>Access-rule checks passed</td><td class="n">1,335</td></tr>
+            <tr><td>End-to-end checks passed</td><td class="n">757</td></tr>
+            <tr><td>Requirements built</td><td class="n">227 of 255</td></tr>
+            <tr><td>Working days complete</td><td class="n">48 of 56</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div><h4>Needs you</h4><ul>
+        <li><strong>A sitting at the cloud console:</strong> the database&rsquo;s protection setting and the email sending plan, which only you can change.</li>
+        <li><strong>The launch date</strong> and <strong>the four checks on a real phone</strong> stand as on Tuesday.</li>
+      </ul></div>
+      <div><h4>Watching</h4><ul>
+        <li><strong>Built and waiting for tomorrow:</strong> email sending limits and pacing for a large import, nightly backup retries with a rehearsed restore, the sign-in logo animation, and the handling of payment errors. They are finished and come in with tomorrow&rsquo;s work.</li>
+        <li><strong>The go or no-go</strong> on Friday, November 20, and the launch on Monday, November 23, still to be confirmed.</li>
+        <li><strong>The update to the test site</strong> is still going through tonight; the result is checked in the morning.</li>
+        <li>The payment processor&rsquo;s clock: boarding has not started, so underwriting has not started.</li>
+      </ul></div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">The spreadsheet import&rsquo;s new design begins, a shared email no longer merges two people, and a round of iPhone fixes</span><span class="date">Tuesday, November 10, 2026 &middot; day 47</span><span class="pill ok">On the test branch, all checks green</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Importing a spreadsheet:</strong> the first part of its new design is in: a step bar that shows where you are, one task at a time on the page, and an import kit to start from. Two different people who share one email are no longer merged into one.</li>
+        <li><strong>Signing in:</strong> a window whose account changed in another window now follows it, with one line saying why. The passkey sheet opens only for the email that last used a passkey on that device.</li>
+        <li><strong>On an iPhone:</strong> a pop-up&rsquo;s close button no longer covers its text; leaving a stand-in session returns to where it started; messages at the top clear the status bar; survey dates save on the first pick; the Quick code box stays clear of the keyboard; and a vote asks &ldquo;Submit your vote?&rdquo; before it is cast.</li>
+        <li><strong>On Android:</strong> the bottom bar stays at the bottom of the screen.</li>
+        <li><strong>Board:</strong> &ldquo;Launch readiness&rdquo; sits in the sidebar above Dashboard until the community is live; a vote that never reaches quorum can now be closed; and a chart with nothing to show says so instead of showing sample figures.</li>
+        <li><strong>The community&rsquo;s HOA HX subscription:</strong> a bank payment that restores access but never settles raises one billing alert after 10 business days.</li>
+        <li><strong>Small faults closed:</strong> 21 in all, among them the three logged Sunday.</li>
+        <li><strong>Your requirements list:</strong> 228 of 255 requirements are built. One that read as built is now counted as partly built: the spreadsheet import&rsquo;s AI column matching still has to be shown working with the real AI provider, which waits on Google.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table>
+          <tbody>
+            <tr><td>Bugs fixed</td><td class="n">21</td></tr>
+            <tr><td>Unit checks passed</td><td class="n">20,313</td></tr>
+            <tr><td>Access-rule checks passed</td><td class="n">1,335</td></tr>
+            <tr><td>End-to-end checks passed</td><td class="n">735</td></tr>
+            <tr><td>Requirements built</td><td class="n">228 of 255</td></tr>
+            <tr><td>Working days complete</td><td class="n">47 of 56</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div><h4>Needs you</h4><ul>
+        <li><strong>The new launch date:</strong> confirm Monday, November 23 as firm or still tentative, with the owners&rsquo; OK and the go or no-go on Friday, November 20.</li>
+        <li><strong>Four checks on a real phone:</strong> the quick code sheet, survey dates and the Quick code box on an iPhone, and the bottom bar on Android.</li>
+        <li><strong>The payment processor&rsquo;s agreement:</strong> hold the signature until the full terms and fees arrive.</li>
+      </ul></div>
+      <div><h4>Watching</h4><ul>
+        <li><strong>The update to the test site</strong> is still going through tonight; the result is checked in the morning.</li>
+        <li><strong>Well ahead of the plan:</strong> nothing was scheduled for Tuesday, and the work stays well ahead of the target.</li>
+        <li><strong>The owners&rsquo; import video</strong> is filmed again once the import&rsquo;s new design is complete.</li>
+        <li>NMI&rsquo;s clock: boarding has not started, so underwriting has not started.</li>
+      </ul></div>
+    </div>
+  </article>
+
+
+<article class="log">
+    <header><span class="wk">No build day: the launch date moved to Monday, November 23</span><span class="date">Monday, November 9, 2026 &middot; day 46 &middot; no build scheduled</span><span class="pill mute">No build</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>The launch date</strong> moved from Monday, November 16 to Monday, November 23, still to be confirmed, so the hands-on checks get a full week. The go or no-go moves to Friday, November 20.</li>
+      </ul></div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">The invitation bug you found is fixed, the designer&rsquo;s look is finished, and twelve small faults are closed</span><span class="date">Sunday, November 8, 2026 &middot; an extra working Sunday</span><span class="pill ok">On the test branch, all checks green</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>The bug from your sign-off book:</strong> accepting an invitation in a second window of a browser where the President was already signed in no longer signs that account out or leaves both windows on &ldquo;Access Denied&rdquo;. The invitation opens as the invited person, and the other window keeps the President&rsquo;s session.</li>
+        <li><strong>The designer&rsquo;s look, finished:</strong> the two details left from Saturday are in. The wordmark reads &ldquo;HOA HX&rdquo; from the first frame, and during setup the sidebar marks which screens wait for setup to finish.</li>
+        <li><strong>Log-in:</strong> a person who signs in with a one-time link gets the same second step as everyone else, and the one slice of that work still open was found already built and proven by its tests.</li>
+        <li><strong>Settings and money:</strong> the number of homes in a community is set on Settings, with a reason for the change, and the subscription quote is recomputed from the saved count; a renewal of a required document now says &ldquo;renewed&rdquo;; a published budget&rsquo;s earlier years show their income; and a tenant in a community with no dues schedule yet sees &ldquo;none yet&rdquo; instead of an error.</li>
+        <li><strong>Small faults closed:</strong> a money row no longer names the staff member when read directly; the Message dialog on My Communications returns keyboard focus where it came from; the portfolio&rsquo;s money columns line up on the right; a second-step setup ticket is recorded in the history when it is issued, and a session may ask for at most five an hour; a person with no name after an Apple sign-up is asked for one; Member Management no longer calls a person with no home &ldquo;Owner&rdquo;.</li>
+        <li><strong>Behind the scenes:</strong> the slow automatic check that needed a second run on Saturday has a longer allowance and a steadier test; the walkthrough checks follow the designer&rsquo;s changes in step.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table>
+          <tbody>
+            <tr><td>Bugs fixed</td><td class="n">12</td></tr>
+            <tr><td>Unit checks passed</td><td class="n">20,037</td></tr>
+            <tr><td>Access-rule checks passed</td><td class="n">1,332</td></tr>
+            <tr><td>End-to-end checks passed</td><td class="n">719</td></tr>
+            <tr><td>Working days complete</td><td class="n">45 of 51</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div><h4>Needs you</h4><ul>
+        <li><strong>One new item on your page:</strong> the build machine&rsquo;s file indexing was switched off to free it up for the build; one command on your page turns it back on.</li>
+        <li><strong>Saturday&rsquo;s three items</strong> stand: free up space on the build machine, the designer starting from the current test branch, and the email connection.</li>
+        <li><strong>The five open questions on your page</strong> stand as before; the app follows each recommendation until you answer.</li>
+        <li><strong>The payment processor&rsquo;s agreement:</strong> hold the signature until the full terms and fees arrive, as proposed Friday.</li>
+      </ul></div>
+      <div><h4>Watching</h4><ul>
+        <li><strong>Three small faults were logged today</strong> and queued for the week of November 13: a history row a browser could label with the wrong author, a window left on an account that changed in another window, and an email a direct caller could send while emails are switched off.</li>
+        <li><strong>The update to the test site</strong> is still going through tonight; the result is checked in the morning.</li>
+        <li><strong>The sign-off book:</strong> its records read 1 mark and 2 bugs, one of them fixed today; the page remains yours to walk.</li>
+        <li>NMI&rsquo;s clock: boarding has not started, so underwriting has not started.</li>
+      </ul></div>
+    </div>
+  </article>
+
+
+
+<article class="log">
+    <header><span class="wk">The designer&rsquo;s full look is on the test branch, sign-in&rsquo;s second step is complete, and twenty-two small faults are fixed</span><span class="date">Saturday, November 7, 2026 &middot; an extra working Saturday</span><span class="pill ok">On the test branch, all checks green</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Everyone:</strong> the designer&rsquo;s full look is on the test branch, across the whole app: the new type, a sidebar whose last item is no longer hidden, and the same capitalisation on every button and label. Every automatic browser check, 3,400 of them across 18 areas, passed on it, and a second reviewer went through the merge line by line and found nothing lost.</li>
+        <li><strong>Log-in:</strong> the second step is complete. A person whose only second step is a passkey can no longer add an authenticator app with the password alone; changing the second step from a passkey session takes a one-time setup ticket, as you approved; the passkey switch fails safe when it cannot be read; and a person who signs up with Apple&rsquo;s hidden email now has a name on screen instead of a dash. The &ldquo;Forgot password&rdquo; resend wait starts on time.</li>
+        <li><strong>Setting a community up:</strong> the dog park is created with the community, with a setup step for its hours and rules; HOA Settings no longer shows an error for a community with no dues schedule yet; importing a spreadsheet after setup stays inside the app; &ldquo;Add the missing owners&rdquo; opens a list import; the agreements step opens the right screen; and a community whose only budget is published can start next year&rsquo;s.</li>
+        <li><strong>Money:</strong> a credit held for a former owner is refused to anyone outside the home, and that is now proven by a test; a homeowner&rsquo;s activity no longer shows which staff member entered a money move.</li>
+        <li><strong>Behind the scenes:</strong> the two automatic checks that failed by chance last week are steadied; a change can no longer land without its review on file; and the billing setup step&rsquo;s buttons no longer cover its heading on a tablet.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table>
+          <tbody>
+            <tr><td>Bugs fixed</td><td class="n">22</td></tr>
+            <tr><td>Unit checks passed</td><td class="n">19,593</td></tr>
+            <tr><td>Access-rule checks passed</td><td class="n">1,327</td></tr>
+            <tr><td>End-to-end checks passed</td><td class="n">705</td></tr>
+            <tr><td>Browser checks on the new look</td><td class="n">3,400</td></tr>
+            <tr><td>Working days complete</td><td class="n">45 of 51</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div><h4>Needs you</h4><ul>
+        <li><strong>Three new items on your page,</strong> each with my recommendation: free up space on the build machine, tell the designer to start his next change from the current test branch, and the email connection.</li>
+        <li><strong>The five open questions on your page</strong> stand as before; the app follows each recommendation until you answer.</li>
+        <li><strong>The payment processor&rsquo;s agreement:</strong> hold the signature until the full terms and fees arrive, as proposed Friday.</li>
+      </ul></div>
+      <div><h4>Watching</h4><ul>
+        <li><strong>Eight small faults were logged today</strong> and queued for the week of November 13: among them, a money row still naming the staff member when read directly, two screen details, and two gaps in the setup-ticket records.</li>
+        <li><strong>One automatic check sometimes needs a second run</strong> before a day can go through; its cause is on the list for Monday.</li>
+        <li><strong>The sign-off book:</strong> its records read 1 mark so far; the page remains yours to walk.</li>
+        <li>NMI&rsquo;s clock: boarding has not started, so underwriting has not started.</li>
+      </ul></div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">Money follow-ups closed, sign-in protections tightened, and a clearer record of who did what</span><span class="date">Friday, November 6, 2026 &middot; day 45</span><span class="pill ok">On the test branch, all checks green</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Selling a home:</strong> the money follow-ups found Thursday are fixed, so a credit held for a former owner reads the same everywhere it appears.</li>
+        <li><strong>Log-in:</strong> more of the one-path sign-in rebuild landed, including the passkey and second-step flows.</li>
+        <li><strong>Fixes:</strong> 28 faults fixed in all, found by earlier reviews and queued for this build.</li>
+        <li><strong>Your requirements list:</strong> 229 of 255 requirements are built.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table><tbody>
+          <tr><td>Bugs fixed</td><td class="n">28</td></tr>
+          <tr><td>Unit tests passed</td><td class="n">19,330</td></tr>
+          <tr><td>Security-rules tests passed</td><td class="n">1,324</td></tr>
+          <tr><td>Integration tests passed</td><td class="n">682</td></tr>
+          <tr><td>Working days complete</td><td class="n">44 of 51</td></tr>
+        </tbody></table></div>
+      </div>
+      <div><h4>Needs you</h4><ul>
+        <li>A few new questions are on your page, each with my recommendation. The app follows each until you answer.</li>
+      </ul></div>
+      <div><h4>Watching</h4><ul>
+        <li><strong>Payments</strong> wait on the payment processor&rsquo;s account-setup answers; no real money moves before then.</li>
+        <li><strong>Phones:</strong> Apple&rsquo;s review is still waiting; the Android release is held until the go or no-go on Friday, November 13.</li>
+        <li><strong>A few pieces carry over:</strong> part of the community-wide look-and-feel work and one sign-in setup step did not finish and move to the next build.</li>
+        <li><strong>Test site:</strong> today&rsquo;s update to the test site is still running.</li>
+      </ul></div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">The designer&rsquo;s sign-in look, one consistent log-in path, unlocking the phone app with Face ID or a quick code, and more money accuracy</span><span class="date">Thursday, November 5, 2026 &middot; day 44</span><span class="pill ok">On the test branch, all checks green</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Sign-in look:</strong> the designer&rsquo;s new look is in place on the sign-in screens.</li>
+        <li><strong>Log-in:</strong> the log-in flow was rebuilt as one consistent path. Passkeys, two-step sign-in and password reset all follow the same steps.</li>
+        <li><strong>Phone app:</strong> after the app locks for inactivity, a homeowner can unlock with Face ID, a fingerprint or a short quick code. The lock waits until the phone build has that unlock built in.</li>
+        <li><strong>Selling a home:</strong> a credit held for the former owner no longer counts as paid in three more places, among them the balances used when a violation is escalated and the list of homes behind on dues for mass messages. A refunded payment&rsquo;s history now shows the refund&rsquo;s request, approval and settlement.</li>
+        <li><strong>Community import:</strong> staff without the Financials role no longer see the homes&rsquo; opening balances.</li>
+        <li><strong>History:</strong> the community&rsquo;s shared history now records changes made automatically (community events, conversations and messages). A change to the community&rsquo;s name, address or after-hours line asks for a written reason.</li>
+        <li><strong>Smaller fixes:</strong> the &ldquo;Resume setting up&rdquo; prompt on Get started no longer appears late and pushes the buttons down; the budget editor no longer assumes one home when the home count is missing; the Change button shows in a passkey session; mass communications say &ldquo;in the app and by email&rdquo; (texts come after launch); money boxes no longer repeat &ldquo;($)&rdquo;; the rental manager invitation says it lasts 7 days; the tenancy renewal form uses the community&rsquo;s own date.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table>
+          <tbody>
+            <tr><td>Unit tests passed</td><td class="n">18,971</td></tr>
+            <tr><td>Security-rules tests passed</td><td class="n">1,295</td></tr>
+            <tr><td>Integration tests passed</td><td class="n">652</td></tr>
+            <tr><td>Working days complete</td><td class="n">43 of 51</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div><h4>Needs you</h4><ul>
+        <li>Nothing new from you today. The five open questions on your page stand, and the app follows each recommendation until you answer.</li>
+      </ul></div>
+      <div><h4>Watching</h4><ul>
+        <li><strong>Payments</strong> wait on the payment processor&rsquo;s answers on account setup; no real money moves before then.</li>
+        <li><strong>Phones:</strong> Apple&rsquo;s review of the iPhone app is still waiting. The Android release is held until the go or no-go on Friday, November 13.</li>
+        <li><strong>Four small money-display follow-ups</strong> were found today and are queued before the first real charge.</li>
+      </ul></div>
+    </div>
+  </article>
+
+
+  <article class="log">
+    <header><span class="wk">The groundwork for log-in, Apple and Google sign-in on My Account, a held credit that no longer reads as paid, and more of the community&rsquo;s history</span><span class="date">Tuesday, November 3, 2026 &middot; day 42</span><span class="pill ok">Merged, all checks green</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Log-in:</strong> every way into the app now follows one set of sign-in rules, and one counter limits repeated attempts. Invitations and join codes are harder to misuse, and a refusal says plainly why.</li>
+        <li><strong>My Account:</strong> a homeowner can see whether Apple or Google sign-in is linked to the account, and link or remove either one.</li>
+        <li><strong>Selling a home:</strong> a sold home&rsquo;s credit that is still being held no longer counts as paid in receipts, payment plans, adjustments, statements, AutoPay retries or the list of homes behind on dues. A buyer is told why no refund can be asked, and a sale&rsquo;s credit task always records its history before it closes.</li>
+        <li><strong>Privacy:</strong> a home&rsquo;s opening balance can now be read only by people with a money role. When a join review approves a transfer, the owner&rsquo;s email on the home moves to the buyer.</li>
+        <li><strong>History:</strong> the community&rsquo;s history now covers amenities, the directory, the dog park, events and staff edits to the community feed. Changing what a tenant may do asks for a reason.</li>
+        <li><strong>The Assistant</strong> tells people plainly that it is not a person.</li>
+        <li><strong>Records copy:</strong> the download of a community&rsquo;s records no longer runs out of memory for a large community.</li>
+        <li><strong>Fixes:</strong> 8 faults fixed, among them the held-credit fault that had to be fixed before the first real charge.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table>
+          <tbody>
+            <tr><td>Bugs fixed</td><td class="n">8</td></tr>
+            <tr><td>Automatic checks passed</td><td class="n">20,509</td></tr>
+            <tr><td>Working days complete</td><td class="n">42 of 51</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div><h4>Needs you</h4><ul>
+        <li><strong>The five open questions</strong> on your page, each with my recommendation; no new ones this time. The app follows each recommendation until you answer.</li>
+      </ul></div>
+      <div><h4>Watching</h4><ul>
+        <li><strong>Payments</strong> wait on NMI&rsquo;s boarding answers; no real money moves before boarding.</li>
+        <li><strong>Phones:</strong> the iPhone app is in Apple&rsquo;s review. The Android release is approved by Google and held until the go or no-go on Friday, November 13.</li>
+        <li><strong>Test site:</strong> Tuesday&rsquo;s work passed every check and an independent review found nothing blocking; the update to the test site is still running.</li>
+        <li><strong>Well ahead of the plan.</strong> The launch date is Monday, November 16.</li>
+      </ul></div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">No build day: Sunday&rsquo;s work merged</span><span class="date">Monday, November 2, 2026 &middot; no build scheduled</span><span class="pill mute">No build</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Sunday&rsquo;s work</strong> was merged on Monday morning after every check passed.</li>
+        <li><strong>The designer&rsquo;s new look</strong> is now planned for Monday, November 9, with its sign-in screens first, from Wednesday, November 4.</li>
+      </ul></div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">A Property Manager&rsquo;s money tasks handed out one by one, a copy of the community&rsquo;s records with its documents and ledger, a Household Administrator, and a vote that opens on its own date</span><span class="date">Sunday, November 1, 2026 &middot; extra build day</span><span class="pill ok">Merged, all checks green</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Property Managers:</strong> a manager&rsquo;s money tasks are no longer given with the role. The community hands out each one (refunds, delinquency, fines and so on), and a screen shows only what that manager may do.</li>
+        <li><strong>Records copy:</strong> the copy of a community&rsquo;s records that a President can ask for now carries its documents and its ledger.</li>
+        <li><strong>Households:</strong> a Household Administrator manages the household&rsquo;s members and details.</li>
+        <li><strong>Voting:</strong> a vote opens on its own start date.</li>
+        <li><strong>Naming an owner:</strong> the last door, a join review, now asks for the deed or closing record too.</li>
+        <li><strong>Selling a home:</strong> a credit held for the former owner reads the same on an invoice, a late fee, a reminder and a letter, and the buyer&rsquo;s refund request can no longer name the seller&rsquo;s payment.</li>
+        <li><strong>Records and screens:</strong> old records are removed under one list of closed violations, the history and reasons behind sensitive changes are further along, and a long list in a desktop dialog opens below its field.</li>
+        <li><strong>Fixes:</strong> 9 faults fixed.</li>
+        <li><strong>Your requirements list:</strong> 225 of 255 requirements are built, 27 are partly built and 3 are not built yet. Two that read as built on Saturday are now counted as partly built after the review of the work.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table>
+          <tbody>
+            <tr><td>Bugs fixed</td><td class="n">9</td></tr>
+            <tr><td>Automatic checks passed</td><td class="n">20,151</td></tr>
+            <tr><td>Requirements built</td><td class="n">225 of 255</td></tr>
+            <tr><td>Working days complete</td><td class="n">41 of 51</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div><h4>Needs you</h4><ul>
+        <li><strong>NMI&rsquo;s answers</strong> on the merchant-account dates and the boarding call; boarding cannot start without them.</li>
+        <li><strong>Three new questions</strong> are on their way to your page, each with my recommendation: whether a staff import counts as naming an owner, who may message the homes behind on dues, and whether a manager with no money tasks may charge a fine. The app follows each recommendation until you answer.</li>
+      </ul></div>
+      <div><h4>Watching</h4><ul>
+        <li><strong>Well ahead of the plan:</strong> Monday and Tuesday need no more building to stay on track. The launch date is Monday, November 16, with the go or no-go on Friday, November 13.</li>
+        <li><strong>One money fault to fix before the first real charge:</strong> a credit held for a former owner is counted as paid in receipts, payment plans and adjustments; the balance list is right. It is first in line.</li>
+        <li><strong>Test site:</strong> Sunday&rsquo;s work is on the test site and its checks passed.</li>
+        <li><strong>Checkpoints past due:</strong> protection and monitoring, the Android app, and the last parts of your Core list.</li>
+        <li>NMI&rsquo;s clock: boarding has not started, so underwriting has not started.</li>
+      </ul></div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">Visitor passes by kind, a link for the guest, refunds of a sold home&rsquo;s credit, and a first owner named with the deed or closing record</span><span class="date">Saturday, October 31, 2026 &middot; extra build day</span><span class="pill ok">Merged, all checks green</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Visitors:</strong> a pass reads as a single-entry pass or a temporary visitor pass of up to 14 days. A guest gets a link to an arrival page with the community&rsquo;s entry instructions; the gate code stays out of every pass.</li>
+        <li><strong>Naming a home&rsquo;s first owner:</strong> this now asks for the verified deed or closing record. One door is left: a join review, logged below.</li>
+        <li><strong>Selling a home:</strong> a refund of the credit left at a sale now closes that credit, and a homeowner&rsquo;s balance shows its charges by kind.</li>
+        <li><strong>Voting:</strong> &ldquo;Who has answered&rdquo; counts only homes now in the community.</li>
+        <li><strong>Board:</strong> a single New button takes the place of Quick Actions. The owner-code choice in Join settings reads correctly, and someone who is signed in can switch accounts from Get started.</li>
+        <li><strong>Directory:</strong> a person can show their email without showing their phone number.</li>
+        <li><strong>Retention and agreements:</strong> a small piece of how old records are removed was finished, and the community agreements have a new card, which still needs its browser check.</li>
+        <li><strong>Fixes:</strong> 14 faults fixed, among them the money follow-ups logged Thursday.</li>
+        <li><strong>Your requirements list:</strong> 227 of 255 requirements are now built, 25 are partly built and 3 are not built yet.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table>
+          <tbody>
+            <tr><td>Bugs fixed</td><td class="n">14</td></tr>
+            <tr><td>Automatic checks passed</td><td class="n">19,577</td></tr>
+            <tr><td>Requirements built</td><td class="n">227 of 255</td></tr>
+            <tr><td>Working days complete</td><td class="n">40 of 51</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div><h4>Needs you</h4><ul>
+        <li><strong>NMI&rsquo;s answers</strong> on the merchant-account dates and the boarding call; boarding cannot start without them.</li>
+        <li><strong>Two new questions</strong> are coming to your page, each with my recommendation: whether a recurring pass stays outside the 14-day limit, and whether a host can share a gate or a parking space on a pass. The app follows each recommendation until you answer.</li>
+      </ul></div>
+      <div><h4>Watching</h4><ul>
+        <li><strong>Well ahead of the plan:</strong> Monday needs no more building to stay on track. The launch date is Monday, November 16, with the go or no-go on Friday, November 13.</li>
+        <li><strong>One planned piece did not finish:</strong> taking money permissions away from the Property Manager. It is partly built and goes first on Monday.</li>
+        <li><strong>Six small faults logged</strong> in the review of Saturday&rsquo;s work, among them the join review above; each is queued.</li>
+        <li><strong>Checkpoints past due:</strong> protection and monitoring, the Android app, and the last parts of your Core list.</li>
+        <li><strong>The merge to the test site</strong> is going through; I will confirm it there on Monday.</li>
+        <li>NMI&rsquo;s clock: boarding has not started, so underwriting has not started.</li>
+      </ul></div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">No build day: the launch date moved to Monday, November 16</span><span class="date">Friday, October 30, 2026 &middot; day 40</span><span class="pill mute">No build</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Thursday&rsquo;s work</strong> passed on the test site.</li>
+        <li><strong>The launch date</strong> moved from Monday, November 2 to Monday, November 16.</li>
+        <li><strong>Your page:</strong> one new question, the company&rsquo;s exact legal name, and a new video, &ldquo;Look and feel update: phase 1&rdquo;.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table>
+          <tbody>
+            <tr><td>Requirements built</td><td class="n">226 of 255</td></tr>
+            <tr><td>Working days complete</td><td class="n">40 of 51</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">Secret ballots finished, an open vote that can no longer be changed, a paused subscription that ends on a known day, and the community setup steps completed</span><span class="date">Thursday, October 29, 2026 &middot; day 39</span><span class="pill ok">Merged, all checks green</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Voting:</strong> the link between when a ballot came in and what it said is broken, so a secret ballot stays secret. An owner of two homes casts one ballot per home, and &ldquo;Who has answered&rdquo; counts each home once. Once a vote is open, its questions and rules can no longer be changed.</li>
+        <li><strong>The community&rsquo;s HOAhx subscription:</strong> HOAhx staff can hold a past-due account, a second approver signs off on it, and the billing contacts are reminded 7 days and 1 day before the hold ends. Staff can choose to restore access during the hold. The past-due banner reads plainly while a bank payment clears.</li>
+        <li><strong>Get started:</strong> governing-document upload, a preview of what homeowners will see, and a renewal reminder are in; the President can preview the community before going live.</li>
+        <li><strong>Selling a home:</strong> a credit held at a sale stays out of the buyer&rsquo;s balance and out of their payment limit, and a tenant who was not marked at the handoff is found and confirmed by the President.</li>
+        <li><strong>Quiet hours and reminders:</strong> emails that fall in a homeowner&rsquo;s quiet hours are held and sent when they end, and an event reminder is sent only once.</li>
+        <li><strong>Sensitive actions:</strong> every action that needs a second person is proven end to end: a hand-recorded payment, its refund and a permanent deletion each refuse the person who asked, and each leaves a history row.</li>
+        <li><strong>Safety nets:</strong> a list that cannot load now says so instead of showing nothing, a request that is sent twice is created once, and there is a switch that pauses homeowner dues payments if it is ever needed. Rollback steps for the web app, the back end and the rules are written down; an on-call owner is named for each period.</li>
+        <li><strong>Phones and sign-in:</strong> the sign-in and onboarding screens follow Tenyson&rsquo;s look, and the phone screens were checked for accessibility.</li>
+        <li><strong>Fixes:</strong> 8 faults fixed, among them the Add Resident label, the past-due wording and the vehicle shown twice.</li>
+        <li><strong>Your requirements list:</strong> 226 of 255 requirements are now built, 26 are partly built and 3 are not built yet.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table>
+          <tbody>
+            <tr><td>Bugs fixed</td><td class="n">8</td></tr>
+            <tr><td>Automatic checks passed</td><td class="n">19,304</td></tr>
+            <tr><td>Requirements built</td><td class="n">226 of 255</td></tr>
+            <tr><td>Working days complete</td><td class="n">39 of 41</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div><h4>Needs you</h4><ul>
+        <li><strong>NMI&rsquo;s answers</strong> on the merchant-account dates and the boarding call; boarding cannot start without them.</li>
+        <li><strong>Your open questions</strong> on your page, each with my recommendation; the app follows each until you answer.</li>
+      </ul></div>
+      <div><h4>Watching</h4><ul>
+        <li><strong>Well ahead of the plan:</strong> Thursday finished about ten times what was planned, and Friday needs no more building to stay on track. The October 21 aim is not met; November 2 is the latest date.</li>
+        <li><strong>Checkpoints past due:</strong> protection and monitoring, the Android app, and the last parts of your Core list.</li>
+        <li><strong>Small faults logged:</strong> a few follow-ups on money held at a sale, and on the join settings for owner codes; each is queued.</li>
+        <li><strong>The merge to the test site</strong> was confirmed there on Friday.</li>
+        <li>NMI&rsquo;s clock: boarding has not started, so underwriting has not started.</li>
+      </ul></div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">A sold home&rsquo;s tenants confirmed by the President, a bank payment that is still clearing, ballot totals hidden until a vote closes, and leases kept to one home</span><span class="date">Wednesday, October 28, 2026 &middot; day 38</span><span class="pill ok">Merged, all checks green</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Selling a home:</strong> at the handoff the seller&rsquo;s access and future AutoPay for that home end, but the home&rsquo;s tenants are no longer cut off. The President confirms whether each tenant stays or leaves, and the tenant, the buyer and the former owner are each told. A handoff waits while a refund or void on the home is still being decided.</li>
+        <li><strong>The community&rsquo;s HOAhx subscription:</strong> a bank payment on a past-due account reads &ldquo;Bank payment processing&rdquo; and restores full access while it clears; if the bank returns it, the account goes back to where it was. Only bank returns in the last 12 months count against a community.</li>
+        <li><strong>Voting:</strong> the running totals of an open vote are hidden from everyone, the board included, until it closes; only the number of ballots in so far shows. On a vote of the owners, only an owner, a co-owner or the home&rsquo;s named representative can cast the home&rsquo;s ballot. A survey says plainly that it is not a binding vote.</li>
+        <li><strong>Documents:</strong> a lease or another document can be filed for one home only, marked &ldquo;One home only&rdquo;; that home&rsquo;s tenant and owner see it, and nobody else in the community does.</li>
+        <li><strong>Naming an owner:</strong> every way of making someone a home&rsquo;s owner, including an invitation, a join code and a co-owner join request, now asks for a reason and a second approver.</li>
+        <li><strong>Get started:</strong> a board member who is already signed in can set up a new community or pick up the one she started; after launch, &ldquo;Go to Dashboard&rdquo; no longer sends her back to setup. Tuesday&rsquo;s held setup steps and the urgent-alert read fix are merged.</li>
+        <li><strong>Fixes:</strong> 4 faults fixed, among them the two found Tuesday.</li>
+        <li><strong>Your requirements list:</strong> 218 of 255 requirements are now built, 34 are partly built and 3 are not built yet.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table>
+          <tbody>
+            <tr><td>Bugs fixed</td><td class="n">4</td></tr>
+            <tr><td>Automatic checks passed</td><td class="n">18,986</td></tr>
+            <tr><td>Requirements built</td><td class="n">218 of 255</td></tr>
+            <tr><td>Working days complete</td><td class="n">38 of 41</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div><h4>Needs you</h4><ul>
+        <li><strong>NMI&rsquo;s answers</strong> on the merchant-account dates and the boarding call; boarding cannot start without them.</li>
+        <li><strong>Four new questions</strong> are coming to your page, each with my recommendation, among them a second notice when a bank payment clears and how a co-owner approved from a join request is named. The app follows each recommendation until you answer.</li>
+      </ul></div>
+      <div><h4>Watching</h4><ul>
+        <li><strong>Ahead of the plan:</strong> Wednesday finished far more than planned. The October 21 aim is not met; November 2 is the latest date.</li>
+        <li><strong>Secret ballots:</strong> hiding the totals is done; keeping who voted apart from how they voted is the piece left, planned next.</li>
+        <li><strong>Small faults logged:</strong> a label on Add Resident, the wording of the past-due banner, and two follow-ups on owner join codes and bank payments; each is queued.</li>
+        <li><strong>Checkpoints past due:</strong> protection and monitoring, the Android app, and the last parts of your Core list.</li>
+        <li>NMI&rsquo;s clock: boarding has not started, so underwriting has not started.</li>
+      </ul></div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">A day to catch up: Monday&rsquo;s work confirmed on the test site, the walkthrough videos extended, and the open questions list tidied</span><span class="date">Tuesday, October 27, 2026 &middot; day 37</span><span class="pill ok">Test site updated, all checks green</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>The test site:</strong> Monday&rsquo;s work is now on the test site, and every automatic check there passed.</li>
+        <li><strong>Walkthrough videos:</strong> four videos of finished parts of the app were added to the owners&rsquo; video list, and two more (an urgent alert from the board to every home, and a document signed by a homeowner) are recorded and waiting for my review before they reach you.</li>
+        <li><strong>Get started:</strong> the setup steps for a new community are built further, with a features grid that fits a phone and a way to add residents and board members from a spreadsheet. They are held for the next merge.</li>
+        <li><strong>Urgent alerts:</strong> a homeowner who reads the newest open alert now has it counted as read without an extra tap; the fix is built and waits for the next merge.</li>
+        <li><strong>Your open questions:</strong> the Meetings questions are set aside until after launch, so your page now carries 14 open questions instead of 25.</li>
+        <li><strong>Your requirements list:</strong> still 216 of 255 requirements built, 35 partly built and 4 not built yet; no new feature was merged today.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table>
+          <tbody>
+            <tr><td>Bugs fixed</td><td class="n">0 merged</td></tr>
+            <tr><td>Requirements built</td><td class="n">216 of 255</td></tr>
+            <tr><td>Working days complete</td><td class="n">37 of 41</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div><h4>Needs you</h4><ul>
+        <li><strong>NMI&rsquo;s answers</strong> on the merchant-account dates and the boarding call; boarding cannot start without them.</li>
+        <li><strong>14 open questions</strong> on your page, each with my recommendation; the app follows each until you answer.</li>
+      </ul></div>
+      <div><h4>Watching</h4><ul>
+        <li><strong>Ahead of the plan:</strong> the work is well ahead, so a day without a full build run does not move the dates. The October 21 aim is not met; November 2 is the latest date.</li>
+        <li><strong>Two new faults logged:</strong> after a board member finishes Get started, &ldquo;Go to Dashboard&rdquo; can send her back to setup, and an urgent alert read on arrival is not counted as read. Both are queued first for Wednesday.</li>
+        <li><strong>Checkpoints past due:</strong> protection and monitoring, the Android app, and the last parts of your Core list.</li>
+        <li>NMI&rsquo;s clock: boarding has not started, so underwriting has not started.</li>
+      </ul></div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">Safer sales of a home, account protection for owner changes, viewable community logos, and the eleven faults from Saturday fixed</span><span class="date">Monday, October 26, 2026 &middot; day 36</span><span class="pill ok">Merged, all checks green</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Selling a home:</strong> a buyer named under another email can no longer read the seller&rsquo;s earlier payment history before the handoff, the credit left on the account at a sale is handled, and what a buyer and a seller each see around the handoff is settled.</li>
+        <li><strong>Naming an owner:</strong> naming a home&rsquo;s owner now asks a second person to approve it in more of the places it can happen.</li>
+        <li><strong>Community logo:</strong> a community can upload its logo during setup.</li>
+        <li><strong>Collections:</strong> a home that is behind can be assigned to a person to follow up, and the letters sent are in its history.</li>
+        <li><strong>Passkeys:</strong> the sign-in flow on a phone asks once instead of twice, and the wording of the identity prompts is clearer.</li>
+        <li><strong>Legal holds:</strong> lifting a hold now needs a second approver, and the screen shows it.</li>
+        <li><strong>Fixes:</strong> 12 faults fixed, among them all eleven found in the Saturday review.</li>
+        <li><strong>Your requirements list:</strong> 216 of 255 requirements are now built, 35 are partly built and 4 are not built yet.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table>
+          <tbody>
+            <tr><td>Bugs fixed</td><td class="n">12</td></tr>
+            <tr><td>Requirements built</td><td class="n">216 of 255</td></tr>
+            <tr><td>Working days complete</td><td class="n">36 of 41</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div><h4>Needs you</h4><ul>
+        <li><strong>NMI&rsquo;s answers</strong> on the merchant-account dates; boarding cannot start without them.</li>
+        <li><strong>Your questions on your page</strong> still carry my recommendations; the app follows each until you answer.</li>
+      </ul></div>
+      <div><h4>Watching</h4><ul>
+        <li><strong>Ahead of the plan:</strong> the work is well ahead and Tuesday is lightly loaded. The October 21 aim is not met; November 2 is the latest date.</li>
+        <li><strong>Checkpoints past due:</strong> protection and monitoring, the Android app, and the last parts of your Core list.</li>
+        <li><strong>The merge to the test site</strong> is going through; I will confirm it there on Tuesday.</li>
+        <li>NMI&rsquo;s clock: boarding has not started, so underwriting has not started.</li>
+      </ul></div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">Passkey sign-in on Android, violation notices with photos, a fix for two-home voting, and the President protected from every side</span><span class="date">Saturday, October 24, 2026 &middot; extra build day</span><span class="pill ok">Merged, all checks green</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Passkeys:</strong> signing in with a passkey on an Android phone now works; it said &ldquo;no passkey yet&rdquo; even after one was added. The &ldquo;Add a passkey&rdquo; window is no longer hidden by the phone&rsquo;s keyboard, and &ldquo;Confirm it&rsquo;s you&rdquo; asks a Google or Apple sign-in for the same method instead of a password.</li>
+        <li><strong>Violations:</strong> a notice drafted by one person now carries the evidence photos when the reviewer approves it, and the Violations filter lists the community&rsquo;s own types, not only the starter ones.</li>
+        <li><strong>Voting:</strong> a board member who owns two homes is no longer blocked on the second home once the first has voted, and the list names the home&rsquo;s current representative.</li>
+        <li><strong>Protection for the President:</strong> a community&rsquo;s only President can no longer be disarmed through a custom role, closing the last of three ways.</li>
+        <li><strong>Tenants:</strong> the settings the office sets on a tenant&rsquo;s invitation are no longer taken as the owner&rsquo;s own choices.</li>
+        <li><strong>Get started:</strong> when HOAhx staff move a trial&rsquo;s end date, the trial the community is billed on moves with it.</li>
+        <li><strong>Selling a home, households and architectural review:</strong> more pieces of each are in, among them what a buyer and a seller see around the handoff.</li>
+        <li><strong>Fixes:</strong> 12 faults fixed.</li>
+        <li><strong>Your requirements list:</strong> 209 of 255 requirements are now built, 42 are partly built and 4 are not built yet.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table>
+          <tbody>
+            <tr><td>Bugs fixed</td><td class="n">12</td></tr>
+            <tr><td>Requirements built</td><td class="n">209 of 255</td></tr>
+            <tr><td>Working days complete</td><td class="n">35 of 41</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div><h4>Needs you</h4><ul>
+        <li><strong>NMI&rsquo;s answers</strong> on the merchant-account dates; boarding cannot start without them.</li>
+        <li><strong>Two new questions</strong> are coming to your page, each with my recommendation: what ends at the handoff of a sold home (the seller&rsquo;s tenants and AutoPay), and who may read a home&rsquo;s money history after a sale. The app follows each recommendation until you answer.</li>
+      </ul></div>
+      <div><h4>Watching</h4><ul>
+        <li><strong>Ahead of the plan:</strong> Saturday&rsquo;s extra build day finished far more than a normal day, and Monday is lightly loaded. The October 21 aim is not met; November 2 is the latest date.</li>
+        <li><strong>Checkpoints past due:</strong> protection and monitoring, the Android app, and the last parts of your Core list.</li>
+        <li><strong>Eleven small faults found</strong> in a review of Saturday&rsquo;s work. One matters most: a buyer named under another email could read the seller&rsquo;s earlier payment detail for a short window before the handoff. It is fixed first on Monday.</li>
+        <li><strong>The merge to the test site</strong> is still going through; I will confirm it there on Monday.</li>
+        <li>NMI&rsquo;s clock: boarding has not started, so underwriting has not started.</li>
+      </ul></div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">Sensitive actions ask for a reason, violation types and notices, a voting fix, and the Get started address match</span><span class="date">Friday, October 23, 2026 &middot; day 35</span><span class="pill ok">Merged, all checks green</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Sensitive actions:</strong> twelve actions that change who can see or do what now ask for a reason, and the reason is kept in the community&rsquo;s history.</li>
+        <li><strong>Violations:</strong> a community sets its own violation types, and a notice can be drafted by one person and reviewed by another before the homeowner sees it. The homeowner can acknowledge a correction.</li>
+        <li><strong>Voting:</strong> a President who stands in a vote no longer blocks it, and only the home&rsquo;s chosen representative can vote for the home.</li>
+        <li><strong>Get started:</strong> a board member&rsquo;s sign-up finds an existing community by its address, and a homeowner can ask to join from the same flow; the President decides the request. The Google and Apple sign-in steps are still to be checked on the test site.</li>
+        <li><strong>The community&rsquo;s HOAhx subscription:</strong> the old card path is fully retired, a late payment now alerts the billing contacts, and the lapse notices go to the right people. Late fees stay off by default.</li>
+        <li><strong>Budget:</strong> a month&rsquo;s actual spending can be imported against the budget.</li>
+        <li><strong>Selling a home:</strong> the transfer package can be released against a payment taken at closing.</li>
+        <li><strong>Support access:</strong> HOAhx support sees only what the community&rsquo;s authorization covers, and loses it the moment the President takes it back.</li>
+        <li><strong>Fixes:</strong> 18 faults fixed, among them payment receipts, the dispute reply date, a launch field a trial could be stretched with, and the way a form shows a photo while it uploads.</li>
+        <li><strong>Your requirements list:</strong> 191 of 255 requirements are now built, 60 are partly built and 4 are not built yet.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table>
+          <tbody>
+            <tr><td>Bugs fixed</td><td class="n">18</td></tr>
+            <tr><td>Requirements built</td><td class="n">191 of 255</td></tr>
+            <tr><td>Working days complete</td><td class="n">35 of 41</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div><h4>Needs you</h4><ul>
+        <li><strong>NMI&rsquo;s answers</strong> on the merchant-account dates; boarding cannot start without them.</li>
+        <li><strong>Three new questions</strong> are coming to your page, each with my recommendation: one on enforcement and two on the community subscription. The app follows each recommendation until you answer.</li>
+      </ul></div>
+      <div><h4>Watching</h4><ul>
+        <li><strong>Back on pace:</strong> Friday finished far more than planned and closed the gap. The October 21 aim is not met; November 2 is the latest date.</li>
+        <li><strong>Checkpoints past due:</strong> protection and monitoring, the Android app, and the last parts of your Core list.</li>
+        <li><strong>The merge to the test site</strong> is still going through; I will confirm it there on Monday.</li>
+        <li>NMI&rsquo;s clock: boarding has not started, so underwriting has not started.</li>
+      </ul></div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">The old card path retired, matching an existing community, and the launch checklist&rsquo;s set-up stage</span><span class="date">Thursday, October 22, 2026 &middot; day 34</span><span class="pill ok">On the test site</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>The community&rsquo;s HOAhx subscription:</strong> billing runs on NMI only; the old card path is gone from the app.</li>
+        <li><strong>Get started:</strong> a board member&rsquo;s sign-up matches an existing community, and a new community passes through the launch checklist&rsquo;s set-up stage before it goes live.</li>
+        <li><strong>Fixes:</strong> 5 faults fixed.</li>
+        <li><strong>Your requirements list:</strong> 177 of 255 requirements are now built, 72 are partly built and 6 are not built yet.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table>
+          <tbody>
+            <tr><td>Bugs fixed</td><td class="n">5</td></tr>
+            <tr><td>Requirements built</td><td class="n">177 of 255</td></tr>
+            <tr><td>Working days complete</td><td class="n">34 of 41</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div><h4>Needs you</h4><ul>
+        <li><strong>Nine questions</strong> were added to your page, each with my recommendation; the app follows each until you answer.</li>
+        <li><strong>NMI&rsquo;s answers</strong> on the merchant-account dates.</li>
+      </ul></div>
+      <div><h4>Watching</h4><ul>
+        <li><strong>Behind the plan, and the gap narrowed:</strong> Thursday finished more than four times what was planned. The October 21 aim is not met; November 2 is the latest date.</li>
+        <li>NMI&rsquo;s clock: boarding has not started, so underwriting has not started.</li>
+      </ul></div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">Holding and releasing a transfer payment, faster sign-in at start, and the first Get started steps</span><span class="date">Wednesday, October 21, 2026 &middot; day 33</span><span class="pill ok">On the test site</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Selling a home:</strong> a payment taken for the transfer package can be held, released or cancelled, and each step is in the home&rsquo;s history.</li>
+        <li><strong>Get started:</strong> more of the board sign-up, including confirming an email and starting the trial.</li>
+        <li><strong>Sign-in:</strong> the first screens load faster at the moment someone opens the app.</li>
+        <li><strong>Checks:</strong> several automatic tests that failed at random were made steadier.</li>
+        <li><strong>Fixes:</strong> 2 faults fixed.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table>
+          <tbody>
+            <tr><td>Bugs fixed</td><td class="n">2</td></tr>
+            <tr><td>Working days complete</td><td class="n">33 of 41</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div><h4>Watching</h4><ul>
+        <li><strong>Behind the plan:</strong> about 46 estimated hours behind at the end of the day, with part of Wednesday&rsquo;s finished work waiting to be merged on Thursday. November 2 is the latest date.</li>
+        <li>NMI&rsquo;s clock: boarding has not started, so underwriting has not started.</li>
+      </ul></div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">The subscription when a payment is late, the HOA activity log, survey scheduling, and the first half of the Get started sign-up</span><span class="date">Tuesday, October 20, 2026 &middot; day 32</span><span class="pill ok">On the test site</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>The community&rsquo;s HOAhx subscription:</strong> what happens when a payment is late, past due or lapsed is finished, including the card-expiry notice and the alert to update a payment method. It stays off until it is checked with real records.</li>
+        <li><strong>The HOA activity log:</strong> the shared history now covers the pieces left, and the indexes behind My Activity are live, so a homeowner&rsquo;s Activity page loads from the live site.</li>
+        <li><strong>Surveys:</strong> a survey can be scheduled for a start and end date and sent to the audience the board chooses.</li>
+        <li><strong>Get started:</strong> the sign-up flow for a board member is partly built: confirming an email, starting the trial and matching a community that already exists. The rest is planned to be merged by Saturday, October 24.</li>
+        <li><strong>Selling a home and launching a community:</strong> a few more pieces of the transfer package and of the launch checklist are in.</li>
+        <li><strong>Your requirements list:</strong> 176 of 255 requirements are now built, 73 are partly built and 6 are not built yet.</li>
+        <li><strong>Fixes:</strong> 12 faults fixed.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table>
+          <tbody>
+            <tr><td>Bugs fixed</td><td class="n">12</td></tr>
+            <tr><td>Requirements built</td><td class="n">176 of 255</td></tr>
+            <tr><td>Working days complete</td><td class="n">32 of 41</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div><h4>Needs you</h4><ul>
+        <li><strong>NMI&rsquo;s answers</strong> on the merchant-account dates; boarding cannot start without them.</li>
+        <li><strong>New questions</strong> are coming to your page, each with my recommendation. The app follows each recommendation until you answer.</li>
+      </ul></div>
+      <div><h4>Watching</h4><ul>
+        <li><strong>Behind the plan, and the gap widened:</strong> the work is about 38 estimated hours behind. The Get started sign-up now has a new target of Saturday, October 24. The October 21 aim is not met; November 2 is the latest date.</li>
+        <li><strong>Checkpoints past due:</strong> protection and monitoring, the Android app, and the first parts of your Core list.</li>
+        <li><strong>The merge to the test site</strong> has not been confirmed there yet.</li>
+        <li>NMI&rsquo;s clock: boarding has not started, so underwriting has not started.</li>
+      </ul></div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">The live site caught up, the iPhone app sent to Apple, architectural review in full, and a community&rsquo;s launch checklist</span><span class="date">Monday, October 19, 2026 &middot; day 31</span><span class="pill ok">On the test site</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>On the live site:</strong> everything built through Saturday, October 17 was released, with the alerts that tell us when something breaks.</li>
+        <li><strong>Phones:</strong> the iPhone app is sent to Apple for review, and the Android app is on Google Play&rsquo;s internal test track.</li>
+        <li><strong>Architectural review:</strong> the full application and review, from the homeowner&rsquo;s request to the board&rsquo;s decision and what happens next.</li>
+        <li><strong>Homeowners:</strong> the payments screen shows what is owed, what was paid and what comes next in one place; an owner&rsquo;s choice of whether a tenant may book amenities is held by the app.</li>
+        <li><strong>Launch checklist:</strong> a community moves from setup to preview to live, and the President sees what is left before going live.</li>
+        <li><strong>Get started:</strong> the first part of Tenyson&rsquo;s sign-up flow, which you asked to come first after October 21.</li>
+        <li><strong>The board:</strong> a Property Manager&rsquo;s and an HOA Administrator&rsquo;s permissions follow your answers; surveys and votes gain more of their pieces.</li>
+        <li><strong>The community&rsquo;s HOAhx subscription:</strong> what happens when a payment is late, past due or lapsed is mostly built and stays off until the rest is in.</li>
+        <li><strong>Fixes:</strong> 22 faults fixed, among them the two payment faults found Saturday.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table>
+          <tbody>
+            <tr><td>Bugs fixed</td><td class="n">22</td></tr>
+            <tr><td>Automatic checks passed</td><td class="n">15,391</td></tr>
+            <tr><td>Working days complete</td><td class="n">31 of 41</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div><h4>Needs you</h4><ul>
+        <li><strong>Two new questions</strong> are coming to your page, each with my recommendation: who sets the fee for a home&rsquo;s transfer package, and what a title company sees and for how long. The app follows each recommendation until you answer.</li>
+        <li><strong>NMI&rsquo;s answers</strong> on the merchant-account dates; the questions went out Monday evening.</li>
+      </ul></div>
+      <div><h4>Watching</h4><ul>
+        <li><strong>Behind the plan:</strong> Monday finished slightly less than planned, and part of it waited on NMI. October 21 stands; November 2 is the latest date.</li>
+        <li><strong>Apple&rsquo;s review</strong> of the iPhone app, up to two days; it is released by hand once approved.</li>
+        <li><strong>Checkpoints past due:</strong> protection and monitoring, the Android app, and the first two parts of your Core list.</li>
+        <li>NMI&rsquo;s clock: boarding has not started, so underwriting has not started.</li>
+      </ul></div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">Late fees on the invoice, groups of homes with their own dues, bookings for every amenity, exports without private details, tenant renewals, and each record&rsquo;s history</span><span class="date">Saturday, October 17, 2026 &middot; extra build day</span><span class="pill ok">Live</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Dues:</strong> groups of homes with their own dues are finished: the Treasurer or President places homes in a group and sets its amount, and every change is in the community&rsquo;s history. Late fees show on the home&rsquo;s invoice, and the homeowner, the President and the Treasurer each see them.</li>
+        <li><strong>Amenities:</strong> the clubhouse booking runs through one checked path, with a reminder the day before the booking.</li>
+        <li><strong>Exports and templates:</strong> requests and violations export without private details, and each message template says what it is for and who may use it.</li>
+        <li><strong>Tenants:</strong> an owner sees past tenants with their dates, and can renew a tenancy that ended at a move-out.</li>
+        <li><strong>History:</strong> a violation&rsquo;s history can be searched and filtered by date; the Secretary and Treasurer see its status lines only, never the board&rsquo;s notes.</li>
+        <li><strong>Private contact details:</strong> phone numbers and emails on the roster are masked; an officer who needs one gives a reason, and the homeowner sees on their Activity page that it was looked at.</li>
+        <li><strong>Your account:</strong> &ldquo;Sign out everywhere&rdquo; and the time you last signed in, on My Account.</li>
+        <li><strong>Calendar, households and the board:</strong> the rest of the calendar, the office deciding a change of legal name, who lives in a home following what is recorded, and the board&rsquo;s own work list.</li>
+        <li><strong>Fixes:</strong> the four faults found Friday are fixed, among them a plan purchase while an earlier charge is still being applied and board-only folders.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table>
+          <tbody>
+            <tr><td>Bugs fixed</td><td class="n">52</td></tr>
+            <tr><td>Automatic checks passed</td><td class="n">14,568</td></tr>
+            <tr><td>Working days complete</td><td class="n">30 of 41</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div><h4>Needs you</h4><ul>
+        <li><strong>Two new questions</strong> are coming to your page, each with my recommendation: whether an officer may place their own home in a dues group, and closing an account compared with moving out. The app follows each recommendation until you answer.</li>
+        <li><strong>Pricing with NMI,</strong> so boarding can start; Monday&rsquo;s live payment checks wait on it.</li>
+      </ul></div>
+      <div><h4>Watching</h4><ul>
+        <li><strong>Behind the plan, closing a little:</strong> Saturday finished more than it was planned for, and Monday is loaded full. October 21 stands; November 2 is the latest date.</li>
+        <li><strong>Checkpoints past due:</strong> protection and monitoring, the phone apps and their test builds, the store submission, and the first two parts of your Core list.</li>
+        <li><strong>Two payment faults found</strong> in a review of the payment screen: a payment pressed again while the first is still with NMI could be charged twice. Both are fixed before any real payment.</li>
+        <li>NMI&rsquo;s clock: boarding has not started, so underwriting has not started.</li>
+      </ul></div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">Payment plans for a home that is behind, live updates inside the app, events that repeat, and the community&rsquo;s HOAhx subscription on NMI</span><span class="date">Friday, October 16, 2026 &middot; day 30</span><span class="pill ok">On the test site</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Payment plans:</strong> the Treasurer or President sets up a plan for a home that is behind, from 2 to 12 monthly payments; a second person approves it and offers it to the homeowner, who accepts it on the payments screen and sees each payment, the next one and anything missed. A homeowner who falls behind on the plan is told what is past due and who to write to, and each receipt says which payment of the plan it covered.</li>
+        <li><strong>Treasurer:</strong> a &ldquo;Needs you: payment problems&rdquo; card on Financials lists returned, disputed and double payments in one place.</li>
+        <li><strong>Live updates inside the app:</strong> the iPhone and Android apps can take a new version of the app without a store release, as you agreed. It stays off until its keys are set up, and never reloads in the middle of a payment or while someone is typing.</li>
+        <li><strong>Calendar:</strong> an event can repeat every week or every month, entered once; a change or cancellation applies to that date only, or to it and the later ones.</li>
+        <li><strong>Board:</strong> the work queue is sorted by priority and then due date, and a request can be assigned straight from the queue; the person assigned is told.</li>
+        <li><strong>History:</strong> each payment on the homeowner&rsquo;s payments screen has its own history, and the board&rsquo;s notes on a violation stay out of the histories that homeowners read.</li>
+        <li><strong>Homes:</strong> a main home with units still in use cannot be archived, and naming an owner also sets who lives there.</li>
+        <li><strong>The community&rsquo;s HOAhx subscription:</strong> the plan is kept in NMI&rsquo;s form; HOAhx staff see how many communities are paid, in a trial or past due; the setup wizard names the community&rsquo;s own price instead of a fixed one.</li>
+        <li><strong>Phones:</strong> the first iPhone test build is built and runs on a phone. Signing in again inside the app now uses the phone&rsquo;s own sign-in, and the Android release build is ready for its first upload to Google Play.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table>
+          <tbody>
+            <tr><td>Bugs fixed</td><td class="n">19</td></tr>
+            <tr><td>Automatic checks passed</td><td class="n">13,664</td></tr>
+            <tr><td>Working days complete</td><td class="n">30 of 41</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div><h4>Needs you</h4><ul>
+        <li><strong>One new question</strong> is coming to your page, with my recommendation: when several people of one home vote, the home counts once. The app follows the recommendation until you answer.</li>
+        <li><strong>Pricing with NMI,</strong> so boarding can start; the live payment checks on Monday wait on it.</li>
+      </ul></div>
+      <div><h4>Watching</h4><ul>
+        <li><strong>Behind the plan, and Friday widened the gap:</strong> seven planned pieces did not start, among them exports, tenant renewals, late fees on the invoice and amenity bookings. They move to Saturday and Monday, and Saturday is loaded full. October 21 stands; November 2 is the latest date.</li>
+        <li><strong>Checkpoints past due:</strong> protection and monitoring, the phone apps and their test builds, the store submission (due Friday), and the first two parts of your Core list.</li>
+        <li><strong>Four small faults found</strong> in a review of Friday&rsquo;s work: restoring an account during its deletion hold, a plan purchase while a charge is still being applied, board-only folders, and an access code bringing back an ended role. All four are fixed first.</li>
+        <li>NMI&rsquo;s clock: boarding has not started, so underwriting has not started.</li>
+      </ul></div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">Dues reminders, one form for corrections to a home&rsquo;s account, a new home screen for homeowners, and who does what in a household</span><span class="date">Thursday, October 15, 2026 &middot; day 29</span><span class="pill ok">On the test site</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Dues reminders:</strong> a homeowner is reminded before a due date, following their own choices, opt-outs and quiet hours.</li>
+        <li><strong>Corrections to a home&rsquo;s account:</strong> one form for adjustments, waivers and corrections. Each needs a second financial approver and stays in the home&rsquo;s history; nothing is changed silently.</li>
+        <li><strong>The homeowner&rsquo;s home screen:</strong> the balance, the next due date and AutoPay at the top, with open requests, reviews and violations at a glance.</li>
+        <li><strong>Households:</strong> each home names its primary owner, its household administrator, the contact for notices and the person who receives the bills.</li>
+        <li><strong>A person&rsquo;s profile:</strong> names, contact details, emergency contacts, preferred language and contact method, and directory privacy. A change of legal name is a request; the office&rsquo;s screen to decide it comes next.</li>
+        <li><strong>Removing someone from a community:</strong> finished. What was addressed to the person removed now goes to the right person in the community.</li>
+        <li><strong>AutoPay:</strong> retries after a failed payment are complete; the last check runs on NMI&rsquo;s test system.</li>
+        <li><strong>Parking:</strong> spaces can be set by building as well as by home.</li>
+        <li><strong>The community&rsquo;s HOAhx subscription:</strong> monthly and yearly charges with their receipts are built; the first charge through NMI comes next.</li>
+        <li><strong>The app stores:</strong> a demo community that the Apple and Google reviewers can sign in to and pay in, with notes for them. Two faults in the iPhone app are fixed.</li>
+        <li><strong>Everyone:</strong> one brand blue across the app, and dark mode on a black background.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table>
+          <tbody>
+            <tr><td>Bugs fixed</td><td class="n">12</td></tr>
+            <tr><td>Automatic checks passed</td><td class="n">12,785</td></tr>
+            <tr><td>Working days complete</td><td class="n">29 of 41</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div><h4>Needs you</h4><ul>
+        <li><strong>New questions</strong> are coming to your page, each with my recommendation: what the HOAhx assistant is called, what a board title grants, how the name HOAhx is written on screens, and whether board and office staff with no home in the community can use the assistant. They join Wednesday&rsquo;s seven on visitor passes, parking and hearings. The app follows each recommendation until you answer.</li>
+        <li><strong>Pricing with NMI,</strong> so boarding can start.</li>
+      </ul></div>
+      <div><h4>Watching</h4><ul>
+        <li><strong>Behind the plan, closing:</strong> Thursday closed most of the gap. Friday is loaded full. October 21 stands; November 2 is the latest date.</li>
+        <li><strong>Four checkpoints past due:</strong> protection and monitoring, the phone apps and their first test builds, and the first part of your Core list. What is left is the first iPhone test build and checks on the test site that need a person signed in.</li>
+        <li><strong>Checks on the test site:</strong> the staff steps that sign in with a text message stopped at the text message&rsquo;s robot check; staff accounts that sign in with an authenticator app are set up for them next.</li>
+        <li><strong>Live updates inside the app:</strong> as you agreed, a change to the app can reach phones without a new store release; it is planned for Friday and Tuesday.</li>
+        <li>NMI&rsquo;s clock: boarding has not started, so underwriting has not started.</li>
+      </ul></div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">Visitor passes with a code checked at the gate, each community&rsquo;s own parking rules, a full security review, and disputes and hearings on a violation</span><span class="date">Wednesday, October 14, 2026 &middot; day 28</span><span class="pill ok">On the test site</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Visitors:</strong> a homeowner&rsquo;s visitor pass has its dates and reads Active, Scheduled, Expired or Revoked; a pass for a later visit no longer shows as active. Each pass carries a code that is checked at the gate.</li>
+        <li><strong>Parking:</strong> each community sets its own parking rules and spaces, instead of a fixed number for every home.</li>
+        <li><strong>Violations:</strong> a homeowner can dispute a violation or ask for a hearing, and sees any fine and escalation; the case&rsquo;s history reads in neutral language. A tenant can answer a violation with photos. The community&rsquo;s own categories, notice dates, draft notices and correction photos are confirmed complete on the test site.</li>
+        <li><strong>Removing someone from a community:</strong> a board member with that permission can remove a person; their access to that community ends within a minute, the community&rsquo;s records stay, and their other communities are not touched.</li>
+        <li><strong>Support access:</strong> when the President takes back HOAhx support&rsquo;s access, it ends at once.</li>
+        <li><strong>Safety:</strong> a full review of who can read and change what across the app. The six issues that had to be fixed before launch are fixed, including that nobody can enter a payment by hand on their own home; the rest are planned before launch.</li>
+        <li><strong>Phones:</strong> the iPhone app&rsquo;s remaining pieces, including its protection against altered copies, are built and wait on its first test build.</li>
+        <li><strong>Your sign-off:</strong> all 27 screens are signed off. Thank you.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table>
+          <tbody>
+            <tr><td>Bugs fixed</td><td class="n">19</td></tr>
+            <tr><td>Automatic checks passed</td><td class="n">12,114</td></tr>
+            <tr><td>Working days complete</td><td class="n">28 of 41</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div><h4>Needs you</h4><ul>
+        <li><strong>Seven new questions</strong> are coming to your page: how long a visitor pass lasts, parking spaces by home type, entry instructions with a shared guest code, a tenant asking for a hearing, taking back a first approval of an escalation, a second hearing, and telling the homeowner of lien and hearing steps. Each has my recommendation, and the app follows it until you answer.</li>
+        <li><strong>Two questions about the first community</strong> and <strong>a credit left when a home is sold,</strong> on your page now.</li>
+        <li><strong>Pricing with NMI,</strong> so boarding can start.</li>
+      </ul></div>
+      <div><h4>Watching</h4><ul>
+        <li><strong>Behind the plan:</strong> Wednesday closed part of the gap. Thursday is loaded full, with Friday&rsquo;s work brought forward as soon as it runs out. October 21 stands; November 2 is the latest date.</li>
+        <li><strong>Four checkpoints past due:</strong> protection and monitoring, the phone apps and their first test builds, and the first part of your Core list. What is left is the first iPhone test build and checks on the test site that need a person signed in.</li>
+        <li><strong>Four checks need a person:</strong> taking back support access, scanning a pass with a phone&rsquo;s camera, sharing a pass from a phone, and an alert email; they are on the hands-on checks list.</li>
+        <li>NMI&rsquo;s clock: boarding has not started, so underwriting has not started.</li>
+      </ul></div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">Each community sees its own price, support access only with the community&rsquo;s say-so, and who has acknowledged a required document</span><span class="date">Tuesday, October 13, 2026 &middot; day 27</span><span class="pill ok">On the test site</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>The community&rsquo;s HOAhx subscription:</strong> a community sees what it would pay on each plan for its own number of homes, and its renewal date.</li>
+        <li><strong>Support access:</strong> &ldquo;view as&rdquo; works only while the community has authorized it. When a community&rsquo;s account owner cannot be reached, HOAhx hands the account over only at the request of a person on record, and says so in the community&rsquo;s history.</li>
+        <li><strong>Documents:</strong> the board sees who has read and acknowledged a required document, and who has not yet.</li>
+        <li><strong>Violations:</strong> fines follow the community&rsquo;s own fee schedule, and a case can be given to a named administrator.</li>
+        <li><strong>Fixes:</strong> the three faults named on Sunday are fixed: a fine the President proposes now has someone to approve it, a declined fine no longer leaves the case stuck, and a home that owes nothing shows nothing due.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table>
+          <tbody>
+            <tr><td>Bugs fixed</td><td class="n">11</td></tr>
+            <tr><td>Automatic checks passed</td><td class="n">11,576</td></tr>
+            <tr><td>Working days complete</td><td class="n">27 of 41</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">A new look across the app, new home screens for homeowners and the board, and support access only with the community&rsquo;s say-so</span><span class="date">Friday night, October 9, to Sunday, October 11, 2026 &middot; weekend after day 25</span><span class="pill ok">On the test site</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Everyone:</strong> the brand&rsquo;s colours, type and icons, with gentle motion that stays still for anyone whose phone asks for less motion. The passkey sign-in screens are designed; passkeys stay switched off until they are ready.</li>
+        <li><strong>Homeowners, tenants and the board:</strong> new home screens and page layouts from Tenyson&rsquo;s designs, so what matters right now and what happens next sit at the top.</li>
+        <li><strong>Support access:</strong> HOAhx support can look into a community only after the community&rsquo;s billing contacts authorize it, after signing in again; every authorization and revoke is in the community&rsquo;s history.</li>
+        <li><strong>Board and treasurer:</strong> letters for a home that is behind on its dues, fines proposed by one person and approved by another, and due dates set for several homes at once.</li>
+        <li><strong>Fixes:</strong> older wording on the community&rsquo;s subscription screen and on the Analytics summary is gone.</li>
+      </ul></div>
+      <div><h4>The days in numbers</h4>
+        <div class="tbl" style="margin:0"><table>
+          <tbody>
+            <tr><td>Bugs fixed</td><td class="n">2</td></tr>
+            <tr><td>Automatic checks passed</td><td class="n">11,010</td></tr>
+            <tr><td>Working days complete</td><td class="n">25 of 41</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div><h4>Needs you</h4><ul>
+        <li><strong>New questions on your page</strong> from the weekend&rsquo;s work, each with my recommendation.</li>
+        <li><strong>The 27 screens:</strong> your sign-off of my corrections.</li>
+        <li><strong>Pricing with NMI,</strong> so boarding can start.</li>
+      </ul></div>
+      <div><h4>Watching</h4><ul>
+        <li><strong>Behind the plan:</strong> the weekend went to the new look rather than the planned list, and Monday had no build. Tuesday&rsquo;s work is loaded full to catch up; October 21 stands.</li>
+        <li><strong>Three small faults found:</strong> a fine the President proposes has nobody to approve it, a declined fine leaves the case stuck, and a home that owes nothing shows an amount due on its payments screen. All three are fixed next.</li>
+        <li>NMI&rsquo;s clock: boarding has not started, so underwriting has not started.</li>
+      </ul></div>
+    </div>
+  </article>
+
+
+  <article class="log">
+    <header><span class="wk">Selling a home reaches the buyer&rsquo;s side; a notice opens the right record; message templates on announcements</span><span class="date">Thursday evening and Friday, October 9, 2026 &middot; day 25</span><span class="pill ok">On the test site</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Selling a home:</strong> before the sale, the owner sees the home&rsquo;s balance, payments still processing, open violations and open requests, each with who acts next, and can ask for the transfer package. Staff prepare the package and confirm the handoff. The buyer is welcomed to the home instead of being told they have no access, and the seller&rsquo;s household no longer carries over to the buyer.</li>
+        <li><strong>Notices:</strong> a notice about a maintenance request or a violation opens that exact record. An owner of two homes is switched to the right home first, and a record that is not on the open home says so plainly.</li>
+        <li><strong>Board:</strong> the announcement form offers the community&rsquo;s message templates. An auditor&rsquo;s access card names the officer who granted it and who ended it early.</li>
+        <li><strong>Dues:</strong> a home in a named group pays its group&rsquo;s amount through AutoPay, and the invoice list says plainly when a search finds nothing for the chosen home.</li>
+        <li><strong>Tenants:</strong> a tenant whose owner shares community updates now reads them, the fault found Thursday.</li>
+        <li><strong>HOAhx Copilot:</strong> answers from the words inside a newly published PDF or text document, not only its title. It stays switched off until you choose the provider.</li>
+        <li><strong>Checks:</strong> an automatic walk through every screen now runs the same way twice, so a real change stands out.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table>
+          <tbody>
+            <tr><td>Bugs fixed</td><td class="n">3</td></tr>
+            <tr><td>Automatic checks passed</td><td class="n">10,327</td></tr>
+            <tr><td>Working days complete</td><td class="n">25 of 41</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div><h4>Needs you</h4><ul>
+        <li><strong>Three new questions on your page</strong>, on when a special assessment is past due, when a home counts as behind on its dues, and who a community message can go to at launch, each with my recommendation.</li>
+        <li><strong>The 27 screens:</strong> your sign-off of my corrections.</li>
+        <li><strong>Pricing with NMI,</strong> so boarding can start.</li>
+      </ul></div>
+      <div><h4>Watching</h4><ul>
+        <li><strong>Three Friday checkpoints did not close:</strong> protection and monitoring, the phone apps, and the first part of the Core list are built; what is left is account access (Apple, the cloud console, a few checks on the test site). Expected Monday, October 12; October 21 stands.</li>
+        <li><strong>Two small faults found in the videos:</strong> the Submit Request window stays open after sending, and the Copilot screen should not show for vendors, auditors, attorneys and rental managers. Both are fixed next.</li>
+        <li>NMI&rsquo;s clock: boarding has not started, so underwriting has not started.</li>
+      </ul></div>
+    </div>
+  </article>
+
+
+  <article class="log">
+    <header><span class="wk">Selling a home hands it to the buyer; dues for groups of homes, one-time assessments and late fees; board terms end on their date; an auditor gets read-only access</span><span class="date">Wednesday evening and Thursday, October 8, 2026 &middot; day 24</span><span class="pill ok">On the test site</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Selling a home:</strong> an owner reports a sale on a new &ldquo;Selling your home&rdquo; tab, with the closing date and the buyer&rsquo;s email, and sees what happens next and who is responsible. The President confirms the handoff with the deed or closing record and a reason; the former owner&rsquo;s access ends, nothing is deleted, and the buyer becomes the owner.</li>
+        <li><strong>Dues:</strong> the board can publish dues twice a year. The treasurer can set up a one-time assessment, and put homes that pay a different amount in a named group with its own dues; those homeowners see their group&rsquo;s amount. Every charge on a home&rsquo;s account reads as an invoice with a number and a status.</li>
+        <li><strong>Late fees:</strong> built, and switched off until HOAhx turns them on for a community. When on, the schedule&rsquo;s late fee posts the day after the grace period to a home whose dues are still unpaid, and the homeowner (and a rental manager paying for the home) is told.</li>
+        <li><strong>Board:</strong> a board role ends by itself on its term&rsquo;s last day, except the community&rsquo;s only President. Staff can assign, notify or close up to 25 requests or violations at once after reviewing each one, and use message templates on Mass Communications. Approving a clubhouse request checks the clubhouse&rsquo;s hours and limits.</li>
+        <li><strong>Auditors:</strong> the President or Treasurer gives an outside auditor read-only access to chosen kinds of documents for a range of months, until a last day they choose, at most a year away.</li>
+        <li><strong>Records:</strong> a record past its keeping period can be deleted for good only when one person asks with a reason and a different person approves. This stays switched off until it is turned on.</li>
+        <li><strong>Documents and tenants:</strong> a signature can be asked of a tenant or another adult in the home, with a weekly reminder while a refusal is open. A tenant whose owner allows it books the clubhouse from My Amenities.</li>
+        <li><strong>HOAhx Copilot:</strong> answers only from what the person may already read, names its source, and hands off to a person when it cannot help. It stays switched off until you choose the provider.</li>
+        <li><strong>Phones:</strong> the name under the app icon is &ldquo;HOA HX&rdquo;; both apps open to the sign-in screen on an iPhone and an Android test device.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table>
+          <tbody>
+            <tr><td>Bugs fixed</td><td class="n">9</td></tr>
+            <tr><td>Automatic checks passed</td><td class="n">9,668</td></tr>
+            <tr><td>Working days complete</td><td class="n">24 of 41</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div><h4>Needs you</h4><ul>
+        <li><strong>New questions on your page</strong> from today&rsquo;s work, on selling a home, late fees, groups of homes and auditor access, each with my recommendation.</li>
+        <li><strong>The 27 screens:</strong> my corrections come to you for sign-off by October 9.</li>
+        <li><strong>Pricing with NMI,</strong> so boarding can start.</li>
+      </ul></div>
+      <div><h4>Watching</h4><ul>
+        <li><strong>Late fees and permanent deletion are off</strong> until each is checked on the test site with a real community&rsquo;s records.</li>
+        <li><strong>One small fault found:</strong> a tenant whose owner shares announcements cannot read them yet; fixed next.</li>
+        <li>NMI&rsquo;s clock: boarding has not started, so underwriting has not started.</li>
+      </ul></div>
+    </div>
+  </article>
+
+
+  <article class="log">
+    <header><span class="wk">Homeowners name a rental manager; boards keep terms and committees; architectural review is complete; a Help menu with two doors</span><span class="date">Wednesday, October 7, 2026 &middot; day 23</span><span class="pill ok">On the test site</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Homeowners:</strong> an owner who rents out a home can name a rental manager, choose what that person may see and do, and end it at any time. A homeowner is told when a violation is issued against their home. Each screen has &ldquo;Help with this screen&rdquo;, and the Help page has two separate doors: <em>Contact my HOA</em> and <em>Contact HOAhx technical support</em>, each saying who answers.</li>
+        <li><strong>Documents:</strong> a resident&rsquo;s list shows only the documents they may read. A required document says who signs it and whether it asks for an acknowledgment or an agreement; the signature records who, when and which version.</li>
+        <li><strong>Board:</strong> Board and committees shows each role with its start and end dates; the President records and ends terms, but never ends the only President. The roster can be searched and filtered, and exported with a reason, which goes into the community&rsquo;s history. The board can hide or remove a community-feed comment, with a reason each time.</li>
+        <li><strong>Architectural review:</strong> complete. A decision can be marked confidential to named people, and the homeowner sees the decision and what happens next.</li>
+        <li><strong>Amenities and events:</strong> board members and the community administrator can book and RSVP like everyone else; an RSVP can bring guests, up to the event&rsquo;s limit; each person sets their own directory choices.</li>
+        <li><strong>Violations:</strong> a resident&rsquo;s violation report is closed with a reason, and the person who reported it is told.</li>
+        <li><strong>Payments:</strong> a failed AutoPay is retried on a set schedule without telling the homeowner twice. Refund requests are listed in the order they came in. A community&rsquo;s opening balances are reviewed before they post, and the import&rsquo;s row counts are correct.</li>
+        <li><strong>Joining:</strong> a person who joins a home without an invitation is checked as a transfer or a co-owner before they get access.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table>
+          <tbody>
+            <tr><td>Bugs fixed</td><td class="n">15</td></tr>
+            <tr><td>Automatic checks passed</td><td class="n">8,873</td></tr>
+            <tr><td>Working days complete</td><td class="n">23 of 41</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div><h4>Needs you</h4><ul>
+        <li><strong>New questions on your page</strong> from today&rsquo;s work, on rental managers, board terms, confidential decisions and comment moderation, each with my recommendation.</li>
+        <li><strong>Five answers that keep October 21:</strong> each is a smaller first version of a feature, listed on your page with what it saves.</li>
+        <li><strong>Pricing with NMI,</strong> so boarding can start.</li>
+      </ul></div>
+      <div><h4>Watching</h4><ul>
+        <li><strong>The test site took Tuesday&rsquo;s and Wednesday&rsquo;s work</strong> once Google&rsquo;s service was back; the checks that need a real login run there next.</li>
+        <li><strong>The card fee stays off</strong> until NMI confirms in writing which cards and states its program covers.</li>
+        <li>NMI&rsquo;s clock: boarding has not started, so underwriting has not started.</li>
+      </ul></div>
+    </div>
+  </article>
+
+
+  <article class="log">
+    <header><span class="wk">Receipts, statements and an account letter for homeowners; pets and vehicles on record; the treasurer approves adjustments</span><span class="date">Tuesday, October 6, 2026 &middot; day 22</span><span class="pill ok">On the test site</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Homeowners:</strong> each payment has a receipt to download. A statement covers a month, this year or an earlier year, from the opening balance to the closing one. An owner can create an account-status letter for a lender or buyer, who checks it online with no account for 30 days.</li>
+        <li><strong>Card convenience fee:</strong> built, and switched off for every community until NMI confirms its fee program in writing. When it is on, the homeowner sees the dues, the fee and the total before paying; bank payments carry no fee.</li>
+        <li><strong>Treasurer:</strong> a homeowner&rsquo;s request for their credit back can be refunded, declined with a note, or kept as credit, and the homeowner is told. A new Adjustments screen lists waivers and balance corrections waiting for a second approver, who sees the balance before and after.</li>
+        <li><strong>Households:</strong> pets carry their registration and vaccination records, and the community reviews them; an assistance animal&rsquo;s papers are seen only by the household and the people who review them. Vehicles carry their details, registration and insurance, and the community assigns the space and the parking permit.</li>
+        <li><strong>Board:</strong> the President can change a home&rsquo;s primary owner after checking the deed or closing record, with the reason kept in its history. Architectural requests have types set by the President, each with what to include and an expected decision date. A resident&rsquo;s violation report and an appeal now reach the people who decide cases.</li>
+        <li><strong>HOAhx staff:</strong> HOAhx&rsquo;s own merchant account with NMI and its billing history are on the billing screen.</li>
+        <li><strong>Safety:</strong> resetting a password removes passkeys added before it; errors in the app reach the same alerts as server errors; a page opened before a release reloads once on its own; a written rollback note; and every change is checked for risky outside libraries before it can go out.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table>
+          <tbody>
+            <tr><td>Bugs fixed</td><td class="n">25</td></tr>
+            <tr><td>Automatic checks passed</td><td class="n">8,195</td></tr>
+            <tr><td>Working days complete</td><td class="n">22 of 41</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div><h4>Needs you</h4><ul>
+        <li><strong>New questions on your page</strong> from today&rsquo;s work, on the account letter, refunds of the card fee, pets and vehicles, and the primary owner, each with my recommendation.</li>
+        <li><strong>The 27 screens:</strong> my corrections to the screens you marked are filmed and come to you next.</li>
+        <li><strong>Pricing with NMI,</strong> so boarding can start.</li>
+      </ul></div>
+      <div><h4>Watching</h4><ul>
+        <li><strong>The test site did not take today&rsquo;s work yet:</strong> Google&rsquo;s service was unavailable twice during the update, not a fault in the app. It goes through again shortly.</li>
+        <li><strong>The card fee stays off</strong> until NMI confirms in writing which cards and states its program covers.</li>
+        <li>NMI&rsquo;s clock: boarding has not started, so underwriting has not started.</li>
+      </ul></div>
+    </div>
+  </article>
+
+
+  <article class="log">
+    <header><span class="wk">Homeowners change AutoPay in place and see where each payment went; a community&rsquo;s opening balances reach its ledger</span><span class="date">Monday, October 5, 2026 &middot; day 21, morning and evening</span><span class="pill ok">On the test site</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Homeowners:</strong> change the bank account or card AutoPay uses without cancelling it. A payment canceled before it settled now reads &ldquo;Canceled&rdquo;, not &ldquo;Refunded&rdquo;. A payment under $1.00, above the balance, or when nothing is owed is refused, and the receipt shows the balance before, what the payment was applied to (oldest first), what remains and any credit kept.</li>
+        <li><strong>Maintenance:</strong> a vendor marks a job resolved and attaches photos of the finished work in one step; urgent requests sort first for the board. Both faults named Saturday are fixed: completion photos are added without removing earlier ones, and a photo link must point at HOAhx&rsquo;s own storage.</li>
+        <li><strong>Treasurer:</strong> the opening balances of an approved import post to each home&rsquo;s ledger once, show as owed from the day after approval, and can be corrected from their history.</li>
+        <li><strong>The community&rsquo;s HOAhx subscription:</strong> the price for any number of homes and the one-time setup fee are set in one place, ready for the plan screen. The billing contacts work from Saturday is complete.</li>
+        <li><strong>Records:</strong> when an old violation, message or announcement is deleted on schedule, its files go with it; anything under a legal hold stays.</li>
+        <li><strong>In the evening:</strong> homeowners keep saved cards and bank accounts and pay with one, and the balance shows regular dues and special assessments apart. The budget follows the approval rules you answered, can be withdrawn and sent again, and homeowners see its card. HOAhx&rsquo;s plans and prices have their own screen for HOAhx staff. Owners invite their own tenants, and the legal-hold and record-deletion screens are in place. The video of screen 36 was filmed again.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table>
+          <tbody>
+            <tr><td>Bugs fixed</td><td class="n">8</td></tr>
+            <tr><td>Working days complete</td><td class="n">21 of 41</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div><h4>Needs you</h4><ul>
+        <li><strong>Your answers this morning are in:</strong> four new questions from them are on your page, each with my recommendation.</li>
+        <li><strong>The 27 screens:</strong> my corrections come first; your sign-off follows them.</li>
+        <li><strong>Pricing with NMI,</strong> so boarding can start; approval is needed by October 21.</li>
+      </ul></div>
+      <div><h4>Watching</h4><ul>
+        <li><strong>The test site took all of Monday&rsquo;s work</strong> in the evening, after a setting change there was turned away by the hosting service in the morning.</li>
+        <li><strong>As you answered,</strong> a homeowner can pay only once the community&rsquo;s monthly dues are posted by HOAhx; that check is first in Tuesday&rsquo;s work.</li>
+        <li>NMI&rsquo;s clock: boarding has not started, so underwriting has not started.</li>
+      </ul></div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">Who runs the community&rsquo;s subscription gets its own screen, and a finished repair can carry its photos</span><span class="date">Saturday, October 3, 2026 &middot; an extra working Saturday</span><span class="pill ok">On the test site</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>The community&rsquo;s HOAhx subscription:</strong> a new Billing contacts screen. The President names the Account Owner, the backup contacts and, if wanted, a Billing Administrator, after confirming their password; a handover waits until the new owner accepts, and everyone involved is told. The rules for changing plans are set: an upgrade starts at once with the difference for the days left, a downgrade on the next billing date, a cancellation at the end of the paid period.</li>
+        <li><strong>Maintenance:</strong> a homeowner can say when someone may come in (a time window), and the board can attach photos of the finished work when it closes a request, with a line in its history.</li>
+        <li><strong>Board:</strong> archiving a home and naming a home&rsquo;s owner are now separate permissions, and naming an owner needs a reason that is kept in the history. A roster export leaves out private details (email, phone, birth date, payment methods, ballot choices), asks why it is being exported, and records that it was.</li>
+        <li>The fault found Friday is fixed: homeowners no longer see who the community&rsquo;s billing contacts are.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table>
+          <tbody>
+            <tr><td>Bugs fixed</td><td class="n">1</td></tr>
+            <tr><td>Working days complete</td><td class="n">20 of 41</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div><h4>Needs you</h4><ul>
+        <li><strong>The 27 screens:</strong> my corrections come first; your sign-off follows them.</li>
+        <li><strong>Three new questions on your page</strong> from Saturday&rsquo;s work, each with my recommendation.</li>
+        <li><strong>Pricing with NMI,</strong> so boarding can start; approval is needed by October 21.</li>
+      </ul></div>
+      <div><h4>Watching</h4><ul>
+        <li><strong>Two small faults to fix before the next release:</strong> a vendor&rsquo;s photo link does not yet expire on its own, and a completion photo&rsquo;s link must be checked against our own storage. Both are planned for Monday and Tuesday.</li>
+        <li><strong>Maintenance goes to you first</strong> when it is complete, and from now on at most two finished areas reach you in a day, so each gets a proper look.</li>
+        <li>NMI&rsquo;s clock: boarding has not started, so underwriting has not started.</li>
+      </ul></div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">Vendors see only what the board chooses, and the board&rsquo;s notes on a violation stay private</span><span class="date">Friday, October 2, 2026 &middot; and overnight into Saturday</span><span class="pill ok">On the test site</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Board and vendors:</strong> the board chooses which photos and files a vendor sees on each job, and the vendor loses them when the job ends. Vendors and staff get a reminder a week before an assignment runs out, and the board can keep a vendor&rsquo;s insurance certificate, license and W-9 on file.</li>
+        <li><strong>Violations:</strong> the board&rsquo;s own notes and reasons stay with the people who decide the case. The homeowner sees the violation and its status; the Secretary and Treasurer see that an appeal was filed, not what it says, as you answered.</li>
+        <li><strong>The community&rsquo;s HOAhx subscription:</strong> a community can name who runs it: an Account Owner, backup contacts and, if it wants, a Billing Administrator, with a handover that takes effect only when the new owner accepts. The behind-the-scenes part is built; the screen comes next.</li>
+        <li><strong>Sign-in</strong> is safer around passkeys and &ldquo;view as&rdquo;. Passkey sign-in stays switched off until it is ready.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table>
+          <tbody>
+            <tr><td>Bugs fixed</td><td class="n">13</td></tr>
+            <tr><td>Working days complete</td><td class="n">20 of 41</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div><h4>Needs you</h4><ul>
+        <li><strong>The 27 screens:</strong> my corrections come next; your sign-off follows them.</li>
+        <li><strong>The questions on your page,</strong> with new ones on billing contacts and violations on Monday.</li>
+        <li><strong>Pricing with NMI,</strong> so boarding can start; approval is needed by October 21.</li>
+      </ul></div>
+      <div><h4>Watching</h4><ul>
+        <li><strong>One date slipped:</strong> the payment verification due September 30 waits on NMI&rsquo;s answers on matching deposits.</li>
+        <li><strong>Two small faults to fix before the next release:</strong> homeowners can read the names of the billing contacts, and a vendor&rsquo;s photo link does not yet expire on its own.</li>
+        <li>NMI&rsquo;s clock: boarding has not started, so underwriting has not started.</li>
+      </ul></div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">Paying twice is caught, join requests have a status, and the board gets new tools for messages and documents</span><span class="date">Thursday, October 1, 2026 &middot; day 19</span><span class="pill ok">On the test site</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Homeowners:</strong> a homeowner who pays twice is told at once and can ask for the extra back; AutoPay uses a credit first and collects only the rest. The budget card says where its figures come from and as of which date. A maintenance request can be saved as a draft and shows its target date.</li>
+        <li><strong>People joining:</strong> a person asking to join sees where the request stands and the board&rsquo;s note. The board verifies the home and sees who has joined.</li>
+        <li><strong>Board and treasurer:</strong> urgent alerts with a follow-up and an all-clear, message drafts and scheduled sends; documents can be pinned, published and archived, with version history and renewal reminders; the treasurer uploads the monthly statement and can correct an import from its history.</li>
+        <li><strong>Built and switched off until ready:</strong> monthly dues posted on each due date, passkey sign-in, and automatic deletion of old records with legal holds.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table><tbody>
+          <tr><td>Bugs fixed</td><td class="n">27</td></tr>
+          <tr><td>Working days complete</td><td class="n">19 of 41</td></tr>
+        </tbody></table></div>
+      </div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">Invitations from an import, and a read-only &ldquo;view as&rdquo;</span><span class="date">Wednesday, September 30, 2026 &middot; day 18</span><span class="pill ok">On the test site</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Treasurer:</strong> sends invitations from an approved import and sees who has been invited, who has joined and who has not. The import now sits in the Properties menu.</li>
+        <li><strong>HOAhx staff:</strong> when they view the app as a resident, nothing they do changes anything.</li>
+        <li><strong>Board:</strong> the record of who did what now covers invitations, vendor assignments, visitor passes, document versions and access codes.</li>
+        <li><strong>On the live site:</strong> one fix released overnight, so staff leaving a &ldquo;view as&rdquo; session are no longer left on a loading screen.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table><tbody>
+          <tr><td>Bugs fixed</td><td class="n">21</td></tr>
+          <tr><td>Working days complete</td><td class="n">18 of 41</td></tr>
+        </tbody></table></div>
+      </div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">Owners and tenants can be imported, and staff emails stay off a homeowner&rsquo;s history</span><span class="date">Tuesday, September 29, 2026 &middot; afternoon and evening, day 17</span><span class="pill ok">On the test site</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Treasurer:</strong> imports owner, tenant and other records, the second part of bringing a community&rsquo;s records in.</li>
+        <li><strong>Homeowners:</strong> the setup wizard always asks you to confirm your unit, and your history no longer shows staff email addresses.</li>
+        <li><strong>Board:</strong> the history names who acted, and a board-only document can no longer be opened to homeowners by a mistyped label.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table><tbody>
+          <tr><td>Bugs fixed</td><td class="n">14</td></tr>
+          <tr><td>Working days complete</td><td class="n">17 of 41</td></tr>
+        </tbody></table></div>
+      </div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">Everything built through Monday reached the live site</span><span class="date">Tuesday, September 29, 2026 &middot; morning</span><span class="pill ok">Live</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>On the live site:</strong> several roles for one person, tenants and households, safer join codes, the new spacing, and the &ldquo;Discuss&rdquo; choice on your screens.</li>
+        <li>I checked the live site&rsquo;s memberships before the release: nothing needed repair.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table><tbody>
+          <tr><td>Releases to the live site</td><td class="n">1</td></tr>
+          <tr><td>Working days complete</td><td class="n">16 of 41</td></tr>
+        </tbody></table></div>
+      </div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">One person, several roles; owners decide what their tenant can use; a video of every screen</span><span class="date">Monday, September 28, 2026 &middot; day 16</span><span class="pill ok">Live</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Board members who are also homeowners</strong> keep their own home, payments and household when given a board role.</li>
+        <li><strong>Owners</strong> decide whether their tenant may reserve amenities, use parking, register vehicles or download documents, and the app holds to it.</li>
+        <li><strong>Every community keeps a President,</strong> and nobody decides a request or a violation on their own home. Removing someone&rsquo;s access signs them out within a minute, and join codes are harder to guess.</li>
+        <li><strong>A short captioned video</strong> of each of the 27 screens, about 29 minutes in all.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table><tbody>
+          <tr><td>Screens with a video</td><td class="n">27 of 27</td></tr>
+          <tr><td>Working days complete</td><td class="n">16 of 41</td></tr>
+        </tbody></table></div>
+      </div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">Two-step sign-in checked on the real test site, thirty demo videos, and cleaner spacing</span><span class="date">Sunday, September 27, 2026</span><span class="pill ok">Live</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Two-step sign-in</strong> works on the real test site with a text message and with an authenticator app, and explains plainly when something goes wrong.</li>
+        <li><strong>Thirty short demo videos</strong> of the app at work, each narrated as the person using it.</li>
+        <li><strong>Every screen</strong> has the same spacing between the same kinds of thing. Gate codes keep their trailing # while you type, and a guest code can be generated for a home.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table><tbody>
+          <tr><td>Bugs fixed</td><td class="n">18</td></tr>
+        </tbody></table></div>
+      </div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">Two weeks of work reached the live site, and your 27 screens got a sign-off choice</span><span class="date">Saturday, September 26, 2026</span><span class="pill ok">Live</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>On the live site:</strong> two-step sign-in, refunds that take two people, the new look on every screen, the record of every sensitive action, gate and guest codes, Excel imports, the HOA Administrator role, the phone layouts and the 27 preview screens.</li>
+        <li><strong>Board, managers and HOAhx staff</strong> sign in on the live site with a second step: an authenticator app or a text message.</li>
+        <li><strong>You</strong> can mark each of the 27 screens &ldquo;Signed off&rdquo; or &ldquo;Change&rdquo; right where you look at it, with a note.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table><tbody>
+          <tr><td>Bugs fixed from Friday&rsquo;s walkthrough</td><td class="n">5</td></tr>
+          <tr><td>Working days complete</td><td class="n">15 of 41</td></tr>
+        </tbody></table></div>
+      </div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">Falling behind on dues, the HOA Administrator, a searchable history, and the phone apps</span><span class="date">Friday, September 25, 2026 &middot; day 15</span><span class="pill ok">Live</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Board and treasurer:</strong> the working parts of falling behind on dues are built behind the screens you are reviewing: a case for each home, its notices, payment plans approved by a second person, and waivers only by someone authorized.</li>
+        <li><strong>The HOA Administrator</strong> runs day-to-day administration with no authority over money or board decisions.</li>
+        <li><strong>Treasurer and auditor</strong> can search the record of every sensitive action and export it; homeowners&rsquo; Activity page gains filters.</li>
+        <li><strong>Phones:</strong> the apps have their final icons, an invitation link opens the app, and a maintenance photo can be taken with the camera. The web app on phones was shown to you, and change order 2 is signed.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table><tbody>
+          <tr><td>Bugs fixed</td><td class="n">14</td></tr>
+          <tr><td>Working days complete</td><td class="n">15 of 41</td></tr>
+        </tbody></table></div>
+      </div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">Payments proven with NMI&rsquo;s test system, and the new design on every screen</span><span class="date">Overnight Thursday into Friday, September 25, 2026</span><span class="pill ok">Live</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Homeowners:</strong> a card payment, a declined card, a bank account saved for AutoPay, an AutoPay charge and a void by two people all went through NMI&rsquo;s test system. Running real test payments found three faults no other check could have; all are fixed.</li>
+        <li><strong>Everyone:</strong> Tenyson&rsquo;s design and HOAhx&rsquo;s logo and icons are on every screen.</li>
+        <li><strong>Treasurer:</strong> monthly reports set against what NMI reports. <strong>Households:</strong> gate and guest codes behind a Show button. <strong>Homeowners:</strong> an Activity page for the changes that concern them.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table><tbody>
+          <tr><td>Bugs fixed</td><td class="n">5</td></tr>
+          <tr><td>Working days complete</td><td class="n">15 of 41</td></tr>
+        </tbody></table></div>
+      </div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">The new design applied across the whole app</span><span class="date">Thursday, September 24, 2026 &middot; day 14</span><span class="pill ok">Live</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Everyone:</strong> new colours, type, buttons and cards on every screen, in light and dark; dialogs slide up from the bottom on a phone.</li>
+        <li>I looked at every screen for every kind of user, at desktop and phone size and in dark mode, and fixed what did not read well.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table><tbody>
+          <tr><td>Working days complete</td><td class="n">14 of 41</td></tr>
+        </tbody></table></div>
+      </div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">All 27 preview screens on the test site, a week early</span><span class="date">Late Wednesday night, September 23, 2026</span><span class="pill ok">Live</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>You</strong> can click through all 27 screens without signing in, with a &ldquo;Demo state&rdquo; control that switches between 99 situations: a first look, an empty list, something going wrong.</li>
+        <li>The last eight cover the community&rsquo;s subscription when a payment fails, cancelling it, asking for a refund and its approval, and a ledger a homeowner can follow.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table><tbody>
+          <tr><td>Screens on the test site</td><td class="n">27 of 27</td></tr>
+          <tr><td>Working days complete</td><td class="n">13 of 41</td></tr>
+        </tbody></table></div>
+      </div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">Accounts that move money: secured</span><span class="date">Wednesday evening, September 23, 2026</span><span class="pill ok">Milestone closed</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Board and treasurer:</strong> two-step sign-in was proven with a real authenticator app, and it now applies everywhere it should.</li>
+        <li><strong>Every refund takes two people,</strong> including a check or cash payment entered by hand: one asks, a different one approves. The one-person path is gone.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table><tbody>
+          <tr><td>Bugs fixed</td><td class="n">2</td></tr>
+          <tr><td>Working days complete</td><td class="n">13 of 41</td></tr>
+        </tbody></table></div>
+      </div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">The first 19 preview screens on the test site, a day early</span><span class="date">Overnight, Tuesday into Wednesday, September 23, 2026</span><span class="pill ok">Live</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>You</strong> can click through 19 of the 27 screens: the community&rsquo;s HOAhx subscription, permissions and exports, bringing a community&rsquo;s records in, and falling behind on dues.</li>
+        <li>I measured the management-company screens on a phone: usable, with a few small buttons noted for later.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table><tbody>
+          <tr><td>Screens on the test site</td><td class="n">19 of 27</td></tr>
+          <tr><td>Working days complete</td><td class="n">12 of 41</td></tr>
+        </tbody></table></div>
+      </div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">Two-step sign-in, refunds by two people, AutoPay on the due date, and the plan to November 2</span><span class="date">Thursday, September 17 to Tuesday, September 22, 2026 &middot; days 9 to 12</span><span class="pill ok">Live</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Board, managers and HOAhx staff</strong> must use two-step sign-in; homeowners may choose it. Backup codes and two ways back in if a phone is lost. Invitation links last as long as the access they give.</li>
+        <li><strong>Treasurer:</strong> refunds and voids need two financial users, both signing in again at the moment they act.</li>
+        <li><strong>Homeowners:</strong> AutoPay charges on the due date, honours a pause, and stops when a homeowner moves out. The board&rsquo;s day-to-day screens work on a phone.</li>
+        <li>I wrote out the 27 screens the demo never drew, and redrew the plan to Monday, November 2.</li>
+      </ul></div>
+      <div><h4>The days in numbers</h4>
+        <div class="tbl" style="margin:0"><table><tbody>
+          <tr><td>Working days complete</td><td class="n">12 of 41</td></tr>
+        </tbody></table></div>
+      </div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">One password rule everywhere, and the board&rsquo;s screens on a phone</span><span class="date">Wednesday, September 16, 2026 &middot; day 8</span><span class="pill ok">Live</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Everyone:</strong> one password rule on every screen, as you answered: at least 15 characters, no required mix, checked against common and leaked passwords without the password ever leaving the device.</li>
+        <li><strong>Board and treasurer:</strong> ten day-to-day screens rebuilt for a phone; wide tables read as cards.</li>
+        <li>Your Core list, the demo comparison and the decisions register became one list (change order 1 complete).</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table><tbody>
+          <tr><td>Bugs fixed</td><td class="n">1</td></tr>
+          <tr><td>Working days complete</td><td class="n">8 of 41</td></tr>
+        </tbody></table></div>
+      </div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">A homeowner pays dues through NMI</span><span class="date">Tuesday, September 15, 2026 &middot; day 7</span><span class="pill ok">Live</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Homeowners</strong> pay the full balance or another amount by card or bank account, get a receipt, and can save a method and turn AutoPay on, pause it or cancel it.</li>
+        <li><strong>Board:</strong> community settings say whether the community can take payments yet, and the ledger shows each payment&rsquo;s confirmation number and state.</li>
+        <li>I walked you through it on the test site against NMI&rsquo;s test system.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table><tbody>
+          <tr><td>Bugs fixed</td><td class="n">3</td></tr>
+          <tr><td>Working days complete</td><td class="n">7 of 41</td></tr>
+        </tbody></table></div>
+      </div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">Your Core list became one register, sized item by item</span><span class="date">Monday, September 14, 2026 &middot; day 6</span><span class="pill acc">Scope</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li>Every item on your September 14 list has its own entry: what the app does today, what the launch builds, and its place in the release.</li>
+        <li>The eleven extra features from your demo that you asked for are in the release; fuller versions of others are on record for later.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table><tbody>
+          <tr><td>Items on your Core list</td><td class="n">233</td></tr>
+          <tr><td>Working days complete</td><td class="n">6 of 41</td></tr>
+        </tbody></table></div>
+      </div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">The first release went live, and every homeowner screen was rebuilt for phones</span><span class="date">Saturday, September 12, 2026</span><span class="pill ok">Live</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>On the live site:</strong> the work of the first week, released through the automatic, checked path for the first time.</li>
+        <li><strong>Homeowners:</strong> screens load one at a time, so the first download on a phone is about two thirds smaller; pinch-zoom works again.</li>
+        <li><strong>Homeowners:</strong> fifteen screens rebuilt for phones, from payments and the ledger to parking, voting and messages.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table><tbody>
+          <tr><td>Homeowner screens built for phones</td><td class="n">16</td></tr>
+          <tr><td>Working days complete</td><td class="n">5 of 41</td></tr>
+        </tbody></table></div>
+      </div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">The first release ready, and the app on a phone&rsquo;s home screen</span><span class="date">Friday, September 11, 2026 &middot; day 5</span><span class="pill ok">Live Saturday</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Everyone:</strong> the web app can be added to a phone&rsquo;s home screen with its own icon and name.</li>
+        <li>I patched the libraries the site is built on and took an internal file off the public site. The release waited one day on an account limit and went live Saturday.</li>
+        <li>The first part of a homeowner paying dues through NMI was built.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table><tbody>
+          <tr><td>Working days complete</td><td class="n">5 of 41</td></tr>
+        </tbody></table></div>
+      </div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">A private test site, and NMI&rsquo;s messages reach HOAhx</span><span class="date">Thursday, September 10, 2026 &middot; day 4</span><span class="pill ok">Done</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li>A private test site now exists, and every change is checked there before it can reach the live site.</li>
+        <li><strong>Treasurer:</strong> when NMI reports a settled payment, a returned bank payment, a refund or a dispute, HOAhx records it exactly once.</li>
+        <li>Your 31 answers are recorded; the two that add to the launch, two-person refunds and account deletion on request, are included at no extra charge.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table><tbody>
+          <tr><td>Your answers recorded</td><td class="n">31</td></tr>
+          <tr><td>Working days complete</td><td class="n">4 of 41</td></tr>
+        </tbody></table></div>
+      </div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">Uploads repaired, and board-only documents made truly private</span><span class="date">Wednesday, September 9, 2026 &middot; day 3</span><span class="pill ok">Milestone closed</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li><strong>Everyone:</strong> nine kinds of upload work again, from maintenance and violation photos to meeting minutes, profile photos and pet records.</li>
+        <li><strong>Board:</strong> board-only documents can no longer be read by a homeowner in any way.</li>
+        <li>Nothing reaches the live site now unless it passes every check first.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table><tbody>
+          <tr><td>Bugs fixed</td><td class="n">11</td></tr>
+          <tr><td>Working days complete</td><td class="n">3 of 41</td></tr>
+        </tbody></table></div>
+      </div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">Checks that prove the real product, and the scope set</span><span class="date">Tuesday, September 8, 2026 &middot; day 2</span><span class="pill acc">Scope</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li>I replaced checks that only looked at the code with checks that run the real product, including who may do what and how money moves.</li>
+        <li>Billing each community&rsquo;s HOAhx subscription became part of the NMI payment work, and your meeting answers were recorded.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table><tbody>
+          <tr><td>Working days complete</td><td class="n">2 of 41</td></tr>
+        </tbody></table></div>
+      </div>
+    </div>
+  </article>
+
+  <article class="log">
+    <header><span class="wk">Kickoff</span><span class="date">Friday, September 4, 2026 &middot; day 1</span><span class="pill mute">Planning</span></header>
+    <div class="log-grid">
+      <div class="wide"><h4>What&rsquo;s new</h4><ul>
+        <li>The decisions register refreshed and checked against the app, and the launch files set up so the proposal, plan and NMI brief always agree.</li>
+        <li>Your terms questions answered in the proposal: fixed fee, defects fixed free, a 30-day guarantee.</li>
+      </ul></div>
+      <div><h4>The day in numbers</h4>
+        <div class="tbl" style="margin:0"><table><tbody>
+          <tr><td>Working days complete</td><td class="n">1 of 41</td></tr>
+        </tbody></table></div>
+      </div>
+    </div>
+  </article>
+</section>
+
+</main>
+<footer><div class="wrap">This page is updated at the end of each working day and keeps the same link. The newest day is always at the top. Dates live on the Launch Plan; if one moves, the Friday update there says why.</div></footer>
+
+
+<!-- day 48 -->
+
+
+</body></html>

@@ -1,0 +1,705 @@
+{
+ "run": "2026-11-18",
+ "title": "Wednesday Nov 18: your decisions before tonight's run starts (stopped at the gate)",
+ "previous_run": "2026-11-14",
+ "sections": [
+  {
+   "name": "Run status",
+   "rows": [
+    {
+     "n": 1,
+     "id": "Stopped at the gate",
+     "item": "Run stopped at the gate: nothing spawns until you press Send",
+     "rec": "Nothing to answer here; answer the rows below, then press Send",
+     "why": "You asked for a stop-at-gate run: intake and the plan are done, and no lane, landing or publish starts before your Send.",
+     "kind": "For your information (nothing to answer)",
+     "details": {
+      "ask": "Nothing to answer.",
+      "who": "Information for you.",
+      "background": "Run 2026-11-18 serves Wed Nov 18 (day 53 of 61). The pace needs 0 estimated hours (est-h) today: the lead is 104 est-h against a target of 38. The plan loads 18.9 est-h in six build lanes plus a 10.4 est-h refill queue, chosen by what the launch still lacks. Every money review runs on the Other Work account because the Fable model is at its limit on the Work account until Nov 20.",
+      "owners_next": "No."
+     },
+     "link": "docs/launch/runs/2026-11-18/plan.md"
+    },
+    {
+     "n": 2,
+     "id": "Design pull requests",
+     "item": "Tenyson's open design pull requests: five land tonight through one side branch; the HOA Directory restyle follows it",
+     "rec": "Nothing to answer; closing the pull requests on GitHub after they land is yours or Tenyson's",
+     "why": "The side branch already carries the five design changes merged with 0 conflicts; the sixth waits so it is checked against the landed result.",
+     "kind": "For your information (nothing to answer)",
+     "details": {
+      "ask": "Nothing to answer.",
+      "who": "Information for you; Tenyson is affected.",
+      "background": "Pull requests #123, #125, #126, #127 and #128 land through the side branch design-neighbors (side/2026-11-17/design-neighbors) as the first item of the landing lane's first batch. Pull request #129, the HOA Directory restyle, is assessed and built by the design landing lane only after that batch lands. GitHub will not close the pull requests by itself because they land through a side branch: closing them is your step or Tenyson's, and Tenyson should start fresh from dev afterwards (After each design landing, tell Tenyson to start fresh from dev, J-525).",
+      "owners_next": "No."
+     },
+     "link": "https://github.com/starlordhoa/hoahx/pulls"
+    }
+   ]
+  },
+  {
+   "name": "Intake",
+   "rows": [
+    {
+     "n": 3,
+     "id": "Checkout hunks",
+     "item": "Land two small checkout changes (the Linear key note in .env.example and the \"MCP servers are down\" bullet in CLAUDE.md), not the audience sentence",
+     "rec": "Approve: a checkout lane lands the two changes; the CLAUDE.md audience-sentence change stays out",
+     "why": "The two changes are notes you wrote; the audience sentence changes product wording that needs its own decision.",
+     "kind": "Your decision",
+     "details": {
+      "ask": "Land the two checkout changes and leave out the audience sentence?",
+      "who": "You decide; the checkout lane is affected.",
+      "background": "Intake found three uncommitted changes in the main checkout and saved them as a patch under runs/checkout-archive-2026-11-18/. Two are notes; the third rewrites the CLAUDE.md audience sentence.",
+      "owners_next": "No.",
+      "if_yes": "The checkout lane (0.1 est-h) lands the two notes on dev.",
+      "if_no": "Nothing from the patch lands; it stays archived."
+     },
+     "link": "docs/launch/runs/2026-11-18/intake.md"
+    },
+    {
+     "n": 4,
+     "id": "Your files",
+     "item": "Leave your data.json and the ledger-waiting mock folder where they are",
+     "rec": "Approve: no agent touches them",
+     "why": "They are yours and not part of any lane.",
+     "kind": "Your decision",
+     "details": {
+      "ask": "Leave data.json and docs/design/mocks/ledger-waiting/tonight/ untouched?",
+      "who": "You decide.",
+      "background": "Both are untracked files in the main checkout. Intake moved nothing.",
+      "owners_next": "No.",
+      "if_yes": "They stay as they are.",
+      "if_no": "Tell the run where they belong."
+     },
+     "link": "docs/launch/runs/2026-11-18/intake.md"
+    },
+    {
+     "n": 5,
+     "id": "Orphans",
+     "item": "File the 176 orphan files found by the sweep: register, archive or hold each group",
+     "rec": "Approve the grouping: register the run day redesign folder as one row; archive the side-task briefs, the decision desk of Nov 16 and the handoffs; register the platform map and process maps under sign-off row 26 with a new platform-map row; file the PlatPay notes under sign-off row 19; register the design-branch neighbors folder and issue I-004 (Build the issue only on your word)",
+     "why": "Every file then has one home; nothing is deleted.",
+     "kind": "Your decision",
+     "details": {
+      "ask": "Approve the orphan grouping?",
+      "who": "You decide; the docs lane carries it.",
+      "background": "The sweep lists files under docs/launch/ that no index names. Archiving moves a file to an archive folder; registering adds a row to the index. Issue I-004 is analyzed and waits on your word to build.",
+      "owners_next": "No.",
+      "if_yes": "The docs lane files every group.",
+      "if_no": "They stay orphaned and the next sweep lists them again."
+     },
+     "link": "docs/launch/runs/2026-11-18/reports/I-sweep.txt"
+    },
+    {
+     "n": 6,
+     "id": "Design branches",
+     "item": "Tenyson's other design branches stay parked until the landing lane's holder says the word",
+     "rec": "Approve: hoa-directory, homeowner-fixes, nav-icons and neighbors apply from dev; my-account and polish-1 are 92 commits behind and wait for Tenyson to restart from dev",
+     "why": "Two branches are too far behind to land without a full conflict review.",
+     "kind": "Your decision",
+     "details": {
+      "ask": "Keep the design branches parked as described?",
+      "who": "You decide; Tenyson is affected.",
+      "background": "Only design-neighbors and, after it, hoa-directory are in tonight's plan. The two branches 92 commits behind fall under the item After each design landing, tell Tenyson to start fresh from dev (J-525).",
+      "owners_next": "No.",
+      "if_yes": "They wait as described.",
+      "if_no": "Name the branch you want landed tonight."
+     },
+     "link": "docs/launch/runs/2026-11-18/intake.md"
+    },
+    {
+     "n": 7,
+     "id": "Linear triage",
+     "item": "Add five proposed Linear tickets, starting with The run day impact check says a run is live when the last run has ended (PT-056)",
+     "rec": "Approve: add The run day impact check says a run is live when the last run has ended (PT-056) A draft pull request shows a red Build and test check by design (PT-057), Read the 13 seed rows that left the seed with no record of why (PT-058) and The after-run check-in finds no end time for a run (PT-059) as tickets, and After launch: one registry for platform settings (PT-060) as its own after-launch row",
+     "why": "They are real process holes found this week; the last one is not launch work.",
+     "kind": "Your decision",
+     "details": {
+      "ask": "Add the five proposed tickets?",
+      "who": "You decide; the wrap lane writes them through the Linear API.",
+      "background": "The Linear connector is down, so the wrap lane writes through linear-apply.py.",
+      "owners_next": "No.",
+      "if_yes": "The wrap lane creates them.",
+      "if_no": "They stay proposed."
+     },
+     "link": "docs/launch/runs/2026-11-18/intake.md"
+    },
+    {
+     "n": 8,
+     "id": "Status trim",
+     "item": "The wrap lane trims status.md back under its 8,192-byte budget (it is 24 bytes over)",
+     "rec": "Approve",
+     "why": "status.md is read by every session; it must stay small.",
+     "kind": "Your decision",
+     "details": {
+      "ask": "Let the wrap lane trim status.md?",
+      "who": "You decide.",
+      "background": "Older lines move to the run's status archive, as at every wrap.",
+      "owners_next": "No.",
+      "if_yes": "Trimmed at the wrap.",
+      "if_no": "It stays over budget and the size guard warns."
+     },
+     "link": "docs/launch/status.md"
+    }
+   ]
+  },
+  {
+   "name": "Build lanes",
+   "rows": [
+    {
+     "n": 9,
+     "id": "HM",
+     "item": "Homeowner money lane, 9.0 est-h: Booking fees and deposits on a reservation (CB65) in five slices, then The treasurer's dispute response, carried to HOA HX staff (CB69) in two",
+     "rec": "Approve: Opus 5.5 high, each slice 2 est-h or less, a separate Fable review on the Other Work account, built switched off",
+     "why": "Booking fees came into the launch on Nov 17; dispute responses are how a treasurer meets the card network's deadline.",
+     "kind": "Your decision",
+     "details": {
+      "ask": "Approve the homeowner money lane?",
+      "who": "You decide; the named lane is affected.",
+      "background": "The slices: the fee and deposit rule 1.0, the charge at booking 2.0, the cancellation return 1.0 built as the recommendation of A booking deposit returned on a timely cancellation (D-401), the booking screens 1.0, tests 1.5; then the dispute response server part 1.5 and its task wording 1.0, after the ledger lane lands. This lane alone owns the payment gateway files tonight. The live check waits on PlatPay boarding.",
+      "owners_next": "No.",
+      "if_yes": "The lane spawns after Send.",
+      "if_no": "Booking fees wait for the next run."
+     },
+     "link": "docs/launch/runs/2026-11-18/plan.md"
+    },
+    {
+     "n": 10,
+     "id": "LR",
+     "item": "Ledger card rest, 1.4 est-h: finish Build the Financial Ledger \"Waiting for you\" design (J-522)",
+     "rec": "Approve: Opus 5.5 high",
+     "why": "Seven parity checks, one old dialog and one shared helper were left partial in run 2026-11-14.",
+     "kind": "Your decision",
+     "details": {
+      "ask": "Approve the ledger lane?",
+      "who": "You decide; the named lane is affected.",
+      "background": "It adds a component check for each of the 7 parity rows, deletes the old reversal dialog, adds the Refunds link check and the shared audit-reader helper. The dispute response slices wait for it.",
+      "owners_next": "No.",
+      "if_yes": "Spawns after Send.",
+      "if_no": "The ledger card stays partial."
+     },
+     "link": "docs/launch/runs/2026-11-18/plan.md"
+    },
+    {
+     "n": 11,
+     "id": "MS",
+     "item": "Subscription money lane, 2.6 est-h: the plan payment follow-ups and Plan-payment claim race (F644) review notes",
+     "rec": "Approve: Opus 5.5 high with a separate Fable review on the Other Work account",
+     "why": "Closes the money review's notes before the first real subscription charge.",
+     "kind": "Your decision",
+     "details": {
+      "ask": "Approve the subscription money lane?",
+      "who": "You decide; the named lane is affected.",
+      "background": "An integration case for the plan claim 0.4, a billing alert for a plan payment stuck processing over 10 minutes 0.2, the four notes on the claim race 1.0, and the script that ends any old-processor schedule 1.0. It runs serially, separate from the homeowner track.",
+      "owners_next": "No.",
+      "if_yes": "Spawns after Send.",
+      "if_no": "The notes roll to the next run."
+     },
+     "link": "docs/launch/runs/2026-11-18/plan.md"
+    },
+    {
+     "n": 12,
+     "id": "X",
+     "item": "Access defects lane, 2.9 est-h: Verification email shows the project id, not HOA HX (F647) first, then three access defects",
+     "rec": "Approve: Opus 5.5 high, Fable access review on the Other Work account",
+     "why": "The verification email defect is High and blocking: every new person sees it.",
+     "kind": "Your decision",
+     "details": {
+      "ask": "Approve the access defects lane?",
+      "who": "You decide; the named lane is affected.",
+      "background": "In order: the email (F647) 0.5; the server half of An officer who owes setup in community A and accepts into running community B (F641) 0.9; Assign access offers no Treasurer, Secretary or HOA Administrator role (F648) 0.5; Platform staff access window (choosing HOA Administrator makes the person HOA President) (F649) 1.0. Each bug review said go with changes; the last two start after the landing-first batch.",
+      "owners_next": "No.",
+      "if_yes": "Spawns after Send.",
+      "if_no": "The email keeps showing the project id."
+     },
+     "link": "docs/launch/runs/2026-11-18/plan.md"
+    },
+    {
+     "n": 13,
+     "id": "SM",
+     "item": "Small rows lane, 1.6 est-h: Approve the Assistant reply fix and its command-line settings (J-574), A passkey-only account's second-step line says a phone code is asked every time (F616), and the Neighbors privacy note if you approve it below",
+     "rec": "Approve: Opus 5.5 high for the Assistant fix, Sonnet for the rest",
+     "why": "You approved the Assistant fix on your page; the other two are one-line corrections.",
+     "kind": "Your decision",
+     "details": {
+      "ask": "Approve the small rows lane?",
+      "who": "You decide; the named lane is affected.",
+      "background": "The Assistant fix turns thinking off and sets a 2,048-token default. The passkey line and the privacy note touch screens in the landing-first footprint, so they start after that batch.",
+      "owners_next": "No.",
+      "if_yes": "Spawns after Send.",
+      "if_no": "They roll to the next run."
+     },
+     "link": "docs/launch/runs/2026-11-18/plan.md"
+    },
+    {
+     "n": 14,
+     "id": "DS",
+     "item": "Design landing lane, 0 est-h: Tenyson's HOA Directory restyle (pull request #129), assessed and built on a side branch",
+     "rec": "Approve: Sonnet, after design-neighbors lands",
+     "why": "It must be checked against the five design changes landing first.",
+     "kind": "Your decision",
+     "details": {
+      "ask": "Approve the design landing lane?",
+      "who": "You decide; the named lane is affected.",
+      "background": "It runs /design-branch assess, then build from dev, on side/2026-11-18/design-hoa-directory, and parks it for the next run's lander.",
+      "owners_next": "No.",
+      "if_yes": "Spawns once design-neighbors lands.",
+      "if_no": "The restyle waits."
+     },
+     "link": "docs/launch/runs/2026-11-18/plan.md"
+    },
+    {
+     "n": 15,
+     "id": "Process lanes",
+     "item": "Process lanes: run day repair 2.0 est-h, UX fix lane, staging 3.0, checkout 0.1, docs 2.5, wrap 1.5",
+     "rec": "Approve",
+     "why": "The run day repair allowance carries Close three process holes the maps proved first-hand (J-564) and Fix one run-day test before tonight's dry run (J-567), plus four repair rows; the UX lane has no rows and owns a red walk at the close.",
+     "kind": "Your decision",
+     "details": {
+      "ask": "Approve the process lanes?",
+      "who": "You decide.",
+      "background": "The staging lane runs the oldest of the 49 unrun staging rows first. The docs lane republishes the pages in the Publishes section. The wrap lane trims status.md and writes Linear through the API.",
+      "owners_next": "No.",
+      "if_yes": "They run with the build lanes.",
+      "if_no": "Name the lane to drop."
+     },
+     "link": "docs/launch/runs/2026-11-18/plan.md"
+    },
+    {
+     "n": 16,
+     "id": "Refill queue",
+     "item": "Refill queue, 10.4 est-h: two money integration cases, Apple Pay and Google Pay (CB24), five small defects, the scaling fixes still open and two Linear tooling defects",
+     "rec": "Approve as one row: lanes pull from it in order later today if there is room",
+     "why": "It keeps lanes busy without a new gate.",
+     "kind": "Your decision",
+     "details": {
+      "ask": "Approve the refill queue?",
+      "who": "You decide.",
+      "background": "In order: a restore-posting integration case and a finance-gate case after the homeowner money lane (0.4 each); Apple Pay and Google Pay 4.0 (serial after that lane); A budget amended once shows no saved-vs-now note (F617), A refused home count skips the settings save message (F618), UX walk: 6 touch-pass findings (F615), Blue outline stays around the main area on iPhone after unlocking (F619), community-exports/ has no bucket lifecycle backstop (F426); the scaling fixes still open from Approve the scaling fixes before launch (J-511) 1.6; linear-apply.py cannot write the map pass's placements (F652) 0.5 and Linear writes through the API are not safe for a run (F650) 1.5.",
+      "owners_next": "No.",
+      "if_yes": "Lanes pull rows as they finish.",
+      "if_no": "The queue stays for the next run."
+     },
+     "link": "docs/launch/runs/2026-11-18/plan.md"
+    }
+   ]
+  },
+  {
+   "name": "Jacob's list",
+   "rows": [
+    {
+     "n": 17,
+     "id": "J-581",
+     "item": "Confirm done: Set the go / no-go day for the Nov 30 launch (J-581)",
+     "rec": "Keep it open until the go / no-go",
+     "why": "You answered \"25th for no go\" on Nov 16; the go / no-go itself is still ahead.",
+     "kind": "Your decision",
+     "details": {
+      "ask": "Keep it open until the go / no-go?",
+      "who": "You decide.",
+      "background": "The date is carried; the item stays open as the reminder for Wed Nov 25.",
+      "owners_next": "No.",
+      "if_yes": "Carried on your list at the wrap.",
+      "if_no": "It stays as it is."
+     },
+     "link": "https://claude.ai/artifact/4yRpbnncR9UseUydr6hxQJ"
+    },
+    {
+     "n": 18,
+     "id": "J-527",
+     "item": "Confirm done: Cut the final check's duplicate browser tests (J-527)",
+     "rec": "Close",
+     "why": "The agents report the cut done.",
+     "kind": "Your decision",
+     "details": {
+      "ask": "Close?",
+      "who": "You decide.",
+      "background": "Closes only on your word \"close\".",
+      "owners_next": "No.",
+      "if_yes": "Carried on your list at the wrap.",
+      "if_no": "It stays as it is."
+     },
+     "link": "https://claude.ai/artifact/4yRpbnncR9UseUydr6hxQJ"
+    },
+    {
+     "n": 19,
+     "id": "J-522",
+     "item": "Confirm done: Build the Financial Ledger \"Waiting for you\" design (J-522)",
+     "rec": "Redate to before Wed Nov 25",
+     "why": "Its slices are on dev; the ledger lane finishes the rest tonight.",
+     "kind": "Your decision",
+     "details": {
+      "ask": "Redate to before Wed Nov 25?",
+      "who": "You decide.",
+      "background": "It closes when the rest lands.",
+      "owners_next": "No.",
+      "if_yes": "Carried on your list at the wrap.",
+      "if_no": "It stays as it is."
+     },
+     "link": "https://claude.ai/artifact/4yRpbnncR9UseUydr6hxQJ"
+    },
+    {
+     "n": 20,
+     "id": "J-467",
+     "item": "Confirm done: Ask the owners for the $1,900 still open on stage two (J-467)",
+     "rec": "Redate to Nov 25",
+     "why": "No payment or reminder is recorded; it is cleaner settled before the go / no-go.",
+     "kind": "Your decision",
+     "details": {
+      "ask": "Redate to Nov 25?",
+      "who": "You decide.",
+      "background": "This is your own step: you send the reminder with the invoice attached.",
+      "owners_next": "No.",
+      "if_yes": "Carried on your list at the wrap.",
+      "if_no": "It stays as it is."
+     },
+     "link": "https://claude.ai/artifact/4yRpbnncR9UseUydr6hxQJ"
+    },
+    {
+     "n": 21,
+     "id": "J-530",
+     "item": "Stop the build lanes from reading screenshots (J-530): your Send read \"Deny this. I do not \" and was cut off",
+     "rec": "Confirm deny: the hook stays written and is never registered",
+     "why": "Your words began with deny.",
+     "kind": "Your decision",
+     "details": {
+      "ask": "Confirm you deny it?",
+      "who": "You decide.",
+      "background": "The hook would refuse the Read tool on image files in a lane. It is written and tested but not registered in the settings.",
+      "owners_next": "No.",
+      "if_yes": "The item closes as declined.",
+      "if_no": "Say what you meant; the item stays open."
+     },
+     "link": "https://claude.ai/artifact/4yRpbnncR9UseUydr6hxQJ"
+    },
+    {
+     "n": 22,
+     "id": "J-585",
+     "item": "Record your three PlatPay answers as overrides of the owners' decisions (J-585)",
+     "rec": "Approve: Who opens the merchant application now that PlatPay boards each community (D-398), Where the merchant application opens, and what status the board sees, with PlatPay (D-399) and Where a treasurer reads deposits and processing fees (D-400) recorded as answered by your override, word for word; A booking deposit returned on a timely cancellation (D-401) stays with the owners",
+     "why": "PlatPay has no other path, and waiting holds the first community's switch-on.",
+     "kind": "Your decision",
+     "details": {
+      "ask": "Record the three answers as overrides?",
+      "who": "You decide; the owners are affected.",
+      "background": "You approved three answers in chat on Nov 17: the Account Owner, President or Treasurer opens PlatPay's application link and HOA HX staff connect the community; treasurers read PlatPay's monthly statement; the treasurer writes a dispute response in the app and staff enter it in PlatPay's portal.",
+      "owners_next": "Yes: the three cards move to the owners' Answered Questions tab with the reason.",
+      "if_yes": "The intake runs /decide on the three and the docs lane syncs their cards to the owners' Answered Questions tab.",
+      "if_no": "They stay pending with the owners."
+     },
+     "link": "https://claude.ai/artifact/4yRpbnncR9UseUydr6hxQJ"
+    },
+    {
+     "n": 23,
+     "id": "J-586",
+     "item": "Name who at HOA HX answers disputes and account holds in launch week (J-586)",
+     "rec": "Approve: you carry them yourself, with the support inbox as the treasurer's channel until the dispute response task (CB69) lands; name a back-up once one exists",
+     "why": "A missed dispute deadline is lost by default; American Express gives 20 days.",
+     "kind": "Your decision",
+     "details": {
+      "ask": "Name yourself for disputes and holds in launch week?",
+      "who": "You decide.",
+      "background": "The procedure is written but names no person. You have PlatPay's partner portal access since Nov 16.",
+      "owners_next": "No.",
+      "if_yes": "The docs lane records your name in platpay/dispute-and-hold-procedure.md.",
+      "if_no": "The procedure stays unnamed."
+     },
+     "link": "https://claude.ai/artifact/4yRpbnncR9UseUydr6hxQJ"
+    },
+    {
+     "n": 24,
+     "id": "J-583",
+     "item": "Make the Neighbors directory's privacy note exact (J-583)",
+     "rec": "Approve the wording: \"Only neighbors who are listed by their own or their household's choice appear here. Each person can choose whether their phone number and email are shared.\"",
+     "why": "A privacy promise to homeowners must match what the code does.",
+     "kind": "Your decision",
+     "details": {
+      "ask": "Approve the new note?",
+      "who": "You decide; homeowners see it.",
+      "background": "Tenyson's note says only neighbors who chose appear, but an adult is listed when the household opted in until that person chooses. 0.1 est-h with a unit test.",
+      "owners_next": "No.",
+      "if_yes": "The small rows lane changes it after design-neighbors lands.",
+      "if_no": "The note stays as Tenyson wrote it."
+     },
+     "link": "https://claude.ai/artifact/4yRpbnncR9UseUydr6hxQJ"
+    },
+    {
+     "n": 25,
+     "id": "J-388",
+     "item": "Your step: Send PlatPay the combined follow-up and chase what is owed (J-388)",
+     "rec": "Post the deposits and PCI follow-up in #platpay-hoahx",
+     "why": "Approve the revised PlatPay estimate and the community connect step (J-576) builds only after your partner-portal steps.",
+     "kind": "Your step",
+     "details": {
+      "ask": "Post the follow-up in Slack?",
+      "who": "Your step.",
+      "background": "The docs lane refreshes the draft with the Nov 17 facts tonight; post it when you wake.",
+      "owners_next": "No."
+     },
+     "link": "https://claude.ai/artifact/4yRpbnncR9UseUydr6hxQJ"
+    },
+    {
+     "n": 26,
+     "id": "Mail and Slack",
+     "item": "Your step: read the owners' Gmail and Slack and paste anything new into docs/launch/inbox/",
+     "rec": "Do it once before the wrap",
+     "why": "The Gmail and Slack connectors are down, so no agent can read them.",
+     "kind": "Your step",
+     "details": {
+      "ask": "Paste new owner mail into the inbox folder?",
+      "who": "Your step.",
+      "background": "The intake read no mail this run.",
+      "owners_next": "No."
+     },
+     "link": "docs/launch/inbox/"
+    }
+   ]
+  },
+  {
+   "name": "Publishes today",
+   "rows": [
+    {
+     "n": 27,
+     "id": "publish:plan",
+     "item": "Republish the launch plan and proposal pages",
+     "rec": "Approve: APPROVED publish:plan",
+     "why": "Both still show the launch before the Nov 16 move to Nov 30.",
+     "kind": "Publish",
+     "details": {
+      "ask": "Republish both pages?",
+      "who": "You decide; the owners read them.",
+      "background": "The docs lane republishes from the live versions after a cold read.",
+      "owners_next": "Yes: the owners see the new pages.",
+      "if_yes": "Both are current tonight.",
+      "if_no": "They stay stale."
+     },
+     "link": "https://claude.ai/artifact/8fxzvTuvorCjTMgVARXFcw"
+    },
+    {
+     "n": 28,
+     "id": "Standing pages",
+     "item": "Build Log, MVP tracker, QA page, workflow map and your page republished as standing",
+     "rec": "Nothing to answer",
+     "why": "These are standing publishes; the owners' page waits on your word.",
+     "kind": "For your information (nothing to answer)",
+     "details": {
+      "ask": "Nothing to answer.",
+      "who": "Information for you.",
+      "background": "The owners' page is republished only if you say so.",
+      "owners_next": "No."
+     },
+     "link": "docs/launch/runs/2026-11-18/signoffs.md"
+    }
+   ]
+  }
+ ],
+ "legend": {
+  "J-525": {
+   "k": "an item on Jacob's list",
+   "t": "After each design landing, tell Tenyson to start fresh from dev",
+   "s": "open"
+  },
+  "I-004": {
+   "k": "an issue Jacob filed",
+   "t": "Make the Linear API write path safe for the run",
+   "s": "built"
+  },
+  "PT-056": {
+   "k": "a proposed Linear ticket",
+   "t": "The run day impact check says a run is live when the last run has ended",
+   "s": "proposed"
+  },
+  "PT-057": {
+   "k": "a proposed Linear ticket",
+   "t": "A draft pull request shows a red Build and test check by design, and each push bills one minute",
+   "s": "proposed"
+  },
+  "PT-058": {
+   "k": "a proposed Linear ticket",
+   "t": "Read the 13 seed rows that left the seed before the run of Nov 14 with no record of why",
+   "s": "proposed"
+  },
+  "PT-059": {
+   "k": "a proposed Linear ticket",
+   "t": "The after-run check-in finds no end time for a run, because the ledger writes the time before the word run",
+   "s": "proposed"
+  },
+  "PT-060": {
+   "k": "a proposed Linear ticket",
+   "t": "After launch: one registry for platform settings (feature switches), with an Assistant settings screen as its first use",
+   "s": "proposed"
+  },
+  "CB65": {
+   "k": "a Core build package",
+   "t": "Booking fees and deposits on a reservation",
+   "s": ""
+  },
+  "CB69": {
+   "k": "a Core build package",
+   "t": "The treasurer's dispute response, carried to HOA HX staff",
+   "s": ""
+  },
+  "D-401": {
+   "k": "a decision for the owners",
+   "t": "A booking deposit returned on a timely cancellation: automatically, or with a second approver (after D-010)",
+   "s": "pending"
+  },
+  "J-522": {
+   "k": "an item on Jacob's list",
+   "t": "Build the Financial Ledger \"Waiting for you\" design, starting in run 2026-11-13",
+   "s": "open"
+  },
+  "F644": {
+   "k": "a defect",
+   "t": "Plan-payment claim race: if the record version moves between two buyers' reads they claim different ids",
+   "s": ""
+  },
+  "F647": {
+   "k": "a defect",
+   "t": "Verification email shows the project id, not HOA HX",
+   "s": ""
+  },
+  "F641": {
+   "k": "a defect",
+   "t": "An officer who owes setup in community A and accepts into running community B",
+   "s": ""
+  },
+  "F648": {
+   "k": "a defect",
+   "t": "Assign access offers no Treasurer, Secretary or HOA Administrator role",
+   "s": ""
+  },
+  "F649": {
+   "k": "a defect",
+   "t": "Platform staff access window",
+   "s": ""
+  },
+  "J-574": {
+   "k": "an item on Jacob's list",
+   "t": "Approve the Assistant reply fix and its command-line settings",
+   "s": "open"
+  },
+  "F616": {
+   "k": "a defect",
+   "t": "A passkey-only account's second-step line says a phone code is asked every time",
+   "s": ""
+  },
+  "J-564": {
+   "k": "an item on Jacob's list",
+   "t": "Close three process holes the maps proved first-hand",
+   "s": "open"
+  },
+  "J-567": {
+   "k": "an item on Jacob's list",
+   "t": "Fix one run-day test before tonight's dry run",
+   "s": "open"
+  },
+  "CB24": {
+   "k": "a Core build package",
+   "t": "Apple Pay and Google Pay",
+   "s": ""
+  },
+  "F617": {
+   "k": "a defect",
+   "t": "A budget amended once shows no saved-vs-now note when homes or dues change again",
+   "s": ""
+  },
+  "F618": {
+   "k": "a defect",
+   "t": "A refused home count skips the settings save message",
+   "s": ""
+  },
+  "F615": {
+   "k": "a defect",
+   "t": "UX walk: 6 touch-pass findings the baseline never measured",
+   "s": ""
+  },
+  "F619": {
+   "k": "a defect",
+   "t": "Blue outline stays around the app's main area on iPhone after unlocking",
+   "s": ""
+  },
+  "F426": {
+   "k": "a defect",
+   "t": "community-exports/ has no bucket lifecycle backstop, so a file nobody returns for stays after its 7 days",
+   "s": ""
+  },
+  "J-511": {
+   "k": "an item on Jacob's list",
+   "t": "Approve the scaling fixes to build before launch (16 needed, 13 small ones recommended)",
+   "s": "open"
+  },
+  "F652": {
+   "k": "a defect",
+   "t": "linear-apply.py cannot write the map pass's placements, so it refuses them",
+   "s": ""
+  },
+  "F650": {
+   "k": "a defect",
+   "t": "Linear writes through the API are not safe for a run",
+   "s": ""
+  },
+  "J-581": {
+   "k": "an item on Jacob's list",
+   "t": "Set the go / no-go day for the Nov 30 launch",
+   "s": "answered"
+  },
+  "J-527": {
+   "k": "an item on Jacob's list",
+   "t": "Cut the final check's duplicate browser tests (one item, for a fresh agent to check)",
+   "s": "open"
+  },
+  "J-467": {
+   "k": "an item on Jacob's list",
+   "t": "Ask the owners for the $1,900 still open on stage two",
+   "s": "open"
+  },
+  "J-530": {
+   "k": "an item on Jacob's list",
+   "t": "Stop the build lanes from reading screenshots",
+   "s": "open"
+  },
+  "J-585": {
+   "k": "an item on Jacob's list",
+   "t": "Record your three PlatPay answers as overrides of the owners' decisions",
+   "s": "proposed"
+  },
+  "D-398": {
+   "k": "a decision for the owners",
+   "t": "Who opens the merchant application now that PlatPay boards each community (after D-051)",
+   "s": "pending"
+  },
+  "D-399": {
+   "k": "a decision for the owners",
+   "t": "Where the merchant application opens, and what status the board sees, with PlatPay (after D-111)",
+   "s": "pending"
+  },
+  "D-400": {
+   "k": "a decision for the owners",
+   "t": "Where a treasurer reads deposits and processing fees, with no NMI login (after D-058)",
+   "s": "pending"
+  },
+  "J-586": {
+   "k": "an item on Jacob's list",
+   "t": "Name who at HOA HX answers disputes and account holds in launch week",
+   "s": "proposed"
+  },
+  "J-583": {
+   "k": "an item on Jacob's list",
+   "t": "Make the Neighbors directory's privacy note exact",
+   "s": "proposed"
+  },
+  "J-388": {
+   "k": "an item on Jacob's list",
+   "t": "Send PlatPay the combined follow-up and chase what is owed",
+   "s": "open"
+  },
+  "J-576": {
+   "k": "an item on Jacob's list",
+   "t": "Approve the revised PlatPay estimate and the community connect step",
+   "s": "open"
+  }
+ }
+}

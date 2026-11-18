@@ -1,20 +1,10 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<!-- published by scripts/publish-internal.mjs -->
+<!doctype html><html><head>
+<meta name="robots" content="noindex, nofollow"><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>HOAhx Launch Plan</title>
-<meta name="description" content="Taking HOAhx to production: what is being built, when each piece lands, what is needed from the owners, and a weekly record of where things stand.">
-<meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
 <style>
-/* The page hides the "Today" marker until its script positions it. Declared here
-   rather than relied on from the browser's default sheet, because the marker is an
-   SVG group: SVG elements have no `hidden` IDL property, so the script reveals it
-   with removeAttribute('hidden') and this rule is what holds it until then. */
-[hidden]{display:none!important}
 :root{
   --bg:#F7F8FA; --surface:#FFFFFF; --surface-2:#EEF2F6; --border:#E1E6EC; --border-strong:#C9D2DD;
   --text:#0D1B2A; --text-2:#55606E; --muted:#8792A0;
@@ -118,16 +108,26 @@ figcaption{font-size:13px;color:var(--text-2);margin-top:10px;max-width:80ch}
 footer{padding:26px 0 56px;color:var(--text-2);font-size:13px;border-top:1px solid var(--border)}
 @media (max-width:640px){h1{font-size:28px}.mast{padding:32px 0 26px}section{padding:28px 0}}
 </style>
-</head>
-<body>
+<style>
+.now{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin:12px 0 6px}
+.now .card strong{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.card.core{border-color:var(--accent-line)}
+.card .when{font-size:12.5px;font-weight:600;color:var(--accent-ink);margin:0 0 6px}
+.stages{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:12px 0 14px}
+.stage{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;box-shadow:var(--shadow)}
+.stage .by{font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--accent-ink);margin:0 0 4px}
+.stage b{display:block;font-size:15px;margin:0 0 6px}
+.stage ul{margin:0;padding-left:18px}
+.stage li{font-size:13.5px;color:var(--text-2);margin:0 0 4px}
+</style>
 
 <header class="mast">
   <div class="wrap">
     <p class="eyebrow">HOAhx · Delivery plan</p>
     <h1>HOAhx Launch Plan</h1>
-    <p class="lede">Taking HOAhx to production: the fixes and deployment, payments through NMI, account security and automated testing, and HOAhx on iPhone and Android. Where each piece lands, what's needed from you, and a weekly record of where things stand.</p>
+    <p class="lede">Taking HOAhx to production: the fixes and deployment, payments through NMI, account security and automated testing, HOAhx on iPhone and Android, and since September 17 your whole Core list for the first release. Where each piece lands, what's needed from you, and a weekly record of where things stand.</p>
     <div class="meta">
-      <span>Last updated <b>Saturday, September 12, 2026</b></span>
+      <span>Last updated <b>Wednesday, November 18, 2026</b></span>
       <span>Updated <b>every Friday</b></span>
       <span>Maintained by <b>Jacob West</b></span>
     </div>
@@ -137,6 +137,7 @@ footer{padding:26px 0 56px;color:var(--text-2);font-size:13px;border-top:1px sol
 <nav class="toc" aria-label="Sections">
   <div class="wrap">
     <a href="#status">Status</a>
+    <a href="#now">In progress now</a>
     <a href="#needs">Needs from you</a>
     <a href="#building">What we're building</a>
     <a href="#timeline">Timeline</a>
@@ -155,31 +156,51 @@ footer{padding:26px 0 56px;color:var(--text-2);font-size:13px;border-top:1px sol
   <p class="sec-label">Status</p>
   <h2>Where things stand</h2>
   <div class="tiles">
-    <div class="tile"><p class="k">Overall</p><p class="v"><span class="pill ok">On track · week 1 done</span></p><p class="s">The test suite is corrected and a failing test now stops a release. The tested build was deployed to the production environment Saturday, September 12 — that is the environment the product will run on, not the launch. Nothing is open to residents, or to anyone outside the team, until Oct 9. The one date now at risk is the Sep 25 live payment test: the first community's merchant boarding has not started, because pricing with NMI is still being settled.</p></div>
-    <div class="tile"><p class="k">Target</p><p class="v">HOAhx live Oct 9</p><p class="s">Nothing is public before then. Web go / no-go and app submission are both Sep 30; the web product and both phone apps open to real communities together on Oct 9. If a store asks for a second round of changes, Oct 16. The community subscription billing lands by Oct 9 as well.</p></div>
-    <div class="tile"><p class="k">Next milestone</p><p class="v">Sep 18</p><p class="s">Payments proven in NMI's sandbox, the accounts that move money secured, and the web app working well on phones. The phone work is most of the way there already, a week early: only the board's day-to-day screens are left. NMI's question-and-answer session is held.</p></div>
-    <div class="tile"><p class="k">Waiting on you</p><p class="v">7 items, 2 past due</p><p class="s">Both merchant accounts wait on pricing with NMI before boarding can start. Apple enrollment and the Google Play account are past their dates. Monday's MVP discussion is Sep 14; the partnership agreement and the app-store details are due Sep 18.</p></div>
+    <div class="tile"><p class="k">Overall</p><p class="v"><span class="pill bad">Behind · launch Nov 30</span></p><p class="s">Monday, November 30 is the launch date, still tentative until NMI's boarding answers and the store reviews are in; the go / no-go is Wednesday, November 25. It moved one week on November 16, after one on November 9, to leave time for outside testing and NMI's answers. Nothing is public yet. Each build run this week merged with every automatic check passing. The payment steps still wait on NMI and a few Core list pieces are left.</p></div>
+    <div class="tile"><p class="k">Target</p><p class="v">HOA HX live Nov 30</p><p class="s">The web go / no-go is Nov 25. The iPhone app has been in Apple's review since October 20; the Android listing is approved and held until we release it. The fee and the 173-hour budget do not change.</p></div>
+    <div class="tile"><p class="k">Next milestone</p><p class="v">Nov 13 – 25</p><p class="s">The spreadsheet import's last pieces, the Financial Ledger screens, NMI boarding and the first real charge as soon as NMI answers, the two store reviews, and a week of outside testing. Go / no-go on Wednesday, November 25.</p></div>
+    <div class="tile"><p class="k">Waiting on you</p><p class="v">NMI pricing, past due</p><p class="s">Pricing and the partnership agreement with NMI (boarding, the first real charge and HOA HX's own account all wait on it) and the open questions on your page, each with my recommendation.</p></div>
+  </div>
+</section>
+
+<section id="now">
+  <p class="sec-label">In progress now</p>
+  <h2>What is being worked on, as of Friday, November 13</h2>
+  <div class="now">
+    <div class="card"><strong>The Core list <span class="pill info">Most built · gaps closing</span></strong>
+      <p>Each build run merges a batch of Core list work to the test site. This week's runs brought the spreadsheet import into the app's own look, made email for large imports safer, added nightly backup retries with a written restore, and fixed dozens of small problems from the screen-by-screen walks. What is left is a short list: the import's last pieces, the phone checks, the community subscription's late fee and agreement, and small finishing items.</p>
+    </div>
+    <div class="card"><strong>Payments through NMI <span class="pill warn">Waiting on NMI</span></strong>
+      <p>The payment flows are built and proven in NMI's sandbox as far as the sandbox allows. Boarding the first community, HOA HX's own account, and the first real charge wait on pricing and NMI's written answers.</p>
+    </div>
+    <div class="card"><strong>The phone apps <span class="pill info">Apple in review · Android held</span></strong>
+      <p>The iPhone app has been in Apple's review since October 20. The Android listing is approved and held back until we release it, with a refreshed build to follow.</p>
+    </div>
   </div>
 </section>
 
 <section id="needs">
   <p class="sec-label">Needs from you</p>
   <h2>Decisions and actions only you can do</h2>
-  <p class="prose">Each item is tied to the milestone it unblocks. Delays here move dates, not scope. Two things matter most right now: settling pricing with NMI, which is what the first community's merchant boarding is waiting on and therefore the Sep 25 live payment test, and the Apple account, which gates the App Store submission.</p>
+  <p class="prose">Each item is tied to the milestone it unblocks. Delays here move dates, not scope. Pricing with NMI still matters most. The first community's merchant boarding waits on it, and the live payment test needs that community approved in time to leave room before the November 25 go / no-go.</p>
   <div class="tbl">
     <table>
       <thead><tr><th>Item</th><th>Why it matters</th><th>By</th><th>Status</th></tr></thead>
       <tbody>
-        <tr><td class="k">Board the first community as an NMI merchant</td><td>NMI's answer at the Q&amp;A session was to prove everything in the sandbox first, and that anything specific to the HOAhx application gets settled during merchant onboarding rather than in advance. Boarding this community starts once you and NMI finish agreeing pricing. Underwriting then runs days to weeks and is outside our control, and the Sep 25 live payment test needs an approved account.</td><td class="d">Sep 4 → open</td><td><span class="pill warn">Waiting on pricing with NMI</span></td></tr>
-        <tr><td class="k">Enroll in the Apple Developer Program as an organization</td><td>The D-U-N-S number is already in hand, so this is a few business days of Apple's verification. Nothing can be submitted to the App Store until it's done, and push notifications in week three need it too.</td><td class="d">Sep 8</td><td><span class="pill warn">Past due · in progress</span></td></tr>
-        <tr><td class="k">Administrator access</td><td>The NMI sandbox portal and, once boarded, the merchant and partner portals; the Google Cloud and Firebase consoles. Some of the work can only be done from inside them.</td><td class="d">Sep 8</td><td><span class="pill ok">Done Sep 9</span></td></tr>
-        <tr><td class="k">Monday's discussion: a plan for anything missing from the MVP</td><td>One conversation to agree how we address whatever is still missing from the MVP — the decisions register, what the demo shows, and any other first-release requirements. Jake spearheads it. It decides what comes into launch and what waits until after, so it replaces the separate lists of answers we were chasing item by item.</td><td class="d">Sep 14</td><td><span class="pill info">Monday</span></td></tr>
-        <tr><td class="k">Create the Google Play developer account as an organization</td><td>Organization accounts skip the 14-day, 12-tester rule that personal accounts face before a first release.</td><td class="d">Sep 11</td><td><span class="pill warn">Past due · in progress</span></td></tr>
-        <tr><td class="k">NMI Q&amp;A session</td><td>Held. NMI's guidance: build and prove the payment flows in the sandbox first, and settle everything specific to the HOAhx application during merchant onboarding. Nothing in the build changes as a result — that is the order the plan already follows.</td><td class="d">Sep 11</td><td><span class="pill ok">Done</span></td></tr>
-        <tr><td class="k">Board HOAhx as its own NMI merchant</td><td>HOAhx bills each community's subscription through NMI, so it needs its own merchant account, separate from the communities'. It boards the same way, behind the same pricing agreement. Approval by October 2 allows a live subscription charge before October 9; otherwise the live charge follows launch.</td><td class="d">Sep 11 → open</td><td><span class="pill warn">Waiting on pricing with NMI</span></td></tr>
-        <tr><td class="k">NMI partnership agreement</td><td>The pricing negotiation is part of it, and merchant boarding waits on that. NMI has confirmed in writing that building and testing proceed in the sandbox before it's signed, but real money can't move until it is.</td><td class="d">Sep 18</td><td><span class="pill warn">Open</span></td></tr>
-        <tr><td class="k">Provide app-store details</td><td>The app's name as it should appear in the stores, a privacy policy page on your website, and a support email. Both stores require all three.</td><td class="d">Sep 18</td><td><span class="pill warn">Open</span></td></tr>
-        <tr><td class="k">An hour with the test build on your phone</td><td>TestFlight on iPhone, internal testing on Android. Tell us what's wrong before we submit on Sep 30.</td><td class="d">Sep 25</td><td><span class="pill mute">Later</span></td></tr>
+        <tr><td class="k">Your OK on the November 2 plan: change order 2</td><td>This page is the plan for everything you picked on September 17 together with the twelve items, opening Monday, November 2. Change order 2 put it in writing: your Core list a fixed $5,000 on top of the twelve items' $10,000, $15,000 in all (see Invoice stages). Signed and returned, so this page is the agreed plan.</td><td class="d">Sep 25</td><td><span class="pill ok">Done Sep 26</span></td></tr>
+        <tr><td class="k">Board the first community as an NMI merchant</td><td>Boarding starts once you and NMI finish agreeing pricing. Underwriting then runs days to weeks and is outside our control. The live payment test has to start as soon as NMI approves to leave room before the November 25 go / no-go.</td><td class="d">Sep 4 → open</td><td><span class="pill warn">Waiting on pricing with NMI</span></td></tr>
+        <tr><td class="k">Enroll in the Apple Developer Program as an organization</td><td>Push notifications in the app need it by October 9, and nothing can be submitted to the App Store until it's done. Submission is October 16. This is now holding up real work: the file Apple issues is needed before push notifications and the app's sign-in can be finished.</td><td class="d">Sep 8</td><td><span class="pill ok">Done</span></td></tr>
+        <tr><td class="k">Create the Google Play developer account as an organization</td><td>Organization accounts skip the 14-day, 12-tester rule that personal accounts face before a first release. The test builds on your phone are October 12. This is now holding up real work: the file Google issues is needed before push notifications and the app's sign-in can be finished.</td><td class="d">Sep 11</td><td><span class="pill ok">Done</span></td></tr>
+        <tr><td class="k">Board HOAhx as its own NMI merchant</td><td>HOAhx bills each community's subscription through NMI, so it needs its own merchant account. It boards the same way, behind the same pricing agreement. Approval before the November 25 go / no-go allows a live subscription charge before November 30; otherwise the live charge follows launch.</td><td class="d">Sep 11 → open</td><td><span class="pill warn">Waiting on pricing with NMI</span></td></tr>
+        <tr><td class="k">NMI partnership agreement</td><td>The pricing negotiation is part of it. Building and testing carry on in the sandbox before it's signed, but real money can't move until it is.</td><td class="d">Sep 18</td><td><span class="pill warn">Past due · open</span></td></tr>
+        <tr><td class="k">HOAhx Copilot: which provider, and its monthly cost</td><td>Copilot is in the launch, built the week of October 26. It needs a provider chosen, and that provider carries a monthly running cost in your name.</td><td class="d">Sep 25</td><td><span class="pill warn">Past due · open</span></td></tr>
+        <tr><td class="k">Two questions about the first community</td><td>Will its opening balances include money already overdue? Is a vote or election planned in its first month? The answers decide whether collections and formal voting must work on day one or can finish just after it.</td><td class="d">Sep 30</td><td><span class="pill warn">Past due · open</span></td></tr>
+        <tr><td class="k">Sign off the 27 new screens, feature by feature</td><td>All 27 are on the staging site now, ahead of the September 30 date, and each carries a "signed off" or "change" answer you can give as you go. They show sample data and nothing you click is saved. The data behind each screen is built after your yes.</td><td class="d">Oct 2</td><td><span class="pill ok">Done · all 27 signed off</span></td></tr>
+        <tr><td class="k">Provide app-store details</td><td>The app's name as it should appear in the stores, a privacy policy page on your website, and a support email. Both stores require all three, and the listings are prepared the week of October 12. Two specifics to confirm: the app's permanent identifier, which cannot change after the first submission, and the black HX tile as the store icon.</td><td class="d">Oct 9</td><td><span class="pill warn">Open</span></td></tr>
+        <tr><td class="k">An hour with the test build on your phone</td><td>TestFlight on iPhone, internal testing on Android. Tell us what's wrong before we submit on October 16.</td><td class="d">Oct 12–14</td><td><span class="pill mute">Later</span></td></tr>
+        <tr><td class="k">Administrator access</td><td>The NMI sandbox portal and, once boarded, the merchant and partner portals; the Google Cloud and Firebase consoles.</td><td class="d">Sep 8</td><td><span class="pill ok">Done Sep 9</span></td></tr>
+        <tr><td class="k">The MVP discussion</td><td>Held September 14. It produced your Core list, and every line of it now has an entry in the decisions register. Your selection on September 17 brought all of it into the launch.</td><td class="d">Sep 14</td><td><span class="pill ok">Done</span></td></tr>
+        <tr><td class="k">NMI Q&amp;A session</td><td>Held. NMI's direction was to prove the payment flows in the sandbox first and settle the HOAhx-specific details during merchant onboarding. A few written answers on bank-payment timing and fees were asked of NMI on September 17 and are still to come.</td><td class="d">Sep 11</td><td><span class="pill ok">Done</span></td></tr>
       </tbody>
     </table>
   </div>
@@ -194,21 +215,21 @@ footer{padding:26px 0 56px;color:var(--text-2);font-size:13px;border-top:1px sol
         <li>The automated test suite corrected so a passing test means a working feature, and wired into deployment so a failure stops a release. In place before the first deploy.</li>
         <li>Nine broken upload paths fixed and verified in a browser; all 124 pages checked for the database errors that only appear once a real user hits them.</li>
         <li>The tested build deployed to staging, then production. Internal reports taken off the public site.</li>
-        <li>Defects fixed as verification finds them, weeks one through five, not held for the end.</li>
+        <li>Defects fixed as verification finds them, right up to launch, not held for the end.</li>
       </ul>
     </div>
     <div class="card"><strong>Payments through NMI</strong>
       <ul>
         <li>Each community becomes its own merchant, set up through NMI with approval arriving automatically.</li>
         <li>Homeowners pay assessments by card, bank account, Apple Pay, or Google Pay, one time or on autopay against the community's dues schedule.</li>
-        <li>Refunds, returned bank payments, and disputes update the ledger on their own. Treasurers see deposits.</li>
+        <li>Refunds need two people, and returned bank payments and disputes update the ledger on their own. Treasurers see deposits.</li>
         <li>A real payment, autopay charge, refund, and dispute run through NMI's live system before sign-off.</li>
-        <li>Each community pays its HOAhx subscription inside HOAhx by bank account or card, with recurring charges, named billing contacts, and a past-due schedule. Built in weeks four and five, after the homeowner payment flows are proven.</li>
+        <li>Each community pays its HOAhx subscription inside HOAhx by bank account or card, with recurring charges, named billing contacts, and a past-due schedule. Built from October 1 and verified by October 28.</li>
       </ul>
     </div>
     <div class="card"><strong>Security and protection</strong>
       <ul>
-        <li>Two-factor sign-in for staff and board roles, a stronger password floor with breach screening, and a fresh password before issuing a refund. Residents stay on an opt-in path.</li>
+        <li>Two-factor sign-in for staff and board roles, a stronger password rule with breach screening, and a fresh sign-in before a refund. Residents stay on an opt-in path.</li>
         <li>Abuse protection enforcing, a spending cap and budget alert that reach a person, limits on join-code guessing, and standard browser security protections.</li>
         <li>Error alerting within minutes, uptime checks on the site and the payment connection, daily backups, and one restore actually rehearsed.</li>
       </ul>
@@ -221,93 +242,171 @@ footer{padding:26px 0 56px;color:var(--text-2);font-size:13px;border-top:1px sol
         <li>Store listings, screenshots, privacy disclosures, and a demo community for the reviewers. One round of store-requested changes included.</li>
       </ul>
     </div>
+    <div class="card core"><strong>Your Core list <span class="pill acc">Added Sep 17</span></strong>
+      <ul>
+        <li>All 23 packages you picked on September 17, which cover every line of your Core list (version 3, September 15).</li>
+        <li>The 27 screens your demo never drew are shown to you on the staging site first, and built for real after your yes.</li>
+        <li>Built in four stages, in the order the pieces depend on each other. The stages are listed below.</li>
+        <li>The safety fixes the review of your Core list turned up come with it at no charge, each built with the feature it belongs to.</li>
+        <li>Every item is shown in the decisions register with how it is proven, whether a test or a walkthrough.</li>
+      </ul>
+    </div>
   </div>
+  <div class="stages">
+    <div class="stage"><p class="by">By Oct 9</p><b>Foundations, homes, and money</b><ul>
+      <li>A record of who did what and when, for every sensitive action</li>
+      <li>Identity and access, and one person holding several roles</li>
+      <li>Household and tenant access</li>
+      <li>The onboarding import and resident invitations</li>
+      <li>Property records in full*</li>
+      <li>Reporting a sale and the ownership handoff*</li>
+      <li>Delinquency and payment arrangements*</li>
+      <li>The homeowner budget, with monthly statements</li>
+    </ul></div>
+    <div class="stage"><p class="by">By Oct 16</p><b>Day-to-day operations</b><ul>
+      <li>Communications and urgent alerts</li>
+      <li>Documents, required-document tracking, and acknowledgments</li>
+      <li>Violations: the workflow and its rules</li>
+      <li>Maintenance and vendors</li>
+      <li>Title-company access and the paid transfer package*</li>
+    </ul></div>
+    <div class="stage"><p class="by">By Oct 23</p><b>Community</b><ul>
+      <li>Architectural applications and review</li>
+      <li>Votes and surveys*</li>
+      <li>Calendar, contacts, directory, roster, and feed</li>
+      <li>Parking rules, spaces, and permits</li>
+      <li>Visitor passes and guest access</li>
+    </ul></div>
+    <div class="stage"><p class="by">By Oct 29</p><b>Administration and Copilot</b><ul>
+      <li>Support access and account recovery</li>
+      <li>Board administration</li>
+      <li>Help and the contact routes</li>
+      <li>HOAhx Copilot</li>
+    </ul></div>
+  </div>
+  <p class="prose" style="font-size:13.5px;color:var(--text-2)">* Built last in its stage. These can't come up in a community's first weeks: a sale takes weeks to close, a collections cycle weeks to run, and the first vote is some way off. If a week runs slow, these are the first to finish in the days after November 30. The safety fixes in the same areas are not in this group and land on time.</p>
   <div class="prose">
     <h3>How the work is ordered</h3>
-    <p>Each piece depends on the one before it. The test suite is corrected and wired into deployment first, so the very first production release is checked and every release after it is too. The current build then goes to production, payments are built against NMI's test environment and then proven with real money, and only then is the web product signed off. The phone apps run alongside: the web app is made phone-ready in the first two weeks, the shell is built in week three while NMI's live approval is pending, and both apps are submitted in week four. The community subscription billing follows in weeks four and five, once the homeowner payment flows are proven.</p>
-    <p>A from-scratch native app would mean rebuilding most of the screens and maintaining two versions of HOAhx forever. The shell reuses everything already built and tested and still gives residents notifications, the camera, and biometric sign-in. The web parts of the app update over the air; only changes to the shell itself go back through Apple and Google.</p>
+    <p>Each piece depends on the one before it. The test suite was corrected and wired into deployment first, so every release is checked. Payments are built against NMI's test environment and then proven with real money, and only then is the web product signed off. The phone apps run alongside. The web app was made phone-ready in the first two weeks, the shell is built by October 9, and both apps are submitted October 16.</p>
+    <p>Your Core list starts with the record of who did what and when, because every other feature writes to it from day one and a history that wasn't recorded can't be recreated later. Identity and roles come next, then homes and money, then day-to-day operations, then community features, and administration and Copilot last. Within each area, the parts that can't come up in a community's first weeks are built last. Examples are the steps that close a home sale, the later stages of a collections cycle, formal elections, and renewal reminders. If a week runs slow, those are what finish in the days after November 30, and nothing a community uses on day one moves.</p>
+    <p>The apps can be submitted before the Core list is finished because the app runs the live web product. Features finished after submission reach phones without another store review. A from-scratch native app would mean rebuilding most of the screens and maintaining two versions of HOAhx forever. The web parts of the app update over the air; only changes to the shell itself go back through Apple and Google.</p>
   </div>
 </section>
 
 <section id="timeline">
   <p class="sec-label">Timeline</p>
-  <h2>Five weeks, three tracks in parallel</h2>
-  <p class="prose">Week one starts Friday, Sep 4, and skips Labor Day. Every week after it is a full calendar week. Solid bars are our build work. Dashed bars are time in someone else's hands. Diamonds are milestones. The vertical line is Sep 30: store submission and the web go / no-go on the same day. Week six exists only if a store asks for a second round of changes.</p>
-  <p class="prose">Tenyson Patridge will be making minor UI updates alongside this work. Those aren't expected to affect the dates. Extensive changes, especially to screens under active work or arriving in weeks three to five, could delay launch; if so, the weekly update will say by how much.</p>
-  <div class="note"><b>What changed this week:</b> NMI's question-and-answer session was held, and their direction is the one the plan already follows — prove every payment flow in the sandbox first, and settle everything specific to the HOAhx application during merchant onboarding. Boarding the first community has not started, because pricing with NMI is still being agreed. Until that is settled, the Sep 25 live payment test is the date at risk; the sandbox work ahead of it is unaffected.</div>
+  <h2>Thirteen weeks, four tracks in parallel</h2>
+  <p class="prose">Week one started Friday, Sep 4, and skipped Labor Day; every week after it is a full calendar week, and the thirteenth is Monday, Nov 30, alone. Solid bars are our build work. Dashed bars are time in someone else's hands. Diamonds are milestones. The vertical line is Nov 30, when the web product and both apps open to communities together (moved from Nov 23 on Nov 16, from Nov 16 on Nov 9, and from Nov 2 before that).</p>
+  <p class="prose">Tenyson Patridge will be making UI updates alongside this work. About 48 items on your Core list have no screen design yet. The 27 with nothing at all to build from are shown to you on the staging site first, from September 25. The rest are built from your Core list's wording in the week shown below unless a design arrives first, and the weekly update says where that happened.</p>
+  <div class="note"><b>What changed on November 16:</b> HOAhx now opens Monday, November 30, not November 23, and the written web and apps go / no-go is Wednesday, November 25, not Friday, November 20: the last working day before Thanksgiving. The fee and hours do not change, and nothing was removed. The date is still tentative until NMI boarding and the store reviews are in.</div>
+<div class="note"><b>What changed on November 9:</b> HOAhx now opens Monday, November 23, not November 16, and the written web go / no-go is Friday, November 20, not November 13. A week of outside testing now sits before launch. The fee and hours do not change, and nothing was removed. The date is still tentative until NMI boarding and the store reviews are in.</div>
+  <div class="note"><b>What changed on October 30:</b> HOAhx now opens Monday, November 16, not November 2, and the written web go / no-go is Friday, November 13. The twelve items and everything on your Core list are still in. The apps are in store review while the last of the Core list is built, and a second round of store changes fits before November 23. The live payment test still waits on NMI approving the first community. Your written OK on the new date is to be recorded.</div>
   <figure>
-    <svg viewBox="0 0 1000 584" role="img" aria-label="Five-week timeline from September 4 to October 9 with three lanes. Production and quality: tests wired and deploy in week one, account security week two, abuse controls and monitoring week three, defects fixed throughout, web go/no-go September 30, web product open to communities October 9. Payments: NMI merchant approval on NMI's clock weeks one to three, integration built and sandbox-verified week two, live payment test week three, community subscription billing weeks four to five, done October 9. Mobile: web app phone-ready weeks one to two, app shell and push week three, test builds September 25, review fixes and store listings September 28 to 30, store submission September 30, store review through week five, both apps live October 9 or October 16 if a second round is needed." font-family="Inter,system-ui,sans-serif" font-size="12">
+    <svg viewBox="0 0 1680 835" role="img" aria-label="Thirteen-week timeline from September 4 to November 30 with four lanes. Production and quality: tests wired and deploy in week one, account security to September 23, protection and monitoring September 28 to October 9, defects fixed throughout, web go / no-go November 25, HOAhx open to communities November 30. Payments: NMI merchant approval on NMI's clock through October 21, integration verified in the sandbox September 30, the live payment test within a week of NMI's approval and starting by October 21, community subscription billing October 1 to 28. Your Core list: the 27 new screens on staging by September 30, your sign-off by October 2, foundations, homes and money by October 9, day-to-day operations by October 16, community by October 23, administration and Copilot by October 29, every item proven November 30. Mobile: web app phone-ready built September 17 and shown to you September 25, app shell and push October 5 to 9, test builds October 12, listings and submission October 16, store review through November 25, both apps live November 30." font-family="Inter,system-ui,sans-serif" font-size="12">
       <g style="fill:var(--surface-2)">
-        <rect x="336" y="52" width="126" height="506"/><rect x="588" y="52" width="126" height="506"/><rect x="840" y="52" width="126" height="506"/>
+        <rect x="330" y="52" width="120" height="742"/><rect x="570" y="52" width="120" height="742"/><rect x="810" y="52" width="120" height="742"/><rect x="1050" y="52" width="120" height="742"/><rect x="1290" y="52" width="120" height="742"/><rect x="1530" y="52" width="120" height="742"/>
       </g>
       <g font-size="11" style="fill:var(--text-2)">
         <text x="216" y="30" font-weight="600">Week 1</text><text x="216" y="44">Sep 4</text>
-        <text x="342" y="30" font-weight="600">Week 2</text><text x="342" y="44">Sep 14</text>
-        <text x="468" y="30" font-weight="600">Week 3</text><text x="468" y="44">Sep 21</text>
-        <text x="594" y="30" font-weight="600">Week 4</text><text x="594" y="44">Sep 28</text>
-        <text x="720" y="30" font-weight="600">Week 5</text><text x="720" y="44">Oct 5</text>
-        <text x="846" y="30" font-weight="600">Week 6</text><text x="846" y="44">Oct 12 · only if asked twice</text>
+        <text x="336" y="30" font-weight="600">Week 2</text><text x="336" y="44">Sep 14</text>
+        <text x="456" y="30" font-weight="600">Week 3</text><text x="456" y="44">Sep 21</text>
+        <text x="576" y="30" font-weight="600">Week 4</text><text x="576" y="44">Sep 28</text>
+        <text x="696" y="30" font-weight="600">Week 5</text><text x="696" y="44">Oct 5</text>
+        <text x="816" y="30" font-weight="600">Week 6</text><text x="816" y="44">Oct 12</text>
+        <text x="936" y="30" font-weight="600">Week 7</text><text x="936" y="44">Oct 19</text>
+        <text x="1056" y="30" font-weight="600">Week 8</text><text x="1056" y="44">Oct 26</text>
+        <text x="1176" y="30" font-weight="600">Week 9</text><text x="1176" y="44">Nov 2</text>
+        <text x="1296" y="30" font-weight="600">Week 10</text><text x="1296" y="44">Nov 9</text>
+        <text x="1416" y="30" font-weight="600">Week 11</text><text x="1416" y="44">Nov 16</text><text x="1536" y="30" font-weight="600">Week 12</text><text x="1536" y="44">Nov 23</text><text x="1676" y="30" font-weight="600" text-anchor="end">Wk 13</text><text x="1676" y="44" text-anchor="end">Nov 30</text>
       </g>
+
       <text x="8" y="72" font-size="11" font-weight="600" letter-spacing="1" style="fill:var(--accent-ink)">PRODUCTION AND QUALITY</text>
       <g text-anchor="end" style="fill:var(--text)">
-        <text x="200" y="95">Tests wired, fixes, deploy</text>
-        <text x="200" y="121">Account security</text>
-        <text x="200" y="147">Abuse controls, monitoring</text>
-        <text x="200" y="173">Defects fixed as found</text>
-        <text x="200" y="199">Web go / no-go</text>
-        <text x="200" y="225">Web product open to communities</text>
+        <text x="200" y="98">Tests wired, fixes, deploy</text>
+        <text x="200" y="124">Account security</text>
+        <text x="200" y="150">Protection, monitoring, backups</text>
+        <text x="200" y="176">Defects fixed as found</text>
+        <text x="200" y="202">Web go / no-go</text>
+        <text x="200" y="228">HOAhx open to communities</text>
       </g>
-      <rect x="211" y="82" width="124" height="18" rx="4" style="fill:var(--accent)"/>
-      <rect x="337" y="108" width="124" height="18" rx="4" style="fill:var(--accent)"/>
-      <rect x="463" y="134" width="124" height="18" rx="4" style="fill:var(--accent)"/>
-      <rect x="211" y="160" width="628" height="18" rx="4" style="fill:var(--accent);opacity:.4"/>
-      <polygon points="651,187 659,195 651,203 643,195" fill="currentColor"/>
-      <polygon points="827,213 835,221 827,229 819,221" fill="currentColor"/>
-      <text x="8" y="262" font-size="11" font-weight="600" letter-spacing="1" style="fill:var(--accent-ink)">PAYMENTS THROUGH NMI</text>
+      <rect x="211" y="85" width="118" height="18" rx="4" style="fill:var(--accent)"/>
+      <rect x="331" y="111" width="166" height="18" rx="4" style="fill:var(--accent)"/>
+      <polygon points="510,112 518,120 510,128 502,120" fill="currentColor"/>
+      <rect x="571" y="137" width="214" height="18" rx="4" style="fill:var(--accent)"/>
+      <polygon points="798,138 806,146 798,154 790,146" fill="currentColor"/>
+      <rect x="211" y="163" width="1450" height="18" rx="4" style="fill:var(--accent);opacity:.4"/>
+      <polygon points="1590,190 1598,198 1590,206 1582,198" fill="currentColor"/>
+      <polygon points="1662,216 1670,224 1662,232 1654,224" fill="currentColor"/>
+      <text x="8" y="265" font-size="11" font-weight="600" letter-spacing="1" style="fill:var(--accent-ink)">PAYMENTS THROUGH NMI</text>
       <g text-anchor="end" style="fill:var(--text)">
-        <text x="200" y="285">NMI merchant approval</text>
-        <text x="200" y="311">NMI integration in sandbox</text>
-        <text x="200" y="337">Live payment test</text>
-        <text x="200" y="363">Community subscription billing</text>
+        <text x="200" y="291">NMI merchant approval</text>
+        <text x="200" y="317">NMI integration in sandbox</text>
+        <text x="200" y="343">Live payment test</text>
+        <text x="200" y="369">Community subscription billing</text>
       </g>
-      <rect x="211" y="272" width="376" height="18" rx="4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-dasharray="4 3"/>
-      <rect x="337" y="298" width="124" height="18" rx="4" style="fill:var(--accent)"/>
-      <rect x="463" y="324" width="104" height="18" rx="4" style="fill:var(--accent)"/>
-      <polygon points="575,325 583,333 575,341 567,333" fill="currentColor"/>
-      <rect x="588" y="350" width="232" height="18" rx="4" style="fill:var(--accent)"/>
-      <polygon points="827,351 835,359 827,367 819,359" fill="currentColor"/>
-      <text x="8" y="400" font-size="11" font-weight="600" letter-spacing="1" style="fill:var(--accent-ink)">MOBILE APPS</text>
+      <rect x="211" y="278" width="790" height="18" rx="4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-dasharray="4 3"/>
+      <rect x="331" y="304" width="286" height="18" rx="4" style="fill:var(--accent)"/>
+      <polygon points="630,305 638,313 630,321 622,313" fill="currentColor"/>
+      <rect x="643" y="330" width="454" height="18" rx="4" fill="none" style="stroke:var(--accent)" stroke-width="1.5" stroke-dasharray="4 3"/>
+      <text x="652" y="343" font-size="11" style="fill:var(--accent-ink)">Within a week of NMI's approval</text>
+      <rect x="643" y="356" width="454" height="18" rx="4" style="fill:var(--accent)"/>
+      <polygon points="1110,357 1118,365 1110,373 1102,365" fill="currentColor"/>
+      <text x="8" y="406" font-size="11" font-weight="600" letter-spacing="1" style="fill:var(--accent-ink)">YOUR CORE LIST</text>
       <g text-anchor="end" style="fill:var(--text)">
-        <text x="200" y="423">Web app phone-ready</text>
-        <text x="200" y="449">App shell and push</text>
-        <text x="200" y="475">Test builds on your phone</text>
-        <text x="200" y="501">Listings, fixes, submission</text>
-        <text x="200" y="527">Store review, one round</text>
-        <text x="200" y="553">Both apps live</text>
+        <text x="200" y="432">The 27 new screens on staging</text>
+        <text x="200" y="458">You sign off the screens</text>
+        <text x="200" y="484">Foundations, homes, money</text>
+        <text x="200" y="510">Day-to-day operations</text>
+        <text x="200" y="536">Community</text>
+        <text x="200" y="562">Administration, Copilot</text>
+        <text x="200" y="588">Every item proven</text>
       </g>
-      <rect x="211" y="410" width="250" height="18" rx="4" style="fill:var(--accent)"/>
-      <rect x="463" y="436" width="124" height="18" rx="4" style="fill:var(--accent)"/>
-      <polygon points="575,463 583,471 575,479 567,471" fill="currentColor"/>
-      <rect x="588" y="488" width="55" height="18" rx="4" style="fill:var(--accent)"/>
-      <polygon points="651,489 659,497 651,505 643,497" fill="currentColor"/>
-      <rect x="659" y="514" width="160" height="18" rx="4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-dasharray="4 3"/>
-      <polygon points="827,541 835,549 827,557 819,549" fill="currentColor"/>
-      <polygon points="953,541 961,549 953,557 945,549" style="fill:var(--surface);stroke:currentColor" stroke-width="1.5"/>
-      <line x1="651" y1="54" x2="651" y2="562" style="stroke:var(--accent)" stroke-width="1.5" stroke-dasharray="6 4"/>
-      <text x="651" y="578" text-anchor="middle" font-size="11" font-weight="600" style="fill:var(--accent-ink)">Submission and web go / no-go · Sep 30</text>
+      <rect x="475" y="419" width="142" height="18" rx="4" style="fill:var(--accent)"/>
+      <polygon points="630,420 638,428 630,436 622,428" fill="currentColor"/>
+      <rect x="547" y="445" width="118" height="18" rx="4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-dasharray="4 3"/>
+      <polygon points="678,446 686,454 678,462 670,454" fill="currentColor"/>
+      <rect x="451" y="471" width="334" height="18" rx="4" style="fill:var(--accent)"/>
+      <polygon points="798,472 806,480 798,488 790,480" fill="currentColor"/>
+      <rect x="811" y="497" width="94" height="18" rx="4" style="fill:var(--accent)"/>
+      <polygon points="918,498 926,506 918,514 910,506" fill="currentColor"/>
+      <rect x="931" y="523" width="94" height="18" rx="4" style="fill:var(--accent)"/>
+      <polygon points="1038,524 1046,532 1038,540 1030,532" fill="currentColor"/>
+      <rect x="1051" y="549" width="70" height="18" rx="4" style="fill:var(--accent)"/>
+      <polygon points="1134,550 1142,558 1134,566 1126,558" fill="currentColor"/>
+      <polygon points="1662,576 1670,584 1662,592 1654,584" fill="currentColor"/>
+      <text x="8" y="625" font-size="11" font-weight="600" letter-spacing="1" style="fill:var(--accent-ink)">MOBILE APPS</text>
+      <g text-anchor="end" style="fill:var(--text)">
+        <text x="200" y="651">Web app phone-ready</text>
+        <text x="200" y="677">App shell and push</text>
+        <text x="200" y="703">Test builds on your phone</text>
+        <text x="200" y="729">Listings, fixes, submission</text>
+        <text x="200" y="755">Store review, one round</text>
+        <text x="200" y="781">Both apps live</text>
+      </g>
+      <rect x="211" y="638" width="214" height="18" rx="4" style="fill:var(--accent)"/>
+      <polygon points="558,639 566,647 558,655 550,647" fill="currentColor"/>
+      <rect x="691" y="664" width="94" height="18" rx="4" style="fill:var(--accent)"/>
+      <polygon points="798,665 806,673 798,681 790,673" fill="currentColor"/>
+      <polygon points="822,691 830,699 822,707 814,699" fill="currentColor"/>
+      <rect x="811" y="716" width="94" height="18" rx="4" style="fill:var(--accent)"/>
+      <polygon points="918,717 926,725 918,733 910,725" fill="currentColor"/>
+      <rect x="931" y="742" width="723" height="18" rx="4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-dasharray="4 3"/>
+      <polygon points="1662,769 1670,777 1662,785 1654,777" fill="currentColor"/>
+
+      <line x1="1662" y1="54" x2="1662" y2="794" style="stroke:var(--accent)" stroke-width="1.5" stroke-dasharray="6 4"/>
+      <text x="1676" y="818" text-anchor="end" font-size="11" font-weight="600" style="fill:var(--accent-ink)">HOAhx opens to communities · Monday, Nov 30</text>
       <g id="today" hidden>
-        <line id="today-line" x1="210" y1="52" x2="210" y2="562" style="stroke:var(--bad)" stroke-width="2"/>
+        <line id="today-line" x1="210" y1="52" x2="210" y2="794" style="stroke:var(--bad)" stroke-width="2"/>
         <text id="today-label" x="214" y="62" font-size="11" font-weight="600" style="fill:var(--bad)">Today</text>
       </g>
     </svg>
-    <figcaption>Sep 28 to 30 is your test-build feedback being fixed and the store listings prepared, ending in submission and the web sign-off on the same day; Oct 1 and 2 carry the community subscription billing through NMI, which runs into week five. The live payment test in week three depends on NMI approving the first merchant account, which is why the application goes in on day one. The lighter bar is defect fixing, which runs the whole engagement rather than being saved for the end. The two diamonds on Oct 9 are the same day on purpose: the web product and both phone apps open to communities together, so HOAhx launches once.</figcaption>
+    <figcaption>The 27 new screens come first, so you can approve them before their data is built. The Core list then runs in four stages, each ending on a Friday except the last. Inside each stage, the parts a community can't use in its first weeks are built last, so a slow week moves only those into the days after November 30. The apps are submitted October 16 and reviewed while the last stages are built. Features finished after that reach phones without another review, because the app runs the live web product. The live payment test runs within a week of NMI approving the first community and has to start in time to leave room before the November 25 go / no-go. A second round of store changes fits before November 30. The lighter bar is defect fixing, which runs the whole way rather than being saved for the end.</figcaption>
   </figure>
   <div class="legend">
     <span><i class="sw solid"></i>Our build work</span>
     <span><i class="sw solid" style="opacity:.4"></i>Continuous</span>
     <span><i class="sw dash"></i>Waiting on NMI, Apple, or Google</span>
     <span><i class="dia"></i>Milestone</span>
-    <span><i class="dia hollow"></i>Only if a store asks twice</span>
     <span><i class="tick"></i>Today</span>
   </div>
 </section>
@@ -321,11 +420,11 @@ footer{padding:26px 0 56px;color:var(--text-2);font-size:13px;border-top:1px sol
       <thead><tr><th>Milestone</th><th>Target</th><th>Done means</th><th>Depends on</th><th>Status</th></tr></thead>
       <tbody>
         <tr><td class="k">Tests corrected and running on every deployment</td><td class="d">Sep 9</td><td>The suite checks what the product does rather than how the code looks, and a failing test stops a release from shipping. In place before the first production deploy.</td><td>Nothing external</td><td><span class="pill ok">Done Sep 10</span></td></tr>
-        <tr><td class="k">Tested build on the production environment</td><td class="d">Sep 11 → Sep 12</td><td>Nine upload paths fixed and verified in a browser. All 124 pages checked for database errors. The current build deployed to staging, then to the production environment. Internal reports off the public site. Deployed Sep 12, one working day late: the Sep 11 build was held by an account limit at GitHub, then the first automatic deployment to that environment needed a Google Cloud setting switched on. No other milestone moves. This milestone is about the environment, not the launch: the build runs where the product will eventually run, and stays private to the team until Oct 9.</td><td>Tests wired</td><td><span class="pill ok">Done Sep 12</span></td></tr>
-        <tr><td class="k">Accounts that move money secured</td><td class="d">Sep 18</td><td>Two-factor sign-in required for staff and board roles, a stronger password floor with breach screening, and a fresh password before a refund. Residents on an opt-in path.</td><td>Two-factor answered Sep 8</td><td><span class="pill mute">Not started</span></td></tr>
-        <tr><td class="k">Protection, monitoring, and backups</td><td class="d">Sep 25</td><td>Abuse protection enforcing. Spending cap and budget alerts that reach a person. Join-code guessing limited. Security headers on. Error alerts within minutes, uptime checks, daily backups, one restore rehearsed and written down.</td><td>Production build</td><td><span class="pill mute">Not started</span></td></tr>
-        <tr><td class="k">Web go / no-go</td><td class="d">Sep 30</td><td>A written recommendation on the web product two working days after the live payment test, with anything it surfaced already fixed, and every defect logged against the twelve items as of that date either resolved or deferred with your written sign-off. Waiting on NMI, Apple, or Google doesn't hold this up. Oct 1 and 2 carry the community subscription-billing build, so a late NMI approval moves the live payment test rather than being absorbed.</td><td>Everything above; live payment test</td><td><span class="pill mute">Not started</span></td></tr>
-        <tr><td class="k">Web product open to communities</td><td class="d">Oct 9</td><td>The web product reachable at a public address and open to a real community: board and residents sign in and use it for real work. Before this date it stays closed to everyone outside the team. It opens alongside the phone apps, so HOAhx launches once rather than twice. A community whose merchant account is not yet approved opens with payments switched off and turns them on when NMI approves.</td><td>Web go / no-go; a public address; the first community boarded, for payments</td><td><span class="pill mute">Not started</span></td></tr>
+        <tr><td class="k">Tested build on the production environment</td><td class="d">Sep 11 → Sep 12</td><td>Nine upload paths fixed and verified in a browser. All 124 pages checked for database errors. The current build deployed to staging, then to the production environment. Internal reports off the public site. This milestone is about the environment, not the launch: the build runs where the product will eventually run, and stays private to the team until Nov 30.</td><td>Tests wired</td><td><span class="pill ok">Done Sep 12</span></td></tr>
+        <tr><td class="k">Accounts that move money secured</td><td class="d">Sep 18 → Sep 23</td><td>Two-factor sign-in required for staff and board roles, a stronger password rule with breach screening, and two people with a fresh sign-in for every refund. Residents on an opt-in path.</td><td>Two-factor answered</td><td><span class="pill ok">Done Sep 23</span></td></tr>
+        <tr><td class="k">Protection, monitoring, and backups</td><td class="d">Sep 25 → Oct 9</td><td>Abuse protection enforcing. Spending cap and budget alerts that reach a person. Join-code guessing limited. Security headers on. Error alerts within minutes, uptime checks, daily backups, one restore rehearsed and written down.</td><td>Production build</td><td><span class="pill info">Started · headers live</span></td></tr>
+        <tr><td class="k">Web go / no-go</td><td class="d">Sep 30 → Nov 25</td><td>A written recommendation on the whole web product, your Core list included. It carries the live payment test's evidence, with anything the test surfaced already fixed. Every defect logged as of that date is resolved or deferred with your written sign-off.</td><td>Everything above; the live payment test; the Core list stages</td><td><span class="pill mute">Not started</span></td></tr>
+        <tr><td class="k">HOAhx open to communities</td><td class="d">Oct 9 → Nov 30</td><td>The web product reachable at a public address and open to a real community: board and residents sign in and use it for real work. Before this date it stays closed to everyone outside the team. It opens alongside the phone apps, so HOAhx launches once. A community whose merchant account is not yet approved opens with payments switched off and turns them on when NMI approves.</td><td>Web go / no-go; a public address; the first community boarded, for payments</td><td><span class="pill mute">Not started</span></td></tr>
       </tbody>
     </table>
   </div>
@@ -335,10 +434,25 @@ footer{padding:26px 0 56px;color:var(--text-2);font-size:13px;border-top:1px sol
       <thead><tr><th>Milestone</th><th>Target</th><th>Done means</th><th>Depends on</th><th>Status</th></tr></thead>
       <tbody>
         <tr><td class="k">Sandbox open</td><td class="d">Done</td><td>We can run test payments in NMI's sandbox. In hand before kickoff.</td><td>NMI</td><td><span class="pill ok">Done</span></td></tr>
-        <tr><td class="k">NMI Q&amp;A held</td><td class="d">Sep 11</td><td>Held. NMI's direction: prove the payment flows in the sandbox first, and settle everything specific to the HOAhx application during merchant onboarding. What is still open on bank-payment timing and fees comes out of that onboarding rather than holding up the build.</td><td>NMI, you</td><td><span class="pill ok">Done</span></td></tr>
-        <tr><td class="k">Payment integration built and verified in sandbox</td><td class="d">Sep 18</td><td>Each community set up as its own merchant with approval arriving by webhook. Homeowners pay by card, bank account, Apple Pay, or Google Pay, one time or on autopay against the dues schedule. Refunds, returned bank payments, and disputes handled. All seven payment flows verified in a browser against NMI's test environment.</td><td>Sandbox, Q&amp;A</td><td><span class="pill info">In progress</span></td></tr>
-        <tr><td class="k">Live payment test</td><td class="d">Sep 25</td><td>A real payment, an autopay charge, a refund, and a dispute each run through NMI's live system and reconciled against the community ledger.</td><td>Pricing agreed with NMI; the first community boarded and approved; partnership agreement</td><td><span class="pill warn">At risk · boarding not started</span></td></tr>
-        <tr><td class="k">Community subscription billed through NMI</td><td class="d">Oct 9</td><td>HOAhx set up as its own merchant. Plans and prices in place. A community buys, changes, or cancels its subscription inside HOAhx by bank account or card, with recurring charges on its monthly or annual date and receipts. Past-due handling follows your schedule. Billing contacts named per community. Verified in NMI's test environment, with a live subscription charge if HOAhx's merchant is approved in time.</td><td>Sandbox-verified integration; HOAhx boarded as a merchant, behind the same pricing agreement; the plans and prices</td><td><span class="pill mute">Not started</span></td></tr>
+        <tr><td class="k">NMI Q&amp;A held</td><td class="d">Sep 11</td><td>Held. NMI's direction: prove the payment flows in the sandbox first, and settle everything specific to the HOAhx application during merchant onboarding. Written answers on bank-payment timing and fees were asked for on September 17.</td><td>NMI, you</td><td><span class="pill ok">Done</span></td></tr>
+        <tr><td class="k">Payment integration built and verified in sandbox</td><td class="d">Sep 18 → Sep 30</td><td>Each community set up as its own merchant with approval arriving by webhook. Homeowners pay by card, bank account, Apple Pay, or Google Pay, one time or on autopay against the dues schedule. Refunds, returned bank payments, and disputes handled. The seven payment flows are verified against NMI's test environment. NMI's sandbox can't produce a returned bank payment or a dispute, and may not offer Apple Pay or Google Pay. Those flows are proven another way and marked as such, never as passed.</td><td>Sandbox, Q&amp;A</td><td><span class="pill warn">Waiting on NMI's answers</span></td></tr>
+        <tr><td class="k">Live payment test</td><td class="d">Sep 25 → by Oct 28</td><td>A real payment, an autopay charge, a refund, and a dispute each run through NMI's live system and reconciled against the community ledger. It runs within a week of NMI approving the first community, and it has to start in time to leave room before the November 25 go / no-go.</td><td>Pricing agreed with NMI; the first community boarded and approved; partnership agreement</td><td><span class="pill warn">At risk · boarding not started</span></td></tr>
+        <tr><td class="k">Community subscription billed through NMI</td><td class="d">Oct 9 → Oct 28</td><td>HOAhx set up as its own merchant. Plans and prices in place. A community buys, changes, or cancels its subscription inside HOAhx by bank account or card, with recurring charges on its monthly or annual date and receipts. Past-due handling follows your schedule. Billing contacts named per community. Verified in NMI's test environment, with a live subscription charge if HOAhx's merchant is approved before the November 25 go / no-go.</td><td>Sandbox-verified integration; HOAhx boarded as a merchant, behind the same pricing agreement; the plans and prices</td><td><span class="pill mute">Starts Oct 1</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <h3>Your Core list</h3>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>Milestone</th><th>Target</th><th>Done means</th><th>Depends on</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td class="k">The 27 new screens on the staging site</td><td class="d">Sep 30</td><td>Every screen of the four features your demo never drew (the community's HOAhx subscription, approvals for sensitive actions, falling behind on dues, and bringing a community's records in), each of its states reachable, on sample data. Nothing you click is saved.</td><td>The staging site</td><td><span class="pill ok">All 27 there Sep 23</span></td></tr>
+        <tr><td class="k">Your sign-off of the 27 screens</td><td class="d">Oct 2</td><td>A yes, change, or discuss on each screen, recorded in the decisions register. A change becomes a follow-up entry. The data behind each screen is built after your yes.</td><td>The screens on staging; you</td><td><span class="pill warn">Open · my replies follow Monday</span></td></tr>
+        <tr><td class="k">Foundations, homes, and money</td><td class="d">Oct 9</td><td>The record of who did what and when behind every sensitive action. Identity and access, including the HOA Administrator as a role of its own, and one person holding several roles. Household and tenant access. The onboarding import and invitations. The homeowner budget with monthly statements. Property records in full, reporting a sale and the ownership handoff, and delinquency and payment arrangements are built last in this stage. They are the first to move past November 30 if a week runs slow.</td><td>Account security; the payment work, for delinquency and the budget</td><td><span class="pill mute">Starts Oct 1</span></td></tr>
+        <tr><td class="k">Day-to-day operations</td><td class="d">Oct 16</td><td>Communications with templates, scheduling, and urgent alerts. Documents with version history, required-document tracking, and acknowledgments. The violations workflow and its rules. Maintenance and vendors. Title-company access and the paid transfer package, built last.</td><td>The first stage</td><td><span class="pill mute">Not started</span></td></tr>
+        <tr><td class="k">Community</td><td class="d">Oct 23</td><td>Architectural applications and review. Votes and surveys, built last apart from their safety fixes. Calendar, contacts, directory, roster, and feed. Parking rules, spaces, and permits. Visitor passes and guest access.</td><td>The first stage</td><td><span class="pill mute">Not started</span></td></tr>
+        <tr><td class="k">Administration and Copilot</td><td class="d">Oct 29</td><td>Support access and account recovery. Board administration. Help and the contact routes. HOAhx Copilot answering from your approved documents and records, citing them, and handing to a person when it can't answer.</td><td>Account security; your choice of Copilot provider (Sep 25)</td><td><span class="pill mute">Not started</span></td></tr>
+        <tr><td class="k">Every Core list item proven</td><td class="d">Nov 2 → Nov 30</td><td>Every item in the decisions register that is in the launch shows how it is proven, whether a test or a walkthrough, and the web go / no-go covers it. Anything still finishing after November 30 is named in the go / no-go with its date.</td><td>The four stages</td><td><span class="pill mute">Not started</span></td></tr>
       </tbody>
     </table>
   </div>
@@ -347,11 +461,11 @@ footer{padding:26px 0 56px;color:var(--text-2);font-size:13px;border-top:1px sol
     <table>
       <thead><tr><th>Milestone</th><th>Target</th><th>Done means</th><th>Depends on</th><th>Status</th></tr></thead>
       <tbody>
-        <tr><td class="k">Web app works well on phones</td><td class="d">Sep 18</td><td>Every homeowner screen and the board's day-to-day screens laid out for a phone. Installable from a phone browser. Loads quickly on a cellular connection. The homeowner screens and the faster loading were finished Saturday, September 12, a week early; the board's screens are what remains.</td><td>Nothing external</td><td><span class="pill info">In progress · homeowner screens done</span></td></tr>
-        <tr><td class="k">App shell and push notifications</td><td class="d">Sep 25</td><td>iPhone and Android builds sign in with email, Google, or Apple; open invitation links directly; use the camera for requests; support Face ID and fingerprint; deliver announcements, request updates, and payment reminders as notifications. The NMI payment form works inside the app.</td><td>Phone-ready web app; Apple enrollment</td><td><span class="pill mute">Not started</span></td></tr>
-        <tr><td class="k">Test builds on your phone</td><td class="d">Sep 25</td><td>You can install the app through TestFlight and Google Play internal testing and try the full flow, including a test payment.</td><td>App shell; Apple and Google accounts</td><td><span class="pill mute">Not started</span></td></tr>
-        <tr><td class="k">Store submission</td><td class="d">Sep 30</td><td>Both listings submitted with screenshots, privacy disclosures, a demo community the reviewers can log into and pay in, and your test-build feedback already in.</td><td>Test builds; app-store details from you</td><td><span class="pill mute">Not started</span></td></tr>
-        <tr><td class="k">Both apps live</td><td class="d">Oct 9</td><td>Public in the App Store and Google Play, with one round of store-requested changes included, and a written go / no-go on the apps. A second round, if a store asks, would land Oct 16.</td><td>Apple and Google review</td><td><span class="pill mute">Not started</span></td></tr>
+        <tr><td class="k">Web app works well on phones</td><td class="d">Sep 18 → Sep 25</td><td>Every homeowner screen and the board's day-to-day screens laid out for a phone. Installable from a phone browser. Loads quickly on a cellular connection. Walked through with you.</td><td>Nothing external</td><td><span class="pill ok">Built Sep 17 · shown to you Sep 25</span></td></tr>
+        <tr><td class="k">App shell and push notifications</td><td class="d">Sep 25 → Oct 9</td><td>iPhone and Android builds sign in with email, Google, or Apple; open invitation links directly; use the camera for requests; support Face ID and fingerprint; deliver announcements, request updates, and payment reminders as notifications. The NMI payment form works inside the app.</td><td>Phone-ready web app; Apple enrollment</td><td><span class="pill info">Started · waiting on Apple and Google</span></td></tr>
+        <tr><td class="k">Test builds on your phone</td><td class="d">Sep 25 → Oct 12</td><td>You can install the app through TestFlight and Google Play internal testing and try the full flow, including a test payment.</td><td>App shell; Apple and Google accounts</td><td><span class="pill mute">Not started</span></td></tr>
+        <tr><td class="k">Store submission</td><td class="d">Sep 30 → Oct 16</td><td>Both listings submitted with screenshots, privacy disclosures, a demo community the reviewers can log into and pay in, and your test-build feedback already in.</td><td>Test builds; app-store details from you</td><td><span class="pill mute">Not started</span></td></tr>
+        <tr><td class="k">Both apps live</td><td class="d">Oct 9 → Nov 30</td><td>Public in the App Store and Google Play, with one round of store-requested changes included, and a written go / no-go on the apps. A second round, if a store asks, fits before Nov 30.</td><td>Apple and Google review</td><td><span class="pill mute">Not started</span></td></tr>
       </tbody>
     </table>
   </div>
@@ -360,16 +474,18 @@ footer{padding:26px 0 56px;color:var(--text-2);font-size:13px;border-top:1px sol
 <section id="invoices">
   <p class="sec-label">Invoice stages</p>
   <h2>When each stage of the fee comes due</h2>
-  <p class="prose">From the proposal: five payments, with the last stage split in two, each tied to something you can see. Invoiced at each stage, net 15 days.</p>
+  <p class="prose">From the proposal: five payments, with the last stage split in two, each tied to something you can see. Invoiced at each stage, net 15 days. The targets follow the new dates, including the November 30 launch. Change order 2 changes one trigger: stage two is paid on the security and payment work delivered on the staging copy and in NMI's sandbox, which is in my hands, rather than on the first live payment, which waits on NMI's approval of the first community. The live payment joins stage three. The fee for the twelve items stays $10,000. Everything you picked on September 17 is one fixed price of $5,000, so the total comes to <strong>$15,000</strong>.</p>
   <div class="tbl">
     <table>
       <thead><tr><th>Stage</th><th>Amount</th><th>Trigger</th><th>Target</th></tr></thead>
       <tbody>
-        <tr><td class="k">One</td><td class="d">$2,500</td><td>On acceptance of the proposal</td><td class="d">Kickoff</td></tr>
-        <tr><td class="k">Two</td><td class="d">$2,500</td><td>The production environment running the current build, and a live payment settled correctly through NMI. Both conditions are about the software working, not about HOAhx being open to communities.</td><td class="d">Sep 25</td></tr>
-        <tr><td class="k">Three</td><td class="d">$2,500</td><td>Delivery of the written go / no-go on the web product, with the defects logged along the way already fixed</td><td class="d">Sep 30</td></tr>
-        <tr><td class="k">Four-A</td><td class="d">$1,250</td><td>Both apps submitted to the App Store and Google Play</td><td class="d">Sep 30</td></tr>
-        <tr><td class="k">Four-B</td><td class="d">$1,250</td><td>Both apps approved and live, or automatically 30 days after submission if a store is simply slow</td><td class="d">Oct 9</td></tr>
+        <tr><td class="k">One</td><td class="d">$2,500</td><td>On acceptance of the proposal</td><td class="d">Paid</td></tr>
+        <tr><td class="k">Two</td><td class="d">$2,500</td><td>Two-factor sign-in, the password rule, and refunds by two people, all on the staging copy. The payment flow built end to end in NMI's sandbox: paying by card or bank, saved methods, autopay on the due date, and NMI's events on the ledger.</td><td class="d">Fri Sep 25</td></tr>
+        <tr><td class="k">Three</td><td class="d">$2,500</td><td>Delivery of the written go / no-go on the web product, with all seven payment flows verified in the sandbox, a live payment settled correctly through NMI, and the defects logged along the way already fixed</td><td class="d">Wed Nov 25</td></tr>
+        <tr><td class="k">Four-A</td><td class="d">$1,250</td><td>Both apps submitted to the App Store and Google Play</td><td class="d">Oct 16</td></tr>
+        <tr><td class="k">Four-B</td><td class="d">$1,250</td><td>Both apps approved and live, or automatically 30 days after submission if a store is simply slow</td><td class="d">Mon Nov 30 (its 30-day backstop after the October 16 submission falls on Nov 16, before the launch)</td></tr>
+        <tr><td class="k">Core list</td><td class="d">$5,000</td><td>Your Core list built and proven: every item you picked on September 17, each shown in the decisions register with how it is proven</td><td class="d">Mon Nov 30</td></tr>
+        <tr><td class="k">Total</td><td class="d"><strong>$15,000</strong></td><td>The twelve items ($10,000) and your Core list ($5,000)</td><td class="d"></td></tr>
       </tbody>
     </table>
   </div>
@@ -379,6 +495,185 @@ footer{padding:26px 0 56px;color:var(--text-2);font-size:13px;border-top:1px sol
 <section id="updates">
   <p class="sec-label">Weekly updates</p>
   <h2>Newest first</h2>
+  <article class="log">
+    <header><span class="wk">Week 10</span><span class="date">Friday, November 13, 2026</span><span class="pill bad">Behind</span></header>
+    <p style="max-width:80ch;margin:0 0 16px">HOA HX opens Monday, November 23, with the web and apps go / no-go on Friday, November 20, as recorded on November 9; the date stays tentative until NMI's boarding answers and the iPhone and Android store reviews are in. The go / no-go moved with the launch, so there is one more Friday update, on November 20. The fixed fee does not change and the 173 hours stay the budget. HOA HX has not launched; nothing is public before the launch date.</p>
+    <div class="log-grid">
+      <div><h4>Done</h4><ul><li>Four more build runs merged to the test site this week with the checks passing, and the screen-by-screen walk found nothing new and nothing worse.</li><li>The spreadsheet import was rebuilt in the app's own look, with a step bar, a preview of the first rows and long lists shown 50 at a time; email for a large import goes out at a pace the email service accepts, with daily limits per community.</li><li>The first piece of the Financial Ledger "Waiting for you" design and the designer's next slice of screens are in.</li><li>Fixed: a treasurer who saw "Import a Spreadsheet" but could not start an import; an officer who lost the setup prompt when joining a second community; a renewed tenant turned away; a balance lookup missing one permission; joining a home, a tenant's hidden balance and the sign-in transition; the old AutoPay checkout was closed off.</li><li>Nightly backups retry when a first try is refused, with the restore steps written down; a payment error on a pay-now sale is recorded as unknown rather than guessed at.</li></ul></div>
+      <div><h4>Week 11 (November 16 – 20)</h4><ul><li>The import's last pieces and the next Financial Ledger screens.</li><li>NMI boarding and the first real charge as soon as NMI answers.</li><li>The iPhone and Android store reviews, and a week of hands-on checks by a tester.</li><li>Go / no-go on Friday, November 20, with the final Friday update the same day.</li></ul></div>
+      <div><h4>Needs you</h4><ul><li><strong>NMI pricing and the partnership agreement</strong> (past due): boarding, the first real charge and HOA HX's own account all wait on it.</li><li>Your OK on November 23, to be recorded with the reason.</li><li>Two open questions on your page (https://hoahx-requirements.netlify.app/), each with my recommendation: who sets the fee for a home's transfer package and how the seller pays it, and the company's exact legal name for the footer and the sign-in pages.</li><li>Small points we settled on your behalf with our recommendation; say if you disagree.</li></ul></div>
+      <div><h4>Watching</h4><ul><li>NMI's written answers and boarding gate the live payment, the community subscription charge and the go / no-go, and are the main risk to November 23.</li><li>The iPhone app has been in Apple's review since October 20; the Android listing is approved and held until we release it, with a refreshed build to follow.</li><li>The hands-on checks must all pass before the go / no-go; none have been run yet. The designer's look is in and moves no date.</li></ul></div>
+    </div>
+  </article>
+  <article class="log">
+    <header><span class="wk">Week 9</span><span class="date">Friday, November 6, 2026</span><span class="pill bad">Behind</span></header>
+    <p style="max-width:80ch;margin:0 0 16px">HOA HX opens Monday, November 16, as recorded last week; the date is tentative until NMI's boarding answers and the iPhone and Android store reviews are in. The fixed fee does not change (the twelve items $10,000, the Core list $5,000) and the 173 hours stay the budget. The web and apps go / no-go is Friday, November 13; if NMI has not produced a live payment by then, it moves, and I will send the reason and my recommendation. HOA HX has not launched; nothing is public before the launch date.</p>
+    <div class="log-grid">
+      <div><h4>Done</h4><ul><li>Three more build runs merged to the test site this week with the checks passing, and 28 defects found by the screen-by-screen walk were fixed.</li><li>Homeowners see the credit held on their account in receipts, payment plans and adjustments, and their refund history.</li><li>A home's opening balance from the import is visible only to the financial roles; staff records (meetings and community settings) now write to the shared history; a cured violation closes everywhere it appears.</li><li>Every ledger line records who entered it and which role they held; quick access on the homeowner home screen and quick unlock on the phone.</li><li>The designer's sign-in look and the rebuilt log-in screens.</li></ul></div>
+      <div><h4>Week 10 (November 9 – 13)</h4><ul><li>The last Core list pieces: the community subscription's late fee and agreement, the home screen's finishing steps, and phone checks.</li><li>The designer's look lands Monday, November 9; the design stops changing after that.</li><li>NMI boarding and the first real charge as soon as NMI answers; the iPhone and Android store reviews.</li><li>Go / no-go on Friday, November 13, with the final Friday update the same day.</li></ul></div>
+      <div><h4>Needs you</h4><ul><li><strong>NMI pricing and the partnership agreement</strong> (past due): boarding, the first real charge and HOA HX's own account all wait on it.</li><li>Your OK on November 16: Rustin said yes in #dev on October 30; Daniel has not replied, so please confirm.</li><li>The four open questions on your page: whether a staff property import counts as naming a home's owner; who may message the homes behind on dues; whether a manager with no money tasks may charge a fine; whether a proxy needs a drawn signature or accepting the terms is enough.</li><li>Small points we settled on your behalf with our recommendation; say if you disagree.</li></ul></div>
+      <div><h4>Watching</h4><ul><li>NMI's written answers and boarding gate the live payment, the community subscription charge and the go / no-go. They are the main risk to November 16.</li><li>The iPhone app has been in Apple's review since October 20; the Android listing is approved and held back until we release it, with a refreshed build to follow.</li><li>The designer's look landing on November 9 touches screens under active work and moves no date.</li></ul></div>
+    </div>
+  </article>
+  <article class="log">
+    <header><span class="wk">Week 8</span><span class="date">Saturday, October 31, 2026</span><span class="pill bad">Behind</span></header>
+    <p style="max-width:80ch;margin:0 0 16px">HOAhx now opens Monday, November 16, not November 2, with the go / no-go on Friday, November 13. Another build run was merged to the test site today. Nothing is public before the launch date, and HOAhx has not launched.</p>
+    <div class="log-grid">
+      <div><h4>Done</h4><ul><li>Thirty-one pieces of work merged with the website checks passing, and a screen-by-screen walk that found nothing new.</li><li>Tenants confirmed after a sale; a past-due bank payment; the Get started sign-up; naming a home's owner (a first owner needs the deed or closing record).</li><li>A secret ballot that can no longer be tied to the voter, with one ballot per home and open votes locked.</li><li>Setup documents with a preview; quiet hours, with emails held until morning; visitor pass kinds and a guest arrival view.</li><li>Wider testing across roles and on phone screens, rehearsed rollbacks, and the designer's sign-in and onboarding look.</li></ul></div>
+      <div><h4>Week 9 (November 2 – 6)</h4><ul><li>What is left, in no set order: the last Core list pieces (phone checks, passkey sign-in, the community subscription's late fee and agreement, small finishing items).</li><li>NMI boarding and the first real charge as soon as NMI answers.</li><li>The iPhone and Android store reviews.</li><li>Go / no-go on Friday, November 13, when those are proven. Two Friday updates remain: November 6 and November 13 (final).</li></ul></div>
+      <div><h4>Needs you</h4><ul><li><strong>NMI pricing and the partnership agreement</strong> (past due): boarding, the first real charge and HOA HX's own account all wait on it.</li><li>Your OK on November 16, which is to be recorded with the reason and what it does to the last invoice stages.</li><li>The open questions on your page, each with my recommendation.</li><li>Small points we settled on your behalf with our recommendation; say if you disagree.</li></ul></div>
+      <div><h4>Watching</h4><ul><li>NMI's written answers and boarding gate the live payment, the community subscription charge and the go / no-go. They are the main risk to November 16.</li><li>The iPhone app is in Apple's review; the Android listing (second submission) is in Google's review.</li><li>The designer's look went in this week and moved no date.</li></ul></div>
+    </div>
+  </article>
+  <article class="log">
+    <header><span class="wk">Week 7</span><span class="date">Friday, October 23, 2026</span><span class="pill bad">Behind</span></header>
+    <p style="max-width:80ch;margin:0 0 16px">The October 21 working date was not met. November 2 remains the signed date, and nothing public has happened yet. Another build run finished today and was merged to the test site.</p>
+    <div class="log-grid">
+      <div><h4>Done</h4><ul><li>Seventeen pieces of work merged with the website checks passing: a home's first-time owner and join requests (find a community by its address), the community subscription's late-payment steps and a copy of the community's records, reasons required for sensitive actions, violation types and notices, financial approvers who can be changed, and the parts of the voting rules that stop a president or a representative voting out of turn.</li><li>The fixes the screen-by-screen walk listed: 16 fixed, none new, none worse.</li><li>The earlier work (subscription on NMI only, Get started sign-up, payment problems) is in too.</li></ul></div>
+      <div><h4>Week 8 (October 26 – 30)</h4><ul><li>The rest of the Get started sign-up (Google and Apple round trips).</li><li>Passkey sign-in and the second half of the Core list items on Monday and Tuesday, plus the new gaps added this week.</li><li>NMI boarding and the first real charge as soon as NMI answers; the Android store listing.</li><li>Go / no-go when those are proven. October 28 – 30 hold no scheduled task, only room for what slips; November 2 is the signed date.</li></ul></div>
+      <div><h4>Needs you</h4><ul><li><strong>NMI pricing and the partnership agreement</strong> (past due): boarding, the first real charge and HOA HX's own account all wait on it.</li><li>The open questions on your page (17).</li><li>The Android store listing details.</li><li>Small points we settled on your behalf with our recommendation; say if you disagree.</li></ul></div>
+      <div><h4>Watching</h4><ul><li>NMI's written answers and boarding gate the live payment, the community subscription charge and the go / no-go.</li><li>The iPhone app is in Apple's review; the Android listing is still to submit.</li><li>The work finished is back on pace, but the Core list items still open and the past-due checkpoints are not met, and four more gaps were added at your request this week. If the work does not fit before November 2, I will say which items move, with my recommendation, on Monday.</li></ul></div>
+    </div>
+  </article>
+  <article class="log">
+    <header><span class="wk">Week 6</span><span class="date">Friday, October 16, 2026</span><span class="pill warn">Watching</span></header>
+    <p style="max-width:80ch;margin:0 0 16px">All 27 screens are signed off, and the iPhone app ran on a real phone (sign-in with an authenticator code, push notifications, Sign in with Apple). The dates stand.</p>
+    <div class="log-grid">
+      <div><h4>Done</h4><ul><li>iPhone test build on a real phone.</li><li>Community subscription buy, change and cancel on NMI.</li><li>Payment plans, payment history, ledger adjustments, dues reminders and named financial approvers.</li><li>Lease documents and safer property records; private case text held to its readers; delete my account.</li><li>Live updates inside the app (built, switched on when set up); the new brand kit and motion.</li><li>A walk of 107 screens with no new problems; about 60 bugs fixed.</li></ul></div>
+      <div><h4>Week 7 (October 19 – 21)</h4><ul><li>NMI boarding (Oct 19) and HOA HX's own account (Oct 20).</li><li>Store listing pages and the new submission date.</li><li>The remaining Core list items, or a clear note of what moves.</li><li>Final testing and go / no-go.</li></ul></div>
+      <div><h4>Needs you</h4><ul><li>NMI pricing and agreement (past due).</li><li>iPhone store listing details.</li><li>The open questions on your page (sales tax, parking spaces by home type, others).</li></ul></div>
+      <div><h4>Watching</h4><ul><li>Store submission planned today did not happen: it needs the support, privacy and terms pages and a reviewer sign-in. The date is confirmed Monday; the apps are the part of October 21 most at risk.</li><li>The last Core list items.</li><li>NMI's written answers, owed since September 17.</li></ul></div>
+    </div>
+  </article>
+  <article class="log">
+    <header><span class="wk">Week 5</span><span class="date">Friday, October 9, 2026</span><span class="pill warn">Watching</span></header>
+    <p style="max-width:80ch;margin:0 0 16px">Three Friday checkpoints did not close today, and I say which below. The rest of the week went into the homeowner, board and tenant screens, into money handling that has to be right on day one, and into Tenyson's October 7 design update, which now goes into the launch build. HOA HX has not launched; nothing is public before the launch date.</p>
+    <div class="log-grid">
+      <div><h4>Done</h4><ul><li><strong>Apple and Google Play accounts</strong> are ready, thank you: the iPhone app is registered and push notifications are set up for it.</li><li><strong>Rental managers:</strong> an owner can name a rental manager for a home, with dates; access ends on its own.</li><li><strong>Assessments and the dues schedule:</strong> semiannual dues, one-time assessments, assessment groups.</li><li><strong>AutoPay after a failed payment:</strong> the retry rules you answered are built.</li><li><strong>Tenants and announcements:</strong> a tenant reads community updates; the announcement form offers message templates.</li></ul></div>
+      <div><h4>Week 6 (October 12 – 16)</h4><ul><li>Finish protection and monitoring and the first Core list stage that did not close today.</li><li>The community subscription screens and billing notices.</li><li>Phone test builds from October 12; store submission October 16.</li><li>Tenyson's design update, then a walk through every screen on a phone.</li></ul></div>
+      <div><h4>Needs you</h4><ul><li><strong>Pricing with NMI and the partnership agreement</strong> (past due).</li><li><strong>App-store details:</strong> the iPhone listing details are still to fill in.</li><li>Two questions about the first community (past due since September 30).</li><li>The open questions on your page.</li></ul></div>
+      <div><h4>Watching</h4><ul><li><strong>Three Friday dates slipped:</strong> protection and monitoring, the first Core list stage, and the phone app shell; I expect the first two on Monday and the app shell with the October 16 submission. The October 21 working date and the November 2 signed date do not move, and no invoice stage was triggered.</li><li>NMI's written answers, owed since September 17.</li><li>Store review: submitting October 16 leaves five working days before October 21.</li></ul></div>
+    </div>
+  </article>
+  <article class="log">
+    <header><span class="wk">Week 4</span><span class="date">Friday, October 2, 2026</span><span class="pill warn">Watching</span></header>
+    <p style="max-width:80ch;margin:0 0 16px">This week the product grew most where homeowners and the board feel it day to day: paying twice is caught, join requests have a visible status, the board can keep private notes on a violation, and a community can send an urgent alert and follow up on it. Every one of the 27 new screens now has your answer, and my replies to the 15 you marked "change" will be on the open questions page after my review on Monday. Everything below is on the test site and comes to production with the next release. HOAhx has not launched; nothing is public before November 2. One date slipped, and I say which at the end.</p>
+    <div class="log-grid">
+      <div><h4>What's new this week</h4><p style="margin:10px 0 4px;font-weight:600;font-size:13px;color:var(--text-2)">The most visible</p><ul><li><strong>Paying twice is caught.</strong> If a home pays more than it owes or pays a second time in the same period, the treasurer is alerted and the homeowner is told straight away. A homeowner can ask for the extra back; the request goes to the treasurer, who decides.</li><li><strong>Credit is used before the next charge.</strong> When a home has credit, AutoPay uses it first and collects only what is left. The payment screen asks before a payment that nothing requires.</li><li><strong>Join requests have a status.</strong> A person asking to join a community sees where the request stands and any note from the board. The board verifies the home and sees who has joined and who has finished setting up.</li><li><strong>Private notes on a violation.</strong> The board's own notes, reasons and decisions stay with the people who decide the case. The homeowner sees the violation and its status; the Secretary and Treasurer see that an appeal was filed, not what it says.</li></ul><p style="margin:10px 0 4px;font-weight:600;font-size:13px;color:var(--text-2)">Homeowners</p><ul><li>Budget card on the dashboard and My Payments showing where the number comes from, its period and its date.</li><li>Report a maintenance request as a draft, see its target date, and get asked for more information when the board needs it.</li><li>Join a community with a home on a join code, and send a request again.</li></ul><p style="margin:10px 0 4px;font-weight:600;font-size:13px;color:var(--text-2)">Board and treasurer</p><ul><li>Urgent community alerts with follow-up and an all-clear; message drafts and scheduled sends.</li><li>Documents: pin, publish, archive, version history and renewal reminders.</li><li>The treasurer can upload the monthly budget statement.</li><li>Property import: correct an import from its history, send it again, and import large files with progress. Homes already in HOAhx are flagged.</li><li>A record of who did what and when for violation moves, ledger reconciliation and custom roles.</li><li>Gate and guest codes can be set on a property.</li><li>Each community can name its billing contacts: an Account Owner, backup contacts and a billing administrator, with a handover that the new owner must accept.</li></ul><p style="margin:10px 0 4px;font-weight:600;font-size:13px;color:var(--text-2)">Managers and staff</p><ul><li>"View as" now ends by itself after 15 minutes if nobody closes it, and the back button lands where you expect.</li><li>Monthly dues are posted automatically on each due date once a community opts in. It is built and switched off until the first community is ready.</li><li>Automatic deletion of old records, with legal holds that block it, is built and switched off until reviewed.</li></ul><p style="margin:10px 0 4px;font-weight:600;font-size:13px;color:var(--text-2)">Vendors</p><ul><li>A vendor sees only the photos staff shared on their own request, and loses access when the assignment is withdrawn.</li></ul><p style="margin:10px 0 4px;font-weight:600;font-size:13px;color:var(--text-2)">Security</p><ul><li>Passkey sign-in (Face ID, fingerprint, device PIN) is built and tested. It is switched off, so nothing changes for anyone until I turn it on.</li><li>A person's view-as session now requires the same second sign-in step as everyone else.</li></ul><p style="font-size:14px;margin:10px 0 0"><strong>Bugs fixed:</strong> 40 this week.</p></div>
+      <div><h4>Waiting on you</h4><ul><li><strong>Pricing with NMI and the partnership agreement</strong> (past due since September 18): unblocks boarding the first community, which must be approved by <strong>October 21</strong> for the live payment test; HOAhx's own account by <strong>October 23</strong>.</li><li><strong>Apple Developer and Google Play accounts</strong> (due September 8 and 11): unblock the app shell and push notifications.</li><li><strong>My replies to the 15 screens marked "change"</strong>: they will be on the open questions page after my review on Monday; please read them then and tell me if they settle it.</li><li><strong>The open questions on the owners' page</strong> (62 open): each unblocks a build decision.</li><li><strong>Two questions about the first community</strong> (due September 30): will opening balances include overdue money, and is a vote planned in its first month? They decide whether delinquency must work on day one.</li><li><strong>App-store details by October 9</strong>: name, privacy policy page, support email and the black HX tile as the store icon. The identifier com.hoahx.app is final.</li></ul></div>
+      <div><h4>Next week (October 5 – 9)</h4><ul><li>A short correction round on the 15 screens, so they close by October 9.</li><li>Protection, monitoring and daily backups, with one restore rehearsed, for October 9; some steps wait on account access from you.</li><li>The phone app shell and push notifications, as soon as the Apple and Google files arrive.</li><li>Community subscription billing continues: the billing screens and recurring charges.</li><li>Review and release of everything built since September 30.</li></ul></div>
+      <div><h4>Watching</h4><ul><li><strong>One date slipped.</strong> The payment verification due September 30 is waiting on NMI's answers on deposit matching. Later dates do not move yet. If it runs past October 9, I will say so here and name the effect on the invoice stage.</li><li><strong>Pace.</strong> I am behind where I need to be to hold November 2 without extra hours. Monday is the day to recover, and it depends mostly on the account access above.</li><li><strong>NMI's written answers</strong> (deposit matching, fees, bank-payment timing, wallets) have been owed since September 17.</li><li><strong>Store review.</strong> Submitting on October 16 leaves nine working days for review.</li><li><strong>Cost of automated testing.</strong> Still inside Dan's monthly limit, running above the monthly pace. UX designer changes touching screens under active work: none.</li></ul></div>
+    </div>
+  </article>
+  <article class="log">
+    <header><span class="wk">Week 3</span><span class="date">Friday, September 25, 2026 · revised Saturday, September 26, evening</span><span class="pill ok">On track</span></header>
+    <div class="log-grid">
+      <div><h4>Done</h4><ul>
+        <li><strong>The accounts that move money are secured, and the production environment now matches.</strong> Two-factor sign-in is required for HOAhx staff, management and board accounts, with backup codes and two ways back in, and no one refunds or voids a payment alone: one person asks, a second approves, and both sign in again first. That closed Wednesday, September 23. On Saturday the production environment was brought up to the same sign-in protection as the staging copy, which was the last condition on releasing to it.</li>
+        <li><strong>A tested build went to production on Saturday, September 26</strong>, the first since September 12. It is still closed to residents and to anyone outside the team, and nothing is public before November 2. Saturday took several attempts: one failure on Google's side and one permission that had to be granted by hand. Both are written down and being fixed before the next release. No later date moves and no invoice stage changes.</li>
+        <li><strong>You saw the web app on a phone on Thursday</strong>, which closes that milestone. Your walkthrough found five things worth changing; all five are fixed and waiting in the next release.</li>
+        <li><strong>Homeowners paying dues through NMI is proven end to end in the sandbox.</strong> In one run: a card payment taken and then voided by two different people, a declined card handled cleanly, a bank account saved and charged, and autopay charging that saved account on schedule. That run found three real faults in the payment handling — a void that never reached NMI, an autopay charge that could never succeed, and a zero-amount rounding error — and all three are fixed.</li>
+        <li><strong>All 27 new screens are on the staging site, a week early.</strong> They went up September 23, ahead of the September 24 date, with sample data. From this release each screen also carries a "signed off" or "change" answer you can give as you go, so you can work through them feature by feature.</li>
+        <li><strong>Your Core list started.</strong> There is now one record of who did what and when across the product, readable by role and exportable: every payment, request, decision and account change in one place. Gate and guest codes are on each property, visible only to that household and to community staff. The delinquency rules are built. HOAhx also has one consistent look and set of components across every screen, which is what makes the remaining screens quick to build.</li>
+      </ul></div>
+      <div><h4>Week 4 (September 28 – October 2)</h4><ul>
+        <li><strong>Wednesday, Sep 30:</strong> the payment flows verified against NMI's sandbox and the treasurer's view of deposits.</li>
+        <li><strong>Wednesday, Sep 30:</strong> all 27 screens on the staging site, already done, and your sign-off on them by <strong>Friday, Oct 2</strong>.</li>
+        <li>Protection, monitoring, daily backups, and one restore rehearsed.</li>
+        <li>Onboarding with property import and invitations; the homeowner budget and monthly statements; property records; reporting a sale and the ownership handoff; delinquency and payment arrangements.</li>
+        <li>The community's subscription billing begins: billing contacts, HOAhx's own merchant record, and the plan catalogue.</li>
+      </ul></div>
+      <div><h4>Needs you</h4><ul>
+        <li><strong>Pricing with NMI, and the partnership agreement.</strong> Still the most important open item, and past due from September 18. Boarding the first community cannot start until pricing is agreed, and that community has to be approved by <strong>October 21</strong> for the live payment test. HOAhx's own merchant account is needed by <strong>October 23</strong>.</li>
+        <li><strong>Apple Developer and Google Play accounts</strong>, due September 8 and September 11. These are now holding up real work: the files each store issues are needed before push notifications and the app's sign-in can be finished.</li>
+        <li><strong>The Copilot provider and its monthly cost</strong>, asked for by September 25.</li>
+        <li><strong>Two questions about the first community, by Wednesday, September 30.</strong> Will its opening balances include money already overdue? Is a vote or election planned in its first month?</li>
+        <li><strong>Sign off the 27 screens by Friday, October 2</strong>, feature by feature, on the staging site.</li>
+        <li><strong>App-store details by October 9:</strong> the name, a privacy policy page, a support email. Two specifics to confirm: the app's permanent identifier, which cannot change after the first submission, and the black HX tile as the store icon.</li>
+      </ul></div>
+      <div><h4>Watching</h4><ul>
+        <li><strong>NMI's written answers</strong>, asked for on September 17 and still owed: bank-payment timing, fees, how deposits are matched back to payments, and whether Apple Pay and Google Pay are available on the partner sandbox. Two parts of the September 30 verification depend on them, matching deposits and those two wallet payment methods, so that date will close with both named as still open at NMI.</li>
+        <li><strong>Store review.</strong> Submitting October 16 leaves nine working days for review and one round of changes before November 2.</li>
+        <li><strong>Screens without a design.</strong> About 48 Core list items still have none; each is built from your Core list's wording in its week unless Tenyson's design arrives first. The store-icon brief went to him on September 25.</li>
+        <li><strong>The cost of automated testing.</strong> September is well past the account's included minutes, still inside the monthly limit Dan set. Saturday's release alone took ten runs, mostly because of the two failures described above. The running-costs sheet carries the figure.</li>
+      </ul></div>
+    </div>
+  </article>
+  <article class="log">
+    <header><span class="wk">Week 3 · re-plan</span><span class="date">Wednesday, September 23, 2026</span><span class="pill acc">Launch moves to Nov 2</span></header>
+    <div class="log-grid">
+      <div><h4>Done since September 21</h4><ul>
+        <li><strong>Two-factor sign-in and two-person refunds are on the staging copy.</strong> No one refunds or voids a payment alone: one financial user asks, a second approves, and both sign in again first.</li>
+        <li><strong>The 27 screens your demo never drew are specified, and 19 are built.</strong> They are on the staging site with sample data for you to click through. The last 8 follow by September 30.</li>
+        <li>A check of the security work found three gaps. Two are closed and on staging. The third, refunds of payments recorded by hand, is moving onto the same two-person approval now.</li>
+        <li>Change order 2 is written: this plan, your Core list at a fixed $5,000, $15,000 in all.</li>
+      </ul></div>
+      <div><h4>What changed</h4><ul>
+        <li><strong>HOAhx now opens Monday, November 2</strong>, with the twelve items and everything on your Core list. The October 22 date left no room for anything to go wrong.</li>
+        <li>The items a community cannot use in its first weeks (a sale closing, delinquency casework, elections) are still built last in each stage.</li>
+        <li>Apps submitted October 16 and live November 2, or November 9 if a store asks for a second round. The web go / no-go is October 30.</li>
+        <li>The accounts that move money, due today, close by Friday instead, once the last refund path is moved and checked. Stage two stays on Friday.</li>
+      </ul></div>
+      <div><h4>Next (September 25 – October 2)</h4><ul>
+        <li><strong>Friday, Sep 25:</strong> the web app on phones, walked through with you, and the first of the new screens sent for your review.</li>
+        <li><strong>Wednesday, Sep 30:</strong> the seven payment flows verified in NMI's sandbox, the treasurer's view of deposits, and all 27 screens on staging.</li>
+        <li><strong>From October 1:</strong> the record of who did what and when, the first piece of your Core list, and the community's subscription billing.</li>
+        <li><strong>Friday, Oct 2:</strong> your sign-off on the 27 screens.</li>
+      </ul></div>
+      <div><h4>Needs you</h4><ul>
+        <li>"Yes to change order 2" by Friday, September 25.</li>
+        <li>The Copilot provider and its monthly cost, by September 25.</li>
+        <li>A yes, change, or discuss on each new screen, from Friday, all by October 2.</li>
+        <li>Two questions about the first community, by September 30: overdue opening balances, and a vote in its first month.</li>
+        <li>Pricing with NMI, so the first community can be approved in time for the live payment test to start by October 21.</li>
+        <li>Apple Developer and Google Play accounts: push needs Apple by October 9, and submission is October 16.</li>
+        <li>The thirteen payment decisions still open in the register.</li>
+      </ul></div>
+      <div><h4>Watching</h4><ul>
+        <li>The pace. The slack is in the order of the work, not in spare days. If a week runs slow, the parts built last in each area finish in the days just after November 2, and the Friday update says so the week it happens.</li>
+        <li>NMI's written answers on bank-payment timing and fees.</li>
+        <li>Store review. Submitting October 16 leaves room for one round of changes before November 2.</li>
+        <li>The cost of automated testing. September is well past the account's included minutes, still inside the monthly limit Dan set. The running-costs sheet carries the figure.</li>
+      </ul></div>
+    </div>
+  </article>
+  <article class="log">
+    <header><span class="wk">Week 3 · re-plan</span><span class="date">Monday, September 21, 2026 · covers week 2 as well</span><span class="pill acc">Launch moves to Oct 22</span></header>
+    <div class="log-grid">
+      <div><h4>Done since September 14</h4><ul>
+        <li><strong>Your Core list became the release.</strong> The MVP discussion on September 14 produced it, version 3 followed on September 15, and every line of it now has an entry in the decisions register. On September 17 you picked every package on the Beyond the proposal page, so all of it is in the launch.</li>
+        <li><strong>Homeowners pay dues through NMI in the sandbox.</strong> Card or bank, one time or on autopay against the published schedule, with a saved payment method. The board sees whether the community can take payments, and each payment's confirmation number and state. A demo of the payment flow is set up on the staging copy, with two communities and four logins.</li>
+        <li>Autopay charges the saved method on each due date and ends automatically when a resident moves out. Refunds and disputes that NMI reports update the ledger on their own, and applying the same report twice changes nothing.</li>
+        <li>One password rule everywhere: at least 15 characters, no forced symbols, and passwords found in known breaches, common passwords, and ones built from HOAhx or your own name are refused with a clear reason.</li>
+        <li><strong>The web app works well on phones</strong>, a day early. The board's day-to-day screens (announcements, requests, violations, the ledger, reconciliation, the dues schedule, and the revenue dashboard) joined the homeowner screens on September 17.</li>
+        <li><strong>Two-factor sign-in joined the shared build this morning.</strong> Staff and board accounts use an authenticator app or text codes, with backup codes and two ways back in. Invitation links expire sooner for roles with more access.</li>
+        <li>NMI's answers so far are written into the payments plan. The questions still open on bank-payment timing and fees went to NMI in writing on September 17.</li>
+      </ul></div>
+      <div><h4>This week and the road to October 22</h4><ul>
+        <li><strong>This week:</strong> refunds with two-person approval (today), so the accounts that move money are secured on Wednesday. Then the seven payment flows verified and the treasurer's view of deposits, for Friday. The Core list starts with the record of who did what and when, identity and roles, one person holding several roles, and household and tenant access. Gate and guest codes and the start of the app shell come in beside them.</li>
+        <li><strong>Week of Sep 28:</strong> protection, monitoring, and backups. The app shell and push notifications finished. Onboarding, the homeowner budget, then property records, the sale handoff, and delinquency. Community subscription billing begins.</li>
+        <li><strong>Week of Oct 5:</strong> test builds on your phone Monday, then store listings and <strong>both apps submitted Friday, Oct 9</strong>. Communications, documents, violations, and maintenance.</li>
+        <li><strong>Week of Oct 12:</strong> architectural review, votes and surveys, the calendar and directory, parking, and visitor passes. Subscription past-due handling.</li>
+        <li><strong>Oct 19–22:</strong> support access, board administration, help, and Copilot. Subscription billing verified Tuesday, the web go / no-go Wednesday, and <strong>HOAhx opens Thursday, October 22</strong>.</li>
+      </ul></div>
+      <div><h4>Needs you</h4><ul>
+        <li>Your OK on this plan by Friday, September 25. Your Core list adds a fixed $5,000 to the twelve items' $10,000, $15,000 in all.</li>
+        <li>Pricing with NMI, still the most important thing. The first community has to be approved in time for the live payment test to start by October 14.</li>
+        <li>Apple Developer and Google Play accounts. Push needs Apple by October 2, the test builds are October 5, and submission is October 9.</li>
+        <li>The Copilot provider and its monthly cost, by September 25.</li>
+        <li>Two questions about the first community, by September 30. Will its opening balances include money already overdue? Is a vote or election planned in its first month?</li>
+        <li>The thirteen payment decisions still open in the register. This week's refund screens follow the proposed answers unless you say otherwise.</li>
+        <li>App-store details (the app's name, a privacy policy page, a support email) by October 2.</li>
+      </ul></div>
+      <div><h4>Watching</h4><ul>
+        <li>The pace. There is no slack between now and October 22. If a week runs slow, the parts built last in each area finish in the days just after launch. Those are the steps that close a home sale, the later stages of collections, formal elections, and renewal reminders. The Friday update will say so the week it happens.</li>
+        <li>Screens without a design. About 48 Core list items have none yet. Each is built from your Core list's wording in its week unless Tenyson's design arrives first.</li>
+        <li>NMI's written answers on bank-payment timing and fees.</li>
+        <li>Store review. Submitting October 9 leaves nine working days for review and one round of changes.</li>
+        <li>The cost of automated testing. With more work in flight, September is running past the account's included minutes, still well inside the monthly limit Dan set. The running-costs sheet carries the figure.</li>
+      </ul></div>
+    </div>
+  </article>
   <article class="log">
     <header><span class="wk">Week 1</span><span class="date">Friday, September 11, 2026 · revised Saturday, September 12, evening</span><span class="pill ok">Done</span></header>
     <div class="log-grid">
@@ -473,6 +768,7 @@ footer{padding:26px 0 56px;color:var(--text-2);font-size:13px;border-top:1px sol
       </ul></div>
     </div>
   </article>
+
 </section>
 
 <section id="risks">
@@ -482,14 +778,13 @@ footer{padding:26px 0 56px;color:var(--text-2);font-size:13px;border-top:1px sol
     <table>
       <thead><tr><th>Risk</th><th>Effect</th><th>Plan</th></tr></thead>
       <tbody>
-        <tr><td class="k">Pricing with NMI, and the merchant boarding behind it, take longer than expected</td><td>The live payment test and the stage-two invoice slip. Nothing else does.</td><td>Everything up to the live test runs in the sandbox regardless, which is also what NMI advised. The apps can be submitted with payments switched off for communities not yet boarded, so store review doesn't wait on NMI. What helps most is settling pricing early in week two.</td></tr>
-        <tr><td class="k">A store asks for a second round of changes</td><td>Oct 9 becomes Oct 16. A second round is outside the fixed fee.</td><td>A focused resident-and-board app with real native features, a demo account, and clear notes for the reviewer. One round is already in the schedule.</td></tr>
-        <tr><td class="k">Apple organization enrollment takes longer than a few days</td><td>Store submission slips day for day.</td><td>The D-U-N-S number is already obtained. Start Sep 8. If Apple's verification drags, submit to Google Play first and follow with the App Store.</td></tr>
-        <tr><td class="k">The MVP asks for more than five weeks hold</td><td>Anything added to launch comes out of the same five weeks, so the go / no-go or the store submission moves.</td><td>Monday September 14 is that conversation: one plan covering the decisions register, the demo, and any other first-release requirements, with Jake spearheading it. Each item lands in launch or after launch, and this page records which.</td></tr>
-        <tr><td class="k">Bank payments return or get disputed days later</td><td>A payment that looked complete gets reversed.</td><td>The ledger holds bank payments as pending until they settle, and reversals post automatically with a treasurer alert. Exact timing comes from the NMI Q&amp;A.</td></tr>
-        <tr><td class="k">UI changes from Tenyson Patridge go beyond minor</td><td>Screens under active work get reworked; the go / no-go or the store submission could slip.</td><td>Minor updates are expected and absorbed. Anything extensive is flagged in the weekly update with its effect on the dates before the work is taken on.</td></tr>
-        <tr><td class="k">Five weeks is a full schedule</td><td>A slow week pushes the web go / no-go or the submission.</td><td>The schedule assumes five to six hours of build time a day with independent work running in parallel. Week four was kept lighter on purpose to absorb what the live payment test and your test-build review turn up; since Sep 8 it also carries the subscription billing.</td></tr>
-        <tr><td class="k">The community subscription billing lands in weeks four and five</td><td>Those weeks lose their slack; store-review fixes and the subscription build compete for the same days.</td><td>Purchase, recurring charges, contacts, and billing screens in week four; past-due handling in week five. The live subscription charge waits on HOAhx's own merchant approval and can follow launch without moving Oct 9.</td></tr>
+        <tr><td class="k">Pricing with NMI, and the merchant boarding behind it, take longer than expected</td><td>The live payment test and the stage-two invoice slip. If the first community is not approved in time for the test to start before the November 25 go / no-go, the test follows launch and that community opens with payments switched off until it passes.</td><td>Everything up to the live test runs in the sandbox regardless, which is also what NMI advised. The apps can be submitted with payments switched off for communities not yet boarded, so store review doesn't wait on NMI.</td></tr>
+        <tr><td class="k">The whole Core list in twelve weeks</td><td>There are no spare days between now and November 30; the slack is the order of the work.</td><td>The work is ordered so the parts a community can't use in its first weeks come last in each area. If a week runs slow, those finish in the days after November 30 and nothing a community uses on day one moves. The Friday update names them the week it happens.</td></tr>
+        <tr><td class="k">Screens with no design yet</td><td>About 48 Core list items have no screen design. Building a screen twice would cost days.</td><td>The 27 with nothing to build from are shown to you on the staging site first (September 25 to October 2) and built for real only after your yes. The rest are built from your Core list's wording in their week unless Tenyson's design arrives first. Designs arriving later are applied after launch unless they fix something broken.</td></tr>
+        <tr><td class="k">A store asks for a second round of changes</td><td>A second round fits before the November 30 launch, so the apps and the web product still open together. A second round is outside the fixed fee.</td><td>A focused resident-and-board app with real native features, a demo account, and clear notes for the reviewer. Submitting on October 16 leaves room for one round before November 30.</td></tr>
+        <tr><td class="k">Apple organization enrollment takes longer</td><td>Push notifications (Oct 9) and store submission (Oct 16) slip day for day.</td><td>The D-U-N-S number is already obtained. If Apple's verification drags, submit to Google Play first and follow with the App Store.</td></tr>
+        <tr><td class="k">Bank payments return or get disputed days later</td><td>A payment that looked complete gets reversed.</td><td>The ledger holds bank payments as pending until they settle, and reversals post automatically with a treasurer alert. Exact timing comes from NMI's written answers.</td></tr>
+        <tr><td class="k">The community subscription billing shares the last weeks with the Core list</td><td>Store-review fixes, the subscription build, and the last Core list stages compete for the same days.</td><td>Purchase, contacts, and plans from Oct 1; recurring charges and billing screens the week of Oct 12; past-due handling the week of Oct 19; verified by Oct 28. The live subscription charge waits on HOAhx's own merchant approval and can follow launch without moving November 30.</td></tr>
       </tbody>
     </table>
   </div>
@@ -503,6 +798,7 @@ footer{padding:26px 0 56px;color:var(--text-2);font-size:13px;border-top:1px sol
       <li><strong>A second round of store-review changes.</strong> One round is included. A further round, if a store asks for it, is at $75 an hour, quoted first.</li>
       <li><strong>Management-company screens redesigned for phones.</strong> Community managers keep the full desktop experience. The apps serve homeowners, board members, and self-managed admins.</li>
       <li><strong>Text-message notifications, card readers, kiosks, and pay-by-text.</strong> Push notifications on the phone are in scope; these are not.</li>
+      <li><strong>The fuller versions you set aside, and the ranked candidates.</strong> They stay on the decisions register, in your order, for after launch.</li>
     </ul>
   </div>
 </section>
@@ -515,15 +811,17 @@ footer{padding:26px 0 56px;color:var(--text-2);font-size:13px;border-top:1px sol
       <tbody>
         <tr><td class="k">NMI</td><td>The payment processor handling homeowner assessment payments and each community's HOAhx subscription. Each community is set up as its own merchant under HOAhx; HOAhx itself is a merchant too, for the subscription charge.</td></tr>
         <tr><td class="k">Community subscription</td><td>What a community pays HOAhx for the software, billed inside HOAhx through NMI by bank account or card. Homeowners never pay HOAhx.</td></tr>
+        <tr><td class="k">Core list</td><td>Your list of the features the first release must have ("Core Features for MVP 1"), version 3 of September 15. Since your selection of September 17, all of it is in the launch.</td></tr>
+        <tr><td class="k">Package</td><td>A group of Core list items built together because they share screens and records. You picked all 23 on the Beyond the proposal page.</td></tr>
         <tr><td class="k">Sandbox</td><td>NMI's test environment. Everything works like production, but with test cards and no real money.</td></tr>
         <tr><td class="k">Underwriting</td><td>NMI's review of a community before it can take real payments. Usually days, sometimes weeks, and outside our control.</td></tr>
         <tr><td class="k">ACH / bank payment</td><td>A payment drawn directly from a checking account. Cheaper than cards, but takes days to settle and can be returned.</td></tr>
         <tr><td class="k">Autopay</td><td>A saved card or bank account charged automatically on the community's dues schedule.</td></tr>
         <tr><td class="k">Two-factor sign-in</td><td>A second step at sign-in, such as a code on your phone, required for staff and board roles because those accounts can move money.</td></tr>
-        <tr><td class="k">Decisions register</td><td>The list of 111 rules the software applies by default, each shown with what it does today, for you to confirm or change. How the rest of it gets worked through is one of the things Monday's MVP discussion settles.</td></tr>
-        <tr><td class="k">MVP</td><td>The set of features the product has to have on day one. What belongs in it, and what waits until after launch, is what Monday September 14 decides.</td></tr>
-        <tr><td class="k">Production environment</td><td>The real environment the product will run on, as opposed to the test copy. A build being on it is not the same as the product being launched: HOAhx stays closed until Oct 9.</td></tr>
-        <tr><td class="k">Staging</td><td>A private copy of the production environment where a build is checked before it is deployed.</td></tr>
+        <tr><td class="k">Decisions register</td><td>Every rule the software applies and every line of your Core list, each shown with what the platform does today, what is planned, and how it is proven, for you to confirm or change.</td></tr>
+        <tr><td class="k">Production environment</td><td>The real environment the product will run on, as opposed to the test copy. A build being on it is not the same as the product being launched: HOAhx stays closed until Nov 30.</td></tr>
+        <tr><td class="k">Staging</td><td>A private copy of the production environment where a build is checked before it is deployed. The 27 new screens are shown to you there, with sample data.</td></tr>
+        <tr><td class="k">Change order</td><td>A written change to the proposal that you accept by reply. Change order 2 adds your Core list at a fixed price and set the November 2 date, since moved to November 30.</td></tr>
         <tr><td class="k">Go / no-go</td><td>A written recommendation on whether the product is ready to launch, with the evidence behind it.</td></tr>
         <tr><td class="k">Native shell</td><td>The iPhone and Android app wrapper that runs the existing HOAhx app and adds phone features like notifications and the camera.</td></tr>
         <tr><td class="k">TestFlight / internal testing</td><td>Apple's and Google's ways of installing an app on your phone before it's public.</td></tr>
@@ -540,11 +838,11 @@ footer{padding:26px 0 56px;color:var(--text-2);font-size:13px;border-top:1px sol
 <script>
 (function(){
   try{
-    // Working days on the chart: Fri Sep 4, then Tue-Fri Sep 8-11 (Labor Day off), full weeks to Oct 9,
-    // and Oct 12-16 only if a store asks for a second round. Each day is 25.2 units wide.
-    var days=[[8,4],[8,8],[8,9],[8,10],[8,11],[8,14],[8,15],[8,16],[8,17],[8,18],[8,21],[8,22],[8,23],[8,24],[8,25],[8,28],[8,29],[8,30],[9,1],[9,2],[9,5],[9,6],[9,7],[9,8],[9,9],[9,12],[9,13],[9,14],[9,15],[9,16]];
+    // Working days on the chart: Fri Sep 4, Tue-Fri Sep 8-11 (Labor Day off), then full weeks to Fri Nov 27, then Mon Nov 30.
+    // Each day is 24 units wide, starting at x = 210.
+    var days=[[8,4],[8,8],[8,9],[8,10],[8,11],[8,14],[8,15],[8,16],[8,17],[8,18],[8,21],[8,22],[8,23],[8,24],[8,25],[8,28],[8,29],[8,30],[9,1],[9,2],[9,5],[9,6],[9,7],[9,8],[9,9],[9,12],[9,13],[9,14],[9,15],[9,16],[9,19],[9,20],[9,21],[9,22],[9,23],[9,26],[9,27],[9,28],[9,29],[9,30],[10,2],[10,3],[10,4],[10,5],[10,6],[10,9],[10,10],[10,11],[10,12],[10,13],[10,16],[10,17],[10,18],[10,19],[10,20],[10,23],[10,24],[10,25],[10,26],[10,27],[10,30]];
     var now=new Date();
-    if(now<new Date(2026,8,4)||now>=new Date(2026,9,17))return;
+    if(now<new Date(2026,8,4)||now>=new Date(2026,11,1))return;
     var pos=days.length;
     for(var k=0;k<days.length;k++){
       var d=new Date(2026,days[k][0],days[k][1]);
@@ -552,15 +850,15 @@ footer{padding:26px 0 56px;color:var(--text-2);font-size:13px;border-top:1px sol
       var e=new Date(2026,days[k][0],days[k][1]+1);
       if(now<e){pos=k+(now-d)/86400000;break;}
     }
-    var x=210+pos*25.2;
+    var x=210+pos*24;
     var g=document.getElementById('today');
     var l=document.getElementById('today-line');
     var t=document.getElementById('today-label');
     l.setAttribute('x1',x);l.setAttribute('x2',x);
-    if(x>900){t.setAttribute('x',x-4);t.setAttribute('text-anchor','end');}else{t.setAttribute('x',x+4);}
+    if(x>1400){t.setAttribute('x',x-4);t.setAttribute('text-anchor','end');}else{t.setAttribute('x',x+4);}
     g.removeAttribute('hidden');
   }catch(e){}
 })();
 </script>
-</body>
-</html>
+
+</body></html>

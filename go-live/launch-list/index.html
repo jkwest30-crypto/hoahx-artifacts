@@ -1,0 +1,1424 @@
+<!-- published by scripts/publish-internal.mjs -->
+<!doctype html>
+<html lang="en" data-store-page="launch-list">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<script src="/_shared/hx-store.js"></script>
+</head>
+<body>
+<title>Jacob's Launch List</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=JetBrains+Mono:wght@400&display=swap">
+<style>
+/* Layout: one narrow column, a scannable checklist; each row opens for detail. */
+:root{
+  --crit:#b3261e; --crit-soft:#fbe4e1;
+  --bg:#f5f6f3; --surface:#ffffff; --fg:#1b221f; --muted:#5d6862; --line:#dde2dc;
+  --accent:#1f6b57; --accent-soft:#e2efe9; --urgent:#a8551a; --urgent-soft:#f8e9dc;
+  --code-bg:#eef1ec; --done:#8a938d; --rec-bg:#eef4f8; --rec-fg:#24506e;
+  --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --body:"Atkinson Hyperlegible",ui-sans-serif,system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#121614; --surface:#1a201d; --fg:#e7ece8; --muted:#9aa59f; --line:#2b332f;
+  --accent:#6cc3a6; --accent-soft:#1d3129; --urgent:#f0a468; --urgent-soft:#3a2819;
+  --code-bg:#222a26; --done:#6f7873; --crit:#ff8a80; --crit-soft:#3d1c1a; --rec-bg:#1b2a35; --rec-fg:#9cc6e4; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#121614; --surface:#1a201d; --fg:#e7ece8; --muted:#9aa59f; --line:#2b332f;
+  --accent:#6cc3a6; --accent-soft:#1d3129; --urgent:#f0a468; --urgent-soft:#3a2819;
+  --code-bg:#222a26; --done:#6f7873; --crit:#ff8a80; --crit-soft:#3d1c1a; --rec-bg:#1b2a35; --rec-fg:#9cc6e4; color-scheme:dark }
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.5}
+.wrap{max-width:720px;margin:0 auto;padding-inline:16px;padding-block:28px 64px}
+h1{font-family:var(--display);font-size:1.9rem;line-height:1.15;margin:0 0 6px;text-wrap:balance}
+.sub{color:var(--muted);margin:0 0 20px}
+.stats{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:.9rem;font-variant-numeric:tabular-nums}
+.stat b{font-weight:700}
+.stat.urgent{background:var(--urgent-soft);border-color:transparent;color:var(--urgent)}
+.how{color:var(--muted);font-size:.92rem;margin:0 0 28px}
+section{margin-top:28px}
+.group-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 0 8px}
+.group-h h2{font-family:var(--display);font-size:1.15rem;margin:0}
+.group-h span{color:var(--muted);font-size:.88rem}
+.list{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+details{border-top:1px solid var(--line)}
+details:first-child{border-top:0}
+summary{list-style:none;display:flex;align-items:center;gap:12px;padding:14px 14px;cursor:pointer;min-height:52px}
+summary::-webkit-details-marker{display:none}
+summary:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.tick{flex:none;width:24px;height:24px;border-radius:7px;border:2px solid var(--muted);display:grid;place-items:center;background:transparent;cursor:pointer;padding:0;color:var(--surface)}
+.tick:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.tick[aria-checked="true"]{background:var(--accent);border-color:var(--accent)}
+.tick svg{width:14px;height:14px}
+.row-main{flex:1;min-width:0}
+.row-title{font-weight:700;line-height:1.3}
+.row-meta{display:flex;flex-wrap:wrap;gap:6px 10px;margin-top:3px;font-size:.84rem;color:var(--muted)}
+.kind{font-weight:700;letter-spacing:.03em;text-transform:uppercase;font-size:.72rem;padding:1px 7px;border-radius:5px;background:var(--accent-soft);color:var(--accent)}
+.kind.q{background:var(--urgent-soft);color:var(--urgent)}
+.answered{color:var(--accent);font-weight:700}
+.chev{flex:none;color:var(--muted);transition:transform .15s}
+details[open] .chev{transform:rotate(90deg)}
+.done .row-title{color:var(--done);text-decoration:line-through}
+.body{padding:0 14px 16px 50px;display:grid;gap:14px}
+.label{font-size:.74rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 4px}
+.body p{margin:0}
+.body ul{margin:0;padding-left:18px}
+.body li+li{margin-top:4px}
+textarea{width:100%;box-sizing:border-box;min-height:70px;font:inherit;font-size:.95rem;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;resize:vertical}
+textarea:focus{outline:2px solid var(--accent);outline-offset:0;border-color:transparent}
+.saved{font-size:.8rem;color:var(--muted);min-height:1.2em;margin-top:2px}
+.prompt{background:var(--code-bg);border-radius:8px;padding:10px 12px;font-family:var(--mono);font-size:.8rem;line-height:1.55;white-space:pre-wrap;word-break:break-word;margin:0}
+.copy{margin-top:8px;font:inherit;font-size:.88rem;font-weight:700;color:var(--accent);background:transparent;border:1px solid var(--accent);border-radius:8px;padding:6px 12px;cursor:pointer}
+.copy:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.empty{padding:28px 16px;text-align:center;color:var(--muted)}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 18px;border-bottom:1px solid var(--line)}
+.tab{font:inherit;font-weight:700;font-size:.95rem;color:var(--muted);background:none;border:0;border-bottom:3px solid transparent;padding:8px 12px 10px;cursor:pointer;margin-bottom:-1px}
+.tab[aria-selected="true"]{color:var(--fg);border-bottom-color:var(--accent)}
+.tab:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.tab .n{font-weight:400;color:var(--muted);margin-left:4px;font-variant-numeric:tabular-nums}
+.sev{flex:none;width:10px;height:10px;border-radius:50%;background:var(--muted)}
+.sev.high{background:var(--crit)} .sev.normal{background:var(--urgent)} .sev.low{background:var(--line);box-shadow:inset 0 0 0 1.5px var(--muted)}
+.affects{font-weight:700;color:var(--fg)}
+.pill-pr{font-weight:700;font-size:.72rem;letter-spacing:.03em;text-transform:uppercase;padding:1px 7px;border-radius:5px;background:var(--accent-soft);color:var(--accent)}
+.stat.crit{background:var(--crit-soft);border-color:transparent;color:var(--crit)}
+.when{background:var(--accent-soft);border-radius:8px;padding:10px 12px}
+.when b{display:block}
+dl.facts{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;margin:0;font-size:.92rem}
+dl.facts dt{color:var(--muted)} dl.facts dd{margin:0;min-width:0;overflow-wrap:anywhere}
+.rec{background:var(--rec-bg);color:var(--rec-fg);border-radius:8px;padding:10px 12px}
+.rec .label{color:var(--rec-fg)}
+.rec-line{font-size:.86rem;color:var(--rec-fg);margin-top:3px;overflow-wrap:anywhere}
+.need{font-weight:700;font-size:.72rem;letter-spacing:.03em;text-transform:uppercase;padding:1px 7px;border-radius:5px;background:var(--crit-soft);color:var(--crit)}
+.age{font-weight:700;color:var(--urgent)}
+.actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn{font:inherit;font-size:.9rem;font-weight:700;border-radius:8px;padding:7px 14px;cursor:pointer;border:1px solid var(--accent);background:var(--accent);color:var(--surface)}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn.quiet{background:transparent;color:var(--muted);border-color:var(--line)}
+.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.btn[disabled]{opacity:.5;cursor:default}
+.state{font-weight:700;font-size:.72rem;letter-spacing:.03em;text-transform:uppercase;padding:1px 7px;border-radius:5px;background:var(--accent-soft);color:var(--accent)}
+.state.reply{background:var(--urgent-soft);color:var(--urgent)}
+.quote{border-left:3px solid var(--line);padding-left:10px;margin:0}
+/* The owners' screens: one row per screen, every point with its sort and recommendation. */
+.points{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.points li{border:1px solid var(--line);border-radius:8px;padding:10px 12px;display:grid;gap:6px}
+.points .pt{font-weight:700;line-height:1.35}
+.points .pt .n{color:var(--muted);font-variant-numeric:tabular-nums;margin-right:6px}
+.points .sorts{display:flex;flex-wrap:wrap;gap:4px}
+.srt{font-weight:700;font-size:.7rem;letter-spacing:.03em;text-transform:uppercase;padding:1px 7px;border-radius:5px;background:var(--code-bg);color:var(--muted)}
+.srt.new{background:var(--urgent-soft);color:var(--urgent)} .srt.ask{background:var(--crit-soft);color:var(--crit)}
+.srt.preview{background:var(--rec-bg);color:var(--rec-fg)} .srt.built{background:var(--accent-soft);color:var(--accent)}
+.points .r{color:var(--fg)} .points .r::before{content:"Recommend: ";font-weight:700;color:var(--rec-fg)}
+.scope{font-size:.84rem;color:var(--muted);margin-top:2px}
+.flag{border:1px solid var(--line);border-left:4px solid var(--urgent);border-radius:8px;padding:10px 12px;display:grid;gap:8px}
+.flag.question{border-left-color:var(--crit)}
+.flag .fh{font-weight:700;font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--urgent)}
+.flag.question .fh{color:var(--crit)}
+.flag .fr{display:grid;gap:2px}
+.flag .fr p{margin:0}
+.flag .fr .label{margin:0}
+.flag .fr.mine{background:var(--rec-bg);color:var(--rec-fg);border-radius:6px;padding:8px 10px}
+.flag .fr.mine .label{color:var(--rec-fg)}
+.flags{display:grid;gap:10px}
+.est{display:inline-block;font-weight:700;font-size:.72rem;padding:1px 7px;border-radius:5px;background:var(--urgent-soft);color:var(--urgent);white-space:nowrap;vertical-align:1px}
+.est.none{background:var(--code-bg);color:var(--muted)} .est.save{background:var(--accent-soft);color:var(--accent)}
+.agreed{font-size:.88rem;color:var(--muted)}
+.direct{border-top:1px dashed var(--line);padding-top:10px}
+.direct-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:6px}
+.direct-row label{font-size:.85rem;color:var(--muted)}
+.direct-row select{font:inherit;font-size:.9rem;padding:6px 8px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--fg);max-width:100%}
+.acc{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:12px 14px;border-top:1px solid var(--line)}
+.acc:first-child{border-top:0}
+.acc-main{min-width:0;flex:1}
+.acc .quote{margin-top:6px;font-size:.9rem;white-space:pre-line}
+@media (max-width:520px){.acc{flex-direction:column;align-items:stretch}}
+/* Decide, then send: the four choices on an item, its sent/picked-up trail, and the send bar. */
+.choices{display:flex;flex-wrap:wrap;gap:6px}
+.choice{font:inherit;font-size:.88rem;font-weight:700;border-radius:999px;padding:6px 14px;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--fg)}
+.choice:hover{border-color:var(--accent)}
+.choice:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.choice[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+.choice.neg[aria-pressed="true"]{background:var(--muted);border-color:var(--muted)}
+.hint{font-size:.84rem;color:var(--muted);margin:6px 0 0}
+.codes{margin:0;padding-left:18px;font-size:.88rem;display:grid;gap:4px}.codes code{font-weight:700;font-variant-numeric:tabular-nums}
+.chip{font-weight:700;font-size:.72rem;letter-spacing:.03em;text-transform:uppercase;padding:1px 7px;border-radius:5px;background:var(--code-bg);color:var(--fg)}
+.chip.draft{background:var(--urgent-soft);color:var(--urgent)}
+.chip.sent{background:var(--rec-bg);color:var(--rec-fg)}
+.chip.picked{background:var(--accent-soft);color:var(--accent)}
+.trail{border:1px solid var(--line);border-radius:8px;padding:10px 12px;display:grid;gap:4px;font-size:.92rem}
+.trail ol{margin:0;padding-left:18px}
+.trail li.todo{color:var(--muted)}
+.more summary{min-height:0;padding:0;font-size:.88rem;font-weight:700;color:var(--accent)}
+.more[open] summary{margin-bottom:8px}
+.sendbar{position:sticky;bottom:env(safe-area-inset-bottom,0px);margin-top:24px;background:var(--fg);color:var(--bg);border-radius:12px;padding:12px 14px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;box-shadow:0 6px 24px rgba(0,0,0,.18)}
+.sendbar .what{min-width:0;flex:1 1 220px}
+.sendbar .what b{font-variant-numeric:tabular-nums}
+.sendbar .what small{display:block;opacity:.8;font-size:.82rem}
+.sendbar .btn{background:var(--bg);color:var(--fg);border-color:var(--bg)}
+.sendbar .btn.ghost{background:transparent;color:var(--bg);border-color:var(--bg)}
+.sendbar .btn:focus-visible{outline-color:var(--bg)}
+/* Filters on the To do tab (Jacob, 2026-10-09): who has the ball, to-do or decision, this week, search. */
+.filters{display:grid;gap:8px;margin:0 0 6px}
+.frow{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.frow .flabel{font-size:.74rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);min-width:44px}
+.fchip{font:inherit;font-size:.88rem;font-weight:700;border-radius:999px;padding:6px 12px;min-height:36px;border:1px solid var(--line);background:var(--surface);color:var(--fg);cursor:pointer}
+.fchip:hover{border-color:var(--accent)}
+.fchip:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.fchip[aria-pressed="true"]{background:var(--fg);border-color:var(--fg);color:var(--bg)}
+.fchip .c{font-weight:400;opacity:.75;margin-left:5px;font-variant-numeric:tabular-nums}
+.fchip.hot[aria-pressed="false"]{border-color:var(--urgent);color:var(--urgent)}
+.search{width:100%;box-sizing:border-box;font:inherit;font-size:.95rem;color:var(--fg);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:7px 14px;margin:2px 0 4px}
+.search:focus{outline:2px solid var(--accent);outline-offset:0;border-color:transparent}
+.origin-q{font-size:.9rem;color:var(--muted);margin:-2px 0 10px;overflow-wrap:anywhere}
+.origin-line{font-size:.84rem;color:var(--muted);margin-top:3px;overflow-wrap:anywhere}
+.bulk{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin:14px 0 0;font-size:.9rem;color:var(--muted)}
+.chip.mine{background:var(--crit-soft);color:var(--crit)}
+.chip.new{background:var(--urgent-soft);color:var(--urgent)}
+.stand{font-size:.86rem;color:var(--fg);margin-top:3px;overflow-wrap:anywhere}
+.stand b{color:var(--crit)}
+/* CLI commands (Jacob, 2026-10-09): every command an item runs, each signed off on its own. */
+.cmd{padding:12px 14px;border-top:1px solid var(--line);display:grid;gap:8px;border-left:4px solid transparent}
+.cmd:first-child{border-top:0}
+.cmd.ok{border-left-color:var(--accent)} .cmd.no{border-left-color:var(--muted)}
+.cmd.no .prompt{opacity:.6}
+.cmd-h{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;font-size:.84rem;color:var(--muted)}
+.cmd-h .n{font-weight:700;color:var(--fg)}
+.tag{font-weight:700;font-size:.72rem;letter-spacing:.03em;text-transform:uppercase;padding:1px 7px;border-radius:5px;background:var(--code-bg);color:var(--fg)}
+.tag.read{background:var(--accent-soft);color:var(--accent)} .tag.change{background:var(--urgent-soft);color:var(--urgent)}
+.tag.prod{background:var(--crit-soft);color:var(--crit)}
+.cmd .copy{margin-top:0}
+.tkinput{width:100%;box-sizing:border-box;font:inherit;font-size:.95rem;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+.tkinput:focus{outline:2px solid var(--accent);outline-offset:0;border-color:transparent}
+label.label{display:block}
+.trail{gap:8px}
+.cmd-note{font-size:.9rem;color:var(--muted);padding:10px 14px;border-bottom:1px solid var(--line);background:var(--bg)}
+.cmd-note b{color:var(--fg)}
+/* Decisions and steps (Jacob, 2026-11-02): open on the list, nothing to tap to read the ask or to answer it. */
+.card{border-top:1px solid var(--line)}
+.card:first-child{border-top:0}
+.card-h{padding:14px 14px 10px}
+.card .body{padding-left:14px}
+.steps{margin:0;padding-left:20px;display:grid;gap:4px}
+.linkish{font:inherit;font-size:.84rem;color:var(--muted);background:none;border:0;padding:6px 4px;cursor:pointer;text-decoration:underline}
+.linkish[aria-pressed="true"]{color:var(--fg);font-weight:700}
+.linkish:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.choice.deny[aria-pressed="true"]{background:var(--crit);border-color:var(--crit);color:var(--surface)}
+@media (max-width:480px){.body{padding-left:14px}}
+@media (prefers-reduced-motion:reduce){.chev{transition:none}}
+/* Pages (Jacob, 2026-11-09): every page the run day keeps up to date. Dates come from the source (run_pages.py), never typed. */
+.ptable{width:100%;border-collapse:collapse;font-size:.95rem}
+.ptable th{text-align:left;font-size:.74rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:10px 14px;border-bottom:1px solid var(--line)}
+.ptable td{padding:12px 14px;border-top:1px solid var(--line);vertical-align:top}
+.ptable tr:first-child td{border-top:0}
+.ptable a{color:var(--accent);font-weight:700;text-decoration:none}
+.ptable a:hover{text-decoration:underline}
+.ptable a:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
+.ptable .where{display:block;font-size:.78rem;color:var(--muted);font-weight:400;margin-top:2px}
+.ptable .upd{white-space:nowrap;font-variant-numeric:tabular-nums}
+.ptable .upd small{display:block;color:var(--muted);font-size:.78rem}
+.ptable .upd.fresh{color:var(--accent);font-weight:700}
+@media (max-width:560px){
+  .ptable thead{display:none}
+  .ptable tr{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:12px 14px;border-top:1px solid var(--line)}
+  .ptable tr:first-child{border-top:0}
+  .ptable td{padding:0;border:0}
+  .ptable td.desc{grid-column:1 / -1;color:var(--muted);font-size:.9rem}
+  .ptable td.upd{grid-row:1;grid-column:2;text-align:right}
+}
+</style>
+
+<div class="wrap">
+  <h1>Your launch list</h1>
+  <p class="sub" id="sub">Everything that is yours to answer or do, and nothing else: your own items and the owners' answers waiting for your accept. Every item comes with a recommendation. The owners answer on their own page; nothing that needs a decision lives anywhere but these two.</p>
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" id="tab-todo" aria-selected="true" data-view="todo">Mine<span class="n" id="n-todo"></span></button>
+    <button class="tab" role="tab" id="tab-bugs" aria-selected="false" data-view="bugs">Bugs<span class="n" id="n-bugs"></span></button>
+    <button class="tab" role="tab" id="tab-pages" aria-selected="false" data-view="pages">Pages<span class="n" id="n-pages"></span></button>
+  </div>
+  <div id="pagebox" hidden>
+    <input class="search" id="psearch" type="search" placeholder="Search page titles and descriptions…" aria-label="Search the pages">
+  </div>
+  <div class="stats" id="stats"></div>
+  <div id="filterbox" hidden>
+    <div class="filters" id="filters"></div>
+    <input class="search" id="search" type="search" placeholder="Search titles, ids, recommendations…" aria-label="Search the list">
+  </div>
+  <p class="how" id="how"></p>
+  <div id="groups"><div class="list"><div class="empty">Loading your list…</div></div></div>
+  <div class="sendbar" id="sendbar" hidden aria-live="polite"></div>
+</div>
+
+<script>
+// Urgency groups for what is waiting on Jacob. The `oct9` key is the data's name for "next
+// milestone"; its title follows the calendar so it never reads as a date already passed.
+const GROUPS = [
+  {key:"week",   title:"This week",               note:"Overdue, or blocks a date within five working days"},
+  {key:"oct9",   title:"Next up",                 note:"Before launch (by Nov 30)"},
+  {key:"anytime",title:"When you have ten minutes",note:"Nothing waits on them"}
+];
+// Who has the ball. `waitingOn` on an item ("jacob" | "agents") is written by a run or by
+// /for-jacob when a sent item comes back to him ("your step on staging"); without it the
+// page decides from the item's state.
+const SHOWS = [
+  {key:"left",   label:"Mine, outstanding"},
+  {key:"notyet", label:"Later"},
+  {key:"agents", label:"Not mine right now"},
+  {key:"overrides", label:"My calls"},
+  {key:"done",   label:"Done"}
+];
+const SHOW_TITLES = {left:"Mine, outstanding", agents:"Not mine right now", overrides:"My calls", done:"Done"};
+const SHOW_NOTES = {agents:"Sent and picked up, put off, or an efficiency already applied; nothing waits on you", done:""};
+// The page always opens on "Left for you", the exact items the To do count shows, with no other filter on
+// (Jacob, 2026-10-09: "allow me to see just ones I have left"). Filters chosen in a visit are not remembered.
+// Group by origin (Jacob, 2026-11-16): `by` switches the list from its usual piles to one group per
+// origin, the request each item came from. `origin` (the entry's Added text, word for word), `originGroup`
+// and `originDate` are written on each item by /for-jacob (by_origin.py); an item without them shows under
+// "Origin not recorded here". Like the other filters, the choice is not remembered between visits.
+let filt = {show:"left", q:"", by:"urgency"};
+function saveFilt(){}
+let items = [];
+let gloss = {}; // glossary/current: {ids: {id: {k, t, s}}}, written by /for-jacob from ids.py glossary
+// The same id families as .claude/skills/plain-ids/families.json (keep the two in step).
+const ID_RE = /(?<![A-Za-z0-9_-])(?:J-\d{3}|D-\d{3}|A\d{2,3}(?:-\d+)?|QA-\d{3}|F\d{2,3}|I-\d{3}|E-\d{3}|HOA-\d+|PT-\d{3}|M\d{1,2}[a-d]?|O\d{1,2}|R-\d+\.\d+|CB\d{1,2}[a-z]?|SB\d{1,2}[a-z]?|ST\d{1,2}[a-z]?|AT\d{1,2}[a-z]?|LV\d{1,2}|GC\d{1,2}|SEC\d{1,2}[a-z]?|CI\d{1,2}[a-z]?|DS\d{1,2}[a-z]?|WP\d{1,2}[a-z]?|SC\d{1,2}[a-z]?|UX-\d{1,2}[a-z]?|FO-[A-Z]\d{2,3}|X\d{1,2}|U\d{1,2}|P\d{1,2}[a-z]?|N\d{1,2}|T\d{1,2}|S\d{1,2}|A\d[a-z]?|B\d[a-z]?|C\d[a-z]?)(?![A-Za-z0-9_-])/g;
+function idsIn(texts){ const out = []; for (const t of texts){ if (!t) continue; for (const m of String(t).matchAll(ID_RE)){ if (!out.includes(m[0])) out.push(m[0]); } } return out; }
+function codesBlock(texts){
+  const ids = idsIn(texts).filter(id => gloss[id] && gloss[id].t);
+  if (!ids.length) return "";
+  return `<div><p class="label">What the codes mean</p><ul class="codes">${ids.map(id => `<li><code>${esc(id)}</code> · ${esc(gloss[id].k)}${gloss[id].s ? ", " + esc(gloss[id].s) : ""}: ${esc(gloss[id].t)}</li>`).join("")}</ul></div>`;
+}
+let bugs = [];
+let owners = [];
+// The Slack tab was retired 2026-10-13 (Jacob: "not helpful"); the owners' page is what he asks them from.
+// Tabs: Mine and Bugs. "owners" folded into Mine (Jacob, 2026-10-13: "just a way to know what is mine to do that is outstanding").
+let view = "todo";   // always opens on Mine, never the last tab used (Jacob, 2026-11-02)
+const BUG_GROUPS = [
+  {key:"now",title:"Fix now",note:"Quick, or blocking a release"},
+  {key:"oct29",title:"By Oct 29",note:"The next build run"},
+  {key:"nov13",title:"By the go / no-go",note:"Nov 25"},
+  {key:"nov2",title:"Before launch",note:"Nov 30"},
+  {key:"later",title:"After launch is fine",note:"Low risk"}
+];
+const SEV = {high:"Serious",normal:"Normal",low:"Minor"};
+const openIds = new Set();
+const drafts = {};
+const saveTimers = {};
+let db = null;
+
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const chev = '<svg class="chev" width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3.5l4.5 4.5L6 12.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+function isDone(it){ return !!it.done || it.status === "declined" || it.status === "kept" || it.status === "rolledback" || it.status === "superseded"; }
+function isProposed(it){ return it.status === "proposed" && !it.done; }
+// An efficiency the wrap applied on its own (Jacob, 2026-10-02): shown until he keeps it, asks for a
+// roll back, or it closes itself as kept after five working days.
+function isApplied(it){ return (it.status === "applied" || it.status === "rollback") && !it.done; }
+function workdaysSince(iso){
+  if (!iso) return null; const d0 = new Date(iso); if (isNaN(d0)) return null;
+  let n = 0; const d = new Date(d0); const now = new Date();
+  while (d < now){ d.setDate(d.getDate()+1); const w = d.getDay(); if (w !== 0 && w !== 6 && d <= now) n++; }
+  return n;
+}
+// Agents can do it (Jacob, 2026-10-09): `agentRun` = an agent runs it itself with the signed-in CLIs once he
+// approves; `agentPrep` = an access or security change: the agent checks and writes the exact command, he pastes it.
+// The item sits in this pile until he sends a decision made after `agentRunSince` (when its prompt was rewritten).
+function agentKind(it){ return it.agentRun ? "run" : it.agentPrep ? "prep" : ""; }
+function inAgentPile(it){
+  if (!agentKind(it) || isDone(it)) return false;
+  return !(it.sentAt && String(it.sentAt) >= String(it.agentRunSince || ""));
+}
+// CLI commands (Jacob, 2026-10-09): every command an item will run, signed off one by one.
+// `commands` [{id, step, cmd, project, effect:"read"|"change", what, undo, runBy:"agent"|"you"}] and
+// `commandsNote` are written by /for-jacob; `cmdSignoff` {<command id>: {decision:"approve"|"reject", at, cmd}}
+// by this page. A sign-off counts only while its saved `cmd` is the command's text: a reworded command
+// needs a new one. Agents run only approved commands, in step order, and stop at the first that is not.
+function cmdsOf(it){ return Array.isArray(it.commands) ? it.commands : []; }
+function signoff(it, c){ const s = (it.cmdSignoff || {})[c.id]; return s && s.cmd === c.cmd ? s.decision : ""; }
+// What a "Your step" item asks of Jacob (2026-10-14: a sign-off item wrongly offered "I've done my step").
+// "cmds": approve its commands, line by line, each saved as he taps (nothing to send);
+// "decide": answer it again with the choices and Send; "do": a step by hand, closed with "I've done my step".
+// `ask` on the item overrides the default (a question whose step is by hand, e.g. bring a transcript).
+function cmdsLeft(it){ return cmdsOf(it).filter(c => signoff(it, c) !== "approve"); }
+function askOf(it){
+  if (it.waitingOn !== "jacob") return "";
+  if (it.ask) return it.ask;
+  if (cmdsLeft(it).length) return "cmds";
+  return it.kind === "question" ? "decide" : "do";
+}
+// Every command approved: it is the next run's move, whoever set waitingOn.
+function cmdsAllApproved(it){ return cmdsOf(it).length > 0 && !cmdsLeft(it).length; }
+function hasCmds(it){ return !isDone(it) && cmdsOf(it).length > 0; }
+function cmdCounts(list){
+  const n = {all:0, approve:0, reject:0, waiting:0};
+  for (const it of list) for (const c of cmdsOf(it)){ n.all++; const s = signoff(it, c); if (s) n[s]++; else n.waiting++; }
+  return n;
+}
+// A step that is his but cannot be done yet (`notYet`: what it waits for, in words; Jacob, 2026-11-02) sits under
+// Later, so Mine holds only what he can act on today. `notYetUntil` (a date) brings it back by itself; a step that
+// waits on an event comes back when intake clears `notYet`.
+function isNotYet(it){
+  if (!it.notYet || isDone(it)) return false;
+  return !(it.notYetUntil && new Date().toISOString().slice(0,10) >= String(it.notYetUntil));
+}
+// Two kinds of thing on Mine: a decision (he answers it here) and a step (he does it himself, then marks it done).
+function isStep(it){ return ["do","cmds","hours"].includes(askOf(it)); }
+function pendingOwners(){ return owners.filter(o => !o.decision); }
+
+// Which pile an item is in: "me" (waiting on Jacob), "agents", "later", "eff", "done".
+function bucket(it){
+  if (isDone(it)) return "done";
+  if (isNotYet(it)) return "notyet";
+  if (inAgentPile(it)) return "cli";
+  // An explicit `ask` (a step by hand, a decision) keeps it his even once every command is approved.
+  if (it.waitingOn === "jacob") return (cmdsAllApproved(it) && !it.ask) ? "agents" : "me";
+  if (isApplied(it)) return "eff";
+  if (it.waitingOn === "agents") return "agents";
+  if (it.decision === "later" && it.sentAt) return "later";
+  if (isPicked(it) || isQueued(it) || it.sentAt) return "agents";
+  return "me";
+}
+// A to-do is something he does with his hands; a decision is an answer. A sent item that came
+// back to him ("your step") is a to-do whatever it started as.
+function typeOf(it){ return (it.kind === "action" || it.waitingOn === "jacob") ? "do" : "decide"; }
+function isHot(it){ return it.group === "week" || /overdue/i.test(it.due || ""); }
+function matchesQ(it){
+  const q = filt.q.trim().toLowerCase(); if (!q) return true;
+  return [it.id, it.title, it.due, it.recommendation, it.why, it.outcome, it.route, it.origin, ...(it.details || [])].some(s => String(s || "").toLowerCase().includes(q));
+}
+function isLeft(i){ const b = bucket(i); return b === "me" || b === "cli"; }
+function isParked(i){ const b = bucket(i); return b === "agents" || b === "later" || b === "eff"; }
+function inShow(i){ return filt.show === "left" ? isLeft(i) : filt.show === "notyet" ? bucket(i) === "notyet" : filt.show === "agents" ? isParked(i) : filt.show === "overrides" ? false : isDone(i); }
+// An override (Jacob, 2026-10-13): he decides an owner question himself by taking the recommendation, so the owners are not asked again. Every one is tracked here and in docs/launch/register-store/overrides.md.
+function isOverride(o){ return o.decision === "override"; }
+// My instructions (Jacob, 2026-11-04): he decides an owner question his own way, neither their answer as written nor
+// the recommendation (A114-1: "build the View history in the launch"). His words go to Claude only, never to the owners;
+// `direct: {at, by, text, timing}`. Tracked with the overrides under My calls and in register-store/overrides.md.
+function isDirect(o){ return o.decision === "direct"; }
+function isMyCall(o){ return isOverride(o) || isDirect(o); }
+const TIMING = {launch:"Build it in the launch", after:"After launch", same:"Timing as already planned"};
+function directBox(id, o){
+  const text = drafts["d:"+id] ?? "";
+  const t = drafts["dt:"+id] ?? "";
+  return `<div class="direct"><p class="label">My instructions to Claude (the owners never see these words)</p>
+      <textarea data-did="${esc(id)}" id="direct-${esc(id)}" placeholder="What you want done instead, e.g. build the simple View history in the launch; filters and exports after.">${esc(text)}</textarea>
+      <div class="direct-row"><label for="dtime-${esc(id)}">Timing</label>
+        <select data-dtid="${esc(id)}" id="dtime-${esc(id)}"><option value="">Choose…</option>${Object.entries(TIMING).map(([k, l]) => `<option value="${k}" ${t === k ? "selected" : ""}>${esc(l)}</option>`).join("")}</select>
+        <button class="btn ghost" data-odirect="${esc(id)}">I decide: follow my instructions</button></div>
+      <div class="saved" id="saved-d-${esc(id)}"></div></div>`;
+}
+// Size it first (Jacob, 2026-11-03): he stops the conversation with the owners and asks for the impact of what they
+// proposed (before or after launch, the hours) before he decides. Nothing reaches the owners or accepted.json: the row
+// waits under Not mine right now until the sizing is written back on it (`sizing`, `sizedAt`, `decision` cleared), then
+// returns to Mine with the sized recommendation and the same three buttons.
+function isSizing(o){ return o.decision === "size"; }
+function sizingLine(o){
+  const s = o.sizing; if (!s) return "";
+  const when = s.before === true ? "before launch" : s.before === false ? "after launch" : "";
+  const hours = s.estLo != null && s.estHi != null ? `about ${estRange(s.estLo, s.estHi)} est-h` : "";
+  return [s.launch || "", when, hours].filter(Boolean).join(" · ");
+}
+function overrideText(o){
+  if (o.review && Array.isArray(o.review.items)) return o.review.items.map(x => (x.n ? `Point ${x.n}: ` : "") + (x.kind === "disagree" ? x.instead : x.toThem)).join("\n\n");
+  if (o.plan && o.plan.rec) return o.plan.rec;
+  return o.recommendation === "accept" ? "Accept their answer as written." : (o.draftReply || o.recommendation || "");
+}
+function filtered(){ return items.filter(i => inShow(i) && matchesQ(i)); }
+function fchip(attr, val, label, n, pressed, cls){
+  return `<button class="fchip ${cls || ""}" data-${attr}="${esc(val)}" aria-pressed="${pressed}">${esc(label)}${n === null ? "" : `<span class="c">${n}</span>`}</button>`;
+}
+function renderFilters(){
+  const count = k => k === "left" ? items.filter(isLeft).length + pendingOwners().length : k === "notyet" ? items.filter(i => bucket(i) === "notyet").length : k === "agents" ? items.filter(isParked).length : k === "overrides" ? owners.filter(isMyCall).length : items.filter(isDone).length;
+  document.getElementById("filters").innerHTML =
+    `<div class="frow" role="group" aria-label="Whose move"><span class="flabel">Show</span>${SHOWS.map(s => fchip("fshow", s.key, s.label, count(s.key), filt.show === s.key)).join("")}</div>` +
+    (filt.show === "overrides" ? "" : `<div class="frow" role="group" aria-label="Group the list"><span class="flabel">Group</span>${fchip("fby", "urgency", "Usual order", null, filt.by !== "origin")}${fchip("fby", "origin", "By origin", null, filt.by === "origin")}</div>`);
+}
+// One section per origin, newest first. The heading is the origin's label and date; under it, the origin
+// text word for word when every item shares it, or each item's own text when they differ.
+function originHtml(list){
+  const groups = new Map();
+  for (const it of list){
+    const key = it.originGroup ? (it.originDate || "") + "|" + it.originGroup : "|";
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(it);
+  }
+  const keys = [...groups.keys()].sort((a, b) => a === "|" ? 1 : b === "|" ? -1 : b.localeCompare(a));
+  let html = "";
+  for (const key of keys){
+    const its = groups.get(key).sort(sortOpen);
+    const [date, label] = [key.slice(0, key.indexOf("|")), key.slice(key.indexOf("|") + 1)];
+    const texts = [...new Set(its.map(i => i.origin || ""))];
+    const day = date ? new Date(date + "T12:00:00").toLocaleDateString("en-US", {month:"short", day:"numeric"}) : "";
+    const thin = /^(chat( \((Jacob|chat)\))?|chat session)?$/.test(label) || label.startsWith("(the item records only");
+    html += `<section><div class="group-h"><h2>${esc(label || "Origin not recorded here")}</h2><span>${esc(day)}${day ? " · " : ""}${its.length}</span></div>`;
+    if (label && texts.length === 1) html += `<p class="quote origin-q">${esc(texts[0])}${thin ? ` <em>(this is all the item records about where it came from)</em>` : ""}</p>`;
+    if (!label) html += `<p class="quote origin-q">These items have no origin recorded on this page.</p>`;
+    html += `<div class="list">${its.map(it => texts.length > 1 && it.origin ? row(it).replace('<div class="row-meta">', `<div class="origin-line">From: ${esc(it.origin)}</div><div class="row-meta">`) : row(it)).join("")}</div></section>`;
+  }
+  return html;
+}
+
+// Bulk approve: undecided decisions in Needs you, and every undecided item in Agents can do it.
+function bulkable(i){
+  if (!(i.recommendation || "").trim()) return false;
+  const b = bucket(i);
+  if (b === "cli") return !i.decision || !!i.sentAt;   // undecided since the rewrite (an older send does not count)
+  return b === "me" && typeOf(i) === "decide" && !i.decision && !i.sentAt;
+}
+function sortOpen(a, b){
+  return ((b.waitingOn === "jacob") - (a.waitingOn === "jacob"))
+    || (/overdue/i.test(b.due || "") - /overdue/i.test(a.due || ""))
+    || ((a.decision === "later") - (b.decision === "later"))
+    || (a.order || 0) - (b.order || 0) || String(a.added || "").localeCompare(String(b.added || ""));
+}
+
+function render(){
+  document.getElementById("n-todo").textContent = (items.filter(isLeft).length + pendingOwners().length) || "";
+  document.getElementById("filterbox").hidden = view !== "todo";
+  document.getElementById("n-bugs").textContent = bugs.length || "";
+  document.getElementById("n-pages").textContent = pages.length || "";
+  document.getElementById("pagebox").hidden = view !== "pages";
+  for (const b of document.querySelectorAll(".tab")) b.setAttribute("aria-selected", String(b.dataset.view === view));
+  renderSendBar();
+  if (view === "bugs") return renderBugs();
+  if (view === "pages") return renderPages();
+  document.getElementById("how").textContent = filt.show === "left"
+    ? "What you can act on today. Decisions come first: read each one, pick Approve, Deny or Change, then press Send at the bottom. My steps are the things only you can do: do them, then press Done. The owners' answers waiting for your accept come last. Steps that cannot be done yet wait under Later."
+    : filt.show === "notyet" ? "Yours, but not yet: each one says what it is waiting for, and comes back to Mine when that happens. Nothing here needs you today."
+    : filt.show === "agents" ? "Not yours right now: sent and picked up by the agents, put off by you, or an efficiency already applied. A result that hands a step back to you moves it to Mine."
+    : filt.show === "overrides" ? "Every owner question you decided yourself: by taking the recommendation (an override), or by your own instructions to Claude. The owners are not asked again. Each is recorded in the plan as your decision and listed in the overrides log; take one back here until a run picks it up."
+    : "";
+  document.getElementById("stats").innerHTML = "";
+  renderFilters();
+
+  const active = document.activeElement;
+  const focusedId = active && active.tagName === "TEXTAREA" && active.dataset.id ? active.dataset.id : null;
+  const caret = focusedId ? [active.selectionStart, active.selectionEnd] : null;
+  const tkFocus = active && active.dataset && active.dataset.tk ? {el:active.id, at:[active.selectionStart, active.selectionEnd]} : null;
+
+  const shown = filtered();
+  const section = (title, note, list) => list.length ? `<section><div class="group-h"><h2>${esc(title)}</h2><span>${esc(note)}${note ? " · " : ""}${list.length}</span></div><div class="list">${list.map(row).join("")}</div></section>` : "";
+  let html = "";
+  // Mine: decisions first, then the steps only he can do. Other piles: one list each.
+  const piles = filt.show === "left" ? ["mine"] : filt.show === "notyet" ? ["notyet"] : filt.show === "agents" ? ["agents","later","eff"] : filt.show === "overrides" ? [] : ["done"];
+  const urgency = i => { const n = GROUPS.findIndex(g => g.key === i.group); return n < 0 ? GROUPS.length - 1 : n; };
+  if (filt.by === "origin" && piles.length){
+    html += originHtml(shown.filter(i => piles.some(p => p === "mine" ? isLeft(i) : p === "agents" ? isParked(i) : bucket(i) === p)));
+  }
+  else for (const p of piles){
+    const list = shown.filter(i => p === "mine" ? isLeft(i) : bucket(i) === p);
+    if (p === "mine"){
+      const byUrgency = (a, b) => urgency(a) - urgency(b) || sortOpen(a, b);
+      html += section("Decisions", "Approve, Deny or Change, then Send", list.filter(i => !isStep(i)).sort(byUrgency));
+      html += section("My steps", "Only you can do these", list.filter(isStep).sort(byUrgency));
+    } else if (p === "notyet"){
+      html += section("Later", "Yours, but not yet", list.sort(sortOpen));
+    } else if (p === "done"){
+      html += section(SHOW_TITLES.done, "", list.sort((a,b) => String(b.doneAt||"").localeCompare(String(a.doneAt||""))));
+    } else if (p === "agents"){
+      html += section(SHOW_TITLES.agents, SHOW_NOTES.agents, list.sort((a,b) => String(b.pickedUpAt||b.sentAt||"").localeCompare(String(a.pickedUpAt||a.sentAt||""))));
+    } else if (p === "later"){
+      html += section("Put off (Not now)", "You chose Not now; nothing runs", list.sort(sortOpen));
+    } else if (p === "eff"){
+      html += section("Applied efficiencies", "Already in place. Nothing to do unless you want one rolled back", list.sort(sortOpen));
+    } else html += section(SHOW_TITLES[p], SHOW_NOTES[p], list.sort(sortOpen));
+  }
+  // The owners' answers: the ones waiting for your accept are yours (Mine); the decided ones sit with the agents.
+  html += ownersHtml(filt.show === "left" ? "pending" : filt.show === "agents" ? "decided" : filt.show === "overrides" ? "overrides" : "");
+  // One tap drafts Approve on every decision shown that has a recommendation; Send still confirms.
+  const bulk = shown.filter(bulkable);
+  if (bulk.length > 1) html = `<div class="bulk"><span>${bulk.length} items shown with no choice yet.</span><button class="btn ghost" data-bulkapprove="1">Approve all ${bulk.length} as recommended (drafts)</button></div>` + html;
+  if (!html) html = `<div class="list"><div class="empty">${filt.q ? "Nothing matches this search." : filt.show === "left" ? "Nothing left for you today. You are all caught up." : "Nothing here."}</div></div>`;
+  document.getElementById("groups").innerHTML = html;
+
+  if (focusedId){
+    const ta = document.querySelector(`textarea[data-id="${focusedId}"]`);
+    if (ta){ ta.focus(); try{ ta.setSelectionRange(caret[0], caret[1]); }catch(e){} }
+  }
+  if (tkFocus){
+    const el = document.getElementById(tkFocus.el);
+    if (el){ el.focus(); try{ el.setSelectionRange(tkFocus.at[0], tkFocus.at[1]); }catch(e){} }
+  }
+}
+
+// Pages: one `pages` document per page (run_pages.py build; each run's wrap refreshes the dates from the source).
+let pages = [];
+let pageQ = "";
+function pageDate(iso){
+  const d = new Date(iso || ""); if (isNaN(d)) return {text:"Not known", ago:"", fresh:false};
+  // A date-only value is the day itself, not midnight UTC shifted into the day before.
+  const day = /^\d{4}-\d{2}-\d{2}$/.test(String(iso)) ? new Date(iso + "T12:00:00") : d;
+  const text = day.toLocaleDateString("en-US", {month:"short", day:"numeric", year:"numeric"});
+  const today = new Date(); today.setHours(0,0,0,0);
+  const that = new Date(day); that.setHours(0,0,0,0);
+  const n = Math.round((today - that) / 86400000);
+  return {text, ago: n <= 0 ? "today" : n === 1 ? "yesterday" : `${n} days ago`, fresh: n <= 1};
+}
+function renderPages(){
+  document.getElementById("stats").innerHTML = "";
+  const checked = pages.map(p => p.checkedAt).filter(Boolean).sort().pop();
+  document.getElementById("how").textContent = "Every page the run day keeps up to date. Each date is read from the page itself (claude.ai's own history, or the requirements site's last published change), never typed" + (checked ? `; last checked ${pageDate(checked).text}.` : ".");
+  const q = pageQ.trim().toLowerCase();
+  const list = pages.filter(p => !q || [p.title, p.description].some(s => String(s || "").toLowerCase().includes(q)))
+    .sort((a, b) => (a.order || 0) - (b.order || 0) || String(a.title).localeCompare(String(b.title)));
+  if (!list.length){
+    document.getElementById("groups").innerHTML = `<div class="list"><div class="empty">${q ? "No page matches this search." : "No pages listed yet."}</div></div>`;
+    return;
+  }
+  const rows = list.map(p => {
+    const d = pageDate(p.updated);
+    return `<tr>
+      <td><a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.title)}</a><span class="where">${esc(p.where || "")}</span></td>
+      <td class="desc">${esc(p.description)}</td>
+      <td class="upd${d.fresh ? " fresh" : ""}" title="${esc(p.updatedFrom || "")}">${esc(d.text)}${d.ago ? `<small>${esc(d.ago)}</small>` : ""}</td>
+    </tr>`;
+  }).join("");
+  document.getElementById("groups").innerHTML = `<div class="list"><table class="ptable"><thead><tr><th scope="col">Title</th><th scope="col">Description</th><th scope="col">Last updated</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+
+function renderBugs(){
+  const high = bugs.filter(b => b.severity === "high" && b.state !== "pr").length;
+  const pr = bugs.filter(b => b.stateLabel).length;
+  const now = bugs.filter(b => b.fixWhen === "now").length;
+  document.getElementById("stats").innerHTML =
+    `<span class="stat crit"><b>${high}</b> serious</span>` +
+    `<span class="stat urgent"><b>${now}</b> to fix now</span>` +
+    `<span class="stat"><b>${pr}</b> being fixed now</span>` +
+    `<span class="stat"><b>${bugs.length}</b> open in total</span>`;
+  document.getElementById("how").textContent = "Grouped by when I recommend fixing each one. Red dot = serious, amber = normal, hollow = minor. Tap a bug for what it affects and when I recommend fixing it. Nothing here needs your decision; the runs pick bugs up from this list.";
+  let html = "";
+  for (const g of BUG_GROUPS){
+    const list = bugs.filter(b => b.fixWhen === g.key)
+      .sort((a,b) => ({high:0,normal:1,low:2}[a.severity] - {high:0,normal:1,low:2}[b.severity]) || (a.order||0) - (b.order||0));
+    if (!list.length) continue;
+    html += `<section><div class="group-h"><h2>${esc(g.title)}</h2><span>${esc(g.note)} · ${list.length}</span></div><div class="list">`;
+    for (const b of list) html += bugRow(b);
+    html += `</div></section>`;
+  }
+  if (!html) html = `<div class="list"><div class="empty">No open bugs.</div></div>`;
+  document.getElementById("groups").innerHTML = html;
+}
+
+const SORT = {"clean":"Nothing outstanding","open-point":"Has an open point","discuss":"To discuss"};
+const MARK = {agree:"Agreed",change:"Change",discuss:"Discuss",yes:"Signed off"};
+// The owners' own button on their page, never my reading of the answer.
+function markLabel(o){ return o.answer ? `They marked ${MARK[o.answer] || o.answer}` : ""; }
+function shortDay(iso){ const d = new Date(iso || ""); return isNaN(d) ? "" : d.toLocaleDateString("en-US", {month:"short", day:"numeric"}); }
+function ownerRecorded(o){ return !!o.decision && !!o.recordedAt && (!o.decidedAt || String(o.recordedAt) >= String(o.decidedAt)); }
+function decisionLabel(o){
+  const day = shortDay(ownerRecorded(o) ? o.recordedAt : o.decidedAt);
+  if (isSizing(o)) return "Sizing requested" + (day ? " " + day : "") + " · back on Mine with the hours; you can take it back";
+  const what = o.decision === "accept" ? "Accepted" : isOverride(o) ? "Decided by you (override)" : isDirect(o) ? "Decided by you (your instructions)" : "Replied";
+  return what + (day ? " " + day : "") + (ownerRecorded(o) ? " · recorded" : " · not picked up yet, you can take it back");
+}
+function ownersHtml(which){
+  if (!which) return "";
+  const pend = pendingOwners().filter(o => matchesQ(o) || matchesOwnerQ(o));
+  let html = "";
+  if (which === "pending"){
+    const reviewed = pend.filter(o => o.review);
+    const look = reviewed.filter(o => o.review.verdict === "look").sort(byScreen);
+    const asIs = reviewed.filter(o => o.review.verdict !== "look").sort(byScreen);
+    const other = pend.filter(o => !o.review);
+    if (pend.length) html += `<section id="sec-owners"><div class="group-h"><h2>Owners' answers waiting for your accept</h2><span>${pend.length}${estSum(pend).hi ? ` · +${esc(estRange(estSum(pend).lo, estSum(pend).hi))} est-h if all go as I recommend` : ""}</span></div><p class="how">Where I disagree or a question is open, send the reply as written or edit it first; it shows on their card on their page. Where I agree with everything, accept as written: the answer moves to their Answered tab at the next run.</p></section>`;
+    if (look.length){
+      const n = look.reduce((a, o) => a + o.review.items.length, 0);
+      html += `<section id="sec-screens"><div class="group-h"><h2>Where I disagree or a question is open</h2><span>${look.length} answers, ${n} points${esc(estTotal(look))}</span></div><div class="list">`;
+      for (const o of look) html += reviewRow(o);
+      html += `</div></section>`;
+    }
+    for (const g of ACCEPT_GROUPS){
+      const list = asIs.filter(o => acceptGroup(o) === g.key);
+      if (!list.length) continue;
+      html += `<section id="sec-${g.key}"><div class="group-h"><h2>${esc(g.title)}</h2><span>${esc(g.note)} · ${list.length}${esc(estTotal(list))} · <button class="btn quiet" data-oacceptall="${g.key}">Accept all ${list.length}</button></span></div><div class="list">`;
+      for (const o of list) html += acceptRow(o);
+      html += `</div></section>`;
+    }
+    if (other.length){
+      html += `<section id="sec-other"><div class="group-h"><h2>Other answers to accept</h2><span>Waiting on you · ${other.length}</span></div><div class="list">`;
+      for (const o of other.sort((a,b) => String(a.at||"").localeCompare(String(b.at||"")))) html += ownerRow(o);
+      html += `</div></section>`;
+    }
+    return html;
+  }
+  const groups = which === "overrides" ? [
+    {title:"Your calls not picked up yet", note:"You can still take one back", list: owners.filter(o => isMyCall(o) && !ownerRecorded(o))},
+    {title:"Your calls recorded in the plan", note:"Decided by you; the owners see the recommendation, or what will be built from your instructions, as the answer", list: owners.filter(o => isMyCall(o) && ownerRecorded(o))}
+  ] : [
+    {title:"Being sized for you", note:"You asked for the impact first. Nothing is sent now: the next run's intake picks these up (or an agent, on your word), and each comes back to Mine with before or after launch and the hours", list: owners.filter(isSizing)},
+    {title:"Owners' answers you decided, not picked up yet", note:"Open one and press Take it back to undo it; the next run records what is still here", list: owners.filter(o => o.decision && !isMyCall(o) && !isSizing(o) && !ownerRecorded(o))},
+    {title:"Owners' answers decided and recorded", note:"In the plan already; nothing waits on you", list: owners.filter(o => !isMyCall(o) && ownerRecorded(o))}
+  ];
+  for (const g of groups){
+    const list = g.list.filter(o => matchesQ(o) || matchesOwnerQ(o));
+    if (!list.length) continue;
+    html += `<section><div class="group-h"><h2>${esc(g.title)}</h2><span>${esc(g.note)} · ${list.length}</span></div><div class="list">`;
+    for (const o of list.sort((a,b) => String(a.at||"").localeCompare(String(b.at||"")))) html += ownerRow(o);
+    html += `</div></section>`;
+  }
+  return html;
+}
+function matchesOwnerQ(o){
+  const q = filt.q.trim().toLowerCase(); if (!q) return true;
+  return [o.id, o.card, o.question, o.note, o.recommendation, o.openPoint, o.draftReply, o.reply].some(s => String(s || "").toLowerCase().includes(q));
+}
+// The sort words of the Oct 2 Questions lane, shown as chips on each point.
+function sortChips(t){
+  const out = []; const s = String(t || "");
+  if (/Built/i.test(s)) out.push(["built","Already built"]);
+  if (/Planned/i.test(s)) out.push(["","Planned"]);
+  if (/\bNew\b/.test(s)) out.push(["new","New work"]);
+  if (/Preview/i.test(s)) out.push(["preview","Preview fix"]);
+  if (/Owners' question/i.test(s)) out.push(["ask","Ask the owners"]);
+  if (/blocked/i.test(s)) out.push(["ask","Blocked"]);
+  return out;
+}
+function pointsSummary(points){
+  const c = {}; for (const p of points) for (const [k, label] of sortChips(p.sort)) c[label] = (c[label] || 0) + 1;
+  return `${points.length} points` + Object.entries(c).filter(([l]) => l !== "Planned" && l !== "Already built").map(([l, n]) => ` · ${n} ${l.toLowerCase()}`).join("");
+}
+function byScreen(a, b){ const g = o => String(o.id).startsWith("S-") ? 0 : 1; return g(a) - g(b) || (a.order||0) - (b.order||0) || String(a.id).localeCompare(String(b.id)); }
+function ownerTitle(o){ return `${o.card ? esc(o.card) + " · " : ""}${esc(o.question)}`; }
+// The reply the owners get for a flagged answer: my recommendation or question per point, then the rest as written.
+function composeReply(o){
+  const parts = o.review.items.map(x => {
+    const head = x.n ? `Point ${x.n}: ` : "";
+    if (x.kind === "disagree") return head + (x.toThem ? x.toThem : `we recommend a change. ${x.instead}`);
+    return head + x.toThem;
+  });
+  return parts.join("\n\n") + "\n\nEverything else we will build as you wrote it.";
+}
+// One open point, two lines: what they asked, what we answer. The thread (their words, my
+// disagreement, my question) is gone from the card (Jacob, 2026-10-13: "a simple response to their
+// ask that they can look at and agree with or respond to without having to read through a thread").
+function flagBlock(x){
+  const n = x.n ? `Point ${x.n} · ` : "";
+  const asked = x.theirQuestion || x.theyAsk || "";
+  const answer = x.kind === "disagree" ? x.instead : x.toThem;
+  return `<div class="flag${x.kind === "disagree" ? "" : " question"}">
+      <div class="fh">${n}${x.kind === "disagree" ? "Still open: we recommend a change" : "Still open: a question back"}</div>
+      <div class="fr"><p class="label">They asked</p><p>${esc(asked)}</p></div>
+      <div class="fr mine"><p class="label">Our answer</p><p>${esc(answer)}</p></div>
+    </div>`;
+}
+function reviewRow(o){
+  const id = o.id, r = o.review;
+  const nd = r.items.filter(x => x.kind === "disagree").length, nq = r.items.length - nd;
+  // The box holds the reply he will send: his own draft, the sent reply, the written one, and only then the per-point thread.
+  const reply = drafts["r:"+id] ?? o.reply ?? o.draftReply ?? composeReply(o);
+  const points = Array.isArray(o.points) ? o.points : null;
+  return `<details data-id="o:${esc(id)}" ${openIds.has("o:"+id) ? "open" : ""}>
+    <summary>
+      <div class="row-main">
+        <div class="row-title">${ownerTitle(o)}</div>
+        <div class="row-meta">
+          ${nd ? `<span class="kind">${nd} I disagree with</span>` : ""}
+          ${nq ? `<span class="kind q">${nq} open question${nq > 1 ? "s" : ""}</span>` : ""}
+          ${estChip(o)}
+          <span>${esc(id)}</span>
+        </div>
+      </div>${chev}
+    </summary>
+    <div class="body">
+      <p class="agreed">${points ? `${r.items.length === 1 ? "One point" : r.items.length + " points"} still open; the other ${Math.max(points.length - r.items.length, 0)} we do as written.` : `${r.items.length === 1 ? "One point" : r.items.length + " points"} still open; the rest we do as written.`}${r.newWork ? " Accepting commits new work: " + esc(r.newWork) : ""}${o.est && o.est.text ? " " + esc(o.est.text) : ""}</p>
+      <div class="flags">${r.items.map(flagBlock).join("")}</div>
+      ${points ? `<details class="more"><summary>All ${points.length} points with my notes</summary><ol class="points">${points.map(p => `<li>
+        <div class="pt"><span class="n">${p.n}</span>${esc(p.point)}</div>
+        <div class="sorts">${sortChips(p.sort).map(([k, l]) => `<span class="srt ${k}">${esc(l)}</span>`).join("")}</div>
+        <div class="r">${esc(p.rec)}</div></li>`).join("")}</ol></details>` : o.note ? `<details class="more"><summary>Their full answer</summary><p class="quote">${esc(o.note)}</p></details>` : ""}
+      <div><p class="label">Reply to the owners (shown on their card)</p>
+        <textarea data-rid="${esc(id)}" id="reply-${esc(id)}">${esc(reply)}</textarea>
+        <div class="saved" id="saved-o-${esc(id)}"></div></div>
+      ${o.sizing ? `<div class="rec"><p class="label">The sizing${shortDay(o.sizedAt) ? " · " + esc(shortDay(o.sizedAt)) : ""}</p><p><b>${esc(sizingLine(o))}</b></p>${o.sizing.rec ? `<p>${esc(o.sizing.rec)}</p>` : ""}${o.sizing.displaces ? `<p class="scope">If built before launch it displaces: ${esc(o.sizing.displaces)}</p>` : ""}</div>` : ""}
+      ${directBox(id, o)}
+      <div class="actions">
+        <button class="btn" data-oreply="${esc(id)}">Send this reply</button>
+        <button class="btn ghost" data-oaccept="${esc(id)}">Accept their answer as written, no reply</button>
+        <button class="btn ghost" data-ooverride="${esc(id)}">I decide: take the recommendation, no question to them</button>
+        ${o.sizing ? "" : `<button class="btn ghost" data-osize="${esc(id)}">Size it first: before or after launch, and the hours</button>`}
+      </div>
+      <p class="agreed">Send this reply: my question or disagreement goes to the owners on their page and the point stays open until they answer. Accept as written: drop my reply, take everything they wrote as the decision, the point closes and we build it their way. I decide: you settle the open point yourself with my recommendation, the owners are not asked again, and it is tracked under My calls. Follow my instructions: neither their answer nor my recommendation; your words go to Claude only, the next run records them as your decision and builds it that way, the owners see what will be built in their own wording, and it is tracked under My calls. Size it first: nothing goes to the owners yet; the impact of what they proposed is worked out (before or after launch, the hours, what it displaces) and this row comes back to Mine with it. Any of them can be taken back until a run picks it up.</p>
+    </div>
+  </details>`;
+}
+// Work an answer adds beyond what is already scheduled, in est-h. A shared piece (C-1 ...) counts once.
+function fmtH(n){ return String(Math.round(n * 100) / 100); }
+function estRange(lo, hi){ return lo === hi ? fmtH(lo) : fmtH(lo) + "–" + fmtH(hi); }
+function estChip(o){
+  const e = o.est; if (!e) return "";
+  if (!e.lo && !e.hi) return `<span class="est none">No extra work</span>`;
+  if (e.hi < 0) return `<span class="est save">Saves ${estRange(-e.hi, -e.lo)} est-h</span>`;
+  return `<span class="est">+${estRange(e.lo, e.hi)} est-h</span>`;
+}
+function estSum(list){
+  const seen = new Set(); let lo = 0, hi = 0;
+  for (const o of list){ const e = o.est; if (!e) continue;
+    if (e.shared){ if (seen.has(e.shared)) continue; seen.add(e.shared); }
+    lo += e.lo || 0; hi += e.hi || 0; }
+  return {lo, hi};
+}
+function estTotal(list){ const t = estSum(list); return t.hi ? ` · about ${estRange(t.lo, t.hi)} est-h` : ""; }
+const ACCEPT_GROUPS = [
+  {key:"nodiscuss", title:"Marked Discuss, but potentially nothing to discuss", note:"They agree with the plan or ask for something I would build as written"},
+  {key:"build", title:"Build as written", note:"I agree with every point; accepting commits the work"},
+  {key:"done", title:"Already built or planned", note:"Accepting changes little or nothing"}
+];
+function acceptGroup(o){
+  if (o.answer === "discuss") return "nodiscuss";
+  if (o.review.kind === "nothing") return "done";
+  return "build";
+}
+function acceptRow(o){
+  const r = o.review;
+  return `<div class="acc">
+      <div class="acc-main">
+        <div class="row-title">${ownerTitle(o)} ${estChip(o)}</div>
+        <div class="rec-line">${esc(r.rec || "Accept as written.")}</div>
+        ${o.est ? `<div class="scope"><b>The work:</b> ${esc(o.est.text)}</div>` : r.newWork ? `<div class="scope">${esc(r.newWork)}</div>` : ""}
+        <div class="scope">${esc(o.entry || "")}${o.entry ? " · " : ""}${esc(o.id)}${o.note ? ` · <a href="#" data-showans="${esc(o.id)}">their answer</a>` : ""}</div>
+        <p class="quote" id="ans-${esc(o.id)}" hidden>${esc(o.note || "")}</p>
+        ${o.sizing ? `<div class="scope"><b>Sized:</b> ${esc(sizingLine(o))}</div>` : ""}
+      </div>
+      <div class="actions"><button class="btn" data-oaccept="${esc(o.id)}">Accept as written</button>${o.sizing ? "" : `<button class="btn ghost" data-osize="${esc(o.id)}" title="Stop here, get the impact (before or after launch, the hours), then decide">Size it first</button>`}</div>
+    </div>`;
+}
+function ownerRow(o){
+  const id = o.id;
+  const points = Array.isArray(o.points) ? o.points : null;
+  const plan = o.plan || null;
+  const reply = drafts["r:"+id] ?? o.reply ?? o.draftReply ?? "";
+  const recAccept = o.recommendation === "accept";
+  return `<details data-id="o:${esc(id)}" ${openIds.has("o:"+id) ? "open" : ""}>
+    <summary>
+      <div class="row-main">
+        <div class="row-title">${o.card && points ? esc(o.card) + " · " : ""}${esc(o.question)}</div>
+        ${o.scope ? `<div class="scope">${esc(o.scope)}</div>` : ""}
+        <div class="row-meta">
+          ${!o.decision && o.sort && o.sort !== "discuss" ? `<span class="kind ${o.sort === "clean" ? "" : "q"}">${esc(SORT[o.sort] || o.sort)}</span>` : ""}
+          ${o.sizing && !o.decision ? `<span class="kind">Sized · ${esc(sizingLine(o))}</span>` : ""}
+          <span>${esc(markLabel(o))}${o.who ? " · " + esc(o.who) : ""}</span>
+          ${points ? `<span>${esc(pointsSummary(points))}</span>` : ""}
+          ${o.decision ? `<span class="state ${o.decision === "reply" ? "reply" : ""}">${esc(decisionLabel(o))}</span>` : ""}
+          <span>${esc(id)}</span>
+        </div>
+        ${!o.decision ? `<div class="rec-line">Recommended: ${recAccept ? "Accept" : o.recommendation === "reply" ? "Reply" : "Hold for a conversation"}</div>` : ""}
+      </div>${chev}
+    </summary>
+    <div class="body">
+      <div><p class="label">Their answer</p><p class="quote">${esc(markLabel(o))}${o.note ? ": " + esc(o.note) : ""}</p></div>
+      ${o.openPoint ? `<div><p class="label">What is still open</p><p>${esc(o.openPoint)}</p></div>` : ""}
+      ${o.sizing ? `<div class="rec"><p class="label">The sizing${shortDay(o.sizedAt) ? " · " + esc(shortDay(o.sizedAt)) : ""}</p><p><b>${esc(sizingLine(o))}</b></p>${o.sizing.rec ? `<p>${esc(o.sizing.rec)}</p>` : ""}${o.sizing.displaces ? `<p class="scope">If built before launch it displaces: ${esc(o.sizing.displaces)}</p>` : ""}</div>` : ""}
+      ${o.decision ? `<div class="rec"><p class="label">What you decided</p><p>${o.decision === "accept" ? "You accepted their answer as written." : isOverride(o) ? "You decided it yourself, taking the recommendation instead of asking the owners again (an override, tracked):" : isDirect(o) ? `You decided it your own way, with these instructions to Claude (tracked under My calls)${o.direct && TIMING[o.direct.timing] ? " · " + esc(TIMING[o.direct.timing]) : ""}:` : isSizing(o) ? "You asked for it to be sized first: nothing goes to the owners until it comes back with before or after launch and the hours." : "You replied:"}</p>${isOverride(o) && o.override ? `<p class="quote">${esc(o.override.rec || "")}</p>` : ""}${isDirect(o) && o.direct ? `<p class="quote">${esc(o.direct.text || "")}</p>` : ""}${o.reply ? `<p class="label">${o.decision === "accept" ? "Our answer to their question" : ""}</p><p class="quote">${esc(o.reply)}</p>` : ""}</div>` : plan ? `<div><p class="label">What the app does today</p><p>${esc(plan.today)}</p></div>
+      <div class="rec"><p class="label">What I recommend</p><p>${esc(plan.rec)}</p></div>
+      <div><p class="label">The work</p><p>${esc(plan.work)}</p></div>` : `<div class="rec"><p class="label">What I recommend</p><p>${points ? "Send the reply below to Rustin, and go ahead with each point as recommended in the list. Planned points go to the lane that already owns them, preview fixes to the preview-corrections lane, new work to a change for your yes, and owner questions to their page." : recAccept ? "Accept. Nothing in this answer is outstanding." : o.recommendation === "reply" ? "Reply with the text below before accepting." : "Hold it for a conversation with the owners."}</p></div>`}
+      ${points ? `<div><p class="label">Point by point</p><ol class="points">${points.map(p => `<li>
+        <div class="pt"><span class="n">${p.n}</span>${esc(p.point)}</div>
+        <div class="sorts">${sortChips(p.sort).map(([k, l]) => `<span class="srt ${k}">${esc(l)}</span>`).join("")}</div>
+        <div class="r">${esc(p.rec)}</div></li>`).join("")}</ol></div>` : ""}
+      ${o.decision ? (ownerRecorded(o) ? `<p class="agreed">Recorded in the plan${shortDay(o.recordedAt) ? " on " + esc(shortDay(o.recordedAt)) : ""}. Changing it now means a new answer to the owners, so ask me rather than undo it here.</p>` : `<p class="agreed">No run has picked this up yet, so nothing was carried: taking it back puts it on Mine again as if you had not decided.</p><div class="actions"><button class="btn quiet" data-oundo="${esc(id)}">Change my decision</button></div>`) : `
+      <div><p class="label">Reply (shown on their card)</p>
+        <textarea data-rid="${esc(id)}" id="reply-${esc(id)}" placeholder="Write a reply…">${esc(reply)}</textarea>
+        <div class="saved" id="saved-o-${esc(id)}"></div></div>
+      ${directBox(id, o)}
+      <div class="actions">
+        <button class="btn" data-oaccept="${esc(id)}">Accept the answer</button>
+        <button class="btn ghost" data-oreply="${esc(id)}">Send the reply instead</button>
+        <button class="btn ghost" data-ooverride="${esc(id)}">I decide: take the recommendation, no question to them</button>
+        ${o.sizing ? "" : `<button class="btn ghost" data-osize="${esc(id)}">Size it first: before or after launch, and the hours</button>`}
+      </div>`}
+    </div>
+  </details>`;
+}
+function bugRow(b){
+  return `<details data-id="${esc(b.id)}" ${openIds.has(b.id) ? "open" : ""}>
+    <summary>
+      <span class="sev ${esc(b.severity)}" role="img" aria-label="${esc(SEV[b.severity]||"")}"></span>
+      <div class="row-main">
+        <div class="row-title">${esc(b.title)}</div>
+        <div class="row-meta">
+          <span class="affects">${esc(b.affects)}</span>
+          <span>${esc(b.area)}</span>
+          ${b.stateLabel ? `<span class="pill-pr">${esc(b.stateLabel)}</span>` : ""}
+          <span>${esc(b.id)}</span>
+        </div>
+      </div>${chev}
+    </summary>
+    <div class="body">
+      <div><p class="label">What goes wrong</p><p>${esc(b.what)}</p></div>
+      <div class="when"><p class="label">When to fix</p><b>${esc(b.fixBy)}</b><p>${esc(b.fixWhy)}</p></div>
+      <div><p class="label">Details</p><dl class="facts">
+        <dt>Affects</dt><dd>${esc(b.affects)}</dd>
+        <dt>Severity</dt><dd>${esc(SEV[b.severity]||b.severity)}</dd>
+        <dt>Fixed in</dt><dd>${esc(b.fixedIn)}</dd>
+        <dt>Estimate</dt><dd>${esc(b.estimate)}</dd>
+        <dt>Where</dt><dd>${esc(b.where)}</dd>
+        <dt>Found by</dt><dd>${esc(b.foundBy)}</dd>
+      </dl></div>
+      ${codesBlock([b.title, b.what, b.fixWhy])}
+    </div>
+  </details>`;
+}
+
+// Decide, then send (Jacob, 2026-10-04). A choice on an item is a draft, kept on the page, until he
+// presses Send. The next run's intake takes only sent items (sentAt set, pickedUpAt empty) and writes
+// back pickedUpAt, pickedUpBy (the run) and route (the lane, or what it recorded); the wrap writes
+// outcome and closes the item. Field use: `answer` holds his changed recommendation only; `note`
+// holds a note on Not now, Done myself or Decline.
+// Approve, Deny, Change on every decision (Jacob, 2026-11-02). Deny is stored as `decline`, which closes the item once
+// sent; once he has approved an item and sent it, Change is how to stop it, so Deny goes. Not now stays as a small link.
+const CHOICES = {approve:"Approve", change:"Change", later:"Not now", self:"Done myself", decline:"Deny"};
+const CHOSEN = {approve:"Approved", change:"Changed", later:"Not now", self:"Done myself", decline:"Denied"};
+function choicesFor(it){ return (it.approved && it.sentAt) ? ["approve","change"] : ["approve","decline","change"]; }
+function smallChoicesFor(it){ return isProposed(it) ? ["later"] : ["later","self"]; }
+function choiceLabel(it, c){ return (c === "self" && it.kind === "question") ? "Already handled" : CHOICES[c]; }
+function textField(it){ return it.decision === "change" ? "answer" : "note"; }
+function textOf(it){ const f = textField(it); return drafts[it.id+":"+f] ?? it[f] ?? ""; }
+// A decision handed back to Jacob (`askedAt` later than his old send) counts as a draft again, so his new
+// choice or words reach Send (2026-10-14: J-038's new answer had no Send button).
+function isDraft(it){ return !!it.decision && (!it.sentAt || (!!it.askedAt && String(it.sentAt) < String(it.askedAt))) && !isDone(it) && !isApplied(it); }
+function isQueued(it){ return !!it.sentAt && !it.pickedUpAt && (it.decision === "approve" || it.decision === "change") && !isDone(it); }
+function isPicked(it){ return !!it.pickedUpAt && !isDone(it); }
+function draftProblem(it){
+  if (it.decision !== "change") return "";
+  const t = textOf(it).trim();
+  if (!t) return "Write your change first.";
+  if (t === (it.recommendation || "").trim()) return "Edit the recommendation, or choose Approve.";
+  return "";
+}
+function when(iso){
+  const d = new Date(iso); if (isNaN(d)) return "";
+  return d.toLocaleString(undefined, {month:"short", day:"numeric", hour:"numeric", minute:"2-digit"});
+}
+
+// Create ticket (work-tracking plan phase 4, T15; built 2026-11-02). A J item's form, a draft until its own Send, which
+// writes ticket_requests/J-###; /for-jacob apply runs linear-ticket add from it and writes the result back.
+// The rules are `page_form` in linear-ticket/ticket-rules.json: test_for_jacob_page.py holds the two equal.
+// TICKET-FORM-START
+const TICKET_RULES = {"type":"Development Task","source":"jacob.md","required":["title"],"together":{"blockedBy":["blockedWhat","unblocksWhen","blockedSource"],"notADup":["dupReason"]}};
+const TK_LABEL = {title:"a title",blockedBy:"the ticket that blocks it",blockedWhat:"what is blocked",unblocksWhen:"what unblocks it",blockedSource:"where that is recorded",notADup:"which ticket it is not a duplicate of",dupReason:"why it is not a duplicate"};
+function tkList(v){ return String(v || "").split(/[\s,]+/).filter(Boolean); }
+function tkProblems(f, key){
+  const out = [], has = k => !!String(f[k] || "").trim();
+  for (const k of TICKET_RULES.required) if (!has(k)) out.push("Add " + TK_LABEL[k] + ".");
+  for (const [lead, rest] of Object.entries(TICKET_RULES.together)){
+    if (!has(lead)) continue;
+    for (const k of rest) if (!has(k)) out.push("Add " + TK_LABEL[k] + ".");
+  }
+  const lead = (String(f.title || "").match(/^(\S+)\s·\s/) || [])[1];
+  const stray = idsIn([f.title]).filter(id => id !== key && id !== lead);
+  if (stray.length) out.push("Say " + stray.join(", ") + " in words: a title carries only its own number.");
+  const bad = tkList(f.blockedBy).filter(x => !/^HOA-\d+$/.test(x));
+  if (bad.length) out.push("Blocked by takes ticket numbers like HOA-12, not " + bad.join(", ") + ".");
+  return out;
+}
+// TICKET-FORM-END
+const ticketReqs = {};   // ticket_requests, by J id
+const tkOpen = new Set();
+const tkDrafts = {};
+function tkPrefill(it){
+  const r = ticketReqs[it.id];
+  if (r && (r.state === "refused" || r.state === "withdrawn")) return {title:r.title||"", body:r.body||"", link:"", blockedBy:(r.blockedBy||[]).join(" "), blockedWhat:r.blockedWhat||"", unblocksWhen:r.unblocksWhen||"", blockedSource:r.blockedSource||"", notADup:r.notADup||"", dupReason:r.dupReason||""};
+  const rec = (it.recommendation || "").trim();
+  const details = Array.isArray(it.details) ? it.details : it.details ? [it.details] : [];
+  const body = [rec ? "Recommendation: " + rec : "", (it.why || "").trim(), details.map(d => "- " + d).join("\n")].filter(Boolean).join("\n\n");
+  return {title:it.title || "", body, link:"", blockedBy:"", blockedWhat:"", unblocksWhen:"", blockedSource:"", notADup:"", dupReason:""};
+}
+function tkField(id, f, name, label, area){
+  const a = `data-tk="${name}" data-tkid="${esc(id)}" id="tk-${esc(id)}-${name}"`;
+  return `<div><label class="label" for="tk-${esc(id)}-${name}">${esc(label)}</label>${area ? `<textarea ${a}>${esc(f[name])}</textarea>` : `<input class="tkinput" type="text" ${a} value="${esc(f[name])}">`}</div>`;
+}
+function ticketBlock(it){
+  if (!/^J-\d{3}$/.test(it.id)) return "";
+  const r = ticketReqs[it.id], id = esc(it.id), ticket = it.ticket || (r && r.ticket);
+  if (ticket) return `<div class="trail"><p class="label">Ticket</p><p>${esc(ticket)}${r && r.state === "exists" ? " already tracks this item." : " created."}</p></div>`;
+  if (isDone(it)) return "";
+  if (r && r.state === "sent") return `<div class="trail"><p class="label">Ticket</p><ol><li>You sent the request, ${esc(when(r.at))}</li><li class="todo">Waiting for the next run to create it</li></ol><div class="actions" style="margin-top:6px"><button class="btn quiet" data-tkback="${id}">Take it back</button></div></div>`;
+  const refused = r && r.state === "refused";
+  if (!tkOpen.has(it.id) && !refused) return `<div class="actions"><button class="btn ghost" data-tkopen="${id}">Create ticket</button></div>`;
+  const f = tkDrafts[it.id] || (tkDrafts[it.id] = tkPrefill(it));
+  const probs = tkProblems(f, it.id);
+  return `<div class="trail"><p class="label">Create ticket · ${esc(TICKET_RULES.type)}</p>
+    ${refused ? `<div class="stand"><b>Not created:</b> ${esc((r.refused || []).join(" "))}</div>` : ""}
+    ${tkField(it.id, f, "title", "Title")}${tkField(it.id, f, "body", "Details", true)}${tkField(it.id, f, "link", "Link (optional)")}
+    <details class="more" data-id="tkb:${id}" ${openIds.has("tkb:" + it.id) ? "open" : ""}><summary>Blocked by another ticket?</summary>
+      ${tkField(it.id, f, "blockedBy", "Blocked by (ticket numbers)")}${tkField(it.id, f, "blockedWhat", "What is blocked")}${tkField(it.id, f, "unblocksWhen", "Unblocks when")}${tkField(it.id, f, "blockedSource", "Where that is recorded")}</details>
+    ${refused ? tkField(it.id, f, "notADup", "Not a duplicate of (ticket number)") + tkField(it.id, f, "dupReason", "Why it is not a duplicate") : ""}
+    <p class="hint" id="tk-msg-${id}">${esc(probs.join(" "))}</p>
+    <div class="actions"><button class="btn" data-tksend="${id}" id="tk-send-${id}" ${probs.length ? "disabled" : ""}>Send ticket request</button><button class="btn quiet" data-tkcancel="${id}">Cancel</button></div></div>`;
+}
+async function sendTicket(id){
+  const f = tkDrafts[id]; if (!f || tkProblems(f, id).length) return;
+  const link = f.link.trim(), body = f.body.trim();
+  const doc = {key:id, state:"sent", at:new Date().toISOString(), type:TICKET_RULES.type, source:TICKET_RULES.source,
+    title:f.title.trim(), body: link ? (body ? body + "\n\n" : "") + "Link: " + link : body,
+    blockedBy:tkList(f.blockedBy), blockedWhat:f.blockedWhat.trim(), unblocksWhen:f.unblocksWhen.trim(), blockedSource:f.blockedSource.trim(),
+    notADup:f.notADup.trim(), dupReason:f.dupReason.trim(), refused:[]};
+  try { await db.collection("ticket_requests").doc(id).set(doc); }
+  catch(e){ sendNote = VIEW_ONLY; renderSendBar(); return; }
+  ticketReqs[id] = doc; delete tkDrafts[id]; tkOpen.delete(id);
+  sendNote = "Ticket request sent. The next run creates it."; render();
+}
+
+function row(it){
+  const done = isDone(it);
+  const q = it.kind === "question";
+  const details = (it.details || []).map(d => `<li>${esc(d)}</li>`).join("");
+  const prop = isProposed(it);
+  const appl = isApplied(it);
+  const rec = (it.recommendation || "").trim();
+  const age = !done ? workdaysSince(it.added) : null;
+  const dec = it.decision || "";
+  const picked = isPicked(it);
+  const queued = isQueued(it);
+  const draft = isDraft(it);
+  const mine = !done && bucket(it) === "me";
+  const ask = mine ? askOf(it) : "";
+  const step = isStep(it);
+  let chip = "";
+  const ak = inAgentPile(it) ? agentKind(it) : "";
+  const akChip = ak === "run" ? `<span class="chip picked">Agent runs it</span>` : ak === "prep" ? `<span class="chip sent">Agent prepares · you paste</span>` : "";
+  if (ak) chip = draft ? `<span class="chip draft">${esc(CHOSEN[dec] || dec)} · not sent</span>` : "";
+  else if (mine) chip = ask === "cmds" ? `<span class="chip mine">Your step · approve ${cmdsLeft(it).length} command${cmdsLeft(it).length === 1 ? "" : "s"}</span>`
+    : ask === "hours" ? `<span class="chip mine">Your step · log your hours</span>`
+    : ask === "do" ? ""
+    : draft ? `<span class="chip draft">${esc(CHOSEN[dec] || dec)} · not sent</span>` : "";
+  else if (!done && it.waitingOn === "jacob" && cmdsAllApproved(it) && !it.ask) chip = `<span class="chip sent">Commands approved · the next run runs them</span>`;
+  else if (!done && !appl){
+    if (prop && !dec) chip = `<span class="chip new">New</span>`;
+    else if (picked) chip = `<span class="chip picked">In progress${it.route ? " · " + esc(it.route) : ""}</span>`;
+    else if (queued) chip = `<span class="chip sent">Sent · waiting for the next run</span>`;
+    else if (dec === "later" && it.sentAt) chip = `<span class="chip">Not now</span>`;
+    else if (draft) chip = `<span class="chip draft">${esc(CHOSEN[dec] || dec)} · not sent</span>`;
+    else if (!dec && it.approved) chip = `<span class="answered">Approved</span>`;
+  }
+  const notYet = bucket(it) === "notyet";
+  const canDecide = !done && !appl && !notYet && !step && (!picked || !!ak || ask === "decide");
+  // Everything you act on is open on the list: the whole ask and its buttons, with nothing to expand.
+  const flat = filt.show === "left" && !done && !appl && (canDecide || (mine && step));
+  const onMine = flat || notYet;
+  const problem = draft ? draftProblem(it) : "";
+  const textLabel = dec === "change" ? (q ? "Your answer (replaces my recommendation)" : "What to do instead (replaces my recommendation)")
+    : dec === "later" ? "Why not now (optional)" : dec === "decline" ? "Why (optional)" : dec === "self" ? "Note (optional)" : "";
+  const showText = canDecide && (dec === "change" || dec === "later" || dec === "self" || dec === "decline");
+  const legacy = (!dec && (it.answer || "").trim()) ? `<div><p class="label">Your earlier answer</p><p class="quote">${esc(it.answer)}</p></div>` : "";
+  const trail = (it.sentAt && (queued || picked || done) && (dec === "approve" || dec === "change")) ? `<div class="trail"><p class="label">What happened to it</p><ol>
+      <li>You sent it: ${esc(CHOSEN[dec])}, ${esc(when(it.sentAt))}</li>
+      <li class="${it.pickedUpAt ? "" : "todo"}">${it.pickedUpAt ? `Picked up by the ${esc(it.pickedUpBy || "")} run${it.route ? " → " + esc(it.route) : ""}` : "Waiting for the next run to pick it up"}</li>
+      <li class="${it.outcome ? "" : "todo"}">${it.outcome ? "Result: " + esc(it.outcome) : "Result shows here when the work lands"}</li>
+    </ol>${queued ? `<div class="actions" style="margin-top:6px"><button class="btn quiet" data-takeback="${esc(it.id)}">Take it back</button></div>` : ""}</div>` : "";
+  const stepsList = Array.isArray(it.steps) && it.steps.length ? `<div><p class="label">Your steps</p><ol class="steps">${it.steps.map(t => `<li>${esc(t)}</li>`).join("")}</ol></div>` : "";
+  const head = `<div class="row-main">
+        <div class="row-title">${esc(it.title)}</div>
+        <div class="row-meta">
+          <span class="kind ${q && !onMine ? "q" : ""}">${appl ? "Efficiency" : onMine ? (step ? "My step" : "Decision") : q ? "Question" : "To-do"}</span>
+          ${akChip}${chip}
+          ${hasCmds(it) ? (() => { const n = cmdCounts([it]); return `<span class="tag ${n.waiting ? "change" : "read"}">${n.approve} of ${n.all} commands approved</span>`; })() : ""}
+          ${it.status === "rollback" ? `<span class="age">Roll back requested</span>` : ""}
+          ${it.status === "kept" ? `<span>Kept</span>` : ""}${it.status === "rolledback" ? `<span>Rolled back</span>` : ""}
+          ${it.due ? `<span>${esc(it.due)}</span>` : ""}
+          ${(age !== null && age > 3 && !notYet) ? `<span class="age">Waiting ${age} days</span>` : ""}
+          ${(!rec && !done) ? `<span class="need">Recommendation needed</span>` : ""}
+          ${it.status === "declined" ? `<span>Denied</span>` : ""}
+          <span>${esc(it.id)}</span>
+        </div>
+        ${notYet ? `<div class="stand"><b>Waiting for:</b> ${esc(it.notYet)}</div>`
+          : mine && it.outcome ? `<div class="stand"><b>Where it stands:</b> ${esc(it.outcome)}</div>`
+          : (rec && !done && !flat) ? `<div class="rec-line">${appl ? "Applied" : "Recommended"}: ${esc(rec)}</div>` : ""}
+      </div>`;
+  const body = `<div class="body">
+      ${ask === "cmds" ? `<div class="stand"><b>Your step:</b> approve or reject each command under "Commands, signed off one by one" below. Each tap saves at once; there is nothing to send. Once every line is approved the item moves to Not mine right now and the next run runs them.</div>` : ""}
+      ${ask === "hours" ? hoursForm(it) : ""}
+      ${appl ? `<div class="actions">${it.status === "rollback"
+        ? `<button class="btn quiet" data-keep="${esc(it.id)}">Cancel the roll back, keep it</button>`
+        : `<button class="btn" data-keep="${esc(it.id)}">Keep</button><button class="btn quiet" data-rollback="${esc(it.id)}">Roll back</button>`}</div>` : ""}
+      ${ak && it.agentPlan ? `<div><p class="label">${ak === "run" ? "What the agent does, on its own, once you send Approve" : "What the agent does, then hands back to you"}</p><p>${esc(it.agentPlan)}</p></div>` : ""}
+      ${rec ? `<div class="rec"><p class="label">${step ? "What to do" : "What I recommend"}</p><p>${esc(rec)}</p></div>` : ""}
+      ${stepsList}
+      ${ask === "do" ? `<div><p class="label">What came of it (optional)</p>
+        <textarea data-id="${esc(it.id)}" data-field="note" id="ans-${esc(it.id)}" placeholder="A date, a reference, what they said">${esc(drafts[it.id+":note"] ?? it.note ?? "")}</textarea>
+        <div class="saved" id="saved-${esc(it.id)}"></div>
+        <div class="actions" style="margin-top:8px"><button class="btn" data-selfdone="${esc(it.id)}">Done</button><span class="hint" style="margin:0">Closes it; the next run checks the result.</span></div></div>` : ""}
+      ${canDecide ? `<div><div class="choices" role="group" aria-label="Your decision on ${esc(it.id)}">
+        ${choicesFor(it).map(c => `<button class="choice ${c === "decline" ? "neg deny" : ""}" aria-pressed="${dec === c}" data-choose="${c}" data-item="${esc(it.id)}">${esc(choiceLabel(it, c))}</button>`).join("")}
+        ${smallChoicesFor(it).map(c => `<button class="linkish" aria-pressed="${dec === c}" data-choose="${c}" data-item="${esc(it.id)}">${esc(choiceLabel(it, c))}</button>`).join("")}
+        </div>
+        <p class="hint">${queued ? "Sent. Choosing again takes it back so you can send the new choice." : dec && !it.sentAt ? "Saved here. Nothing goes until you press Send at the bottom." : ""}</p></div>` : ""}
+      ${ticketBlock(it)}
+      ${showText ? `<div><p class="label">${esc(textLabel)}</p>
+        <textarea data-id="${esc(it.id)}" data-field="${textField(it)}" id="ans-${esc(it.id)}">${esc(textOf(it))}</textarea>
+        <div class="saved" id="saved-${esc(it.id)}">${esc(problem)}</div></div>` : ""}
+      ${legacy}
+      ${trail}
+      ${it.link === "screens" ? `<div class="actions"><button class="btn ghost" data-goto="screens">See each screen and my recommendation for every point</button></div>` : ""}
+      ${it.why ? `<div><p class="label">Why it matters</p><p>${esc(it.why)}</p></div>` : ""}
+      ${details ? `<div><p class="label">Details</p><ul>${details}</ul></div>` : ""}
+      ${codesBlock([it.title, it.why, it.recommendation, ...(Array.isArray(it.steps) ? it.steps : []), ...(Array.isArray(it.details) ? it.details : [it.details]), it.agentPlan, it.outcome, it.notYet, it.due])}
+      ${!done && cmdsOf(it).length ? `<div><p class="label">Commands, signed off one by one</p><div class="list">${it.commandsNote ? `<div class="cmd-note">${esc(it.commandsNote)}</div>` : ""}${cmdsOf(it).slice().sort((a, b) => (a.step || 0) - (b.step || 0)).map(c => cmdCard(it, c)).join("")}</div></div>` : ""}
+      ${(dec === "later" || dec === "decline" || dec === "self") && it.sentAt && it.note ? `<div><p class="label">Your note</p><p class="quote">${esc(it.note)}</p></div>` : ""}
+    </div>`;
+  if (flat) return `<div class="card" data-id="${esc(it.id)}"><div class="card-h">${head}</div>${body}</div>`;
+  return `<details data-id="${esc(it.id)}" class="${done ? "done" : ""}" ${openIds.has(it.id) ? "open" : ""}>
+    <summary>
+      ${head}${chev}
+    </summary>
+    ${body}
+  </details>`;
+}
+
+// Hours (2026-10-14): an item with ask "hours" lists `hoursDays` [{day, label, measured}]; Jacob types a figure
+// per day and "Send my hours" writes `hours` {day: number}, `hoursSentAt`, and hands it to the agents, who
+// record it in backlog.md's Hours used by item and close the item.
+function hoursForm(it){
+  const days = Array.isArray(it.hoursDays) ? it.hoursDays : [];
+  const got = it.hours || {};
+  return `<div><p class="label">Your hours</p>
+    ${days.map(d => `<div class="actions" style="align-items:center">
+      <label for="hrs-${esc(it.id)}-${esc(d.day)}" style="min-width:8em"><b>${esc(d.label || d.day)}</b></label>
+      <input type="number" inputmode="decimal" min="0" max="24" step="0.1" id="hrs-${esc(it.id)}-${esc(d.day)}" value="${got[d.day] != null ? esc(got[d.day]) : ""}" style="width:6em;font:inherit;padding:6px 8px;border:1px solid var(--line,#ccc);border-radius:8px"> h
+      ${d.measured ? `<span class="hint" style="margin:0">${esc(d.measured)}</span>` : ""}
+    </div>`).join("")}
+    <div class="actions"><button class="btn" data-hours="${esc(it.id)}">Send my hours</button><span class="saved" id="saved-hrs-${esc(it.id)}"></span></div></div>`;
+}
+const PROJ = p => /prod/.test(p || "") ? "prod" : "";
+function cmdCard(it, c){
+  const s = signoff(it, c);
+  const stale = !s && (it.cmdSignoff || {})[c.id];
+  const run = (c.runBy || (it.agentPrep ? "you" : "agent")) === "you" ? "You paste it" : "Agent runs it";
+  return `<div class="cmd ${s === "approve" ? "ok" : s === "reject" ? "no" : ""}">
+    <div class="cmd-h"><span class="n">Step ${esc(c.step || "")}</span>
+      <span class="tag ${c.effect === "read" ? "read" : "change"}">${c.effect === "read" ? "Read-only" : "Changes something"}</span>
+      ${c.project ? `<span class="tag ${PROJ(c.project) ? "prod" : ""}">${esc(c.project)}</span>` : ""}
+      <span>${run}</span>
+      ${s ? `<span class="answered">${s === "approve" ? "Approved" : "Rejected"}</span>` : stale ? `<span class="age">Reworded since your sign-off</span>` : ""}
+    </div>
+    ${c.what ? `<p>${esc(c.what)}</p>` : ""}
+    <pre class="prompt" id="p-cmd-${esc(c.id)}">${esc(c.cmd)}</pre>
+    ${c.undo ? `<details class="more" data-id="undo:${esc(c.id)}" ${openIds.has("undo:"+c.id) ? "open" : ""}><summary>How to undo it</summary><pre class="prompt">${esc(c.undo)}</pre></details>` : ""}
+    <div class="actions">
+      <button class="choice" aria-pressed="${s === "approve"}" data-cmdsign="approve" data-item="${esc(it.id)}" data-cmd="${esc(c.id)}">Approve</button>
+      <button class="choice neg" aria-pressed="${s === "reject"}" data-cmdsign="reject" data-item="${esc(it.id)}" data-cmd="${esc(c.id)}">Reject</button>
+      <button class="copy" data-copy="cmd-${esc(c.id)}">Copy</button>
+      <span class="saved" id="saved-cmd-${esc(c.id)}"></span>
+    </div>
+  </div>`;
+}
+function renderCmds(list){
+  const n = cmdCounts(list);
+  const prodChanges = list.reduce((k, it) => k + cmdsOf(it).filter(c => c.effect !== "read" && PROJ(c.project) && !signoff(it, c)).length, 0);
+  const reads = list.reduce((k, it) => k + cmdsOf(it).filter(c => c.effect === "read" && !signoff(it, c)).length, 0);
+  document.getElementById("stats").innerHTML =
+    `<span class="stat urgent"><b>${n.waiting}</b> waiting for you</span>` +
+    (prodChanges ? `<span class="stat crit"><b>${prodChanges}</b> change production</span>` : "") +
+    `<span class="stat"><b>${n.approve}</b> approved</span>` +
+    `<span class="stat"><b>${n.reject}</b> rejected</span>`;
+  if (!list.length) return `<div class="list"><div class="empty">${filt.q ? "Nothing matches this search." : "No commands on your list."}</div></div>`;
+  let html = reads > 1 ? `<div class="bulk"><span>${reads} read-only checks with no sign-off yet. They change nothing.</span><button class="btn ghost" data-cmdbulk="read">Approve all ${reads} read-only checks</button></div>` : "";
+  for (const it of list){
+    const k = cmdCounts([it]);
+    html += `<section><div class="group-h"><h2>${esc(it.id)} · ${esc(it.title)}</h2><span>${k.approve} of ${k.all} approved</span></div><div class="list">
+      <div class="cmd-note"><b>${it.agentPrep ? "You paste these" : "An agent runs these"}</b>${it.agentPrep ? " after the agent's own checks; nothing runs for you." : " once you approve the item and send it."}${it.commandsNote ? " " + esc(it.commandsNote) : ""}</div>
+      ${cmdsOf(it).slice().sort((a, b) => (a.step || 0) - (b.step || 0)).map(c => cmdCard(it, c)).join("")}
+    </div></section>`;
+  }
+  return html;
+}
+
+// Nothing on this page is handed to the Day Orchestrator (Jacob, 2026-11-16, the run day redesign): Send writes his
+// decisions to this page's database and nothing else. They are read from there by `/for-jacob apply` (the run's
+// intake today, the daily desk after the redesign's switch). The "Run now" button and its pasted batch prompt
+// were removed the same day; an item's `prompt` stays in the data as the instructions for the agent that carries it.
+
+let confirming = false;
+let sendNote = "";
+// A refused write used to vanish (2026-10-30): the page kept the choice locally and the "ready to send" bar never
+// showed sendNote, so Send now looked dead. An account with view access cannot write: only the owner's can.
+const VIEW_ONLY = "Not saved. This browser is signed in to a Claude account with view access only. Sign in with the account that owns this list, then reload.";
+const noteHtml = () => sendNote ? `<b>${esc(sendNote)}</b>` : "";
+function renderSendBar(){
+  const bar = document.getElementById("sendbar");
+  if (view !== "todo" || !db){ bar.hidden = true; return; }
+  const ds = items.filter(isDraft);
+  const qs = items.filter(isQueued);
+  if (!ds.length && !qs.length && !sendNote){ bar.hidden = true; confirming = false; return; }
+  bar.hidden = false;
+  const counts = {};
+  for (const it of ds) counts[it.decision] = (counts[it.decision] || 0) + 1;
+  const breakdown = Object.entries(counts).map(([k, n]) => `${n} ${CHOSEN[k].toLowerCase()}`).join(", ");
+  const bad = ds.filter(draftProblem);
+  if (ds.length && confirming){
+    bar.innerHTML = `<div class="what"><b>Send ${ds.length} decision${ds.length === 1 ? "" : "s"}?</b><small>The next run picks them up. You can take one back until then.</small></div>
+      <div class="actions"><button class="btn" data-send="go">Send now</button><button class="btn ghost" data-send="cancel">Cancel</button></div>`;
+  } else if (ds.length){
+    bar.innerHTML = `<div class="what">${noteHtml()}${sendNote ? "<br>" : ""}<b>${ds.length}</b> ready to send · ${esc(breakdown)}<small>${bad.length ? `${bad.length} still need${bad.length === 1 ? "s" : ""} your words: ${bad.map(i => esc(i.id)).join(", ")}` : (qs.length ? `${qs.length} already waiting for the next run` : "Nothing is sent until you press the button")}</small></div>
+      <div class="actions"><button class="btn" data-send="ask" ${bad.length ? "disabled" : ""}>Send ${ds.length} decision${ds.length === 1 ? "" : "s"}</button></div>`;
+  } else {
+    bar.innerHTML = `<div class="what">${noteHtml()}${qs.length ? `<small><b>${qs.length}</b> sent and waiting for the next run's intake. Nothing to paste anywhere. To have them carried sooner, tell any agent tab: apply my launch list.</small>` : ""}</div>`;
+  }
+}
+
+async function sendAll(){
+  const list = items.filter(isDraft);
+  if (!list.length || list.some(draftProblem)) return;
+  const at = new Date().toISOString();
+  const sendId = "S-" + at.replace(/[-:TZ]/g, "").replace(".", "-");
+  confirming = false; sendNote = "Sending…"; renderSendBar();
+  let failed = 0;
+  try { await db.collection("sends").doc(sendId).set({at, ids: list.map(i => i.id), decisions: Object.fromEntries(list.map(i => [i.id, i.decision]))}); }
+  catch(e){ sendNote = VIEW_ONLY; renderSendBar(); return; }
+  for (const it of list){
+    const patch = {sentAt: at, sendId, approved: it.decision === "approve"};
+    if (it.waitingOn === "jacob") patch.waitingOn = "agents";
+    const t = textOf(it).trim();
+    if (it.decision === "change") patch.answer = t; else if (t) patch.note = t;
+    if (it.decision === "decline"){ patch.status = "declined"; patch.doneAt = at; }
+    else if (isProposed(it)) patch.status = "open";
+    if (it.decision === "self"){ patch.done = true; patch.doneAt = at; }
+    // Intake takes only sent items with no pickedUpAt, so a new answer on a picked-up item must clear it to reach a run.
+    if (it.pickedUpAt) Object.assign(patch, {pickedUpAt:null, pickedUpBy:null, route:null});
+    if (await write(it.id, patch)) Object.assign(it, patch); else failed++;
+  }
+  sendNote = failed ? (failed === list.length ? VIEW_ONLY : `Sent ${list.length - failed}; ${failed} failed. Reload and send again.`) : `Sent ${list.length}. The next run picks them up.`;
+  render();
+}
+
+async function write(id, patch){
+  if (!db) return false;
+  try { await db.collection("items").doc(id).update({...patch, updatedAt:new Date().toISOString()}); return true; }
+  catch(e){ const s = document.getElementById("saved-"+id); if (s) s.textContent = VIEW_ONLY; sendNote = VIEW_ONLY; renderSendBar(); return false; }
+}
+
+async function writeOwner(id, patch){
+  if (!db) return;
+  try { await db.collection("owner_answers").doc(id).update({...patch, decidedAt:new Date().toISOString()}); }
+  catch(e){ const s = document.getElementById("saved-o-"+id); if (s) s.textContent = VIEW_ONLY; sendNote = VIEW_ONLY; renderSendBar(); }
+}
+
+document.addEventListener("toggle", e => {
+  const d = e.target; if (d.tagName !== "DETAILS") return;
+  d.open ? openIds.add(d.dataset.id) : openIds.delete(d.dataset.id);
+}, true);
+
+document.addEventListener("click", async e => {
+  const tb = e.target.closest(".tab");
+  if (tb){ view = tb.dataset.view; render(); return; }
+  const fc = e.target.closest(".fchip");
+  if (fc){
+    const d = fc.dataset;
+    if (d.fshow) filt.show = d.fshow;
+    if (d.fby) filt.by = d.fby;
+    render(); return;
+  }
+  const to = e.target.closest("[data-tkopen]");
+  if (to){ tkOpen.add(to.dataset.tkopen); delete tkDrafts[to.dataset.tkopen]; render(); return; }
+  const tx = e.target.closest("[data-tkcancel]");
+  if (tx){ tkOpen.delete(tx.dataset.tkcancel); delete tkDrafts[tx.dataset.tkcancel]; const r = ticketReqs[tx.dataset.tkcancel]; if (r && r.state === "refused"){ r.state = "withdrawn"; try { await db.collection("ticket_requests").doc(tx.dataset.tkcancel).update({state:"withdrawn"}); } catch(err){ sendNote = VIEW_ONLY; } } render(); return; }
+  const ts = e.target.closest("[data-tksend]");
+  if (ts){ await sendTicket(ts.dataset.tksend); return; }
+  const tbk = e.target.closest("[data-tkback]");
+  if (tbk){
+    const id = tbk.dataset.tkback, r = ticketReqs[id]; if (!r) return;
+    try { await db.collection("ticket_requests").doc(id).update({state:"withdrawn"}); r.state = "withdrawn"; }
+    catch(err){ sendNote = VIEW_ONLY; }
+    render(); return;
+  }
+  const hb = e.target.closest("[data-hours]");
+  if (hb){
+    const it = items.find(i => i.id === hb.dataset.hours); if (!it) return;
+    const hours = {}; let bad = "";
+    for (const d of (it.hoursDays || [])){
+      const el = document.getElementById(`hrs-${it.id}-${d.day}`); const v = el ? el.value.trim() : "";
+      if (v === "") { bad = `Enter a figure for ${d.label || d.day} (0 if you did not work).`; break; }
+      const n = Number(v); if (!(n >= 0 && n <= 24)) { bad = `${d.label || d.day}: a number of hours from 0 to 24.`; break; }
+      hours[d.day] = Math.round(n * 10) / 10;
+    }
+    const msg = document.getElementById("saved-hrs-" + it.id);
+    if (bad){ if (msg) msg.textContent = bad; return; }
+    const patch = {hours, hoursSentAt: new Date().toISOString(), waitingOn: "agents"};
+    Object.assign(it, patch);
+    sendNote = `Hours sent for ${it.id}: ${Object.entries(hours).map(([d, h]) => d.slice(5) + " " + h + " h").join(", ")}. The next run records them.`;
+    render(); write(it.id, patch);
+    return;
+  }
+  const cs = e.target.closest("[data-cmdsign]");
+  if (cs){
+    const it = items.find(i => i.id === cs.dataset.item); if (!it) return;
+    const c = cmdsOf(it).find(x => x.id === cs.dataset.cmd); if (!c) return;
+    const next = {...(it.cmdSignoff || {})};
+    if (signoff(it, c) === cs.dataset.cmdsign) delete next[c.id];   // a second tap clears it
+    else next[c.id] = {decision: cs.dataset.cmdsign, at: new Date().toISOString(), cmd: c.cmd};
+    it.cmdSignoff = next;
+    sendNote = `${c.id} ${next[c.id] ? (next[c.id].decision === "approve" ? "approved" : "rejected") : "cleared"} and saved. Nothing to send: the next run reads your sign-offs.`;
+    render();
+    if (!(await write(it.id, {cmdSignoff: next}))){ sendNote = "Couldn't save that sign-off. Reload and try again."; renderSendBar(); const s = document.getElementById("saved-cmd-" + c.id); if (s) s.textContent = "Couldn't save. You may only have view access."; }
+    return;
+  }
+  if (e.target.closest("[data-cmdbulk]")){
+    const at = new Date().toISOString();
+    for (const it of filtered()){
+      const next = {...(it.cmdSignoff || {})}; let changed = false;
+      for (const c of cmdsOf(it)) if (c.effect === "read" && !signoff(it, c)){ next[c.id] = {decision:"approve", at, cmd:c.cmd}; changed = true; }
+      if (changed){ it.cmdSignoff = next; write(it.id, {cmdSignoff: next}); }
+    }
+    render(); return;
+  }
+  if (e.target.closest("[data-bulkapprove]")){
+    const list = filtered().filter(bulkable);
+    for (const it of list){ const patch = {decision:"approve", sentAt:null, sendId:null}; Object.assign(it, patch); write(it.id, patch); }
+    confirming = false; sendNote = ""; render(); return;
+  }
+  const sd = e.target.closest("[data-selfdone]");
+  if (sd){
+    const it = items.find(i => i.id === sd.dataset.selfdone); if (!it) return;
+    const at = new Date().toISOString();
+    const patch = {done:true, doneAt:at, selfDoneAt:at};
+    const result = String(drafts[it.id + ":note"] ?? it.note ?? "").trim();
+    if (result) patch.note = result;
+    clearTimeout(saveTimers[it.id]);
+    Object.assign(it, patch); render(); write(it.id, patch);
+    return;
+  }
+  const gt = e.target.closest("[data-goto]");
+  if (gt){ view = "todo"; filt.show = "left"; render(); const sec = document.getElementById("sec-screens") || document.getElementById("sec-owners"); if (sec) sec.scrollIntoView({behavior:"smooth", block:"start"}); return; }
+  const sb = e.target.closest("[data-send]");
+  if (sb){
+    const a = sb.dataset.send;
+    if (a === "ask"){ confirming = true; sendNote = ""; renderSendBar(); }
+    else if (a === "cancel"){ confirming = false; renderSendBar(); }
+    else if (a === "go"){ await sendAll(); }
+    return;
+  }
+  const ch = e.target.closest("[data-choose]");
+  if (ch){
+    const it = items.find(i => i.id === ch.dataset.item); if (!it) return;
+    const c = ch.dataset.choose;
+    const next = it.decision === c && !it.sentAt ? "" : c;   // a second tap on the same choice clears it
+    const patch = {decision: next, sentAt: null, sendId: null};
+    if (next === "change" && !String(it.answer || "").trim()){
+      patch.answer = it.recommendation || "";   // start from my recommendation; he edits it
+      drafts[it.id + ":answer"] = patch.answer;
+    }
+    Object.assign(it, patch); confirming = false; sendNote = "";
+    openIds.add(it.id); render();
+    write(it.id, patch);
+    return;
+  }
+  const tk = e.target.closest("[data-takeback]");
+  if (tk){
+    const it = items.find(i => i.id === tk.dataset.takeback); if (!it || it.pickedUpAt) return;
+    const patch = {sentAt: null, sendId: null};
+    Object.assign(it, patch); sendNote = ""; render(); write(it.id, patch);
+    return;
+  }
+  const sa = e.target.closest("[data-showans]");
+  if (sa){ e.preventDefault(); const q = document.getElementById("ans-" + sa.dataset.showans); if (q){ q.hidden = !q.hidden; sa.textContent = q.hidden ? "their answer" : "hide their answer"; } return; }
+  const all = e.target.closest("[data-oacceptall]");
+  if (all){
+    const key = all.dataset.oacceptall;
+    const list = pendingOwners().filter(o => o.review && o.review.verdict !== "look" && acceptGroup(o) === key);
+    for (const o of list){ o.decision = "accept"; writeOwner(o.id, {decision:"accept"}); }
+    render(); return;
+  }
+  const btn = e.target.closest("[data-keep],[data-rollback],[data-oaccept],[data-oreply],[data-oundo],[data-ooverride],[data-osize],[data-odirect]");
+  if (btn){
+    const d = btn.dataset;
+    if (d.keep){ const it = items.find(i=>i.id===d.keep); if (it){ it.status="kept"; render(); write(d.keep,{status:"kept"}); } }
+    else if (d.rollback){ const it = items.find(i=>i.id===d.rollback); if (it){ it.status="rollback"; render(); write(d.rollback,{status:"rollback"}); } }
+    else if (d.oaccept){ const o = owners.find(x=>x.id===d.oaccept); if (o){ o.decision="accept"; render(); writeOwner(d.oaccept,{decision:"accept"}); } }
+    else if (d.oreply){ const o = owners.find(x=>x.id===d.oreply); const ta = document.getElementById("reply-"+d.oreply); const text = (ta ? ta.value : (o && o.draftReply) || "").trim();
+      if (!text){ const s = document.getElementById("saved-o-"+d.oreply); if (s) s.textContent = "Write the reply first."; return; }
+      if (o){ o.decision="reply"; o.reply=text; render(); writeOwner(d.oreply,{decision:"reply", reply:text}); } }
+    else if (d.oundo){ const o = owners.find(x=>x.id===d.oundo); if (o){ o.decision=""; render(); writeOwner(d.oundo,{decision:""}); } }
+    else if (d.ooverride){ const o = owners.find(x=>x.id===d.ooverride); if (o){ const ov = {at:new Date().toISOString(), by:"Jacob", rec:overrideText(o)}; o.decision="override"; o.override=ov; render(); writeOwner(d.ooverride,{decision:"override", override:ov}); } }
+    else if (d.odirect){ const id = d.odirect, o = owners.find(x=>x.id===id);
+      const ta = document.getElementById("direct-"+id), sel = document.getElementById("dtime-"+id);
+      const text = (ta ? ta.value : "").trim(), timing = sel ? sel.value : "";
+      const s = document.getElementById("saved-d-"+id);
+      if (!text){ if (s) s.textContent = "Write your instructions first."; return; }
+      if (!TIMING[timing]){ if (s) s.textContent = "Choose the timing first."; return; }
+      if (o){ const dv = {at:new Date().toISOString(), by:"Jacob", text, timing}; o.decision="direct"; o.direct=dv; delete drafts["d:"+id]; delete drafts["dt:"+id];
+        sendNote = `Your instructions on ${id} are saved on the row; nothing to send. The next run records them as your decision.`; render(); writeOwner(id,{decision:"direct", direct:dv}); } }
+    // Size it first: a request, not an answer. The carrier (/for-jacob apply, the Q lane) runs /impact on the owners'
+    // note and writes `sizing` back here, then clears the decision so the row returns to Mine.
+    else if (d.osize){ const o = owners.find(x=>x.id===d.osize); if (o){ o.decision="size"; o.sizeAskedAt=new Date().toISOString(); sendNote = `Sizing requested for ${o.id}. Saved on the row; nothing to send. The next run's intake picks it up, or tell an agent "size ${o.id}" to have it today.`; render(); writeOwner(d.osize,{decision:"size", sizeAskedAt:o.sizeAskedAt}); } }
+    return;
+  }
+  const c = e.target.closest("[data-copy]");
+  if (c){
+    const pre = document.getElementById("p-" + c.dataset.copy);
+    try { await navigator.clipboard.writeText(pre.textContent); c.textContent = "Copied"; }
+    catch(err){ const r = document.createRange(); r.selectNodeContents(pre); const s = getSelection(); s.removeAllRanges(); s.addRange(r); c.textContent = "Selected, copy it"; }
+    const label = c.dataset.copy.startsWith("cmd-") ? "Copy" : "Copy prompt";
+    setTimeout(() => { c.textContent = label; }, 2000);
+  }
+});
+
+document.addEventListener("input", e => {
+  if (e.target.id === "search"){ filt.q = e.target.value; render(); return; }
+  if (e.target.id === "psearch"){ pageQ = e.target.value; renderPages(); return; }
+  if (e.target.dataset.dtid){ drafts["dt:"+e.target.dataset.dtid] = e.target.value; return; }
+  if (e.target.dataset.did){ drafts["d:"+e.target.dataset.did] = e.target.value; return; }
+  if (e.target.dataset.tk){
+    const id = e.target.dataset.tkid, f = tkDrafts[id]; if (!f) return;
+    f[e.target.dataset.tk] = e.target.value;
+    const probs = tkProblems(f, id);
+    document.getElementById("tk-msg-" + id).textContent = probs.join(" ");
+    document.getElementById("tk-send-" + id).disabled = probs.length > 0;
+    return;
+  }
+  const ta = e.target; if (ta.tagName !== "TEXTAREA") return;
+  if (ta.dataset.rid){ drafts["r:"+ta.dataset.rid] = ta.value; return; }
+  const id = ta.dataset.id, field = ta.dataset.field || "answer";
+  drafts[id+":"+field] = ta.value;
+  const it = items.find(i => i.id === id);
+  const s = document.getElementById("saved-"+id); if (s) s.textContent = "Saving…";
+  renderSendBar();
+  clearTimeout(saveTimers[id]);
+  saveTimers[id] = setTimeout(async () => {
+    const ok = await write(id, {[field]: ta.value});
+    if (ok && it) it[field] = ta.value;
+    const s2 = document.getElementById("saved-"+id);
+    if (s2 && s2.textContent === "Saving…") s2.textContent = (it && draftProblem(it)) || "Saved";
+    renderSendBar();
+  }, 900);
+});
+
+(async () => {
+  db = await (window.claude?.use?.("db") ?? null);
+  if (!db){
+    document.getElementById("groups").innerHTML = `<div class="list"><div class="empty">Open this page in claude.ai to load your list.</div></div>`;
+    return;
+  }
+  db.collection("glossary").onSnapshot(snap => {   // every document's ids merged: `current`, or `part-N` shards under the store's 256 KB cap
+    gloss = Object.assign({}, ...snap.docs.map(d => (d.data() || {}).ids || {}));
+    render();
+  }, () => {});
+  db.collection("bugs").onSnapshot(snap => {
+    bugs = snap.docs.map(d => ({id:d.id, ...d.data()}));
+    render();
+  }, () => {});
+  db.collection("pages").onSnapshot(snap => {
+    pages = snap.docs.map(d => ({id:d.id, ...d.data()}));
+    render();
+  }, () => {});
+  db.collection("owner_answers").onSnapshot(snap => {
+    owners = snap.docs.map(d => ({id:d.id, ...d.data()}));
+    render();
+  }, () => {});
+  db.collection("ticket_requests").onSnapshot(snap => {
+    for (const k of Object.keys(ticketReqs)) delete ticketReqs[k];
+    for (const d of snap.docs) ticketReqs[d.id] = d.data();
+    render();
+  }, () => {});
+  db.collection("items").onSnapshot(snap => {
+    items = snap.docs.map(d => ({id:d.id, ...d.data()}));
+    for (const it of items) for (const f of ["answer","note"]){ if (drafts[it.id+":"+f] === (it[f] ?? "")) delete drafts[it.id+":"+f]; }
+    render();
+  }, err => {
+    document.getElementById("groups").innerHTML = `<div class="list"><div class="empty">Couldn't load the list (${esc(err.code)}). Reload the page.</div></div>`;
+  });
+})();
+</script>
+</body>
+</html>
