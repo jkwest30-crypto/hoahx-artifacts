@@ -528,8 +528,12 @@ details.more dd { margin: 2px 0 0; white-space: pre-line; overflow-wrap: anywher
     flash = { cls: "good", text: "Saved at " + hhmm(nowIso) + "." };
     // Wake the orchestrator session through a comment sent to Claude.
     var notified = false, why = "";
+    var onSite = !!(window.claude && window.claude.hxStore);  // the requirements site (since 2026-11-18): nothing wakes the orchestrator
     try {
-      if (!comments) why = "comments not available here";
+      if (onSite) {
+        await comments.sendToClaude({ text: "Gate answers sent for run " + gate.run + " (send #" + count + ", " + answered + " of " + ansRows.length + " answered). Read: pagestore.py get --page gate --collection " + COLLECTION + " --doc " + gate.run });
+        why = "site";
+      } else if (!comments) why = "comments not available here";
       else {
         var state = await comments.canSendToClaude();
         if (state !== "available") why = state === "no_session" ? "no Claude session is watching this page" : "sending to Claude is " + state;
@@ -545,7 +549,9 @@ details.more dd { margin: 2px 0 0; white-space: pre-line; overflow-wrap: anywher
     } catch (e) {
       why = (e && e.code) ? e.code : "send failed";
     }
-    flash = notified
+    flash = onSite
+      ? { cls: "good", text: "Sent at " + hhmm(nowIso) + ". Your answers are saved. Type \"sent\" in the orchestrator's chat so it reads them." }
+      : notified
       ? { cls: "good", text: "Sent at " + hhmm(nowIso) + ". The orchestrator has been told." }
       : { cls: "warn", text: "Sent at " + hhmm(nowIso) + ". Answers are saved, but the orchestrator was not woken (" + why + "). Type \"sent\" in chat." };
     renderStatus();
