@@ -2125,6 +2125,296 @@
    "reviewed": "2026-10-14"
   },
   {
+   "id": "QA-031",
+   "title": "A board member whose sign-in codes come by text message is told in the iPhone app to add an authenticator app on the website",
+   "feature": "sign-in",
+   "task": "IOS",
+   "decisions": [
+    "D-001"
+   ],
+   "whyManual": "real-device",
+   "whyManualNote": "The app is the real HOA HX app on an iPhone; the text-message check the sign-in service runs invisibly cannot run inside the app, and only the phone shows what the person is told instead.",
+   "env": "staging",
+   "start": "/auth/login",
+   "accounts": [
+    "treasurer"
+   ],
+   "device": "iphone",
+   "minutes": 6,
+   "precondition": "The test accounts were reset today. The HOA HX app from the latest test build is installed on the iPhone. Nadia Adeyemi has only the text-message method (the reset gives her that and nothing else). If the test site itself is down, record Blocked, not Fail.",
+   "steps": [
+    {
+     "do": "Open the HOA HX app on the iPhone.",
+     "see": "The sign-in page opens with a field \"Email address\" and a button \"Continue\"."
+    },
+    {
+     "do": "Sign in as Nadia Adeyemi: type her email (from the account panel) in \"Email address\" and tap \"Continue\", then type her password in \"Password\" and tap \"Log in\".",
+     "see": "The app moves past the password step and does not stay on the sign-in page. For a moment it may read \"Checking how to send your code\"."
+    },
+    {
+     "do": "Read the screen that follows.",
+     "see": "The heading reads \"Add an authenticator app to sign in here\". The text says the account gets its sign-in codes by text message and that the HOA HX app cannot send one here, and tells the person to sign in on the website at hoahx.com, add an authenticator app under Privacy & Security, then sign in here with its code. A second line reads \"Or use one of your backup codes below, then add an authenticator app under Privacy & Security.\""
+    },
+    {
+     "do": "Look over the whole screen for a way to ask for a text.",
+     "see": "There is no \"Send a new code\" button, no \"Six-digit code\" box, and nothing says a text was sent."
+    },
+    {
+     "do": "Look below the message.",
+     "see": "A box \"Use a backup code\" has the fields \"Email address\" and \"Backup code\" and the button \"Use this code\". Under it, \"No device and no codes?\" says to write to HOA HX support from the address on the account. Do not tap \"Use this code\": it would switch off Nadia Adeyemi's two-step sign-in."
+    },
+    {
+     "do": "Close the app and open Safari on the same iPhone, go to the test site and sign in as Nadia Adeyemi: type her email in \"Email address\", tap \"Continue\", then type her password in \"Password\" and tap \"Log in\". When asked, type the text code from the account panel in \"Six-digit code\" and tap \"Verify and continue\".",
+     "see": "The website asks \"Enter your code\" and says \"We texted a six-digit code to\" a phone number. The code from the account panel is accepted and Nadia Adeyemi's dashboard, headed \"Community Dashboard\", opens. The website still offers text codes."
+    }
+   ],
+   "lookFor": [
+    "Is the message in the app in plain words a homeowner or board member could follow without help?",
+    "Does the screen say clearly what to do first, and where (the website, then Privacy & Security)?",
+    "Does the screen avoid reading like an error or a warning?"
+   ],
+   "reset": "Nothing is changed. Log out on the website (the button is named \"Log out\").",
+   "complements": [
+    "tests/unit/second-factor-ui.test.tsx"
+   ],
+   "added": "2026-10-15",
+   "reviewed": "2026-11-18"
+  },
+  {
+   "id": "QA-032",
+   "title": "A board member signs in to the iPhone app with a code from an authenticator app, and the app moves on",
+   "feature": "sign-in",
+   "task": "IOS",
+   "decisions": [
+    "D-001"
+   ],
+   "whyManual": "real-device",
+   "whyManualNote": "Before the fix the app sat on \"Checking…\" forever, and only the real app on a real iPhone, with a real authenticator app on the same phone, shows whether the sign-in finishes.",
+   "env": "staging",
+   "start": "/auth/login",
+   "accounts": [
+    "s1-fresh"
+   ],
+   "device": "iphone",
+   "minutes": 15,
+   "precondition": "The test accounts were reset today, so Kira Novak has no second factor yet. The HOA HX app from the latest test build is installed on the iPhone, and an authenticator app (Google Authenticator, Microsoft Authenticator, 1Password or Authy) is on the same phone. If the test site itself is down, record Blocked, not Fail.",
+   "steps": [
+    {
+     "do": "Open Safari on the iPhone, go to the test site, type Kira Novak's email (from the account panel) in \"Email address\" and tap \"Continue\", then type her password in \"Password\" and tap \"Log in\".",
+     "see": "The page asks to set up two-factor sign-in and shows \"Choose a method\", with \"Authenticator app\" marked \"Recommended\"."
+    },
+    {
+     "do": "Choose \"Authenticator app\" and tap \"Continue\".",
+     "see": "The step reads \"Verify it\" and shows a code to scan and a key to type, under \"Can’t scan? Type this key into the app:\"."
+    },
+    {
+     "do": "Type the key into the authenticator app to add an account, then type the six-digit code it shows for HOA HX into the box and tap \"Verify\".",
+     "see": "The step reads \"Save your backup codes\" and shows the backup codes."
+    },
+    {
+     "do": "Tick \"I have saved these codes somewhere safe.\" and tap \"Done\".",
+     "see": "The setup closes and Kira Novak's dashboard, headed \"Community Dashboard\", is shown."
+    },
+    {
+     "do": "Log out on the website (the button is named \"Log out\"), then open the HOA HX app.",
+     "see": "The sign-in page opens with a field \"Email address\" and a button \"Continue\"."
+    },
+    {
+     "do": "Sign in as Kira Novak in the app: type her email in \"Email address\" and tap \"Continue\", then type her password in \"Password\" and tap \"Log in\".",
+     "see": "A screen titled \"Enter your code\" says to open the authenticator app and enter the six-digit code for HOA HX. It has a \"Six-digit code\" box and shows no option to text a code."
+    },
+    {
+     "do": "Type the current six-digit code from the authenticator app into \"Six-digit code\". If the code is about to change, wait for the next one first.",
+     "see": "The button reads \"Verify and continue\" and then \"Checking…\" for no more than 5 seconds."
+    },
+    {
+     "do": "Watch the screen for up to 30 seconds after the code is typed.",
+     "see": "The app leaves the sign-in page and opens Kira Novak's dashboard, headed \"Community Dashboard\". It does not stay on \"Checking…\"."
+    },
+    {
+     "do": "Close the app completely and open it again.",
+     "see": "The app opens on the dashboard headed \"Community Dashboard\" and does not ask for the password."
+    }
+   ],
+   "lookFor": [
+    "Did the sign-in finish in a few seconds, with \"Checking…\" shown for no more than 5 seconds?",
+    "Did the app ever show a blank white page or an error instead of the dashboard?"
+   ],
+   "reset": "Kira Novak keeps the authenticator app until the next reset of the test accounts, which removes it. Remove the account from the authenticator app after the reset.",
+   "complements": [
+    "tests/unit/auth-init.test.ts"
+   ],
+   "added": "2026-10-15",
+   "reviewed": "2026-11-18"
+  },
+  {
+   "id": "QA-033",
+   "title": "A homeowner reloads the page in the middle of a card payment on a phone, and is charged once",
+   "feature": "payments",
+   "milestone": "M16",
+   "task": "R26",
+   "decisions": [],
+   "whyManual": "real-device",
+   "whyManualNote": "A real phone pulling the page to refresh while the real NMI card form is working is the case that matters; the automated tests only drop the answer in a desktop browser and never load NMI's own form.",
+   "env": "staging",
+   "start": "/my-payments",
+   "accounts": [
+    "homeowner-owes"
+   ],
+   "device": "phone",
+   "minutes": 10,
+   "precondition": "The test accounts were reset after anyone last paid as Jordan Pryce, so his balance is $250.00. Someone who holds the login to the payment sandbox's merchant page (the run lead) has it open to count sales and is told when you pay. If the card fields never appear inside the payment window, the payment sandbox is down: record Blocked, not Fail. If the receipt shows before you can refresh the page, this try proved nothing: record Blocked and ask for a reset of the test accounts. If a card fee is shown, the total is $250.00 plus that fee.",
+   "steps": [
+    {
+     "do": "Sign in as Jordan Pryce on the phone and choose \"Payments\" in the menu (tap \"More\" first).",
+     "see": "Under \"Outstanding Balance\" it reads $250.00, marked \"Payment due\"."
+    },
+    {
+     "do": "Press \"Make a payment\", then \"Continue · $250.00\", and check that \"Card\" is chosen under \"Pay with\".",
+     "see": "A card form appears inside the window titled \"Make a payment\", with fields for the card number, the expiration date and the security code."
+    },
+    {
+     "do": "Enter the sandbox test card from the account panel (and its ZIP code if the form asks), leave \"Save this card for AutoPay\" unticked, and tap \"Pay $250.00\" (if a card fee is shown, the button shows the total instead, still beginning \"Pay\"). At once, before the receipt shows, pull the page down to refresh it.",
+     "see": "The page reloads on \"Payments\" and the payment window is gone."
+    },
+    {
+     "do": "Wait one minute, then open the tab \"Account history\".",
+     "see": "\"Payment History\" lists exactly one payment of $250.00 with today's date and a confirmation number. It does not list two."
+    },
+    {
+     "do": "Look at \"Outstanding Balance\".",
+     "see": "It reads $0.00, marked \"All clear\". It does not read a negative amount or a credit."
+    },
+    {
+     "do": "As the holder of the payment test service's merchant page login: open its list of transactions and look for today's sales on the test card.",
+     "see": "One sale for the total that was on the \"Pay\" button, at the time you pressed it. No second sale."
+    }
+   ],
+   "lookFor": [
+    "After the reload, was it clear whether the payment had gone through?",
+    "Did any screen ask you to pay again before you had looked at \"Account history\"?"
+   ],
+   "reset": "Jordan Pryce's balance reads $0.00 and the one payment stays in his history until the next reset of the test accounts. Do not run \"A homeowner pays the balance by card\" or \"Two board members void a homeowner's card payment, on two phones\" before that reset.",
+   "complements": [
+    "tests/ui/homeowner/homeowner-refresh-retry.spec.ts",
+    "tests/ui/homeowner/nmi-sandbox-acceptance.spec.ts"
+   ],
+   "added": "2026-10-18",
+   "reviewed": "2026-11-18"
+  },
+  {
+   "id": "QA-034",
+   "title": "A homeowner loses the signal while paying on a phone, presses \"Try again\", and is charged once",
+   "feature": "payments",
+   "milestone": "M16",
+   "task": "R26",
+   "decisions": [],
+   "whyManual": "real-device",
+   "whyManualNote": "Only a real phone can lose its signal after the card was sent to NMI; the automated tests drop the answer in a desktop browser and never reach NMI's own form.",
+   "env": "staging",
+   "start": "/my-payments",
+   "accounts": [
+    "homeowner-autopay"
+   ],
+   "device": "phone",
+   "minutes": 12,
+   "precondition": "The test accounts were reset after anyone last paid as Ben Okafor, so his balance is $250.00 (the card \"A homeowner sees the card fee and the total, then pays by card\" also pays it). Someone who holds the login to the payment sandbox's merchant page has it open to count sales. If the card fields never appear, the payment sandbox is down: record Blocked, not Fail. If the window shows the receipt before the signal was lost, this try proved nothing: record Blocked and ask for a reset of the test accounts. If a card fee is shown, the total is $250.00 plus that fee.",
+   "steps": [
+    {
+     "do": "Sign in as Ben Okafor on the phone and choose \"Payments\" in the menu (tap \"More\" first).",
+     "see": "Under \"Outstanding Balance\" it reads $250.00, marked \"Payment due\"."
+    },
+    {
+     "do": "Press \"Make a payment\", then \"Continue · $250.00\", and enter the sandbox test card from the account panel in the card form.",
+     "see": "The card form shows the card number, expiration date and security code filled in."
+    },
+    {
+     "do": "Tap \"Pay $250.00\" (if a card fee is shown, the button shows the total instead, still beginning \"Pay\"), and at once switch the phone to airplane mode. Wait until the window changes.",
+     "see": "The window reads \"Payment not confirmed\" and says \"We didn't hear back about this payment. Try again: if it already went through, you won't be charged twice. Your payment history shows every charge.\" Its buttons are \"Check payment history\" and \"Try again\"; there is no \"Change amount\"."
+    },
+    {
+     "do": "Switch airplane mode off and wait until the phone is online again.",
+     "see": "The window stays open on \"Payment not confirmed\"."
+    },
+    {
+     "do": "Press \"Try again\", enter the sandbox test card again, and tap \"Pay $250.00\" once (or the total, if a card fee is shown).",
+     "see": "The window reads \"Payment received\", with a \"Confirmation\" number and the balance now $0.00."
+    },
+    {
+     "do": "Press \"Done\" and open the tab \"Account history\".",
+     "see": "\"Payment History\" lists exactly one payment of $250.00 with today's date and that confirmation number. \"Outstanding Balance\" reads $0.00, marked \"All clear\"."
+    },
+    {
+     "do": "As the holder of the payment test service's merchant page login: open its list of transactions and look for today's sales.",
+     "see": "One sale for the total that was on the \"Pay\" button at the time of this payment. No second sale."
+    }
+   ],
+   "lookFor": [
+    "When the signal was lost, did the window say anything that sounded like \"no money was taken\"?",
+    "Was it clear that pressing \"Try again\" would not charge twice?"
+   ],
+   "reset": "Ben Okafor's balance reads $0.00 and the one payment stays in his history until the next reset of the test accounts.",
+   "complements": [
+    "tests/ui/homeowner/homeowner-refresh-retry.spec.ts"
+   ],
+   "added": "2026-10-18",
+   "reviewed": "2026-11-18"
+  },
+  {
+   "id": "QA-035",
+   "title": "The president starts the community's plan on a phone that goes to sleep, and the plan is charged once",
+   "feature": "payments",
+   "milestone": "M16",
+   "task": "R26",
+   "decisions": [],
+   "whyManual": "real-device",
+   "whyManualNote": "Only a real phone that locks its screen in the middle of the purchase shows whether the page comes back showing one charge and the plan started; the automated tests drop the answer in a desktop browser.",
+   "env": "staging",
+   "start": "/my-subscription",
+   "accounts": [
+    "president"
+   ],
+   "device": "phone",
+   "minutes": 12,
+   "precondition": "The test accounts were reset, Cedar Hollow has no plan yet, and HOAhx's own payment account is switched on for the test site (the run lead confirms both before the run). If the page offers no plan to choose, or the card fields never appear, record Blocked, not Fail. If the button reads \"Start the trial\" or \"Choose this plan\" instead of \"Pay … and start\", the plan has a free trial: record Blocked.",
+   "steps": [
+    {
+     "do": "Sign in as Dana Whitfield on the phone (password, then the two-step code). The phone's menu has no entry for the subscription page, so add /my-subscription to the end of the test site's address. (On a computer the page is in the menu, under \"Financial\", as \"My Subscription\".)",
+     "see": "The page \"HOA Platform Subscription\" opens. A box near the top reads \"No active plan\", and the section \"Start your plan\" shows the plans to choose from."
+    },
+    {
+     "do": "Under \"Start your plan\", choose the cheapest plan.",
+     "see": "The chosen plan is marked as selected, and a line under the card form says what will be charged now."
+    },
+    {
+     "do": "Check that \"Card\" is chosen under \"Pay with\", enter the sandbox test card from the account panel in the card form, and tap the button that begins \"Pay\" and ends \"and start\".",
+     "see": "The button shows it is working."
+    },
+    {
+     "do": "At once press the phone's side button to lock it. Wait one minute, then unlock it and look at the page.",
+     "see": "The section is headed \"Change your plan\", the box near the top shows the chosen plan's name instead of \"No active plan\", and no button that begins \"Pay\" and ends \"and start\" is left."
+    },
+    {
+     "do": "As the holder of the login to the merchant page of HOA HX's own payment test account: open its list of transactions and look for today's sales on the test card.",
+     "see": "One sale, for the total the button showed. No second sale."
+    },
+    {
+     "do": "Reload the page.",
+     "see": "It still reads \"Change your plan\", and the box near the top still shows the chosen plan's name."
+    }
+   ],
+   "lookFor": [
+    "After unlocking, could you tell at once that the plan had started?",
+    "Did the page ever invite you to pay again while the first payment was still being settled?"
+   ],
+   "reset": "Cedar Hollow stays on the plan you chose and the one sale stays on HOA HX's own payment test account. The reset of the test accounts does not remove it, so this card can be run once; for a second run the run lead must first put Cedar Hollow back to having no plan (nothing on the page can do it).",
+   "complements": [
+    "tests/ui/president/president-refresh-retry.spec.ts"
+   ],
+   "added": "2026-10-18",
+   "reviewed": "2026-11-18"
+  },
+  {
    "id": "QA-037",
    "title": "A homeowner who booked the clubhouse gets one reminder the day before, by e-mail and in Notifications, and no second one",
    "feature": "communications",
@@ -2890,6 +3180,201 @@
    "reviewed": "2026-10-24"
   },
   {
+   "id": "QA-051",
+   "title": "A homeowner hears the Payments screen in the right order with VoiceOver on an iPhone",
+   "feature": "phone",
+   "task": "CB45",
+   "decisions": [],
+   "whyManual": "real-device",
+   "whyManualNote": "VoiceOver is the phone's own screen reader; only a person listening can judge whether the spoken order and the words make sense, and the keyboard check in the browser tests only the Tab order.",
+   "env": "staging",
+   "start": "/my-payments",
+   "accounts": [
+    "homeowner-owes"
+   ],
+   "device": "iphone",
+   "minutes": 15,
+   "precondition": "The test accounts were reset today. The HOA HX app from the latest test build is installed on the iPhone. VoiceOver is turned on (Settings, Accessibility, VoiceOver) and the volume is up or headphones are in. Know how to turn it off again before you start. Jordan Pryce still owes $250.00; if another card paid it, record Blocked. If the test site itself is down, record Blocked.",
+   "steps": [
+    {
+     "do": "Open the HOA HX app and sign in as Jordan Pryce: type his email (from the account panel) in \"Email address\", activate \"Continue\", then type his password in \"Password\" and activate \"Log in\". Move through the sign-in page with swipe right only.",
+     "see": "Every field and button is read by its name (\"Email address\", \"Continue\", \"Password\", \"Log in\"), and the order follows the page from top to bottom. No field is read as just \"text field\" with no name. (The buttons to log in with another service sit above \"Email address\" and may be read first. That is fine.)"
+    },
+    {
+     "do": "Open \"More\" in the bar at the bottom, then activate \"Payments\" in the list.",
+     "see": "VoiceOver reads \"My Payments\" as a heading, and the next swipe right moves into the page, not back to the bottom bar."
+    },
+    {
+     "do": "Start at the top of the page and swipe right one item at a time, listening to each.",
+     "see": "After the heading \"My Payments\" you may hear the line \"Manage your HOA dues and payment history\", then a button \"Refresh\" (and, only after you have refreshed, \"Updated just now\"). Then you hear \"Outstanding Balance\", \"Payment due\", $250.00 and a short line with the due date and the home's address, and then the buttons \"Make a payment\" and \"Set up autopay\" (\"Manage AutoPay\" if AutoPay is already on for Jordan Pryce). The amount is read as dollars, not as separate digits, and nothing is read twice in a row."
+    },
+    {
+     "do": "Keep going with swipe right until you reach the sections.",
+     "see": "The sections are read as a group named \"Payment sections\", with the tabs \"Account history\", \"Balance details\", \"Payment methods\" and \"Statements & letters\", and the chosen tab is said to be selected."
+    },
+    {
+     "do": "Activate \"Balance details\".",
+     "see": "VoiceOver says that tab is now selected. Swiping on from it reads the heading \"What makes up your balance\" and then the parts of the $250.00, each with its name and amount."
+    },
+    {
+     "do": "Go back to the top of the page and activate \"Make a payment\".",
+     "see": "The payment form opens and the first words read out are \"Make a payment\". While it is open, swiping does not read the page behind it."
+    },
+    {
+     "do": "Close the payment form without paying: activate \"Cancel\".",
+     "see": "Focus returns to the page, not to the top of the app. Nothing was charged: the balance still reads $250.00."
+    },
+    {
+     "do": "Activate the tab \"Payment methods\", then swipe to the switch next to the heading \"AutoPay\" and listen to it. Do not change it.",
+     "see": "It is spoken as \"Toggle AutoPay\" followed by \"off\" (or \"on\")."
+    },
+    {
+     "do": "Activate \"Home\" in the bar at the bottom, then \"Account\".",
+     "see": "Each bar item is read with its name, and the heading \"My Account\" is read first, then the rest of the page from top to bottom with no item skipped or read twice."
+    }
+   ],
+   "lookFor": [
+    "Did you learn the amount owed within the first few things read after the page heading?",
+    "Was every button read by what it does, not as \"button\" alone or by a picture's name?",
+    "Did you ever lose your place, or have to swipe back to find something you had passed?",
+    "Was anything read that has no meaning to a listener (a symbol, a file name, a code)?"
+   ],
+   "reset": "Nothing is changed. Turn VoiceOver off again.",
+   "complements": [
+    "tests/ui/homeowner/homeowner-keyboard-order-cb45.spec.ts"
+   ],
+   "added": "2026-10-24",
+   "reviewed": "2026-11-18"
+  },
+  {
+   "id": "QA-052",
+   "title": "A homeowner hears the Payments screen in the right order with TalkBack on an Android phone",
+   "feature": "phone",
+   "task": "CB45",
+   "decisions": [],
+   "whyManual": "real-device",
+   "whyManualNote": "TalkBack is the phone's own screen reader; only a person listening can judge whether the spoken order and the words make sense, and the keyboard check in the browser tests only the Tab order.",
+   "env": "staging",
+   "start": "/my-payments",
+   "accounts": [
+    "homeowner-owes"
+   ],
+   "device": "android",
+   "minutes": 15,
+   "precondition": "The test accounts were reset today. The HOA HX app from the latest test build is installed on the Android phone. TalkBack is turned on (Settings, Accessibility, TalkBack) and the volume is up or headphones are in. Know how to turn it off again before you start. Jordan Pryce still owes $250.00; if another card paid it, record Blocked. If the test site itself is down, record Blocked.",
+   "steps": [
+    {
+     "do": "Open the HOA HX app and sign in as Jordan Pryce: type his email (from the account panel) in \"Email address\", activate \"Continue\", then type his password in \"Password\" and activate \"Log in\". Move through the sign-in page with swipe right only.",
+     "see": "Every field and button is read by its name (\"Email address\", \"Continue\", \"Password\", \"Log in\"), and the order follows the page from top to bottom. No field is read as just \"text field\" with no name. (The buttons to log in with another service sit above \"Email address\" and may be read first. That is fine.)"
+    },
+    {
+     "do": "Open \"More\" in the bar at the bottom, then double-tap \"Payments\" in the list.",
+     "see": "TalkBack reads \"My Payments\" as a heading, and the next swipe right moves into the page, not back to the bottom bar."
+    },
+    {
+     "do": "Start at the top of the page and swipe right one item at a time, listening to each.",
+     "see": "After the heading \"My Payments\" you may hear the line \"Manage your HOA dues and payment history\", then a button \"Refresh\" (and, only after you have refreshed, \"Updated just now\"). Then you hear \"Outstanding Balance\", \"Payment due\", $250.00 and a short line with the due date and the home's address, and then the buttons \"Make a payment\" and \"Set up autopay\" (\"Manage AutoPay\" if AutoPay is already on for Jordan Pryce). The amount is read as dollars, not as separate digits, and nothing is read twice in a row."
+    },
+    {
+     "do": "Keep going with swipe right until you reach the sections.",
+     "see": "The sections are read as a group named \"Payment sections\", with the tabs \"Account history\", \"Balance details\", \"Payment methods\" and \"Statements & letters\", and the chosen tab is said to be selected."
+    },
+    {
+     "do": "Double-tap \"Balance details\".",
+     "see": "TalkBack says that tab is now selected. Swiping on from it reads the heading \"What makes up your balance\" and then the parts of the $250.00, each with its name and amount."
+    },
+    {
+     "do": "Go back to the top of the page and double-tap \"Make a payment\".",
+     "see": "The payment form opens and the first words read out are \"Make a payment\". While it is open, swiping does not read the page behind it."
+    },
+    {
+     "do": "Close the payment form without paying: activate \"Cancel\".",
+     "see": "Focus returns to the page, not to the top of the app. Nothing was charged: the balance still reads $250.00."
+    },
+    {
+     "do": "Activate the tab \"Payment methods\", then swipe to the switch next to the heading \"AutoPay\" and listen to it. Do not change it.",
+     "see": "It is spoken as \"Toggle AutoPay\" followed by \"off\" (or \"on\")."
+    },
+    {
+     "do": "Activate \"Home\" in the bar at the bottom, then \"Account\".",
+     "see": "Each bar item is read with its name, and the heading \"My Account\" is read first, then the rest of the page from top to bottom with no item skipped or read twice."
+    }
+   ],
+   "lookFor": [
+    "Did you learn the amount owed within the first few things read after the page heading?",
+    "Was every button read by what it does, not as \"button\" alone or by a picture's name?",
+    "Did you ever lose your place, or have to swipe back to find something you had passed?",
+    "Was anything read that has no meaning to a listener (a symbol, a file name, a code)?"
+   ],
+   "reset": "Nothing is changed. Turn TalkBack off again.",
+   "complements": [
+    "tests/ui/homeowner/homeowner-keyboard-order-cb45.spec.ts"
+   ],
+   "added": "2026-10-24",
+   "reviewed": "2026-11-18"
+  },
+  {
+   "id": "QA-053",
+   "title": "A homeowner logs out their phone from a computer, and the phone leaves the account",
+   "feature": "sign-in",
+   "task": "CB37",
+   "decisions": [],
+   "whyManual": "two-people",
+   "whyManualNote": "One person signed in on two real devices at once: the computer ends the phone's sign-in, and only the phone can show that it was really sent out within the time the page promises.",
+   "env": "staging",
+   "start": "/auth/login",
+   "accounts": [
+    "homeowner-paid-up"
+   ],
+   "device": "two-devices",
+   "minutes": 12,
+   "precondition": "The test accounts were reset today. You have a computer and a phone with a browser; no one is signed in as Mei Tanaka on either. The phone is not signed in to the HOA HX app as anyone, since the check uses its browser. The time is produced by waiting: the page says the phone is logged out within about a minute, and the check waits up to three. If the test site itself is down, record Blocked.",
+   "steps": [
+    {
+     "do": "As the homeowner, on the phone: open the test site in the phone's browser and sign in as Mei Tanaka: type her email (from the account panel) in \"Email address\" and tap \"Continue\", then type her password in \"Password\" and tap \"Log in\".",
+     "see": "Mei Tanaka's dashboard opens."
+    },
+    {
+     "do": "As the homeowner, on the computer: open the test site and sign in as Mei Tanaka the same way. Then click \"My Account\" in the left-hand menu.",
+     "see": "The page headed \"My Account\" opens."
+    },
+    {
+     "do": "As the homeowner, on the computer: scroll to the card headed \"Privacy & Security\" and find \"Where you're logged in\".",
+     "see": "Two devices are listed. The other line names the phone's browser and type, for example \"Safari on iPhone\" or \"Chrome on Android\", with \"Last active:\" and a time, and has a button \"Log out\". The computer's line (for example \"Chrome on Mac\") carries the badge \"This device\" and has no button."
+    },
+    {
+     "do": "As the homeowner, on the phone: tap \"Account\" in the bar at the bottom of the screen, then scroll to \"Where you're logged in\".",
+     "see": "The phone's own line carries \"This device\" with no \"Log out\" button, and the computer's line has \"Log out\". Do not press it."
+    },
+    {
+     "do": "As the homeowner, on the computer: press \"Log out\" on the phone's line.",
+     "see": "A panel headed \"Log out\" followed by the phone's name and a question mark opens (for example \"Log out Safari on iPhone?\"). It says that device is logged out within about a minute and, if you do not recognize it, to use Sign out everywhere and change your password."
+    },
+    {
+     "do": "As the homeowner, on the computer: press \"Log out device\".",
+     "see": "If a \"Confirm it’s you\" panel asks for \"Password\", type it and press \"Continue\". Then the panel closes and the phone's line is gone from \"Where you're logged in\"."
+    },
+    {
+     "do": "As the homeowner, on the phone: wait one minute, then tap \"More\", then tap \"Payments\". Wait up to three minutes in all, trying again each minute.",
+     "see": "Within the three minutes the sign-in page opens, with the message \"This sign-in was ended from another device, so you were logged out. Log in again to continue.\" above \"Email address\", and no page of Mei Tanaka's is visible. If you are still signed in after three minutes, record Fail."
+    },
+    {
+     "do": "As the homeowner, on the computer: reload \"My Account\".",
+     "see": "The page headed \"My Account\" opens without asking for a password. \"Where you're logged in\" no longer lists the phone."
+    }
+   ],
+   "lookFor": [
+    "Did the panel make it clear which device would be logged out before you pressed \"Log out device\"?",
+    "Did the phone tell the person why it was sent to the sign-in page, or did it just appear to break?"
+   ],
+   "reset": "Mei Tanaka is signed out on the phone and still signed in on the computer. Sign out on the computer; nothing else is changed.",
+   "complements": [
+    "tests/ui/homeowner/homeowner-sign-in-sessions.spec.ts"
+   ],
+   "added": "2026-10-24",
+   "reviewed": "2026-11-18"
+  },
+  {
    "id": "QA-054",
    "title": "A homeowner who set quiet hours gets a maintenance e-mail held overnight, and it arrives in the real inbox after the window, once",
    "feature": "communications",
@@ -3038,6 +3523,103 @@
    ],
    "added": "2026-10-30",
    "reviewed": "2026-10-30"
+  },
+  {
+   "id": "QA-057",
+   "title": "A homeowner shares a visitor pass link, and the guest opens it on their own phone and sees their arrival page",
+   "feature": "phone",
+   "task": "F473",
+   "decisions": [
+    "D-207"
+   ],
+   "whyManual": "real-device",
+   "whyManualNote": "The link goes through the phone's own share sheet and a guest opens it on a phone with no HOA HX account; the tests cannot open a share sheet or receive a message.",
+   "env": "staging",
+   "start": "/my-visitors",
+   "accounts": [
+    "homeowner-owes"
+   ],
+   "device": "two-devices",
+   "minutes": 10,
+   "precondition": "A phone (iPhone with Safari, or Android with Chrome) and an app on it where you can keep a link for yourself, such as Notes. For the last two steps use a second phone, so you are not signed in to HOA HX when you open the link. If \"Visitors\" is not in the menu, record Blocked. This is separate from the card \"A homeowner sends a guest parking pass through the phone's share sheet, then revokes it, and the guest's link stops working\".",
+   "steps": [
+    {
+     "do": "On the phone, sign in as Jordan Pryce (email in \"Email address\", \"Continue\", password in \"Password\", \"Log in\"), tap \"More\", choose \"Visitors\" and tap \"Add visitor\".",
+     "see": "The form \"New visitor pass\" opens with a box labelled \"Visitor name\"."
+    },
+    {
+     "do": "Type \"Hands-on guest 3\" in \"Visitor name\" and tap \"Add pass\".",
+     "see": "The new pass is shown with a code picture and the buttons \"Copy link\" and \"Share\". (If there is no \"Share\" button, record Fail and name the phone and browser.)"
+    },
+    {
+     "do": "Tap \"Share\", choose the app where you keep a link for yourself, and save it.",
+     "see": "The phone's own share sheet opens, and the saved item is a link beginning with the test site's address and ending in a long code."
+    },
+    {
+     "do": "As the guest, open the saved link on the second phone or in a private tab, without signing in.",
+     "see": "A page opens, without a sign-in, headed \"Jordan is expecting you at Cedar Hollow\", with a line naming the kind of pass (\"Single-entry pass\", because the form's default kind is not changed), a line starting \"From\", a line starting \"Until\", and \"Show this code when you arrive.\" under a code picture."
+    },
+    {
+     "do": "As the guest, look at the page again after turning the phone sideways and back.",
+     "see": "The code and the heading stay readable and nothing is cut off at the edge of the screen."
+    }
+   ],
+   "lookFor": [
+    "Is it clear to a guest what the page is for and what to show at the gate?"
+   ],
+   "reset": "The pass stays listed under \"Visitors\" until it ends; revoke it there if you want it gone.",
+   "complements": [
+    "tests/ui/homeowner/homeowner-visitor-pass.spec.ts"
+   ],
+   "added": "2026-10-31",
+   "reviewed": "2026-11-18"
+  },
+  {
+   "id": "QA-059",
+   "title": "Tapping \"Log in with a passkey\" twice quickly on a phone shows one passkey sheet, not two",
+   "feature": "sign-in",
+   "milestone": "M11",
+   "task": "F400",
+   "decisions": [
+    "D-216"
+   ],
+   "whyManual": "real-device",
+   "whyManualNote": "The passkey sheet is the phone's own; only a real iPhone or Android phone shows whether a second tap opens a second sheet or leaves the first one stuck.",
+   "env": "staging",
+   "start": "/auth/login",
+   "accounts": [
+    "homeowner-paid-up"
+   ],
+   "device": "phone",
+   "minutes": 10,
+   "precondition": "The HOA HX app from the latest test build is on the phone, and Mei Tanaka has a passkey saved on it (run the card \"A homeowner signs in with a passkey in the iPhone app\" or \"... in the Android app\" first, and keep the passkey: skip its last step). HOAhx staff have switched passkeys on for the test site; if \"Log in with a passkey\" never appears, record Blocked.",
+   "steps": [
+    {
+     "do": "Open the app and make sure you are signed out. Do not type anything; the page should show the email box and \"Log in with a passkey\".",
+     "see": "The page shows \"Log in with a passkey\"."
+    },
+    {
+     "do": "Tap \"Log in with a passkey\" twice, as fast as you can.",
+     "see": "The phone shows one passkey sheet and the button reads \"Waiting for your passkey…\". (A second sheet opening on top, or the first closing and reopening, is a Fail.)"
+    },
+    {
+     "do": "Cancel the phone's sheet.",
+     "see": "The sheet closes and the sign-in page is usable again. The page does not stay stuck on \"Waiting for your passkey…\"."
+    },
+    {
+     "do": "Tap \"Log in with a passkey\" once and approve the sheet.",
+     "see": "Mei Tanaka's dashboard opens without the password being asked for."
+    }
+   ],
+   "lookFor": [
+    "After the quick double tap, did anything on the screen look broken or flicker?"
+   ],
+   "reset": "Mei Tanaka is signed in. To remove the passkey, tap \"Account\", scroll to \"Passkeys\" under \"Privacy & Security\", tap \"Remove\" on the line and then \"Remove passkey\".",
+   "complements": [
+    "tests/unit/passkeys-native.test.tsx"
+   ],
+   "added": "2026-10-31",
+   "reviewed": "2026-11-18"
   },
   {
    "id": "QA-060",
@@ -3798,6 +4380,250 @@
    "reviewed": "2026-11-07"
   },
   {
+   "id": "QA-073",
+   "title": "The president sees the card fields of the community's plan page in the HOAhx blue, in the light and the dark look",
+   "feature": "payments",
+   "milestone": "M16",
+   "task": "J-415",
+   "decisions": [],
+   "whyManual": "judgment",
+   "whyManualNote": "The card fields are drawn by the payment processor (NMI) inside its own frame, in colours HOAhx hands over; only a person looking at the real frame can say whether they match the buttons around them. If the card fields never appear, record Blocked, not Fail.",
+   "env": "staging",
+   "start": "/my-subscription",
+   "accounts": [
+    "president"
+   ],
+   "device": "desktop",
+   "minutes": 8,
+   "precondition": "The test accounts were reset, Cedar Hollow has no plan yet and is on the plain trial with no plan bought (the run lead confirms this before the run), and HOAhx's own payment account is switched on for the test site (the run lead confirms). This card only looks: it never presses the pay button and starts no plan. If the section is headed \"Change your plan\" instead of \"Start your plan\", a plan was already started: record Blocked. If the page says \"HOA HX cannot take subscription payments yet.\", record Blocked. Run this card before the card in which the president starts the community's plan on a phone that goes to sleep, because that card starts a plan that the reset does not remove.",
+   "steps": [
+    {
+     "do": "Sign in as Dana Whitfield (password, then the text code). In the left menu, under \"Financial\", choose \"My Subscription\".",
+     "see": "The page \"HOA Platform Subscription\" opens. The section \"Start your plan\" shows the plans to choose from."
+    },
+    {
+     "do": "Under \"Start your plan\", choose the first plan in the list. Under \"Pay with\", check that \"Card\" is chosen.",
+     "see": "The chosen plan is outlined. The payment processor's card fields appear below \"Pay with\", on a white background."
+    },
+    {
+     "do": "Look at the card fields beside the button \"Card\" and the plan you chose: the field outlines, the labels, the cursor in a field and the colour of anything you press or hover over. Click into the card number field, then click out of it.",
+     "see": "The outlines, the cursor and the focus ring are the same blue as the outline around the plan you chose. No part of the fields is a different blue, teal or purple."
+    },
+    {
+     "do": "Type one wrong digit group into the card number field (for example 1234) and click out of the field.",
+     "see": "The fields show an error in red, readable on the white background, and the text stays inside the frame."
+    },
+    {
+     "do": "Open the profile menu at the top right, choose \"Account Settings\", find the card headed \"Appearance\" and choose \"Dark\".",
+     "see": "The whole page turns dark."
+    },
+    {
+     "do": "In the left menu, under \"Financial\", choose \"My Subscription\" again, choose the first plan in the list and check that \"Card\" is chosen.",
+     "see": "The card fields appear on a dark background that matches the dark page around them, with light text."
+    },
+    {
+     "do": "Click into the card number field, then type one wrong digit group and click out.",
+     "see": "The outline, the cursor and the focus ring are the same blue as in the light look. The error is readable on the dark background."
+    },
+    {
+     "do": "Open the profile menu at the top right, choose \"Account Settings\" and choose \"Light\" under \"Appearance\" to put the page back.",
+     "see": "The page is light again."
+    }
+   ],
+   "lookFor": [
+    "Do the card fields look as if they belong to the page, not to another website?",
+    "Is the blue of the fields the same blue as the buttons and the outlined plan?",
+    "In the dark look, is every label and the typed number easy to read?",
+    "Is there any white box, grey strip or cut-off edge around the card fields in either look?"
+   ],
+   "reset": "Nothing is saved; no plan is started. The page stays in the look you left it in, so step 8 puts it back to \"Light\".",
+   "complements": [
+    "tests/ui/president/president-subscription-nmi-purchase.spec.ts"
+   ],
+   "added": "2026-11-08",
+   "reviewed": "2026-11-18"
+  },
+  {
+   "id": "QA-074",
+   "title": "A new board member signs in with Apple on the website, hides their email, and is asked for their name once",
+   "feature": "sign-in",
+   "milestone": "M16",
+   "task": "F559",
+   "decisions": [],
+   "whyManual": "third-party",
+   "whyManualNote": "Apple gives a person's name only the first time they allow an app, and with \"Hide My Email\" the address says nothing about who they are; the automated tests make up Apple's reply, so only Apple's own window shows what HOAhx is left with. If Apple's window cannot open or Apple itself is down, record Blocked, not Fail.",
+   "env": "staging",
+   "start": "/get-started",
+   "accounts": [],
+   "device": "desktop",
+   "minutes": 12,
+   "precondition": "This needs an Apple ID that has already been used with the test site once (the run lead gives you one that is ready), whose test-site account has since been deleted, and which has NOT been removed under Settings, your name, Sign-In & Security, Sign in with Apple. Apple then gives no name the second time. The run lead names the person who deletes the test-site account and archives the community afterwards. The test site must carry the 8 November build that asks for a name (the run lead confirms). Use a computer, allow pop-up windows for the test site, and start signed out. If at step 5 there is no field \"Your full name\", Apple shared a name: record Blocked. Each Apple ID can run this card once.",
+   "steps": [
+    {
+     "do": "Go to the test site's address followed by /get-started.",
+     "see": "The page says \"Let’s get you started\" and shows the choices \"I have an invitation\", \"Board member\", \"Property manager\" and \"Homeowner or tenant, not invited yet\"."
+    },
+    {
+     "do": "Choose \"Board member\" and press \"Continue\".",
+     "see": "A page headed \"Enter your email\" opens, with the buttons \"Continue with Google\" and \"Continue with Apple\" below the word \"or\"."
+    },
+    {
+     "do": "Press \"Continue with Apple\". In Apple's window, sign in with the Apple ID from the precondition, choose \"Hide My Email\" if Apple offers the choice, and continue.",
+     "see": "The button reads \"Connecting…\" and Apple's window opens, then closes by itself."
+    },
+    {
+     "do": "Look at the page.",
+     "see": "The page reads \"Set up your community\" and shows a long made-up address that is not yours, followed by \"is confirmed.\" It never shows \"Enter the 6-digit code\"."
+    },
+    {
+     "do": "Look over the form.",
+     "see": "The fields are \"Community name\", \"Number of homes\" and \"Your full name\". Under \"Your full name\" a line reads \"Your sign-in didn’t share your name.\" There is no \"Password\" field."
+    },
+    {
+     "do": "Type \"Quiet Pines Apple\" followed by your initials in \"Community name\", leave \"Your full name\" empty and press \"Start free trial\".",
+     "see": "A red message reads \"Enter your full name.\" The page stays where it is and no community is started."
+    },
+    {
+     "do": "Type a made-up word that has an at sign in the middle of it (hold Shift and press 2) in \"Your full name\" and press \"Start free trial\".",
+     "see": "A red message reads \"Enter your name, not an email address.\" The page stays where it is."
+    },
+    {
+     "do": "Replace it with your own first and last name and press \"Start free trial\".",
+     "see": "The page leaves Get started and opens the community's setup, with a box \"Welcome to HOA HX\" that names your community and says \"you’re its President.\""
+    },
+    {
+     "do": "Open the profile menu at the top right and choose \"Account Settings\". Find the card headed \"Profile\".",
+     "see": "\"Full name\" shows the name you typed, spelled the same. The long made-up address shows next to \"Email\". It does not show a dash or \"a community member\" as the name."
+    },
+    {
+     "do": "Reload the page, then open \"Payments\" and \"Member Management\" from the left menu.",
+     "see": "Your name is shown the same way on each, and nothing on them asks for your name again."
+    },
+    {
+     "do": "Open the profile menu at the top right, choose \"Log out\", and in the box \"Log out?\" press \"Yes, log out\".",
+     "see": "The log-in page opens."
+    }
+   ],
+   "lookFor": [
+    "Were you asked for your name exactly once, and was it clear why (\"Your sign-in didn’t share your name.\")?",
+    "At any point did a screen show the long made-up address where your name should be?",
+    "Did anything ask you for a password or a code that you did not expect?"
+   ],
+   "reset": "A community with the name you typed now exists on the test site, with this Apple ID's account as its President, and the account has the name you typed. The reset of the test accounts does not remove them; the person who looks after the test site archives the community and deletes the account. This Apple ID cannot run the card again.",
+   "complements": [
+    "tests/ui/public/get-started-providers.spec.ts",
+    "tests/ui/homeowner/homeowner-name-step.spec.ts",
+    "tests/unit/name-step.test.tsx"
+   ],
+   "added": "2026-11-08",
+   "reviewed": "2026-11-18"
+  },
+  {
+   "id": "QA-075",
+   "title": "A homeowner who set a quick code and Face ID on the iPhone app is not asked to set one again",
+   "feature": "phone",
+   "task": "F582",
+   "decisions": [],
+   "whyManual": "real-device",
+   "whyManualNote": "The quick code and Face ID live in the iPhone app on the phone itself; the tests cannot close and reopen a real app or use the phone's own sensors.",
+   "env": "staging",
+   "start": "/",
+   "accounts": [
+    "homeowner-owes"
+   ],
+   "device": "iphone",
+   "minutes": 8,
+   "precondition": "The HOA HX app from the latest test build is installed on the iPhone, and Jordan Pryce is signed in with a quick code and Face ID already set (run first the card \"A homeowner types a quick code on the iPhone app and the keyboard bar does not cover the box\", which leaves it set). If the test site is down, record Blocked. If the box \"Set a quick code\" shows at step 1, record Fail: it should not return.",
+   "steps": [
+    {
+     "do": "Open the HOA HX app on the iPhone. If a page headed \"HOA HX is locked\" shows, unlock it with your quick code.",
+     "see": "Jordan Pryce's dashboard shows. No box headed \"Set a quick code\" appears over it."
+    },
+    {
+     "do": "At the bottom of the screen tap \"More\" and then \"Payments\", then tap \"Home\", and wait about 30 seconds on the dashboard.",
+     "see": "Both screens open. No box headed \"Set a quick code\" appears at any point."
+    },
+    {
+     "do": "Swipe up to close the app completely, then open it again.",
+     "see": "The dashboard shows (or the lock page, if it is more than 15 minutes since you were last in the app; unlock with your quick code). No box headed \"Set a quick code\" appears."
+    },
+    {
+     "do": "Press the phone's home button or swipe up so the app goes to the background, with the screen on. Wait 2 minutes, then open the app again.",
+     "see": "The dashboard shows again with no box headed \"Set a quick code\"."
+    },
+    {
+     "do": "Tap \"More\", then \"Payments\", then \"Make a payment\". Payments still ask for a full sign-in, so sign in with the password if you are asked. Then tap \"Home\".",
+     "see": "The app asks for the password before it shows the payment form, or it shows the form without asking (write which in your notes). After you tap \"Home\" the dashboard shows and no box headed \"Set a quick code\" appears."
+    },
+    {
+     "do": "Swipe up to close the app completely and open it once more.",
+     "see": "The dashboard (or the lock page, then the dashboard after your quick code) shows. No box headed \"Set a quick code\" appears."
+    }
+   ],
+   "lookFor": [
+    "In this whole check, did the box headed \"Set a quick code\" never appear?"
+   ],
+   "reset": "Jordan Pryce stays signed in on the iPhone with the quick code set. Logging out of the app clears the quick code.",
+   "complements": [
+    "tests/unit/quick-code.test.ts",
+    "tests/unit/app-lock-quick-unlock.test.tsx"
+   ],
+   "added": "2026-11-10",
+   "reviewed": "2026-11-18"
+  },
+  {
+   "id": "QA-076",
+   "title": "The president sets a survey's closing date on an iPhone, and the first date picked is kept",
+   "feature": "phone",
+   "task": "F584",
+   "decisions": [],
+   "whyManual": "real-device",
+   "whyManualNote": "The date picker is the iPhone's own wheel; it settles its value when it closes, and a desktop browser in a test does not behave that way.",
+   "env": "staging",
+   "start": "/community",
+   "accounts": [
+    "president"
+   ],
+   "device": "iphone",
+   "minutes": 8,
+   "precondition": "An iPhone with Safari. Dana Whitfield is signed out. The survey made here is saved as a draft that only the board sees; it is never published. If the test site is down, record Blocked.",
+   "steps": [
+    {
+     "do": "In Safari open the test site and sign in as Dana Whitfield: type her email (from the account panel) in \"Email address\" and tap \"Continue\", type the password in \"Password\" and tap \"Log in\", then type the two-step code from the account panel.",
+     "see": "Dana Whitfield's dashboard opens."
+    },
+    {
+     "do": "Tap \"More\" at the bottom, tap \"Community\", then tap the tab \"Surveys\".",
+     "see": "A page headed \"Surveys & Ratings\" shows a button \"New survey\"."
+    },
+    {
+     "do": "Tap \"New survey\".",
+     "see": "A form headed \"New Survey\" opens, with a field \"Title\" and, further down, \"Open automatically on\" and \"Close automatically on\"."
+    },
+    {
+     "do": "In \"Title\" type QA closing date check.",
+     "see": "The words show in the field."
+    },
+    {
+     "do": "Tap the field under \"Close automatically on\". On the wheel that opens, pick a day about two weeks from today and a time, once, without changing it again. Then tap outside the wheel to close it. Write down the day and time you picked.",
+     "see": "The field under \"Close automatically on\" shows the day and time you picked, the first time. It does not go back to empty and does not show another day or time."
+    },
+    {
+     "do": "Tap \"Save as draft\".",
+     "see": "The form closes and a card titled \"QA closing date check\" shows in the list with the badge \"Draft\" and a line that begins \"Closes\" followed by the day and time you picked."
+    }
+   ],
+   "lookFor": [
+    "Is the day on the card the same one you picked, not today or an earlier pick?"
+   ],
+   "reset": "A draft survey titled \"QA closing date check\" stays in Cedar Hollow's list; only the board sees it. Nothing is sent to homeowners.",
+   "complements": [
+    "tests/unit/survey-form-iphone-f584-f586.test.tsx"
+   ],
+   "added": "2026-11-10",
+   "reviewed": "2026-11-18"
+  },
+  {
    "id": "QA-077",
    "title": "A homeowner types a quick code on the iPhone app and the keyboard bar does not cover the box",
    "feature": "phone",
@@ -4092,8 +4918,280 @@
    ],
    "added": "2026-11-13",
    "reviewed": "2026-11-14"
+  },
+  {
+   "id": "QA-084",
+   "title": "A homeowner signs in again on the iPhone app, and the \"Set a quick code\" box shows once, at the right moment, and \"Not now\" holds",
+   "feature": "phone",
+   "task": "F664",
+   "decisions": [],
+   "whyManual": "real-device",
+   "whyManualNote": "The box belongs to the iPhone app and shows after a real sign-in, in front of the phone's own screens and with the app closed and opened again; the tests prove the rule for when it is due, not how it looks and behaves on the phone.",
+   "env": "staging",
+   "start": "/",
+   "accounts": [
+    "homeowner-owes"
+   ],
+   "device": "iphone",
+   "minutes": 10,
+   "precondition": "The HOA HX app from the test build Jacob has named for this run (it carries the change for the quick code box) is installed on the iPhone. Jordan Pryce is logged out of the app, and no quick code is set on it (logging out clears it). If the test site is down, record Blocked. If the box \"Set a quick code\" shows before the dashboard has opened, or shows together with another box, record Fail.",
+   "steps": [
+    {
+     "do": "Open the HOA HX app and sign in as Jordan Pryce: type his email (from the account panel) in \"Email address\" and tap \"Continue\", then type the password in \"Password\" and tap \"Log in\".",
+     "see": "The app opens Jordan Pryce's dashboard. The box \"Set a quick code\" appears over it, once the dashboard is there, and not over the sign-in page."
+    },
+    {
+     "do": "If a box headed \"Log in faster next time\" shows first, tap \"Not now\" on it. Wait a few seconds.",
+     "see": "The box headed \"Log in faster next time\" and the box \"Set a quick code\" never show at the same time. \"Set a quick code\" shows after the other box is gone, or on its own if the other never showed."
+    },
+    {
+     "do": "Read the box \"Set a quick code\", then tap \"Not now\".",
+     "see": "The box closes and Jordan Pryce's dashboard shows. No sign-in page, no other box and no red message shows."
+    },
+    {
+     "do": "At the bottom of the screen tap \"Requests\", then tap \"Home\", and wait about 30 seconds on the dashboard.",
+     "see": "Both screens open and the dashboard shows again. The box \"Set a quick code\" does not come back at any point."
+    },
+    {
+     "do": "Swipe up to close the app completely, then open it again.",
+     "see": "The dashboard shows (or the page \"HOA HX is locked\" if more than 15 minutes have passed; in that case sign in with the password). The box \"Set a quick code\" does not show."
+    },
+    {
+     "do": "Tap \"More\", tap \"Log out\" and then \"Yes, log out\". Then sign in as Jordan Pryce again with the same email and password.",
+     "see": "After the dashboard opens the box \"Set a quick code\" shows once more, as on a new sign-in."
+    },
+    {
+     "do": "In \"Quick code\" type a 4-digit code you will remember (not one digit repeated, and not a run like 1234), type the same code in \"Type it again\", and tap \"Save quick code\". If the phone asks to turn on Face ID, you may accept or cancel.",
+     "see": "The box closes (a short box \"Quick code saved\" may show first if you cancelled Face ID; tap \"Done\") and the dashboard shows. The box \"Set a quick code\" does not open a second time."
+    }
+   ],
+   "lookFor": [
+    "Did the box wait until the dashboard was on the screen, so you were never asked for a code in the middle of signing in?",
+    "Did only one box show at a time, the whole way through?",
+    "After \"Not now\" did you feel left alone, with no box nagging you again before the next sign-in?"
+   ],
+   "reset": "Jordan Pryce stays signed in on the iPhone with a quick code set. Logging out of the app clears the code.",
+   "complements": [
+    "tests/unit/quick-unlock-offer-due.test.ts",
+    "tests/unit/app-lock-quick-unlock.test.tsx",
+    "tests/unit/quick-code.test.ts"
+   ],
+   "added": "2026-11-19",
+   "reviewed": "2026-11-19"
+  },
+  {
+   "id": "QA-085",
+   "title": "A homeowner unlocks the iPhone app after 15 idle minutes, and the \"Set a quick code\" box does not come back after the unlock",
+   "feature": "phone",
+   "task": "F660",
+   "decisions": [],
+   "whyManual": "real-device",
+   "whyManualNote": "The lock comes only after 15 real minutes without activity, and Face ID is the phone's own sensor; the tests fake the clock and the sensor, so they cannot show what the person sees on the screen after a real unlock. The tester waits 16 real minutes; no one changes the phone's clock (wait).",
+   "env": "staging",
+   "start": "/",
+   "accounts": [
+    "homeowner-owes"
+   ],
+   "device": "iphone",
+   "minutes": 20,
+   "precondition": "Jordan Pryce is signed in on the iPhone app with a quick code and Face ID already set: run first the card \"A homeowner sets a quick code on the phone app after signing in\", which leaves it set, and remember the code. If it is set without Face ID, read \"use the quick code\" for \"use Face ID\" below. Allow about 20 minutes: 16 are waiting for the app to lock. If the test site is down, record Blocked. If the box \"Set a quick code\" shows after any unlock, record Fail: it should not come back.",
+   "steps": [
+    {
+     "do": "Press the phone's home button or swipe up so the app goes to the background, with the screen on, and write down the time. Leave it for 16 minutes by that clock without opening the app, then open it.",
+     "see": "The page \"HOA HX is locked\" covers the dashboard."
+    },
+    {
+     "do": "Look at the phone without touching anything, and let Face ID read your face.",
+     "see": "Face ID opens by itself with the words \"Unlock HOA HX\". After it reads you, the lock page goes away and Jordan Pryce's dashboard shows."
+    },
+    {
+     "do": "Wait about 30 seconds on the dashboard without touching it.",
+     "see": "The box \"Set a quick code\" does not appear."
+    },
+    {
+     "do": "Tap \"Requests\", then tap \"Home\".",
+     "see": "Each screen opens. The box \"Set a quick code\" does not appear at any point."
+    },
+    {
+     "do": "Swipe up to close the app completely, then open it again at once.",
+     "see": "The dashboard shows with no lock page and no box \"Set a quick code\"."
+    }
+   ],
+   "lookFor": [
+    "In this whole check, did the box headed \"Set a quick code\" never appear, before or after the unlock?",
+    "Did the lock page tell you plainly why the app locked and how to open it?"
+   ],
+   "reset": "Jordan Pryce stays signed in on the iPhone with the quick code set. Logging out of the app clears it.",
+   "complements": [
+    "tests/unit/app-lock-quick-unlock.test.tsx",
+    "tests/unit/quick-unlock-offer-due.test.ts"
+   ],
+   "added": "2026-11-19",
+   "reviewed": "2026-11-19"
+  },
+  {
+   "id": "QA-086",
+   "title": "HOA HX staff read the key on the Manage HOA Access screen on an iPhone, and every line wraps cleanly at the phone's width",
+   "feature": "platform",
+   "task": "F656",
+   "decisions": [],
+   "whyManual": "judgment",
+   "whyManualNote": "Whether the two key lines break in sensible places and nothing is cut off on a real iPhone screen is a look; the test proves the words and the marks are there, not how they sit on the phone.",
+   "env": "staging",
+   "start": "/platform/manage-access",
+   "accounts": [
+    "platform-owner"
+   ],
+   "device": "iphone",
+   "minutes": 8,
+   "precondition": "Use Safari on the iPhone, held upright, at the test site. The phone's text size is the normal one. If the test site is down, record Blocked.",
+   "steps": [
+    {
+     "do": "Sign in as Elena Voss (password, then the two-step code) and open the menu, then \"Manage Access\" under \"Access\".",
+     "see": "The page \"Manage HOA Access\" opens, with \"Refresh\" and a search box \"Search user by name or email…\"."
+    },
+    {
+     "do": "Look at the first line of marks under the search box.",
+     "see": "It lists four statuses: \"Active — can log in now\", \"Invite Pending — waiting for user to accept\", \"Needs Repair — role exists but membership broken\" and \"No Access\". Each has its small mark beside it, and they go on to a new line instead of running off the side of the screen."
+    },
+    {
+     "do": "Look at the line below it that starts \"In Debug details:\".",
+     "see": "It lists four marks: \"Active membership\", \"Membership not active\", \"Role — a role this person holds in that community\" and \"Invitation not yet accepted\". Each mark sits beside its words, and no word is cut off or hidden at the right edge."
+    },
+    {
+     "do": "Try to slide the page sideways with your finger.",
+     "see": "The page does not move sideways, and nothing in the two lines is wider than the screen."
+    },
+    {
+     "do": "Type \"Whitfield\" in the search box, then tap the small down-arrow button at the right end of the first row (it has no words on it).",
+     "see": "The row opens under the heading \"Access Debug\" with rows for the community and its role."
+    },
+    {
+     "do": "Compare the small mark at the start of a role row with the key line \"Role — a role this person holds in that community\".",
+     "see": "It is the same mark, the blue shield, in the same colour."
+    }
+   ],
+   "lookFor": [
+    "Is each mark kept on the same line as its words, never left alone at the end of one line with its words on the next?",
+    "Does every line of the key read in a sensible order, with even space between the marks?",
+    "Can you tell the amber alert of a membership that is not active from the grey \"No Access\" mark?",
+    "Is the key small but readable without zooming?"
+   ],
+   "reset": "Nothing is changed; Elena Voss stays signed in in Safari.",
+   "complements": [
+    "tests/unit/manage-hoa-access-key.test.tsx"
+   ],
+   "added": "2026-11-19",
+   "reviewed": "2026-11-19"
+  },
+  {
+   "id": "QA-087",
+   "title": "The treasurer sends a response to a disputed card payment, and the e-mail with her words reaches the HOA HX support inbox",
+   "feature": "payments",
+   "task": "CB69",
+   "decisions": [],
+   "whyManual": "third-party",
+   "whyManualNote": "The response reaches HOA HX staff as a real e-mail sent by the e-mail service to the support inbox; the tests prove the response is saved and the e-mail is handed over, not that it arrives in an inbox and reads right. If no e-mail arrives and the e-mail service itself is down, record Blocked, not Fail.",
+   "env": "staging",
+   "start": "/ledger",
+   "accounts": [
+    "treasurer",
+    "platform-owner"
+   ],
+   "device": "desktop",
+   "minutes": 14,
+   "precondition": "A disputed card payment is waiting on Nadia Adeyemi's list under \"Payment problems\". The payment sandbox cannot raise a real dispute, so the person who looks after the test site adds a test one before the run; if there is none, record Blocked. Someone who can read the HOA HX support inbox is with you (Jacob). If the e-mail has not arrived after ten minutes (look in spam too), record Fail with the time you pressed the button. Use a browser window at full screen width.",
+   "steps": [
+    {
+     "do": "As the treasurer: sign in as Nadia Adeyemi (password, then the two-step code) and choose \"Financials\" in the menu.",
+     "see": "The page \"Financial Ledger\" opens with a card \"Waiting for you\" and a section \"Payment problems\"."
+    },
+    {
+     "do": "As the treasurer: open \"Payment problems\" and press \"Resolve\" on the row for the disputed card payment.",
+     "see": "A window opens. It says \"Send your response by\" followed by a date and \"HOA HX enters it with the processor\". It has a box \"Your response\" and a button \"Send to HOA HX\". No other company's portal is named."
+    },
+    {
+     "do": "As the treasurer: type in \"Your response\": \"Hands-on check: the homeowner paid on the first of the month; the receipt shows it.\" and press \"Send to HOA HX\".",
+     "see": "A message says \"Sent to HOA HX. It is in the history.\" The window stays open and reads \"Sent to HOA HX on\" followed by today's date, and \"HOA HX enters it with the processor and records the date here.\""
+    },
+    {
+     "do": "As the treasurer: press \"Not yet\" to close the window, reload the page and open the same row again.",
+     "see": "The box \"Your response\" still holds the words you typed, and the payment problem is still in the list."
+    },
+    {
+     "do": "As the person who can read the HOA HX support inbox (Jacob): open that inbox and look for the e-mail.",
+     "see": "Within ten minutes an e-mail arrives with a subject that starts \"Dispute response to enter by\" followed by a date, then \": Cedar Hollow\". It names Nadia Adeyemi as the sender, the home, the amount, the date the reply is due, and the version, 1, and it carries the words you typed under \"The treasurer's response\". It ends with a link \"Record the date it was entered\"."
+    },
+    {
+     "do": "As the platform owner: log out as Nadia Adeyemi (account menu, then \"Log out\"), then press the link in the e-mail and sign in as Elena Voss (password, then the two-step code).",
+     "see": "The Billing page opens at the card \"Dispute responses to enter\", and the response is in the list with a button \"Record entered\"."
+    }
+   ],
+   "lookFor": [
+    "Does the e-mail say what has to be done, by when, and by whom, before you read the response itself?",
+    "Is the treasurer's wording shown exactly as typed, with nothing cut?",
+    "Does the sender read as HOA HX, with no mention of another company or product?"
+   ],
+   "expectNotProvable": "A real dispute raised by a cardholder's bank, and the response being entered with the payment processor, cannot happen here: the payment sandbox cannot raise a chargeback. This card uses a test dispute added by hand, and the tester writes that in the notes. The first real one is checked on the live verification day.",
+   "reset": "The response stays saved on the test dispute and the staff notice stays in the Billing list until the next reset of the test accounts. Do not press \"Record entered\" unless you are asked to.",
+   "complements": [
+    "tests/ui/treasurer/treasurer-dispute-response.spec.ts",
+    "tests/ui/platform-owner/platform-dispute-responses.spec.ts",
+    "tests/integration/dispute-response-cb69.test.ts"
+   ],
+   "added": "2026-11-19",
+   "reviewed": "2026-11-19"
+  },
+  {
+   "id": "QA-088",
+   "title": "A homeowner unlocks the phone app with the quick code and taps a tab, and no blue frame is drawn around the page",
+   "feature": "phone",
+   "task": "F619",
+   "decisions": [],
+   "whyManual": "real-device",
+   "whyManualNote": "The frame is drawn by the phone app's own web view after the keypad has been used; the tests prove the page leaves it off in a desktop browser, not that the phone's app does. The tester waits 16 real minutes for the lock; no one changes the phone's clock (wait).",
+   "env": "staging",
+   "start": "/",
+   "accounts": [
+    "homeowner-owes"
+   ],
+   "device": "phone",
+   "minutes": 20,
+   "precondition": "Jordan Pryce is signed in on the phone app with a quick code already set: run first the card \"A homeowner sets a quick code on the phone app after signing in\", which leaves it set, and remember the code. Run this card on an iPhone, then on an Android phone if you have both, and write which in your notes. Allow about 20 minutes: 16 are waiting for the app to lock. If the test site is down, record Blocked.",
+   "steps": [
+    {
+     "do": "Press the phone's home button or swipe up so the app goes to the background, with the screen on, and write down the time. Leave it for 16 minutes by that clock without opening the app, then open it.",
+     "see": "The page \"HOA HX is locked\" covers the dashboard."
+    },
+    {
+     "do": "If the phone's Face ID or fingerprint check opens, cancel it (on an iPhone choose \"Use quick code\"). Type your quick code with the number keys.",
+     "see": "The lock page goes away and Jordan Pryce's dashboard shows."
+    },
+    {
+     "do": "At the bottom of the screen tap \"Requests\".",
+     "see": "The Requests screen opens. No blue or dark frame is drawn around the page area, at the edge of the screen or around the whole page."
+    },
+    {
+     "do": "Tap \"Messages\", then tap \"Home\".",
+     "see": "Each screen opens, and again no frame is drawn around the page area."
+    },
+    {
+     "do": "Slide your finger up and down on the page.",
+     "see": "The page scrolls with no frame drawn around it."
+    }
+   ],
+   "lookFor": [
+    "In this whole check, did the page never have a coloured frame around it?",
+    "Did the bottom tabs still show which one you are on?"
+   ],
+   "reset": "Jordan Pryce stays signed in on the phone with the quick code set. Logging out of the app clears it.",
+   "complements": [
+    "tests/unit/scroll-region-keyboard.test.tsx"
+   ],
+   "added": "2026-11-19",
+   "reviewed": "2026-11-19"
   }
  ],
- "build": "bea2847",
- "generated": "2026-11-14T17:02:19.506Z"
+ "build": "974598a",
+ "generated": "2026-11-20T16:57:40.808Z"
 }
