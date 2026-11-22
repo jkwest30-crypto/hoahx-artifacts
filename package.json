@@ -12,8 +12,6 @@
     "check:register": "node scripts/build-register.mjs --check",
     "publish:workflow-map": "node scripts/publish-workflow-map.mjs",
     "check:workflow-map": "node scripts/publish-workflow-map.mjs --check",
-    "publish:design": "node scripts/publish-design-reference.mjs",
-    "check:design": "node scripts/publish-design-reference.mjs --check",
     "publish:prototype": "node scripts/publish-prototype.mjs",
     "check:prototype": "node scripts/publish-prototype.mjs --check",
     "sync:answers": "node scripts/publish-answers.mjs",
