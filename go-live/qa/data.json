@@ -2415,6 +2415,49 @@
    "reviewed": "2026-11-18"
   },
   {
+   "id": "QA-036",
+   "title": "When the connection is cut, the Help page's \"Your reports\" and \"My Bookings\" on My Amenities say they could not load",
+   "feature": "screens",
+   "milestone": "M16",
+   "task": "R26",
+   "decisions": [],
+   "whyManual": "judgment",
+   "whyManualNote": "The automated state tests cannot fail these lists, because their data comes straight from the database; a person has to cut the network and judge whether each screen says so or shows an empty list as if nothing was there.",
+   "env": "staging",
+   "start": "/help",
+   "accounts": [
+    "homeowner-owes"
+   ],
+   "device": "desktop",
+   "minutes": 10,
+   "precondition": "The test accounts were reset. Use Chrome on a computer. To cut the network in Chrome: press Ctrl+Shift+I (Windows) or Cmd+Option+I (Mac), click the tab named Network, find the menu that reads \"No throttling\" and choose \"Offline\". Choose \"No throttling\" again to go back online.",
+   "steps": [
+    {
+     "do": "Sign in as Jordan Pryce and choose \"Help\" in the menu. Wait until the section \"Your reports\" has loaded. Cut the network (\"Offline\"), then reload the list: press \"Try again\" if it shows; otherwise choose \"My Amenities\" and then \"Help\" again. If the page itself shows a browser error instead of the screen, record Fail.",
+     "see": "\"Your reports\" reads \"We couldn't load your reports.\" with a \"Try again\" button. It does not read \"You have not sent a report.\""
+    },
+    {
+     "do": "Choose \"No throttling\" and choose \"My Amenities\". Wait until the page loads, then choose the tab \"My Bookings\". Cut the network (\"Offline\"), then choose \"Help\" and \"My Amenities\" again and reopen \"My Bookings\". If the page itself shows a browser error instead of the screen, record Fail.",
+     "see": "\"My Bookings\" reads \"We couldn't load your reservations\" with a \"Try again\" button. It does not read \"No reservations yet\"."
+    },
+    {
+     "do": "Choose \"No throttling\" and reload the page.",
+     "see": "The page loads again and \"My Bookings\" and \"Your reports\" show normally."
+    }
+   ],
+   "lookFor": [
+    "On each screen, did the words tell you what could not be loaded and what to do?",
+    "Did any screen show a number or an empty list that a person could take for the real answer?",
+    "Was the \"Try again\" button (where there was one) easy to find?"
+   ],
+   "reset": "Nothing is left behind. Set the browser's network back to \"No throttling\".",
+   "complements": [
+    "tests/ui/homeowner/homeowner-state-matrix.spec.ts"
+   ],
+   "added": "2026-10-18",
+   "reviewed": "2026-11-22"
+  },
+  {
    "id": "QA-037",
    "title": "A homeowner who booked the clubhouse gets one reminder the day before, by e-mail and in Notifications, and no second one",
    "feature": "communications",
@@ -3575,6 +3618,60 @@
    "reviewed": "2026-11-18"
   },
   {
+   "id": "QA-058",
+   "title": "A treasurer refunds the credit held for a home's former owner, and a second board member approves it",
+   "feature": "refunds",
+   "task": "F465",
+   "decisions": [
+    "D-321",
+    "D-010"
+   ],
+   "whyManual": "two-people",
+   "whyManualNote": "Two different people on two devices must each act, the treasurer asking and the president approving, and each must see the right thing at each step. The refund of a card payment waits for the processor to finish setting up our account; until then record Not provable. If the processor's sandbox is down, record Blocked, not Fail.",
+   "env": "staging",
+   "start": "/ledger",
+   "accounts": [
+    "treasurer",
+    "president"
+   ],
+   "device": "two-devices",
+   "minutes": 15,
+   "precondition": "The person who looks after the test site has made a home with a card payment on its account, confirmed its sale so the credit is held for the former owner, and the processor's sandbox is connected. If \"Credits from sold homes\" lists nothing, record Blocked. Have two phones or computers ready, one for each person. The person who looks after the test site tells you the home and the amount held (Jacob sends them with the run).",
+   "steps": [
+    {
+     "do": "As the treasurer, on the first device: sign in as Nadia Adeyemi (password, then the two-step code) and choose \"Financials\".",
+     "see": "The page \"Financial Ledger\" opens with a section headed \"Credits from sold homes\" listing the home and the amount held."
+    },
+    {
+     "do": "As the treasurer: on that row press \"Open refund\".",
+     "see": "The window \"Refund a payment\" opens with the sold home's payment already chosen."
+    },
+    {
+     "do": "As the treasurer: in \"Reason\" type \"Hands-on check: credit goes back to the former owner\", press \"Request refund\", enter your password and press \"Continue\", then enter the two-step code in \"Six-digit code\" and press \"Confirm\".",
+     "see": "The window closes. Under \"Approvals waiting for you\", in the group \"Waiting for someone else\", the refund reads \"Waiting for approval\" and \"Requested by you\"."
+    },
+    {
+     "do": "As the president, on the second device: sign in as Dana Whitfield (password, then the two-step code) and choose \"Financials\".",
+     "see": "Under \"Waiting for you\" the refund shows \"Requested by Nadia Adeyemi\" and the reason, with \"Reject\" and \"Approve\"."
+    },
+    {
+     "do": "As the president: press \"Approve\", enter your password and press \"Continue\", then enter the two-step code and press \"Confirm\".",
+     "see": "The refund moves under \"Approved, with the processor\" and reads \"Approved; being sent to the processor.\" (If it already reads \"Submitted to processor\" or a later status, that is also a pass.)"
+    },
+    {
+     "do": "As the treasurer: reload \"Credits from sold homes\".",
+     "see": "The held amount for that home is gone from \"Credits from sold homes\". It was not moved to the buyer."
+    }
+   ],
+   "expectNotProvable": "The payment processor has not finished setting up our account, so a refund of a real card payment cannot be sent yet.",
+   "reset": "The refund stays in the history. The next reset of the test accounts clears it.",
+   "complements": [
+    "tests/ui/treasurer/treasurer-refund-approval.spec.ts"
+   ],
+   "added": "2026-10-31",
+   "reviewed": "2026-11-22"
+  },
+  {
    "id": "QA-059",
    "title": "Tapping \"Log in with a passkey\" twice quickly on a phone shows one passkey sheet, not two",
    "feature": "sign-in",
@@ -4677,6 +4774,57 @@
    "reviewed": "2026-11-10"
   },
   {
+   "id": "QA-078",
+   "title": "A homeowner scrolls on an Android phone and the bottom bar stays put, clear of the phone's own buttons",
+   "feature": "phone",
+   "task": "F611",
+   "decisions": [],
+   "whyManual": "real-device",
+   "whyManualNote": "The phone's own navigation buttons and its screen size decide where the bottom bar sits; only a real Android phone shows whether it is covered.",
+   "env": "staging",
+   "start": "/",
+   "accounts": [
+    "homeowner-owes"
+   ],
+   "device": "android",
+   "minutes": 8,
+   "precondition": "The HOA HX app from the latest test build is installed on an Android phone. If you can, run this once with the three buttons at the bottom of the phone (back, home, recent apps) and once with swipe navigation, both set in the phone's own settings; record in your notes which you used. If the test site is down, record Blocked.",
+   "steps": [
+    {
+     "do": "Open the HOA HX app and sign in as Jordan Pryce: type his email (from the account panel) in \"Email address\" and tap \"Continue\", then type the password in \"Password\" and tap \"Log in\". If a box \"Set a quick code\" shows, tap \"Not now\".",
+     "see": "The dashboard opens. A bar with \"Home\", \"Requests\", \"Messages\", \"Account\" and \"More\" is at the bottom of the screen."
+    },
+    {
+     "do": "Look at the bottom of the screen without touching it.",
+     "see": "The whole bar, with its labels, is above the phone's own buttons or swipe line. None of it is hidden or cut off."
+    },
+    {
+     "do": "Put a finger on the dashboard and scroll all the way down, then back up.",
+     "see": "The bar stays at the bottom of the screen the whole time and does not move up with the page. The page never slides under the bar."
+    },
+    {
+     "do": "Tap \"More\", tap \"Payments\", and scroll to the end of that page and back.",
+     "see": "The bar stays at the bottom, with \"More\" shown as the selected tab."
+    },
+    {
+     "do": "Tap \"More\" and scroll to the end of the list.",
+     "see": "The bar stays at the bottom, with \"More\" shown as the selected tab, and the last item in the list can be read in full above the bar."
+    },
+    {
+     "do": "Tap \"Home\".",
+     "see": "The dashboard opens and the bar is still at the bottom, clear of the phone's buttons."
+    }
+   ],
+   "lookFor": [
+    "Is there a gap between the bar and the phone's own buttons that looks even, not squeezed or very large?",
+    "Can you tap each tab with your thumb without touching a system button by mistake?"
+   ],
+   "reset": "Jordan Pryce stays signed in on the phone. Nothing else is left behind.",
+   "complements": [],
+   "added": "2026-11-10",
+   "reviewed": "2026-11-22"
+  },
+  {
    "id": "QA-079",
    "title": "The treasurer gets an e-mail when the president sends an import for approval, and its link opens that import on a phone",
    "feature": "import",
@@ -5192,6 +5340,6 @@
    "reviewed": "2026-11-19"
   }
  ],
- "build": "974598a",
- "generated": "2026-11-20T16:57:40.808Z"
+ "build": "f0a8125",
+ "generated": "2026-11-22T13:07:50.002Z"
 }
