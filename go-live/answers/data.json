@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-18",
+ "updated": "2026-11-23",
  "groups": [
   {
    "id": "money",
@@ -331,7 +331,7 @@
    "build": "Yes, with the owners' details (the owners' note of Oct 23): HOA HX staff may grant a hold of up to 30 days; anything longer needs Rustin's or Dan's approval, up to 90 days in total for that hold including any first extension; every hold has a reason, an end date and a record of who granted or approved it; a hold pauses the past-due steps and collections while billing continues and the balance stays owed; a hold keeps the access level it found unless staff explicitly restore it; when it ends the community resumes on its original dates, with no reset and no automatic renewal; the Account Owner is told when a hold starts and before it ends; holds cannot be stacked or renewed to get around the approval; homeowners and the billing page are never affected.",
    "answeredOn": "2026-10-23",
    "acceptedOn": "2026-10-28",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A83-1",
@@ -611,7 +611,7 @@
    "build": "No. One hearing per stage. A stage already heard is not heard again, even if the case moves back; a later stage can still be heard.",
    "answeredOn": "2026-10-16",
    "acceptedOn": "2026-10-21",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A71-1",
@@ -625,7 +625,7 @@
    "build": "Yes. One notice for each step, naming the step and opening the violation. The board's own notes are never in it.",
    "answeredOn": "2026-10-16",
    "acceptedOn": "2026-10-21",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A72-1",
@@ -639,7 +639,7 @@
    "build": "Keep \"HOAhx Assistant\" (confirmed by Rustin in chat).",
    "answeredOn": "2026-10-16",
    "acceptedOn": "2026-10-21",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A74-1",
@@ -765,7 +765,7 @@
    "build": "When the sale is confirmed, the credit stops counting toward the home's dues and goes back to the former owner: a refund task for the Treasurer that shows where the credit came from, approved by a second person who is not deciding on their own home. It moves to the buyer only when the board records what the closing papers say, with the amount, the approval and the date. A refund that cannot go back to the original payment method becomes an open task for the Treasurer to settle another way, with a reason on record.",
    "answeredOn": "2026-10-15",
    "acceptedOn": "2026-10-20",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A65-1",
@@ -779,7 +779,7 @@
    "build": "Every visitor pass runs at most 14 days and starts as a same-day visit; the resident confirms the start and end times. A 'Single-entry pass' ends after one admission; a 'Temporary visitor pass' allows repeat entry for the selected period. Passes can be set up to a year ahead, stay inactive until they start, end on time, can be cancelled by the resident or revoked by staff, and are checked at every use.",
    "answeredOn": "2026-10-16",
    "acceptedOn": "2026-10-20",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A66-1",
@@ -821,7 +821,7 @@
    "build": "Withdrawing an approval and stopping an escalation are separate actions. Only the person who gave the first approval can withdraw it; that blocks the second approval and starts over with a new first approval. The President can hold or cancel the escalation but cannot withdraw someone else's approval. Each action needs a reason, tells the requester and the approvers, and keeps the full history.",
    "answeredOn": "2026-10-16",
    "acceptedOn": "2026-10-20",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A62-1",
@@ -2226,7 +2226,7 @@
    "build": "Owners' \"HOAhx Trial, Billing & Onboarding Requirements\" (Google Doc, Sep 9, read Sep 10) plus the Sep 9 pricing sheet. Tiers (boundary confirmed by Jacob 2026-09-28, recorded 2026-10-01 so Tenyson and Jake build to one structure): $59 (1–50 homes, $1.18 a home at 50), $89 (51–100, $0.89 at 100), $129 (101–200, $0.65 at 200), $179 (201–300, $0.60 at 300), $229 (301–458, down to about $0.50), then from 459 homes $0.50 per active home per month on every home, no further tiers. 459 is the crossover because $229 ÷ $0.50 = 458 homes, so 459 homes = $229.50 and the two halves meet without a step. This replaces the doc's 301–500 and the sheet's \"through 449\". All MVP features included; no Basic/Pro/Premium packages. Trial: 30 days, no card, full product on the community's real data, guided setup from day one; expires to a locked read-only state; data kept 90 days; reactivation by purchasing; advance notice before deletion. Monthly conversion: normal monthly rate + a one-time \"Community Implementation & Launch\" fee, charged through the subscription's payment method; first paid month at 100% by default; HOAhx staff may apply a one-time 50% discount to the first paid month (manual, once, does not change the standard price). Annual: no recurring discount; first year = 11.5 × monthly (50% off the first month equivalent) with the implementation fee waived, collected as one payment; renewals at 12 × the then-current monthly rate, shown clearly at checkout. Implementation fee: $49 (1–50), $99 (51–100), $149 (101–200), $199 (201–300), $249 (301–500), $299 starting point above 500, configurable. Home count: active property/unit records in HOAhx at each billing date (occupied or vacant; future phases don't count); tier changes apply from the next charge, never retroactively, in both directions; notify the administrator before a new amount is charged; annual terms keep counting and should support a prorated adjustment on a material increase (the doc's own note: \"clarify\"). Card fee: \"no idea until NMI\" — pending the NMI agreement. Founding rate: not addressed in either document — still open. The doc also specifies a trial lifecycle beyond the plan catalogue: welcome on day 1 with internal capture of start/expiry/homes/admin; a day 7–10 activation check with an internal alert on low activity; day 14 and day 21 board-approval questions (capturing the next board-meeting date, flagging high-intent or needs-follow-up); a day 28 reminder by status; internal-only trial extensions (7 days, 14 days, custom date) with original/new dates, grantor, and reason recorded and no extension the community can request for itself; twelve internal sales statuses; and an internal activity timeline of trial and conversion events. That lifecycle is outside SB2 and the twelve items — see `changes.md` Proposed 2026-09-10. Addendum 2026-10-13 (the three open points of card A23, each accepted by Jacob: founding communities and the card cost on 2026-10-06, the annual home count on 2026-10-13): (1) Founding communities: the first ten communities that subscribe by January 31, 2027 keep their monthly price for twenty-four months, whatever the list price does; nothing else is discounted. (2) On an annual plan the home count is checked at renewal only: no mid-term charge when homes are added, no mid-term refund when they leave; the new tier applies from the renewal and is shown at checkout; a community that grows past its tier's maximum is told, and its administrator approves before the plan changes or anything more is billed. (3) The HOA pays the published subscription price: HOAhx absorbs the card processing cost, with no surcharge at checkout; bank transfer is offered for annual payments, and the total due is shown before the community confirms.",
    "answeredOn": "2026-10-05",
    "acceptedOn": "2026-10-06",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A36-1",
@@ -2240,7 +2240,7 @@
    "build": "Keep it as built, with the owners' additions: alert the treasurer and the president when a homeowner pays twice in one dues period or pays more than was owed, and flag likely duplicate payments or unexplained account credits for the treasurer to review; apply legitimate payments to the right current or future charges; keep excess money as a credit by default and tell the homeowner; a refund needs a second authorized approver; log the payment, credit, review and any refund in the account history.",
    "answeredOn": "2026-10-05",
    "acceptedOn": "2026-10-06",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A36-3",
@@ -2254,7 +2254,7 @@
    "build": "Yes, as recommended, with the owners' conditions: a tenant may ask only for a credit traceable to the tenant's own payment and only when the owner has allowed the tenant to pay; the owner is told when the request is submitted; it goes through the normal approval with a second approver; a refund goes only to the original payment method; the tenant sees the full account balance only if the owner separately allows it.",
    "answeredOn": "2026-10-05",
    "acceptedOn": "2026-10-06",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A37-1",
@@ -2310,7 +2310,7 @@
    "build": "The homeowner pays the card cost as a convenience fee, shown as its own line with the total before they confirm. Bank payments stay free. To your question about where a card fee is not allowed: card network rules do not allow a fee on some cards (debit cards, for example), and a few states limit or ban card fees. NMI confirms in writing which cards and states that covers before any fee is switched on. On those cards and in those states no fee is charged, the community covers the card cost, and the screen shows no fee line.",
    "answeredOn": "2026-09-30",
    "acceptedOn": "2026-10-05",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A02-2",
@@ -2352,7 +2352,7 @@
    "build": "At launch the treasurer can reconcile deposits but does not have to before closing a month or year. Requiring unmatched deposits to be cleared first, with a financial approver's recorded reason as the way around it, comes after launch.",
    "answeredOn": "2026-09-30",
    "acceptedOn": "2026-10-05",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A06-2",
@@ -2422,7 +2422,7 @@
    "build": "The President or Treasurer grants an auditor read-only access for a date range (a full fiscal year included) and chosen kinds of documents and data, with a required end date; access ends on that date by itself. Auditor and attorney access stay separate. A record of every view and download, and two-step sign-in for auditors, come after launch.",
    "answeredOn": "2026-10-02",
    "acceptedOn": "2026-10-05",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A08-2",
@@ -2451,7 +2451,7 @@
    "build": "Fees come only from the adopted fee schedule. Each community sets its notice, cure and hearing timeline, the notice names the rule, and no fee is added before the cure deadline. The hearing window is separate, and interest and late fees on a fine pause while a timely hearing request is decided.",
    "answeredOn": "2026-10-02",
    "acceptedOn": "2026-10-05",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A09-3",
@@ -2535,7 +2535,7 @@
    "build": "The number of spaces is a community setting (two by default), with rules by home type if needed; a staff exception needs a reason and is recorded; the community's total is enforced; resident parking stays separate from guest passes.",
    "answeredOn": "2026-10-02",
    "acceptedOn": "2026-10-05",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A11-2",
@@ -2577,7 +2577,7 @@
    "build": "An RSVP carries guests who count toward capacity, the community sets a guest limit per event, remaining capacity is shown, and board members RSVP like everyone else.",
    "answeredOn": "2026-10-02",
    "acceptedOn": "2026-10-05",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A14-2",
@@ -2591,7 +2591,7 @@
    "build": "Each community names its architectural committee or reviewers and who decides; the President only where the community chooses; conflicts step aside; assignments, recusals and decisions are recorded.",
    "answeredOn": "2026-10-02",
    "acceptedOn": "2026-10-05",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A15-1",
@@ -2605,7 +2605,7 @@
    "build": "HOAhx's own electronic signature records who signed, their intent, the time and the exact version signed, gives the signer a copy and keeps the evidence history; it never claims a signature is legally enough for every document. Consent to electronic records, a tamper-evident fingerprint and extra steps for some document types come after launch.",
    "answeredOn": "2026-10-02",
    "acceptedOn": "2026-10-05",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A15-2",
@@ -2619,7 +2619,7 @@
    "build": "The community marks required documents and who signs each one (owner, tenant, each adult); an acknowledgment is kept apart from an agreement; a refusal is recorded with its reason as an open item with reminders; nothing is enforced automatically.",
    "answeredOn": "2026-10-02",
    "acceptedOn": "2026-10-05",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A15-3",
@@ -2633,7 +2633,7 @@
    "build": "Documents stay for members only. A buyer receives the governing documents in the transfer package the seller requests, through a time-limited link, with who requested, received and opened it recorded.",
    "answeredOn": "2026-10-02",
    "acceptedOn": "2026-10-05",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A15-4",
@@ -2647,7 +2647,7 @@
    "build": "Much is built (no version can be deleted in the app; take-down with a reason; legal holds). I add limiting a confidential or legal-advice document to named people and counsel, and permanent deletion only after the retention period, with no hold, by an authorized administrator with approval.",
    "answeredOn": "2026-10-02",
    "acceptedOn": "2026-10-05",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A16-1",
@@ -2745,7 +2745,7 @@
    "build": "Residents see their own home's visitors; the full log only for staff each community authorizes, with each view recorded; the one-year deletion becomes a community setting.",
    "answeredOn": "2026-10-02",
    "acceptedOn": "2026-10-05",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A18-4",
@@ -2801,7 +2801,7 @@
    "build": "Accepted: an adjustment stops at zero, overpayments stay a credit, refunds need two approvers and each adjustment is recorded. One more check at approval in case the balance changed.",
    "answeredOn": "2026-10-02",
    "acceptedOn": "2026-10-05",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A25-1",
@@ -2815,7 +2815,7 @@
    "build": "Yes. An active tenant sees their home's gate and guest codes and never another home's. Community staff change the codes at launch; an owner or tenant asks for a change in HOAhx. When a tenancy ends the person's access is removed, the owner and staff are prompted to review and change the codes (a code the tenant already knows keeps working until it is changed), and codes are kept out of notices and exports.",
    "answeredOn": "2026-10-02",
    "acceptedOn": "2026-10-05",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A27-1",
@@ -2886,7 +2886,7 @@
    "url": "https://hoahx-staging.web.app/preview/A4",
    "answeredOn": "2026-10-14",
    "acceptedOn": "2026-10-05",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "S-A6",
@@ -2901,7 +2901,7 @@
    "url": "https://hoahx-staging.web.app/preview/A6",
    "answeredOn": "2026-10-14",
    "acceptedOn": "2026-10-05",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "S-B3",
@@ -2916,7 +2916,7 @@
    "url": "https://hoahx-staging.web.app/preview/B3",
    "answeredOn": "2026-10-14",
    "acceptedOn": "2026-10-05",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "S-B6",
@@ -2931,7 +2931,7 @@
    "url": "https://hoahx-staging.web.app/preview/B6",
    "answeredOn": "2026-10-14",
    "acceptedOn": "2026-10-05",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "S-C3",
@@ -2961,7 +2961,7 @@
    "url": "https://hoahx-staging.web.app/preview/C6",
    "answeredOn": "2026-10-14",
    "acceptedOn": "2026-10-05",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "S-C7",
@@ -2976,7 +2976,7 @@
    "url": "https://hoahx-staging.web.app/preview/C7",
    "answeredOn": "2026-10-14",
    "acceptedOn": "2026-10-05",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "S-C8",
@@ -2991,7 +2991,7 @@
    "url": "https://hoahx-staging.web.app/preview/C8",
    "answeredOn": "2026-10-14",
    "acceptedOn": "2026-10-05",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A01-2",
@@ -3005,7 +3005,7 @@
    "build": "Any amount from one dollar up is accepted. A payment above what is owed stays on the account as a credit, AutoPay uses that credit first, and the homeowner can ask for it back. A late fee still applies to whatever is left when the grace period ends.",
    "answeredOn": "2026-09-30",
    "acceptedOn": "2026-10-03",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A01-3",
@@ -3019,7 +3019,7 @@
    "build": "Tenant payments are off by default. The owner switches payment on for a named tenant of that home and can switch it off again at any time. A tenant's payment posts to that home's ledger, shows the tenant as the payer, and the owner is told each time. Permission to pay gives the tenant nothing else: no wider view of the account, and the assessment stays the owner's responsibility. Switching it off also ends any AutoPay that tenant set up.",
    "answeredOn": "2026-09-30",
    "acceptedOn": "2026-10-03",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A02-1",
@@ -3047,7 +3047,7 @@
    "build": "The homeowner and the Treasurer are told the same day, in the app and by email, and by text message only if the homeowner opted in. The Treasurer is the community's finance contact; where no Treasurer is seated, the President is. The notice says which of the two happened, in different words for each: a bank payment returned, or a card payment disputed. The homeowner's notice says what happened, what it did to their balance, and how to pay again. A dispute also opens an urgent task for the Treasurer with the processor's deadline and the next steps; the President is alerted to a dispute as the backup, without the card or bank details. Other board members see only that an item is open.",
    "answeredOn": "2026-09-30",
    "acceptedOn": "2026-10-03",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A03-2",
@@ -3061,7 +3061,7 @@
    "build": "No returned-payment fee by default. A community may switch one on and set the amount in its payment rules after confirming that its governing documents and its state allow it. The fee is shown on the bank payment screen and in the AutoPay consent before the homeowner authorizes anything. It applies once per returned payment, only when the bank's reason is insufficient or uncollected funds, never to a card dispute, and it is never counted when a late fee is worked out. The setting stays unavailable to communities until NMI confirms in writing that the fee is allowed and where the return reason is reported.",
    "answeredOn": "2026-09-30",
    "acceptedOn": "2026-10-03",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A04-1",
@@ -3103,7 +3103,7 @@
    "build": "Treasurers work inside HOAhx for payments, refunds, returns and disputes, with filters and an export. No shared NMI login is ever issued. Bank deposits and NMI's processing fees are read in NMI's portal until NMI makes that data available to HOAhx, so each treasurer who needs it gets their own named NMI login, limited to viewing, with two-factor sign-in. Deposit and fee reports move inside HOAhx when NMI confirms the data.",
    "answeredOn": "2026-09-30",
    "acceptedOn": "2026-10-03",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A06-1",
@@ -3117,7 +3117,7 @@
    "build": "Yes. A homeowner sees their own whole payment history: the date, the amount, the payment method shown only by its type and last four digits, the current status, and any refund, returned payment or dispute, each with a plain explanation and the next step. Internal notes and processor identifiers never appear.",
    "answeredOn": "2026-09-30",
    "acceptedOn": "2026-10-03",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A19-1",
@@ -3159,7 +3159,7 @@
    "build": "Please require a second financial approver for manual credits, write-offs, and adjustments that reduce a homeowner’s balance. The requester cannot approve their own entry, and no one can approve an adjustment to their own home. Exclude automatic credits tied to actual overpayments, and allow one authorized person to post routine charges or fees that follow the board-approved schedule. Log all entries and approvals with the amount, reason, user, and timestamp.",
    "answeredOn": "2026-10-02",
    "acceptedOn": "2026-10-03",
-   "status": "planned"
+   "status": "built"
   },
   {
    "id": "A28-1",
