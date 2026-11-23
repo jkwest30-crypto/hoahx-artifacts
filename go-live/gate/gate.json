@@ -1,590 +1,634 @@
 {
-  "run": "2026-11-22",
-  "title": "Run 2026-11-22 (Sun Nov 22): the gate, stopped until you press Send",
-  "previous_run": "2026-11-20",
-  "sections": [
+ "run": "2026-11-23",
+ "title": "Monday Nov 23: your decisions before tonight's run starts (stopped at the gate)",
+ "previous_run": "2026-11-22",
+ "sections": [
+  {
+   "name": "Run status",
+   "rows": [
     {
-      "name": "Run status",
-      "rows": [
-        {
-          "n": 1,
-          "id": "Stopped at the gate",
-          "item": "Run stopped at the gate: nothing spawns until you press Send",
-          "rec": "Send by about 23:00 and everything on this page fits before the 05:00 landing cutoff. Every 20 minutes of waiting costs about 1 estimated hour of work.",
-          "why": "You started this run with a stop at the gate, so no agent, landing or publish starts before your answer.",
-          "kind": "For your information (nothing to answer)",
-          "details": {
-            "ask": "Nothing to answer on this row.",
-            "who": "You.",
-            "background": "The run started Sat Nov 21 at 22:00 MST and serves Sun Nov 22. Landing stops at 05:00; the final proof and the merge follow in the morning.\n\nWhat lands by 05:00, by when you press Send:\n- By about 23:00: the eleven finished branches (the Landing first row), the five build lanes, the run-day repairs, and refill queue rows as room allows. Nothing is dropped.\n- By about 00:30: the eleven branches and the lanes for the My Account layout, the subscription void and the Linear writes. Dropped first, in this order: the refill queue, then the lane for runners and alerts (0.7 est-h), then the two small test fixes of the screens lane (0.6).\n- By about 02:00: the eleven branches and the subscription void lane. The Linear writes lane carries to the next run, and the My Account layout parks for run 2026-11-23 with its pull requests left open.\n- After about 03:00: only the finished branches, and only those proven by 05:00; the rest carry in the same order.\n\nThe eleven branches always go first. Their landing time is not measured: they have never been proven together.\n\nThe pace does not need tonight's work: the build is 64 est-h ahead of its target, and Sunday schedules nothing. Tonight is loaded because finished work is waiting to land.",
-            "owners_next": "No."
-          },
-          "link": "docs/launch/runs/2026-11-22/plan.md"
-        },
-        {
-          "n": 2,
-          "id": "What intake found",
-          "item": "What intake found before the gate",
-          "rec": "Nothing to answer. The rows below carry every decision.",
-          "why": "One place for the facts the plan was built from.",
-          "kind": "For your information (nothing to answer)",
-          "details": {
-            "ask": "Nothing to answer on this row.",
-            "who": "You.",
-            "background": "- Code: the development branch is unchanged since Nov 20 (commit 974598a96, pull request 134). Staging is green.\n- Owners' answers to accept: none. Still pending with the owners per the status file: the late fee and service agreement question, and the booking refund questions.\n- Finished side work waiting to land: eleven branches, about 14 est-h, six of them moved to tonight by your own word.\n- Left out of tonight on purpose: Apple Pay and Google Pay, because that work is being built right now in a side tab and a lane would build it twice; the booking fee leftovers, because they land tonight as one of the eleven branches; holding resident invitations until a community is Live, because it was already done in pull request 132 (you can tick it Done on your list).\n- Dropped as already done on the development branch: two small screen clean-ups from the seed, and the subscription receipt number.\n- GitHub Actions: $53.02 of the $150 credit used, projected $73.86 at month end.\n- Machine: 69 GB free, above the 65 GB floor.\n- Accounts: Work has 90% of its week left, Other Work 58%. The plan uses about 16 of the 34 points allowed for one run.\n- Not verified: which three items on your Launch List are still Proposed. The saved page shows 21 rows marked proposed, most already answered in their own text, so no undecided items are on this gate. Fix: the wrap reconciles the page with the list file · Owner: wrap lane · Cost: 0.3.\n- Not verified: whether the Linear writes repair is partly built already. Its tools are kept outside the repository, so the lane checks first.\n- The Day Orchestrator restarted its memory twice in the run's first five minutes, and its log hook writes to the closed run's ledger until this gate is answered. Fix: raise the window and point the hook at the open run between runs · Owner: run-day repair, next run · Cost: 0.5.\n- Not approved by you, so not done and not scheduled: the start time written in the seed file (it says about 21:30; the run started at 22:00), and two small repairs the dry run suggested (a test example, 0.05, and a no-write mode for the preflight, 0.2). They go to your list at the wrap.",
-            "owners_next": "No."
-          },
-          "link": "docs/launch/runs/2026-11-22/intake.md"
-        },
-        {
-          "n": 3,
-          "id": "Sweep",
-          "item": "Three groups of leftover files found by the sweep (information only)",
-          "rec": "Recommended, but not done tonight because none of the three has an item on your list: archive the PlatPay probe folder and its two answer files; archive the finished reviews folder; register five run-day redesign and design-branch files in the sign-offs file.",
-          "why": "A decision row needs an item on your list, and these have none. They are shown so you see the recommendation.",
-          "kind": "For your information (nothing to answer)",
-          "details": {
-            "ask": "Nothing to answer on this row. To act on it, type in chat: `sweep: do all three as recommended`.",
-            "who": "You.",
-            "background": "The sweep found 49 files no list or register points to, in three groups:\n1. `docs/launch/platpay/probe-2026-11-21/` plus a checklist-answers file and a self-answers file. Recommendation: archive.\n2. `docs/launch/reviews/` (finished reviews). Recommendation: archive.\n3. The run-day redesign handoff of Nov 21, the manual landing-queue gate note, one proposal file, and the design-branch approvals and assessment for the My Account layout. Recommendation: register them in the sign-offs file; they are in use.\n\nTo have them done: say so in chat (for example `sweep: do all three as recommended`) and the orchestrator files one item for it. Nothing waits on this.",
-            "owners_next": "No."
-          },
-          "link": "docs/launch/runs/2026-11-22/reports/I-sweep.txt"
-        }
-      ]
+     "n": 1,
+     "id": "Stopped at the gate",
+     "item": "Run stopped at the gate: nothing spawns, lands or publishes until you press Send",
+     "rec": "Nothing to answer here; answer the rows below, then press Send",
+     "why": "The run for Monday Nov 23 (day 56 of 81) needs 0 est-h: the work is 104 est-h ahead of schedule against a target lead of 41.",
+     "kind": "For your information (nothing to answer)",
+     "details": {
+      "ask": "Nothing to answer on this row.",
+      "who": "Nobody decides; this is the run's position.",
+      "background": "Tonight's load is small on purpose: 11.3 est-h in six build lanes, 3.85 est-h of finished work that only lands, 2.0 est-h of run-day repair, and a 10.6 est-h queue for later if there is room. None of it is scheduled work, so it earns nothing against the pace. Landing stops at 05:00. Accounts: Work has 82% of its week left, Other Work 57%; tonight uses about 8 of the 34 points allowed.",
+      "owners_next": "No."
+     },
+     "link": "docs/launch/runs/2026-11-23/plan.md"
     },
     {
-      "name": "Intake",
-      "rows": [
-        {
-          "n": 4,
-          "id": "PT-068",
-          "item": "Proposed ticket: no guard looks for a card number, a gateway key or a token in a log line or a stored record (PT-068)",
-          "rec": "Approve: add it to Linear.",
-          "why": "It is your own proposal, and it costs nothing until a run picks it up.",
-          "kind": "Your decision",
-          "details": {
-            "ask": "Press Approve on this row, or type your own words, then press Send at the bottom of the gate page (https://hoahx-requirements.netlify.app/gate/). Needed before the run can start; nothing spawns until then.",
-            "who": "Only you can decide this.",
-            "background": "A test that would fail the build if payment secrets could reach a log or a stored record. Proposed by you.\n\nTo change it, type your own words on this row, for example `no` or `add, low priority`.",
-            "if_yes": "The intake lane files the ticket in Linear after the gate, through the Linear API.",
-            "if_no": "The proposal is declined and recorded as declined; no ticket.",
-            "owners_next": "No."
-          },
-          "link": "docs/launch/runs/2026-11-22/linear/triage.md"
-        },
-        {
-          "n": 5,
-          "id": "PT-069",
-          "item": "Proposed ticket: no guard stops new code in the old homeowner dues files (PT-069)",
-          "rec": "Approve: add it to Linear.",
-          "why": "It is your own proposal, and it costs nothing until a run picks it up.",
-          "kind": "Your decision",
-          "details": {
-            "ask": "Press Approve on this row, or type your own words, then press Send at the bottom of the gate page (https://hoahx-requirements.netlify.app/gate/). Needed before the run can start; nothing spawns until then.",
-            "who": "Only you can decide this.",
-            "background": "The old dues files (from the earlier payment processor) should not grow; a guard would refuse new code there. Proposed by you.\n\nTo change it, type your own words on this row, for example `no` or `add, low priority`.",
-            "if_yes": "The intake lane files the ticket in Linear after the gate, through the Linear API.",
-            "if_no": "The proposal is declined and recorded as declined; no ticket.",
-            "owners_next": "No."
-          },
-          "link": "docs/launch/runs/2026-11-22/linear/triage.md"
-        },
-        {
-          "n": 6,
-          "id": "PT-070",
-          "item": "Proposed ticket: the member-permissions unit test sometimes fails without a cause (PT-070)",
-          "rec": "Approve: add it to Linear.",
-          "why": "It is your own proposal, and it costs nothing until a run picks it up.",
-          "kind": "Your decision",
-          "details": {
-            "ask": "Press Approve on this row, or type your own words, then press Send at the bottom of the gate page (https://hoahx-requirements.netlify.app/gate/). Needed before the run can start; nothing spawns until then.",
-            "who": "Only you can decide this.",
-            "background": "A unit test that fails now and then and passes on a re-run. Proposed by you.\n\nTo change it, type your own words on this row, for example `no` or `add, low priority`.",
-            "if_yes": "The intake lane files the ticket in Linear after the gate, through the Linear API.",
-            "if_no": "The proposal is declined and recorded as declined; no ticket.",
-            "owners_next": "No."
-          },
-          "link": "docs/launch/runs/2026-11-22/linear/triage.md"
-        },
-        {
-          "n": 7,
-          "id": "PT-071",
-          "item": "Proposed ticket: parking a side build does not record your landing word on the run planner's row (PT-071)",
-          "rec": "Approve: add it to Linear.",
-          "why": "It is your own proposal, and it costs nothing until a run picks it up.",
-          "kind": "Your decision",
-          "details": {
-            "ask": "Press Approve on this row, or type your own words, then press Send at the bottom of the gate page (https://hoahx-requirements.netlify.app/gate/). Needed before the run can start; nothing spawns until then.",
-            "who": "Only you can decide this.",
-            "background": "When a side branch is parked for a run, the planner's row should carry the words you approved it with. Proposed by you.\n\nTo change it, type your own words on this row, for example `no` or `add, low priority`.",
-            "if_yes": "The intake lane files the ticket in Linear after the gate, through the Linear API.",
-            "if_no": "The proposal is declined and recorded as declined; no ticket.",
-            "owners_next": "No."
-          },
-          "link": "docs/launch/runs/2026-11-22/linear/triage.md"
-        },
-        {
-          "n": 8,
-          "id": "PT-072",
-          "item": "Proposed ticket: the run planner puts the whole staff pages folder on the subscription money track (PT-072)",
-          "rec": "Approve: add it to Linear.",
-          "why": "It is your own proposal, and it costs nothing until a run picks it up.",
-          "kind": "Your decision",
-          "details": {
-            "ask": "Press Approve on this row, or type your own words, then press Send at the bottom of the gate page (https://hoahx-requirements.netlify.app/gate/). Needed before the run can start; nothing spawns until then.",
-            "who": "Only you can decide this.",
-            "background": "The planner treats every staff page as subscription money work, which makes unrelated work wait. Proposed by you.\n\nTo change it, type your own words on this row, for example `no` or `add, low priority`.",
-            "if_yes": "The intake lane files the ticket in Linear after the gate, through the Linear API.",
-            "if_no": "The proposal is declined and recorded as declined; no ticket.",
-            "owners_next": "No."
-          },
-          "link": "docs/launch/runs/2026-11-22/linear/triage.md"
-        },
-        {
-          "n": 9,
-          "id": "Run-process tickets (11)",
-          "item": "Eleven older run-process proposals, waiting three to five runs, filed in one batch",
-          "rec": "Approve: add all eleven; the two already built are filed as Done.",
-          "why": "They have aged without an answer, and each needs only a home row in the backlog before it can be filed.",
-          "kind": "Your decision",
-          "details": {
-            "ask": "Press Approve on this row, or type your own words, then press Send at the bottom of the gate page (https://hoahx-requirements.netlify.app/gate/). Needed before the run can start; nothing spawns until then.",
-            "who": "Only you can decide this.",
-            "background": "The proposals numbered PT-056 to PT-067 (PT-060 was decided at the last gate, so eleven are left; intake's count says twelve, the file lists eleven). All are repairs to the run-day process, none changes the product. Two of them (PT-061 and PT-062, run-day repairs) were built in run 2026-11-20 and are filed as Done. Before filing, the intake lane writes a home row for each in the backlog (0.5 est-h).\n\nTo pick, type your own words, for example `add all but PT-063`.",
-            "if_yes": "The intake lane writes the home rows, then files the eleven tickets in Linear.",
-            "if_no": "They stay as proposals and are shown again at the next gate.",
-            "owners_next": "No."
-          },
-          "link": "docs/launch/runs/2026-11-22/linear/triage.md"
-        }
-      ]
-    },
-    {
-      "name": "Build lanes",
-      "rows": [
-        {
-          "n": 10,
-          "id": "Landing first",
-          "item": "Land the eleven finished side branches first, in the fixed order, about 14 est-h of built work",
-          "rec": "Approve: land all eleven in the planned order, with the three small steps the lander needs first.",
-          "why": "All eleven are built and reviewed where a review is owed; six are the ones you moved to tonight. Without the three steps the lander would refuse the whole batch.",
-          "kind": "Your decision on the order",
-          "details": {
-            "ask": "Press Approve on this row, or type your own words, then press Send at the bottom of the gate page (https://hoahx-requirements.netlify.app/gate/). Needed before the run can start; nothing spawns until then.",
-            "who": "Only you can decide this.",
-            "background": "The order (from your overrides file, not reopened here):\n1. HOA HX staff connect, pause or close a community's payments (3.0)\n2. Connect is refused on a seeded test community on production (0.2)\n3. The booking refund screen and its follow-ups (3.3)\n4. The processor's duplicate refusal is recognised (2.5)\n5. The first sign-in after an invitation keeps its community (1.0)\n6. One PlatPay partner webhook, events routed by merchant (2.3)\n7. Subscription billing proven on the sandbox (1.2)\n8. One row of the native shell guide (0.1)\n9. The launch date Jan 1, 2027 in two tracked files (0.05)\n10. Three retired documents removed (0.2)\n11. Standards practices and a Node version guard test (0.2)\n\nChecked tonight, read-only: all eleven exist at the recorded commits and none is on the development branch. A text merge in this order gives one conflict, in the callables reference file at branch 3, exactly the one your overrides file planned for. Branches 8, 9 and 11 name no review because none is owed: they change documents and one unit guard only.\n\nFound tonight, two gaps that would make the lander refuse the whole batch:\n- Branch 2's review passed, but it is filed under branch 1's name, so the lander finds none. Fix: the lander copies that review file under branch 2's name · Owner: landing lane · Cost: 0.05.\n- Branches 8 and 9 have no pre-land check record. Fix: the lander runs the pre-land check for both (documents only, minutes) · Owner: landing lane · Cost: 0.05.\n\nNot verified: the eleven have never been merged and proven together (the dry run's rehearsal did not run). The first proof is this batch; a red proof stops the batch at that branch and the rest carry in order.\n\nTo change it, type your own words, for example `land all but 3` or `hold 6`.",
-            "if_yes": "The landing lane does the three steps, lands the eleven in order, and writes one ledger line per override. The wrap reports each of your six overrides with revert or keep.",
-            "if_no": "Nothing lands first; the branches stay parked, and the two lanes that build on them (My Account layout, subscription void) start from the unchanged development branch.",
-            "owners_next": "No."
-          },
-          "link": "docs/launch/runs/2026-11-22/overrides-watch.md"
-        },
-        {
-          "n": 11,
-          "id": "Lane DS",
-          "item": "Build lane: Tenyson's My Account layout, 3.0 est-h",
-          "rec": "Approve.",
-          "why": "Your approvals file for this branch is complete, and the assessment found no conflict and no server change.",
-          "kind": "Your decision",
-          "details": {
-            "ask": "Press Approve on this row, or type your own words, then press Send at the bottom of the gate page (https://hoahx-requirements.netlify.app/gate/). Needed before the run can start; nothing spawns until then.",
-            "who": "Only you can decide this.",
-            "background": "The designer's branch `design/my-account-layout` (58 files, screens only) is landed under the run-day rules: every applicable test created or updated, nothing of the current logic lost, a full proof and a second, independent review. It starts after the eleven finished branches have landed. Pull requests 129, 131 and 133 are then closed as carried by the day's own pull request; none is merged directly.\n\nOne open point: the page shows the phone number 555-000-0000 with no source. The lane gives it a source or writes a question for your list.\n\nTo change it, type your own words on this row, for example `hold` or `queue it`.",
-            "if_yes": "The lane starts after the first batch has landed.",
-            "if_no": "The branch stays open for run 2026-11-23.",
-            "owners_next": "No."
-          },
-          "link": "docs/launch/design-branches/my-account-layout-2026-11-21.md"
-        },
-        {
-          "n": 12,
-          "id": "Lane SV",
-          "item": "Build lane: a same-day refund of a community's subscription charge is recorded, 0.8 est-h",
-          "rec": "Approve.",
-          "why": "It is a launch-blocking money defect, new on Nov 21, and its review is done.",
-          "kind": "Your decision",
-          "details": {
-            "ask": "Press Approve on this row, or type your own words, then press Send at the bottom of the gate page (https://hoahx-requirements.netlify.app/gate/). Needed before the run can start; nothing spawns until then.",
-            "who": "Only you can decide this.",
-            "background": "Today, when a community's subscription charge is refunded on the same day, the processor treats it as a void and HOA HX never records it: the invoice still reads paid. The lane applies the void to the invoice, writes the history row, and raises a billing alert when a void cannot be applied. Its design review said go, with two changes, both built in. The server code gets a separate, independent review of the diff. It starts after the first batch, because one of those branches edits the same file. It is the only lane on subscription money tonight.\n\nTo change it, type your own words on this row, for example `hold` or `queue it`.",
-            "if_yes": "The lane starts after the first batch has landed.",
-            "if_no": "The defect stays open and blocking; it is seeded for the next run.",
-            "owners_next": "No."
-          },
-          "link": "docs/launch/bug-review/verdicts/F675.md"
-        },
-        {
-          "n": 13,
-          "id": "Lane X",
-          "item": "Build lane: make Linear writes through the API safe for a run, 1.5 est-h",
-          "rec": "Approve.",
-          "why": "Until it lands, the wrap's Linear sync can create a duplicate ticket or stop at one refused write.",
-          "kind": "Your decision",
-          "details": {
-            "ask": "Press Approve on this row, or type your own words, then press Send at the bottom of the gate page (https://hoahx-requirements.netlify.app/gate/). Needed before the run can start; nothing spawns until then.",
-            "who": "Only you can decide this.",
-            "background": "Five points: check for a duplicate before creating a ticket; one refused write no longer stops the batch; the Fixed and Landed comments are sent; a create that half-failed keeps its ticket number; four skill files stop naming the connector that is down.\n\nNot verified: part of this may already be built. The tools are kept outside the repository, one record reads built and another reads open. So the lane's first step is to check each of the five points and close what is done; the estimate may shrink.\n\nTo change it, type your own words on this row, for example `hold` or `queue it`.",
-            "if_yes": "The lane starts at once; the wrap syncs Linear with the repaired tools.",
-            "if_no": "Linear is synced with today's tools, with the wrap watching for duplicates by hand.",
-            "owners_next": "No."
-          },
-          "link": "docs/launch/backlog.md"
-        },
-        {
-          "n": 14,
-          "id": "Lane UX",
-          "item": "Build lane: two small test fixes (0.6 est-h) and the owed screen walk (0.5, earns nothing)",
-          "rec": "Approve.",
-          "why": "A screens lane runs in every run, and the fine tests will fail again as the calendar moves.",
-          "kind": "Your decision",
-          "details": {
-            "ask": "Press Approve on this row, or type your own words, then press Send at the bottom of the gate page (https://hoahx-requirements.netlify.app/gate/). Needed before the run can start; nothing spawns until then.",
-            "who": "Only you can decide this.",
-            "background": "Fixes: three browser tests date a fine on a fixed day; they are changed to a date relative to today, as one test already was on Nov 20 (0.3). The screen walk has no entry for the notifications panel; one is added (0.3).\n\nWalk: Ledger, ledger adjustments, the payment refund screen, the directory, My Account and the notifications panel, after the My Account layout has landed. Findings are filed, not fixed.\n\nTo change it, type your own words on this row, for example `hold` or `queue it`.",
-            "if_yes": "The fixes start at once; the walk follows the My Account lane.",
-            "if_no": "The test dates and the walk carry to the next run.",
-            "owners_next": "No."
-          },
-          "link": "docs/launch/runs/2026-11-20/reports/fix-FX.md"
-        },
-        {
-          "n": 15,
-          "id": "Lane CI",
-          "item": "Build lane: lost test runners and the webhook error alert, 0.7 est-h",
-          "rec": "Approve.",
-          "why": "Two shards lost their runner twice in recent runs, each costing a re-run of the day's pull request.",
-          "kind": "Your decision",
-          "details": {
-            "ask": "Press Approve on this row, or type your own words, then press Send at the bottom of the gate page (https://hoahx-requirements.netlify.app/gate/). Needed before the run can start; nothing spawns until then.",
-            "who": "Only you can decide this.",
-            "background": "Runners (0.5): check how the browser test suites recycle their workers in each part, then cut the part size or recycle sooner. The shards themselves are never edited by hand. Alert (0.2): confirm that repeated webhook errors group into one incident per window, and add a rate limit to the alert definition if they do not; one policy has it today and another does not.\n\nThis is the first lane dropped if you answer late.\n\nTo change it, type your own words on this row, for example `hold` or `queue it`.",
-            "if_yes": "The lane starts at once.",
-            "if_no": "Both rows stay in the seed for the next run.",
-            "owners_next": "No."
-          },
-          "link": "docs/launch/runs/SEED.md"
-        },
-        {
-          "n": 16,
-          "id": "Process lanes",
-          "item": "Process lanes and the run-day repairs (2.0 est-h, earns nothing)",
-          "rec": "Approve.",
-          "why": "They land, check, publish and close the run; the repairs fix the two gaps found tonight so the next run does not meet them.",
-          "kind": "Your decision",
-          "details": {
-            "ask": "Press Approve on this row, or type your own words, then press Send at the bottom of the gate page (https://hoahx-requirements.netlify.app/gate/). Needed before the run can start; nothing spawns until then.",
-            "who": "Only you can decide this.",
-            "background": "- Landing: the first batch, then the build lanes' batches.\n- Staging, after staging is green: a treasurer decides a booking refund on the staging site; the six staging rows that need a real email (approved on your page).\n- Documents: the designer's surname corrected in the launch documents (approved on your page); the retired design page taken off the site once its branch has landed (approved on your page); the pages under the Publish rows below; hands-on check drafts; the client walkthrough rebuilt.\n- Wrap: status, the section Your overrides tonight, the Linear sync, the Build Log and the feature tracker.\n- Intake again for your reply: the tickets and home rows your answers add.\n- Run-day repairs, swapped in only at the close: a side branch's review is found under its own name; the pre-land check pinned by a test; the run planner counts a run as started only on a start line (approved on your page); the screen walk dropped at each landing and kept at the final proof (approved on your page).\n\nNo video lane (no feature finished), no weekly update (Sunday), no release prep (no release named).\n\nTo change it, type your own words, for example `no repairs tonight`.",
-            "if_yes": "Each lane starts when its turn comes.",
-            "if_no": "Only landing and the wrap run; the rest carries.",
-            "owners_next": "No."
-          },
-          "link": "docs/launch/runs/2026-11-22/plan.md"
-        },
-        {
-          "n": 17,
-          "id": "Refill queue",
-          "item": "Refill queue: fifteen rows, 10.35 est-h, picked up later tonight only if there is room",
-          "rec": "Approve the queue as ranked.",
-          "why": "Most rows are small follow-ups from the reviews of the branches landing tonight, cheapest while the work is fresh.",
-          "kind": "Your decision",
-          "details": {
-            "ask": "Press Approve on this row, or type your own words, then press Send at the bottom of the gate page (https://hoahx-requirements.netlify.app/gate/). Needed before the run can start; nothing spawns until then.",
-            "who": "Only you can decide this.",
-            "background": "Ranked; each row is checked again on the code before it starts, and each server change gets its own independent review.\n1. Duplicate-refusal follow-ups, five small fixes (1.4)\n2. Payment-connect follow-ups, six small fixes (1.5)\n3. Partner-webhook follow-ups, four small fixes (0.8)\n4. Booking-refund follow-ups, two fixes; the alert rows are run 2026-11-23's (0.6)\n5. A signed-out link loses the page it pointed to (0.4)\n6. Two handover email wordings (0.3)\n7. About twelve server triggers that trust a name written by the browser (1.5)\n8. Three notes from the first sign-in fix (0.15)\n9. The iPhone page zooms on a payment field (0.3)\n10. The passkey and quick-code offers open over a money dialog (0.3)\n11. The rest of the log-in homes work (1.8)\n12. Staging's sandbox vault is nearly full (0.4)\n13. A lifecycle backstop on community exports (0.2)\n14. The run planner's wrong serial-track tag (0.3)\n15. The overdue wrap leftovers in one batch, without the type-label row, as you answered (0.4)\n\nRows 1 to 4 and 8 wait for the first batch. Nothing here is needed for the pace.\n\nTo change it, type your own words, for example `queue rows 1 to 4 only`.",
-            "if_yes": "Rows start in rank order as lanes finish, until the 05:00 cutoff.",
-            "if_no": "No refill tonight; the rows stay in the backlog.",
-            "owners_next": "No."
-          },
-          "link": "docs/launch/runs/2026-11-22/plan.md"
-        }
-      ]
-    },
-    {
-      "name": "Jacob's list",
-      "rows": [
-        {
-          "n": 18,
-          "id": "J-605",
-          "item": "Confirm done: set the go / no-go day for the Jan 1, 2027 launch, and confirm the holidays and the fee (J-605)",
-          "rec": "Keep it open.",
-          "why": "You answered it in chat (go / no-go Mon Dec 28, the four holidays off, no fee change) and the files carry it, but Linear and the page republishes are still left.",
-          "kind": "Your decision",
-          "details": {
-            "ask": "Press Approve to take the recommendation, or type `close` to close the item, then press Send at the bottom of the gate page (https://hoahx-requirements.netlify.app/gate/). Nothing waits on this row.",
-            "who": "Only you can decide this.",
-            "background": "Your answer of Nov 21 was carried the same day into the change log, the plan, the proposal file and the status file. Left: the Linear milestone (wrap lane) and republishing the Launch Plan page (the Publish row below).\n\nApprove takes the recommendation and keeps the item on your list. To close it, type on this row your own words starting with `close`. To set another day, type it, for example `redate Dec 15`.",
-            "if_yes": "It stays open until the Linear milestone and the page are done; the wrap then recommends close.",
-            "if_no": "The item stays as it is and is shown again at the next gate.",
-            "owners_next": "No."
-          },
-          "link": "docs/launch/runs/2026-11-22/reports/I-jacob-refresh.md"
-        },
-        {
-          "n": 19,
-          "id": "J-574",
-          "item": "Confirm done: approve the Assistant reply fix and its command-line settings (J-574)",
-          "rec": "Keep it open.",
-          "why": "Every step is ticked but no line says the work is finished.",
-          "kind": "Your decision",
-          "details": {
-            "ask": "Press Approve to take the recommendation, or type `close` to close the item, then press Send at the bottom of the gate page (https://hoahx-requirements.netlify.app/gate/). Nothing waits on this row.",
-            "who": "Only you can decide this.",
-            "background": "The item's steps are all ticked on your page; the refresh found no record that the fix was confirmed on staging.\n\nApprove takes the recommendation and keeps the item on your list. To close it, type on this row your own words starting with `close`. To set another day, type it, for example `redate Dec 15`.",
-            "if_yes": "It stays open; the wrap states what is left in one line.",
-            "if_no": "The item stays as it is and is shown again at the next gate.",
-            "owners_next": "No."
-          },
-          "link": "docs/launch/runs/2026-11-22/reports/I-jacob-refresh.md"
-        },
-        {
-          "n": 20,
-          "id": "J-499",
-          "item": "Confirm done: turn Spotlight indexing back on after launch, on a day with no run (J-499)",
-          "rec": "Move its due day to Mon Jan 4, 2027.",
-          "why": "Its due day has passed, and the launch moved to Fri Jan 1, 2027.",
-          "kind": "Your decision",
-          "details": {
-            "ask": "Press Approve to take the recommendation, or type `close` to close the item, then press Send at the bottom of the gate page (https://hoahx-requirements.netlify.app/gate/). Nothing waits on this row.",
-            "who": "Only you can decide this.",
-            "background": "Spotlight indexing on this Mac is off to keep runs fast. The step is yours and takes a minute, after the launch.\n\nApprove takes the recommendation and keeps the item on your list. To close it, type on this row your own words starting with `close`. To set another day, type it, for example `redate Dec 15`.",
-            "if_yes": "The due line changes to Mon Jan 4, 2027.",
-            "if_no": "The item stays as it is and is shown again at the next gate.",
-            "owners_next": "No."
-          },
-          "link": "docs/launch/runs/2026-11-22/reports/I-jacob-refresh.md"
-        },
-        {
-          "n": 21,
-          "id": "J-468",
-          "item": "Confirm done: phone sitting: three staging checks that need your iPhone and your own Google and Apple accounts (J-468)",
-          "rec": "Move its due to before launch (Fri Jan 1, 2027).",
-          "why": "Its due day has passed and nothing has been recorded since.",
-          "kind": "Your decision",
-          "details": {
-            "ask": "Press Approve to take the recommendation, or type `close` to close the item, then press Send at the bottom of the gate page (https://hoahx-requirements.netlify.app/gate/). Nothing waits on this row.",
-            "who": "Only you can decide this.",
-            "background": "Three checks on the staging site that only your own phone and accounts can make.\n\nApprove takes the recommendation and keeps the item on your list. To close it, type on this row your own words starting with `close`. To set another day, type it, for example `redate Dec 15`.",
-            "if_yes": "The due line changes to before launch.",
-            "if_no": "The item stays as it is and is shown again at the next gate.",
-            "owners_next": "No."
-          },
-          "link": "docs/launch/runs/2026-11-22/reports/I-jacob-refresh.md"
-        },
-        {
-          "n": 22,
-          "id": "J-388",
-          "item": "Your step: post the combined follow-up to PlatPay in the #platpay-hoahx Slack channel (J-388)",
-          "rec": "Send: `approved, I will post it Monday`.",
-          "why": "The boarding answers gate the first live payment and the community subscription charge, and they have been owed for more than a week.",
-          "kind": "Your step",
-          "details": {
-            "ask": "Post the message in Slack yourself (the steps and the text are in the background below), by Monday Nov 23 in the morning. On this row press Approve, then Send at the bottom of the gate page (https://hoahx-requirements.netlify.app/gate/). The first live payment and the subscription charge wait on PlatPay's answers.",
-            "who": "Only you: the channel is yours and no agent posts to PlatPay.",
-            "background": "What it is: one message asking PlatPay for a date on five open items (matching a batch to its deposit, merchant-account dates and pricing, returned bank payments, the PCI call, Plaid tokens). You approved posting it at the gates of Nov 18 and Nov 19; no record says it was posted.\n\nThe saved draft still names the old go / no-go (Nov 25) and the old launch (Nov 30). The text below is the same draft with only those two dates changed to Mon Dec 28 and Fri Jan 1, 2027.\n\nHow:\n1. Open Slack, channel #platpay-hoahx.\n2. Read what PlatPay wrote since Nov 19, and delete from the text any point they already answered.\n3. Paste the text and send it.\n4. Tell the orchestrator in chat: `PlatPay follow-up posted`.\n\nThe text:\n\nHello,\n\nThank you for the proposed wording of Addendum No. 1. We are waiting for the clean addendum and the redline, and we are holding our signature until the full terms arrive.\n\nOur go / no-go is Monday, December 28, and we target opening to communities on Friday, January 1, 2027. Five items are open, and each one gates a live payment:\n\n1. Matching a batch to its deposit: how a settled batch maps to the bank deposit, and how returns, chargebacks and fees show in that match, so our records can tie each deposit to the payments in it. Could you send a sample deposit report or the field list?\n2. Merchant-account dates and pricing: when each community's merchant account can be approved, and the pricing terms we are asked to sign.\n3. Deposits and returns: how returned bank payments are reported to us (timing and the detail in each notice).\n4. The PCI call: a date, and what you need from us beforehand.\n5. Plaid tokens: the tokens for bank-account entry, so we can test it end to end.\n\nCould you send a date for each by Tuesday, November 24? Everything else on our side is built and verified in your sandbox.\n\nThank you,\nJacob",
-            "if_yes": "The item stays on your list until you say it is posted; the documents lane brings the saved draft up to the new dates.",
-            "if_no": "The item stays open and is shown again at the next gate.",
-            "owners_next": "No."
-          },
-          "link": "docs/launch/runs/2026-11-20/nmi-followup-draft.md"
-        }
-      ]
-    },
-    {
-      "name": "Publishes today",
-      "rows": [
-        {
-          "n": 23,
-          "id": "publish:owners-page",
-          "item": "Publish the owners' open questions page with two new question cards",
-          "rec": "Approve the publish.",
-          "why": "Two cards are written and not yet on the page the owners answer from.",
-          "kind": "Publish",
-          "details": {
-            "ask": "Press Approve on this row, or type your own words, then press Send at the bottom of the gate page (https://hoahx-requirements.netlify.app/gate/). Needed before the run can start; nothing spawns until then.",
-            "who": "Only you can decide this.",
-            "background": "The cards A131 and A132 (the newest booking refund questions for the owners) are in the files and missing from the site. Accepted answers move to the Answered Questions tab in the same publish. No owner answer is waiting for your acceptance tonight.\n\nTo hold it, type `hold` on this row.",
-            "if_yes": "The documents lane publishes after the wrap.",
-            "if_no": "The page is built and held; it stays as it is on the site.",
-            "owners_next": "No."
-          },
-          "link": "https://hoahx-requirements.netlify.app/"
-        },
-        {
-          "n": 24,
-          "id": "publish:qa",
-          "item": "Publish the hands-on checks page",
-          "rec": "Approve the publish.",
-          "why": "The cards changed since the page was last published, and tonight's landings add drafts.",
-          "kind": "Publish",
-          "details": {
-            "ask": "Press Approve on this row, or type your own words, then press Send at the bottom of the gate page (https://hoahx-requirements.netlify.app/gate/). Needed before the run can start; nothing spawns until then.",
-            "who": "Only you can decide this.",
-            "background": "78 cards, 63 ready, none passed yet. The publish brings the page level with the card file and adds the cards drafted for tonight's landed work once the independent reviewer has passed them.\n\nTo hold it, type `hold` on this row.",
-            "if_yes": "The documents lane publishes after the drafts are reviewed.",
-            "if_no": "The page is built and held; it stays as it is on the site.",
-            "owners_next": "No."
-          },
-          "link": "https://hoahx-requirements.netlify.app/qa"
-        },
-        {
-          "n": 25,
-          "id": "publish:workflow-map",
-          "item": "Publish the workflow map after tonight's merge",
-          "rec": "Approve the publish.",
-          "why": "The map changes with the eleven branches landing tonight.",
-          "kind": "Publish",
-          "details": {
-            "ask": "Press Approve on this row, or type your own words, then press Send at the bottom of the gate page (https://hoahx-requirements.netlify.app/gate/). Needed before the run can start; nothing spawns until then.",
-            "who": "Only you can decide this.",
-            "background": "The map is rebuilt from the merged code and its coverage check must pass before the publish.\n\nTo hold it, type `hold` on this row.",
-            "if_yes": "The documents lane publishes after the day's pull request merges.",
-            "if_no": "The page is built and held; it stays as it is on the site.",
-            "owners_next": "No."
-          },
-          "link": "docs/launch/workflow-map.html"
-        },
-        {
-          "n": 26,
-          "id": "publish:plan",
-          "item": "Publish the Launch Plan page with the Jan 1, 2027 launch and the Dec 28 go / no-go",
-          "rec": "Approve the publish.",
-          "why": "The owners' page still shows the old launch date; the files were changed on Nov 21 on your word.",
-          "kind": "Publish",
-          "details": {
-            "ask": "Press Approve on this row, or type your own words, then press Send at the bottom of the gate page (https://hoahx-requirements.netlify.app/gate/). Needed before the run can start; nothing spawns until then.",
-            "who": "Only you can decide this.",
-            "background": "This row covers the Launch Plan page only. The proposal page is held for your own word in chat and is not part of this row. The designer's surname correction rides the same publish.\n\nTo hold it, type `hold` on this row.",
-            "if_yes": "The documents lane reads the live page, rebuilds it and publishes it on the site.",
-            "if_no": "The page is built and held; it stays as it is on the site.",
-            "owners_next": "No."
-          },
-          "link": "https://hoahx-requirements.netlify.app/launch-plan/"
-        },
-        {
-          "n": 27,
-          "id": "Standing pages",
-          "item": "Pages that publish without a row tonight, and pages that do not",
-          "rec": "Nothing to answer.",
-          "why": "They run under standing approvals or have no lane.",
-          "kind": "For your information (nothing to answer)",
-          "details": {
-            "ask": "Nothing to answer on this row.",
-            "who": "You.",
-            "background": "- Build Log and the feature tracker: the wrap lane, after the merge, as every run.\n- Weekly update: none, it is Sunday.\n- Proposal page: held for your word in chat.\n- Client walkthrough: rebuilt tonight; which approval its publish needs was not verified, so the orchestrator confirms before anything is published.\n- Your Launch List page and the hands-on checks page's own code: out of date per intake, updated by hand, no lane tonight.\n- Release prep: no release is named, so nothing goes to production.",
-            "owners_next": "No."
-          },
-          "link": "docs/launch/runs/2026-11-22/plan.md"
-        }
-      ]
-    },
-    {
-      "name": "Your sign-offs",
-      "rows": [
-        {
-          "n": 28,
-          "id": "Your sign-offs",
-          "item": "What waits on you besides this gate",
-          "rec": "Nothing to answer here.",
-          "why": "One list of your own open sign-offs, with where each is done.",
-          "kind": "For your information (nothing to answer)",
-          "details": {
-            "ask": "Nothing to answer on this row.",
-            "who": "You.",
-            "background": "- Sign-off book (https://hoahx-requirements.netlify.app/signoff/): 136 role rows wait in the first tier (iPhone 88, Android 33, the rest web). Passed so far: web 5 of 515, iPhone 0 of 452, Android 0 of 428. 15 new bugs are written and none is sent; they are triaged once you press Send in the book.\n- Hands-on checks (https://hoahx-requirements.netlify.app/qa): 63 cards ready, none passed.\n- Your Launch List (https://hoahx-requirements.netlify.app/launch-list/): 94 open items; three wallet steps on your phone are yours.\n- The NMI agreement: past due on pricing; the signature is held until the full terms arrive.\n- Held for your word in chat and so not on this gate: new phone builds and the iOS review, the proposal page, and six older items.",
-            "owners_next": "No."
-          },
-          "link": "docs/launch/runs/2026-11-22/signoffs.md"
-        }
-      ]
+     "n": 2,
+     "id": "What intake found",
+     "item": "Intake is clean: staging is green, the owners sent no new answers, no screen findings wait",
+     "rec": "Nothing to answer",
+     "why": "Nothing found at intake stops the run.",
+     "kind": "For your information (nothing to answer)",
+     "details": {
+      "ask": "Nothing to answer on this row.",
+      "who": "Nobody decides.",
+      "background": "Staging is green on the code merged this morning. Test-run spending is $57.13 of the $150 credit for November. Your list had ten sent items, all already carried; four proposed items and two to confirm are rows below. Six pages are out of date (rows under Publishes today). Your sign-off book stands at web 5 of 515, with 15 new bugs not yet sent.",
+      "owners_next": "No."
+     },
+     "link": "docs/launch/runs/2026-11-23/intake.md"
     }
-  ],
-  "legend": {
-    "PT-068": {
-      "k": "a proposed Linear ticket",
-      "t": "No guard looks for a card number, a gateway key or a token in a log line or a stored record",
-      "s": "proposed"
+   ]
+  },
+  {
+   "name": "Intake",
+   "rows": [
+    {
+     "n": 3,
+     "id": "Tenyson's design PRs",
+     "item": "Tenyson's three design pull requests are verified landed: #129, #131 and #133 (the My Account layout) are all merged into dev",
+     "rec": "Nothing to answer: the wrap closes the overdue row",
+     "why": "The planner still lists this work as overdue and unverified; it is done, so the row is closed and stops raising an error.",
+     "kind": "For your information (nothing to answer)",
+     "details": {
+      "ask": "Nothing to answer on this row.",
+      "who": "Nobody decides; the wrap lane closes the row.",
+      "background": "Checked tonight: GitHub shows all three merged on Nov 22 at 06:00 MST, the merge commit is on dev, no pull request is open, and none of Tenyson's branches holds a commit that dev lacks. The wrap lane marks the planner's row done.",
+      "owners_next": "No."
+     },
+     "link": "https://github.com/starlordhoa/hoahx/pull/133"
     },
-    "PT-069": {
-      "k": "a proposed Linear ticket",
-      "t": "No guard stops new code being added to the old homeowner dues files",
-      "s": "proposed"
+    {
+     "n": 4,
+     "id": "Bug reviews missing",
+     "item": "The booking refund alerts lane you added cannot start yet: its two defects have no recorded review, and its four follow-ups are not filed",
+     "rec": "Nothing to answer: the intake lane files and reviews them first",
+     "why": "A money fix never starts without its review; reviews run three at a time and take 20 to 45 minutes each, so this lane starts later tonight.",
+     "kind": "For your information (nothing to answer)",
+     "details": {
+      "ask": "Nothing to answer on this row.",
+      "who": "The intake lane, after your Send.",
+      "background": "Not reviewed: the failed-return alert that sends staff to the processor (F685) and the owed-back alert that never reopens (F687). Not filed: your four follow-ups, close and reopen the alert (J-608), tell staff how to refund (J-609), show the newest booking payments (J-610), keep dues refunds when bookings fail to load (J-611). Eleven other queued defects also lack a review and wait in the queue, not in a lane.",
+      "owners_next": "No."
+     },
+     "link": "docs/launch/runs/2026-11-23/plan.md"
     },
-    "PT-070": {
-      "k": "a proposed Linear ticket",
-      "t": "Flaky unit test: member permissions 'exactly one row is pressed' fails on the first try and passes on retry",
-      "s": "proposed"
-    },
-    "PT-071": {
-      "k": "a proposed Linear ticket",
-      "t": "Parking a side build does not record the landing word on the run planner row, so the planner blocks the run until someone sets it by hand",
-      "s": "proposed"
-    },
-    "PT-072": {
-      "k": "a proposed Linear ticket",
-      "t": "The run planner puts the whole staff pages folder on the subscription money track, so a build editing any staff page needs a word for that track",
-      "s": "proposed"
-    },
-    "PT-056": {
-      "k": "a proposed Linear ticket",
-      "t": "The run day impact check says a run is live when the last run has ended",
-      "s": "proposed"
-    },
-    "PT-067": {
-      "k": "a proposed Linear ticket",
-      "t": "The run preflight does not warn when a landing row's commit is behind its branch tip, or when a side row carries no pre-land record for the lander",
-      "s": "proposed"
-    },
-    "PT-060": {
-      "k": "a proposed Linear ticket",
-      "t": "After launch: one registry for platform settings (feature switches), with an Assistant settings screen as its first use",
-      "s": "approved"
-    },
-    "PT-061": {
-      "k": "a proposed Linear ticket",
-      "t": "The lost-item check reports a reworded seed row as lost every night, and no intake step reads its warning",
-      "s": "proposed"
-    },
-    "PT-062": {
-      "k": "a proposed Linear ticket",
-      "t": "The night's lander refuses a parked side branch whose review and pre-land checks were recorded in the side-task folder",
-      "s": "proposed"
-    },
-    "J-605": {
-      "k": "an item on Jacob's list",
-      "t": "Set the go / no-go day for the Jan 1, 2027 launch, and confirm the holidays and the fee",
-      "s": "answered"
-    },
-    "J-574": {
-      "k": "an item on Jacob's list",
-      "t": "Approve the Assistant reply fix and its command-line settings",
-      "s": "open"
-    },
-    "J-499": {
-      "k": "an item on Jacob's list",
-      "t": "Turn Spotlight indexing back on after launch, on a day with no run",
-      "s": "open"
-    },
-    "J-468": {
-      "k": "an item on Jacob's list",
-      "t": "Phone sitting: three staging checks that need your iPhone and your own Google and Apple accounts",
-      "s": "open"
-    },
-    "J-388": {
-      "k": "an item on Jacob's list",
-      "t": "Send PlatPay the combined follow-up and chase what is owed",
-      "s": "open"
-    },
-    "A131": {
-      "k": "a card on the owners' open questions page",
-      "t": "Who can make someone a resident of a community",
-      "s": ""
-    },
-    "A132": {
-      "k": "a card on the owners' open questions page",
-      "t": "What comes back when staff cancel or reject a paid booking",
-      "s": ""
+    {
+     "n": 5,
+     "id": "PlatPay login in Slack",
+     "item": "A Slack post from Nov 2 holds a PlatPay login in plain text",
+     "rec": "Approve: you delete the post and change the password",
+     "why": "A password that sat in a channel for three weeks should be treated as seen.",
+     "kind": "Your step",
+     "details": {
+      "ask": "1. In Slack, search your messages for \"PlatPay\" dated Nov 2, open the post, press the three dots, Delete message. 2. Sign in to the PlatPay portal, open your profile, change the password. 3. Press Approve on this row and Send; type `done` if both are finished.",
+      "who": "Only you: it is your post and your login.",
+      "background": "Intake's inbox pass found it. No agent can delete your Slack post or change that password.",
+      "if_yes": "The wrap records it done and nothing else changes.",
+      "if_no": "The login stays readable by everyone in that channel.",
+      "owners_next": "No."
+     },
+     "link": "docs/launch/runs/2026-11-23/intake.md"
     }
+   ]
+  },
+  {
+   "name": "Build lanes",
+   "rows": [
+    {
+     "n": 6,
+     "id": "Landing first",
+     "item": "Land two finished side branches before any lane starts: first the removal of the retired design page's token file (J-604, take the retired design page off the site and remove its old token file), then Apple Pay and Google Pay on the dues payment, switched off per community (I-013, your word \"park I-013\")",
+     "rec": "Approve this order",
+     "why": "Both are built and wait only to land; the wallet work passed its separate review, and the documents branch stays held for Monday's trial.",
+     "kind": "Your decision",
+     "details": {
+      "ask": "Press Approve on this row, or type your own words, then press Send at the bottom of the gate page (https://hoahx-requirements.netlify.app/gate/). Needed before the run can start; nothing spawns until then.",
+      "who": "Only you can decide this.",
+      "background": "The token file removal is one deleted file (0.05 est-h). The wallet work is 24 files, 3.8 est-h, off until a community switches it on. Its report names one home-sale test that failed once and passed on a re-run; that test is filed as a defect (F713) and the small rows lane fixes it tonight. Held, in no batch tonight: the documents branch, for trial 1 of the run-day redesign on Mon Nov 23 at 12:00.",
+      "if_yes": "The lander proves and lands both before any lane touches payment files.",
+      "if_no": "Both branches wait for the next run, and the money lanes start on dev as it is.",
+      "owners_next": "No."
+     },
+     "link": "docs/launch/runs/2026-11-23/plan.md"
+    },
+    {
+     "n": 7,
+     "id": "Lane HM",
+     "item": "Homeowner money lane: fix the possible double charge if you approve its row below, then four payment defects (Try again resends a declined record; a declined dues payment leaves no history; a boarding event can overwrite a staff pause; a boarding event can copy another community's merchant id)",
+     "rec": "Approve",
+     "why": "All six defects are reviewed and all must be right before the first real charge.",
+     "kind": "Your decision",
+     "details": {
+      "ask": "Press Approve on this row, or type your own words, then press Send at the bottom of the gate page (https://hoahx-requirements.netlify.app/gate/). Needed before the run can start; nothing spawns until then.",
+      "who": "Only you can decide this.",
+      "background": "2.1 est-h in two slices. Slice 1 (1.3): the double charge (F690, F691 and the same marker on the subscription side), the Try again defect (F688), the missing history row (F689). Slice 2 (0.8): the two boarding defects (F698, F701). Careful setting, with a separate second review of each slice. It starts after the landing-first batch.",
+      "if_yes": "The lane starts once the first batch has landed.",
+      "if_no": "The six defects stay open, and the double charge row below has no lane to carry it.",
+      "owners_next": "No."
+     },
+     "link": "docs/launch/runs/2026-11-23/plan.md"
+    },
+    {
+     "n": 8,
+     "id": "Lane BR",
+     "item": "Booking refund alerts lane, the one you added (J-607, fix the two booking refund alerts): the failed-return alert tells staff how to refund in HOA HX, the owed-back alert reopens, and your four follow-ups",
+     "rec": "Approve",
+     "why": "You asked for it; it runs after the homeowner money lane because both touch the same payment code.",
+     "kind": "Your decision",
+     "details": {
+      "ask": "Press Approve on this row, or type your own words, then press Send at the bottom of the gate page (https://hoahx-requirements.netlify.app/gate/). Needed before the run can start; nothing spawns until then.",
+      "who": "Only you can decide this.",
+      "background": "1.1 est-h. It waits for two things: the homeowner money lane to finish, and the reviews named in the row above. Careful setting, with a separate second review. If the reviews are not recorded by about 02:30 it carries to the next run.",
+      "if_yes": "It starts as soon as its reviews are in and the homeowner money lane has landed.",
+      "if_no": "The two alerts stay as they are until the next run.",
+      "owners_next": "No."
+     },
+     "link": "docs/launch/runs/2026-11-23/plan.md"
+    },
+    {
+     "n": 9,
+     "id": "Lane SB",
+     "item": "Subscription money lane: the scheduled plan charge writes one history row instead of one per deferral, then the subscription review's follow-ups as each is filed and reviewed, billing alerts that nobody reads first",
+     "rec": "Approve",
+     "why": "The alert reader is needed before the first live subscription charge; the first fix is reviewed and ready now.",
+     "kind": "Your decision",
+     "details": {
+      "ask": "Press Approve on this row, or type your own words, then press Send at the bottom of the gate page (https://hoahx-requirements.netlify.app/gate/). Needed before the run can start; nothing spawns until then.",
+      "who": "Only you can decide this.",
+      "background": "Up to 2.0 est-h. Ready now: the history row defect (F692, 0.2). The rest (the alert reader 0.8, and three smaller rows) start only after the intake lane files each and its review is recorded. Careful setting, with a separate second review.",
+      "if_yes": "The lane starts after the first batch; unreviewed rows are skipped, not waited on.",
+      "if_no": "Billing alerts still have no reader when the first live subscription charge comes.",
+      "owners_next": "No."
+     },
+     "link": "docs/launch/runs/2026-11-23/plan.md"
+    },
+    {
+     "n": 10,
+     "id": "Lane CI",
+     "item": "Test gate lane: repair the quarantined close-vote browser test before its quarantine runs out on Nov 27, add a time limit to three browser-install steps that can hang, and six smaller upkeep rows",
+     "rec": "Approve",
+     "why": "A quarantine that expires turns the gate red for everyone; the hang cost a landing last run.",
+     "kind": "Your decision",
+     "details": {
+      "ask": "Press Approve on this row, or type your own words, then press Send at the bottom of the gate page (https://hoahx-requirements.netlify.app/gate/). Needed before the run can start; nothing spawns until then.",
+      "who": "Only you can decide this.",
+      "background": "3.1 est-h, no product code. It never edits the list of test shards by hand.",
+      "if_yes": "The lane starts at once.",
+      "if_no": "The quarantined test expires on Nov 27 with no repair.",
+      "owners_next": "No."
+     },
+     "link": "docs/launch/runs/2026-11-23/plan.md"
+    },
+    {
+     "n": 11,
+     "id": "Lane X",
+     "item": "Small rows lane: two flaky tests (the home-sale tenant confirmation test, and the member-permissions test that fails on its first try) and the two test-pyramid drifts",
+     "rec": "Approve",
+     "why": "The home-sale test is the one the wallet branch tripped on; fixing it removes a false red from tonight's landings.",
+     "kind": "Your decision",
+     "details": {
+      "ask": "Press Approve on this row, or type your own words, then press Send at the bottom of the gate page (https://hoahx-requirements.netlify.app/gate/). Needed before the run can start; nothing spawns until then.",
+      "who": "Only you can decide this.",
+      "background": "1.1 est-h. Defects F713 and F712, both reviewed. The drifts: the unit suite takes 261 seconds against 180, and six landings carry no integration row.",
+      "if_yes": "The lane starts at once.",
+      "if_no": "The flaky tests keep costing re-runs.",
+      "owners_next": "No."
+     },
+     "link": "docs/launch/runs/2026-11-23/plan.md"
+    },
+    {
+     "n": 12,
+     "id": "Lane UX",
+     "item": "Screens lane: the sign-in offers no longer open over an open money form, the iPhone bank field no longer zooms the page, fixed dates in one fine test, and four small screen rows",
+     "rec": "Approve",
+     "why": "The screen walk found nothing new, so the lane takes a slice of what is still open.",
+     "kind": "Your decision",
+     "details": {
+      "ask": "Press Approve on this row, or type your own words, then press Send at the bottom of the gate page (https://hoahx-requirements.netlify.app/gate/). Needed before the run can start; nothing spawns until then.",
+      "who": "Only you can decide this.",
+      "background": "1.9 est-h, screens only, no logic. Defects F674 and F676, both reviewed. The four small rows start only once each has a light review.",
+      "if_yes": "The lane starts at once; the bank field fix waits for the first batch.",
+      "if_no": "The two defects stay open.",
+      "owners_next": "No."
+     },
+     "link": "docs/launch/runs/2026-11-23/plan.md"
+    },
+    {
+     "n": 13,
+     "id": "Lane RD",
+     "item": "Run-day repair lane: nine fixes to the run's own scripts, up to the 2.0 est-h allowance",
+     "rec": "Approve",
+     "why": "Each fix removes a stop that cost time last run; it earns nothing and never changes a live run.",
+     "kind": "Your decision",
+     "details": {
+      "ask": "Press Approve on this row, or type your own words, then press Send at the bottom of the gate page (https://hoahx-requirements.netlify.app/gate/). Needed before the run can start; nothing spawns until then.",
+      "who": "Only you can decide this.",
+      "background": "In order of cost saved, among them: the plan carries only reviewed queue rows, the lander reads a side branch's review and pre-land record, the hook writes to the open run. It works on a copy that is applied only at the close. It touches nothing of the run-day redesign.",
+      "if_yes": "The lane starts at once.",
+      "if_no": "The same stops recur next run.",
+      "owners_next": "No."
+     },
+     "link": "docs/launch/runs/2026-11-23/plan.md"
+    },
+    {
+     "n": 14,
+     "id": "Process lanes",
+     "item": "The lanes that build no product: landings, the intake follow-up (files and reviews the unreviewed defects), staging checks, documents, the wrap",
+     "rec": "Approve",
+     "why": "They carry the run; staging is already green, so its checks start at once.",
+     "kind": "Your decision",
+     "details": {
+      "ask": "Press Approve on this row, or type your own words, then press Send at the bottom of the gate page (https://hoahx-requirements.netlify.app/gate/). Needed before the run can start; nothing spawns until then.",
+      "who": "Only you can decide this.",
+      "background": "No videos lane (no feature finishes tonight) and no weekly lane (Monday). The documents lane refreshes the PlatPay follow-up draft first. The wrap closes the planner's overdue row for Tenyson's work and puts the home-sale test defect on your Bugs tab.",
+      "if_yes": "They start in their order after Send.",
+      "if_no": "Nothing lands and nothing is recorded.",
+      "owners_next": "No."
+     },
+     "link": "docs/launch/runs/2026-11-23/plan.md"
+    },
+    {
+     "n": 15,
+     "id": "Refill queue",
+     "item": "Later tonight if room: eleven queued rows, 10.6 est-h (first sign-in follow-ups, the boarding defects, screen polish, booking refund follow-ups, subscription follow-ups, triggers that trust what the browser wrote, older defects)",
+     "rec": "Approve as one",
+     "why": "A free slot picks up the next row without waking you; the first three rows are reviewed, and an unreviewed row is skipped, never waited on.",
+     "kind": "Your decision",
+     "details": {
+      "ask": "Press Approve on this row, or type your own words, then press Send at the bottom of the gate page (https://hoahx-requirements.netlify.app/gate/). Needed before the run can start; nothing spawns until then.",
+      "who": "Only you can decide this.",
+      "background": "Last run the queue stopped at 01:29 because its rows had no review. Tonight three reviewed rows lead, and the intake lane reviews the rest while the lanes build.",
+      "if_yes": "A row starts only when a slot and the usage cap allow; the rest carries.",
+      "if_no": "Free slots stay idle when the lanes finish.",
+      "owners_next": "No."
+     },
+     "link": "docs/launch/runs/2026-11-23/plan.md"
+    }
+   ]
+  },
+  {
+   "name": "Jacob's list",
+   "rows": [
+    {
+     "n": 16,
+     "id": "J-615",
+     "item": "Fix the possible double charge before the next release to production (J-615)",
+     "rec": "Send: `A approve`",
+     "why": "A late duplicate payment event can clear a marker and let the scheduler charge a homeowner twice; no real charge has happened yet, so this is the cheap moment.",
+     "kind": "Your decision",
+     "details": {
+      "ask": "On this row press Approve (it sends `A approve`), or type `B` or `C`, then press Send at the bottom.",
+      "who": "Only you can decide this.",
+      "background": "Two reviewed defects (F690, F691) plus the same marker on the subscription side, 0.5 est-h, with tests that fail first. Option A: fix all three tonight in the homeowner money lane. Option B: fix only the homeowner half. Option C: hold.",
+      "if_yes": "The homeowner money lane builds it first, with a separate second review.",
+      "if_no": "The defect stays, and no release to production should carry a real charge until it is fixed.",
+      "owners_next": "No."
+     },
+     "link": "https://hoahx-requirements.netlify.app/launch-list/"
+    },
+    {
+     "n": 17,
+     "id": "J-616",
+     "item": "Choose when the Launch Plan page shows January 1 (J-616)",
+     "rec": "Send: `A redraw it Friday`",
+     "why": "The page's picture and its text both need the new date; one redraw on Friday with the weekly update is one publish, not two.",
+     "kind": "Your decision",
+     "details": {
+      "ask": "On this row press Approve (it sends `A redraw it Friday`), or type `B`, then press Send.",
+      "who": "Only you can decide this.",
+      "background": "The owners' Launch Plan page still shows the old launch date. Option A: the weekly lane redraws and publishes it Fri Nov 27. Option B: the documents lane publishes the corrected text tonight and the picture follows Friday.",
+      "if_yes": "The page stays as it is until Friday, held with the proposal and the Hub.",
+      "if_no": "With `B`, the documents lane publishes the text after tonight's merge.",
+      "owners_next": "No."
+     },
+     "link": "https://hoahx-requirements.netlify.app/launch-list/"
+    },
+    {
+     "n": 18,
+     "id": "J-617",
+     "item": "Correct the old spelling of the designer's surname in the design documents too (J-617)",
+     "rec": "Send: `A correct the living ones`",
+     "why": "Documents still in use should carry the right name; old records stay as written.",
+     "kind": "Your decision",
+     "details": {
+      "ask": "On this row press Approve (it sends `A correct the living ones`), or type `B`, then press Send.",
+      "who": "Only you can decide this.",
+      "background": "A follow-up of the surname fix you approved last run. Option A: the documents lane corrects the living design documents, no page is published. Option B: leave them.",
+      "if_yes": "The documents lane makes the edits tonight.",
+      "if_no": "The old spelling stays in the design documents.",
+      "owners_next": "No."
+     },
+     "link": "https://hoahx-requirements.netlify.app/launch-list/"
+    },
+    {
+     "n": 19,
+     "id": "J-618",
+     "item": "Allow a read-only production check for same-day subscription refunds that were never recorded (J-618)",
+     "rec": "Send: `A run the read-only check`",
+     "why": "It only reads; it tells us whether any real record is missing before the first live subscription charge.",
+     "kind": "Your decision",
+     "details": {
+      "ask": "On this row press Approve (it sends `A run the read-only check`), or type `B hold`, then press Send.",
+      "who": "Only you can decide this.",
+      "background": "The fix for unrecorded same-day refunds (F675) landed in dev this morning. The check lists any earlier refund in production that has no record. It runs after the release that carries the fix, never from a laptop deploy.",
+      "if_yes": "The check runs after the next release and its result comes to your list.",
+      "if_no": "We do not know whether an old refund is unrecorded.",
+      "owners_next": "No."
+     },
+     "link": "https://hoahx-requirements.netlify.app/launch-list/"
+    },
+    {
+     "n": 20,
+     "id": "J-600",
+     "item": "Confirm done: the three held retired documents are removed (J-600, decide when the three held retired documents are removed)",
+     "rec": "Send: `close`",
+     "why": "They were removed in the pull request that merged this morning (#135).",
+     "kind": "Your decision",
+     "details": {
+      "ask": "On this row press Approve (it sends `close`), then press Send.",
+      "who": "Only you can decide this.",
+      "background": "Your list still shows the item open; the work is on dev.",
+      "if_yes": "The wrap closes the item on your page.",
+      "if_no": "It stays open on your list.",
+      "owners_next": "No."
+     },
+     "link": "https://hoahx-requirements.netlify.app/launch-list/"
+    },
+    {
+     "n": 21,
+     "id": "J-499",
+     "item": "Confirm: Spotlight indexing goes back on after launch (J-499), keep its date of Mon Jan 4, 2027",
+     "rec": "Send: `keep Jan 4`",
+     "why": "The list refresh flagged it as past due by mistake: it read a 2027 date as already passed. You set this date at the last gate.",
+     "kind": "Your decision",
+     "details": {
+      "ask": "On this row press Approve (it sends `keep Jan 4`), then press Send.",
+      "who": "Only you can decide this.",
+      "background": "Nothing is due now. The run-day repair lane gets a note to fix the date comparison.",
+      "if_yes": "The date stays and the false flag is cleared.",
+      "if_no": "Type the date you want instead.",
+      "owners_next": "No."
+     },
+     "link": "https://hoahx-requirements.netlify.app/launch-list/"
+    },
+    {
+     "n": 22,
+     "id": "J-388",
+     "item": "Post the refreshed PlatPay follow-up in Slack on Mon Nov 23 (J-388, send PlatPay the combined follow-up and chase what is owed)",
+     "rec": "Approve: the documents lane refreshes the draft, you post it",
+     "why": "PlatPay's boarding answers, dates and pricing gate the first live payment and the launch's critical path.",
+     "kind": "Your step",
+     "details": {
+      "ask": "1. Press Approve here and Send. 2. On Monday morning open the draft file named in the link, copy its text. 3. Paste it into the PlatPay Slack channel and post. 4. On your Launch List, item \"Send PlatPay the combined follow-up\", press Done.",
+      "who": "Only you can post to PlatPay.",
+      "background": "The documents lane writes the refreshed text to docs/launch/runs/2026-11-23/nmi-followup-draft.md before anything else tonight.",
+      "if_yes": "The draft is ready by morning.",
+      "if_no": "The follow-up slips and so does the first live payment.",
+      "owners_next": "No."
+     },
+     "link": "docs/launch/runs/2026-11-23/nmi-followup-draft.md"
+    }
+   ]
+  },
+  {
+   "name": "Publishes today",
+   "rows": [
+    {
+     "n": 23,
+     "id": "publish:owners-page",
+     "item": "Publish the owners' open questions page, which is out of date",
+     "rec": "Approve",
+     "why": "It is the page you ask the owners from; three decisions still wait on them.",
+     "kind": "Publish",
+     "details": {
+      "ask": "Press Approve on this row, or type your own words, then press Send at the bottom of the gate page (https://hoahx-requirements.netlify.app/gate/). Needed before the run can start; nothing spawns until then.",
+      "who": "You approve; the documents lane publishes after the merge.",
+      "background": "Waiting on the owners: the booking deposit on a timely cancellation (D-401), whether staff may give the Resident, Owner or Tenant role directly (D-402), what comes back when staff cancel a paid booking (D-403).",
+      "if_yes": "Published after tonight's merge.",
+      "if_no": "The page stays as it is.",
+      "owners_next": "Yes: it is their page."
+     },
+     "link": "https://hoahx-requirements.netlify.app/"
+    },
+    {
+     "n": 24,
+     "id": "publish:qa",
+     "item": "Publish the hands-on checks page and the client walkthrough, both out of date",
+     "rec": "Approve",
+     "why": "The tester you name will work from them.",
+     "kind": "Publish",
+     "details": {
+      "ask": "Press Approve on this row, or type your own words, then press Send at the bottom of the gate page (https://hoahx-requirements.netlify.app/gate/). Needed before the run can start; nothing spawns until then.",
+      "who": "You approve; the documents lane publishes.",
+      "background": "89 cards, 85 ready, none passed yet.",
+      "if_yes": "Published after the merge.",
+      "if_no": "They stay out of date.",
+      "owners_next": "No."
+     },
+     "link": "https://hoahx-requirements.netlify.app/qa"
+    },
+    {
+     "n": 25,
+     "id": "Standing and held pages",
+     "item": "The Build Log and the feature tracker republish at the wrap under your standing approval; the Launch Plan, the proposal and the Hub stay held",
+     "rec": "Nothing to answer",
+     "why": "The three held pages follow your answer on the Launch Plan row above.",
+     "kind": "For your information (nothing to answer)",
+     "details": {
+      "ask": "Nothing to answer on this row.",
+      "who": "Nobody decides here.",
+      "background": "Running Costs: its state is unknown, the wrap checks it.",
+      "owners_next": "No."
+     },
+     "link": "https://hoahx-requirements.netlify.app/build-log/"
+    }
+   ]
+  },
+  {
+   "name": "Your sign-offs",
+   "rows": [
+    {
+     "n": 26,
+     "id": "Sign-off book",
+     "item": "Your sign-off book: web 5 of 515, 136 stories waiting for you, 15 new bugs not yet sent",
+     "rec": "Nothing to answer here",
+     "why": "The go/no-go on Mon Dec 28 reads this count.",
+     "kind": "For your information (nothing to answer)",
+     "details": {
+      "ask": "Nothing to answer on this row.",
+      "who": "Only you walk and send; nothing waits on it tonight.",
+      "background": "To send the 15 bugs: open https://hoahx-requirements.netlify.app/signoff/, tab Bugs, press Send all (your list item \"Send the 15 bugs in your sign-off book to triage\", J-560). Still open too: naming who runs the hands-on checks (J-466).",
+      "owners_next": "No."
+     },
+     "link": "https://hoahx-requirements.netlify.app/signoff/"
+    }
+   ]
   }
+ ],
+ "legend": {
+  "F685": {
+   "k": "a defect",
+   "t": "The \"booking return failed\" staff alert still tells staff to return the money at the processor, while the…",
+   "s": ""
+  },
+  "F687": {
+   "k": "a defect",
+   "t": "A closed \"booking deposit owed back\" alert never reopens, because its id is fixed per booking and the alert…",
+   "s": ""
+  },
+  "J-608": {
+   "k": "an item on Jacob's list",
+   "t": "Close and reopen the failed-return alert",
+   "s": "open"
+  },
+  "J-609": {
+   "k": "an item on Jacob's list",
+   "t": "Tell staff how to refund an owed booking",
+   "s": "open"
+  },
+  "J-610": {
+   "k": "an item on Jacob's list",
+   "t": "Show the newest booking payments to refund",
+   "s": "open"
+  },
+  "J-611": {
+   "k": "an item on Jacob's list",
+   "t": "Keep dues refunds when bookings fail to load",
+   "s": "open"
+  },
+  "J-604": {
+   "k": "an item on Jacob's list",
+   "t": "Take the retired design page off the site and remove its old token file",
+   "s": "open"
+  },
+  "I-013": {
+   "k": "an issue Jacob filed",
+   "t": "Apple Pay and Google Pay on the homeowner's dues payment, off by a per-community switch (web part of CB24)",
+   "s": "building"
+  },
+  "F713": {
+   "k": "a defect",
+   "t": "Home-sale tenant confirmation test sometimes gets a generic server error instead of the not-yet refusal",
+   "s": ""
+  },
+  "F690": {
+   "k": "a defect",
+   "t": "A late or replayed duplicate event for an earlier AutoPay day clears sale_attempted_at on a pending scheduler…",
+   "s": ""
+  },
+  "F691": {
+   "k": "a defect",
+   "t": "An already-deferred duplicate event returns applied",
+   "s": ""
+  },
+  "F688": {
+   "k": "a defect",
+   "t": "In the pay dialog, Try again after a definite \"no sale\" resends the same declined record, because the dialog…",
+   "s": ""
+  },
+  "F689": {
+   "k": "a defect",
+   "t": "A declined pay-now dues payment writes no shared-history row",
+   "s": ""
+  },
+  "F698": {
+   "k": "a defect",
+   "t": "An NMI boarding event can write over a staff pause it raced",
+   "s": ""
+  },
+  "F701": {
+   "k": "a defect",
+   "t": "An NMI boarding event can copy a merchant id another community already holds, and stamps the server's…",
+   "s": ""
+  },
+  "J-607": {
+   "k": "an item on Jacob's list",
+   "t": "Fix the two booking refund alerts",
+   "s": "open"
+  },
+  "F692": {
+   "k": "a defect",
+   "t": "Each deferral of the scheduled HOA HX plan charge writes one more \"requested\" history row for the same…",
+   "s": ""
+  },
+  "F712": {
+   "k": "a defect",
+   "t": "Flaky unit test: member permissions 'exactly one row is pressed' fails on the first try and passes on retry",
+   "s": ""
+  },
+  "F674": {
+   "k": "a defect",
+   "t": "The \"Log in faster next time\" passkey offer and then the \"Set a quick code\" offer open over an open money…",
+   "s": ""
+  },
+  "F676": {
+   "k": "a defect",
+   "t": "In the iPhone app the page zooms in when a NMI bank field is typed in, and stays zoomed after the form closes",
+   "s": ""
+  },
+  "J-615": {
+   "k": "an item on Jacob's list",
+   "t": "Fix the possible double charge before the next release to production",
+   "s": "proposed"
+  },
+  "J-616": {
+   "k": "an item on Jacob's list",
+   "t": "Choose when the Launch Plan page shows January 1",
+   "s": "proposed"
+  },
+  "J-617": {
+   "k": "an item on Jacob's list",
+   "t": "Correct the old spelling of the designer's surname in the design documents too",
+   "s": "proposed"
+  },
+  "J-618": {
+   "k": "an item on Jacob's list",
+   "t": "Allow a read-only production check for same-day subscription refunds that were never recorded",
+   "s": "proposed"
+  },
+  "F675": {
+   "k": "a defect",
+   "t": "A same-day refund of a community's subscription charge is a void at NMI, and HOA HX never records it",
+   "s": ""
+  },
+  "J-600": {
+   "k": "an item on Jacob's list",
+   "t": "Decide when the three held retired documents are removed",
+   "s": "open"
+  },
+  "J-499": {
+   "k": "an item on Jacob's list",
+   "t": "Turn Spotlight indexing back on after launch, on a day with no run",
+   "s": "open"
+  },
+  "J-388": {
+   "k": "an item on Jacob's list",
+   "t": "Send PlatPay the combined follow-up and chase what is owed",
+   "s": "open"
+  },
+  "D-401": {
+   "k": "a decision for the owners",
+   "t": "A booking deposit returned on a timely cancellation: automatically, or with a second approver (after D-010)",
+   "s": "pending"
+  },
+  "D-402": {
+   "k": "a decision for the owners",
+   "t": "May HOA HX staff give someone the Resident, Owner or Tenant role directly?",
+   "s": "pending"
+  },
+  "D-403": {
+   "k": "a decision for the owners",
+   "t": "What comes back to a homeowner when staff cancel or reject a paid booking (after D-401)",
+   "s": "pending"
+  },
+  "J-560": {
+   "k": "an item on Jacob's list",
+   "t": "Send the 15 bugs in your sign-off book to triage",
+   "s": "open"
+  },
+  "J-466": {
+   "k": "an item on Jacob's list",
+   "t": "Name who runs the hands-on checks, send the password, and collect results within 48 hours",
+   "s": "open"
+  }
+ }
 }
