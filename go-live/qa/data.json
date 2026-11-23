@@ -2458,6 +2458,62 @@
    "reviewed": "2026-11-22"
   },
   {
+   "id": "QA-038",
+   "title": "When the connection is cut, three president screens say they could not load and never show an empty list as fact",
+   "feature": "screens",
+   "milestone": "M16",
+   "task": "R26",
+   "decisions": [],
+   "whyManual": "judgment",
+   "whyManualNote": "The automated tests cannot fail these three lists on a cut network: no test in tests/ pins the campaigns or internal-notes messages, so a person has to cut the network and judge whether each screen says so or shows an empty list as if nothing was there.",
+   "env": "staging",
+   "start": "/hoa-settings",
+   "accounts": [
+    "president"
+   ],
+   "device": "desktop",
+   "minutes": 12,
+   "precondition": "The test accounts were reset. Use Chrome on a computer. Sign in once as Dana Whitfield before you cut the network; the app cannot sign in or load a screen it has not opened while it is offline, so never reload the browser page while offline. To cut the network in Chrome: press Ctrl+Shift+I (Windows) or Cmd+Option+I (Mac), click the tab named Network, and in the bar along the top of that tab find the menu that reads \"No throttling\" and choose \"Offline\". Choose \"No throttling\" again to go back online. The violation \"Boat trailer parked on the street\" is on the test site (the reset adds it). For the import step, \"Import history\" must already list at least one approved import; if it reads \"Nothing has been imported into Cedar Hollow yet. The first import appears here the moment it is approved.\" before you cut the network, record Blocked for that step.",
+   "steps": [
+    {
+     "do": "Sign in as Dana Whitfield (password, then the two-step code) and choose \"HOA Settings\". Stay on the tab \"General\" and do not open \"Re-engagement\" yet. Cut the network (\"Offline\"), then choose the tab \"Re-engagement\". If the page itself shows a browser error instead of the screen, record Fail.",
+     "see": "The box \"Active and recent campaigns\" shows \"We couldn't load the campaigns\" and under it \"The campaigns could not be read. Nothing is shown, because a failed read is not the same as having none.\" A \"Try again\" button is under the message. The box does not read \"No re-engagement campaigns yet.\" as if there were none."
+    },
+    {
+     "do": "Choose \"No throttling\" and press \"Try again\" in that box.",
+     "see": "The box loads and shows the campaigns it would show with the network on (or \"No re-engagement campaigns yet.\" if the test site has none), and the message \"We couldn't load the campaigns\" is gone."
+    },
+    {
+     "do": "Still online, choose \"Violations\" and wait until the list of violations has loaded. Wait three more minutes (the app keeps what it has read for two minutes). Cut the network (\"Offline\"). Open \"Boat trailer parked on the street\" and find the section \"Internal notes\". If the page itself shows a browser error instead of the screen, record Fail.",
+     "see": "Under \"Internal notes\" the message reads \"We couldn't load the internal notes. Close this case and open it again to try once more.\" The section does not look as if the case simply had no notes. There is no \"Try again\" button here; closing and reopening the case is the way to try again."
+    },
+    {
+     "do": "Choose \"No throttling\", close the case and open \"Boat trailer parked on the street\" again.",
+     "see": "The \"Internal notes\" section no longer shows the message \"We couldn't load the internal notes.\" and the line \"Seen by the people who decide this case and the administrator assigned to it. The resident does not see them.\" shows under the heading \"Internal notes\"."
+    },
+    {
+     "do": "Choose \"Import a Spreadsheet\", then the tab \"Import history\". Wait until it has loaded. Cut the network (\"Offline\"). Choose \"Violations\" in the menu (you already opened it in step 3; not by reloading the browser page), then choose \"Import a Spreadsheet\" and the tab \"Import history\" again. If the page itself shows a browser error instead of the screen, record Fail.",
+     "see": "A red message with a warning sign fills the place of the list. Its words are the ones the computer reports for the failed request, so they may vary. A \"Try again\" button is under it. The page does not show \"Nothing has been imported into Cedar Hollow yet. The first import appears here the moment it is approved.\""
+    },
+    {
+     "do": "Choose \"No throttling\" and press \"Try again\".",
+     "see": "The page loads again and shows the heading \"Import history\" and the same list of imports it showed before you went offline; the red message is gone."
+    }
+   ],
+   "lookFor": [
+    "On each screen, did the words tell you what could not be loaded?",
+    "Did any screen show an empty list that a person could take for the real answer?",
+    "Was the \"Try again\" button easy to find where there was one (the campaigns and the import history)?",
+    "Was it clear on the case that it must be closed and opened again?"
+   ],
+   "reset": "Nothing is left behind. Set the browser's network back to \"No throttling\".",
+   "complements": [
+    "tests/ui/president/president-state-matrix.spec.ts"
+   ],
+   "added": "2026-10-18",
+   "reviewed": "2026-11-23"
+  },
+  {
    "id": "QA-037",
    "title": "A homeowner who booked the clubhouse gets one reminder the day before, by e-mail and in Notifications, and no second one",
    "feature": "communications",
@@ -5340,6 +5396,6 @@
    "reviewed": "2026-11-19"
   }
  ],
- "build": "f0a8125",
- "generated": "2026-11-22T13:07:50.002Z"
+ "build": "586101dcd",
+ "generated": "2026-11-23T12:57:08.732Z"
 }
