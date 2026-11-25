@@ -1,86 +1,64 @@
 {
- "updated": "2026-11-23",
- "groups": [
-  {
-   "id": "money",
-   "title": "Money: dues, the ledger, and the books"
-  },
-  {
-   "id": "community",
-   "title": "Community life"
-  },
-  {
-   "id": "ops",
-   "title": "Running HOAhx"
-  }
- ],
- "cards": [
-  {
-   "id": "A127",
-   "group": "community",
-   "title": "One page for all of a person's homes, across communities",
-   "why": "Rustin proposed it on November 6. Today a person with homes in more than one community signs in once and switches between them, but no page shows all their homes together, and a home in a community outside HOA HX cannot be added. One page for everything gives people a reason to use HOA HX before their community signs up and a way to introduce it to their other HOAs. It is not part of the launch, which is nine days away; it is ranked with the other candidates.",
-   "rows": [
-    {
-     "id": "A127-1",
-     "qs": [
-      "Should HOA HX add a My Homes page where a person with homes in more than one community sees them all, including homes in communities that do not use HOA HX, and where does it sit among the candidates?"
-     ],
-     "rec": "Yes, after launch, inside HOA HX rather than as a separate app. A My Homes page shows a card per home with its address, its community and a way in: homes in HOA HX communities open here, and a home in another community opens that community's own website from a link the person adds. Later the cards for HOA HX homes show the balance, the next due date, announcements and the next meeting, and a card for an outside community can introduce HOA HX to its board. Your marks set where it comes in the order.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A130",
-   "group": "money",
-   "title": "Returning a booking deposit when someone cancels in time",
-   "why": "Booking fees and deposits are part of the launch. Your refund rule puts two people on every refund: one starts it and a different Financial Approver approves it. A deposit returned because someone cancelled in time is a refund too, and you have not said whether it needs the second person. If it does, every cancelled booking waits for a board member before the homeowner gets the deposit back.",
-   "rows": [
-    {
-     "id": "A130-1",
-     "qs": [
-      "Should a deposit go back automatically when a booking is cancelled inside the amenity's published rule, or wait for a second approver like every other refund?"
-     ],
-     "rec": "Automatically, inside the amenity's published rule. When a homeowner cancels before the booking starts and within the amenity's rule, the deposit (and the fee, where the rule gives it back) goes back at once to the card or bank account that paid it, never more than was paid, recorded in the history with a receipt to the homeowner. Every other return, such as a late cancellation, keeping part of a deposit for damage or an exception, needs two people as every refund does now.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A131",
-   "group": "ops",
-   "title": "Who can make someone a resident of a community",
-   "why": "HOA HX staff can give a person a Resident, Owner or Tenant role from their own access page, but that page asks only for a typed unit number and links no home, so the person's payments, requests and records have nothing to attach to. Naming a home's owner normally takes your owner-naming rules, which this page skips.",
-   "rows": [
-    {
-     "id": "A131-1",
-     "qs": [
-      "Should HOA HX staff be able to give someone the Resident, Owner / Homeowner or Tenant role directly, or should those come only through the community's own invitation?"
-     ],
-     "rec": "Only through the community's own invitation. A resident or tenant joins when the board invites them to their home, or approves their request, so every resident has a real home from day one. HOA HX staff no longer give these roles themselves, but can still remove one, so any given before can be cleaned up.",
-     "videos": []
-    }
-   ]
-  },
-  {
-   "id": "A132",
-   "group": "community",
-   "title": "What comes back when staff cancel or reject a paid booking",
-   "why": "Booking fees and deposits are part of the launch. A homeowner's own cancellation has your refund rule, but staff can also cancel a paid booking or reject one after it was paid, and nothing on record says what comes back then. We built it the way we recommend so the work was not held up.",
-   "rows": [
-    {
-     "id": "A132-1",
-     "qs": [
-      "When staff cancel a paid amenity booking, or reject one waiting for approval, what comes back to the homeowner?"
-     ],
-     "rec": "A cancellation by staff follows the amenity's published refund rule, the same as the homeowner's own. A booking that staff reject after it was paid gives back everything paid, because the homeowner never had the booking and the community said no.",
-     "videos": []
-    }
-   ]
-  }
- ],
+ "updated": "2026-11-25",
+ "groups": [],
+ "cards": [],
  "answered": [
+  {
+   "id": "A127-1",
+   "kind": "question",
+   "card": "One page for all of a person's homes, across communities",
+   "qs": [
+    "Should HOA HX add a My Homes page where a person with homes in more than one community sees them all, including homes in communities that do not use HOA HX, and where does it sit among the candidates?"
+   ],
+   "answer": "discuss",
+   "rec": "Yes, after launch, inside HOA HX rather than as a separate app. A My Homes page shows a card per home with its address, its community and a way in: homes in HOA HX communities open here, and a home in another community opens that community's own website from a link the person adds. Later the cards for HOA HX homes show the balance, the next due date, announcements and the next meeting, and a card for an outside community can introduce HOA HX to its board. Your marks set where it comes in the order.",
+   "build": "After launch, in the order your marks set: a My Homes page with a card per home, homes outside HOA HX added by link, and later live cards for HOA HX homes.",
+   "answeredOn": "2026-11-24",
+   "acceptedOn": "2026-11-25",
+   "status": "planned"
+  },
+  {
+   "id": "A130-1",
+   "kind": "question",
+   "card": "Returning a booking deposit when someone cancels in time",
+   "qs": [
+    "Should a deposit go back automatically when a booking is cancelled inside the amenity's published rule, or wait for a second approver like every other refund?"
+   ],
+   "answer": "agree",
+   "rec": "Automatically, inside the amenity's published rule. When a homeowner cancels before the booking starts and within the amenity's rule, the deposit (and the fee, where the rule gives it back) goes back at once to the card or bank account that paid it, never more than was paid, recorded in the history with a receipt to the homeowner. Every other return, such as a late cancellation, keeping part of a deposit for damage or an exception, needs two people as every refund does now.",
+   "build": "A deposit goes back automatically on a cancellation inside the amenity's published rule; every other return needs two people, once you answer.",
+   "answeredOn": "2026-11-24",
+   "acceptedOn": "2026-11-25",
+   "status": "planned"
+  },
+  {
+   "id": "A131-1",
+   "kind": "question",
+   "card": "Who can make someone a resident of a community",
+   "qs": [
+    "Should HOA HX staff be able to give someone the Resident, Owner / Homeowner or Tenant role directly, or should those come only through the community's own invitation?"
+   ],
+   "answer": "agree",
+   "rec": "Only through the community's own invitation. A resident or tenant joins when the board invites them to their home, or approves their request, so every resident has a real home from day one. HOA HX staff no longer give these roles themselves, but can still remove one, so any given before can be cleaned up.",
+   "build": "Residents and tenants join only through the community's invitation or an approved request; HOA HX staff no longer give those roles, once you answer.",
+   "answeredOn": "2026-11-24",
+   "acceptedOn": "2026-11-25",
+   "status": "planned"
+  },
+  {
+   "id": "A132-1",
+   "kind": "question",
+   "card": "What comes back when staff cancel or reject a paid booking",
+   "qs": [
+    "When staff cancel a paid amenity booking, or reject one waiting for approval, what comes back to the homeowner?"
+   ],
+   "answer": "change",
+   "rec": "A cancellation by staff follows the amenity's published refund rule, the same as the homeowner's own. A booking that staff reject after it was paid gives back everything paid, because the homeowner never had the booking and the community said no.",
+   "build": "A staff cancellation follows the amenity's published refund rule, and a rejection returns everything paid, once you answer.",
+   "answeredOn": "2026-11-24",
+   "acceptedOn": "2026-11-25",
+   "status": "planned"
+  },
   {
    "id": "A122-1",
    "kind": "question",
