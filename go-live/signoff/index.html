@@ -361,10 +361,10 @@ textarea{resize:vertical;min-height:40px}
 
 <script id="catalog" type="application/json">{
  "version": 1,
- "generated": "2026-11-26T04:56:13-07:00",
+ "generated": "2026-11-27T07:42:21-07:00",
  "source": {
   "ref": "origin/dev",
-  "devCommit": "212811f5f",
+  "devCommit": "e5d5173b0",
   "mapGenerated": "2026-10-27"
  },
  "builds": {
@@ -17698,9 +17698,8 @@ textarea{resize:vertical;min-height:40px}
    ],
    "steps": [
     {
-     "do": "Open Member Management (menu, Administration), then the Access requests tab, and choose Verify the home on the request.",
-     "see": "A request matched to exactly one home can be approved; two flats at one address need a staff pick first; a claim that matches nothing says so.",
-     "clarified": true
+     "do": "Open Member Management, then Access Requests, and open the request.",
+     "see": "On the list, a resident or tenant request with no home reads Verify the home to approve and offers no Approve until a home is picked. A request matched to exactly one home can be approved; two flats at one address need a staff pick first; a claim that matches nothing says so."
     },
     {
      "do": "Under Your decision choose Add as a co-owner (or Transfer the home, with Date the home changed hands and the Reason for the transfer), then fill in Record you verified, Verified on and Reference (recording or file number).",
@@ -17726,7 +17725,7 @@ textarea{resize:vertical;min-height:40px}
    "outcome": "The person is a member of the community, linked to the right home, and is told by email and in the app; on a transfer, they are its owner and the former owner's records end on the date given. A declined person is told why.",
    "states": [],
    "handoff": null,
-   "storyHash": "3a832540bcb2",
+   "storyHash": "c690c41a7730",
    "specs": [
     "tests/ui/president/president-join-verification.spec.ts",
     "tests/ui/president/president-join-owner-choice.spec.ts",
@@ -20459,9 +20458,8 @@ textarea{resize:vertical;min-height:40px}
      "clarified": true
     },
     {
-     "do": "Under Join codes choose New code, then, in Generate Access Code, write why under Reason (at least 10 characters) and choose Create Code; or choose Replace on an existing code and confirm with Replace code.",
-     "see": "A new code shows under Access Code Created! (Done closes it); replacing a code turns the old one off and shows a long new one; the history never shows a code.",
-     "clarified": true
+     "do": "Choose Create Code, or replace an existing code.",
+     "see": "Replacing a code turns the old one off and shows a long new one; the history never shows a code. A resident code never lets anyone in by itself: each person who uses it waits in Access requests for the board to pick their home."
     },
     {
      "do": "On a code under Join codes choose Turn off, write under Why you're turning it off (at least 10 characters), then choose Turn off code, or Cancel.",
@@ -20472,7 +20470,7 @@ textarea{resize:vertical;min-height:40px}
    "outcome": "Only the codes the board wants work, and every change is on the record without the code itself.",
    "states": [],
    "handoff": null,
-   "storyHash": "f311dc3e8208",
+   "storyHash": "f39ca8c897d7",
    "specs": [
     "tests/ui/president/president-join-settings.spec.ts",
     "tests/ui/secretary/secretary-join-codes.spec.ts"
@@ -33170,6 +33168,10 @@ textarea{resize:vertical;min-height:40px}
     {
      "do": "Open an approved booking, write the reason in Admin Notes, and choose Cancel Reservation.",
      "see": "Under the button: If you cancel it, the person who booked it is told, with your note. The window closes and the booking reads cancelled; the next morning the person who booked it receives a notice and an email naming the amenity, the day and your note."
+    },
+    {
+     "do": "Open a cancelled paid booking whose return the payment processor did not take, and choose Try the return again.",
+     "see": "The window first names the amount and the card's last four. Then it reads that the money went back to the card it was paid with, or why it could not try (a booking on your own home, a refund waiting for a second person). The person who booked it sees the money as owed back and has no retry of their own."
     }
    ],
    "outcome": "Every request ends approved or rejected by a named person, and a refusal always says why.",
@@ -33181,11 +33183,12 @@ textarea{resize:vertical;min-height:40px}
     "A pending request offers Approve and Reject, not Cancel Reservation"
    ],
    "handoff": null,
-   "storyHash": "1350159c2e04",
+   "storyHash": "82ec77bb6ce2",
    "specs": [
     "tests/ui/president/president-clubhouse-approval.spec.ts",
     "tests/ui/president/president-amenity-reservations.spec.ts",
-    "tests/ui/president/president-amenity-blackout.spec.ts"
+    "tests/ui/president/president-amenity-blackout.spec.ts",
+    "tests/ui/president/president-booking-return-retry.spec.ts"
    ],
    "cards": [],
    "defects": [],
@@ -33194,7 +33197,7 @@ textarea{resize:vertical;min-height:40px}
    "phoneCue": false,
    "inHand": false,
    "minutes": {
-    "full": 7,
+    "full": 8,
     "spot": 2
    },
    "tier": {
@@ -48026,7 +48029,7 @@ textarea{resize:vertical;min-height:40px}
     },
     {
      "do": "Under \"Choose an amenity\" press the amenity Jacob named.",
-     "see": "The booking form shows that amenity's name, and its fee and deposit if the page lists them.",
+     "see": "The booking form shows that amenity's name and its booking fee and deposit. If the page lists neither, record Blocked.",
      "who": "homeowner-owes"
     },
     {
@@ -48063,7 +48066,7 @@ textarea{resize:vertical;min-height:40px}
    "outcome": null,
    "states": [],
    "handoff": null,
-   "storyHash": "75ee8f3cf931",
+   "storyHash": "51045f7ad443",
    "specs": [],
    "cards": [],
    "defects": [],
@@ -48125,7 +48128,7 @@ textarea{resize:vertical;min-height:40px}
     "device": "any",
     "env": "staging",
     "production": false,
-    "setup": "Before the run, Jacob has switched booking payments on for Cedar Hollow's test site and has given one amenity a booking fee and a deposit; ask him which amenity. If the window in step 4 says \"Online payments are not yet available for this community\" or the page says booking payments are not turned on, record Blocked. If the card fields never appear in the window, the payment sandbox is down: record Blocked, not Fail. The booking needs a date and a free hour; if the calendar shows none free, record Blocked.",
+    "setup": "Before the run, Jacob has switched booking payments on for Cedar Hollow's test site and has given one amenity a booking fee and a deposit; ask him which amenity. If the window in step 4 says \"Online payments are not yet available for this community\" or the booking is confirmed with no payment window at all, record Blocked. If the card fields never appear in the window, the payment sandbox is down: record Blocked, not Fail. The booking needs a date and a free hour; if the calendar shows none free, record Blocked.",
     "reset": "The booking stays paid in the sandbox on Jordan Pryce's account until Jacob resets the test accounts. Cancel it from \"My Bookings\" if you want to book the same time again.",
     "lookFor": [
      "Is the total the first thing you read in the payment window, before the card fields?",
@@ -68079,8 +68082,8 @@ textarea{resize:vertical;min-height:40px}
      "see": "The person is selected."
     },
     {
-     "do": "Open the role list and choose HOA Treasurer (or HOA Secretary, HOA Administrator, Board Member, HOA President, Property Manager, Tenant, Resident, Homeowner).",
-     "see": "The role is chosen."
+     "do": "Open the role list and choose HOA Treasurer (or HOA Secretary, HOA Administrator, Board Member, HOA President, Property Manager).",
+     "see": "The role is chosen. No role is chosen at first, and Assign Access stays off until one is. The window says a resident or tenant always has a home: they are invited from Invite someone, or join with their home."
     },
     {
      "do": "Enter why you're giving this role and choose Assign Access.",
@@ -68089,11 +68092,11 @@ textarea{resize:vertical;min-height:40px}
    ],
    "outcome": "The person holds the role in this community, with a history row and the reason kept for staff; a member who has a home keeps it.",
    "states": [
-    "A Secretary or Property Manager is offered Resident and Homeowner only; the HOA Administrator adds Tenant; board and staff roles are the President's (F648, J-582)",
+    "Only the President is offered roles here, the board and staff ones; a Secretary, a Property Manager or the HOA Administrator has no Assign access (F648, J-582, F757)",
     "Nobody gives themselves a role: You cannot give yourself a role. Ask another administrator of this community to give it."
    ],
    "handoff": null,
-   "storyHash": "66c31cc06b85",
+   "storyHash": "a2f57cb90a0c",
    "specs": [
     "tests/ui/president/president-access.spec.ts"
    ],
@@ -68207,6 +68210,10 @@ textarea{resize:vertical;min-height:40px}
     {
      "id": "J-582",
      "title": "an item on Jacob's list, answered: Give Treasurer, Secretary and HOA Administrator from Assign access, rename the Residents heading, and file the staff access page bug"
+    },
+    {
+     "id": "F757",
+     "title": "a defect: Home roles still written with no home outside the invitation path"
     }
    ]
   },
@@ -75950,12 +75957,12 @@ textarea{resize:vertical;min-height:40px}
     },
     {
      "do": "Open the inbox of the first person (look in spam too) and wait up to ten minutes.",
-     "see": "Exactly one new e-mail has arrived since you pressed the button, in the inbox, not spam, from HOA HX, inviting that person to join Cedar Hollow (its subject names Cedar Hollow). The e-mail from before is still there, so there are two in all.",
+     "see": "Exactly one new e-mail has arrived since you pressed the button, in the inbox, not spam, from HOA HX, inviting that person to join Cedar Hollow (its subject names the community). The e-mail from before is still there, so there are two in all.",
      "who": "president"
     },
     {
      "do": "In the same inbox: open the link in the new e-mail.",
-     "see": "A page opens that shows Cedar Hollow's name and the person's invitation, not an error. It does not say \"Invite link not valid\".",
+     "see": "A page opens that shows the name Cedar Hollow and a way to accept the invitation, not an error. It does not say \"Invite link not valid\".",
      "who": "president"
     },
     {
@@ -75972,7 +75979,7 @@ textarea{resize:vertical;min-height:40px}
    "outcome": null,
    "states": [],
    "handoff": null,
-   "storyHash": "9a7a14a9af58",
+   "storyHash": "314b34b962cd",
    "specs": [],
    "cards": [],
    "defects": [],
@@ -75981,7 +75988,7 @@ textarea{resize:vertical;min-height:40px}
    "phoneCue": true,
    "inHand": false,
    "minutes": {
-    "full": 18,
+    "full": 20,
     "spot": 2
    },
    "tier": {
@@ -79561,23 +79568,23 @@ textarea{resize:vertical;min-height:40px}
    "skip": 118
   },
   "minutes": {
-   "web": 2079,
+   "web": 2080,
    "phone": 965,
    "tier1": 2004,
    "byTier": {
     "web": {
      "2": 1059,
-     "4": 48,
-     "3": 762
+     "4": 50,
+     "3": 763
     },
     "iphone": {
      "2": 514,
-     "4": 954,
+     "4": 957,
      "1": 403,
      "3": 188
     },
     "android": {
-     "4": 1118,
+     "4": 1121,
      "3": 648,
      "1": 28
     }
@@ -79617,7 +79624,7 @@ textarea{resize:vertical;min-height:40px}
    "setup": 143,
    "setupNone": 65,
    "entryText": 5,
-   "stepsApplied": 448,
+   "stepsApplied": 446,
    "roleNotes": 208,
    "unknown": [],
    "landed": [],
@@ -79634,6 +79641,8 @@ textarea{resize:vertical;min-height:40px}
     "ho-get-started step 3",
     "ho-get-started step 4",
     "ho-get-started step 9",
+    "pr-review-join-request step 1",
+    "pr-join-requests-and-codes step 3",
     "invite-resident step 1",
     "ho-invite-tenant step 4",
     "pr-clubhouse-approval step 1",
@@ -80438,6 +80447,8 @@ textarea{resize:vertical;min-height:40px}
    "ho-get-started step 3",
    "ho-get-started step 4",
    "ho-get-started step 9",
+   "pr-review-join-request step 1",
+   "pr-join-requests-and-codes step 3",
    "invite-resident step 1",
    "ho-invite-tenant step 4",
    "pr-clubhouse-approval step 1",
@@ -80454,7 +80465,7 @@ textarea{resize:vertical;min-height:40px}
   ],
   "idsInMapText": {
    "stories": 45,
-   "ids": 57,
+   "ids": 58,
    "unnamed": []
   },
   "idsInChipTitles": {
@@ -80490,7 +80501,7 @@ textarea{resize:vertical;min-height:40px}
  }
 }
 </script>
-<script id="changes" type="application/json">[{"date": "2026-11-26", "previousGenerated": "2026-11-25T02:21:47-07:00", "new": ["card-qa-091", "card-qa-090"], "changed": [], "nowLive": [], "retired": [], "retiredTitles": [], "summary": "2 new, 0 changed, 0 now live, 0 retired"}, {"date": "2026-11-25", "previousGenerated": "2026-11-24T11:07:24-07:00", "new": [], "changed": [], "nowLive": [], "retired": [], "retiredTitles": [], "summary": "0 new, 0 changed, 0 now live, 0 retired"}, {"date": "2026-11-24", "previousGenerated": "2026-11-23T21:37:55-07:00", "new": [], "changed": [], "nowLive": [], "retired": [], "retiredTitles": [], "summary": "0 new, 0 changed, 0 now live, 0 retired"}, {"date": "2026-11-23", "previousGenerated": "2026-11-22T06:05:23-07:00", "new": [], "changed": [{"id": "card-qa-038", "from": "f597da5ddf53", "to": "79e1f09003e1"}, {"id": "po-billing-accounts", "from": "fce648e52ca8", "to": "e66cbeefad59"}], "nowLive": [], "retired": [], "retiredTitles": [], "summary": "0 new, 2 changed, 0 now live, 0 retired"}, {"date": "2026-11-22", "previousGenerated": "2026-11-20T09:58:20-07:00", "new": ["card-qa-089"], "changed": [{"id": "notification-preferences", "from": "2f08fd9ef3d3", "to": "da145e2c3f78"}, {"id": "ho-delete-account", "from": "2e5a4df03522", "to": "5f254f5989fe"}, {"id": "all-linked-log-in-methods", "from": "b04f8e04bcab", "to": "a39e1ae275ea"}, {"id": "all-passkeys", "from": "4482d5adf305", "to": "832dd505a4f2"}, {"id": "ps-impersonate-readonly", "from": "45c68f05adc2", "to": "39bd05c65420"}, {"id": "all-sign-out-everywhere", "from": "88b00435ce36", "to": "e16336e9bb58"}, {"id": "all-where-logged-in", "from": "c82c6c1053e2", "to": "5ad55cf224f7"}], "nowLive": [], "retired": [], "retiredTitles": [], "summary": "1 new, 7 changed, 0 now live, 0 retired"}, {"date": "2026-11-20", "previousGenerated": "2026-11-18T10:41:42-07:00", "new": ["card-qa-084", "card-qa-085", "card-qa-088", "ho-switch-home-other-window", "card-qa-087", "card-qa-086"], "changed": [], "nowLive": [], "retired": [], "retiredTitles": [], "summary": "6 new, 0 changed, 0 now live, 0 retired"}, {"date": "2026-11-18", "previousGenerated": "2026-11-12T17:32:32-07:00", "new": ["card-qa-083", "all-verify-email", "pr-assign-board-staff-role", "card-qa-081", "card-qa-080", "card-qa-082", "card-qa-079"], "changed": [{"id": "all-create-account", "from": "9bec0b11aa04", "to": "cc54db461f39"}, {"id": "ho-get-started", "from": "869f626efe96", "to": "87d36f9f56c9"}, {"id": "board-get-started", "from": "48067e49fb15", "to": "1c9695bd73b5"}, {"id": "invite-resident", "from": "b5f9fa0f2556", "to": "960b14437d05"}, {"id": "pr-amenity-setup", "from": "5560d790b3dd", "to": "e67fd482cca3"}, {"id": "ho-clubhouse-reservation", "from": "b2993382d5eb", "to": "b7a4ef9503cb"}, {"id": "tr-ledger-adjustment", "from": "e08eaffa031d", "to": "a5179ea1294d"}, {"id": "tr-adjustment-approval", "from": "f26b76e363d4", "to": "6b82df02fcfc"}, {"id": "tr-returned-payment-or-dispute", "from": "c54c7affd3ba", "to": "469f81c21c6d"}, {"id": "pm-refund-screen", "from": "99af385222c6", "to": "2144147cf036"}, {"id": "pr-name-financial-approvers", "from": "e8a729698344", "to": "6db1d53d569e"}, {"id": "tr-refund-with-approver", "from": "8f1a0ceb71db", "to": "f9e062bc95c2"}, {"id": "tr-dues-reminders", "from": "69deda0cdf0e", "to": "b8e130172961"}, {"id": "tr-payment-plan-setup", "from": "5ffaf6ef3b1f", "to": "83f8a0faa9df"}, {"id": "pr-manager-money-tasks", "from": "adbb33dab691", "to": "ff79259de132"}, {"id": "pr-community-import", "from": "9223d7a240d1", "to": "32fd650d4e02"}, {"id": "hoa-setup-wizard", "from": "a1cc086d150b", "to": "e32b14d0b7d1"}, {"id": "ho-resident-onboarding", "from": "de66e309608b", "to": "46ad7a338c38"}], "nowLive": [], "retired": [], "retiredTitles": [], "summary": "7 new, 18 changed, 0 now live, 0 retired"}, {"date": "2026-11-12", "previousGenerated": "2026-11-10T18:57:20-07:00", "new": ["card-qa-032", "card-qa-044", "card-qa-070", "card-qa-031", "card-qa-026", "card-qa-052", "card-qa-051", "card-qa-062", "card-qa-067", "card-qa-066", "card-qa-053", "card-qa-028", "card-qa-072", "card-qa-063", "card-qa-045", "card-qa-078", "card-qa-029", "card-qa-064", "card-qa-057", "card-qa-050", "card-qa-049", "card-qa-077", "card-qa-065", "card-qa-075", "card-qa-061", "card-qa-060", "card-qa-047", "card-qa-046", "card-qa-068", "card-qa-074", "card-qa-071", "card-qa-059", "card-qa-076", "card-qa-038", "card-qa-036", "card-qa-041", "card-qa-009", "card-qa-010", "card-qa-014", "card-qa-042", "card-qa-015", "card-qa-018", "card-qa-037", "card-qa-054", "card-qa-025", "card-qa-004", "card-qa-034", "card-qa-001", "card-qa-013", "card-qa-033", "card-qa-008", "card-qa-007", "card-qa-003", "card-qa-023", "card-qa-016", "card-qa-058", "card-qa-027", "card-qa-039", "card-qa-073", "card-qa-035", "card-qa-002", "card-qa-019", "card-qa-030", "card-qa-020", "card-qa-040", "card-qa-043", "card-qa-069", "card-qa-011", "card-qa-055", "card-qa-017", "card-qa-012", "card-qa-005", "card-qa-006", "card-qa-048", "card-qa-021", "card-qa-022", "card-qa-024"], "changed": [{"id": "pr-clubhouse-approval", "from": "e0205c2ea481", "to": "1350159c2e04"}, {"id": "po-directory-analytics", "from": "5d98d6bc010b", "to": "91228eef909e"}, {"id": "pv-aggregate-analytics", "from": "2ff3876d880c", "to": "a9d8087c5fbf"}], "nowLive": [], "retired": [], "retiredTitles": [], "summary": "77 new, 3 changed, 0 now live, 0 retired"}, {"date": "2026-11-10", "previousGenerated": "2026-11-07T21:44:11-07:00", "new": ["pr-community-home-count"], "changed": [{"id": "re-engage-policy-acknowledge", "from": "adfeb09a6abc", "to": "0e5d094db6e6"}], "nowLive": [], "retired": [], "retiredTitles": [], "summary": "1 new, 1 changed, 0 now live, 0 retired"}, {"date": "2026-11-07", "previousGenerated": "2026-11-04T20:30:36-07:00", "new": [], "changed": [{"id": "all-accept-invitation", "from": "737e98ebe8e0", "to": "0e313579da91"}, {"id": "all-create-account", "from": "ae6bfec010ec", "to": "9bec0b11aa04"}, {"id": "ho-get-started", "from": "342954049b86", "to": "869f626efe96"}, {"id": "ho-manage-tenants", "from": "3889911ed4c0", "to": "df002e068133"}, {"id": "ho-invite-tenant", "from": "9ec7feee72dd", "to": "49734549a23f"}, {"id": "pr-community-import", "from": "8cc1b0fb9b44", "to": "9223d7a240d1"}], "nowLive": [], "retired": [], "retiredTitles": [], "summary": "0 new, 6 changed, 0 now live, 0 retired"}, {"date": "2026-11-04", "previousGenerated": null, "new": ["all-accept-invitation", "all-ask-password-reset", "ho-ask-to-join", "ma-assign-property-manager", "all-idle-sign-out", "notification-preferences", "all-choose-new-password", "all-create-account", "ho-delete-account", "ho-get-started", "pm-get-started", "po-grant-revoke-access", "all-install-app-sign-in", "ma-invite-property-manager", "all-linked-log-in-methods", "all-passkeys", "ps-user-projections", "ps-impersonate-readonly", "shell-account-selector", "all-communities-load-error", "po-repair-community-access", "all-request-access-review", "po-recover-owner-access", "pr-review-join-request", "ho-dashboard-overview", "all-two-step-sign-in", "resident-removed-sign-in-again", "shell-passkey-sign-in", "shell-sign-in", "shell-sign-out", "all-sign-out-everywhere", "board-get-started", "shell-switch-community", "pr-join-requests-and-codes", "shell-two-step-code", "profile-update", "ho-profile-directory-opt-in", "shell-more-page", "po-impersonate-resident", "all-where-logged-in", "re-engage-policy-acknowledge", "rm-act-for-home", "pr-directory-contact", "pr-add-property", "pr-add-tenant", "pr-archive-property", "ad-run-re-engagement", "pr-change-primary-owner", "ho-manage-tenants", "pr-confirm-sale-handoff", "se-export-roster", "ho-hoa-directory", "ad-neighbor-directory", "ho-home-requests", "invite-resident", "ho-invite-tenant", "ho-owner-profile", "pr-reveal-private-contact", "pr-name-owner", "pm-rental-manager-at-owner-request", "ho-name-rental-manager", "pr-title-package", "pr-household-setup", "ho-report-sale", "maintenance-to-vendor", "se-bulk-requests", "pm-add-vendor", "ho-answer-request-question", "pr-maintenance-triage", "pr-completion-photos", "se-export-requests-violations", "resident-after-hours-help", "admin-maintenance-request", "ve-private-changes-refused", "ve-read-work-order-history", "ve-resolve-assigned-work", "ve-review-assigned-work", "ve-reply-on-work-order", "ve-start-assigned-work", "resident-maintenance-request", "all-guest-arrival", "pr-amenity-setup", "resident-vehicle-pet", "architectural-request-to-decision", "pr-clubhouse-approval", "ad-visitor-access-log", "all-gate-check-pass", "ho-architectural-assigned-review", "pr-edit-home-record", "ho-guest-parking-pass", "resident-visitor", "bm-architectural-intake", "ho-household-administrator", "pr-home-building", "pr-architectural-committee", "se-vehicle-permit", "ho-dog-park-checkin", "ho-clubhouse-reservation", "se-review-pet-record", "pr-architectural-review", "ho-home-designations", "staff-parking-analytics", "ho-gate-and-guest-codes", "pr-set-gate-codes", "pr-home-designation", "staff-parking-rules", "ad-manage-dog-park", "pr-architectural-types", "resident-architectural", "refund-two-person", "resident-ask-assistant", "ho-feed-comment-react", "resident-contact-help", "pr-feed-comment-moderation", "announcement-post", "pr-feed-post-photo", "bm-official-feed-post", "event-publish", "ho-read-urgent-alert", "staff-notification-center", "ho-read-notifications", "te-read-community-updates", "ho-event-rsvp", "ho-calendar-schedule", "se-mass-communication", "message-board", "pr-urgent-alert", "se-message-templates", "ad-communication-hub", "staff-notification-templates", "vote-to-certification", "survey-answered", "te-voting-rep-request", "pr-meeting-minutes", "tr-cast-ballot", "resident-ballot", "vote-run", "se-export-board-roster", "bd-own-home-conflict", "pr-board-terms", "ho-survey-response", "ho-architectural-assigned", "pr-vote-certify", "survey-run", "ho-see-board-and-decisions", "document-signature", "at-access-ends-when-matter-expires", "pr-request-signatures", "at-find-matter-document", "pr-legal-matter-end-date", "pr-confidential-document", "au-open-assigned-audit-document", "pr-document-actions", "se-upload-document", "tr-document-versions", "te-read-community-documents", "ho-sign-document", "at-review-signature-history", "card-payment-to-ledger", "ho-accept-payment-plan", "tr-ledger-charge", "tr-refund-request-close", "pr-budget-publish", "tr-ledger-adjustment", "te-refund-ask", "pr-buy-subscription", "tr-assessment-groups", "ho-verify-account-letter", "tr-reports-reconciliation", "tr-adjustment-approval", "budget-draft", "dues-to-payment", "tr-financial-report-export", "tr-payments-export", "ho-payments-tabs", "tr-returned-payment-or-dispute", "pm-refund-screen", "tr-budget-import", "ho-saved-methods", "pr-billing-contacts", "tr-reconcile-deposits", "pr-name-financial-approvers", "tr-collections-assign-follow-up", "ho-pay-dues-online", "tr-ledger-payment-history", "po-platform-invoices", "invoices-late-fees", "tr-reconcile-entry", "tr-manual-payment", "tr-budget-statement", "tr-double-payment-refund", "tr-refund-with-approver", "tr-unexplained-credit-review", "te-finance-violations-review", "tr-one-time-assessment", "po-billing-accounts-list", "ho-my-assessments", "tr-dues-reminders", "ma-portfolio-financials", "po-subscription-renewals", "ho-see-budget", "ho-my-ledger", "tr-collections-letters", "dues-schedule", "tr-payment-plan-setup", "ho-autopay", "pr-community-payment-setup", "tr-sale-credit-settle", "pr-manager-money-tasks", "pr-community-export", "budget-approval", "ma-update-monthly-dues", "pr-trial-ended", "pr-subscription-past-due", "violation-to-delinquency", "ho-violation-acknowledge-correction", "se-bulk-violations", "bd-hoa-admin-no-escalation", "pr-escalation-fine-decision", "ho-violation-hearing", "violation-report-close", "pr-decide-violation-appeal", "bm-escalation-fine", "pr-escalation-hold-cancel", "violation-issue", "pr-violation-types", "pr-violation-fee-schedule", "ho-violation-history", "pr-violation-history", "pr-escalation-hearing-second-approval", "ho-report-community-issue", "te-violation-response", "ho-home-violation-notices", "tr-delinquency-escalation", "pr-violation-notice-review", "bd-keep-a-president", "managed-community", "pr-community-logo", "po-hoa-admin-requests", "ad-re-engagement-campaign", "ad-member-permissions", "pr-give-homeowner-board-role", "pr-community-import", "pr-invite-hoa-administrator", "ma-launch-managed-community", "community-launch-stages", "ma-open-portfolio-community", "bm-board-summary", "pr-board-controls", "pr-remove-from-community", "community-not-open-yet", "hoa-setup-wizard", "ho-resident-onboarding", "pr-board-new-button", "pm-view-hoa-settings", "pr-board-work-queue", "community-onboarding", "ps-directory-readonly", "po-plan-catalogue", "po-deactivate-account", "po-notifications-not-enabled", "po-onboard-hoa", "po-restore-deleted-account", "feedback-review", "po-billing-accounts", "po-directory-analytics", "ps-platform-dashboard", "ps-see-support-authorization", "po-provision-demo-access", "po-suspend-reactivate-hoa", "community-subscription", "po-community-modules-reason", "pr-authorize-support-access", "au-export-monthly-summary", "pr-auditor-access", "pr-legal-holds", "pm-property-history", "tr-audit-records", "pv-aggregate-analytics", "pr-activity-log", "po-billing-events-log", "ad-read-analytics", "po-review-impersonation-log", "po-review-platform-activity", "ma-portfolio-audit", "ho-activity-and-home-timeline", "au-view-assigned-financial-month"], "changed": [], "nowLive": [], "retired": [], "retiredTitles": [], "summary": "287 new, 0 changed, 0 now live, 0 retired"}]</script>
+<script id="changes" type="application/json">[{"date": "2026-11-27", "previousGenerated": "2026-11-26T04:56:13-07:00", "new": [], "changed": [{"id": "pr-review-join-request", "from": "3a832540bcb2", "to": "c690c41a7730"}, {"id": "pr-join-requests-and-codes", "from": "f311dc3e8208", "to": "f39ca8c897d7"}, {"id": "pr-clubhouse-approval", "from": "1350159c2e04", "to": "82ec77bb6ce2"}, {"id": "card-qa-091", "from": "75ee8f3cf931", "to": "51045f7ad443"}, {"id": "pr-assign-board-staff-role", "from": "66c31cc06b85", "to": "a2f57cb90a0c"}, {"id": "card-qa-090", "from": "9a7a14a9af58", "to": "314b34b962cd"}], "nowLive": [], "retired": [], "retiredTitles": [], "summary": "0 new, 6 changed, 0 now live, 0 retired"}, {"date": "2026-11-26", "previousGenerated": "2026-11-25T02:21:47-07:00", "new": ["card-qa-091", "card-qa-090"], "changed": [], "nowLive": [], "retired": [], "retiredTitles": [], "summary": "2 new, 0 changed, 0 now live, 0 retired"}, {"date": "2026-11-25", "previousGenerated": "2026-11-24T11:07:24-07:00", "new": [], "changed": [], "nowLive": [], "retired": [], "retiredTitles": [], "summary": "0 new, 0 changed, 0 now live, 0 retired"}, {"date": "2026-11-24", "previousGenerated": "2026-11-23T21:37:55-07:00", "new": [], "changed": [], "nowLive": [], "retired": [], "retiredTitles": [], "summary": "0 new, 0 changed, 0 now live, 0 retired"}, {"date": "2026-11-23", "previousGenerated": "2026-11-22T06:05:23-07:00", "new": [], "changed": [{"id": "card-qa-038", "from": "f597da5ddf53", "to": "79e1f09003e1"}, {"id": "po-billing-accounts", "from": "fce648e52ca8", "to": "e66cbeefad59"}], "nowLive": [], "retired": [], "retiredTitles": [], "summary": "0 new, 2 changed, 0 now live, 0 retired"}, {"date": "2026-11-22", "previousGenerated": "2026-11-20T09:58:20-07:00", "new": ["card-qa-089"], "changed": [{"id": "notification-preferences", "from": "2f08fd9ef3d3", "to": "da145e2c3f78"}, {"id": "ho-delete-account", "from": "2e5a4df03522", "to": "5f254f5989fe"}, {"id": "all-linked-log-in-methods", "from": "b04f8e04bcab", "to": "a39e1ae275ea"}, {"id": "all-passkeys", "from": "4482d5adf305", "to": "832dd505a4f2"}, {"id": "ps-impersonate-readonly", "from": "45c68f05adc2", "to": "39bd05c65420"}, {"id": "all-sign-out-everywhere", "from": "88b00435ce36", "to": "e16336e9bb58"}, {"id": "all-where-logged-in", "from": "c82c6c1053e2", "to": "5ad55cf224f7"}], "nowLive": [], "retired": [], "retiredTitles": [], "summary": "1 new, 7 changed, 0 now live, 0 retired"}, {"date": "2026-11-20", "previousGenerated": "2026-11-18T10:41:42-07:00", "new": ["card-qa-084", "card-qa-085", "card-qa-088", "ho-switch-home-other-window", "card-qa-087", "card-qa-086"], "changed": [], "nowLive": [], "retired": [], "retiredTitles": [], "summary": "6 new, 0 changed, 0 now live, 0 retired"}, {"date": "2026-11-18", "previousGenerated": "2026-11-12T17:32:32-07:00", "new": ["card-qa-083", "all-verify-email", "pr-assign-board-staff-role", "card-qa-081", "card-qa-080", "card-qa-082", "card-qa-079"], "changed": [{"id": "all-create-account", "from": "9bec0b11aa04", "to": "cc54db461f39"}, {"id": "ho-get-started", "from": "869f626efe96", "to": "87d36f9f56c9"}, {"id": "board-get-started", "from": "48067e49fb15", "to": "1c9695bd73b5"}, {"id": "invite-resident", "from": "b5f9fa0f2556", "to": "960b14437d05"}, {"id": "pr-amenity-setup", "from": "5560d790b3dd", "to": "e67fd482cca3"}, {"id": "ho-clubhouse-reservation", "from": "b2993382d5eb", "to": "b7a4ef9503cb"}, {"id": "tr-ledger-adjustment", "from": "e08eaffa031d", "to": "a5179ea1294d"}, {"id": "tr-adjustment-approval", "from": "f26b76e363d4", "to": "6b82df02fcfc"}, {"id": "tr-returned-payment-or-dispute", "from": "c54c7affd3ba", "to": "469f81c21c6d"}, {"id": "pm-refund-screen", "from": "99af385222c6", "to": "2144147cf036"}, {"id": "pr-name-financial-approvers", "from": "e8a729698344", "to": "6db1d53d569e"}, {"id": "tr-refund-with-approver", "from": "8f1a0ceb71db", "to": "f9e062bc95c2"}, {"id": "tr-dues-reminders", "from": "69deda0cdf0e", "to": "b8e130172961"}, {"id": "tr-payment-plan-setup", "from": "5ffaf6ef3b1f", "to": "83f8a0faa9df"}, {"id": "pr-manager-money-tasks", "from": "adbb33dab691", "to": "ff79259de132"}, {"id": "pr-community-import", "from": "9223d7a240d1", "to": "32fd650d4e02"}, {"id": "hoa-setup-wizard", "from": "a1cc086d150b", "to": "e32b14d0b7d1"}, {"id": "ho-resident-onboarding", "from": "de66e309608b", "to": "46ad7a338c38"}], "nowLive": [], "retired": [], "retiredTitles": [], "summary": "7 new, 18 changed, 0 now live, 0 retired"}, {"date": "2026-11-12", "previousGenerated": "2026-11-10T18:57:20-07:00", "new": ["card-qa-032", "card-qa-044", "card-qa-070", "card-qa-031", "card-qa-026", "card-qa-052", "card-qa-051", "card-qa-062", "card-qa-067", "card-qa-066", "card-qa-053", "card-qa-028", "card-qa-072", "card-qa-063", "card-qa-045", "card-qa-078", "card-qa-029", "card-qa-064", "card-qa-057", "card-qa-050", "card-qa-049", "card-qa-077", "card-qa-065", "card-qa-075", "card-qa-061", "card-qa-060", "card-qa-047", "card-qa-046", "card-qa-068", "card-qa-074", "card-qa-071", "card-qa-059", "card-qa-076", "card-qa-038", "card-qa-036", "card-qa-041", "card-qa-009", "card-qa-010", "card-qa-014", "card-qa-042", "card-qa-015", "card-qa-018", "card-qa-037", "card-qa-054", "card-qa-025", "card-qa-004", "card-qa-034", "card-qa-001", "card-qa-013", "card-qa-033", "card-qa-008", "card-qa-007", "card-qa-003", "card-qa-023", "card-qa-016", "card-qa-058", "card-qa-027", "card-qa-039", "card-qa-073", "card-qa-035", "card-qa-002", "card-qa-019", "card-qa-030", "card-qa-020", "card-qa-040", "card-qa-043", "card-qa-069", "card-qa-011", "card-qa-055", "card-qa-017", "card-qa-012", "card-qa-005", "card-qa-006", "card-qa-048", "card-qa-021", "card-qa-022", "card-qa-024"], "changed": [{"id": "pr-clubhouse-approval", "from": "e0205c2ea481", "to": "1350159c2e04"}, {"id": "po-directory-analytics", "from": "5d98d6bc010b", "to": "91228eef909e"}, {"id": "pv-aggregate-analytics", "from": "2ff3876d880c", "to": "a9d8087c5fbf"}], "nowLive": [], "retired": [], "retiredTitles": [], "summary": "77 new, 3 changed, 0 now live, 0 retired"}, {"date": "2026-11-10", "previousGenerated": "2026-11-07T21:44:11-07:00", "new": ["pr-community-home-count"], "changed": [{"id": "re-engage-policy-acknowledge", "from": "adfeb09a6abc", "to": "0e5d094db6e6"}], "nowLive": [], "retired": [], "retiredTitles": [], "summary": "1 new, 1 changed, 0 now live, 0 retired"}, {"date": "2026-11-07", "previousGenerated": "2026-11-04T20:30:36-07:00", "new": [], "changed": [{"id": "all-accept-invitation", "from": "737e98ebe8e0", "to": "0e313579da91"}, {"id": "all-create-account", "from": "ae6bfec010ec", "to": "9bec0b11aa04"}, {"id": "ho-get-started", "from": "342954049b86", "to": "869f626efe96"}, {"id": "ho-manage-tenants", "from": "3889911ed4c0", "to": "df002e068133"}, {"id": "ho-invite-tenant", "from": "9ec7feee72dd", "to": "49734549a23f"}, {"id": "pr-community-import", "from": "8cc1b0fb9b44", "to": "9223d7a240d1"}], "nowLive": [], "retired": [], "retiredTitles": [], "summary": "0 new, 6 changed, 0 now live, 0 retired"}, {"date": "2026-11-04", "previousGenerated": null, "new": ["all-accept-invitation", "all-ask-password-reset", "ho-ask-to-join", "ma-assign-property-manager", "all-idle-sign-out", "notification-preferences", "all-choose-new-password", "all-create-account", "ho-delete-account", "ho-get-started", "pm-get-started", "po-grant-revoke-access", "all-install-app-sign-in", "ma-invite-property-manager", "all-linked-log-in-methods", "all-passkeys", "ps-user-projections", "ps-impersonate-readonly", "shell-account-selector", "all-communities-load-error", "po-repair-community-access", "all-request-access-review", "po-recover-owner-access", "pr-review-join-request", "ho-dashboard-overview", "all-two-step-sign-in", "resident-removed-sign-in-again", "shell-passkey-sign-in", "shell-sign-in", "shell-sign-out", "all-sign-out-everywhere", "board-get-started", "shell-switch-community", "pr-join-requests-and-codes", "shell-two-step-code", "profile-update", "ho-profile-directory-opt-in", "shell-more-page", "po-impersonate-resident", "all-where-logged-in", "re-engage-policy-acknowledge", "rm-act-for-home", "pr-directory-contact", "pr-add-property", "pr-add-tenant", "pr-archive-property", "ad-run-re-engagement", "pr-change-primary-owner", "ho-manage-tenants", "pr-confirm-sale-handoff", "se-export-roster", "ho-hoa-directory", "ad-neighbor-directory", "ho-home-requests", "invite-resident", "ho-invite-tenant", "ho-owner-profile", "pr-reveal-private-contact", "pr-name-owner", "pm-rental-manager-at-owner-request", "ho-name-rental-manager", "pr-title-package", "pr-household-setup", "ho-report-sale", "maintenance-to-vendor", "se-bulk-requests", "pm-add-vendor", "ho-answer-request-question", "pr-maintenance-triage", "pr-completion-photos", "se-export-requests-violations", "resident-after-hours-help", "admin-maintenance-request", "ve-private-changes-refused", "ve-read-work-order-history", "ve-resolve-assigned-work", "ve-review-assigned-work", "ve-reply-on-work-order", "ve-start-assigned-work", "resident-maintenance-request", "all-guest-arrival", "pr-amenity-setup", "resident-vehicle-pet", "architectural-request-to-decision", "pr-clubhouse-approval", "ad-visitor-access-log", "all-gate-check-pass", "ho-architectural-assigned-review", "pr-edit-home-record", "ho-guest-parking-pass", "resident-visitor", "bm-architectural-intake", "ho-household-administrator", "pr-home-building", "pr-architectural-committee", "se-vehicle-permit", "ho-dog-park-checkin", "ho-clubhouse-reservation", "se-review-pet-record", "pr-architectural-review", "ho-home-designations", "staff-parking-analytics", "ho-gate-and-guest-codes", "pr-set-gate-codes", "pr-home-designation", "staff-parking-rules", "ad-manage-dog-park", "pr-architectural-types", "resident-architectural", "refund-two-person", "resident-ask-assistant", "ho-feed-comment-react", "resident-contact-help", "pr-feed-comment-moderation", "announcement-post", "pr-feed-post-photo", "bm-official-feed-post", "event-publish", "ho-read-urgent-alert", "staff-notification-center", "ho-read-notifications", "te-read-community-updates", "ho-event-rsvp", "ho-calendar-schedule", "se-mass-communication", "message-board", "pr-urgent-alert", "se-message-templates", "ad-communication-hub", "staff-notification-templates", "vote-to-certification", "survey-answered", "te-voting-rep-request", "pr-meeting-minutes", "tr-cast-ballot", "resident-ballot", "vote-run", "se-export-board-roster", "bd-own-home-conflict", "pr-board-terms", "ho-survey-response", "ho-architectural-assigned", "pr-vote-certify", "survey-run", "ho-see-board-and-decisions", "document-signature", "at-access-ends-when-matter-expires", "pr-request-signatures", "at-find-matter-document", "pr-legal-matter-end-date", "pr-confidential-document", "au-open-assigned-audit-document", "pr-document-actions", "se-upload-document", "tr-document-versions", "te-read-community-documents", "ho-sign-document", "at-review-signature-history", "card-payment-to-ledger", "ho-accept-payment-plan", "tr-ledger-charge", "tr-refund-request-close", "pr-budget-publish", "tr-ledger-adjustment", "te-refund-ask", "pr-buy-subscription", "tr-assessment-groups", "ho-verify-account-letter", "tr-reports-reconciliation", "tr-adjustment-approval", "budget-draft", "dues-to-payment", "tr-financial-report-export", "tr-payments-export", "ho-payments-tabs", "tr-returned-payment-or-dispute", "pm-refund-screen", "tr-budget-import", "ho-saved-methods", "pr-billing-contacts", "tr-reconcile-deposits", "pr-name-financial-approvers", "tr-collections-assign-follow-up", "ho-pay-dues-online", "tr-ledger-payment-history", "po-platform-invoices", "invoices-late-fees", "tr-reconcile-entry", "tr-manual-payment", "tr-budget-statement", "tr-double-payment-refund", "tr-refund-with-approver", "tr-unexplained-credit-review", "te-finance-violations-review", "tr-one-time-assessment", "po-billing-accounts-list", "ho-my-assessments", "tr-dues-reminders", "ma-portfolio-financials", "po-subscription-renewals", "ho-see-budget", "ho-my-ledger", "tr-collections-letters", "dues-schedule", "tr-payment-plan-setup", "ho-autopay", "pr-community-payment-setup", "tr-sale-credit-settle", "pr-manager-money-tasks", "pr-community-export", "budget-approval", "ma-update-monthly-dues", "pr-trial-ended", "pr-subscription-past-due", "violation-to-delinquency", "ho-violation-acknowledge-correction", "se-bulk-violations", "bd-hoa-admin-no-escalation", "pr-escalation-fine-decision", "ho-violation-hearing", "violation-report-close", "pr-decide-violation-appeal", "bm-escalation-fine", "pr-escalation-hold-cancel", "violation-issue", "pr-violation-types", "pr-violation-fee-schedule", "ho-violation-history", "pr-violation-history", "pr-escalation-hearing-second-approval", "ho-report-community-issue", "te-violation-response", "ho-home-violation-notices", "tr-delinquency-escalation", "pr-violation-notice-review", "bd-keep-a-president", "managed-community", "pr-community-logo", "po-hoa-admin-requests", "ad-re-engagement-campaign", "ad-member-permissions", "pr-give-homeowner-board-role", "pr-community-import", "pr-invite-hoa-administrator", "ma-launch-managed-community", "community-launch-stages", "ma-open-portfolio-community", "bm-board-summary", "pr-board-controls", "pr-remove-from-community", "community-not-open-yet", "hoa-setup-wizard", "ho-resident-onboarding", "pr-board-new-button", "pm-view-hoa-settings", "pr-board-work-queue", "community-onboarding", "ps-directory-readonly", "po-plan-catalogue", "po-deactivate-account", "po-notifications-not-enabled", "po-onboard-hoa", "po-restore-deleted-account", "feedback-review", "po-billing-accounts", "po-directory-analytics", "ps-platform-dashboard", "ps-see-support-authorization", "po-provision-demo-access", "po-suspend-reactivate-hoa", "community-subscription", "po-community-modules-reason", "pr-authorize-support-access", "au-export-monthly-summary", "pr-auditor-access", "pr-legal-holds", "pm-property-history", "tr-audit-records", "pv-aggregate-analytics", "pr-activity-log", "po-billing-events-log", "ad-read-analytics", "po-review-impersonation-log", "po-review-platform-activity", "ma-portfolio-audit", "ho-activity-and-home-timeline", "au-view-assigned-financial-month"], "changed": [], "nowLive": [], "retired": [], "retiredTitles": [], "summary": "287 new, 0 changed, 0 now live, 0 retired"}]</script>
 <script id="retired" type="application/json">[]</script>
 <script id="idwords" type="application/json">[{"pattern": "J-\\d{3}", "word": "item"}, {"pattern": "D-\\d{3}", "word": "decision"}, {"pattern": "A\\d{2,3}(?:-\\d+)?", "word": "card"}, {"pattern": "QA-\\d{3}", "word": "card"}, {"pattern": "F\\d{2,3}", "word": "defect"}, {"pattern": "I-\\d{3}", "word": "issue"}, {"pattern": "E-\\d{3}", "word": "change"}, {"pattern": "HOA-\\d+", "word": "ticket"}, {"pattern": "PT-\\d{3}", "word": "ticket"}, {"pattern": "M\\d{1,2}[a-d]?", "word": "milestone"}, {"pattern": "O\\d{1,2}", "word": "owner"}, {"pattern": "R-\\d+\\.\\d+", "word": "line"}, {"pattern": "CB\\d{1,2}[a-z]?", "word": "package"}, {"pattern": "SB\\d{1,2}[a-z]?", "word": "task"}, {"pattern": "ST\\d{1,2}[a-z]?", "word": "task"}, {"pattern": "AT\\d{1,2}[a-z]?", "word": "task"}, {"pattern": "LV\\d{1,2}", "word": "task"}, {"pattern": "GC\\d{1,2}", "word": "task"}, {"pattern": "SEC\\d{1,2}[a-z]?", "word": "task"}, {"pattern": "CI\\d{1,2}[a-z]?", "word": "task"}, {"pattern": "DS\\d{1,2}[a-z]?", "word": "task"}, {"pattern": "WP\\d{1,2}[a-z]?", "word": "task"}, {"pattern": "SC\\d{1,2}[a-z]?", "word": "task"}, {"pattern": "UX-\\d{1,2}[a-z]?", "word": "task"}, {"pattern": "FO-[A-Z]\\d{2,3}", "word": "task"}, {"pattern": "X\\d{1,2}", "word": "task"}, {"pattern": "U\\d{1,2}", "word": "task"}, {"pattern": "P\\d{1,2}[a-z]?", "word": "package"}, {"pattern": "N\\d{1,2}", "word": "task"}, {"pattern": "T\\d{1,2}", "word": "task"}, {"pattern": "S\\d{1,2}", "word": "task"}, {"pattern": "A\\d[a-z]?", "word": "task"}, {"pattern": "B\\d[a-z]?", "word": "task"}, {"pattern": "C\\d[a-z]?", "word": "task"}]</script>
 <script id="creds" type="application/json">{"site": "https://hoahx-staging.web.app", "pw": "8gbjv5-pzkrt3-2jxqzv-p532zz", "text": "424242", "factor": {"platform-owner": "text", "platform-support": "text", "platform-viewer": "text", "mgmt-admin": "text", "property-manager": "text", "president": "text", "treasurer": "text", "secretary": "text", "board-member": "text", "administrator": "text", "homeowner-owes": null, "homeowner-late": null, "homeowner-autopay": null, "homeowner-paid-up": null, "homeowner-two-communities": null, "committee-reviewer": null, "homeowner-selling": null, "tenant": null, "rental-manager": null, "vendor": null, "auditor": null, "attorney": null, "president-totp": "app", "treasurer-totp": "app", "platform-owner-totp": "app", "platform-support-totp": "app", "board-member-totp": "app", "homeowner-bought": null, "tenant-staying": null, "president-past-trial-totp": "app", "s1-fresh": null}, "app": {"president-totp": "PCHAWA5TSLWSY6BPZ5DA4LVK2RCKQRAM", "treasurer-totp": "JEOTDGOPOGNSQBJBX3XTR2V225WZKITR", "platform-owner-totp": "OVISZDENNOYR5BMZDLLWDWEGKXS7H6JF", "platform-support-totp": "S7C3YYIUW5HYDYDGNL42YYZGTIH7G546", "board-member-totp": "NPUQRGXVYAZZNOROU2NDG723JZJBVJM4", "president-past-trial-totp": "7L2EGRRZFSG6R3AJRD5TKFEX6RYNYMQ3"}}</script>
